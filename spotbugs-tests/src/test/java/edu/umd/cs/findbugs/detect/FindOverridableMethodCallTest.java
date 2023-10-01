@@ -144,8 +144,7 @@ public class FindOverridableMethodCallTest extends AbstractIntegrationTest {
                 .bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR").build();
         assertThat(getBugCollection(), containsExactly(1, bugTypeMatcher));
 
-        bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CLONE").build();
+        bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CLONE").build();
         assertThat(getBugCollection(), containsExactly(1, bugTypeMatcher));
     }
 
@@ -154,28 +153,20 @@ public class FindOverridableMethodCallTest extends AbstractIntegrationTest {
                 .bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR").build();
         assertThat(getBugCollection(), containsExactly(0, bugTypeMatcher));
 
-        bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CLONE").build();
+        bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CLONE").build();
         assertThat(getBugCollection(), containsExactly(0, bugTypeMatcher));
     }
 
     void checkOverridableMethodCallInConstructor(String className, int line) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR")
-                .inClass(className)
-                .inMethod(Const.CONSTRUCTOR_NAME)
-                .withConfidence(Confidence.LOW)
-                .atLine(line)
-                .build();
+                .bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR").inClass(className)
+                .inMethod(Const.CONSTRUCTOR_NAME).withConfidence(Confidence.LOW).atLine(line).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 
     void checkOverridableMethodCallInClone(String className, int line) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CLONE")
-                .inClass(className)
-                .inMethod("clone")
-                .atLine(line)
+                .bugType("MC_OVERRIDABLE_METHOD_CALL_IN_CLONE").inClass(className).inMethod("clone").atLine(line)
                 .build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }

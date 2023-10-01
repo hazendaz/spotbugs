@@ -24,12 +24,10 @@ import java.io.IOException;
 import edu.umd.cs.findbugs.classfile.IClassPath;
 
 /**
- * Signals that FindBugs found no classes on the classpath it was invoked to
- * analyze.
+ * Signals that FindBugs found no classes on the classpath it was invoked to analyze.
  * <p>
- * To be consistent with FindBugs 1.3 this exception is an {@link IOException}
- * and replicates the message used in that release (because I suspect some tools
- * looked for that text pattern to come out at the console).
+ * To be consistent with FindBugs 1.3 this exception is an {@link IOException} and replicates the message used in that
+ * release (because I suspect some tools looked for that text pattern to come out at the console).
  *
  * @author Tim Halloran
  */

@@ -52,6 +52,7 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
  * Bug annotation class for local variable names
  *
  * @author William Pugh
+ *
  * @see BugAnnotation
  */
 public class LocalVariableAnnotation implements BugAnnotation {
@@ -105,8 +106,7 @@ public class LocalVariableAnnotation implements BugAnnotation {
      * @param register
      *            the local variable index
      * @param pc
-     *            the bytecode offset of the instruction that mentions this
-     *            local variable
+     *            the bytecode offset of the instruction that mentions this local variable
      */
     public LocalVariableAnnotation(String name, int register, int pc) {
         this.name = name;
@@ -125,8 +125,7 @@ public class LocalVariableAnnotation implements BugAnnotation {
      * @param register
      *            the local variable index
      * @param pc
-     *            the bytecode offset of the instruction that mentions this
-     *            local variable
+     *            the bytecode offset of the instruction that mentions this local variable
      */
     public LocalVariableAnnotation(String name, int register, int pc, int line) {
         this.name = name;
@@ -137,7 +136,8 @@ public class LocalVariableAnnotation implements BugAnnotation {
         this.setDescription(UNKNOWN_NAME.equals(name) ? "LOCAL_VARIABLE_UNKNOWN" : "LOCAL_VARIABLE_NAMED");
     }
 
-    public static LocalVariableAnnotation getLocalVariableAnnotation(Method method, Location location, IndexedInstruction ins) {
+    public static LocalVariableAnnotation getLocalVariableAnnotation(Method method, Location location,
+            IndexedInstruction ins) {
         int local = ins.getIndex();
         InstructionHandle handle = location.getHandle();
         int position1 = handle.getNext().getPosition();
@@ -145,7 +145,8 @@ public class LocalVariableAnnotation implements BugAnnotation {
         return getLocalVariableAnnotation(method, local, position1, position2);
     }
 
-    public static LocalVariableAnnotation getLocalVariableAnnotation(Method method, int local, int position1, int position2) {
+    public static LocalVariableAnnotation getLocalVariableAnnotation(Method method, int local, int position1,
+            int position2) {
 
         LocalVariableTable localVariableTable = method.getLocalVariableTable();
         String localName = UNKNOWN_NAME;
@@ -174,6 +175,7 @@ public class LocalVariableAnnotation implements BugAnnotation {
      *            a Method
      * @param local
      *            the local variable containing the parameter
+     *
      * @return LocalVariableAnnotation describing the parameter
      */
     public static LocalVariableAnnotation getParameterLocalVariableAnnotation(Method method, int local) {
@@ -266,8 +268,7 @@ public class LocalVariableAnnotation implements BugAnnotation {
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * XML Conversion support
+     * ---------------------------------------------------------------------- XML Conversion support
      * ----------------------------------------------------------------------
      */
 
@@ -324,7 +325,8 @@ public class LocalVariableAnnotation implements BugAnnotation {
 
     }
 
-    public static @CheckForNull LocalVariableAnnotation getLocalVariableAnnotation(DismantleBytecode visitor, Item item) {
+    public static @CheckForNull LocalVariableAnnotation getLocalVariableAnnotation(DismantleBytecode visitor,
+            Item item) {
         int reg = item.getRegisterNumber();
         if (reg < 0) {
             return null;
@@ -333,8 +335,8 @@ public class LocalVariableAnnotation implements BugAnnotation {
 
     }
 
-    public static @CheckForNull LocalVariableAnnotation findMatchingIgnoredParameter(ClassContext classContext, Method method, String name,
-            String signature) {
+    public static @CheckForNull LocalVariableAnnotation findMatchingIgnoredParameter(ClassContext classContext,
+            Method method, String name, String signature) {
         try {
             Dataflow<BitSet, LiveLocalStoreAnalysis> llsaDataflow = classContext.getLiveLocalStoreDataflow(method);
             CFG cfg;
@@ -354,7 +356,8 @@ public class LocalVariableAnnotation implements BugAnnotation {
                 String sig = signatureIterator.next();
                 if (!liveStoreSetAtEntry.get(i) && signature.equals(sig)) {
                     // parameter isn't live and signatures match
-                    LocalVariableAnnotation potentialMatch = LocalVariableAnnotation.getLocalVariableAnnotation(method, i, 0, 0);
+                    LocalVariableAnnotation potentialMatch = LocalVariableAnnotation.getLocalVariableAnnotation(method,
+                            i, 0, 0);
                     potentialMatch.setDescription(DID_YOU_MEAN_ROLE);
                     if (!potentialMatch.isNamed()) {
                         return potentialMatch;
@@ -380,8 +383,8 @@ public class LocalVariableAnnotation implements BugAnnotation {
         return null;
     }
 
-    public static @CheckForNull LocalVariableAnnotation findUniqueBestMatchingParameter(ClassContext classContext, Method method, String name,
-            String signature) {
+    public static @CheckForNull LocalVariableAnnotation findUniqueBestMatchingParameter(ClassContext classContext,
+            Method method, String name, String signature) {
         LocalVariableAnnotation match = null;
         int localsThatAreParameters = PreorderVisitor.getNumberArguments(method.getSignature());
         int startIndex = 0;
@@ -394,7 +397,8 @@ public class LocalVariableAnnotation implements BugAnnotation {
         for (int i = startIndex; i < localsThatAreParameters + startIndex; i++) {
             String sig = signatureIterator.next();
             if (signature.equals(sig)) {
-                LocalVariableAnnotation potentialMatch = LocalVariableAnnotation.getLocalVariableAnnotation(method, i, 0, 0);
+                LocalVariableAnnotation potentialMatch = LocalVariableAnnotation.getLocalVariableAnnotation(method, i,
+                        0, 0);
                 if (!potentialMatch.isNamed()) {
                     continue;
                 }

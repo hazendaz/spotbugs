@@ -67,8 +67,7 @@ public class ClassParserUsingBCEL implements ClassParserInterface {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.engine.ClassParserInterface#parse(edu.umd
+     * @see edu.umd.cs.findbugs.classfile.engine.ClassParserInterface#parse(edu.umd
      * .cs.findbugs.classfile.analysis.ClassNameAndSuperclassInfo.Builder)
      */
     @Override
@@ -76,13 +75,16 @@ public class ClassParserUsingBCEL implements ClassParserInterface {
 
         builder.setCodeBaseEntry(codeBaseEntry);
         builder.setAccessFlags(javaClass.getAccessFlags());
-        ClassDescriptor classDescriptor = DescriptorFactory.createClassDescriptorFromDottedClassName(javaClass.getClassName());
+        ClassDescriptor classDescriptor = DescriptorFactory
+                .createClassDescriptorFromDottedClassName(javaClass.getClassName());
         if (expectedClassDescriptor != null && expectedClassDescriptor.equals(classDescriptor)) {
-            throw new InvalidClassFileFormatException("Expected " + expectedClassDescriptor, classDescriptor, codeBaseEntry);
+            throw new InvalidClassFileFormatException("Expected " + expectedClassDescriptor, classDescriptor,
+                    codeBaseEntry);
         }
         builder.setClassDescriptor(classDescriptor);
 
-        builder.setSuperclassDescriptor(DescriptorFactory.createClassDescriptorFromDottedClassName(javaClass.getSuperclassName()));
+        builder.setSuperclassDescriptor(
+                DescriptorFactory.createClassDescriptorFromDottedClassName(javaClass.getSuperclassName()));
         String[] allInterfaces = javaClass.getInterfaceNames();
         ClassDescriptor[] allInterfaceDescriptiors;
         if (allInterfaces.length == 0) {
@@ -90,7 +92,8 @@ public class ClassParserUsingBCEL implements ClassParserInterface {
         } else {
             allInterfaceDescriptiors = new ClassDescriptor[allInterfaces.length];
             for (int i = 0; i < allInterfaces.length; i++) {
-                allInterfaceDescriptiors[i] = DescriptorFactory.createClassDescriptorFromDottedClassName(allInterfaces[i]);
+                allInterfaceDescriptiors[i] = DescriptorFactory
+                        .createClassDescriptorFromDottedClassName(allInterfaces[i]);
             }
         }
         builder.setInterfaceDescriptorList(allInterfaceDescriptiors);
@@ -99,8 +102,7 @@ public class ClassParserUsingBCEL implements ClassParserInterface {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.engine.ClassParserInterface#parse(edu.umd
+     * @see edu.umd.cs.findbugs.classfile.engine.ClassParserInterface#parse(edu.umd
      * .cs.findbugs.classfile.analysis.ClassInfo.Builder)
      */
     @Override
@@ -132,6 +134,7 @@ public class ClassParserUsingBCEL implements ClassParserInterface {
     /**
      * @param obj
      *            the field to parse
+     *
      * @return a descriptor for the field
      */
     protected FieldDescriptor parseField(Field obj) {
@@ -141,6 +144,7 @@ public class ClassParserUsingBCEL implements ClassParserInterface {
     /**
      * @param obj
      *            the method to parse
+     *
      * @return a descriptor for the method
      */
     protected MethodDescriptor parseMethod(Method obj) {

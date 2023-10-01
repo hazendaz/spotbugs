@@ -30,7 +30,8 @@ import edu.umd.cs.findbugs.bcel.BCELUtil;
 /**
  * Scan classes for @CheckReturnValue annotations
  */
-public class NoteCheckReturnValueAnnotations extends BuildCheckReturnAnnotationDatabase implements Detector, NonReportingDetector {
+public class NoteCheckReturnValueAnnotations extends BuildCheckReturnAnnotationDatabase
+        implements Detector, NonReportingDetector {
 
     public NoteCheckReturnValueAnnotations(BugReporter bugReporter) {
     }

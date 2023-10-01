@@ -64,7 +64,9 @@ public class ZipSourceFileDataSource implements SourceFileDataSource {
         return entryURI;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see edu.umd.cs.findbugs.ba.SourceFileDataSource#getLastModified()
      */
     @Override

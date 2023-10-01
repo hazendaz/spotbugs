@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class UnionBugs2Test {
     @Test
     public void testWriteXmlFilePathArgsToTextFile() {
-        //Prepare
+        // Prepare
         UnionBugs2 unionBugs2 = new UnionBugs2();
         unionBugs2.setProject(new Project());
         unionBugs2.createFindbugsEngine();
@@ -27,20 +27,21 @@ public class UnionBugs2Test {
         xmlFileSet.setIncludes("*.xml");
         unionBugs2.addFileset(xmlFileSet);
 
-        //Act
+        // Act
         unionBugs2.configureFindbugsEngine();
         CommandlineJava commandLine = unionBugs2.getFindbugsEngine().getCommandLine();
 
-        //Verify
+        // Verify
         String[] arguments = commandLine.getJavaCommand().getArguments();
-        Optional<String> textFileArgument = Stream.of(arguments).filter(s -> s.contains("spotbugs-argument-file") && s.endsWith(".txt")).findFirst();
+        Optional<String> textFileArgument = Stream.of(arguments)
+                .filter(s -> s.contains("spotbugs-argument-file") && s.endsWith(".txt")).findFirst();
         Assert.assertTrue("Arguments are supposed to be compiled into text file.", textFileArgument.isPresent());
         String textFile = textFileArgument.get();
         List<String> xmlPaths = readArgumentsFile(textFile);
         Assert.assertTrue(xmlPaths.stream().anyMatch(s -> s.contains("findbugsExclusionTest.xml")));
         Assert.assertTrue(xmlPaths.stream().anyMatch(s -> s.contains("findbugsExclusionTest2.xml")));
 
-        //Cleanup
+        // Cleanup
         try {
             Files.deleteIfExists(new File(textFile).toPath());
         } catch (IOException e) {

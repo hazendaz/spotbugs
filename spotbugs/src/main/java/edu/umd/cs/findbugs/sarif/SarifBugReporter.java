@@ -85,10 +85,10 @@ public class SarifBugReporter extends BugCollectionBugReporter {
                 .map(t -> Notification.fromError(t, getProject().getSourceFinder(), baseToId))
                 .collect(Collectors.toList());
 
-        int exitCode = ExitCodes.from(getQueuedErrors().size(), missingClasses.size(), getBugCollection().getCollection().size());
-        Invocation invocation = new Invocation(exitCode,
-                getSignalName(exitCode), exitCode == 0,
-                execNotifications, configNotifications);
+        int exitCode = ExitCodes.from(getQueuedErrors().size(), missingClasses.size(),
+                getBugCollection().getCollection().size());
+        Invocation invocation = new Invocation(exitCode, getSignalName(exitCode), exitCode == 0, execNotifications,
+                configNotifications);
 
         jsonWriter.name("invocations").beginArray();
         gson.toJson(invocation.toJsonObject(), jsonWriter);
@@ -119,8 +119,8 @@ public class SarifBugReporter extends BugCollectionBugReporter {
     private void processExtensions(@NonNull JsonWriter jsonWriter) throws IOException {
 
         jsonWriter.name("extensions").beginArray();
-        DetectorFactoryCollection.instance().plugins().stream().map(Extension::fromPlugin).map(Extension::toJsonObject).forEach((
-                jsonObject) -> gson.toJson(jsonObject, jsonWriter));
+        DetectorFactoryCollection.instance().plugins().stream().map(Extension::fromPlugin).map(Extension::toJsonObject)
+                .forEach((jsonObject) -> gson.toJson(jsonObject, jsonWriter));
         jsonWriter.endArray();
     }
 
@@ -130,7 +130,6 @@ public class SarifBugReporter extends BugCollectionBugReporter {
         String version = weaknessCatalog.getVersion();
 
         UUID uuid = GUIDCalculator.fromString(name + version);
-
 
         jsonWriter.name("supportedTaxonomies").beginArray();
 

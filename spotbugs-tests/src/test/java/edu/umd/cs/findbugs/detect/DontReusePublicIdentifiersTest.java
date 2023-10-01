@@ -5,7 +5,6 @@ import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcher;
 import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
 import org.junit.Test;
 
-
 import static edu.umd.cs.findbugs.test.CountMatcher.containsExactly;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -121,9 +120,7 @@ public class DontReusePublicIdentifiersTest extends AbstractIntegrationTest {
     }
 
     private void assertNumOfShadowedPublicIdentifierBugs(String bugType, int num) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType)
-                .build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType(bugType).build();
         assertThat(getBugCollection(), containsExactly(num, bugTypeMatcher));
     }
 
@@ -135,38 +132,26 @@ public class DontReusePublicIdentifiersTest extends AbstractIntegrationTest {
     }
 
     private void assertShadowedPublicIdentifierClassBug(String className) {
-        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType(PI_CLASS_BUG)
-                .inClass(className)
-                .build();
+        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder().bugType(PI_CLASS_BUG)
+                .inClass(className).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 
     private void assertShadowedPublicIdentifierFieldBug(String fieldName) {
-        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType(PI_FIELD_BUG)
-                .inClass("ShadowedPublicIdentifiersFieldNames")
-                .atField(fieldName)
-                .build();
+        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder().bugType(PI_FIELD_BUG)
+                .inClass("ShadowedPublicIdentifiersFieldNames").atField(fieldName).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 
     private void assertShadowedPublicIdentifierMethodBug(String className, String methodName, int sourceLine) {
-        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType(PI_METHOD_BUG)
-                .inClass(className)
-                .inMethod(methodName)
-                .atLine(sourceLine)
-                .build();
+        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder().bugType(PI_METHOD_BUG)
+                .inClass(className).inMethod(methodName).atLine(sourceLine).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 
     private void assertShadowedPublicIdentifierVariableBug(String methodName, String variableName) {
-        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType(PI_VARIABLE_BUG)
-                .inClass("ShadowedPublicIdentifiersVariableNames")
-                .inMethod(methodName)
-                .atVariable(variableName)
+        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder().bugType(PI_VARIABLE_BUG)
+                .inClass("ShadowedPublicIdentifiersVariableNames").inMethod(methodName).atVariable(variableName)
                 .build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }

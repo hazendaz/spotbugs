@@ -24,8 +24,7 @@ import javax.annotation.CheckForNull;
 import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 
 /**
- * Interface for querying nullness annotations on methods, fields, and
- * parameters.
+ * Interface for querying nullness annotations on methods, fields, and parameters.
  *
  * @author David Hovemeyer
  */
@@ -38,26 +37,26 @@ public interface INullnessAnnotationDatabase {
      *            a method
      * @param param
      *            parameter (0 == first parameter)
+     *
      * @return true if the parameter must be non-null, false otherwise
      */
     public abstract boolean parameterMustBeNonNull(XMethod m, int param);
 
     /**
-     * Get a resolved NullnessAnnotation on given XMethod, XField, or
-     * XMethodParameter.
+     * Get a resolved NullnessAnnotation on given XMethod, XField, or XMethodParameter.
      *
      * @param o
      *            an XMethod, XField, or XMethodParameter
      * @param getMinimal
      *            TODO: what does this mean?
+     *
      * @return resolved NullnessAnnotation
      */
     @CheckForNull
     public abstract NullnessAnnotation getResolvedAnnotation(final Object o, boolean getMinimal);
 
     /**
-     * Load "built-in" annotations that might not be evident from the
-     * analyzed/referenced code.
+     * Load "built-in" annotations that might not be evident from the analyzed/referenced code.
      */
     public void loadAuxiliaryAnnotations();
 
@@ -127,8 +126,8 @@ public interface INullnessAnnotationDatabase {
      * Add a default annotation to the database.
      *
      * @param target
-     *            one of AnnotationDatabase.METHOD, AnnotationDatabase.FIELD,
-     *            AnnotationDatabase.PARAMETER, or AnnotationDatabase.ANY
+     *            one of AnnotationDatabase.METHOD, AnnotationDatabase.FIELD, AnnotationDatabase.PARAMETER, or
+     *            AnnotationDatabase.ANY
      * @param c
      *            dotted class name of class default annotation pertains to
      * @param n

@@ -19,12 +19,12 @@ public class ResolveMethodReferencesTest {
     public SpotBugsRule spotbugs = new SpotBugsRule();
 
     /**
-     * @see <a href="https://github.com/spotbugs/spotbugs/issues/338">GitHub
-     *      issue</a>
+     * @see <a href="https://github.com/spotbugs/spotbugs/issues/338">GitHub issue</a>
      */
     @Test
     public void testIssue338() {
-        BugCollection bugCollection = spotbugs.performAnalysis(Paths.get("../spotbugsTestCases/build/classes/java/main/lambdas/Issue338.class"));
+        BugCollection bugCollection = spotbugs
+                .performAnalysis(Paths.get("../spotbugsTestCases/build/classes/java/main/lambdas/Issue338.class"));
         assertThat(bugCollection, is(emptyIterable()));
         assertThat(bugCollection, instanceOf(SortedBugCollection.class));
         assertThat(((SortedBugCollection) bugCollection).missingClassIterator().hasNext(), is(false));

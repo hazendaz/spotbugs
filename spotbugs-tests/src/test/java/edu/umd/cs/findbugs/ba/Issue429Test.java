@@ -22,10 +22,9 @@ public class Issue429Test {
 
     @Test
     public void test() {
-        BugCollection bugCollection = spotbugs.performAnalysis(
-                Paths.get("../spotbugsTestCases/build/classes/java/main/ghIssues/Issue429.class"));
-        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType("RV_RETURN_VALUE_IGNORED")
-                .build();
+        BugCollection bugCollection = spotbugs
+                .performAnalysis(Paths.get("../spotbugsTestCases/build/classes/java/main/ghIssues/Issue429.class"));
+        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType("RV_RETURN_VALUE_IGNORED").build();
         assertThat(bugCollection, containsExactly(0, matcher));
     }
 }

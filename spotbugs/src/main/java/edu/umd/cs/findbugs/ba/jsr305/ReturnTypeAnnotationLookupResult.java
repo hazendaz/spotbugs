@@ -20,8 +20,7 @@
 package edu.umd.cs.findbugs.ba.jsr305;
 
 /**
- * TypeQualifierAnnotationLookupResult summarizing TypeQualifierAnnotation(s)
- * relevant for a method return type.
+ * TypeQualifierAnnotationLookupResult summarizing TypeQualifierAnnotation(s) relevant for a method return type.
  *
  * @author David Hovemeyer
  */
@@ -29,10 +28,8 @@ class ReturnTypeAnnotationLookupResult extends TypeQualifierAnnotationLookupResu
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.jsr305.TypeQualifierAnnotationLookupResult#combine
-     * (edu.umd.cs.findbugs.ba.jsr305.TypeQualifierAnnotation,
-     * edu.umd.cs.findbugs.ba.jsr305.TypeQualifierAnnotation)
+     * @see edu.umd.cs.findbugs.ba.jsr305.TypeQualifierAnnotationLookupResult#combine
+     * (edu.umd.cs.findbugs.ba.jsr305.TypeQualifierAnnotation, edu.umd.cs.findbugs.ba.jsr305.TypeQualifierAnnotation)
      */
     @Override
     protected TypeQualifierAnnotation combine(TypeQualifierAnnotation a, TypeQualifierAnnotation b) {

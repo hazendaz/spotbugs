@@ -28,9 +28,8 @@ import edu.umd.cs.findbugs.classfile.ICodeBaseLocator;
 import edu.umd.cs.findbugs.classfile.IScannableCodeBase;
 
 /**
- * Abstract base class for implementations of IScannableCodeBase. Provides an
- * implementation of the getCodeBaseLocator(), containsSourceFiles(),
- * setApplicationCodeBase(), and isApplicationCodeBase() methods.
+ * Abstract base class for implementations of IScannableCodeBase. Provides an implementation of the
+ * getCodeBaseLocator(), containsSourceFiles(), setApplicationCodeBase(), and isApplicationCodeBase() methods.
  *
  * @author David Hovemeyer
  */
@@ -64,8 +63,7 @@ public abstract class AbstractScannableCodeBase implements IScannableCodeBase {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IScannableCodeBase#containsSourceFiles()
+     * @see edu.umd.cs.findbugs.classfile.IScannableCodeBase#containsSourceFiles()
      */
     @Override
     public boolean containsSourceFiles() {
@@ -76,8 +74,7 @@ public abstract class AbstractScannableCodeBase implements IScannableCodeBase {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.ICodeBase#setApplicationCodeBase(boolean)
+     * @see edu.umd.cs.findbugs.classfile.ICodeBase#setApplicationCodeBase(boolean)
      */
     @Override
     public void setApplicationCodeBase(boolean isAppCodeBase) {
@@ -127,7 +124,8 @@ public abstract class AbstractScannableCodeBase implements IScannableCodeBase {
     }
 
     public void addLastModifiedTime(long lastModifiedTime) {
-        if (lastModifiedTime > 0 && FindBugs.validTimestamp(lastModifiedTime) && this.lastModifiedTime < lastModifiedTime) {
+        if (lastModifiedTime > 0 && FindBugs.validTimestamp(lastModifiedTime)
+                && this.lastModifiedTime < lastModifiedTime) {
             this.lastModifiedTime = lastModifiedTime;
         }
     }

@@ -28,8 +28,8 @@ abstract public class WarningSuppressor implements Matcher {
 
         }
         if (!(bugPattern == null || bugInstance.getType().startsWith(bugPattern)
-                || bugInstance.getBugPattern().getCategory().equalsIgnoreCase(bugPattern) || bugInstance.getBugPattern()
-                        .getAbbrev().equalsIgnoreCase(bugPattern))) {
+                || bugInstance.getBugPattern().getCategory().equalsIgnoreCase(bugPattern)
+                || bugInstance.getBugPattern().getAbbrev().equalsIgnoreCase(bugPattern))) {
             return false;
         }
         if (DEBUG) {

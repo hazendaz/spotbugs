@@ -26,13 +26,8 @@ public class Issue2183Test extends AbstractIntegrationTest {
     @Test
     public void test() {
         performAnalysis("../java11/ghIssues/Issue2183.class");
-        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-                .inClass("Issue2183")
-                .inMethod("test")
-                .atLine(11)
-                .withConfidence(Confidence.HIGH)
-                .build();
+        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+                .inClass("Issue2183").inMethod("test").atLine(11).withConfidence(Confidence.HIGH).build();
         assertThat(getBugCollection(), hasItem(matcher));
     }
 }

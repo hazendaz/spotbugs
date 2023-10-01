@@ -19,7 +19,8 @@ public class Issue390Test extends AbstractIntegrationTest {
     @Test
     public void test() {
         performAnalysis("ghIssues/Issue390.class");
-        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("JUA_DONT_ASSERT_INSTANCEOF_IN_TESTS").build();
+        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
+                .bugType("JUA_DONT_ASSERT_INSTANCEOF_IN_TESTS").build();
         MatcherAssert.assertThat(getBugCollection(), containsExactly(1, bugTypeMatcher));
     }
 

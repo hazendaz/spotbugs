@@ -150,17 +150,15 @@ public class LaunchBrowser {
     }
 
     /**
-     * attempt to show the given URL. will first attempt via the JNLP api, then
-     * will try showViaExec().
+     * attempt to show the given URL. will first attempt via the JNLP api, then will try showViaExec().
      *
      * @param url
      *            the URL
+     *
      * @return true on success
      */
     public static boolean showDocument(URL url) {
-        return showDocumentViaDesktop(url)
-                || showDocumentViaExec(url)
-                || JavaWebStart.showViaWebStart(url);
+        return showDocumentViaDesktop(url) || showDocumentViaExec(url) || JavaWebStart.showViaWebStart(url);
     }
 
 }

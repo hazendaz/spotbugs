@@ -26,16 +26,14 @@ import javax.annotation.Nonnull;
 import edu.umd.cs.findbugs.log.Profiler;
 
 /**
- * The analysis cache performs analyses on classes and methods and caches the
- * results.
+ * The analysis cache performs analyses on classes and methods and caches the results.
  *
  * @author David Hovemeyer
  */
 public interface IAnalysisCache {
 
     /**
-     * Register the given class analysis engine as producing the analysis result
-     * type whose Class is given.
+     * Register the given class analysis engine as producing the analysis result type whose Class is given.
      *
      * @param <E>
      *            analysis result type
@@ -44,11 +42,11 @@ public interface IAnalysisCache {
      * @param classAnalysisEngine
      *            the class analysis engine to register
      */
-    public <E> void registerClassAnalysisEngine(Class<E> analysisResultType, IClassAnalysisEngine<E> classAnalysisEngine);
+    public <E> void registerClassAnalysisEngine(Class<E> analysisResultType,
+            IClassAnalysisEngine<E> classAnalysisEngine);
 
     /**
-     * Register the given method analysis engine as producing the analysis
-     * result type whose Class is given.
+     * Register the given method analysis engine as producing the analysis result type whose Class is given.
      *
      * @param <E>
      *            analysis result type
@@ -57,7 +55,8 @@ public interface IAnalysisCache {
      * @param methodAnalysisEngine
      *            the method analysis engine to register
      */
-    public <E> void registerMethodAnalysisEngine(Class<E> analysisResultType, IMethodAnalysisEngine<E> methodAnalysisEngine);
+    public <E> void registerMethodAnalysisEngine(Class<E> analysisResultType,
+            IMethodAnalysisEngine<E> methodAnalysisEngine);
 
     /**
      * Get an analysis of the given class.
@@ -68,8 +67,9 @@ public interface IAnalysisCache {
      *            the analysis class object (e.g., FoobarAnalysis.class)
      * @param classDescriptor
      *            the descriptor of the class to analyze
-     * @return the analysis object (e.g., instance of FoobarAnalysis for the
-     *         class)
+     *
+     * @return the analysis object (e.g., instance of FoobarAnalysis for the class)
+     *
      * @throws CheckedAnalysisException
      *             if an error occurs performing the analysis
      */
@@ -77,15 +77,14 @@ public interface IAnalysisCache {
             throws CheckedAnalysisException;
 
     /**
-     * See if the cache contains a cached class analysis result for given class
-     * descriptor.
+     * See if the cache contains a cached class analysis result for given class descriptor.
      *
      * @param analysisClass
      *            analysis result class
      * @param classDescriptor
      *            the class descriptor
-     * @return a cached analysis result, or null if there is no cached analysis
-     *         result
+     *
+     * @return a cached analysis result, or null if there is no cached analysis result
      */
     public <E> E probeClassAnalysis(Class<E> analysisClass, @Nonnull ClassDescriptor classDescriptor);
 
@@ -98,8 +97,9 @@ public interface IAnalysisCache {
      *            the analysis class object (e.g., FoobarAnalysis.class)
      * @param methodDescriptor
      *            the descriptor of the method to analyze
-     * @return the analysis object (e.g., instance of FoobarAnalysis for the
-     *         method)
+     *
+     * @return the analysis object (e.g., instance of FoobarAnalysis for the method)
+     *
      * @throws CheckedAnalysisException
      *             if an error occurs performing the analysis
      */
@@ -107,9 +107,8 @@ public interface IAnalysisCache {
             throws CheckedAnalysisException;
 
     /**
-     * Eagerly put a method analysis object in the cache. This can be necessary
-     * if an method analysis engine invokes other analysis engines that might
-     * recursively require the analysis being produced.
+     * Eagerly put a method analysis object in the cache. This can be necessary if an method analysis engine invokes
+     * other analysis engines that might recursively require the analysis being produced.
      *
      * @param <E>
      *            the type of the analysis (e.g., FoobarAnalysis)
@@ -123,9 +122,8 @@ public interface IAnalysisCache {
             E analysisObject);
 
     /**
-     * Purge all analysis results for given method. This can be called when a
-     * CFG is pruned and we want to compute more accurate analysis results on
-     * the new CFG.
+     * Purge all analysis results for given method. This can be called when a CFG is pruned and we want to compute more
+     * accurate analysis results on the new CFG.
      *
      * @param methodDescriptor
      *            method whose analysis results should be purged
@@ -157,17 +155,16 @@ public interface IAnalysisCache {
     /**
      * Get a database.
      *
-     * <em>Note</em>: an unchecked analysis exception will be thrown if the
-     * database cannot be instantiated. Since instantiation of most kinds of
-     * databases simply involves creating an object (and not opening a file or
-     * other failure-prone operation), throwing a CheckedAnalysisException
-     * creates too great of an exception-handling burden on analyses and
-     * detectors which use databases.
+     * <em>Note</em>: an unchecked analysis exception will be thrown if the database cannot be instantiated. Since
+     * instantiation of most kinds of databases simply involves creating an object (and not opening a file or other
+     * failure-prone operation), throwing a CheckedAnalysisException creates too great of an exception-handling burden
+     * on analyses and detectors which use databases.
      *
      * @param <E>
      *            type of database
      * @param databaseClass
      *            Class of database
+     *
      * @return the database (which is created by a database factory if required)
      */
     public <E> E getDatabase(Class<E> databaseClass);
@@ -175,8 +172,7 @@ public interface IAnalysisCache {
     public @CheckForNull <E> E getOptionalDatabase(Class<E> databaseClass);
 
     /**
-     * Eagerly install a database. This avoids the need to register a database
-     * factory.
+     * Eagerly install a database. This avoids the need to register a database factory.
      *
      * @param <E>
      *            type of database

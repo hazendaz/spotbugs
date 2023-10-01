@@ -12,8 +12,7 @@ public class Issue1765Test extends AbstractIntegrationTest {
     @Test
     public void test() {
         performAnalysis("ghIssues/Issue1765.class");
-        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType("HE_HASHCODE_USE_OBJECT_EQUALS").build();
+        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType("HE_HASHCODE_USE_OBJECT_EQUALS").build();
         assertThat(getBugCollection(), containsExactly(1, matcher));
     }
 }

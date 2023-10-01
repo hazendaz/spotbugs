@@ -58,8 +58,8 @@ public class ProfileSummary implements IProfiler, XMLWriteable {
      * Report summarized profile to given {@link PrintStream}.
      * </p>
      * <p>
-     * This method does not check the state of given {@link PrintStream}, and it is {@literal caller's} duty to check it by
-     * {@link PrintStream#checkError()}.
+     * This method does not check the state of given {@link PrintStream}, and it is {@literal caller's} duty to check it
+     * by {@link PrintStream#checkError()}.
      * </p>
      *
      * @param reportComparator
@@ -69,9 +69,7 @@ public class ProfileSummary implements IProfiler, XMLWriteable {
     public void report(Comparator<Class<?>> reportComparator, Predicate<Profile> filter, PrintStream stream) {
         stream.println("PROFILE REPORT");
         try {
-            TreeSet<Class<?>> treeSet = Arrays.stream(profilers)
-                    .map(Profiler::getTargetClasses)
-                    .flatMap(Set::stream)
+            TreeSet<Class<?>> treeSet = Arrays.stream(profilers).map(Profiler::getTargetClasses).flatMap(Set::stream)
                     .collect(Collectors.toCollection(() -> new TreeSet<>(reportComparator)));
             stream.printf("%8s  %8s %9s %s%n", "msecs", "#calls", "usecs/call", "Class");
 
@@ -80,7 +78,8 @@ public class ProfileSummary implements IProfiler, XMLWriteable {
                 if (filter.test(p)) {
                     long time = p.totalTime.get();
                     int callCount = p.totalCalls.get();
-                    stream.printf("%8d  %8d  %8d %s%n", Long.valueOf(TimeUnit.MILLISECONDS.convert(time, TimeUnit.NANOSECONDS)),
+                    stream.printf("%8d  %8d  %8d %s%n",
+                            Long.valueOf(TimeUnit.MILLISECONDS.convert(time, TimeUnit.NANOSECONDS)),
                             Integer.valueOf(callCount),
                             Long.valueOf(TimeUnit.MICROSECONDS.convert(time / callCount, TimeUnit.NANOSECONDS)),
                             c.getSimpleName());
@@ -99,16 +98,11 @@ public class ProfileSummary implements IProfiler, XMLWriteable {
         xmlOutput.startTag("FindBugsProfile");
         xmlOutput.stopTag(false);
         Comparator<Class<?>> reportComparator = new Profiler.TotalTimeComparator(this);
-        TreeSet<Class<?>> treeSet = Arrays.stream(profilers)
-                .map(Profiler::getTargetClasses)
-                .flatMap(Set::stream)
+        TreeSet<Class<?>> treeSet = Arrays.stream(profilers).map(Profiler::getTargetClasses).flatMap(Set::stream)
                 .collect(Collectors.toCollection(() -> new TreeSet<>(reportComparator)));
 
-        long totalTime = Arrays.stream(profilers)
-                .map(Profiler::getProfiles)
-                .flatMap(Collection::stream)
-                .mapToLong(Profiler.Profile::getTotalTime)
-                .sum();
+        long totalTime = Arrays.stream(profilers).map(Profiler::getProfiles).flatMap(Collection::stream)
+                .mapToLong(Profiler.Profile::getTotalTime).sum();
 
         long accumulatedTime = 0;
 
@@ -125,10 +119,8 @@ public class ProfileSummary implements IProfiler, XMLWriteable {
 
     @Override
     public Profile getProfile(Class<?> clazz) {
-        return Arrays.stream(profilers)
-                .filter(profiler -> profiler.contains(clazz))
-                .map(profiler -> profiler.getProfile(clazz))
-                .findFirst()
+        return Arrays.stream(profilers).filter(profiler -> profiler.contains(clazz))
+                .map(profiler -> profiler.getProfile(clazz)).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Specified class " + clazz + " is not analyzed"));
     }
 }

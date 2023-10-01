@@ -14,6 +14,7 @@ import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
  * {@code com.google.errorprone.annotations.CheckReturnValue} annotations.
  *
  * @see <a href="https://github.com/spotbugs/spotbugs/issues/582">GitHub issue</a>
+ *
  * @since 3.1.3
  */
 public class Issue582Test extends AbstractIntegrationTest {

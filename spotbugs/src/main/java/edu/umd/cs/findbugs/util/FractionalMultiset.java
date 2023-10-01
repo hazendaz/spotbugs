@@ -105,7 +105,6 @@ public class FractionalMultiset<K> {
         return result;
     }
 
-
     private static <E> int compareValues(Entry<E, Double> o1, Entry<E, Double> o2) {
         double c1 = o1.getValue();
         double c2 = o2.getValue();

@@ -37,28 +37,28 @@ public abstract class AbstractClassMember implements ClassMember {
 
     private int cachedHashCode = 0;
 
-    //    static int slashCountClass = 0;
-    //    static int dottedCountClass = 0;
-    //    static int slashCountSignature = 0;
-    //    static int dottedCountSignature = 0;
+    // static int slashCountClass = 0;
+    // static int dottedCountClass = 0;
+    // static int slashCountSignature = 0;
+    // static int dottedCountSignature = 0;
 
     protected AbstractClassMember(@DottedClassName String className, String name, String signature, int accessFlags) {
         if (className.indexOf('.') >= 0) {
             // className = className.replace('.','/');
-            //            dottedCountClass++;
+            // dottedCountClass++;
         } else if (className.indexOf('/') >= 0) {
             assert false;
-            //            slashCountClass++;
+            // slashCountClass++;
             className = className.replace('/', '.');
         }
 
         if (signature.indexOf('.') >= 0) {
             assert false;
             signature = signature.replace('.', '/');
-            //            dottedCountSignature++;
+            // dottedCountSignature++;
         }
         // else if (signature.indexOf('/') >= 0) {
-        //     slashCountSignature++;
+        // slashCountSignature++;
         // }
         this.className = className;
         this.name = name;

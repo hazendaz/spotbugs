@@ -14,8 +14,7 @@ import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
 public class FindAssertionsWithSideEffectsTest extends AbstractIntegrationTest {
     @Test
     public void testArgumentAssertions() {
-        performAnalysis("AssertionsWithSideEffects.class",
-                "AssertionsWithSideEffects$ImmutableList.class");
+        performAnalysis("AssertionsWithSideEffects.class", "AssertionsWithSideEffects$ImmutableList.class");
 
         assertNumOfBugs("ASE_ASSERTION_WITH_SIDE_EFFECT", 3);
         assertNumOfBugs("ASE_ASSERTION_WITH_SIDE_EFFECT_METHOD", 1);
@@ -27,18 +26,13 @@ public class FindAssertionsWithSideEffectsTest extends AbstractIntegrationTest {
     }
 
     private void assertNumOfBugs(String error, int num) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType(error).build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType(error).build();
         assertThat(getBugCollection(), containsExactly(num, bugTypeMatcher));
     }
 
     private void assertBug(String error, String method, int line) {
-        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType(error)
-                .inClass("AssertionsWithSideEffects")
-                .inMethod(method)
-                .atLine(line)
-                .withConfidence(Confidence.LOW)
+        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder().bugType(error)
+                .inClass("AssertionsWithSideEffects").inMethod(method).atLine(line).withConfidence(Confidence.LOW)
                 .build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }

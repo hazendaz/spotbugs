@@ -22,12 +22,12 @@ package edu.umd.cs.findbugs.ba.obl;
 import edu.umd.cs.findbugs.ba.Path;
 
 /**
- * Error-handling obligation analysis state. This is a set of obligations and a
- * program path on which they are outstanding (not cleaned up).
+ * Error-handling obligation analysis state. This is a set of obligations and a program path on which they are
+ * outstanding (not cleaned up).
  *
  * <p>
- * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011"
- * >Finding and preventing run-time error handling mistakes</a>, OOPSLA 2004.
+ * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011" >Finding and preventing run-time error
+ * handling mistakes</a>, OOPSLA 2004.
  * </p>
  *
  * @author David Hovemeyer

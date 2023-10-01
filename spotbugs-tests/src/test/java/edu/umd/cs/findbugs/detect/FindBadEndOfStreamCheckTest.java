@@ -43,17 +43,14 @@ public class FindBadEndOfStreamCheckTest extends AbstractIntegrationTest {
     }
 
     private void assertNumOfEOSBugs(int num) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("EOS_BAD_END_OF_STREAM_CHECK").build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("EOS_BAD_END_OF_STREAM_CHECK")
+                .build();
         assertThat(getBugCollection(), containsExactly(num, bugTypeMatcher));
     }
 
     private void assertEOSBug(String method, int line) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("EOS_BAD_END_OF_STREAM_CHECK")
-                .inClass("BadEndOfStreamCheck")
-                .inMethod(method)
-                .atLine(line)
+                .bugType("EOS_BAD_END_OF_STREAM_CHECK").inClass("BadEndOfStreamCheck").inMethod(method).atLine(line)
                 .build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }

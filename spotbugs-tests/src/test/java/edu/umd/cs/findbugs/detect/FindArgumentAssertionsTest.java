@@ -53,28 +53,21 @@ public class FindArgumentAssertionsTest extends AbstractIntegrationTest {
     }
 
     private void assertNumOfDABugs(int num) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("AA_ASSERTION_OF_ARGUMENTS").build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("AA_ASSERTION_OF_ARGUMENTS")
+                .build();
         assertThat(getBugCollection(), containsExactly(num, bugTypeMatcher));
     }
 
     private void assertNoDABug(String method) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("AA_ASSERTION_OF_ARGUMENTS")
-                .inClass("ArgumentAssertions")
-                .inMethod(method)
-                .build();
+                .bugType("AA_ASSERTION_OF_ARGUMENTS").inClass("ArgumentAssertions").inMethod(method).build();
         assertThat(getBugCollection(), containsExactly(0, bugInstanceMatcher));
     }
 
     private void assertDABug(String method, int line) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("AA_ASSERTION_OF_ARGUMENTS")
-                .inClass("ArgumentAssertions")
-                .inMethod(method)
-                .atLine(line)
-                .withConfidence(Confidence.LOW)
-                .build();
+                .bugType("AA_ASSERTION_OF_ARGUMENTS").inClass("ArgumentAssertions").inMethod(method).atLine(line)
+                .withConfidence(Confidence.LOW).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 }

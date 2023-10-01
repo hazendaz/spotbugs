@@ -198,7 +198,8 @@ public class XFactory {
             AnalysisContext.reportMissingClass(e.getClassNotFoundException());
             return false;
         } catch (Exception e) {
-            AnalysisContext.logError("Error checking to see if " + m + " is called (" + e.getClass().getCanonicalName() + ")", e);
+            AnalysisContext.logError(
+                    "Error checking to see if " + m + " is called (" + e.getClass().getCanonicalName() + ")", e);
             return false;
         }
     }
@@ -259,6 +260,7 @@ public class XFactory {
      *            the class to which the Method belongs
      * @param method
      *            the Method
+     *
      * @return an XMethod representing the Method
      */
 
@@ -273,7 +275,8 @@ public class XFactory {
     /*
      * Create a new, never-before-seen, XMethod object and intern it.
      */
-    private static XMethod createXMethod(@DottedClassName String className, String methodName, String methodSig, int accessFlags) {
+    private static XMethod createXMethod(@DottedClassName String className, String methodName, String methodSig,
+            int accessFlags) {
         return createXMethod(className, methodName, methodSig, (accessFlags & Const.ACC_STATIC) != 0);
     }
 
@@ -284,6 +287,7 @@ public class XFactory {
      *            the class to which the Method belongs
      * @param method
      *            the Method
+     *
      * @return an XMethod representing the Method
      */
 
@@ -309,13 +313,15 @@ public class XFactory {
      * @param methodName
      * @param methodSig
      * @param isStatic
+     *
      * @return the created XMethod
      */
 
     public static XMethod createXMethodUsingSlashedClassName(@SlashedClassName String className, String methodName,
             String methodSig, boolean isStatic) {
         assertSlashedClassName(className);
-        MethodDescriptor desc = DescriptorFactory.instance().getMethodDescriptor(className, methodName, methodSig, isStatic);
+        MethodDescriptor desc = DescriptorFactory.instance().getMethodDescriptor(className, methodName, methodSig,
+                isStatic);
         return createXMethod(desc);
     }
 
@@ -324,13 +330,15 @@ public class XFactory {
      * @param methodName
      * @param methodSig
      * @param isStatic
+     *
      * @return the created XMethod
      */
 
-    public static XMethod createXMethod(@DottedClassName String className, String methodName, String methodSig, boolean isStatic) {
+    public static XMethod createXMethod(@DottedClassName String className, String methodName, String methodSig,
+            boolean isStatic) {
         assertDottedClassName(className);
-        MethodDescriptor desc = DescriptorFactory.instance().getMethodDescriptor(ClassName.toSlashedClassName(className),
-                methodName, methodSig, isStatic);
+        MethodDescriptor desc = DescriptorFactory.instance()
+                .getMethodDescriptor(ClassName.toSlashedClassName(className), methodName, methodSig, isStatic);
         return createXMethod(desc);
     }
 
@@ -390,8 +398,8 @@ public class XFactory {
         }
         UnresolvedXMethod xmethod = new UnresolvedXMethod(originalDescriptor);
 
-
-        ObligationPolicyDatabase database = Global.getAnalysisCache().getOptionalDatabase(ObligationPolicyDatabase.class);
+        ObligationPolicyDatabase database = Global.getAnalysisCache()
+                .getOptionalDatabase(ObligationPolicyDatabase.class);
 
         if (BuildObligationPolicyDatabase.INFER_CLOSE_METHODS && database != null
                 && !xmethod.getClassName().startsWith("java")) {
@@ -415,18 +423,16 @@ public class XFactory {
                 } else {
 
                     /*
-                     * // Interesting case: we have a parameter which is // an
-                     * Obligation type, but no annotation or other indication //
-                     * what is done by the method with the obligation. // We'll
-                     * create a "weak" database entry deleting the //
-                     * obligation. If strict checking is performed, // weak
-                     * entries are ignored.
+                     * // Interesting case: we have a parameter which is // an Obligation type, but no annotation or
+                     * other indication // what is done by the method with the obligation. // We'll create a "weak"
+                     * database entry deleting the // obligation. If strict checking is performed, // weak entries are
+                     * ignored.
                      */
-                    if (Const.CONSTRUCTOR_NAME.equals(methodName) || methodName.startsWith("access$") || xmethod.isStatic()
-                            || methodName.toLowerCase().indexOf("close") >= 0
+                    if (Const.CONSTRUCTOR_NAME.equals(methodName) || methodName.startsWith("access$")
+                            || xmethod.isStatic() || methodName.toLowerCase().indexOf("close") >= 0
                             || xmethod.getSignature().toLowerCase().indexOf("Closeable") >= 0) {
-                        ObligationPolicyDatabaseEntry entry = database.addParameterDeletesObligationDatabaseEntry(xmethod,
-                                obligationType, ObligationPolicyDatabaseEntryType.WEAK);
+                        ObligationPolicyDatabaseEntry entry = database.addParameterDeletesObligationDatabaseEntry(
+                                xmethod, obligationType, ObligationPolicyDatabaseEntryType.WEAK);
                     }
                 }
             }
@@ -447,12 +453,13 @@ public class XFactory {
      * @param fieldName
      * @param fieldSignature
      * @param isStatic
+     *
      * @return the created XField
      */
     public static XField createXFieldUsingSlashedClassName(@SlashedClassName String className, String fieldName,
             String fieldSignature, boolean isStatic) {
-        FieldDescriptor fieldDesc = DescriptorFactory.instance().getFieldDescriptor(className, fieldName, fieldSignature,
-                isStatic);
+        FieldDescriptor fieldDesc = DescriptorFactory.instance().getFieldDescriptor(className, fieldName,
+                fieldSignature, isStatic);
 
         return createXField(fieldDesc);
     }
@@ -464,11 +471,13 @@ public class XFactory {
      * @param fieldName
      * @param fieldSignature
      * @param isStatic
+     *
      * @return the created XField
      */
-    public static XField createXField(@DottedClassName String className, String fieldName, String fieldSignature, boolean isStatic) {
-        FieldDescriptor fieldDesc = DescriptorFactory.instance().getFieldDescriptor(ClassName.toSlashedClassName(className),
-                fieldName, fieldSignature, isStatic);
+    public static XField createXField(@DottedClassName String className, String fieldName, String fieldSignature,
+            boolean isStatic) {
+        FieldDescriptor fieldDesc = DescriptorFactory.instance()
+                .getFieldDescriptor(ClassName.toSlashedClassName(className), fieldName, fieldSignature, isStatic);
 
         return createXField(fieldDesc);
     }
@@ -486,7 +495,8 @@ public class XFactory {
 
     public static XField createReferencedXField(DismantleBytecode visitor) {
         int seen = visitor.getOpcode();
-        if (seen != Opcodes.GETFIELD && seen != Opcodes.GETSTATIC && seen != Opcodes.PUTFIELD && seen != Opcodes.PUTSTATIC) {
+        if (seen != Opcodes.GETFIELD && seen != Opcodes.GETSTATIC && seen != Opcodes.PUTFIELD
+                && seen != Opcodes.PUTSTATIC) {
             throw new IllegalArgumentException("Not at a field reference");
         }
         return createXFieldUsingSlashedClassName(visitor.getClassConstantOperand(), visitor.getNameConstantOperand(),
@@ -494,8 +504,9 @@ public class XFactory {
     }
 
     public static XMethod createReferencedXMethod(DismantleBytecode visitor) {
-        XMethod m = createXMethodUsingSlashedClassName(visitor.getClassConstantOperand(), visitor.getNameConstantOperand(),
-                visitor.getSigConstantOperand(), visitor.getOpcode() == Const.INVOKESTATIC);
+        XMethod m = createXMethodUsingSlashedClassName(visitor.getClassConstantOperand(),
+                visitor.getNameConstantOperand(), visitor.getSigConstantOperand(),
+                visitor.getOpcode() == Const.INVOKESTATIC);
         return m.resolveAccessMethodForMethod();
     }
 
@@ -514,6 +525,7 @@ public class XFactory {
      *            the name of the Java class containing the field
      * @param field
      *            the Field within the JavaClass
+     *
      * @return the created XField
      */
     public static XField createXField(String className, Field field) {
@@ -526,9 +538,8 @@ public class XFactory {
     }
 
     /**
-     * Get an XField object exactly matching given class, name, and signature.
-     * May return an unresolved object (if the class can't be found, or does not
-     * directly declare named field).
+     * Get an XField object exactly matching given class, name, and signature. May return an unresolved object (if the
+     * class can't be found, or does not directly declare named field).
      *
      * @param className
      *            name of class containing the field
@@ -538,12 +549,13 @@ public class XFactory {
      *            field signature
      * @param isStatic
      *            field access flags
-     * @return XField exactly matching class name, field name, and field
-     *         signature
+     *
+     * @return XField exactly matching class name, field name, and field signature
      */
-    public static XField getExactXField(@SlashedClassName String className, String name, String signature, boolean isStatic) {
-        FieldDescriptor fieldDesc = DescriptorFactory.instance().getFieldDescriptor(ClassName.toSlashedClassName(className),
-                name, signature, isStatic);
+    public static XField getExactXField(@SlashedClassName String className, String name, String signature,
+            boolean isStatic) {
+        FieldDescriptor fieldDesc = DescriptorFactory.instance()
+                .getFieldDescriptor(ClassName.toSlashedClassName(className), name, signature, isStatic);
         return getExactXField(fieldDesc);
     }
 
@@ -583,8 +595,8 @@ public class XFactory {
             while (!worklist.isEmpty()) {
                 ClassDescriptor d = worklist.removeFirst();
                 if (!d.equals(originalClassDescriptor)) {
-                    desc = DescriptorFactory.instance().getFieldDescriptor(d.getClassName(), desc.getName(), desc.getSignature(),
-                            desc.isStatic());
+                    desc = DescriptorFactory.instance().getFieldDescriptor(d.getClassName(), desc.getName(),
+                            desc.getSignature(), desc.isStatic());
                 }
 
                 XField f = fields.get(desc);
@@ -617,6 +629,7 @@ public class XFactory {
      *            the InvokeInstruction
      * @param cpg
      *            ConstantPoolGen from the class containing the instruction
+     *
      * @return XMethod representing the method called by the InvokeInstruction
      */
     public static XMethod createXMethod(InvokeInstruction invokeInstruction, ConstantPoolGen cpg) {
@@ -637,11 +650,11 @@ public class XFactory {
     }
 
     /**
-     * Create an XMethod object from the method currently being visited by the
-     * given PreorderVisitor.
+     * Create an XMethod object from the method currently being visited by the given PreorderVisitor.
      *
      * @param visitor
      *            the PreorderVisitor
+     *
      * @return the XMethod representing the method currently being visited
      */
     public static XMethod createXMethod(PreorderVisitor visitor) {
@@ -652,11 +665,11 @@ public class XFactory {
     }
 
     /**
-     * Create an XField object from the field currently being visited by the
-     * given PreorderVisitor.
+     * Create an XField object from the field currently being visited by the given PreorderVisitor.
      *
      * @param visitor
      *            the PreorderVisitor
+     *
      * @return the XField representing the method currently being visited
      */
     public static XField createXField(PreorderVisitor visitor) {
@@ -679,13 +692,12 @@ public class XFactory {
     }
 
     /**
-     * Get the XClass object providing information about the class named by the
-     * given ClassDescriptor.
+     * Get the XClass object providing information about the class named by the given ClassDescriptor.
      *
      * @param classDescriptor
      *            a ClassDescriptor
-     * @return an XClass object providing information about the class, or null
-     *         if the class cannot be found
+     *
+     * @return an XClass object providing information about the class, or null if the class cannot be found
      */
     public @CheckForNull XClass getXClass(ClassDescriptor classDescriptor) {
         try {
@@ -697,15 +709,14 @@ public class XFactory {
     }
 
     /**
-     * Compare XMethod or XField object objects.
-     * <em>All methods that implement XMethod or XField should
-     * delegate to this method when implementing compareTo(Object)
-     * if the right-hand object implements XField or XMethod.</em>
+     * Compare XMethod or XField object objects. <em>All methods that implement XMethod or XField should delegate to
+     * this method when implementing compareTo(Object) if the right-hand object implements XField or XMethod.</em>
      *
      * @param lhs
      *            an XMethod or XField
      * @param rhs
      *            an XMethod or XField
+     *
      * @return comparison of lhs and rhs
      */
     public static <E extends ClassMember> int compare(E lhs, E rhs) {

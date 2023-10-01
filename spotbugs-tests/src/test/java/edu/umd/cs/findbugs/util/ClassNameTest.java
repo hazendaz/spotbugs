@@ -70,9 +70,7 @@ public class ClassNameTest {
 
     @Test
     public void testMatchedPrefix() {
-        List<String[]> negativeCases = Arrays.asList(
-                new String[] { "foobar" },
-                new String[] { "" },
+        List<String[]> negativeCases = Arrays.asList(new String[] { "foobar" }, new String[] { "" },
                 new String[] { "testObject" });
 
         for (String[] searchString : negativeCases) {
@@ -80,15 +78,9 @@ public class ClassNameTest {
                     ClassName.matchedPrefixes(searchString, "com.test.TestClass"));
         }
 
-        List<String[]> positiveCases = Arrays.asList(
-                new String[] {},
-                null,
-                new String[] { "TestClass" },
-                new String[] { "testclass" },
-                new String[] { "testclass" },
-                new String[] { "testClass" },
-                new String[] { "tetGlass" },
-                new String[] { "bastClass" });
+        List<String[]> positiveCases = Arrays.asList(new String[] {}, null, new String[] { "TestClass" },
+                new String[] { "testclass" }, new String[] { "testclass" }, new String[] { "testClass" },
+                new String[] { "tetGlass" }, new String[] { "bastClass" });
 
         for (String[] searchString : positiveCases) {
             assertTrue("com.text.TestClass should be matched by " + Arrays.toString(searchString),

@@ -47,27 +47,25 @@ public class NoopAnalysisCache implements IAnalysisCache {
     }
 
     @Override
-    public <E> E getClassAnalysis(Class<E> analysisClass,
-            @Nonnull ClassDescriptor classDescriptor)
+    public <E> E getClassAnalysis(Class<E> analysisClass, @Nonnull ClassDescriptor classDescriptor)
             throws CheckedAnalysisException {
         return null;
     }
 
     @Override
-    public <E> E probeClassAnalysis(Class<E> analysisClass,
-            @Nonnull ClassDescriptor classDescriptor) {
+    public <E> E probeClassAnalysis(Class<E> analysisClass, @Nonnull ClassDescriptor classDescriptor) {
         return null;
     }
 
     @Override
-    public <E> E getMethodAnalysis(Class<E> analysisClass,
-            @Nonnull MethodDescriptor methodDescriptor) throws CheckedAnalysisException {
+    public <E> E getMethodAnalysis(Class<E> analysisClass, @Nonnull MethodDescriptor methodDescriptor)
+            throws CheckedAnalysisException {
         return null;
     }
 
     @Override
-    public <E> void eagerlyPutMethodAnalysis(Class<E> analysisClass,
-            @Nonnull MethodDescriptor methodDescriptor, E analysisObject) {
+    public <E> void eagerlyPutMethodAnalysis(Class<E> analysisClass, @Nonnull MethodDescriptor methodDescriptor,
+            E analysisObject) {
 
     }
 
@@ -87,8 +85,7 @@ public class NoopAnalysisCache implements IAnalysisCache {
     }
 
     @Override
-    public <E> void registerDatabaseFactory(Class<E> databaseClass,
-            IDatabaseFactory<E> databaseFactory) {
+    public <E> void registerDatabaseFactory(Class<E> databaseClass, IDatabaseFactory<E> databaseFactory) {
 
     }
 

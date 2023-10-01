@@ -42,7 +42,8 @@ public class InstantiateStaticClass extends BytecodeScanningDetector {
     @Override
     public void sawOpcode(int seen) {
 
-        if ((seen == Const.INVOKESPECIAL) && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand()) && "()V".equals(getSigConstantOperand())) {
+        if ((seen == Const.INVOKESPECIAL) && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand())
+                && "()V".equals(getSigConstantOperand())) {
             XClass xClass = getXClassOperand();
             if (xClass == null) {
                 return;
@@ -63,8 +64,8 @@ public class InstantiateStaticClass extends BytecodeScanningDetector {
             }
 
             if (isStaticOnlyClass(xClass)) {
-                bugReporter.reportBug(new BugInstance(this, "ISC_INSTANTIATE_STATIC_CLASS", LOW_PRIORITY).addClassAndMethod(
-                        this).addSourceLine(this));
+                bugReporter.reportBug(new BugInstance(this, "ISC_INSTANTIATE_STATIC_CLASS", LOW_PRIORITY)
+                        .addClassAndMethod(this).addSourceLine(this));
             }
         }
 

@@ -58,11 +58,8 @@ public class FindInstanceLockOnSharedStaticDataCheckTest extends AbstractIntegra
 
     private void assertSSDBug(String className, String methodName, int line) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("SSD_DO_NOT_USE_INSTANCE_LOCK_ON_SHARED_STATIC_DATA")
-                .inClass(className)
-                .inMethod(methodName)
-                .atLine(line)
-                .build();
+                .bugType("SSD_DO_NOT_USE_INSTANCE_LOCK_ON_SHARED_STATIC_DATA").inClass(className).inMethod(methodName)
+                .atLine(line).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 }

@@ -21,8 +21,8 @@ public class Issue527Test extends AbstractIntegrationTest {
     @Test
     public void testSimpleLambdas() {
         performAnalysis("lambdas/Issue527.class");
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("NP_NULL_ON_SOME_PATH").build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("NP_NULL_ON_SOME_PATH")
+                .build();
         SortedBugCollection bugCollection = (SortedBugCollection) getBugCollection();
         assertThat(bugCollection, containsExactly(2, bugTypeMatcher));
         Iterator<String> missingIter = bugCollection.missingClassIterator();

@@ -9,7 +9,6 @@ import edu.umd.cs.findbugs.AbstractIntegrationTest;
 import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcher;
 import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
 
-
 public class Issue2552Test extends AbstractIntegrationTest {
     @Test
     public void test() {
@@ -21,18 +20,13 @@ public class Issue2552Test extends AbstractIntegrationTest {
     }
 
     public void assertBugCount(String type, int expectedCount) {
-        BugInstanceMatcher bugMatcher = new BugInstanceMatcherBuilder()
-                .bugType(type)
-                .build();
+        BugInstanceMatcher bugMatcher = new BugInstanceMatcherBuilder().bugType(type).build();
 
         assertThat(getBugCollection(), containsExactly(expectedCount, bugMatcher));
     }
 
     public void assertBugAtLine(String type, int line) {
-        BugInstanceMatcher bugMatcher = new BugInstanceMatcherBuilder()
-                .bugType(type)
-                .atLine(line)
-                .build();
+        BugInstanceMatcher bugMatcher = new BugInstanceMatcherBuilder().bugType(type).atLine(line).build();
 
         assertThat(getBugCollection(), containsExactly(1, bugMatcher));
     }

@@ -35,8 +35,8 @@ import edu.umd.cs.findbugs.ba.XMethod;
  * Policy database which defines which methods create and remove obligations.
  *
  * <p>
- * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011"
- * >Finding and preventing run-time error handling mistakes</a>, OOPSLA 2004.
+ * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011" >Finding and preventing run-time error
+ * handling mistakes</a>, OOPSLA 2004.
  * </p>
  *
  * @author David Hovemeyer
@@ -75,8 +75,7 @@ public class ObligationPolicyDatabase {
     }
 
     /**
-     * Add an appropriate policy database entry for parameters marked with the
-     * WillClose annotation.
+     * Add an appropriate policy database entry for parameters marked with the WillClose annotation.
      *
      * @param xmethod
      *            a method
@@ -85,12 +84,12 @@ public class ObligationPolicyDatabase {
      * @param entryType
      *            type of entry (STRONG or WEAK)
      */
-    public ObligationPolicyDatabaseEntry addParameterDeletesObligationDatabaseEntry(XMethod xmethod, Obligation obligation,
-            ObligationPolicyDatabaseEntryType entryType) {
+    public ObligationPolicyDatabaseEntry addParameterDeletesObligationDatabaseEntry(XMethod xmethod,
+            Obligation obligation, ObligationPolicyDatabaseEntryType entryType) {
         // Add a policy database entry noting that this method
         // will delete one instance of the obligation type.
-        ObligationPolicyDatabaseEntry entry = new MatchMethodEntry(xmethod, ObligationPolicyDatabaseActionType.DEL, entryType,
-                obligation);
+        ObligationPolicyDatabaseEntry entry = new MatchMethodEntry(xmethod, ObligationPolicyDatabaseActionType.DEL,
+                entryType, obligation);
         addEntry(entry);
         return entry;
     }
@@ -109,7 +108,8 @@ public class ObligationPolicyDatabase {
     public void getActions(ReferenceType receiverType, String methodName, String signature, boolean isStatic,
             Collection<ObligationPolicyDatabaseAction> actionList) {
         if (DEBUG) {
-            System.out.println("Lookup for " + receiverType + "," + methodName + "," + signature + "," + isStatic + ": ");
+            System.out
+                    .println("Lookup for " + receiverType + "," + methodName + "," + signature + "," + isStatic + ": ");
         }
         for (ObligationPolicyDatabaseEntry entry : entryList) {
 
@@ -118,8 +118,8 @@ public class ObligationPolicyDatabase {
             if (DEBUG) {
                 if (matched) {
                     System.out.println(" Entry " + entry + "  ==> MATCH");
-                    //                else
-                    //                    System.out.println("  ==> no match");
+                    // else
+                    // System.out.println(" ==> no match");
                 }
             }
         }

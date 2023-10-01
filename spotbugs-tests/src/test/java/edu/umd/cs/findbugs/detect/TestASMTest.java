@@ -32,36 +32,26 @@ public class TestASMTest extends AbstractIntegrationTest {
     }
 
     private void assertNumOfBugs(int num, String bugType) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType).build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType(bugType).build();
         assertThat(getBugCollection(), containsExactly(num, bugTypeMatcher));
     }
 
     private void assertMethodNamingBug(String method) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("NM_METHOD_NAMING_CONVENTION")
-                .inClass("TestASM")
-                .inMethod(method)
-                .build();
+                .bugType("NM_METHOD_NAMING_CONVENTION").inClass("TestASM").inMethod(method).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 
     private void assertFieldNamingBug(String field) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("NM_FIELD_NAMING_CONVENTION")
-                .inClass("TestASM")
-                .atField(field)
-                .build();
+                .bugType("NM_FIELD_NAMING_CONVENTION").inClass("TestASM").atField(field).build();
         BugCollection bc = getBugCollection();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 
     private void assertCastBug(String method) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("ICAST_INT_CAST_TO_DOUBLE_PASSED_TO_CEIL")
-                .inClass("TestASM")
-                .inMethod(method)
-                .build();
+                .bugType("ICAST_INT_CAST_TO_DOUBLE_PASSED_TO_CEIL").inClass("TestASM").inMethod(method).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 }

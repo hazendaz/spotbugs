@@ -36,9 +36,8 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 /**
  * Build the interprocedural call graph.
  *
- * NOTE: at the present time, this facility is only used to find relevant type
- * qualifiers. It could become a more general-purpose facility if there were a
- * need.
+ * NOTE: at the present time, this facility is only used to find relevant type qualifiers. It could become a more
+ * general-purpose facility if there were a need.
  *
  * @author David Hovemeyer
  */
@@ -97,6 +96,7 @@ public class BuildInterproceduralCallGraph extends BytecodeScanningDetector impl
      *
      * @param xmethod
      *            an XMethod
+     *
      * @return the XMethod's InterproceduralCallGraphVertex
      */
     private InterproceduralCallGraphVertex findVertex(XMethod xmethod) {

@@ -25,9 +25,8 @@ import java.util.Map;
 import org.apache.bcel.classfile.JavaClass;
 
 /**
- * Provide a HashMap that can only grow to a specified maximum capacity, with
- * entries discarded using a LRU policy to keep the size of the HashMap within
- * that bound.
+ * Provide a HashMap that can only grow to a specified maximum capacity, with entries discarded using a LRU policy to
+ * keep the size of the HashMap within that bound.
  *
  * @author pugh
  */

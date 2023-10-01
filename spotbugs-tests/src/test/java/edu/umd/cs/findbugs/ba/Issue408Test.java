@@ -21,6 +21,7 @@ import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
 
 /**
  * @see <a href="https://github.com/spotbugs/spotbugs/issues/408">#408</a>
+ *
  * @since 3.1
  */
 public class Issue408Test extends AbstractIntegrationTest {

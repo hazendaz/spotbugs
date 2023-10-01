@@ -120,7 +120,6 @@ public class FindPuzzlers extends OpcodeStackDetector {
     static ClassDescriptor ITERATOR = DescriptorFactory.createClassDescriptor(Iterator.class);
     static ClassDescriptor MAP_ENTRY = DescriptorFactory.createClassDescriptor(Map.Entry.class);
 
-
     @Override
     public void visit(JavaClass obj) {
         isTigerOrHigher = obj.getMajor() >= Const.MAJOR_1_5;
@@ -179,8 +178,8 @@ public class FindPuzzlers extends OpcodeStackDetector {
                 becameTop = getPC();
             }
             if (testingEnabled && seen == Const.GOTO && getBranchTarget() < becameTop) {
-                pendingUnreachableBranch = new BugInstance(this, "TESTING", NORMAL_PRIORITY)
-                        .addClassAndMethod(this).addString("Unreachable loop body").addSourceLineRange(this, becameTop, getPC());
+                pendingUnreachableBranch = new BugInstance(this, "TESTING", NORMAL_PRIORITY).addClassAndMethod(this)
+                        .addString("Unreachable loop body").addSourceLineRange(this, becameTop, getPC());
             }
             return;
 
@@ -191,10 +190,11 @@ public class FindPuzzlers extends OpcodeStackDetector {
         }
         becameTop = -1;
 
-        if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand()) && "(Ljava/util/Collection;)V".equals(
-                getSigConstantOperand())
+        if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand())
+                && "(Ljava/util/Collection;)V".equals(getSigConstantOperand())
                 && getClassConstantOperand().contains("Set")
-                || (seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE) && "addAll".equals(getNameConstantOperand())
+                || (seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE)
+                        && "addAll".equals(getNameConstantOperand())
                         && "(Ljava/util/Collection;)Z".equals(getSigConstantOperand())) {
             OpcodeStack.Item top = stack.getStackItem(0);
             XMethod returnValueOf = top.getReturnValueOf();
@@ -203,19 +203,18 @@ public class FindPuzzlers extends OpcodeStackDetector {
                 int priority = Priorities.LOW_PRIORITY;
                 if ("java.util.Map".equals(name)) {
                     priority = Priorities.NORMAL_PRIORITY;
-                } else if (name.equals(EnumMap.class.getName())
-                        || name.equals(IdentityHashMap.class.getName())) {
+                } else if (name.equals(EnumMap.class.getName()) || name.equals(IdentityHashMap.class.getName())) {
                     priority = Priorities.HIGH_PRIORITY;
                 }
                 bugReporter.reportBug(new BugInstance(this, "DMI_ENTRY_SETS_MAY_REUSE_ENTRY_OBJECTS", priority)
-                        .addClassAndMethod(this).addCalledMethod(returnValueOf).addCalledMethod(this).addValueSource(top, this).addSourceLine(this));
+                        .addClassAndMethod(this).addCalledMethod(returnValueOf).addCalledMethod(this)
+                        .addValueSource(top, this).addSourceLine(this));
             }
-
 
         }
 
-        if (seen == Const.INVOKEVIRTUAL && "hashCode".equals(getNameConstantOperand()) && "()I".equals(getSigConstantOperand())
-                && stack.getStackDepth() > 0) {
+        if (seen == Const.INVOKEVIRTUAL && "hashCode".equals(getNameConstantOperand())
+                && "()I".equals(getSigConstantOperand()) && stack.getStackDepth() > 0) {
             OpcodeStack.Item item0 = stack.getStackItem(0);
             if (item0.getSignature().charAt(0) == '[') {
                 bugReporter.reportBug(new BugInstance(this, "DMI_INVOKING_HASHCODE_ON_ARRAY", NORMAL_PRIORITY)
@@ -235,8 +234,8 @@ public class FindPuzzlers extends OpcodeStackDetector {
                     priority++;
                 }
             }
-            bugReporter.reportBug(new BugInstance(this, "DLS_DEAD_LOCAL_STORE_IN_RETURN", priority).addClassAndMethod(this)
-                    .addSourceLine(this));
+            bugReporter.reportBug(new BugInstance(this, "DLS_DEAD_LOCAL_STORE_IN_RETURN", priority)
+                    .addClassAndMethod(this).addSourceLine(this));
         }
         // System.out.println(getPC() + " " + Const.getOpcodeName(seen) + " " +
         // ternaryConversionState);
@@ -267,12 +266,13 @@ public class FindPuzzlers extends OpcodeStackDetector {
             if (priority <= best_priority_for_ICAST_INTEGER_MULTIPLY_CAST_TO_LONG) {
                 best_priority_for_ICAST_INTEGER_MULTIPLY_CAST_TO_LONG = priority;
                 bugAccumulator.accumulateBug(
-                        new BugInstance(this, "ICAST_INTEGER_MULTIPLY_CAST_TO_LONG", priority).addClassAndMethod(this), this);
+                        new BugInstance(this, "ICAST_INTEGER_MULTIPLY_CAST_TO_LONG", priority).addClassAndMethod(this),
+                        this);
             }
         }
 
-        if (Const.STATIC_INITIALIZER_NAME.equals(getMethodName()) && (seen == Const.PUTSTATIC || seen == Const.GETSTATIC
-                || seen == Const.INVOKESTATIC)) {
+        if (Const.STATIC_INITIALIZER_NAME.equals(getMethodName())
+                && (seen == Const.PUTSTATIC || seen == Const.GETSTATIC || seen == Const.INVOKESTATIC)) {
             String clazz = getClassConstantOperand();
             if (!clazz.equals(getClassName())) {
                 try {
@@ -285,8 +285,10 @@ public class FindPuzzlers extends OpcodeStackDetector {
                         if (!targetClass.isPublic()) {
                             priority++;
                         }
-                        bugAccumulator.accumulateBug(new BugInstance(this, "IC_SUPERCLASS_USES_SUBCLASS_DURING_INITIALIZATION",
-                                priority).addClassAndMethod(this).addClass(getClassConstantOperand()), this);
+                        bugAccumulator.accumulateBug(
+                                new BugInstance(this, "IC_SUPERCLASS_USES_SUBCLASS_DURING_INITIALIZATION", priority)
+                                        .addClassAndMethod(this).addClass(getClassConstantOperand()),
+                                this);
 
                     }
                 } catch (ClassNotFoundException e) {
@@ -296,16 +298,12 @@ public class FindPuzzlers extends OpcodeStackDetector {
             }
         }
         /*
-        if (false && (seen == Const.INVOKEVIRTUAL) && getNameConstantOperand().equals("equals")
-                && getSigConstantOperand().equals("(Ljava/lang/Object;)Z") && stack.getStackDepth() > 1) {
-            OpcodeStack.Item item0 = stack.getStackItem(0);
-            OpcodeStack.Item item1 = stack.getStackItem(1);
-        
-            if (item0.isArray() || item1.isArray()) {
-                bugAccumulator.accumulateBug(
-                        new BugInstance(this, "EC_BAD_ARRAY_COMPARE", NORMAL_PRIORITY).addClassAndMethod(this), this);
-            }
-        }
+         * if (false && (seen == Const.INVOKEVIRTUAL) && getNameConstantOperand().equals("equals") &&
+         * getSigConstantOperand().equals("(Ljava/lang/Object;)Z") && stack.getStackDepth() > 1) { OpcodeStack.Item
+         * item0 = stack.getStackItem(0); OpcodeStack.Item item1 = stack.getStackItem(1);
+         *
+         * if (item0.isArray() || item1.isArray()) { bugAccumulator.accumulateBug( new BugInstance(this,
+         * "EC_BAD_ARRAY_COMPARE", NORMAL_PRIORITY).addClassAndMethod(this), this); } }
          */
 
         if (seen >= Const.IALOAD && seen <= Const.SALOAD || seen >= Const.IASTORE && seen <= Const.SASTORE) {
@@ -317,30 +315,30 @@ public class FindPuzzlers extends OpcodeStackDetector {
                 } else {
                     where = SourceLineAnnotation.fromVisitedInstruction(this);
                 }
-                bugAccumulator.accumulateBug(
-                        new BugInstance(this, "IM_AVERAGE_COMPUTATION_COULD_OVERFLOW", NORMAL_PRIORITY).addClassAndMethod(this),
-                        where);
+                bugAccumulator
+                        .accumulateBug(new BugInstance(this, "IM_AVERAGE_COMPUTATION_COULD_OVERFLOW", NORMAL_PRIORITY)
+                                .addClassAndMethod(this), where);
             }
 
         }
 
-        if (seen == Const.IMUL && (getPrevOpcode(1) == Const.SIPUSH || getPrevOpcode(1) == Const.BIPUSH) && getPrevOpcode(
-                2) == Const.IREM) {
+        if (seen == Const.IMUL && (getPrevOpcode(1) == Const.SIPUSH || getPrevOpcode(1) == Const.BIPUSH)
+                && getPrevOpcode(2) == Const.IREM) {
             bugAccumulator.accumulateBug(
                     new BugInstance(this, "IM_MULTIPLYING_RESULT_OF_IREM", LOW_PRIORITY).addClassAndMethod(this), this);
         }
 
         if (seen == Const.I2S && getPrevOpcode(1) == Const.IUSHR && !shiftOfNonnegativeValue
-                && (!constantArgumentToShift || valueOfConstantArgumentToShift % 16 != 0) || seen == Const.I2B
-                        && getPrevOpcode(1) == Const.IUSHR && !shiftOfNonnegativeValue
+                && (!constantArgumentToShift || valueOfConstantArgumentToShift % 16 != 0)
+                || seen == Const.I2B && getPrevOpcode(1) == Const.IUSHR && !shiftOfNonnegativeValue
                         && (!constantArgumentToShift || valueOfConstantArgumentToShift % 8 != 0)) {
-            bugAccumulator.accumulateBug(
-                    new BugInstance(this, "ICAST_QUESTIONABLE_UNSIGNED_RIGHT_SHIFT", NORMAL_PRIORITY).addClassAndMethod(this),
-                    this);
+            bugAccumulator
+                    .accumulateBug(new BugInstance(this, "ICAST_QUESTIONABLE_UNSIGNED_RIGHT_SHIFT", NORMAL_PRIORITY)
+                            .addClassAndMethod(this), this);
         }
 
-
-        if (seen == Const.IADD && (getNextOpcode() == Const.ISHL || getNextOpcode() == Const.LSHL) && stack.getStackDepth() >= 3) {
+        if (seen == Const.IADD && (getNextOpcode() == Const.ISHL || getNextOpcode() == Const.LSHL)
+                && stack.getStackDepth() >= 3) {
             OpcodeStack.Item l = stack.getStackItem(2);
             OpcodeStack.Item v = stack.getStackItem(1);
             Object constantValue = v.getConstant();
@@ -363,10 +361,9 @@ public class FindPuzzlers extends OpcodeStackDetector {
                         priority = HIGH_PRIORITY;
                     }
                     bugAccumulator.accumulateBug(new BugInstance(this, "BSHIFT_WRONG_ADD_PRIORITY", priority)
-                            .addClassAndMethod(this)
-                            .addInt(c).describe(IntAnnotation.INT_SHIFT)
-                            .addValueSource(stack.getStackItem(2), this)
-                            .addValueSource(stack.getStackItem(0), this), this);
+                            .addClassAndMethod(this).addInt(c).describe(IntAnnotation.INT_SHIFT)
+                            .addValueSource(stack.getStackItem(2), this).addValueSource(stack.getStackItem(0), this),
+                            this);
                 }
             }
 
@@ -389,11 +386,12 @@ public class FindPuzzlers extends OpcodeStackDetector {
                     if (valueOfConstantArgumentToShift < 0 || valueOfConstantArgumentToShift >= 32) {
                         bugAccumulator.accumulateBug(new BugInstance(this, "ICAST_BAD_SHIFT_AMOUNT",
                                 valueOfConstantArgumentToShift < 0 ? LOW_PRIORITY
-                                        : (valueOfConstantArgumentToShift == 32
-                                                && "hashCode".equals(getMethodName()) ? NORMAL_PRIORITY : HIGH_PRIORITY))
-                                                        .addClassAndMethod(this).addInt(valueOfConstantArgumentToShift).describe(
-                                                                IntAnnotation.INT_SHIFT)
-                                                        .addValueSource(stack.getStackItem(1), this), this);
+                                        : (valueOfConstantArgumentToShift == 32 && "hashCode".equals(getMethodName())
+                                                ? NORMAL_PRIORITY : HIGH_PRIORITY)).addClassAndMethod(this)
+                                                        .addInt(valueOfConstantArgumentToShift)
+                                                        .describe(IntAnnotation.INT_SHIFT)
+                                                        .addValueSource(stack.getStackItem(1), this),
+                                this);
                     }
                 }
                 if (leftHandSide instanceof Integer && ((Integer) leftHandSide) > 0) {
@@ -406,24 +404,26 @@ public class FindPuzzlers extends OpcodeStackDetector {
         }
 
         if (seen == Const.INVOKEVIRTUAL && stack.getStackDepth() > 0
-                && ("java/util/Date".equals(getClassConstantOperand()) || "java/sql/Date".equals(getClassConstantOperand()))
+                && ("java/util/Date".equals(getClassConstantOperand())
+                        || "java/sql/Date".equals(getClassConstantOperand()))
                 && "setMonth".equals(getNameConstantOperand()) && "(I)V".equals(getSigConstantOperand())) {
             OpcodeStack.Item item = stack.getStackItem(0);
             Object o = item.getConstant();
             if (o instanceof Integer) {
                 int v = (Integer) o;
                 if (v < 0 || v > 11) {
-                    bugReporter.reportBug(new BugInstance(this, "DMI_BAD_MONTH", HIGH_PRIORITY).addClassAndMethod(this).addInt(v)
-                            .describe(IntAnnotation.INT_VALUE).addCalledMethod(this).addSourceLine(this));
+                    bugReporter.reportBug(new BugInstance(this, "DMI_BAD_MONTH", HIGH_PRIORITY).addClassAndMethod(this)
+                            .addInt(v).describe(IntAnnotation.INT_VALUE).addCalledMethod(this).addSourceLine(this));
                 }
             }
         }
 
-        if (seen == Const.INVOKEVIRTUAL && stack.getStackDepth() > 1 && "java/util/Calendar".equals(getClassConstantOperand())
-                && "set".equals(getNameConstantOperand())
+        if (seen == Const.INVOKEVIRTUAL && stack.getStackDepth() > 1
+                && "java/util/Calendar".equals(getClassConstantOperand()) && "set".equals(getNameConstantOperand())
 
                 || seen == Const.INVOKESPECIAL && stack.getStackDepth() > 1
-                        && "java/util/GregorianCalendar".equals(getClassConstantOperand()) && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand())
+                        && "java/util/GregorianCalendar".equals(getClassConstantOperand())
+                        && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand())
 
         ) {
             String sig = getSigConstantOperand();
@@ -434,15 +434,16 @@ public class FindPuzzlers extends OpcodeStackDetector {
                 if (o instanceof Integer) {
                     int v = (Integer) o;
                     if (v < 0 || v > 11) {
-                        bugReporter.reportBug(new BugInstance(this, "DMI_BAD_MONTH", NORMAL_PRIORITY).addClassAndMethod(this)
-                                .addInt(v).describe(IntAnnotation.INT_VALUE).addCalledMethod(this).addSourceLine(this));
+                        bugReporter.reportBug(new BugInstance(this, "DMI_BAD_MONTH", NORMAL_PRIORITY)
+                                .addClassAndMethod(this).addInt(v).describe(IntAnnotation.INT_VALUE)
+                                .addCalledMethod(this).addSourceLine(this));
                     }
                 }
             }
         }
 
-        if (isRegisterStore() && (seen == Const.ISTORE || seen == Const.ISTORE_0 || seen == Const.ISTORE_1 || seen == Const.ISTORE_2
-                || seen == Const.ISTORE_3)
+        if (isRegisterStore() && (seen == Const.ISTORE || seen == Const.ISTORE_0 || seen == Const.ISTORE_1
+                || seen == Const.ISTORE_2 || seen == Const.ISTORE_3)
                 && getRegisterOperand() == prevOpcodeIncrementedRegister) {
             bugAccumulator.accumulateBug(
                     new BugInstance(this, "DLS_OVERWRITTEN_INCREMENT", HIGH_PRIORITY).addClassAndMethod(this), this);
@@ -494,17 +495,17 @@ public class FindPuzzlers extends OpcodeStackDetector {
         }
 
         // Java Puzzlers, chapter 3, puzzle 12
-        if (seen == Const.INVOKEVIRTUAL
-                && stack.getStackDepth() > 0
-                && ("toString".equals(getNameConstantOperand()) && "()Ljava/lang/String;".equals(getSigConstantOperand())
+        if (seen == Const.INVOKEVIRTUAL && stack.getStackDepth() > 0
+                && ("toString".equals(getNameConstantOperand())
+                        && "()Ljava/lang/String;".equals(getSigConstantOperand())
                         || "append".equals(getNameConstantOperand())
                                 && "(Ljava/lang/Object;)Ljava/lang/StringBuilder;".equals(getSigConstantOperand())
                                 && "java/lang/StringBuilder".equals(getClassConstantOperand())
                         || "append".equals(getNameConstantOperand())
                                 && "(Ljava/lang/Object;)Ljava/lang/StringBuffer;".equals(getSigConstantOperand())
-                                && "java/lang/StringBuffer".equals(getClassConstantOperand()) || ("print".equals(getNameConstantOperand())
-                                        || "println".equals(getNameConstantOperand()))
-                                        && "(Ljava/lang/Object;)V".equals(getSigConstantOperand()))) {
+                                && "java/lang/StringBuffer".equals(getClassConstantOperand())
+                        || ("print".equals(getNameConstantOperand()) || "println".equals(getNameConstantOperand()))
+                                && "(Ljava/lang/Object;)V".equals(getSigConstantOperand()))) {
             OpcodeStack.Item item = stack.getStackItem(0);
             String signature = item.getSignature();
             if (signature != null && signature.startsWith("[")) {
@@ -525,12 +526,13 @@ public class FindPuzzlers extends OpcodeStackDetector {
                         }
 
                         XField f = e.getXField();
-                        if (f != null && (SYSTEM_ERR.equals(f.getFieldDescriptor()) || SYSTEM_OUT.equals(f.getFieldDescriptor()))) {
+                        if (f != null && (SYSTEM_ERR.equals(f.getFieldDescriptor())
+                                || SYSTEM_OUT.equals(f.getFieldDescriptor()))) {
                             debuggingContext = true;
                         }
                     }
                 }
-                //                String name = null;
+                // String name = null;
                 int reg = item.getRegisterNumber();
                 Collection<BugAnnotation> as = new ArrayList<>();
                 XField field = item.getXField();
@@ -541,8 +543,8 @@ public class FindPuzzlers extends OpcodeStackDetector {
                 }
 
                 if (reg != -1) {
-                    LocalVariableAnnotation lva = LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(), reg, getPC(),
-                            getPC() - 1);
+                    LocalVariableAnnotation lva = LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(), reg,
+                            getPC(), getPC() - 1);
                     if (lva.isNamed()) {
                         as.add(lva);
                         if (fieldAnnotation != null) {
@@ -569,9 +571,9 @@ public class FindPuzzlers extends OpcodeStackDetector {
                     bugAccumulator.accumulateBug(new BugInstance(this, "DMI_INVOKING_TOSTRING_ON_ARRAY", priority)
                             .addClassAndMethod(this).addAnnotations(as), this);
                 } else {
-                    bugAccumulator.accumulateBug(
-                            new BugInstance(this, "DMI_INVOKING_TOSTRING_ON_ANONYMOUS_ARRAY", priority).addClassAndMethod(this),
-                            this);
+                    bugAccumulator
+                            .accumulateBug(new BugInstance(this, "DMI_INVOKING_TOSTRING_ON_ANONYMOUS_ARRAY", priority)
+                                    .addClassAndMethod(this), this);
                 }
             }
         }
@@ -586,10 +588,9 @@ public class FindPuzzlers extends OpcodeStackDetector {
                         && previousMethodInvocation.getSignature().length() == 3
                         && "valueOf".equals(getNameConstantOperand())
                         && getSigConstantOperand().charAt(1) == previousMethodInvocation.getSignature().charAt(2)) {
-                    bugAccumulator.accumulateBug(
-                            new BugInstance(this, "BX_UNBOXING_IMMEDIATELY_REBOXED", NORMAL_PRIORITY).addClassAndMethod(this)
-                                    .addCalledMethod(this),
-                            this);
+                    bugAccumulator
+                            .accumulateBug(new BugInstance(this, "BX_UNBOXING_IMMEDIATELY_REBOXED", NORMAL_PRIORITY)
+                                    .addClassAndMethod(this).addCalledMethod(this), this);
                 }
 
             }
@@ -601,12 +602,14 @@ public class FindPuzzlers extends OpcodeStackDetector {
                         && classNameForPreviousMethod.equals(classNameForThisMethod.replace('/', '.'))
                         && getNameConstantOperand().endsWith("Value") && getSigConstantOperand().length() == 3) {
                     if (getSigConstantOperand().charAt(2) == previousMethodInvocation.getSignature().charAt(1)) {
-                        bugAccumulator.accumulateBug(
-                                new BugInstance(this, "BX_BOXING_IMMEDIATELY_UNBOXED", NORMAL_PRIORITY).addClassAndMethod(this),
-                                this);
+                        bugAccumulator
+                                .accumulateBug(new BugInstance(this, "BX_BOXING_IMMEDIATELY_UNBOXED", NORMAL_PRIORITY)
+                                        .addClassAndMethod(this), this);
                     } else {
-                        bugAccumulator.accumulateBug(new BugInstance(this, "BX_BOXING_IMMEDIATELY_UNBOXED_TO_PERFORM_COERCION",
-                                NORMAL_PRIORITY).addClassAndMethod(this), this);
+                        bugAccumulator.accumulateBug(
+                                new BugInstance(this, "BX_BOXING_IMMEDIATELY_UNBOXED_TO_PERFORM_COERCION",
+                                        NORMAL_PRIORITY).addClassAndMethod(this),
+                                this);
                     }
 
                     ternaryConversionState = 1;
@@ -630,8 +633,9 @@ public class FindPuzzlers extends OpcodeStackDetector {
             } else if (ternaryConversionState == 2) {
                 ternaryConversionState = 0;
                 if (seen == Const.GOTO) {
-                    bugReporter.reportBug(new BugInstance(this, "BX_UNBOXED_AND_COERCED_FOR_TERNARY_OPERATOR", NORMAL_PRIORITY)
-                            .addClassAndMethod(this).addSourceLine(this));
+                    bugReporter.reportBug(
+                            new BugInstance(this, "BX_UNBOXED_AND_COERCED_FOR_TERNARY_OPERATOR", NORMAL_PRIORITY)
+                                    .addClassAndMethod(this).addSourceLine(this));
                 }
             } else {
                 ternaryConversionState = 0;
@@ -641,10 +645,10 @@ public class FindPuzzlers extends OpcodeStackDetector {
         AssertInvokedFromRun: if (seen == Const.INVOKESTATIC) {
             if ((getNameConstantOperand().startsWith("assert") || getNameConstantOperand().startsWith("fail"))
                     && "run".equals(getMethodName()) && implementsRunnable(getThisClass())) {
-                int size1 = Util.getSizeOfSurroundingTryBlock(getConstantPool(), getMethod().getCode(), "java/lang/Throwable",
-                        getPC());
-                int size2 = Util.getSizeOfSurroundingTryBlock(getConstantPool(), getMethod().getCode(), "java/lang/Error",
-                        getPC());
+                int size1 = Util.getSizeOfSurroundingTryBlock(getConstantPool(), getMethod().getCode(),
+                        "java/lang/Throwable", getPC());
+                int size2 = Util.getSizeOfSurroundingTryBlock(getConstantPool(), getMethod().getCode(),
+                        "java/lang/Error", getPC());
                 int size3 = Util.getSizeOfSurroundingTryBlock(getConstantPool(), getMethod().getCode(),
                         "java/lang/AssertionFailureError", getPC());
                 int size = Math.min(Math.min(size1, size2), size3);
@@ -652,7 +656,8 @@ public class FindPuzzlers extends OpcodeStackDetector {
                     String dottedClassName = getClassConstantOperand().replace('/', '.');
                     if (!dottedClassName.startsWith("junit")) {
                         try {
-                            JavaClass targetClass = AnalysisContext.currentAnalysisContext().lookupClass(dottedClassName);
+                            JavaClass targetClass = AnalysisContext.currentAnalysisContext()
+                                    .lookupClass(dottedClassName);
                             if (!targetClass.getSuperclassName().startsWith("junit")) {
                                 break AssertInvokedFromRun;
                             }
@@ -663,7 +668,8 @@ public class FindPuzzlers extends OpcodeStackDetector {
                     }
 
                     bugAccumulator.accumulateBug(new BugInstance(this, "IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD",
-                            extendsThread(getThisClass()) ? NORMAL_PRIORITY : LOW_PRIORITY).addClassAndMethod(this), this);
+                            extendsThread(getThisClass()) ? NORMAL_PRIORITY : LOW_PRIORITY).addClassAndMethod(this),
+                            this);
 
                 }
 
@@ -676,8 +682,7 @@ public class FindPuzzlers extends OpcodeStackDetector {
                 && "valueOf".equals(getNameConstantOperand()) && getSigConstantOperand().length() == 4) {
             previousMethodInvocation = XFactory.createReferencedXMethod(this);
         } else if (seen == Const.INVOKEVIRTUAL && getClassConstantOperand().startsWith("java/lang/")
-                && getNameConstantOperand().endsWith("Value")
-                && getSigConstantOperand().length() == 3) {
+                && getNameConstantOperand().endsWith("Value") && getSigConstantOperand().length() == 3) {
             previousMethodInvocation = XFactory.createReferencedXMethod(this);
         } else {
             previousMethodInvocation = null;
@@ -692,13 +697,17 @@ public class FindPuzzlers extends OpcodeStackDetector {
                 constant = lhs.getConstant();
                 value = rhs;
             }
-            if (constant instanceof Number && (seen == Const.LAND || value.getSpecialKind() == OpcodeStack.Item.RESULT_OF_L2I)) {
+            if (constant instanceof Number
+                    && (seen == Const.LAND || value.getSpecialKind() == OpcodeStack.Item.RESULT_OF_L2I)) {
                 long constantValue = ((Number) constant).longValue();
-                if ((constantValue == 0xEFFFFFFFL || constantValue == 0xEFFFFFFFFFFFFFFFL || seen == Const.IAND
-                        && constantValue == 0xEFFFFFFF)) {
-                    bugAccumulator.accumulateBug(new BugInstance(this, "TESTING", seen == Const.LAND ? HIGH_PRIORITY : NORMAL_PRIORITY)
-                            .addClassAndMethod(this).addString("Possible failed attempt to mask lower 31 bits of an int")
-                            .addValueSource(value, this), this);
+                if ((constantValue == 0xEFFFFFFFL || constantValue == 0xEFFFFFFFFFFFFFFFL
+                        || seen == Const.IAND && constantValue == 0xEFFFFFFF)) {
+                    bugAccumulator.accumulateBug(
+                            new BugInstance(this, "TESTING", seen == Const.LAND ? HIGH_PRIORITY : NORMAL_PRIORITY)
+                                    .addClassAndMethod(this)
+                                    .addString("Possible failed attempt to mask lower 31 bits of an int")
+                                    .addValueSource(value, this),
+                            this);
                 }
 
             }
@@ -709,9 +718,11 @@ public class FindPuzzlers extends OpcodeStackDetector {
             XMethod m = top.getReturnValueOf();
             if (m != null) {
                 if ("compareTo".equals(m.getName()) || "compare".equals(m.getName())) {
-                    bugAccumulator.accumulateBug(new BugInstance(this, "RV_NEGATING_RESULT_OF_COMPARETO", NORMAL_PRIORITY)
-                            .addClassAndMethod(this)
-                            .addCalledMethod(m).addValueSource(top, this), this);
+                    bugAccumulator
+                            .accumulateBug(
+                                    new BugInstance(this, "RV_NEGATING_RESULT_OF_COMPARETO", NORMAL_PRIORITY)
+                                            .addClassAndMethod(this).addCalledMethod(m).addValueSource(top, this),
+                                    this);
                 }
             }
 

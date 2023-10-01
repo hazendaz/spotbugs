@@ -43,8 +43,7 @@ import edu.umd.cs.findbugs.ba.SourceFile;
 import edu.umd.cs.findbugs.ba.SourceFinder;
 
 /**
- * Java main application to compute update a historical bug collection with
- * results from another build/analysis.
+ * Java main application to compute update a historical bug collection with results from another build/analysis.
  *
  * @author William Pugh
  */
@@ -74,7 +73,6 @@ public class CopyBuggySource {
      *
      */
     private static final String USAGE = "Usage: <cmd> " + "  <bugs.xml> <destinationSrc>";
-
 
     public static void main(String[] args) throws Exception {
         FindBugs.setNoAnalysis();

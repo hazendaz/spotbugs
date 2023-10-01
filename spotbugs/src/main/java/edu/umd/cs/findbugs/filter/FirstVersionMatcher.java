@@ -52,8 +52,8 @@ public class FirstVersionMatcher extends VersionMatcher implements Matcher {
 
     @Override
     public void writeXML(XMLOutput xmlOutput, boolean disabled) throws IOException {
-        XMLAttributeList attributes = new XMLAttributeList().addAttribute("value", Long.toString(version)).addAttribute("relOp",
-                relOp.getName());
+        XMLAttributeList attributes = new XMLAttributeList().addAttribute("value", Long.toString(version))
+                .addAttribute("relOp", relOp.getName());
         if (disabled) {
             attributes.addAttribute("disabled", "true");
         }

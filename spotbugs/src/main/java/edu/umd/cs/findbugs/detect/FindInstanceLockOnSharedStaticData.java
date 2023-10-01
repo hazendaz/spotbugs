@@ -59,8 +59,7 @@ public class FindInstanceLockOnSharedStaticData extends OpcodeStackDetector {
                 try {
                     Optional<JavaClass> javaClassOfLockObject = Optional.ofNullable(lockObject.getJavaClass());
                     isLockObjectInstanceOfJavaLangClass = javaClassOfLockObject
-                            .map(javaClass -> javaClass.getClassName().equals(JAVA_LANG_CLASS))
-                            .orElse(false);
+                            .map(javaClass -> javaClass.getClassName().equals(JAVA_LANG_CLASS)).orElse(false);
                 } catch (ClassNotFoundException ignored) {
                 }
             }
@@ -75,16 +74,15 @@ public class FindInstanceLockOnSharedStaticData extends OpcodeStackDetector {
         if (seen == Const.PUTSTATIC) {
             XMethod modificationMethod = getXMethod();
             Optional<XField> fieldToModify = Optional.ofNullable(getXFieldOperand());
-            boolean unsecuredModificationByMethod =
-                    fieldToModify.isPresent() && modificationMethod.isSynchronized() && !modificationMethod.isStatic();
-            boolean isLockObjectAppropriate =
-                    maybeLockObject.map(XField::isStatic).orElse(false) || isLockObjectInstanceOfJavaLangClass;
+            boolean unsecuredModificationByMethod = fieldToModify.isPresent() && modificationMethod.isSynchronized()
+                    && !modificationMethod.isStatic();
+            boolean isLockObjectAppropriate = maybeLockObject.map(XField::isStatic).orElse(false)
+                    || isLockObjectInstanceOfJavaLangClass;
 
             if (unsecuredModificationByMethod && !(isInsideSynchronizedBlock && isLockObjectAppropriate)) {
                 bugAccumulator.accumulateBug(
                         new BugInstance(this, "SSD_DO_NOT_USE_INSTANCE_LOCK_ON_SHARED_STATIC_DATA", NORMAL_PRIORITY)
-                                .addClassAndMethod(this)
-                                .addString(fieldToModify.get().getName())
+                                .addClassAndMethod(this).addString(fieldToModify.get().getName())
                                 .addString("synchronized method"),
                         this);
                 return;
@@ -93,8 +91,7 @@ public class FindInstanceLockOnSharedStaticData extends OpcodeStackDetector {
             if (fieldToModify.isPresent() && isInsideSynchronizedBlock && !isLockObjectAppropriate) {
                 bugAccumulator.accumulateBug(
                         new BugInstance(this, "SSD_DO_NOT_USE_INSTANCE_LOCK_ON_SHARED_STATIC_DATA", NORMAL_PRIORITY)
-                                .addClassAndMethod(this)
-                                .addString(fieldToModify.get().getName())
+                                .addClassAndMethod(this).addString(fieldToModify.get().getName())
                                 .addString("synchronization lock"),
                         this);
             }

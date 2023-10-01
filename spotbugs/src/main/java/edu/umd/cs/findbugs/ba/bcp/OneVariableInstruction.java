@@ -20,8 +20,7 @@
 package edu.umd.cs.findbugs.ba.bcp;
 
 /**
- * Abstract PatternElement subclass for matching single instructions which have
- * a single Variable.
+ * Abstract PatternElement subclass for matching single instructions which have a single Variable.
  *
  * @see PatternElement
  */
@@ -39,16 +38,16 @@ public abstract class OneVariableInstruction extends SingleInstruction {
     }
 
     /**
-     * Add a variable definition to the given BindingSet, or if there is an
-     * existing definition, make sure it is consistent with the new definition.
+     * Add a variable definition to the given BindingSet, or if there is an existing definition, make sure it is
+     * consistent with the new definition.
      *
      * @param variable
      *            the Variable which should be added or checked for consistency
      * @param bindingSet
      *            the existing set of bindings
-     * @return a MatchResult containing the updated BindingSet (if the variable
-     *         is consistent with the previous bindings), or null if the new
-     *         variable is inconsistent with the previous bindings
+     *
+     * @return a MatchResult containing the updated BindingSet (if the variable is consistent with the previous
+     *         bindings), or null if the new variable is inconsistent with the previous bindings
      */
     protected MatchResult addOrCheckDefinition(Variable variable, BindingSet bindingSet) {
         bindingSet = addOrCheckDefinition(varName, variable, bindingSet);

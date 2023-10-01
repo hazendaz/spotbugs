@@ -37,9 +37,8 @@ public class UsagesRequiringNonNullValuesFactory extends AnalysisFactory<UsagesR
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public UsagesRequiringNonNullValues analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)

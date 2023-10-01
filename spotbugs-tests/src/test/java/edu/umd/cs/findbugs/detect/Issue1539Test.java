@@ -23,19 +23,13 @@ public class Issue1539Test extends AbstractIntegrationTest {
 
     @Parameterized.Parameters
     public static String[] data() {
-        return new String[] {
-            "Issue1539Instance",
-            "Issue1539Static",
-            "Issue1539ThreadLocal",
-            "Issue1539Argument"
-        };
+        return new String[] { "Issue1539Instance", "Issue1539Static", "Issue1539ThreadLocal", "Issue1539Argument" };
     }
 
     @Test
     public void testInstance() {
         performAnalysis(target);
-        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("DMI_RANDOM_USED_ONLY_ONCE")
+        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("DMI_RANDOM_USED_ONLY_ONCE")
                 .build();
         assertThat(getBugCollection(), containsExactly(0, bugTypeMatcher));
     }

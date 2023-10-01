@@ -24,7 +24,6 @@ public class AnalysisError {
 
     private final Throwable exception;
 
-
     @Override
     public int hashCode() {
         int result = 1;
@@ -45,8 +44,7 @@ public class AnalysisError {
             return false;
         }
         AnalysisError other = (AnalysisError) obj;
-        return Objects.equals(exceptionMessage, other.exceptionMessage)
-                && Objects.equals(message, other.message)
+        return Objects.equals(exceptionMessage, other.exceptionMessage) && Objects.equals(message, other.message)
                 && Objects.equals(nestedExceptionMessage, other.nestedExceptionMessage)
                 && Arrays.equals(nestedStackTrace, other.nestedStackTrace)
                 && Arrays.equals(stackTrace, other.stackTrace);
@@ -113,8 +111,7 @@ public class AnalysisError {
     }
 
     /**
-     * Set the exception message. This is the value returned by calling
-     * toString() on the original exception object.
+     * Set the exception message. This is the value returned by calling toString() on the original exception object.
      *
      * @param exceptionMessage
      *            the exception message
@@ -124,24 +121,22 @@ public class AnalysisError {
     }
 
     /**
-     * Get the exception message. This is the value returned by calling
-     * toString() on the original exception object.
+     * Get the exception message. This is the value returned by calling toString() on the original exception object.
      */
     public String getExceptionMessage() {
         return exceptionMessage;
     }
 
     /**
-     * Get the exception message. This is the value returned by calling
-     * toString() on the original exception object.
+     * Get the exception message. This is the value returned by calling toString() on the original exception object.
      */
     public String getNestedExceptionMessage() {
         return nestedExceptionMessage;
     }
 
     /**
-     * Set the stack trace elements. These are the strings returned by calling
-     * toString() on each StackTraceElement in the original exception.
+     * Set the stack trace elements. These are the strings returned by calling toString() on each StackTraceElement in
+     * the original exception.
      *
      * @param stackTraceList
      *            the stack trace elements
@@ -151,16 +146,16 @@ public class AnalysisError {
     }
 
     /**
-     * Get the stack trace elements. These are the strings returned by calling
-     * toString() on each StackTraceElement in the original exception.
+     * Get the stack trace elements. These are the strings returned by calling toString() on each StackTraceElement in
+     * the original exception.
      */
     public String[] getStackTrace() {
         return stackTrace;
     }
 
     /**
-     * Get the stack trace elements. These are the strings returned by calling
-     * toString() on each StackTraceElement in the original exception.
+     * Get the stack trace elements. These are the strings returned by calling toString() on each StackTraceElement in
+     * the original exception.
      */
     public String[] getNestedStackTrace() {
         return nestedStackTrace;

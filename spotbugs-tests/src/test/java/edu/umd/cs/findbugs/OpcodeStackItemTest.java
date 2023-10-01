@@ -53,8 +53,7 @@ public class OpcodeStackItemTest {
     @Test
     public void testDefineNewItemKind() {
         int defined = OpcodeStack.Item.defineSpecialKind(NEW_ITEM_KIND_NAME);
-        assertEquals(NEW_ITEM_KIND_NAME,
-                OpcodeStack.Item.getSpecialKindName(defined).get());
+        assertEquals(NEW_ITEM_KIND_NAME, OpcodeStack.Item.getSpecialKindName(defined).get());
     }
 
     @Test

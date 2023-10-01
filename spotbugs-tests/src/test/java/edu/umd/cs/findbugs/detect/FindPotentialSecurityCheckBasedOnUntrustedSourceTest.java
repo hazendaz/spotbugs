@@ -32,10 +32,7 @@ public class FindPotentialSecurityCheckBasedOnUntrustedSourceTest extends Abstra
     private void assertUSCBug(String methodName, int line) throws Exception {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
                 .bugType("USC_POTENTIAL_SECURITY_CHECK_BASED_ON_UNTRUSTED_SOURCE")
-                .inClass("PotentialSecurityCheckBasedOnUntrustedSource")
-                .inMethod(methodName)
-                .atLine(line)
-                .build();
+                .inClass("PotentialSecurityCheckBasedOnUntrustedSource").inMethod(methodName).atLine(line).build();
 
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }

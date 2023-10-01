@@ -69,12 +69,14 @@ public class BuildCheckReturnAnnotationDatabase extends AnnotationVisitor {
     }
 
     @Override
-    public void visitAnnotation(@DottedClassName String annotationClassName, Map<String, ElementValue> map, boolean runtimeVisible) {
+    public void visitAnnotation(@DottedClassName String annotationClassName, Map<String, ElementValue> map,
+            boolean runtimeVisible) {
 
         String annotationClassSimpleName = simpleClassName(annotationClassName);
 
         if (annotationClassSimpleName.startsWith(DEFAULT_ANNOTATION_ANNOTATION_CLASS)) {
-            annotationClassSimpleName = annotationClassSimpleName.substring(DEFAULT_ANNOTATION_ANNOTATION_CLASS.length());
+            annotationClassSimpleName = annotationClassSimpleName
+                    .substring(DEFAULT_ANNOTATION_ANNOTATION_CLASS.length());
 
             Target annotationTarget = defaultKind.get(annotationClassSimpleName);
             if (annotationTarget != Target.METHOD) {
@@ -139,9 +141,11 @@ public class BuildCheckReturnAnnotationDatabase extends AnnotationVisitor {
 
     }
 
-    private void handleClassElementValue(ClassElementValue value, Map<String, ElementValue> map, Target annotationTarget) {
+    private void handleClassElementValue(ClassElementValue value, Map<String, ElementValue> map,
+            Target annotationTarget) {
         if ("CheckReturnValue".equals(simpleClassName(value.getClassString()))) {
-            CheckReturnValueAnnotation n = CheckReturnValueAnnotation.parse(getAnnotationParameterAsString(map, "priority"));
+            CheckReturnValueAnnotation n = CheckReturnValueAnnotation
+                    .parse(getAnnotationParameterAsString(map, "priority"));
             if (n != null) {
                 AnalysisContext.currentAnalysisContext().getCheckReturnAnnotationDatabase()
                         .addDefaultAnnotation(annotationTarget, getDottedClassName(), n);

@@ -109,9 +109,11 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
                 String fullName = classAnn.getClassName();
                 int startDot = fullName.lastIndexOf(".") + 1;
                 int endDollar = fullName.indexOf('$');
-                String simpleName = fullName.substring(startDot != -1 ? startDot : 0, endDollar != -1 ? endDollar : fullName.length());
+                String simpleName = fullName.substring(startDot != -1 ? startDot : 0,
+                        endDollar != -1 ? endDollar : fullName.length());
                 String simpleNameInner = fullName.substring(startDot != -1 ? startDot : 0, fullName.length());
-                criteriaMatches &= fullName.equals(className) || simpleName.equals(className) || simpleNameInner.equals(className);
+                criteriaMatches &= fullName.equals(className) || simpleName.equals(className)
+                        || simpleNameInner.equals(className);
             }
             if (methodName != null) {
                 MethodAnnotation methodAnn = extractBugAnnotation(bugInstance, MethodAnnotation.class);
@@ -123,8 +125,9 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
 
                 if (methodAnn.getMethodName().startsWith("apply") && fullClassName != null) {
                     Matcher m = ANON_FUNCTION_SCALA_PATTERN.matcher(fullClassName);
-                    if (m.find()) { //Scala function enclose in
-                        criteriaMatches &= methodAnn.getMethodName().equals(methodName) || methodName.equals(m.group(1));
+                    if (m.find()) { // Scala function enclose in
+                        criteriaMatches &= methodAnn.getMethodName().equals(methodName)
+                                || methodName.equals(m.group(1));
                     }
                 } else { //
                     criteriaMatches &= methodAnn.getMethodName().equals(methodName);
@@ -156,12 +159,14 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
                 if (srcAnn == null) {
                     return false;
                 }
-                criteriaMatches &= srcAnn.getStartLine() - 1 <= lineNumberApprox && lineNumberApprox <= srcAnn.getEndLine() + 1;
+                criteriaMatches &= srcAnn.getStartLine() - 1 <= lineNumberApprox
+                        && lineNumberApprox <= srcAnn.getEndLine() + 1;
             }
             if (jspFile != null) {
                 ClassAnnotation classAnn = extractBugAnnotation(bugInstance, ClassAnnotation.class);
-                String fullName = classAnn.getClassName().replaceAll("\\.", "/").replaceAll("_005f", "_").replaceAll("_jsp", ".jsp");
-                //String simpleName = fullName.substring(fullName.lastIndexOf("/") + 1);
+                String fullName = classAnn.getClassName().replaceAll("\\.", "/").replaceAll("_005f", "_")
+                        .replaceAll("_jsp", ".jsp");
+                // String simpleName = fullName.substring(fullName.lastIndexOf("/") + 1);
                 criteriaMatches &= fullName.endsWith(jspFile);
             }
             if (multipleChoicesLine != null) {
@@ -175,9 +180,9 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
                         found = true;
                     }
                 }
-                //if(!found) {
-                //log.info("The bug was between lines "+srcAnn.getStartLine()+" and "+srcAnn.getEndLine());
-                //}
+                // if(!found) {
+                // log.info("The bug was between lines "+srcAnn.getStartLine()+" and "+srcAnn.getEndLine());
+                // }
                 criteriaMatches &= found;
             }
             return criteriaMatches;

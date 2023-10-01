@@ -123,12 +123,12 @@ public class MutableClassesTest {
 
     @Test
     public void TestEnumsAreImmutable() {
-        Assert.assertFalse(MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ImmutableTestEnum;"));
+        Assert.assertFalse(
+                MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ImmutableTestEnum;"));
     }
 
     public enum ImmutableTestEnum {
-        ONE,
-        TWO;
+        ONE, TWO;
 
         public void write() {
             // Does not matter
@@ -137,9 +137,9 @@ public class MutableClassesTest {
 
     @Test
     public void TestErrorProneImmutable() {
-        Assert.assertFalse(MutableClasses.mutableSignature(
-                "Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutable;"));
-        Assert.assertFalse(MutableClasses.mutableSignature(
-                "Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutableSubclass;"));
+        Assert.assertFalse(
+                MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutable;"));
+        Assert.assertFalse(MutableClasses
+                .mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutableSubclass;"));
     }
 }

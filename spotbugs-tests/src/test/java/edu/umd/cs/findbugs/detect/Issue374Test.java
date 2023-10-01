@@ -26,21 +26,16 @@ import org.junit.Test;
 import static edu.umd.cs.findbugs.test.CountMatcher.containsExactly;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
 /**
  * @see <a href="https://github.com/spotbugs/spotbugs/issues/374">GitHub issue</a>
  */
 public class Issue374Test extends AbstractIntegrationTest {
     @Test
     public void test() {
-        performAnalysis(
-                "ghIssues/issue374/package-info.class",
-                "ghIssues/issue374/ClassLevel.class",
-                "ghIssues/issue374/MethodLevel.class",
-                "ghIssues/issue374/PackageLevel.class");
+        performAnalysis("ghIssues/issue374/package-info.class", "ghIssues/issue374/ClassLevel.class",
+                "ghIssues/issue374/MethodLevel.class", "ghIssues/issue374/PackageLevel.class");
         BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE")
-                .build();
+                .bugType("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE").build();
         assertThat(getBugCollection(), containsExactly(3, matcher));
     }
 }

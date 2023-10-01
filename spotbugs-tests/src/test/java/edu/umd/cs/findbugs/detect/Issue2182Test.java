@@ -25,12 +25,8 @@ public class Issue2182Test extends AbstractIntegrationTest {
     @Test
     public void test() {
         performAnalysis("../java11/ghIssues/Issue2182.class");
-        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType("SBSC_USE_STRINGBUFFER_CONCATENATION")
-                .inClass("Issue2182")
-                .inMethod("test")
-                .atLine(22)
-                .build();
+        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType("SBSC_USE_STRINGBUFFER_CONCATENATION")
+                .inClass("Issue2182").inMethod("test").atLine(22).build();
         assertThat(getBugCollection(), hasItem(matcher));
     }
 }

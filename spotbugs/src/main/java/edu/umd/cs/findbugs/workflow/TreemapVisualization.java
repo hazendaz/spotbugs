@@ -64,7 +64,8 @@ public class TreemapVisualization {
 
     public void cleanCode(String packageName, int loc, int classes) {
         String superpackage = superpackage(packageName);
-        if (buggyPackages.contains(superpackage) || interiorPackages.contains(superpackage) || superpackage.length() == 0) {
+        if (buggyPackages.contains(superpackage) || interiorPackages.contains(superpackage)
+                || superpackage.length() == 0) {
             goodCodeCount.add(packageName, classes);
             goodCodeSize.add(packageName, loc);
             if (superpackage.length() > 0) {
@@ -105,8 +106,8 @@ public class TreemapVisualization {
             }
         }
         for (Map.Entry<String, Integer> e : goodCodeSize.entrySet()) {
-            System.out.printf("%d\t%d\t%d\t%d\t%g\t\t%s%n", e.getValue(), goodCodeCount.getCount(e.getKey()), 0, 0, 0.0, e
-                    .getKey().substring(11).replace('.', '\t'));
+            System.out.printf("%d\t%d\t%d\t%d\t%g\t\t%s%n", e.getValue(), goodCodeCount.getCount(e.getKey()), 0, 0, 0.0,
+                    e.getKey().substring(11).replace('.', '\t'));
 
         }
 

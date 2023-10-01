@@ -62,8 +62,8 @@ public abstract class AbstractFindBugsTest extends AbstractPluginTest {
     }
 
     protected IPackageFragment getDefaultPackageInSrc() throws JavaModelException {
-        IPackageFragment fragment = getJavaProject().findPackageFragment(
-                new Path("/" + AbstractPluginTest.TEST_PROJECT + "/" + AbstractPluginTest.SRC));
+        IPackageFragment fragment = getJavaProject()
+                .findPackageFragment(new Path("/" + AbstractPluginTest.TEST_PROJECT + "/" + AbstractPluginTest.SRC));
         return fragment;
     }
 

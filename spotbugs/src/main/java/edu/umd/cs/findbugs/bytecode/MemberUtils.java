@@ -65,10 +65,12 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the method could be a lambda. Notice this is a best-check,
-     * since once compiled lambda methods are not univocally distinguishable.
+     * Checks if the method could be a lambda. Notice this is a best-check, since once compiled lambda methods are not
+     * univocally distinguishable.
      *
-     * @param m The method to check if it's a lambda
+     * @param m
+     *            The method to check if it's a lambda
+     *
      * @return True if this could be a lambda, false otherwise
      */
     public static boolean couldBeLambda(final Method m) {
@@ -76,10 +78,12 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the method could be a lambda. Notice this is a best-check,
-     * since once compiled lambda methods are not univocally distinguishable.
+     * Checks if the method could be a lambda. Notice this is a best-check, since once compiled lambda methods are not
+     * univocally distinguishable.
      *
-     * @param m The method to check if it's a lambda
+     * @param m
+     *            The method to check if it's a lambda
+     *
      * @return True if this could be a lambda, false otherwise
      */
     public static boolean couldBeLambda(final XMethod m) {
@@ -87,10 +91,12 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the method could be a lambda. Notice this is a best-check,
-     * since once compiled lambda methods are not univocally distinguishable.
+     * Checks if the method could be a lambda. Notice this is a best-check, since once compiled lambda methods are not
+     * univocally distinguishable.
      *
-     * @param m The method to check if it's a lambda
+     * @param m
+     *            The method to check if it's a lambda
+     *
      * @return True if this could be a lambda, false otherwise
      */
     public static boolean couldBeLambda(final MethodGen m) {
@@ -98,12 +104,12 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the given method was user-generated. This takes into
-     * account for instance lambda methods, that even though they are marked as
-     * "synthetic", they are user-generated, and therefore interesting to
-     * analysis.
+     * Checks if the given method was user-generated. This takes into account for instance lambda methods, that even
+     * though they are marked as "synthetic", they are user-generated, and therefore interesting to analysis.
      *
-     * @param m The field or method to check.
+     * @param m
+     *            The field or method to check.
+     *
      * @return True if the given member is user generated, false otherwise.
      */
     public static boolean isUserGenerated(final FieldOrMethod m) {
@@ -111,12 +117,12 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the given method was user-generated. This takes into
-     * account for instance lambda methods, that even though they are marked as
-     * "synthetic", they are user-generated, and therefore interesting to
-     * analysis.
+     * Checks if the given method was user-generated. This takes into account for instance lambda methods, that even
+     * though they are marked as "synthetic", they are user-generated, and therefore interesting to analysis.
      *
-     * @param m The field or method to check.
+     * @param m
+     *            The field or method to check.
+     *
      * @return True if the given member is user generated, false otherwise.
      */
     public static boolean isUserGenerated(final ClassMember m) {
@@ -124,12 +130,12 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the given method was user-generated. This takes into
-     * account for instance lambda methods, that even though they are marked as
-     * "synthetic", they are user-generated, and therefore interesting to
-     * analysis.
+     * Checks if the given method was user-generated. This takes into account for instance lambda methods, that even
+     * though they are marked as "synthetic", they are user-generated, and therefore interesting to analysis.
      *
-     * @param m The field or method to check.
+     * @param m
+     *            The field or method to check.
+     *
      * @return True if the given member is user generated, false otherwise.
      */
     public static boolean isUserGenerated(final FieldGenOrMethodGen m) {

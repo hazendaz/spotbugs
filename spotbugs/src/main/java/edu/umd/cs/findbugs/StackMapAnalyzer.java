@@ -49,9 +49,8 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
  */
 public class StackMapAnalyzer {
 
-
-
-    public static class StackMapAnalysisFactory extends edu.umd.cs.findbugs.classfile.engine.bcel.AnalysisFactory<JumpInfoFromStackMap> {
+    public static class StackMapAnalysisFactory
+            extends edu.umd.cs.findbugs.classfile.engine.bcel.AnalysisFactory<JumpInfoFromStackMap> {
         public StackMapAnalysisFactory() {
             super("Jump info for opcode stack from stack map analysis", JumpInfoFromStackMap.class);
         }
@@ -61,14 +60,13 @@ public class StackMapAnalyzer {
 
             return getFromStackMap(analysisCache, descriptor);
 
-
         }
     }
 
     static class JumpInfoFromStackMap extends JumpInfo {
 
-
-        JumpInfoFromStackMap(Map<Integer, List<Item>> jumpEntries, Map<Integer, List<Item>> jumpStackEntries, BitSet jumpEntryLocations) {
+        JumpInfoFromStackMap(Map<Integer, List<Item>> jumpEntries, Map<Integer, List<Item>> jumpStackEntries,
+                BitSet jumpEntryLocations) {
             super(jumpEntries, jumpStackEntries, jumpEntryLocations);
         }
 
@@ -131,7 +129,8 @@ public class StackMapAnalyzer {
         return locals;
     }
 
-    static private @CheckForNull JumpInfoFromStackMap getFromStackMap(IAnalysisCache analysisCache, MethodDescriptor descriptor) {
+    static private @CheckForNull JumpInfoFromStackMap getFromStackMap(IAnalysisCache analysisCache,
+            MethodDescriptor descriptor) {
         Method method;
         try {
             method = analysisCache.getMethodAnalysis(Method.class, descriptor);

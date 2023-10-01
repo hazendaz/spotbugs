@@ -35,9 +35,9 @@ import edu.umd.cs.findbugs.test.AnalysisRunner;
 import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
 
 /**
- * Abstract class for integration testing. Extend, call {@code performAnalysis("com/company/classname.class")},
- * and finally assert the issues found over {@code getBugCollection()} by creating appropriate matchers with {@link BugInstanceMatcherBuilder}
- * For example:
+ * Abstract class for integration testing. Extend, call {@code performAnalysis("com/company/classname.class")}, and
+ * finally assert the issues found over {@code getBugCollection()} by creating appropriate matchers with
+ * {@link BugInstanceMatcherBuilder} For example:
  *
  * <pre>
  * <code>
@@ -72,8 +72,7 @@ public abstract class AbstractIntegrationTest {
      */
     private static final List<Path> BUILD_CLASS_SEARCH_PREFIXES = List.of(
             // Build path if running command line build
-            Paths.get("build/classes/java/main"),
-            Paths.get("build/classes/groovy/main"),
+            Paths.get("build/classes/java/main"), Paths.get("build/classes/groovy/main"),
             // Build path if running in Eclipse
             Paths.get("classesEclipse"));
 
@@ -90,11 +89,8 @@ public abstract class AbstractIntegrationTest {
 
     private static Path getFindbugsTestCasesFile(final String path) {
         final Path root = getFindbugsTestCases();
-        final Path p = BUILD_CLASS_SEARCH_PREFIXES.stream()
-                .map(prefix -> root.resolve(prefix).resolve(path))
-                .filter(Files::exists)
-                .findFirst()
-                .orElseThrow(() -> new AssertionError(path + " not found"));
+        final Path p = BUILD_CLASS_SEARCH_PREFIXES.stream().map(prefix -> root.resolve(prefix).resolve(path))
+                .filter(Files::exists).findFirst().orElseThrow(() -> new AssertionError(path + " not found"));
 
         assertTrue(p + " is not readable", Files.isReadable(p));
         return p;
@@ -105,9 +101,8 @@ public abstract class AbstractIntegrationTest {
     }
 
     /**
-     * Sets up a FB engine to run on the 'spotbugsTestCases' project. It enables
-     * all the available detectors and reports all the bug categories. Uses a
-     * low priority threshold.
+     * Sets up a FB engine to run on the 'spotbugsTestCases' project. It enables all the available detectors and reports
+     * all the bug categories. Uses a low priority threshold.
      */
     protected void performAnalysis(@SlashedClassName final String... analyzeMe) {
         AnalysisRunner runner = new AnalysisRunner();
@@ -124,8 +119,7 @@ public abstract class AbstractIntegrationTest {
         }
 
         // TODO : Unwire this once we move bug samples to a proper sourceset
-        Path[] paths = Arrays.stream(analyzeMe)
-                .map(AbstractIntegrationTest::getFindbugsTestCasesFile)
+        Path[] paths = Arrays.stream(analyzeMe).map(AbstractIntegrationTest::getFindbugsTestCasesFile)
                 .toArray(Path[]::new);
         bugReporter = runner.run(paths);
     }

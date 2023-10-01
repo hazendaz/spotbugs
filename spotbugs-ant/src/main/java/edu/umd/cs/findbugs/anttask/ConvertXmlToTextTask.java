@@ -25,8 +25,7 @@ import org.apache.tools.ant.Project;
 import edu.umd.cs.findbugs.ExitCodes;
 
 /**
- * Ant task to generate HTML or plain text from a saved XML analysis results
- * file.
+ * Ant task to generate HTML or plain text from a saved XML analysis results file.
  *
  * @author David Hovemeyer
  */
@@ -107,7 +106,8 @@ public class ConvertXmlToTextTask extends AbstractFindBugsTask {
     }
 
     /**
-     * @param failIfBugFound true to 'fail' at the end if at least one bug is reported
+     * @param failIfBugFound
+     *            true to 'fail' at the end if at least one bug is reported
      */
     public void setFailIfBugFound(boolean failIfBugFound) {
         this.failIfBugFound = failIfBugFound;

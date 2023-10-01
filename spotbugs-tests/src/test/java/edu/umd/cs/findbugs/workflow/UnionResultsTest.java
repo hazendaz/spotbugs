@@ -15,19 +15,19 @@ import java.util.List;
 public class UnionResultsTest {
     @Test
     public void testMain() throws IOException {
-        //Prepare
+        // Prepare
         String fileName = createBugFile();
         File outputFile = new File("src/test/resources/output.xml");
 
-        //Act
+        // Act
         UnionResults.main(new String[] { "-withMessages", "-output", outputFile.getAbsolutePath(), fileName });
 
-        //Verify
+        // Verify
         List<String> output = readOutPut(outputFile.getAbsolutePath());
         Assert.assertTrue(output.stream().anyMatch(line -> line.contains("(Lorg/test/TestClass;Ljava/util/List;)V")));
         Assert.assertTrue(output.stream().anyMatch(line -> line.contains("(Lorg/test/TestClass2;Ljava/util/List;)V")));
 
-        //Cleanup
+        // Cleanup
         Files.deleteIfExists(new File(fileName).toPath());
         Files.deleteIfExists(outputFile.toPath());
     }

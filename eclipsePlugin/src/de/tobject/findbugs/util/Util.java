@@ -53,8 +53,8 @@ public class Util {
      *
      * @param resource
      *            The resource to check.
-     * @return <code>true</code> if the given resource is a Java source file,
-     *         <code>false</code> otherwise.
+     *
+     * @return <code>true</code> if the given resource is a Java source file, <code>false</code> otherwise.
      */
     public static boolean isJavaFile(IResource resource) {
         if (resource == null || (resource.getType() != IResource.FILE)) {
@@ -69,8 +69,8 @@ public class Util {
      *
      * @param resource
      *            The resource to check.
-     * @return <code>true</code> if the given resource is a Java source file,
-     *         <code>false</code> otherwise.
+     *
+     * @return <code>true</code> if the given resource is a Java source file, <code>false</code> otherwise.
      */
     public static boolean isJavaArchive(IResource resource) {
         if (resource == null || (resource.getType() != IResource.FILE)) {
@@ -85,8 +85,8 @@ public class Util {
      *
      * @param resource
      *            The resource to check.
-     * @return <code>true</code> if the given resource is a class file,
-     *         <code>false</code> otherwise.
+     *
+     * @return <code>true</code> if the given resource is a class file, <code>false</code> otherwise.
      */
     public static boolean isClassFile(IResource resource) {
         if (resource == null || (resource.getType() != IResource.FILE)) {
@@ -102,8 +102,8 @@ public class Util {
      *
      * @param elt
      *            The resource to check.
-     * @return <code>true</code> if the given resource is a class file,
-     *         <code>false</code> otherwise.
+     *
+     * @return <code>true</code> if the given resource is a class file, <code>false</code> otherwise.
      */
     public static boolean isClassFile(IJavaElement elt) {
         if (elt == null) {
@@ -114,13 +114,12 @@ public class Util {
     }
 
     /**
-     * Checks whether the given resource is a Java artifact (i.e. either a Java
-     * source file or a Java class file).
+     * Checks whether the given resource is a Java artifact (i.e. either a Java source file or a Java class file).
      *
      * @param resource
      *            The resource to check.
-     * @return <code>true</code> if the given resource is a Java artifact.
-     *         <code>false</code> otherwise.
+     *
+     * @return <code>true</code> if the given resource is a Java artifact. <code>false</code> otherwise.
      */
     public static boolean isJavaArtifact(IResource resource) {
         if (resource == null || (resource.getType() != IResource.FILE)) {
@@ -135,8 +134,8 @@ public class Util {
     }
 
     /**
-     * A countdown timer which starts to work with the first entry and prints
-     * the results ascending with the overall time.
+     * A countdown timer which starts to work with the first entry and prints the results ascending with the overall
+     * time.
      */
     public static class StopTimer {
         TreeMap<Long, String> stopTimes = new TreeMap<>();
@@ -210,6 +209,7 @@ public class Util {
 
     /**
      * Sorts an array of IMarkers based on their underlying resource name
+     *
      * @param markers
      */
     public static void sortIMarkers(IMarker[] markers) {

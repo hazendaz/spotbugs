@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonReader;
  * The weakness catalog contains a number of weaknesses
  *
  * @author Jeremias Eppler
+ *
  * @see Weakness
  */
 public class WeaknessCatalog {
@@ -112,6 +113,7 @@ public class WeaknessCatalog {
      *
      * @param cweid
      *            the CWE ID of the weakness
+     *
      * @return a copy of the weakness or null
      */
     public Weakness getWeaknessByCweIdOrNull(int cweid) {
@@ -121,7 +123,8 @@ public class WeaknessCatalog {
             Weakness weakness = weaknesses.get(cweId);
 
             // deep copy of the weakness
-            return Weakness.of(weakness.getCweId(), weakness.getName(), weakness.getDescription(), weakness.getSeverity());
+            return Weakness.of(weakness.getCweId(), weakness.getName(), weakness.getDescription(),
+                    weakness.getSeverity());
         }
 
         return null;

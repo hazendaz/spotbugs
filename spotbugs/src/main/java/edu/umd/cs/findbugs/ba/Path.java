@@ -62,11 +62,11 @@ public class Path {
     }
 
     /**
-     * Determine whether or not the id of the given BasicBlock appears anywhere
-     * in the path.
+     * Determine whether or not the id of the given BasicBlock appears anywhere in the path.
      *
      * @param blockId
      *            the id (label) of a BasicBlock
+     *
      * @return true if the BasicBlock's id appears in the path, false if not
      */
     public boolean hasComponent(int blockId) {
@@ -83,6 +83,7 @@ public class Path {
      *
      * @param index
      *            an index in the Path (0 is the first component)
+     *
      * @return the id of the BasicBlock at the given index
      */
     public int getBlockIdAt(int index) {
@@ -139,8 +140,7 @@ public class Path {
     }
 
     /**
-     * Accept a PathVisitor, starting from a given BasicBlock and
-     * InstructionHandle.
+     * Accept a PathVisitor, starting from a given BasicBlock and InstructionHandle.
      *
      * @param cfg
      *            the control flow graph
@@ -149,8 +149,7 @@ public class Path {
      * @param startBlock
      *            BasicBlock where traversal should start
      * @param startHandle
-     *            InstructionHandle within the start block where traversal
-     *            should start
+     *            InstructionHandle within the start block where traversal should start
      */
     public void acceptVisitorStartingFromLocation(CFG cfg, PathVisitor visitor, BasicBlock startBlock,
             InstructionHandle startHandle) {
@@ -209,6 +208,7 @@ public class Path {
      *
      * @param path
      *            another Path
+     *
      * @return true if this Path is a prefix of the other Path, false otherwise
      */
     public boolean isPrefixOf(Path path) {

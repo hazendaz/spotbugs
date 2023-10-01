@@ -82,7 +82,8 @@ public class BadAppletConstructor extends BytecodeScanningDetector {
         if (seen == Const.INVOKEVIRTUAL) {
             String method = getNameConstantOperand();
             String signature = getSigConstantOperand();
-            if ((("getDocumentBase".equals(method) || "getCodeBase".equals(method)) && "()Ljava/net/URL;".equals(signature))
+            if ((("getDocumentBase".equals(method) || "getCodeBase".equals(method))
+                    && "()Ljava/net/URL;".equals(signature))
                     || ("getAppletContext".equals(method) && "()Ljava/applet/AppletContext;".equals(signature))
                     || ("getParameter".equals(method) && "(Ljava/lang/String;)Ljava/lang/String;".equals(signature))) {
                 bugReporter.reportBug(new BugInstance(this, "BAC_BAD_APPLET_CONSTRUCTOR", NORMAL_PRIORITY)

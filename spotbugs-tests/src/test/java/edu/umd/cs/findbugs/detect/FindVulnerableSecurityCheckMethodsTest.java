@@ -16,9 +16,7 @@ public class FindVulnerableSecurityCheckMethodsTest extends AbstractIntegrationT
     public void testingBadCases() {
         performAnalysis("vulnerablesecuritycheckmethodstest/FindVulnerableSecurityCheckMethodsTest.class");
 
-        BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType)
-                .build();
+        BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder().bugType(bugType).build();
         assertThat(getBugCollection(), containsExactly(7, bugInstanceMatcher));
     }
 
@@ -51,7 +49,6 @@ public class FindVulnerableSecurityCheckMethodsTest extends AbstractIntegrationT
         performAnalysis("vulnerablesecuritycheckmethodstest/FindVulnerableSecurityCheckMethodsTest.class");
         assertVSCBug("badFindVulnerableSecurityCheckMethodsCheck6", 128);
     }
-
 
     @Test
     public void testingGoodCase1() {
@@ -162,19 +159,14 @@ public class FindVulnerableSecurityCheckMethodsTest extends AbstractIntegrationT
     }
 
     private void assertNoVSCBug(String methodName) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType)
-                .inMethod(methodName)
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType(bugType).inMethod(methodName)
                 .build();
         assertThat(getBugCollection(), containsExactly(0, bugTypeMatcher));
     }
 
     private void assertVSCBug(String methodName, int lineNumber) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType)
-                .inMethod(methodName)
-                .atLine(lineNumber)
-                .build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType(bugType).inMethod(methodName)
+                .atLine(lineNumber).build();
         assertThat(getBugCollection(), hasItem(bugTypeMatcher));
     }
 }

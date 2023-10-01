@@ -43,8 +43,7 @@ class ValidatorClassLoader extends ClassLoader {
     }
 
     @Override
-    protected Class<?> loadClass(String name, boolean resolve)
-            throws ClassNotFoundException {
+    protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
 
         if (TypeQualifierValue.DEBUG_CLASSLOADING) {
             if (resolve) {
@@ -83,7 +82,6 @@ class ValidatorClassLoader extends ClassLoader {
         }
     }
 
-
     private Class<?> findClass(@DottedClassName String name, byte[] b) {
         try {
             if (TypeQualifierValue.DEBUG_CLASSLOADING) {
@@ -100,9 +98,6 @@ class ValidatorClassLoader extends ClassLoader {
             throw e;
         }
 
-
     }
-
-
 
 }

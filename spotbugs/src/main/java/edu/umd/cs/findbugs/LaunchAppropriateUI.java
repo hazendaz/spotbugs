@@ -27,9 +27,8 @@ import java.util.Map;
 import edu.umd.cs.findbugs.internalAnnotations.StaticConstant;
 
 /**
- * Class to launch the appropriate textUI or GUI. This class is the Main-Class
- * in the findbugs.jar manifest, and is responsible for running an appropriate
- * main() method.
+ * Class to launch the appropriate textUI or GUI. This class is the Main-Class in the findbugs.jar manifest, and is
+ * responsible for running an appropriate main() method.
  *
  * @author Bill Pugh
  * @author David Hovemeyer
@@ -120,13 +119,12 @@ public class LaunchAppropriateUI {
      * Find out what UI should be launched.
      *
      * <p>
-     * First, we check the command line arguments to see if the first argument
-     * specifies the UI (e.g., "-textui", "-gui", etc.)
+     * First, we check the command line arguments to see if the first argument specifies the UI (e.g., "-textui",
+     * "-gui", etc.)
      *
      * <p>
-     * If the first command line argument does not specify the UI, then we check
-     * the <code>findbugs.launchUI</code> system property to one of the
-     * following values:
+     * If the first command line argument does not specify the UI, then we check the <code>findbugs.launchUI</code>
+     * system property to one of the following values:
      *
      * <ul>
      * <li>-Dfindbugs.launchUI=textui for textui,</li>
@@ -136,11 +134,10 @@ public class LaunchAppropriateUI {
      * <li>-Dfindbugs.launchUI=help for the ShowHelp main() method.</li>
      * </ul>
      *
-     * Any other value (or the absence of any value) will not change the default
-     * behavior, which is to launch the newer "gui2" on systems that support it.
+     * Any other value (or the absence of any value) will not change the default behavior, which is to launch the newer
+     * "gui2" on systems that support it.
      *
-     * @return an integer UI code: TEXTUI, GUI1, GUI2, SHOW_VERSION, SHOW_HELP,
-     *         or possibly another user-set int value
+     * @return an integer UI code: TEXTUI, GUI1, GUI2, SHOW_VERSION, SHOW_HELP, or possibly another user-set int value
      */
     private int getLaunchProperty() {
         // See if the first command line argument specifies the UI.
@@ -191,6 +188,7 @@ public class LaunchAppropriateUI {
      *
      * @param args
      *            command line arguments
+     *
      * @throws java.lang.Exception
      */
     public static void main(String args[]) throws Exception {

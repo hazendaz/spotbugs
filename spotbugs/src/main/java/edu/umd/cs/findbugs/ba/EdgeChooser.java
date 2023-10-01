@@ -30,6 +30,7 @@ public interface EdgeChooser {
      *
      * @param edge
      *            the Edge
+     *
      * @return true if the Edge should be chosen, false otherwise
      */
     public boolean choose(Edge edge);

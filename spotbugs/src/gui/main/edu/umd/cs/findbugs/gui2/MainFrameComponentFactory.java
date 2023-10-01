@@ -85,7 +85,7 @@ public class MainFrameComponentFactory implements Serializable {
         mainFrame.setSummaryTopPanel(new JPanel());
         mainFrame.getSummaryTopPanel().setLayout(new GridLayout(0, 1));
         mainFrame.getSummaryTopPanel().setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
-        //        mainFrame.getSummaryTopPanel().setMinimumSize(new Dimension(fontSize * 50, fontSize * 5));
+        // mainFrame.getSummaryTopPanel().setMinimumSize(new Dimension(fontSize * 50, fontSize * 5));
 
         JPanel summaryTopOuter = new JPanel(new BorderLayout());
         summaryTopOuter.add(mainFrame.getSummaryTopPanel(), BorderLayout.NORTH);
@@ -192,8 +192,7 @@ public class MainFrameComponentFactory implements Serializable {
     }
 
     /**
-     * Sets the title of the source tabs for either docking or non-docking
-     * versions.
+     * Sets the title of the source tabs for either docking or non-docking versions.
      */
     void setSourceTab(String title, @CheckForNull BugInstance bug) {
         JComponent label = mainFrame.getGuiLayout().getSourceViewComponent();
@@ -284,11 +283,10 @@ public class MainFrameComponentFactory implements Serializable {
     }
 
     /**
-     * Creates bug summary component. If obj is a string will create a JLabel
-     * with that string as it's text and return it. If obj is an annotation will
-     * return a JLabel with the annotation's toString(). If that annotation is a
-     * SourceLineAnnotation or has a SourceLineAnnotation connected to it and
-     * the source file is available will attach a listener to the label.
+     * Creates bug summary component. If obj is a string will create a JLabel with that string as it's text and return
+     * it. If obj is an annotation will return a JLabel with the annotation's toString(). If that annotation is a
+     * SourceLineAnnotation or has a SourceLineAnnotation connected to it and the source file is available will attach a
+     * listener to the label.
      */
     public Component bugSummaryComponent(String str, BugInstance bug) {
         JLabel label = new JLabel();
@@ -412,15 +410,15 @@ public class MainFrameComponentFactory implements Serializable {
                     // This will be thrown first if the OSXAdapter is loaded on
                     // a system without the EAWT
                     // because OSXAdapter extends ApplicationAdapter in its def
-                    System.err
-                            .println("This version of Mac OS X does not support the Apple EAWT. Application Menu handling has been disabled ("
+                    System.err.println(
+                            "This version of Mac OS X does not support the Apple EAWT. Application Menu handling has been disabled ("
                                     + e + ")");
                 } catch (ClassNotFoundException e) {
                     // This shouldn't be reached; if there's a problem with the
                     // OSXAdapter we should get the
                     // above NoClassDefFoundError first.
-                    System.err
-                            .println("This version of Mac OS X does not support the Apple EAWT. Application Menu handling has been disabled ("
+                    System.err.println(
+                            "This version of Mac OS X does not support the Apple EAWT. Application Menu handling has been disabled ("
                                     + e + ")");
                 } catch (Exception e) {
                     System.err.println("Exception while loading the OSXAdapter: " + e);
@@ -434,10 +432,9 @@ public class MainFrameComponentFactory implements Serializable {
     }
 
     /**
-     * Listens for when cursor is over the label and when it is clicked. When
-     * the cursor is over the label will make the label text blue and the cursor
-     * the hand cursor. When clicked will take the user to the source code tab
-     * and to the lines of code connected to the SourceLineAnnotation.
+     * Listens for when cursor is over the label and when it is clicked. When the cursor is over the label will make the
+     * label text blue and the cursor the hand cursor. When clicked will take the user to the source code tab and to the
+     * lines of code connected to the SourceLineAnnotation.
      *
      * @author Kristin Stephens
      *
@@ -449,7 +446,8 @@ public class MainFrameComponentFactory implements Serializable {
 
         private final SourceLineAnnotation note;
 
-        BugSummaryMouseListener(@Nonnull BugInstance bugInstance, @Nonnull JLabel label, @Nonnull SourceLineAnnotation link) {
+        BugSummaryMouseListener(@Nonnull BugInstance bugInstance, @Nonnull JLabel label,
+                @Nonnull SourceLineAnnotation link) {
             this.bugInstance = bugInstance;
             this.label = label;
             this.note = link;

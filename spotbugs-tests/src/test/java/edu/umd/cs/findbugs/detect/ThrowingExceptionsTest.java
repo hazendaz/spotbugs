@@ -37,18 +37,13 @@ public class ThrowingExceptionsTest extends AbstractIntegrationTest {
 
     @SuppressWarnings("SameParameterValue")
     private void assertNumOfTHROWSBugs(String bugType, int num) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType)
-                .build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType(bugType).build();
         assertThat(getBugCollection(), containsExactly(num, bugTypeMatcher));
     }
 
     private void assertNumOfTHROWSBugs(String bugType, int num, String method) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType)
-                .inClass("MethodsThrowingExceptions")
-                .inMethod(method)
-                .build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType(bugType)
+                .inClass("MethodsThrowingExceptions").inMethod(method).build();
         if (num > 0) {
             assertThat(getBugCollection(), hasItem(bugTypeMatcher));
         }

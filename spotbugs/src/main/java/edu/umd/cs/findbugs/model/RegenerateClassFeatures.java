@@ -33,8 +33,7 @@ import edu.umd.cs.findbugs.BugCollection;
 import edu.umd.cs.findbugs.SortedBugCollection;
 
 /**
- * Repopulate a BugCollection with class features from the classes in a
- * specified jar file.
+ * Repopulate a BugCollection with class features from the classes in a specified jar file.
  *
  * @author David Hovemeyer
  */
@@ -50,7 +49,6 @@ public class RegenerateClassFeatures {
 
     public RegenerateClassFeatures execute() throws IOException {
         bugCollection.clearClassFeatures();
-
 
         ArrayList<JavaClass> classList = new ArrayList<>();
 

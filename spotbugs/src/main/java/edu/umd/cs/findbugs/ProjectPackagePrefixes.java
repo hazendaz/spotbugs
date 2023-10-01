@@ -133,8 +133,8 @@ public class ProjectPackagePrefixes {
         }
     }
 
-    static final Pattern FORBIDDEN_PACKAGE_PREFIXES = Pattern.compile(SystemProperties.getProperty(
-            "findbugs.forbiddenPackagePrefixes", " none ").replace(',', '|'));
+    static final Pattern FORBIDDEN_PACKAGE_PREFIXES = Pattern
+            .compile(SystemProperties.getProperty("findbugs.forbiddenPackagePrefixes", " none ").replace(',', '|'));
 
     public void report() {
         System.out.println("# of items counted: " + totalCount);

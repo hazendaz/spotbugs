@@ -30,8 +30,8 @@ import de.tobject.findbugs.test.TestScenario;
 import de.tobject.findbugs.view.explorer.GroupType;
 
 /**
- * This class tests the BugExplorerView and its related classes. This tests a
- * different scenario with two source folders.
+ * This class tests the BugExplorerView and its related classes. This tests a different scenario with two source
+ * folders.
  *
  * @author Tomás Pollak
  */
@@ -93,8 +93,9 @@ public class BugExplorerViewTwoSrcFoldersTest extends AbstractBugExplorerViewTes
                 setOf(expectedMarker2));
         ExpectedViewElement expectedPattern3 = new ExpectedViewBugGroup(GroupType.Pattern, null, setOf(expectedMarker3),
                 setOf(expectedMarker3));
-        ExpectedViewElement expectedProject = new ExpectedViewBugGroup(GroupType.Project, getProject(), setOf(expectedPattern1,
-                expectedPattern2, expectedPattern3), setOf(expectedMarker1, expectedMarker2, expectedMarker3));
+        ExpectedViewElement expectedProject = new ExpectedViewBugGroup(GroupType.Project, getProject(),
+                setOf(expectedPattern1, expectedPattern2, expectedPattern3),
+                setOf(expectedMarker1, expectedMarker2, expectedMarker3));
         return expectedProject;
     }
 }

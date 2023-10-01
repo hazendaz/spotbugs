@@ -40,8 +40,7 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
 import edu.umd.cs.findbugs.xml.XMLWriteable;
 
 /**
- * Features of a class which may be used to identify it if it is renamed or
- * modified.
+ * Features of a class which may be used to identify it if it is renamed or modified.
  *
  * @author David Hovemeyer
  */
@@ -77,6 +76,7 @@ public class ClassFeatureSet implements XMLWriteable {
      *
      * @param javaClass
      *            the JavaClass
+     *
      * @return this object
      */
     public ClassFeatureSet initialize(JavaClass javaClass) {
@@ -111,15 +111,14 @@ public class ClassFeatureSet implements XMLWriteable {
     }
 
     /**
-     * Determine if given method overrides a superclass or superinterface
-     * method.
+     * Determine if given method overrides a superclass or superinterface method.
      *
      * @param javaClass
      *            class defining the method
      * @param method
      *            the method
-     * @return true if the method overrides a superclass/superinterface method,
-     *         false if not
+     *
+     * @return true if the method overrides a superclass/superinterface method, false if not
      */
     private boolean overridesSuperclassMethod(JavaClass javaClass, Method method) {
         if (method.isStatic()) {
@@ -156,6 +155,7 @@ public class ClassFeatureSet implements XMLWriteable {
      *
      * @param member
      *            a field or method
+     *
      * @return true if the member is synthetic
      */
     private boolean isSynthetic(FieldOrMethod member) {
@@ -219,6 +219,7 @@ public class ClassFeatureSet implements XMLWriteable {
      *
      * @param className
      *            a class name
+     *
      * @return the transformed class name
      */
     public static String transformClassName(String className) {
@@ -233,11 +234,12 @@ public class ClassFeatureSet implements XMLWriteable {
     }
 
     /**
-     * Return true if classes in the given package is unlikely to be renamed:
-     * e.g., because they are part of a public API.
+     * Return true if classes in the given package is unlikely to be renamed: e.g., because they are part of a public
+     * API.
      *
      * @param pkg
      *            the package name
+     *
      * @return true if classes in the package is unlikely to be renamed
      */
     public static boolean isUnlikelyToBeRenamed(String pkg) {
@@ -245,11 +247,12 @@ public class ClassFeatureSet implements XMLWriteable {
     }
 
     /**
-     * Transform a method signature to allow it to be compared even if any of
-     * its parameter types are moved to another package.
+     * Transform a method signature to allow it to be compared even if any of its parameter types are moved to another
+     * package.
      *
      * @param signature
      *            a method signature
+     *
      * @return the transformed signature
      */
     public static String transformMethodSignature(String signature) {
@@ -270,11 +273,12 @@ public class ClassFeatureSet implements XMLWriteable {
     }
 
     /**
-     * Transform a field or method parameter signature to allow it to be
-     * compared even if it is moved to another package.
+     * Transform a field or method parameter signature to allow it to be compared even if it is moved to another
+     * package.
      *
      * @param signature
      *            the signature
+     *
      * @return the transformed signature
      */
     public static String transformSignature(String signature) {
@@ -297,8 +301,7 @@ public class ClassFeatureSet implements XMLWriteable {
     }
 
     /**
-     * Minimum number of features which must be present in order to declare two
-     * classes similar.
+     * Minimum number of features which must be present in order to declare two classes similar.
      */
     public static final int MIN_FEATURES = 5;
 
@@ -308,8 +311,7 @@ public class ClassFeatureSet implements XMLWriteable {
     public static final double MIN_MATCH = 0.60;
 
     /**
-     * Similarity of classes which don't have enough features to match exactly,
-     * but whose class names match exactly.
+     * Similarity of classes which don't have enough features to match exactly, but whose class names match exactly.
      */
     public static final double EXACT_CLASS_NAME_MATCH = MIN_MATCH + 0.1;
 
@@ -364,9 +366,7 @@ public class ClassFeatureSet implements XMLWriteable {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.xml.XMLWriteable#writeXML(edu.umd.cs.findbugs.xml
-     * .XMLOutput)
+     * @see edu.umd.cs.findbugs.xml.XMLWriteable#writeXML(edu.umd.cs.findbugs.xml .XMLOutput)
      */
     @Override
     public void writeXML(XMLOutput xmlOutput) throws IOException {

@@ -33,14 +33,11 @@ import org.apache.bcel.util.Repository;
 import edu.umd.cs.findbugs.SystemProperties;
 
 /**
- * BCEL Repository implementation that uses an URLClassPath to find classes.
- * This class has two specific improvements over BCEL's SyntheticRepository
- * class:
+ * BCEL Repository implementation that uses an URLClassPath to find classes. This class has two specific improvements
+ * over BCEL's SyntheticRepository class:
  * <ol>
- * <li>Classpath elements may be added at any time, not just when the object is
- * created.
- * <li>Classpath elements can be URLs. This allows repository lookups to find
- * classes via http URLs, jar URLs, etc.
+ * <li>Classpath elements may be added at any time, not just when the object is created.
+ * <li>Classpath elements can be URLs. This allows repository lookups to find classes via http URLs, jar URLs, etc.
  * </ol>
  * FindBugs requires and uses both of these capabilities.
  *
@@ -76,6 +73,7 @@ public class URLClassPathRepository implements Repository {
      *
      * @param fileName
      *            filename or URL of classpath entry to add
+     *
      * @throws IOException
      */
     public void addURL(String fileName) throws IOException {
@@ -85,9 +83,7 @@ public class URLClassPathRepository implements Repository {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.util.Repository#storeClass(org.apache.bcel.classfile.
-     * JavaClass)
+     * @see org.apache.bcel.util.Repository#storeClass(org.apache.bcel.classfile. JavaClass)
      */
     @Override
     public void storeClass(JavaClass javaClass) {
@@ -111,9 +107,7 @@ public class URLClassPathRepository implements Repository {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.util.Repository#removeClass(org.apache.bcel.classfile
-     * .JavaClass)
+     * @see org.apache.bcel.util.Repository#removeClass(org.apache.bcel.classfile .JavaClass)
      */
     @Override
     public void removeClass(JavaClass javaClass) {
@@ -134,7 +128,7 @@ public class URLClassPathRepository implements Repository {
      * @see org.apache.bcel.util.Repository#findClass(java.lang.String)
      */
     @Override
-    public JavaClass findClass(/*@Nonnull*/ String className) {
+    public JavaClass findClass(/* @Nonnull */ String className) {
         // Make sure we handle class names with slashes.
         // If we don't, we can get into serious trouble: a previously
         // loaded class will appear to be missing (because we're using the
@@ -151,7 +145,7 @@ public class URLClassPathRepository implements Repository {
      * @see org.apache.bcel.util.Repository#loadClass(java.lang.String)
      */
     @Override
-    public JavaClass loadClass(/*@Nonnull*/ String className) throws ClassNotFoundException {
+    public JavaClass loadClass(/* @Nonnull */ String className) throws ClassNotFoundException {
         if (className == null) {
             throw new IllegalArgumentException("className is null");
         }

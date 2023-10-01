@@ -96,12 +96,12 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
     }
 
     public boolean isSuppressWarnings(String annotationClass) {
-        return annotationClass.endsWith("SuppressWarnings")
-                || annotationClass.endsWith("SuppressFBWarnings");
+        return annotationClass.endsWith("SuppressWarnings") || annotationClass.endsWith("SuppressFBWarnings");
     }
 
     @Override
-    public void visitParameterAnnotation(int p, String annotationClass, Map<String, ElementValue> map, boolean runtimeVisible) {
+    public void visitParameterAnnotation(int p, String annotationClass, Map<String, ElementValue> map,
+            boolean runtimeVisible) {
         if (!isSuppressWarnings(annotationClass)) {
             return;
         }
@@ -122,8 +122,8 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
     private void suppressWarning(int parameter, String pattern) {
         String className = getDottedClassName();
         ClassAnnotation clazz = new ClassAnnotation(className);
-        suppressionMatcher.addSuppressor(new ParameterWarningSuppressor(pattern, clazz, MethodAnnotation.fromVisitedMethod(this),
-                parameter));
+        suppressionMatcher.addSuppressor(
+                new ParameterWarningSuppressor(pattern, clazz, MethodAnnotation.fromVisitedMethod(this), parameter));
 
     }
 
@@ -131,12 +131,14 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
         String className = getDottedClassName();
         ClassAnnotation clazz = new ClassAnnotation(className);
         if (className.endsWith(".package-info")) {
-            suppressionMatcher.addPackageSuppressor(new PackageWarningSuppressor(pattern, getPackageName().replace('/', '.')));
-        } else if (visitingMethod()) {
             suppressionMatcher
-                    .addSuppressor(new MethodWarningSuppressor(pattern, clazz, MethodAnnotation.fromVisitedMethod(this)));
+                    .addPackageSuppressor(new PackageWarningSuppressor(pattern, getPackageName().replace('/', '.')));
+        } else if (visitingMethod()) {
+            suppressionMatcher.addSuppressor(
+                    new MethodWarningSuppressor(pattern, clazz, MethodAnnotation.fromVisitedMethod(this)));
         } else if (visitingField()) {
-            suppressionMatcher.addSuppressor(new FieldWarningSuppressor(pattern, clazz, FieldAnnotation.fromVisitedField(this)));
+            suppressionMatcher
+                    .addSuppressor(new FieldWarningSuppressor(pattern, clazz, FieldAnnotation.fromVisitedField(this)));
         } else {
             suppressionMatcher.addSuppressor(new ClassWarningSuppressor(pattern, clazz));
         }

@@ -58,14 +58,14 @@ public class SwitchHandler {
 
         assert dbc.getOpcode() == Const.TABLESWITCH || dbc.getOpcode() == Const.LOOKUPSWITCH;
         int[] switchOffsets = dbc.getSwitchOffsets();
-        SwitchDetails details = new SwitchDetails(dbc.getPC(), switchOffsets, dbc.getDefaultSwitchOffset(), switchOffsets.length == numEnumValues(
-                enumType));
-
+        SwitchDetails details = new SwitchDetails(dbc.getPC(), switchOffsets, dbc.getDefaultSwitchOffset(),
+                switchOffsets.length == numEnumValues(enumType));
 
         int size = switchOffsetStack.size();
         while (--size >= 0) {
             SwitchDetails existingDetail = switchOffsetStack.get(size);
-            if (details.switchPC > (existingDetail.switchPC + existingDetail.swOffsets[existingDetail.swOffsets.length - 1])) {
+            if (details.switchPC > (existingDetail.switchPC
+                    + existingDetail.swOffsets[existingDetail.swOffsets.length - 1])) {
                 switchOffsetStack.remove(size);
             }
         }
@@ -116,8 +116,8 @@ public class SwitchHandler {
             throw new IllegalStateException("No current switch statement");
         }
         SwitchDetails details = switchOffsetStack.get(switchOffsetStack.size() - 1);
-        return SourceLineAnnotation.fromVisitedInstructionRange(
-                detector.getClassContext(), detector, details.switchPC, details.switchPC + details.maxOffset - 1);
+        return SourceLineAnnotation.fromVisitedInstructionRange(detector.getClassContext(), detector, details.switchPC,
+                details.switchPC + details.maxOffset - 1);
     }
 
     public static class SwitchDetails {

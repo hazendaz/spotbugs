@@ -24,8 +24,7 @@ public class Issue2120Test extends AbstractIntegrationTest {
 
     @Test
     public void test() {
-        performAnalysis("../java17/Issue2120.class",
-                "../java17/Issue2120$1MyEnum.class",
+        performAnalysis("../java17/Issue2120.class", "../java17/Issue2120$1MyEnum.class",
                 "../java17/Issue2120$1MyRecord.class");
         BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
                 .bugType("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS").build();

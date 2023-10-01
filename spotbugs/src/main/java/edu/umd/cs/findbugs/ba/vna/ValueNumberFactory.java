@@ -28,10 +28,10 @@ import javax.annotation.CheckForNull;
 import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 
 /**
- * Factory for ValueNumbers. A single Factory must be used to create all of the
- * ValueNumbers for a method.
+ * Factory for ValueNumbers. A single Factory must be used to create all of the ValueNumbers for a method.
  *
  * @author David Hovemeyer
+ *
  * @see ValueNumber
  */
 public class ValueNumberFactory {

@@ -32,31 +32,28 @@ import edu.umd.cs.findbugs.ExitCodes;
 /**
  * FindBugsViewerTask.java -- Ant Task to launch the FindBugsFrame
  *
- * To use, create a new task that references the ant task (such as
- * "findbugs-viewer"). Then call this task while passing in parameters to modify
- * it's behaviour. It supports several options that are the same as the findbugs
- * task:
+ * To use, create a new task that references the ant task (such as "findbugs-viewer"). Then call this task while passing
+ * in parameters to modify it's behaviour. It supports several options that are the same as the findbugs task:
  *
  * -projectFile -debug -jvmargs -home -classpath -pluginList -timeout
  *
  * It also adds some new options:
  *
- * -look: string name representing look and feel. Can be "native", "plastic" or
- * "gtk" -loadbugs: file name of bug report to load
+ * -look: string name representing look and feel. Can be "native", "plastic" or "gtk" -loadbugs: file name of bug report
+ * to load
  *
  * The below is an example of how this could be done in an ant script:
  *
- * {@literal <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpath="C:\dev\cvs.sourceforge.net\findbugs\lib\findbugs-ant.jar" />}
- * {@literal <taskdef name="findbugs-viewer"
+ * {@literal <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpath=
+ * "C:\dev\cvs.sourceforge.net\findbugs\lib\findbugs-ant.jar" />} {@literal <taskdef name="findbugs-viewer"
  * classname="edu.umd.cs.findbugs.anttask.FindBugsViewerTask"
  * classpath="C:\dev\cvs.sourceforge.net\findbugs\lib\findbugs-ant.jar" />}
  *
  * {@literal <property name="findbugs.home" location="C:\dev\cvs.sourceforge.net\findbugs"
  * /> <property name="findbugs.bugReport" location="bcel-fb.xml" />}
  *
- * {@literal <target name="findbugs-viewer" depends="jar"> <findbugs-viewer
- * home="${findbugs.home}" look="native" loadbugs="${findbugs.bugReport}"/>
- * </target>}
+ * {@literal <target name="findbugs-viewer" depends="jar">
+ * <findbugs-viewer home="${findbugs.home}" look="native" loadbugs="${findbugs.bugReport}"/> </target>}
  *
  * Created on March 21, 2006, 12:57 PM
  *

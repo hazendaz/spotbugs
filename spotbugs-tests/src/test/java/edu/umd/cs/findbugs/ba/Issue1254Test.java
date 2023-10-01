@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
 public class Issue1254Test extends AbstractIntegrationTest {
 
     private static final String[] CLASS_LIST = { "../java11/module-info.class", "../java11/Issue1254.class",
-        "../java11/Issue1254$Inner.class", "../java11/Issue1254$1.class", };
+            "../java11/Issue1254$Inner.class", "../java11/Issue1254$1.class", };
 
     @Before
     public void verifyJavaVersion() {

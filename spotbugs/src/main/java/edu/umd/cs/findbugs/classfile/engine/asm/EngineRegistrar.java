@@ -31,7 +31,7 @@ import edu.umd.cs.findbugs.classfile.IMethodAnalysisEngine;
  */
 public class EngineRegistrar implements IAnalysisEngineRegistrar {
     private static final IClassAnalysisEngine<?>[] classAnalysisEngineList = { new ClassNodeAnalysisEngine(),
-        new ClassReaderAnalysisEngine(), };
+            new ClassReaderAnalysisEngine(), };
 
     private static IMethodAnalysisEngine<?>[] methodAnalysisEngineList = {};
 

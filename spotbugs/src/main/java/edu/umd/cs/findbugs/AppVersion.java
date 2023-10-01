@@ -27,11 +27,9 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
 import edu.umd.cs.findbugs.xml.XMLWriteable;
 
 /**
- * A version of an analyzed application. Application versions are uniquely
- * identified by a sequence number, which represents a run of FindBugs on the
- * application. Timestamp is when FindBugs was run (according to
- * System.currentTimeMillis()), and the release name is available if the user
- * provided it.
+ * A version of an analyzed application. Application versions are uniquely identified by a sequence number, which
+ * represents a run of FindBugs on the application. Timestamp is when FindBugs was run (according to
+ * System.currentTimeMillis()), and the release name is available if the user provided it.
  *
  * @author David Hovemeyer
  */
@@ -129,14 +127,11 @@ public class AppVersion implements XMLWriteable, Cloneable {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.xml.XMLWriteable#writeXML(edu.umd.cs.findbugs.xml
-     * .XMLOutput)
+     * @see edu.umd.cs.findbugs.xml.XMLWriteable#writeXML(edu.umd.cs.findbugs.xml .XMLOutput)
      */
     @Override
     public void writeXML(XMLOutput xmlOutput) throws IOException {
-        xmlOutput.openCloseTag(
-                ELEMENT_NAME,
+        xmlOutput.openCloseTag(ELEMENT_NAME,
                 new XMLAttributeList().addAttribute("sequence", String.valueOf(sequence))
                         .addAttribute("timestamp", String.valueOf(timestamp)).addAttribute("release", releaseName)
                         .addAttribute("codeSize", String.valueOf(codeSize))

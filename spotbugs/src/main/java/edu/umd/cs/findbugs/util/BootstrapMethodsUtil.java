@@ -44,16 +44,18 @@ public class BootstrapMethodsUtil {
      * Returns the method representation of a bootstrap method from a Java class.
      *
      * @param bms
-     *      the BootstrapMethods attribute of a java class
+     *            the BootstrapMethods attribute of a java class
      * @param index
-     *      the index of the bootstrap method
+     *            the index of the bootstrap method
      * @param cp
-     *      the constant pool of the java class
+     *            the constant pool of the java class
      * @param cls
-     *      the java class itself
+     *            the java class itself
+     *
      * @return the bootstrap method represented as Method if found, Optional.empty() otherwise
      */
-    public static Optional<Method> getMethodFromBootstrap(BootstrapMethods bms, int index, ConstantPool cp, JavaClass cls) {
+    public static Optional<Method> getMethodFromBootstrap(BootstrapMethods bms, int index, ConstantPool cp,
+            JavaClass cls) {
         BootstrapMethod bm = bms.getBootstrapMethods()[index];
         for (int arg : bm.getBootstrapArguments()) {
             Constant c = bms.getConstantPool().getConstant(arg);
@@ -70,9 +72,8 @@ public class BootstrapMethodsUtil {
                 return Optional.empty();
             }
             ConstantNameAndType cnat = (ConstantNameAndType) cp.getConstant(ccp.getNameAndTypeIndex());
-            Optional<Method> metOpt = Arrays.stream(cls.getMethods())
-                    .filter(m -> m.getNameIndex() == cnat.getNameIndex()
-                            && m.getSignatureIndex() == cnat.getSignatureIndex())
+            Optional<Method> metOpt = Arrays.stream(cls.getMethods()).filter(
+                    m -> m.getNameIndex() == cnat.getNameIndex() && m.getSignatureIndex() == cnat.getSignatureIndex())
                     .findAny();
             if (!metOpt.isPresent()) {
                 continue;

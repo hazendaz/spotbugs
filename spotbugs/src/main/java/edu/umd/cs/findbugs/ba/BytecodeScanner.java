@@ -24,8 +24,8 @@ import org.apache.bcel.Const;
 import edu.umd.cs.findbugs.SystemProperties;
 
 /**
- * Scan the raw bytecodes of a method. This is useful in order to find out
- * quickly whether or not a method uses particular instructions.
+ * Scan the raw bytecodes of a method. This is useful in order to find out quickly whether or not a method uses
+ * particular instructions.
  *
  * @author David Hovemeyer
  */
@@ -52,6 +52,7 @@ public class BytecodeScanner {
      *
      * @param value
      *            the byte
+     *
      * @return the byte's unsigned value as a short
      */
     private static short unsignedValueOf(byte value) {

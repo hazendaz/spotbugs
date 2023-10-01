@@ -94,18 +94,15 @@ import edu.umd.cs.findbugs.visitclass.LVTHelper;
 import edu.umd.cs.findbugs.visitclass.PreorderVisitor;
 
 /**
- * tracks the types and numbers of objects that are currently on the operand
- * stack throughout the execution of method. To use, a detector should
- * instantiate one for each method, and call
+ * tracks the types and numbers of objects that are currently on the operand stack throughout the execution of method.
+ * To use, a detector should instantiate one for each method, and call
  * <p>
  * stack.sawOpcode(this,seen);
  * </p>
- * at the bottom of their sawOpcode method. at any point you can then inspect
- * the stack and see what the types of objects are on the stack, including
- * constant values if they were pushed. The types described are of course, only
- * the static types. There are some outstanding opcodes that have yet to be
- * implemented, I couldn't find any code that actually generated these, so i
- * didn't put them in because I couldn't test them:
+ * at the bottom of their sawOpcode method. at any point you can then inspect the stack and see what the types of
+ * objects are on the stack, including constant values if they were pushed. The types described are of course, only the
+ * static types. There are some outstanding opcodes that have yet to be implemented, I couldn't find any code that
+ * actually generated these, so i didn't put them in because I couldn't test them:
  * <ul>
  * <li>dup2_x2</li>
  * <li>jsr_w</li>
@@ -114,14 +111,13 @@ import edu.umd.cs.findbugs.visitclass.PreorderVisitor;
  */
 public class OpcodeStack {
 
-    /** You can put this annotation on a OpcodeStack detector
-     * to indicate that it uses {@link OpcodeStack.Item#userValue},
-     * and thus should not reuse generic OpcodeStack information
-     * from an iterative evaluation of the opcode stack. Such detectors
-     * will not use iterative opcode stack evaluation.
+    /**
+     * You can put this annotation on a OpcodeStack detector to indicate that it uses
+     * {@link OpcodeStack.Item#userValue}, and thus should not reuse generic OpcodeStack information from an iterative
+     * evaluation of the opcode stack. Such detectors will not use iterative opcode stack evaluation.
      *
-     * This is primarily for detectors that need to be backwards compatible with
-     * versions of FindBugs that do not support {@link edu.umd.cs.findbugs.bcel.OpcodeStackDetector.WithCustomJumpInfo }}
+     * This is primarily for detectors that need to be backwards compatible with versions of FindBugs that do not
+     * support {@link edu.umd.cs.findbugs.bcel.OpcodeStackDetector.WithCustomJumpInfo }}
      */
     @Documented
     @Target({ ElementType.TYPE, ElementType.PACKAGE })
@@ -139,32 +135,52 @@ public class OpcodeStack {
     static {
         IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptyList"), "Ljava/util/Collections$EmptyList;");
         IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptyMap"), "Ljava/util/Collections$EmptyMap;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptyNavigableMap"), "Ljava/util/Collections$EmptyNavigableMap;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptySortedMap"), "Ljava/util/Collections$EmptyNavigableMap;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptyNavigableMap"),
+                "Ljava/util/Collections$EmptyNavigableMap;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptySortedMap"),
+                "Ljava/util/Collections$EmptyNavigableMap;");
         IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptySet"), "Ljava/util/Collections$EmptySet;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptyNavigableSet"), "Ljava/util/Collections$EmptyNavigableSet;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptySortedSet"), "Ljava/util/Collections$EmptyNavigableSet;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptyNavigableSet"),
+                "Ljava/util/Collections$EmptyNavigableSet;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "emptySortedSet"),
+                "Ljava/util/Collections$EmptyNavigableSet;");
 
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "singletonList"), "Ljava/util/Collections$SingletonList;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "singletonMap"), "Ljava/util/Collections$SingletonMap;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "singleton"), "Ljava/util/Collections$SingletonSet;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "singletonList"),
+                "Ljava/util/Collections$SingletonList;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "singletonMap"),
+                "Ljava/util/Collections$SingletonMap;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "singleton"),
+                "Ljava/util/Collections$SingletonSet;");
 
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableList"), "Ljava/util/Collections$UnmodifiableList;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableMap"), "Ljava/util/Collections$UnmodifiableMap;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableNavigableMap"), "Ljava/util/Collections$UnmodifiableNavigableMap;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableSortedMap"), "Ljava/util/Collections$UnmodifiableSortedMap;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableSet"), "Ljava/util/Collections$UnmodifiableSet;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableNavigableSet"), "Ljava/util/Collections$UnmodifiableNavigableSet;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableSortedSet"), "Ljava/util/Collections$UnmodifiableSortedSet;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableList"),
+                "Ljava/util/Collections$UnmodifiableList;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableMap"),
+                "Ljava/util/Collections$UnmodifiableMap;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableNavigableMap"),
+                "Ljava/util/Collections$UnmodifiableNavigableMap;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableSortedMap"),
+                "Ljava/util/Collections$UnmodifiableSortedMap;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableSet"),
+                "Ljava/util/Collections$UnmodifiableSet;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableNavigableSet"),
+                "Ljava/util/Collections$UnmodifiableNavigableSet;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Collections", "unmodifiableSortedSet"),
+                "Ljava/util/Collections$UnmodifiableSortedSet;");
 
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/List", "of"), "Ljava/util/ImmutableCollections$AbstractImmutableList;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/List", "copyOf"), "Ljava/util/ImmutableCollections$AbstractImmutableList;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/List", "of"),
+                "Ljava/util/ImmutableCollections$AbstractImmutableList;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/List", "copyOf"),
+                "Ljava/util/ImmutableCollections$AbstractImmutableList;");
 
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Map", "of"), "Ljava/util/ImmutableCollections$AbstractImmutableMap;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Map", "copyOf"), "Ljava/util/ImmutableCollections$AbstractImmutableMap;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Map", "of"),
+                "Ljava/util/ImmutableCollections$AbstractImmutableMap;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Map", "copyOf"),
+                "Ljava/util/ImmutableCollections$AbstractImmutableMap;");
 
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Set", "of"), "Ljava/util/ImmutableCollections$AbstractImmutableSet;");
-        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Set", "copyOf"), "Ljava/util/ImmutableCollections$AbstractImmutableSet;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Set", "of"),
+                "Ljava/util/ImmutableCollections$AbstractImmutableSet;");
+        IMMUTABLE_RETURNER_MAP.put(Pair.of("java/util/Set", "copyOf"),
+                "Ljava/util/ImmutableCollections$AbstractImmutableSet;");
     }
 
     @StaticConstant
@@ -191,8 +207,8 @@ public class OpcodeStack {
 
     private boolean seenTransferOfControl;
 
-    private final boolean useIterativeAnalysis = AnalysisContext.currentAnalysisContext().getBoolProperty(
-            AnalysisFeatures.INTERATIVE_OPCODE_STACK_ANALYSIS);
+    private final boolean useIterativeAnalysis = AnalysisContext.currentAnalysisContext()
+            .getBoolProperty(AnalysisFeatures.INTERATIVE_OPCODE_STACK_ANALYSIS);
 
     boolean encountedTop;
 
@@ -388,7 +404,6 @@ public class OpcodeStack {
                     && this.fieldLoadedFromRegister == that.fieldLoadedFromRegister;
 
         }
-
 
         public boolean sameValue(OpcodeStack.Item that) {
 
@@ -592,7 +607,6 @@ public class OpcodeStack {
             this(signature, Integer.valueOf(constValue));
         }
 
-
         public static Item initialArgument(String signature, int reg) {
             Item it = new Item(signature);
             it.setInitialParameter(true);
@@ -623,8 +637,6 @@ public class OpcodeStack {
             this.specialKind = it.specialKind;
             this.pc = it.pc;
         }
-
-
 
         public Item(Item it, String signature) {
             this(it);
@@ -699,11 +711,9 @@ public class OpcodeStack {
         }
 
         /**
-         * If this value was loaded from an instance field,
-         * give the register number containing the object that the field was loaded from.
-         * If Integer.MAX value, the value was loaded from a static field
-         * If -1, we don't know or don't have the register containing the object that
-         * the field was loaded from.
+         * If this value was loaded from an instance field, give the register number containing the object that the
+         * field was loaded from. If Integer.MAX value, the value was loaded from a static field If -1, we don't know or
+         * don't have the register containing the object that the field was loaded from.
          */
         public int getFieldLoadedFromRegister() {
             return fieldLoadedFromRegister;
@@ -762,9 +772,7 @@ public class OpcodeStack {
 
         private void setSpecialKindFromSignature() {
             /*
-            if (false && specialKind != NOT_SPECIAL) {
-                return;
-            }
+             * if (false && specialKind != NOT_SPECIAL) { return; }
              */
             if ("B".equals(signature)) {
                 specialKind = SIGNED_BYTE;
@@ -855,10 +863,9 @@ public class OpcodeStack {
         }
 
         /**
-         * Returns a constant value for this Item, if known. NOTE: if the value
-         * is a constant Class object, the constant value returned is the name
-         * of the class.
-         * if the value is an array of known length, the constant value returned is its length (Integer)
+         * Returns a constant value for this Item, if known. NOTE: if the value is a constant Class object, the constant
+         * value returned is the name of the class. if the value is an array of known length, the constant value
+         * returned is its length (Integer)
          */
         public Object getConstant() {
             return constValue;
@@ -906,11 +913,16 @@ public class OpcodeStack {
         }
 
         /**
-         * <p>attaches a detector specified value to this item</p>
-         * <p>to use this method, detector should be annotated with {@code CustomUserValue}.</p>
+         * <p>
+         * attaches a detector specified value to this item
+         * </p>
+         * <p>
+         * to use this method, detector should be annotated with {@code CustomUserValue}.
+         * </p>
          *
          * @param value
          *            the custom value to set
+         *
          * @see OpcodeStack.CustomUserValue
          */
         public void setUserValue(@Nullable Object value) {
@@ -919,8 +931,7 @@ public class OpcodeStack {
 
         /**
          *
-         * @return if this value is the return value of a method, give the
-         *         method invoked
+         * @return if this value is the return value of a method, give the method invoked
          */
         public @CheckForNull XMethod getReturnValueOf() {
             if (source instanceof XMethod) {
@@ -960,7 +971,6 @@ public class OpcodeStack {
             setSpecialKind(Item.SERVLET_OUTPUT);
         }
 
-
         public boolean isServletWriter() {
             if (getSpecialKind() == Item.SERVLET_OUTPUT) {
                 return true;
@@ -970,18 +980,18 @@ public class OpcodeStack {
             }
             XMethod writingToSource = getReturnValueOf();
 
-
-            return writingToSource != null && ("javax.servlet.http.HttpServletResponse".equals(writingToSource.getClassName())
-                    || "jakarta.servlet.http.HttpServletResponse".equals(writingToSource.getClassName()))
-                    && ("getWriter".equals(writingToSource.getName()) || "getOutputStream".equals(writingToSource.getName()));
+            return writingToSource != null
+                    && ("javax.servlet.http.HttpServletResponse".equals(writingToSource.getClassName())
+                            || "jakarta.servlet.http.HttpServletResponse".equals(writingToSource.getClassName()))
+                    && ("getWriter".equals(writingToSource.getName())
+                            || "getOutputStream".equals(writingToSource.getName()));
         }
 
         public boolean valueCouldBeNegative() {
-            return !isNonNegative()
-                    && (getSpecialKind() == Item.RANDOM_INT || getSpecialKind() == Item.SIGNED_BYTE
-                            || getSpecialKind() == Item.HASHCODE_INT || getSpecialKind() == Item.RANDOM_INT_REMAINDER
-                            || getSpecialKind() == Item.HASHCODE_INT_REMAINDER || getSpecialKind() == Item.MATH_ABS_OF_RANDOM
-                            || getSpecialKind() == Item.MATH_ABS_OF_HASHCODE);
+            return !isNonNegative() && (getSpecialKind() == Item.RANDOM_INT || getSpecialKind() == Item.SIGNED_BYTE
+                    || getSpecialKind() == Item.HASHCODE_INT || getSpecialKind() == Item.RANDOM_INT_REMAINDER
+                    || getSpecialKind() == Item.HASHCODE_INT_REMAINDER || getSpecialKind() == Item.MATH_ABS_OF_RANDOM
+                    || getSpecialKind() == Item.MATH_ABS_OF_HASHCODE);
 
         }
 
@@ -1045,8 +1055,7 @@ public class OpcodeStack {
          * @return Returns the couldBeZero.
          */
         private boolean isCouldBeZero() {
-            return (flags & COULD_BE_ZERO_FLAG) != 0
-                    || isZero();
+            return (flags & COULD_BE_ZERO_FLAG) != 0 || isZero();
         }
 
         private boolean isZero() {
@@ -1108,8 +1117,12 @@ public class OpcodeStack {
 
         /**
          * Define a new special kind and name it as specified.
-         * @param name Name of new special kind
+         *
+         * @param name
+         *            Name of new special kind
+         *
          * @return int value to represent new special kind
+         *
          * @since 3.1.0
          */
         public static @SpecialKind int defineSpecialKind(String name) {
@@ -1120,8 +1133,11 @@ public class OpcodeStack {
         }
 
         /**
-         * @param specialKind special kind to get name
+         * @param specialKind
+         *            special kind to get name
+         *
          * @return just a name of specified @{link SpecialKind}, or empty {@link Optional}.
+         *
          * @since 3.1.0
          */
         public static Optional<String> getSpecialKindName(@SpecialKind int specialKind) {
@@ -1210,8 +1226,7 @@ public class OpcodeStack {
                     if (jumpStackEntry != null) {
                         System.out.println(" and stack " + jumpStackEntry);
                     }
-                } else if (!jumpEntry.equals(lvValues)
-                        || jumpStackEntry != null && !jumpStackEntry.equals(stack)) {
+                } else if (!jumpEntry.equals(lvValues) || jumpStackEntry != null && !jumpStackEntry.equals(stack)) {
 
                     System.out.println("Merging at " + dbc.getPC() + " with " + jumpEntry);
                     if (jumpStackEntry != null) {
@@ -1265,7 +1280,6 @@ public class OpcodeStack {
                         item = Item.merge(item, newItem);
                     }
 
-
                 }
             }
 
@@ -1277,7 +1291,6 @@ public class OpcodeStack {
 
                 setTop(true);
             }
-
 
         }
 
@@ -1332,7 +1345,8 @@ public class OpcodeStack {
 
                         if ((prevOpcode1 == Const.ICONST_0 || prevOpcode1 == Const.ICONST_1)
                                 && (prevOpcode2 == Const.IFNULL || prevOpcode2 == Const.IFNONNULL)
-                                && (nextOpcode == Const.ICONST_0 || nextOpcode == Const.ICONST_1) && prevOpcode1 != nextOpcode) {
+                                && (nextOpcode == Const.ICONST_0 || nextOpcode == Const.ICONST_1)
+                                && prevOpcode1 != nextOpcode) {
                             oneMeansNull = prevOpcode1 == Const.ICONST_0;
                             if (prevOpcode2 != Const.IFNULL) {
                                 oneMeansNull = !oneMeansNull;
@@ -1464,7 +1478,8 @@ public class OpcodeStack {
                 }
                 FieldAnnotation field = FieldAnnotation.fromReferencedField(dbc);
                 Item i = new Item(dbc.getSigConstantOperand(), field, Integer.MAX_VALUE);
-                if ("separator".equals(field.getFieldName()) && Values.DOTTED_JAVA_IO_FILE.equals(field.getClassName())) {
+                if ("separator".equals(field.getFieldName())
+                        && Values.DOTTED_JAVA_IO_FILE.equals(field.getClassName())) {
                     i.setSpecialKind(Item.FILE_SEPARATOR_STRING);
                 }
                 i.setPC(dbc.getPC());
@@ -1514,7 +1529,8 @@ public class OpcodeStack {
                 // if we see a test comparing a special negative value with
                 // 0,
                 // reset all other such values on the opcode stack
-                if (topItem.valueCouldBeNegative() && (seen == Const.IFLT || seen == Const.IFLE || seen == Const.IFGT || seen == Const.IFGE)) {
+                if (topItem.valueCouldBeNegative()
+                        && (seen == Const.IFLT || seen == Const.IFLE || seen == Const.IFGT || seen == Const.IFGE)) {
                     int specialKind = topItem.getSpecialKind();
                     for (Item item : stack) {
                         if (item != null && item.getSpecialKind() == specialKind) {
@@ -1590,8 +1606,8 @@ public class OpcodeStack {
                 boolean takeJump = false;
                 boolean handled = false;
                 if (seen == Const.IF_ACMPNE || seen == Const.IF_ACMPEQ) {
-                    if (lConstant != null && rConstant != null && !lConstant.equals(rConstant) || lConstant != null
-                            && right.isNull() || rConstant != null && left.isNull()) {
+                    if (lConstant != null && rConstant != null && !lConstant.equals(rConstant)
+                            || lConstant != null && right.isNull() || rConstant != null && left.isNull()) {
                         handled = true;
                         takeJump = seen == Const.IF_ACMPNE;
                     }
@@ -1662,7 +1678,6 @@ public class OpcodeStack {
                     pop();
                 }
                 break;
-
 
             case Const.IALOAD:
             case Const.SALOAD:
@@ -2006,8 +2021,6 @@ public class OpcodeStack {
             }
                 break;
 
-
-
             case Const.I2C: {
                 it = pop();
                 Item newValue = new Item(it, "C");
@@ -2163,7 +2176,8 @@ public class OpcodeStack {
                 processInvokeDynamic(dbc);
                 break;
             default:
-                throw new UnsupportedOperationException("OpCode " + seen + ":" + Const.getOpcodeName(seen) + " not supported ");
+                throw new UnsupportedOperationException(
+                        "OpCode " + seen + ":" + Const.getOpcodeName(seen) + " not supported ");
             }
         }
 
@@ -2508,10 +2522,9 @@ public class OpcodeStack {
 
         int numberArguments = PreorderVisitor.getNumberArguments(signature);
 
-        if (boxedTypes.containsKey(clsName)
-                && topItem != null
-                && ("valueOf".equals(methodName) && !signature.contains("String") || methodName.equals(boxedTypes.get(clsName)
-                        + "Value"))) {
+        if (boxedTypes.containsKey(clsName) && topItem != null
+                && ("valueOf".equals(methodName) && !signature.contains("String")
+                        || methodName.equals(boxedTypes.get(clsName) + "Value"))) {
             // boxing/unboxing conversion
             Item value = pop();
             String newSignature = new SignatureParser(signature).getReturnTypeSignature();
@@ -2542,8 +2555,8 @@ public class OpcodeStack {
             }
         }
         boolean initializingServletWriter = false;
-        if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(methodName) && clsName.startsWith("java/io") && clsName.endsWith("Writer")
-                && numberArguments > 0) {
+        if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(methodName) && clsName.startsWith("java/io")
+                && clsName.endsWith("Writer") && numberArguments > 0) {
             Item firstArg = getStackItem(numberArguments - 1);
             if (firstArg.isServletWriter()) {
                 initializingServletWriter = true;
@@ -2596,8 +2609,10 @@ public class OpcodeStack {
                     sawUnknownAppend = true;
                 }
             }
-        } else if (seen == Const.INVOKESPECIAL && "java/io/FileOutputStream".equals(clsName) && Const.CONSTRUCTOR_NAME.equals(methodName)
-                && ("(Ljava/io/File;Z)V".equals(signature) || "(Ljava/lang/String;Z)V".equals(signature)) && stack.size() > 3) {
+        } else if (seen == Const.INVOKESPECIAL && "java/io/FileOutputStream".equals(clsName)
+                && Const.CONSTRUCTOR_NAME.equals(methodName)
+                && ("(Ljava/io/File;Z)V".equals(signature) || "(Ljava/lang/String;Z)V".equals(signature))
+                && stack.size() > 3) {
             OpcodeStack.Item item = getStackItem(0);
             Object value = item.getConstant();
             if (value instanceof Integer && ((Integer) value).intValue() == 1) {
@@ -2610,8 +2625,8 @@ public class OpcodeStack {
                 }
                 return;
             }
-        } else if (seen == Const.INVOKESPECIAL && "java/io/BufferedOutputStream".equals(clsName) && Const.CONSTRUCTOR_NAME.equals(methodName)
-                && "(Ljava/io/OutputStream;)V".equals(signature)) {
+        } else if (seen == Const.INVOKESPECIAL && "java/io/BufferedOutputStream".equals(clsName)
+                && Const.CONSTRUCTOR_NAME.equals(methodName) && "(Ljava/io/OutputStream;)V".equals(signature)) {
 
             if (getStackItem(0).getSpecialKind() == Item.FILE_OPENED_IN_APPEND_MODE
                     && "Ljava/io/BufferedOutputStream;".equals(getStackItem(2).signature)) {
@@ -2624,7 +2639,8 @@ public class OpcodeStack {
                 return;
             }
         } else if (seen == Const.INVOKEINTERFACE && "getParameter".equals(methodName)
-                && "javax/servlet/http/HttpServletRequest".equals(clsName) || "javax/servlet/http/ServletRequest".equals(clsName)) {
+                && "javax/servlet/http/HttpServletRequest".equals(clsName)
+                || "javax/servlet/http/ServletRequest".equals(clsName)) {
             Item requestParameter = pop();
             pop();
             Item result = new Item("Ljava/lang/String;");
@@ -2640,7 +2656,8 @@ public class OpcodeStack {
             push(result);
             return;
         } else if (seen == Const.INVOKEINTERFACE && "getQueryString".equals(methodName)
-                && "javax/servlet/http/HttpServletRequest".equals(clsName) || "javax/servlet/http/ServletRequest".equals(clsName)) {
+                && "javax/servlet/http/HttpServletRequest".equals(clsName)
+                || "javax/servlet/http/ServletRequest".equals(clsName)) {
             pop();
             Item result = new Item("Ljava/lang/String;");
             result.setServletParameterTainted();
@@ -2649,7 +2666,8 @@ public class OpcodeStack {
             push(result);
             return;
         } else if (seen == Const.INVOKEINTERFACE && "getHeader".equals(methodName)
-                && "javax/servlet/http/HttpServletRequest".equals(clsName) || "javax/servlet/http/ServletRequest".equals(clsName)) {
+                && "javax/servlet/http/HttpServletRequest".equals(clsName)
+                || "javax/servlet/http/ServletRequest".equals(clsName)) {
             /* Item requestParameter = */pop();
             pop();
             Item result = new Item("Ljava/lang/String;");
@@ -2665,8 +2683,7 @@ public class OpcodeStack {
             return;
         } else if (seen == Const.INVOKESTATIC) {
             Item requestParameter = null;
-            if ("(Ljava/util/List;)Ljava/util/List;".equals(signature)
-                    && "java/util/Collections".equals(clsName)) {
+            if ("(Ljava/util/List;)Ljava/util/List;".equals(signature) && "java/util/Collections".equals(clsName)) {
                 requestParameter = top();
             }
             String returnTypeName = IMMUTABLE_RETURNER_MAP.get(Pair.of(clsName, methodName));
@@ -2724,8 +2741,8 @@ public class OpcodeStack {
             return;
         }
 
-        if (("java/util/Random".equals(clsName) || "java/security/SecureRandom".equals(clsName)) &&
-                ("nextInt".equals(methodName) && "()I".equals(signature)
+        if (("java/util/Random".equals(clsName) || "java/security/SecureRandom".equals(clsName))
+                && ("nextInt".equals(methodName) && "()I".equals(signature)
                         || "nextLong".equals(methodName) && "()J".equals(signature))) {
             Item i = new Item(pop());
             i.setSpecialKind(Item.RANDOM_INT);
@@ -2737,8 +2754,8 @@ public class OpcodeStack {
                 i.setSpecialKind(Item.NON_NEGATIVE);
             }
             push(i);
-        } else if ("java/lang/String".equals(clsName) && numberArguments == 0 && topItem != null &&
-                topItem.getConstant() instanceof String) {
+        } else if ("java/lang/String".equals(clsName) && numberArguments == 0 && topItem != null
+                && topItem.getConstant() instanceof String) {
             String input = (String) topItem.getConstant();
             Object result;
             switch (methodName) {
@@ -2770,15 +2787,15 @@ public class OpcodeStack {
                 i.setSpecialKind(Item.MATH_ABS);
             }
             push(i);
-        } else if (seen == Const.INVOKEVIRTUAL && "hashCode".equals(methodName) && "()I".equals(signature) || seen == Const.INVOKESTATIC
-                && "java/lang/System".equals(clsName) && "identityHashCode".equals(methodName)
-                && "(Ljava/lang/Object;)I".equals(signature)) {
+        } else if (seen == Const.INVOKEVIRTUAL && "hashCode".equals(methodName) && "()I".equals(signature)
+                || seen == Const.INVOKESTATIC && "java/lang/System".equals(clsName)
+                        && "identityHashCode".equals(methodName) && "(Ljava/lang/Object;)I".equals(signature)) {
             Item i = new Item(pop());
             i.setSpecialKind(Item.HASHCODE_INT);
             push(i);
         } else if (topIsTainted
-                && (methodName.startsWith("encode") && "javax/servlet/http/HttpServletResponse".equals(clsName) || "trim".equals(methodName)
-                        && "java/lang/String".equals(clsName))) {
+                && (methodName.startsWith("encode") && "javax/servlet/http/HttpServletResponse".equals(clsName)
+                        || "trim".equals(methodName) && "java/lang/String".equals(clsName))) {
             Item i = new Item(pop());
             i.setSpecialKind(Item.SERVLET_REQUEST_TAINTED);
             i.injection = injection;
@@ -2909,12 +2926,10 @@ public class OpcodeStack {
                 }
             }
             /*
-            if (false) for (int i = common; i < fromSize; i++) {
-                Item newValue = mergeFrom.get(i);
-                mergeInto.add(newValue);
-                changed = true;
-            
-            }
+             * if (false) for (int i = common; i < fromSize; i++) { Item newValue = mergeFrom.get(i);
+             * mergeInto.add(newValue); changed = true;
+             *
+             * }
              */
             if (DEBUG2 && changed) {
                 System.out.println("Merge results:");
@@ -2950,7 +2965,8 @@ public class OpcodeStack {
 
         final BitSet jumpEntryLocations;
 
-        JumpInfo(Map<Integer, List<Item>> jumpEntries, Map<Integer, List<Item>> jumpStackEntries, BitSet jumpEntryLocations) {
+        JumpInfo(Map<Integer, List<Item>> jumpEntries, Map<Integer, List<Item>> jumpStackEntries,
+                BitSet jumpEntryLocations) {
             this.jumpEntries = jumpEntries;
             this.jumpStackEntries = jumpStackEntries;
             this.jumpEntryLocations = jumpEntryLocations;
@@ -2961,7 +2977,6 @@ public class OpcodeStack {
         }
     }
 
-
     public static class JumpInfoFactory extends edu.umd.cs.findbugs.classfile.engine.bcel.AnalysisFactory<JumpInfo> {
 
         public JumpInfoFactory() {
@@ -2969,7 +2984,8 @@ public class OpcodeStack {
         }
 
         @Override
-        public @CheckForNull JumpInfo analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor) throws CheckedAnalysisException {
+        public @CheckForNull JumpInfo analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)
+                throws CheckedAnalysisException {
             Method method = analysisCache.getMethodAnalysis(Method.class, descriptor);
             JavaClass jclass = getJavaClass(analysisCache, descriptor.getClassDescriptor());
             Code code = method.getCode();
@@ -3039,9 +3055,7 @@ public class OpcodeStack {
             int iteration = 1;
             OpcodeStack myStack = branchAnalysis.stack;
             /*
-            if (false) {
-                myStack.learnFrom(myStack.getJumpInfoFromStackMap());
-            }
+             * if (false) { myStack.learnFrom(myStack.getJumpInfoFromStackMap()); }
              */
             do {
                 if (DEBUG && iteration > 1) {
@@ -3052,9 +3066,9 @@ public class OpcodeStack {
                 // myStack.resetForMethodEntry0(ClassName.toSlashedClassName(jclass.getClassName()), method);
                 branchAnalysis.doVisitMethod(method);
                 if (xMethod.hasBackBranch() != myStack.backwardsBranch && !myStack.encountedTop) {
-                    AnalysisContext.logError(
-                            String.format("For %s, mismatch on existence of backedge: %s for precomputation, %s for bytecode analysis",
-                                    xMethod, xMethod.hasBackBranch(), myStack.backwardsBranch));
+                    AnalysisContext.logError(String.format(
+                            "For %s, mismatch on existence of backedge: %s for precomputation, %s for bytecode analysis",
+                            xMethod, xMethod.hasBackBranch(), myStack.backwardsBranch));
                 }
                 if (myStack.isJumpInfoChangedByNewTarget()) {
                     if (DEBUG) {
@@ -3063,14 +3077,14 @@ public class OpcodeStack {
                     iteration = 1;
                 }
                 if (iteration++ > 40) {
-                    AnalysisContext.logError("Iterative jump info didn't converge after " + iteration + " iterations in " + xMethod
-                            + ", size " + method.getCode().getLength());
+                    AnalysisContext.logError("Iterative jump info didn't converge after " + iteration
+                            + " iterations in " + xMethod + ", size " + method.getCode().getLength());
                     break;
                 }
             } while (myStack.isJumpInfoChangedByBackwardsBranch() && myStack.backwardsBranch);
             if (iteration > 20 && iteration <= 40) {
-                AnalysisContext.logError("Iterative jump info converged after " + iteration + " iterations in " + xMethod + ", size " + method
-                        .getCode().getLength());
+                AnalysisContext.logError("Iterative jump info converged after " + iteration + " iterations in "
+                        + xMethod + ", size " + method.getCode().getLength());
             }
             return new JumpInfo(myStack.jumpEntries, myStack.jumpStackEntries, myStack.jumpEntryLocations);
         }
@@ -3149,7 +3163,8 @@ public class OpcodeStack {
         if (useIterativeAnalysis) {
             if (visitor instanceof OpcodeStackDetector.WithCustomJumpInfo) {
                 jump = ((OpcodeStackDetector.WithCustomJumpInfo) visitor).customJumpInfo();
-            } else if ((visitor instanceof OpcodeStackDetector) && !((OpcodeStackDetector) visitor).isUsingCustomUserValue()) {
+            } else if ((visitor instanceof OpcodeStackDetector)
+                    && !((OpcodeStackDetector) visitor).isUsingCustomUserValue()) {
                 jump = getJumpInfo();
             } else {
                 jump = getJumpInfoFromStackMap();
@@ -3209,7 +3224,6 @@ public class OpcodeStack {
         if (from < to) {
             return;
         }
-
 
         if (DEBUG && !this.isJumpInfoChangedByBackwardsBranch()) {
             System.out.printf("%s jump info at %d changed by jump from %d%n", kind, to, from);
@@ -3273,9 +3287,10 @@ public class OpcodeStack {
 
     public Item getStackItem(int stackOffset) {
         if (stackOffset < 0 || stackOffset >= stack.size()) {
-            AnalysisContext.logError("Can't get stack offset " + stackOffset + " from " + stack.toString() + " @ " + v.getPC()
-                    + " in " + v.getFullyQualifiedMethodName(), new IllegalArgumentException(stackOffset
-                            + " is not a value stack offset"));
+            AnalysisContext.logError(
+                    "Can't get stack offset " + stackOffset + " from " + stack.toString() + " @ " + v.getPC() + " in "
+                            + v.getFullyQualifiedMethodName(),
+                    new IllegalArgumentException(stackOffset + " is not a value stack offset"));
             return new Item("Lfindbugs/OpcodeStackError;");
 
         }
@@ -3299,9 +3314,10 @@ public class OpcodeStack {
 
     public void replace(int stackOffset, Item value) {
         if (stackOffset < 0 || stackOffset >= stack.size()) {
-            AnalysisContext.logError("Can't get replace stack offset " + stackOffset + " from " + stack.toString() + " @ " + v.getPC()
-                    + " in " + v.getFullyQualifiedMethodName(), new IllegalArgumentException(stackOffset
-                            + " is not a value stack offset"));
+            AnalysisContext.logError(
+                    "Can't get replace stack offset " + stackOffset + " from " + stack.toString() + " @ " + v.getPC()
+                            + " in " + v.getFullyQualifiedMethodName(),
+                    new IllegalArgumentException(stackOffset + " is not a value stack offset"));
 
         }
         int tos = stack.size() - 1;
@@ -3369,8 +3385,8 @@ public class OpcodeStack {
 
         try {
             if (DEBUG) {
-                System.out.println("pushByIntMath " + dbc.getFullyQualifiedMethodName() + " @ " + dbc.getPC() + " : " + lhs
-                        + Const.getOpcodeName(seen) + rhs);
+                System.out.println("pushByIntMath " + dbc.getFullyQualifiedMethodName() + " @ " + dbc.getPC() + " : "
+                        + lhs + Const.getOpcodeName(seen) + rhs);
             }
 
             if (rhs.getConstant() != null && lhs.getConstant() != null) {
@@ -3575,8 +3591,9 @@ public class OpcodeStack {
             // Added logging to see if there were even more issues with the code.
             String context = v != null ? v.getFullyQualifiedMethodName() : toString();
             AnalysisContext.logError(
-                    String.format("Exception processing 'pushByLongMath' with opcode %d, lhs %s and rhs %s in %s",
-                            seen, String.valueOf(lhs), String.valueOf(rhs), context), e);
+                    String.format("Exception processing 'pushByLongMath' with opcode %d, lhs %s and rhs %s in %s", seen,
+                            String.valueOf(lhs), String.valueOf(rhs), context),
+                    e);
         }
         push(newValue);
     }
@@ -3796,7 +3813,6 @@ public class OpcodeStack {
     boolean isJumpInfoChangedByBackwardsBranch() {
         return jumpInfoChangedByBackwardsBranch;
     }
-
 
     void clearJumpInfoChangedByBackwardsBranch() {
         this.jumpInfoChangedByBackwardsBranch = false;

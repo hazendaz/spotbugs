@@ -58,8 +58,8 @@ public class InconsistentAnnotations implements Detector, UseAnnotationDatabase 
 
         for (Method method : jclass.getMethods()) {
             XMethod xmethod = XFactory.createXMethod(classContext.getJavaClass(), method);
-            ParameterProperty nonnullParameters = AnalysisContext.currentAnalysisContext().getUnconditionalDerefParamDatabase()
-                    .getProperty(xmethod.getMethodDescriptor());
+            ParameterProperty nonnullParameters = AnalysisContext.currentAnalysisContext()
+                    .getUnconditionalDerefParamDatabase().getProperty(xmethod.getMethodDescriptor());
             if (nonnullParameters != null) {
                 for (int p : nonnullParameters.iterable()) {
                     TypeQualifierAnnotation directTypeQualifierAnnotation = TypeQualifierApplications
@@ -73,8 +73,9 @@ public class InconsistentAnnotations implements Detector, UseAnnotationDatabase 
                         int paramLocal = xmethod.isStatic() ? p : p + 1;
 
                         reporter.reportBug(new BugInstance(this, "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE",
-                                NORMAL_PRIORITY).addClassAndMethod(jclass, method).add(
-                                        LocalVariableAnnotation.getParameterLocalVariableAnnotation(method, paramLocal)));
+                                NORMAL_PRIORITY).addClassAndMethod(jclass, method)
+                                        .add(LocalVariableAnnotation.getParameterLocalVariableAnnotation(method,
+                                                paramLocal)));
 
                     }
 

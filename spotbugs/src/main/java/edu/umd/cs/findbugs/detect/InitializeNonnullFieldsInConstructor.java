@@ -89,7 +89,8 @@ public class InitializeNonnullFieldsInConstructor extends OpcodeStackDetector {
 
     @Override
     public void visit(Code code) {
-        boolean interesting = Const.CONSTRUCTOR_NAME.equals(getMethodName()) || Const.STATIC_INITIALIZER_NAME.equals(getMethodName());
+        boolean interesting = Const.CONSTRUCTOR_NAME.equals(getMethodName())
+                || Const.STATIC_INITIALIZER_NAME.equals(getMethodName());
         if (!interesting) {
             return;
         }
@@ -133,7 +134,8 @@ public class InitializeNonnullFieldsInConstructor extends OpcodeStackDetector {
 
         switch (seen) {
         case Const.INVOKESPECIAL:
-            if (!getMethod().isStatic() && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand()) && isSelfOperation()) {
+            if (!getMethod().isStatic() && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand())
+                    && isSelfOperation()) {
                 OpcodeStack.Item invokedOn = stack.getItemMethodInvokedOn(this);
                 if (invokedOn.isInitialParameter() && invokedOn.getRegisterNumber() == 0) {
                     secondaryConstructor = true;
@@ -170,8 +172,10 @@ public class InitializeNonnullFieldsInConstructor extends OpcodeStackDetector {
                 OpcodeStack.Item itemToAssign = stack.getStackItem(0);
                 if (itemToAssign != null) {
                     XField fieldToAssign = itemToAssign.getXField();
-                    // do not count a field as initialized, if it is assigned to itself or if it is assigned another not initialized field
-                    if (fieldToAssign != null && (f.equals(fieldToAssign) || !initializedFields.contains(fieldToAssign))) {
+                    // do not count a field as initialized, if it is assigned to itself or if it is assigned another not
+                    // initialized field
+                    if (fieldToAssign != null
+                            && (f.equals(fieldToAssign) || !initializedFields.contains(fieldToAssign))) {
                         break;
                     }
                 }

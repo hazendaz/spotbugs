@@ -38,9 +38,8 @@ import edu.umd.cs.findbugs.StatelessDetector;
 import edu.umd.cs.findbugs.ba.ClassContext;
 
 /**
- * Find occurrences of Math using constants, where the result of the calculation
- * can be determined statically. Replacing the math formula with the constant
- * performs better, and sometimes is more accurate.
+ * Find occurrences of Math using constants, where the result of the calculation can be determined statically. Replacing
+ * the math formula with the constant performs better, and sometimes is more accurate.
  *
  * @author Dave Brosius
  */
@@ -113,7 +112,8 @@ public class UnnecessaryMath extends BytecodeScanningDetector implements Statele
 
     @Override
     public void visitClassContext(ClassContext classContext) {
-        if (hasInterestingClass(classContext.getJavaClass().getConstantPool(), Collections.singleton("java/lang/Math"))) {
+        if (hasInterestingClass(classContext.getJavaClass().getConstantPool(),
+                Collections.singleton("java/lang/Math"))) {
             super.visitClassContext(classContext);
         }
     }
@@ -156,9 +156,10 @@ public class UnnecessaryMath extends BytecodeScanningDetector implements Statele
                     String methodName = getNameConstantOperand();
 
                     if (((constValue == 0.0) && zeroMethods.contains(methodName))
-                            || ((constValue == 1.0) && oneMethods.contains(methodName)) || (anyMethods.contains(methodName))) {
-                        bugReporter.reportBug(new BugInstance(this, "UM_UNNECESSARY_MATH", LOW_PRIORITY).addClassAndMethod(this)
-                                .addSourceLine(this));
+                            || ((constValue == 1.0) && oneMethods.contains(methodName))
+                            || (anyMethods.contains(methodName))) {
+                        bugReporter.reportBug(new BugInstance(this, "UM_UNNECESSARY_MATH", LOW_PRIORITY)
+                                .addClassAndMethod(this).addSourceLine(this));
                     }
                 }
             }

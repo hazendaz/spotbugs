@@ -41,18 +41,13 @@ public class FindPublicAttributesTest extends AbstractIntegrationTest {
     }
 
     private void assertNumOfBugs(String bugtype, int num) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType(bugtype).build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType(bugtype).build();
         assertThat(getBugCollection(), containsExactly(num, bugTypeMatcher));
     }
 
     private void assertBugTypeAtField(String bugtype, String field, int line) {
-        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType(bugtype)
-                .inClass("PublicAttributesTest")
-                .atField(field)
-                .atLine(line)
-                .build();
+        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder().bugType(bugtype)
+                .inClass("PublicAttributesTest").atField(field).atLine(line).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 }

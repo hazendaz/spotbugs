@@ -58,9 +58,8 @@ public abstract class WarningPropertyUtil {
     }
 
     /**
-     * Get a Location matching the given PC value. Because of JSR subroutines,
-     * there may be multiple Locations referring to the given instruction. This
-     * method simply returns one of them arbitrarily.
+     * Get a Location matching the given PC value. Because of JSR subroutines, there may be multiple Locations referring
+     * to the given instruction. This method simply returns one of them arbitrarily.
      *
      * @param classContext
      *            the ClassContext containing the method
@@ -68,8 +67,9 @@ public abstract class WarningPropertyUtil {
      *            the method
      * @param pc
      *            a PC value of an instruction in the method
-     * @return a Location corresponding to the PC value, or null if no such
-     *         Location can be found
+     *
+     * @return a Location corresponding to the PC value, or null if no such Location can be found
+     *
      * @throws CFGBuilderException
      */
     private static Location pcToLocation(ClassContext classContext, Method method, int pc) throws CFGBuilderException {
@@ -84,8 +84,7 @@ public abstract class WarningPropertyUtil {
     }
 
     /**
-     * Add a RECEIVER_OBJECT_TYPE warning property for a particular location in
-     * a method to given warning property set.
+     * Add a RECEIVER_OBJECT_TYPE warning property for a particular location in a method to given warning property set.
      *
      * @param propertySet
      *            the property set
@@ -96,8 +95,8 @@ public abstract class WarningPropertyUtil {
      * @param location
      *            Location within the method
      */
-    private static void addReceiverObjectType(WarningPropertySet<WarningProperty> propertySet, ClassContext classContext,
-            Method method, Location location) {
+    private static void addReceiverObjectType(WarningPropertySet<WarningProperty> propertySet,
+            ClassContext classContext, Method method, Location location) {
         try {
             Instruction ins = location.getHandle().getInstruction();
 
@@ -121,8 +120,8 @@ public abstract class WarningPropertyUtil {
     }
 
     /**
-     * Add CALLED_METHOD_<i>n</i> warning properties based on methods which have
-     * been called and returned normally at given Location.
+     * Add CALLED_METHOD_<i>n</i> warning properties based on methods which have been called and returned normally at
+     * given Location.
      *
      * @param propertySet
      *            the WarningPropertySet
@@ -133,8 +132,8 @@ public abstract class WarningPropertyUtil {
      * @param location
      *            the Location
      */
-    private static void addRecentlyCalledMethods(WarningPropertySet<WarningProperty> propertySet, ClassContext classContext,
-            Method method, Location location) {
+    private static void addRecentlyCalledMethods(WarningPropertySet<WarningProperty> propertySet,
+            ClassContext classContext, Method method, Location location) {
         try {
             CallListDataflow dataflow = classContext.getCallListDataflow(method);
             CallList callList = dataflow.getFactAtLocation(location);
@@ -171,8 +170,7 @@ public abstract class WarningPropertyUtil {
     }
 
     /**
-     * Add all relevant general warning properties to the given property set for
-     * the given Location.
+     * Add all relevant general warning properties to the given property set for the given Location.
      *
      * @param propertySet
      *            the WarningPropertySet
@@ -183,15 +181,14 @@ public abstract class WarningPropertyUtil {
      * @param location
      *            the Location
      */
-    public static void addPropertiesForDataMining(WarningPropertySet<WarningProperty> propertySet, ClassContext classContext,
-            Method method, Location location) {
+    public static void addPropertiesForDataMining(WarningPropertySet<WarningProperty> propertySet,
+            ClassContext classContext, Method method, Location location) {
         addReceiverObjectType(propertySet, classContext, method, location);
         addRecentlyCalledMethods(propertySet, classContext, method, location);
     }
 
     /**
-     * Add all relevant general warning properties to the given property set for
-     * the given Location.
+     * Add all relevant general warning properties to the given property set for the given Location.
      *
      * @param propertySet
      *            the WarningPropertySet
@@ -202,8 +199,8 @@ public abstract class WarningPropertyUtil {
      * @param pc
      *            the bytecode offset of an instruction to get properties for
      */
-    public static void addPropertiesForLocation(WarningPropertySet<WarningProperty> propertySet, ClassContext classContext,
-            Method method, int pc) {
+    public static void addPropertiesForLocation(WarningPropertySet<WarningProperty> propertySet,
+            ClassContext classContext, Method method, int pc) {
         try {
             Location location = pcToLocation(classContext, method, pc);
             if (location != null) {

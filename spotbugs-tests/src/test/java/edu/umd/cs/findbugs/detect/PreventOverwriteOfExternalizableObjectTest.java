@@ -75,10 +75,7 @@ public class PreventOverwriteOfExternalizableObjectTest extends AbstractIntegrat
 
     private void assertBug(String className, int line) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("SE_PREVENT_EXT_OBJ_OVERWRITE")
-                .inClass(className)
-                .inMethod("readExternal")
-                .atLine(line)
+                .bugType("SE_PREVENT_EXT_OBJ_OVERWRITE").inClass(className).inMethod("readExternal").atLine(line)
                 .build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }

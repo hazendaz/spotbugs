@@ -19,8 +19,7 @@
 package edu.umd.cs.findbugs;
 
 /**
- * A fatal exception which should completely halt the FindBugs analysis. Use
- * sparingly.
+ * A fatal exception which should completely halt the FindBugs analysis. Use sparingly.
  *
  * @author David Hovemeyer
  */

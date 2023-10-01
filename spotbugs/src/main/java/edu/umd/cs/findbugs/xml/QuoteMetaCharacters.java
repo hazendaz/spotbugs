@@ -23,11 +23,11 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
-
 /**
  * Quote metacharacters in a String.
  *
  * @see MetaCharacterMap
+ *
  * @author David Hovemeyer
  */
 public abstract class QuoteMetaCharacters {
@@ -73,8 +73,7 @@ public abstract class QuoteMetaCharacters {
     }
 
     /**
-     * Downcall method to emit literal text, in which any occurrences of the
-     * metacharacters are quoted.
+     * Downcall method to emit literal text, in which any occurrences of the metacharacters are quoted.
      *
      * @param s
      *            the literal text to emit

@@ -57,7 +57,8 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 /**
  * @author Tagir Valeev
  */
-public class FinallyDuplicatesInfoFactory implements IMethodAnalysisEngine<FinallyDuplicatesInfoFactory.FinallyDuplicatesInfo> {
+public class FinallyDuplicatesInfoFactory
+        implements IMethodAnalysisEngine<FinallyDuplicatesInfoFactory.FinallyDuplicatesInfo> {
     private static final FinallyDuplicatesInfo NONE_FINALLY_INFO = new FinallyDuplicatesInfo();
 
     public static class FinallyDuplicatesInfo {
@@ -154,7 +155,8 @@ public class FinallyDuplicatesInfoFactory implements IMethodAnalysisEngine<Final
             this.catchAnyAddress = catchAnyAddress;
         }
 
-        public void update(BitSet exceptionTargets, BitSet branchTargets, InstructionList il, Set<Integer> finallyTargets, BitSet usedTargets) {
+        public void update(BitSet exceptionTargets, BitSet branchTargets, InstructionList il,
+                Set<Integer> finallyTargets, BitSet usedTargets) {
             int lastEnd = -1;
             InstructionHandle ih = il.findHandle(catchAnyAddress);
             if (ih == null || !(ih.getInstruction() instanceof ASTORE)) {
@@ -197,11 +199,13 @@ public class FinallyDuplicatesInfoFactory implements IMethodAnalysisEngine<Final
                 if (lastEnd > -1) {
                     if (entry.getKey() > lastEnd) {
                         int candidateStart = lastEnd;
-                        int block2end = equalBlocks(firstInstruction, il.findHandle(candidateStart), end - start, il.getInstructionPositions());
+                        int block2end = equalBlocks(firstInstruction, il.findHandle(candidateStart), end - start,
+                                il.getInstructionPositions());
                         if (block2end > 0 && block2end <= entry.getKey()) {
                             duplicates.put(candidateStart, block2end);
                             while (true) {
-                                int newKey = Math.min(exceptionTargets.nextSetBit(block2end + 1), branchTargets.nextSetBit(block2end + 1));
+                                int newKey = Math.min(exceptionTargets.nextSetBit(block2end + 1),
+                                        branchTargets.nextSetBit(block2end + 1));
                                 if (newKey < 0 || newKey > entry.getKey()) {
                                     break;
                                 }
@@ -210,7 +214,8 @@ public class FinallyDuplicatesInfoFactory implements IMethodAnalysisEngine<Final
                                     ih2 = ih2.getNext(); // Skip astore
                                 }
                                 candidateStart = ih2.getPosition();
-                                block2end = equalBlocks(firstInstruction, ih2, end - start, il.getInstructionPositions());
+                                block2end = equalBlocks(firstInstruction, ih2, end - start,
+                                        il.getInstructionPositions());
                                 if (block2end > 0 && block2end <= entry.getKey()) {
                                     duplicates.put(candidateStart, block2end);
                                 } else {
@@ -274,7 +279,8 @@ public class FinallyDuplicatesInfoFactory implements IMethodAnalysisEngine<Final
                         }
                         int target1 = ((BranchInstruction) inst1).getTarget().getPosition();
                         int target2 = ((BranchInstruction) inst2).getTarget().getPosition();
-                        if (!(getInstructionNumber(positions, target1) - startNum1 == getInstructionNumber(positions, target2) - startNum2
+                        if (!(getInstructionNumber(positions, target1)
+                                - startNum1 == getInstructionNumber(positions, target2) - startNum2
                                 || (target1 == start1 + length))) {
                             return -1;
                         }
@@ -302,7 +308,8 @@ public class FinallyDuplicatesInfoFactory implements IMethodAnalysisEngine<Final
     }
 
     @Override
-    public FinallyDuplicatesInfo analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor) throws CheckedAnalysisException {
+    public FinallyDuplicatesInfo analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)
+            throws CheckedAnalysisException {
         Method method = analysisCache.getMethodAnalysis(Method.class, descriptor);
         if (method == null) {
             return NONE_FINALLY_INFO;

@@ -33,8 +33,7 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Analysis engine to produce UnconditionalValueDerefDataflow objects for
- * analyzed methods.
+ * Analysis engine to produce UnconditionalValueDerefDataflow objects for analyzed methods.
  *
  * @author David Hovemeyer
  */
@@ -49,9 +48,8 @@ public class UnconditionalValueDerefDataflowFactory extends AnalysisFactory<Unco
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public UnconditionalValueDerefDataflow analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)
@@ -65,9 +63,10 @@ public class UnconditionalValueDerefDataflowFactory extends AnalysisFactory<Unco
 
         ValueNumberDataflow vnd = getValueNumberDataflow(analysisCache, descriptor);
 
-        UnconditionalValueDerefAnalysis analysis = new UnconditionalValueDerefAnalysis(getReverseDepthFirstSearch(analysisCache,
-                descriptor), getDepthFirstSearch(analysisCache, descriptor), cfg, getMethod(analysisCache, descriptor),
-                methodGen, vnd, getAssertionMethods(analysisCache, descriptor.getClassDescriptor()));
+        UnconditionalValueDerefAnalysis analysis = new UnconditionalValueDerefAnalysis(
+                getReverseDepthFirstSearch(analysisCache, descriptor), getDepthFirstSearch(analysisCache, descriptor),
+                cfg, getMethod(analysisCache, descriptor), methodGen, vnd,
+                getAssertionMethods(analysisCache, descriptor.getClassDescriptor()));
 
         IsNullValueDataflow inv = getIsNullValueDataflow(analysisCache, descriptor);
         // XXX: hack to clear derefs on not-null branches
@@ -84,7 +83,8 @@ public class UnconditionalValueDerefDataflowFactory extends AnalysisFactory<Unco
             dataflow.dumpDataflow(analysis);
         }
         if (UnconditionalValueDerefAnalysis.DEBUG) {
-            ClassContext.dumpDataflowInformation(getMethod(analysisCache, descriptor), cfg, vnd, inv, dataflow, typeDataflow);
+            ClassContext.dumpDataflowInformation(getMethod(analysisCache, descriptor), cfg, vnd, inv, dataflow,
+                    typeDataflow);
         }
 
         return dataflow;

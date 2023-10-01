@@ -28,10 +28,10 @@ public class UnreadFieldsTest {
      */
     @Test
     public void bugInstanceShouldContainLineNumber() {
-        BugCollection bugCollection = spotbugs.performAnalysis(Paths.get("../spotbugsTestCases/build/classes/java/main/ghIssues/Issue1368.class"));
+        BugCollection bugCollection = spotbugs
+                .performAnalysis(Paths.get("../spotbugsTestCases/build/classes/java/main/ghIssues/Issue1368.class"));
         Optional<BugInstance> reportedBug = bugCollection.getCollection().stream()
-                .filter(bug -> "UWF_NULL_FIELD".equals(bug.getBugPattern().getType()))
-                .findAny();
+                .filter(bug -> "UWF_NULL_FIELD".equals(bug.getBugPattern().getType())).findAny();
         assertTrue(reportedBug.isPresent());
         assertThat(reportedBug.get().getPrimarySourceLineAnnotation().getStartLine(), is(not(-1)));
     }
@@ -43,7 +43,8 @@ public class UnreadFieldsTest {
      */
     @Test
     public void unreadFieldInReflectiveClass() {
-        BugCollection bugCollection = spotbugs.performAnalysis(Paths.get("../spotbugsTestCases/build/classes/java/main/ghIssues/Issue2325.class"));
+        BugCollection bugCollection = spotbugs
+                .performAnalysis(Paths.get("../spotbugsTestCases/build/classes/java/main/ghIssues/Issue2325.class"));
 
         Optional<BugInstance> reportedBug = bugCollection.getCollection().stream()
                 .filter(bug -> "UUF_UNUSED_FIELD".equals(bug.getBugPattern().getType())).findAny();

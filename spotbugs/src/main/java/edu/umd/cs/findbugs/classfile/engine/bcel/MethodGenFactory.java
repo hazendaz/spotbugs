@@ -50,12 +50,12 @@ public class MethodGenFactory extends AnalysisFactory<MethodGen> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
-    public MethodGen analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor) throws CheckedAnalysisException {
+    public MethodGen analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)
+            throws CheckedAnalysisException {
         Method method = getMethod(analysisCache, descriptor);
 
         if (method.getCode() == null) {
@@ -75,16 +75,18 @@ public class MethodGenFactory extends AnalysisFactory<MethodGen> {
             String methodName = method.getName();
             int codeLength = method.getCode().getCode().length;
             String superclassName = jclass.getSuperclassName();
-            if (codeLength > 6000 && Const.STATIC_INITIALIZER_NAME.equals(methodName) && "java.lang.Enum".equals(superclassName)) {
-                analysisContext.getLookupFailureCallback().reportSkippedAnalysis(
-                        new JavaClassAndMethod(jclass, method).toMethodDescriptor());
+            if (codeLength > 6000 && Const.STATIC_INITIALIZER_NAME.equals(methodName)
+                    && "java.lang.Enum".equals(superclassName)) {
+                analysisContext.getLookupFailureCallback()
+                        .reportSkippedAnalysis(new JavaClassAndMethod(jclass, method).toMethodDescriptor());
                 return null;
             }
             if (analysisContext.getBoolProperty(AnalysisFeatures.SKIP_HUGE_METHODS)) {
-                if (codeLength > 6000 || (Const.STATIC_INITIALIZER_NAME.equals(methodName) || "getContents".equals(methodName))
-                        && codeLength > 2000) {
-                    analysisContext.getLookupFailureCallback().reportSkippedAnalysis(
-                            new JavaClassAndMethod(jclass, method).toMethodDescriptor());
+                if (codeLength > 6000
+                        || (Const.STATIC_INITIALIZER_NAME.equals(methodName) || "getContents".equals(methodName))
+                                && codeLength > 2000) {
+                    analysisContext.getLookupFailureCallback()
+                            .reportSkippedAnalysis(new JavaClassAndMethod(jclass, method).toMethodDescriptor());
                     return null;
                 }
             }

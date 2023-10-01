@@ -103,7 +103,8 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
         }
 
         @Override
-        public void transferInstruction(InstructionHandle handle, BasicBlock basicBlock) throws DataflowAnalysisException {
+        public void transferInstruction(InstructionHandle handle, BasicBlock basicBlock)
+                throws DataflowAnalysisException {
             final Instruction ins = handle.getInstruction();
             final ConstantPoolGen cpg = getCPG();
             final ResourceValueFrame frame = getFrame();
@@ -258,8 +259,8 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
         }
 
         @Override
-        public boolean isResourceClose(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg, Lock resource,
-                ResourceValueFrame frame) throws DataflowAnalysisException {
+        public boolean isResourceClose(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg,
+                Lock resource, ResourceValueFrame frame) throws DataflowAnalysisException {
 
             if (!mightCloseResource(basicBlock, handle, cpg)) {
                 return false;
@@ -353,8 +354,7 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Implementation
+     * ---------------------------------------------------------------------- Implementation
      * ----------------------------------------------------------------------
      */
 
@@ -365,9 +365,7 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.Detector#visitClassContext(edu.umd.cs.findbugs.ba
-     * .ClassContext)
+     * @see edu.umd.cs.findbugs.Detector#visitClassContext(edu.umd.cs.findbugs.ba .ClassContext)
      */
     @Override
     public void visitClassContext(ClassContext classContext) {
@@ -415,10 +413,10 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
     }
 
     @Override
-    public LockResourceTracker getResourceTracker(ClassContext classContext, Method method) throws CFGBuilderException,
-            DataflowAnalysisException {
-        return new LockResourceTracker(bugReporter, classContext.getCFG(method), classContext.getValueNumberDataflow(method),
-                classContext.getIsNullValueDataflow(method));
+    public LockResourceTracker getResourceTracker(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
+        return new LockResourceTracker(bugReporter, classContext.getCFG(method),
+                classContext.getValueNumberDataflow(method), classContext.getIsNullValueDataflow(method));
     }
 
     @Override
@@ -451,7 +449,8 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
             if (nextInstruction.getInstruction() instanceof RETURN) {
                 return; // don't report as error; intentional
             }
-            bugAccumulator.accumulateBug(new BugInstance(this, bugType, priority).addClassAndMethod(methodGen, sourceFile),
+            bugAccumulator.accumulateBug(
+                    new BugInstance(this, bugType, priority).addClassAndMethod(methodGen, sourceFile),
                     SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile, handle));
         }
     }

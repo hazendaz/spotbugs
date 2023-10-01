@@ -28,13 +28,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.meta.TypeQualifierDefault;
 
 /**
- * This annotation can be applied to a package, class or method to indicate that
- * the methods in that element have nonnull return values by default unless
- * there is:
+ * This annotation can be applied to a package, class or method to indicate that the methods in that element have
+ * nonnull return values by default unless there is:
  * <ul>
  * <li>An explicit nullness annotation
- * <li>The method overrides a method in a superclass (in which case the
- * annotation of the corresponding parameter in the superclass applies)
+ * <li>The method overrides a method in a superclass (in which case the annotation of the corresponding parameter in the
+ * superclass applies)
  * <li>there is a default annotation applied to a more tightly nested element.
  * </ul>
  */

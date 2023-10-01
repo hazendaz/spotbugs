@@ -61,7 +61,8 @@ public class QuickfixTest extends AbstractQuickfixTest {
 
     @Test
     public void testCreateDoPrivilegedBlockResolution() throws CoreException, IOException {
-        doTestQuickfixResolution("CreateDoPrivilegedBlockResolutionExample.java", "DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED");
+        doTestQuickfixResolution("CreateDoPrivilegedBlockResolutionExample.java",
+                "DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED");
     }
 
     @Test
@@ -120,7 +121,6 @@ public class QuickfixTest extends AbstractQuickfixTest {
         doTestQuickfixResolution("UseEqualsResolutionExample.java", pack.asList());
     }
 
-
     @Test
     public void testUseValueOfResolution() throws CoreException, IOException {
         QuickFixTestPackager pack = new QuickFixTestPackager();
@@ -135,7 +135,5 @@ public class QuickfixTest extends AbstractQuickfixTest {
     protected String getOutputFolderName() {
         return "/quickfixOutput/";
     }
-
-
 
 }

@@ -53,7 +53,8 @@ public class BugReporterDispatcherTest {
 
     @Test
     public void exceptionsAreSuppressed() {
-        BugReportDispatcher dispatcher = new BugReportDispatcher(Arrays.asList(new BrokenBugReporter(), new BrokenBugReporter()));
+        BugReportDispatcher dispatcher = new BugReportDispatcher(
+                Arrays.asList(new BrokenBugReporter(), new BrokenBugReporter()));
         try {
             dispatcher.logError("try to throw an error");
             fail();
@@ -65,6 +66,7 @@ public class BugReporterDispatcherTest {
 
     static final class BrokenBugReporterException extends RuntimeException {
     }
+
     static final class BrokenBugReporter extends PrintingBugReporter {
         @Override
         public void logError(String message) {

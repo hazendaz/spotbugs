@@ -71,9 +71,9 @@ public class JavaSourceDocument {
 
     final NumberedEditorKit dek = new NumberedEditorKit(highlights);
 
-    //    final StyleContext styleContext = new StyleContext();
+    // final StyleContext styleContext = new StyleContext();
 
-    //    final Element root;
+    // final Element root;
 
     final DefaultStyledDocument doc;
 
@@ -113,7 +113,7 @@ public class JavaSourceDocument {
         }
         in.close();
         doc.putProperty(Document.TitleProperty, title);
-        //        root = doc.getDefaultRootElement();
+        // root = doc.getDefaultRootElement();
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         FontMetrics fontMetrics = toolkit.getFontMetrics(sourceFont);
         TabStop[] tabs = new TabStop[50];
@@ -167,7 +167,7 @@ public class JavaSourceDocument {
 
     }
 
-    //    private static final long serialVersionUID = 0L;
+    // private static final long serialVersionUID = 0L;
 
     public static final JavaSourceDocument UNKNOWNSOURCE;
     static {

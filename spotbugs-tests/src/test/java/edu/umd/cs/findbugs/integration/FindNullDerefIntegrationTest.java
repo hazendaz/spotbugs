@@ -44,10 +44,7 @@ public class FindNullDerefIntegrationTest extends AbstractIntegrationTest {
 
         // It must be on the INSTANCE field
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("SI_INSTANCE_BEFORE_FINALS_ASSIGNED")
-                .inClass("Elvis")
-                .atField("INSTANCE")
-                .build();
+                .bugType("SI_INSTANCE_BEFORE_FINALS_ASSIGNED").inClass("Elvis").atField("INSTANCE").build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 
@@ -62,10 +59,7 @@ public class FindNullDerefIntegrationTest extends AbstractIntegrationTest {
 
         // It must be on the lambda method, checking by line number
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
-                .inClass("Issue20")
-                .atLine(24)
-                .build();
+                .bugType("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE").inClass("Issue20").atLine(24).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 }

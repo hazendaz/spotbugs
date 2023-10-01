@@ -59,9 +59,11 @@ public class HTML {
             } else if ("li".equals(name)) {
                 super.incrIndent();
                 write("* ");
-            } /*else if (name.equals("p")) {
-              
-              }*/
+            } /*
+               * else if (name.equals("p")) {
+               *
+               * }
+               */
         }
 
         @Override

@@ -68,8 +68,8 @@ public class JrtfsCodeBase extends AbstractScannableCodeBase {
     /**
      * Key is package name in bytecode notation (e.g. 'java/lang').
      * <p>
-     * Values are either plain Strings for single-module packages, or sets of
-     * Strings for packages spread over multiple modules
+     * Values are either plain Strings for single-module packages, or sets of Strings for packages spread over multiple
+     * modules
      */
     private Map<String, Object> packageToModuleMap;
 
@@ -115,7 +115,8 @@ public class JrtfsCodeBase extends AbstractScannableCodeBase {
                     e.printStackTrace();
                 }
             });
-        } ;
+        }
+        ;
         return packageToModule;
     }
 
@@ -180,7 +181,6 @@ public class JrtfsCodeBase extends AbstractScannableCodeBase {
         }
         return fileName.equals(((JrtfsCodeBase) obj).fileName);
     }
-
 
     @Override
     public String toString() {
@@ -330,6 +330,5 @@ public class JrtfsCodeBase extends AbstractScannableCodeBase {
         }
 
     }
-
 
 }

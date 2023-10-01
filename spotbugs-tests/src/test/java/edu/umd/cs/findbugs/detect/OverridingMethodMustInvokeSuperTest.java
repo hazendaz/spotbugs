@@ -12,12 +12,10 @@ public class OverridingMethodMustInvokeSuperTest extends AbstractIntegrationTest
 
     @Test
     public void test() {
-        performAnalysis(
-                "NeedsCallOfSuper.class",
-                "NeedsCallOfSuper$DerivedClass.class",
-                "NeedsCallOfSuper$ConcreteClass.class",
-                "NeedsCallOfSuper$GenericClass.class");
-        BugInstanceMatcher bugMatcher = new BugInstanceMatcherBuilder().bugType("OVERRIDING_METHODS_MUST_INVOKE_SUPER").build();
+        performAnalysis("NeedsCallOfSuper.class", "NeedsCallOfSuper$DerivedClass.class",
+                "NeedsCallOfSuper$ConcreteClass.class", "NeedsCallOfSuper$GenericClass.class");
+        BugInstanceMatcher bugMatcher = new BugInstanceMatcherBuilder().bugType("OVERRIDING_METHODS_MUST_INVOKE_SUPER")
+                .build();
         assertThat(getBugCollection(), containsExactly(1, bugMatcher));
     }
 

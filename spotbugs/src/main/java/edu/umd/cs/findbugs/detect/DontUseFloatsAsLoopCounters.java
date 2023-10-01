@@ -46,29 +46,15 @@ public class DontUseFloatsAsLoopCounters extends OpcodeStackDetector implements 
         FLOAT_CONSTANT_PUSHERS = Collections.unmodifiableMap(tmp);
     }
 
-    private static final Set<Integer> FLOAT_COMPARERS = new HashSet<>(Arrays.asList(
-            (int) Const.FCMPG,
-            (int) Const.FCMPL,
-            (int) Const.DCMPG,
-            (int) Const.DCMPL));
+    private static final Set<Integer> FLOAT_COMPARERS = new HashSet<>(
+            Arrays.asList((int) Const.FCMPG, (int) Const.FCMPL, (int) Const.DCMPG, (int) Const.DCMPL));
 
-    private static final Set<Integer> FLOAT_STORERS = new HashSet<>(Arrays.asList(
-            (int) Const.FSTORE,
-            (int) Const.FSTORE_0,
-            (int) Const.FSTORE_1,
-            (int) Const.FSTORE_2,
-            (int) Const.FSTORE_3,
-            (int) Const.DSTORE,
-            (int) Const.DSTORE_0,
-            (int) Const.DSTORE_1,
-            (int) Const.DSTORE_2,
-            (int) Const.DSTORE_3));
+    private static final Set<Integer> FLOAT_STORERS = new HashSet<>(Arrays.asList((int) Const.FSTORE,
+            (int) Const.FSTORE_0, (int) Const.FSTORE_1, (int) Const.FSTORE_2, (int) Const.FSTORE_3, (int) Const.DSTORE,
+            (int) Const.DSTORE_0, (int) Const.DSTORE_1, (int) Const.DSTORE_2, (int) Const.DSTORE_3));
 
-    private static final Set<Integer> FLOAT_ADDITIVE_OPS = new HashSet<>(Arrays.asList(
-            (int) Const.FADD,
-            (int) Const.FSUB,
-            (int) Const.DADD,
-            (int) Const.DSUB));
+    private static final Set<Integer> FLOAT_ADDITIVE_OPS = new HashSet<>(
+            Arrays.asList((int) Const.FADD, (int) Const.FSUB, (int) Const.DADD, (int) Const.DSUB));
 
     public DontUseFloatsAsLoopCounters(BugReporter bugReporter) {
         this.bugReporter = bugReporter;
@@ -76,17 +62,15 @@ public class DontUseFloatsAsLoopCounters extends OpcodeStackDetector implements 
 
     @Override
     public void sawOpcode(int seen) {
-        if ((seen == Const.GOTO || seen == Const.GOTO_W) &&
-                getBranchTarget() < getPC() &&
-                checkLoopEnd() && checkLoopStart(getBranchTarget())) {
+        if ((seen == Const.GOTO || seen == Const.GOTO_W) && getBranchTarget() < getPC() && checkLoopEnd()
+                && checkLoopStart(getBranchTarget())) {
             bugReporter.reportBug(new BugInstance(this, "FL_FLOATS_AS_LOOP_COUNTERS", NORMAL_PRIORITY)
                     .addClassAndMethod(this).addSourceLine(this, getBranchTarget()));
         }
     }
 
     private boolean checkLoopEnd() {
-        return FLOAT_STORERS.contains(getPrevOpcode(1)) &&
-                FLOAT_ADDITIVE_OPS.contains(getPrevOpcode(2));
+        return FLOAT_STORERS.contains(getPrevOpcode(1)) && FLOAT_ADDITIVE_OPS.contains(getPrevOpcode(2));
     }
 
     private boolean checkLoopStart(int startPC) {

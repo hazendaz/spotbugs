@@ -190,16 +190,14 @@ public class ConstructorThrowTest extends AbstractIntegrationTest {
     }
 
     private void assertNumOfCTBugs(int num) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("CT_CONSTRUCTOR_THROW").build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("CT_CONSTRUCTOR_THROW")
+                .build();
         assertThat(getBugCollection(), containsExactly(num, bugTypeMatcher));
     }
 
     private void assertCTBugInLine(int line) {
-        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("CT_CONSTRUCTOR_THROW")
-                .atLine(line)
-                .build();
+        final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder().bugType("CT_CONSTRUCTOR_THROW")
+                .atLine(line).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 }

@@ -77,11 +77,9 @@ public class OSXAdapter extends ApplicationAdapter {
         if (mainApp != null) {
 
             /*
-             * You MUST setHandled(false) if you want to delay or cancel the
-             * quit. This is important for cross-platform development -- have a
-             * universal quit routine that chooses whether or not to quit, so
-             * the functionality is identical on all platforms. This example
-             * simply cancels the AppleEvent-based quit and defers to that
+             * You MUST setHandled(false) if you want to delay or cancel the quit. This is important for cross-platform
+             * development -- have a universal quit routine that chooses whether or not to quit, so the functionality is
+             * identical on all platforms. This example simply cancels the AppleEvent-based quit and defers to that
              * universal method.
              */
 

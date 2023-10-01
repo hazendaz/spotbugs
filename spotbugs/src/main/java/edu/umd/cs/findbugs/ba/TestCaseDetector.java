@@ -30,7 +30,8 @@ public class TestCaseDetector {
 
     private static final ClassDescriptor JUNIT4TEST = DescriptorFactory.createClassDescriptor("org/junit/Test");
 
-    private static final ClassDescriptor JUNIT3TESTCASE = DescriptorFactory.createClassDescriptor("junit/framework/TestCase");
+    private static final ClassDescriptor JUNIT3TESTCASE = DescriptorFactory
+            .createClassDescriptor("junit/framework/TestCase");
 
     public static boolean likelyTestCase(XMethod m) {
         if (m.getAnnotation(JUNIT4TEST) != null) {

@@ -25,6 +25,7 @@ import org.apache.bcel.generic.Type;
  * Special "top" type. It is the identity element for the type merge operation.
  *
  * @author David Hovemeyer
+ *
  * @see TypeAnalysis
  * @see TypeFrame
  * @see TypeMerger

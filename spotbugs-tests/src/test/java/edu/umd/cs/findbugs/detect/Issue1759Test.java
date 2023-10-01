@@ -12,8 +12,8 @@ public class Issue1759Test extends AbstractIntegrationTest {
     @Test
     public void test() {
         performAnalysis("ghIssues/Issue1759.class");
-        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType("BC_IMPOSSIBLE_DOWNCAST_OF_TOARRAY").build();
+        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType("BC_IMPOSSIBLE_DOWNCAST_OF_TOARRAY")
+                .build();
         assertThat(getBugCollection(), containsExactly(1, matcher));
     }
 }

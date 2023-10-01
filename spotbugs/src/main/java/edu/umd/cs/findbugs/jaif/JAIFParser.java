@@ -29,9 +29,8 @@ import edu.umd.cs.findbugs.charsets.UTF8;
  * Parse an external annotation file.
  *
  * @author David Hovemeyer
- * @see <a
- *      href="http://groups.csail.mit.edu/pag/jsr308/annotation-file-utilities/">Annotation
- *      File Utilities/</a>
+ *
+ * @see <a href="http://groups.csail.mit.edu/pag/jsr308/annotation-file-utilities/">Annotation File Utilities/</a>
  */
 public class JAIFParser {
     private final JAIFScanner scanner;
@@ -62,7 +61,8 @@ public class JAIFParser {
     private JAIFToken expect(JAIFTokenKind kind) throws IOException, JAIFSyntaxException {
         JAIFToken t = scanner.nextToken();
         if (t.kind != kind) {
-            throw new JAIFSyntaxException(this, "Unexpected token " + t + " (was expecting a `" + kind.toString() + "' token)");
+            throw new JAIFSyntaxException(this,
+                    "Unexpected token " + t + " (was expecting a `" + kind.toString() + "' token)");
         }
         return t;
     }
@@ -91,7 +91,8 @@ public class JAIFParser {
         }
 
         if (nlCount < 1) {
-            String msg = (t == null) ? "Unexpected end of file" : "Unexpected token " + t + " (was expecting <newline>)";
+            String msg = (t == null) ? "Unexpected end of file"
+                    : "Unexpected token " + t + " (was expecting <newline>)";
             throw new JAIFSyntaxException(this, msg);
         }
     }
@@ -128,11 +129,11 @@ public class JAIFParser {
     private String readType() throws IOException, JAIFSyntaxException {
         StringBuilder buf = new StringBuilder();
 
-        /*JAIFToken t = */expect(JAIFTokenKind.IDENTIFIER_OR_KEYWORD);
+        /* JAIFToken t = */expect(JAIFTokenKind.IDENTIFIER_OR_KEYWORD);
 
-        //        if (t.lexeme.equals("enum")) {
+        // if (t.lexeme.equals("enum")) {
         //
-        //        }
+        // }
 
         return buf.toString();
     }

@@ -27,7 +27,6 @@ import java.net.URL;
 import javax.annotation.CheckForNull;
 import javax.swing.JOptionPane;
 
-
 /**
  * @author pugh
  */
@@ -89,7 +88,8 @@ public class JavaWebStart {
         return new URL(s);
     }
 
-    static Boolean viaWebStart(URL url) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    static Boolean viaWebStart(URL url)
+            throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         if (JavaWebStart.jnlpShowDocumentMethod == null) {
             throw new UnsupportedOperationException("Launch via web start not available");
         }

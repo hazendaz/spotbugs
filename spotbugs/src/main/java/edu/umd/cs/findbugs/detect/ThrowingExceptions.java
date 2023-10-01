@@ -10,7 +10,6 @@ import org.apache.bcel.Const;
 import org.apache.bcel.classfile.ExceptionTable;
 import org.apache.bcel.classfile.Method;
 
-
 public class ThrowingExceptions extends OpcodeStackDetector {
     private final BugReporter bugReporter;
 

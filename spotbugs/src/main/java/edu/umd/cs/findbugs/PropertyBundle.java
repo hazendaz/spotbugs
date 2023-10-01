@@ -121,8 +121,7 @@ public class PropertyBundle {
     }
 
     /**
-     * Get boolean property, returning false if a security manager prevents us
-     * from accessing system properties
+     * Get boolean property, returning false if a security manager prevents us from accessing system properties
      *
      * @return true if the property exists and is set to true
      */
@@ -153,6 +152,7 @@ public class PropertyBundle {
      *            property name
      * @param defaultValue
      *            default value
+     *
      * @return the int value (or defaultValue if the property does not exist)
      */
     public int getInt(String name, int defaultValue) {
@@ -170,6 +170,7 @@ public class PropertyBundle {
     /**
      * @param name
      *            property name
+     *
      * @return string value (or null if the property does not exist)
      */
     public String getOSDependentProperty(String name) {
@@ -184,6 +185,7 @@ public class PropertyBundle {
     /**
      * @param name
      *            property name
+     *
      * @return string value (or null if the property does not exist)
      */
     public String getProperty(String name) {
@@ -213,6 +215,7 @@ public class PropertyBundle {
      *            property name
      * @param defaultValue
      *            default value
+     *
      * @return string value (or defaultValue if the property does not exist)
      */
     public String getProperty(String name, String defaultValue) {

@@ -20,18 +20,13 @@ public class Issue2370Test extends AbstractIntegrationTest {
 
     @Parameterized.Parameters
     public static String[] data() {
-        return new String[] {
-            "Issue2370Doubles",
-            "Issue2370Ints",
-            "Issue2370Longs"
-        };
+        return new String[] { "Issue2370Doubles", "Issue2370Ints", "Issue2370Longs" };
     }
 
     @Test
     public void testInstance() {
         performAnalysis(target);
-        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("DMI_RANDOM_USED_ONLY_ONCE")
+        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("DMI_RANDOM_USED_ONLY_ONCE")
                 .build();
         assertThat(getBugCollection(), containsExactly(0, bugTypeMatcher));
     }

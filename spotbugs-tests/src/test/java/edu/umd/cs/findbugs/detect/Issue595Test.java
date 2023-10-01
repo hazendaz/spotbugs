@@ -12,8 +12,7 @@ import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcher;
 import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
 
 /**
- * @see <a href="https://github.com/spotbugs/spotbugs/issues/595">GitHub
- *      issue</a>
+ * @see <a href="https://github.com/spotbugs/spotbugs/issues/595">GitHub issue</a>
  */
 public class Issue595Test extends AbstractIntegrationTest {
     @Rule

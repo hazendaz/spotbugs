@@ -53,9 +53,7 @@ public class TrainLongInstantfParams extends PreorderVisitor implements Detector
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.ba.interproc.MethodPropertyDatabase#encodeProperty
-         * (Property)
+         * @see edu.umd.cs.findbugs.ba.interproc.MethodPropertyDatabase#encodeProperty (Property)
          */
 
         @Override
@@ -118,7 +116,8 @@ public class TrainLongInstantfParams extends PreorderVisitor implements Detector
     @Override
     public void report() {
         // System.out.println(database.entrySet().size() + " methods");
-        AnalysisContext.currentAnalysisContext().storePropertyDatabase(database, "longInstant.db", "long instant database");
+        AnalysisContext.currentAnalysisContext().storePropertyDatabase(database, "longInstant.db",
+                "long instant database");
 
     }
 

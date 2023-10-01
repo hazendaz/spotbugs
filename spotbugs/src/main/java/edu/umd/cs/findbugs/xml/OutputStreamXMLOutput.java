@@ -92,10 +92,9 @@ public class OutputStreamXMLOutput implements XMLOutput {
     }
 
     /*
-     * @param os
-     *            Writer to write XML output to
-     * @param stylesheet
-     *            name of stylesheet
+     * @param os Writer to write XML output to
+     *
+     * @param stylesheet name of stylesheet
      */
     public OutputStreamXMLOutput(@WillCloseWhenClosed Writer writer, String stylesheet) {
         this.out = writer;

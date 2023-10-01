@@ -29,8 +29,7 @@ public interface IErrorLogger {
      * Called to report a class lookup failure.
      *
      * @param ex
-     *            a ClassNotFoundException resulting from the class lookup
-     *            failure
+     *            a ClassNotFoundException resulting from the class lookup failure
      */
     public void reportMissingClass(ClassNotFoundException ex);
 

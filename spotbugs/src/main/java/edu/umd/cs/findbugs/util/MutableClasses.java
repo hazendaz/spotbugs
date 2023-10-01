@@ -12,56 +12,37 @@ import edu.umd.cs.findbugs.ba.AnalysisContext;
 
 public class MutableClasses {
 
-    private static final Set<String> KNOWN_IMMUTABLE_CLASSES = new HashSet<>(Arrays.asList(
-            "java.lang.String", "java.lang.Integer", "java.lang.Byte", "java.lang.Character",
-            "java.lang.Short", "java.lang.Boolean", "java.lang.Long", "java.lang.Double",
-            "java.lang.Float", "java.lang.StackTraceElement", "java.lang.Class", "java.math.BigInteger",
-            "java.math.Decimal", "java.io.File", "java.awt.Font", "java.awt.BasicStroke",
-            "java.awt.Color", "java.awt.GradientPaint", "java.awt.LinearGradientPaint",
-            "java.awt.RadialGradientPaint", "java.awt.Cursor", "java.util.Locale", "java.util.UUID", "java.net.URL",
-            "java.util.regex.Pattern",
+    private static final Set<String> KNOWN_IMMUTABLE_CLASSES = new HashSet<>(Arrays.asList("java.lang.String",
+            "java.lang.Integer", "java.lang.Byte", "java.lang.Character", "java.lang.Short", "java.lang.Boolean",
+            "java.lang.Long", "java.lang.Double", "java.lang.Float", "java.lang.StackTraceElement", "java.lang.Class",
+            "java.math.BigInteger", "java.math.Decimal", "java.io.File", "java.awt.Font", "java.awt.BasicStroke",
+            "java.awt.Color", "java.awt.GradientPaint", "java.awt.LinearGradientPaint", "java.awt.RadialGradientPaint",
+            "java.awt.Cursor", "java.util.Locale", "java.util.UUID", "java.net.URL", "java.util.regex.Pattern",
             "java.net.URI", "java.net.Inet4Address", "java.net.Inet6Address", "java.net.InetSocketAddress",
             "java.security.Permission", "com.google.common.collect.ImmutableBiMap",
-            "com.google.common.collect.ImmutableClassToInstanceMap",
-            "com.google.common.collect.ImmutableCollection",
-            "com.google.common.collect.ImmutableList",
-            "com.google.common.collect.ImmutableListMultimap",
-            "com.google.common.collect.ImmutableMap",
-            "com.google.common.collect.ImmutableMultimap",
-            "com.google.common.collect.ImmutableMultiset",
-            "com.google.common.collect.ImmutableRangeMap",
-            "com.google.common.collect.ImmutableRangeSet",
-            "com.google.common.collect.ImmutableSet",
-            "com.google.common.collect.ImmutableSetMultimap",
-            "com.google.common.collect.ImmutableSortedMap",
-            "com.google.common.collect.ImmutableSortedMultiset",
-            "com.google.common.collect.ImmutableSortedSet",
-            "com.google.common.collect.ImmutableTable",
-            "java.util.Collections$EmptyList",
-            "java.util.Collections$EmptyMap",
-            "java.util.Collections$EmptyNavigableMap",
-            "java.util.Collections$EmptySet",
-            "java.util.Collections$EmptyNavigableSet",
-            "java.util.Collections$SingletonList",
-            "java.util.Collections$SingletonMap",
-            "java.util.Collections$SingletonSet",
-            "java.util.Collections$UnmodifiableList",
-            "java.util.Collections$UnmodifiableMap",
-            "java.util.Collections$UnmodifiableNavigableMap",
-            "java.util.Collections$UnmodifiableSortedMap",
-            "java.util.Collections$UnmodifiableSet",
-            "java.util.Collections$UnmodifiableNavigableSet",
-            "java.util.Collections$UnmodifiableSortedSet",
+            "com.google.common.collect.ImmutableClassToInstanceMap", "com.google.common.collect.ImmutableCollection",
+            "com.google.common.collect.ImmutableList", "com.google.common.collect.ImmutableListMultimap",
+            "com.google.common.collect.ImmutableMap", "com.google.common.collect.ImmutableMultimap",
+            "com.google.common.collect.ImmutableMultiset", "com.google.common.collect.ImmutableRangeMap",
+            "com.google.common.collect.ImmutableRangeSet", "com.google.common.collect.ImmutableSet",
+            "com.google.common.collect.ImmutableSetMultimap", "com.google.common.collect.ImmutableSortedMap",
+            "com.google.common.collect.ImmutableSortedMultiset", "com.google.common.collect.ImmutableSortedSet",
+            "com.google.common.collect.ImmutableTable", "java.util.Collections$EmptyList",
+            "java.util.Collections$EmptyMap", "java.util.Collections$EmptyNavigableMap",
+            "java.util.Collections$EmptySet", "java.util.Collections$EmptyNavigableSet",
+            "java.util.Collections$SingletonList", "java.util.Collections$SingletonMap",
+            "java.util.Collections$SingletonSet", "java.util.Collections$UnmodifiableList",
+            "java.util.Collections$UnmodifiableMap", "java.util.Collections$UnmodifiableNavigableMap",
+            "java.util.Collections$UnmodifiableSortedMap", "java.util.Collections$UnmodifiableSet",
+            "java.util.Collections$UnmodifiableNavigableSet", "java.util.Collections$UnmodifiableSortedSet",
             "java.util.ImmutableCollections$AbstractImmutableList",
             "java.util.ImmutableCollections$AbstractImmutableMap",
             "java.util.ImmutableCollections$AbstractImmutableSet"));
 
-    private static final Set<String> KNOWN_IMMUTABLE_PACKAGES = new HashSet<>(Arrays.asList(
-            "java.math", "java.time"));
+    private static final Set<String> KNOWN_IMMUTABLE_PACKAGES = new HashSet<>(Arrays.asList("java.math", "java.time"));
 
-    private static final List<String> SETTER_LIKE_PREFIXES = Arrays.asList(
-            "set", "put", "add", "insert", "delete", "remove", "erase", "clear", "push", "pop",
-            "enqueue", "dequeue", "write", "append", "replace");
+    private static final List<String> SETTER_LIKE_PREFIXES = Arrays.asList("set", "put", "add", "insert", "delete",
+            "remove", "erase", "clear", "push", "pop", "enqueue", "dequeue", "write", "append", "replace");
 
     public static boolean mutableSignature(String sig) {
         if (sig.charAt(0) == '[') {

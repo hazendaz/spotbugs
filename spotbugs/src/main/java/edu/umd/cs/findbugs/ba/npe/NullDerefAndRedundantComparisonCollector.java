@@ -32,16 +32,15 @@ import edu.umd.cs.findbugs.ba.vna.ValueNumberDataflow;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * Callback interface for collecting null pointer derefs and redundant null
- * comparisons.
+ * Callback interface for collecting null pointer derefs and redundant null comparisons.
  *
  * @see edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder
+ *
  * @author David Hovemeyer
  */
 public interface NullDerefAndRedundantComparisonCollector {
     /**
-     * Subclasses should override this method to capture locations where a null
-     * pointer is dereferenced.
+     * Subclasses should override this method to capture locations where a null pointer is dereferenced.
      *
      * @param location
      *            the Location of the null dereference
@@ -50,18 +49,16 @@ public interface NullDerefAndRedundantComparisonCollector {
      * @param refValue
      *            the kind of possibly-null value dereferenced
      * @param vnaFrame
-     *            The ValueNumber Frame at the point where the dereference
-     *            occurred
-     * @deprecated Use
-     *             {@link #foundNullDeref(Location,ValueNumber,IsNullValue,ValueNumberFrame,boolean)}
-     *             instead
+     *            The ValueNumber Frame at the point where the dereference occurred
+     *
+     * @deprecated Use {@link #foundNullDeref(Location,ValueNumber,IsNullValue,ValueNumberFrame,boolean)} instead
      */
     @Deprecated
-    public void foundNullDeref(Location location, ValueNumber valueNumber, IsNullValue refValue, ValueNumberFrame vnaFrame);
+    public void foundNullDeref(Location location, ValueNumber valueNumber, IsNullValue refValue,
+            ValueNumberFrame vnaFrame);
 
     /**
-     * Subclasses should override this method to capture locations where a null
-     * pointer is dereferenced.
+     * Subclasses should override this method to capture locations where a null pointer is dereferenced.
      *
      * @param location
      *            the Location of the null dereference
@@ -70,18 +67,15 @@ public interface NullDerefAndRedundantComparisonCollector {
      * @param refValue
      *            the kind of possibly-null value dereferenced
      * @param vnaFrame
-     *            The ValueNumber Frame at the point where the dereference
-     *            occurred
+     *            The ValueNumber Frame at the point where the dereference occurred
      * @param isConsistent
-     *            true if the refValue is identical at all clones of the same
-     *            instruction
+     *            true if the refValue is identical at all clones of the same instruction
      */
-    public void foundNullDeref(Location location, ValueNumber valueNumber, IsNullValue refValue, ValueNumberFrame vnaFrame,
-            boolean isConsistent);
+    public void foundNullDeref(Location location, ValueNumber valueNumber, IsNullValue refValue,
+            ValueNumberFrame vnaFrame, boolean isConsistent);
 
     /**
-     * Subclasses should override this method to capture locations where a
-     * redundant null comparison is performed.
+     * Subclasses should override this method to capture locations where a redundant null comparison is performed.
      *
      * @param location
      *            the Location of the redundant null check
@@ -91,9 +85,8 @@ public interface NullDerefAndRedundantComparisonCollector {
     public void foundRedundantNullCheck(Location location, RedundantBranch redundantBranch);
 
     /**
-     * Subclasses should override this method to capture values assigned null
-     * (or that become null through a comparison and branch) that are guaranteed
-     * to reach a dereference (ignoring implicit exception paths).
+     * Subclasses should override this method to capture values assigned null (or that become null through a comparison
+     * and branch) that are guaranteed to reach a dereference (ignoring implicit exception paths).
      *
      * @param assignedNullLocationSet
      *            set of locations where the value becomes null
@@ -112,7 +105,8 @@ public interface NullDerefAndRedundantComparisonCollector {
      * @param npeIfStatementCovered
      *            true if doom location is a statement
      */
-    public void foundGuaranteedNullDeref(@Nonnull Set<Location> assignedNullLocationSet, @Nonnull Set<Location> derefLocationSet,
-            SortedSet<Location> doomedLocations, ValueNumberDataflow vna, ValueNumber refValue,
-            @CheckForNull BugAnnotation variableAnnotation, NullValueUnconditionalDeref deref, boolean npeIfStatementCovered);
+    public void foundGuaranteedNullDeref(@Nonnull Set<Location> assignedNullLocationSet,
+            @Nonnull Set<Location> derefLocationSet, SortedSet<Location> doomedLocations, ValueNumberDataflow vna,
+            ValueNumber refValue, @CheckForNull BugAnnotation variableAnnotation, NullValueUnconditionalDeref deref,
+            boolean npeIfStatementCovered);
 }

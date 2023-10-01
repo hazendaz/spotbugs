@@ -59,8 +59,8 @@ public class TestGenericObjectType {
     List<ReferenceType> parameters;
 
     public void initTest(String bytecodeSignature, String javaSignature, String underlyingClass,
-            GenericUtilities.TypeCategory typeCategory,
-            @Nullable String variable, @Nullable Type extension, @Nullable List<ReferenceType> parameters) {
+            GenericUtilities.TypeCategory typeCategory, @Nullable String variable, @Nullable Type extension,
+            @Nullable List<ReferenceType> parameters) {
         this.obj = (GenericObjectType) GenericUtilities.getType(bytecodeSignature);
         this.javaSignature = javaSignature;
         this.underlyingClass = underlyingClass;
@@ -120,29 +120,30 @@ public class TestGenericObjectType {
 
     public void notestCreateTypes() {
         initTest("LDummyClass<Ljava/lang/Comparable;TE;>;", "DummyClass<java.lang.Comparable,E>", "DummyClass",
-                GenericUtilities.TypeCategory.PARAMETERIZED, null, null, Arrays.asList(
-                        (ReferenceType) GenericUtilities.getType("Ljava/lang/Comparable;"),
+                GenericUtilities.TypeCategory.PARAMETERIZED, null, null,
+                Arrays.asList((ReferenceType) GenericUtilities.getType("Ljava/lang/Comparable;"),
                         (ReferenceType) GenericUtilities.getType("TE;")));
         processTest();
     }
 
     public void notestTypeVariables() {
-        initTest("TE;", "E", Values.DOTTED_JAVA_LANG_OBJECT, GenericUtilities.TypeCategory.TYPE_VARIABLE, "E", null, null);
+        initTest("TE;", "E", Values.DOTTED_JAVA_LANG_OBJECT, GenericUtilities.TypeCategory.TYPE_VARIABLE, "E", null,
+                null);
         processTest();
 
         initTest("*", "?", Values.DOTTED_JAVA_LANG_OBJECT, GenericUtilities.TypeCategory.WILDCARD, "*", null, null);
         processTest();
 
-        initTest("+TE;", "? extends E", Values.DOTTED_JAVA_LANG_OBJECT, GenericUtilities.TypeCategory.WILDCARD_EXTENDS, "+",
-                GenericUtilities.getType("TE;"), null);
+        initTest("+TE;", "? extends E", Values.DOTTED_JAVA_LANG_OBJECT, GenericUtilities.TypeCategory.WILDCARD_EXTENDS,
+                "+", GenericUtilities.getType("TE;"), null);
         processTest();
 
         initTest("-TE;", "? super E", Values.DOTTED_JAVA_LANG_OBJECT, GenericUtilities.TypeCategory.WILDCARD_SUPER, "-",
                 GenericUtilities.getType("TE;"), null);
         processTest();
 
-        initTest("-[TE;", "? super E[]", Values.DOTTED_JAVA_LANG_OBJECT, GenericUtilities.TypeCategory.WILDCARD_SUPER, "-",
-                GenericUtilities.getType("[TE;"), null);
+        initTest("-[TE;", "? super E[]", Values.DOTTED_JAVA_LANG_OBJECT, GenericUtilities.TypeCategory.WILDCARD_SUPER,
+                "-", GenericUtilities.getType("[TE;"), null);
         processTest();
     }
 }

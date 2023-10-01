@@ -29,9 +29,8 @@ import edu.umd.cs.findbugs.L10N;
 import edu.umd.cs.findbugs.xml.XMLOutput;
 
 /**
- * Why this wasn't just called Filter is still somewhat of a mystery.
- * FilterMatchers are Filters, pass in a StringPair like Priority, High and all
- * the high priority bugs disappear, Its that easy.
+ * Why this wasn't just called Filter is still somewhat of a mystery. FilterMatchers are Filters, pass in a StringPair
+ * like Priority, High and all the high priority bugs disappear, Its that easy.
  */
 @Deprecated
 public class FilterMatcher implements Matcher, Serializable, Comparable<FilterMatcher> {
@@ -131,8 +130,7 @@ public class FilterMatcher implements Matcher, Serializable, Comparable<FilterMa
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder(30)
-                .append(filterBy).append(' ')
+        StringBuilder result = new StringBuilder(30).append(filterBy).append(' ')
                 .append(L10N.getLocalString("dlg.is", "is")).append(' ');
         switch (mode) {
         case FILTER_EXACTLY:

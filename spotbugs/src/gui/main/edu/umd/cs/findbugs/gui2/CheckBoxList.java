@@ -90,7 +90,5 @@ public class CheckBoxList<E> extends JList<E> {
             return checkbox;
         }
 
-
-
     }
 }

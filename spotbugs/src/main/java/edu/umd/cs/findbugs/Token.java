@@ -23,6 +23,7 @@ package edu.umd.cs.findbugs;
  * Simple token class.
  *
  * @author David Hovemeyer
+ *
  * @see Tokenizer
  */
 public class Token {

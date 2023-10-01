@@ -22,17 +22,14 @@ public class DontUseFloatsAsLoopCountersTest extends AbstractIntegrationTest {
 
     private void assertBug(String method, int line) {
         final BugInstanceMatcher bugInstanceMatcher = new BugInstanceMatcherBuilder()
-                .bugType("FL_FLOATS_AS_LOOP_COUNTERS")
-                .inClass("DontUseFloatsAsLoopCounters")
-                .inMethod(method)
-                .atLine(line)
-                .build();
+                .bugType("FL_FLOATS_AS_LOOP_COUNTERS").inClass("DontUseFloatsAsLoopCounters").inMethod(method)
+                .atLine(line).build();
         assertThat(getBugCollection(), hasItem(bugInstanceMatcher));
     }
 
     private void assertNumOfEOSBugs(int num) {
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("FL_FLOATS_AS_LOOP_COUNTERS").build();
+        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("FL_FLOATS_AS_LOOP_COUNTERS")
+                .build();
         assertThat(getBugCollection(), containsExactly(num, bugTypeMatcher));
     }
 }

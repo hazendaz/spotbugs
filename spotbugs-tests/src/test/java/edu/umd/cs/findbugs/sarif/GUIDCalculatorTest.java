@@ -39,7 +39,6 @@ public class GUIDCalculatorTest {
         assertThat(actualGUID, is(expectedUUID));
     }
 
-
     @Test
     public void testGuidFromStringUsingSmiley() {
         UUID expectedUUID = UUID.fromString("9c533688-a979-5858-8bd6-a43c9f91aba6");

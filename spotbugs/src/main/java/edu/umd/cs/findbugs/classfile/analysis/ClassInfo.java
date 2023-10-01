@@ -50,8 +50,8 @@ import edu.umd.cs.findbugs.util.TopologicalSort.OutEdges2;
 import edu.umd.cs.findbugs.util.Util;
 
 /**
- * ClassInfo represents important metadata about a loaded class, such as its
- * superclass, access flags, codebase entry, etc.
+ * ClassInfo represents important metadata about a loaded class, such as its superclass, access flags, codebase entry,
+ * etc.
  *
  * @author David Hovemeyer
  */
@@ -122,7 +122,6 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
                 fields = fieldInfoList.toArray(new FieldInfo[0]);
             }
 
-
             for (MethodInfo m : methodInfoList) {
                 if (m.isBridge() && !bridgedSignatures.containsKey(m)) {
 
@@ -131,8 +130,7 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
                     }
                     for (MethodInfo to : methodInfoList) {
                         if (m != to) {
-                            if (!to.isBridge()
-                                    && m.getName().equals(to.getName())
+                            if (!to.isBridge() && m.getName().equals(to.getName())
                                     && arguments(m.getSignature()).equals(arguments(to.getSignature()))) {
                                 if (DEBUG) {
                                     System.out.println("  to method:" + to);
@@ -141,11 +139,9 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
                             }
 
                         }
-                    } // end  for(MethodInfo to
-                } // end  if (m.isBridge()
-            } // end  for(MethodInfo m : methodInfoList)
-
-
+                    } // end for(MethodInfo to
+                } // end if (m.isBridge()
+            } // end for(MethodInfo m : methodInfoList)
 
             for (Map.Entry<MethodInfo, String> e : bridgedSignatures.entrySet()) {
                 MethodInfo method = e.getKey();
@@ -273,19 +269,19 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
      * @param accessFlags
      *            class's access flags
      * @param referencedClassDescriptorList
-     *            ClassDescriptors of all classes/interfaces referenced by the
-     *            class
+     *            ClassDescriptors of all classes/interfaces referenced by the class
      * @param fieldDescriptorList
      *            FieldDescriptors of fields defined in the class
      * @param methodInfoList
      *            MethodDescriptors of methods defined in the class
      */
-    private ClassInfo(ClassDescriptor classDescriptor, String classSourceSignature, ClassDescriptor superclassDescriptor,
-            ClassDescriptor[] interfaceDescriptorList, ICodeBaseEntry codeBaseEntry, int accessFlags, String source,
-            int majorVersion, int minorVersion, Collection<ClassDescriptor> referencedClassDescriptorList,
-            Set<ClassDescriptor> calledClassDescriptors, Map<ClassDescriptor, AnnotationValue> classAnnotations,
-            FieldInfo[] fieldDescriptorList, MethodInfo[] methodInfoList, ClassDescriptor immediateEnclosingClass,
-            boolean usesConcurrency, boolean hasStubs) {
+    private ClassInfo(ClassDescriptor classDescriptor, String classSourceSignature,
+            ClassDescriptor superclassDescriptor, ClassDescriptor[] interfaceDescriptorList,
+            ICodeBaseEntry codeBaseEntry, int accessFlags, String source, int majorVersion, int minorVersion,
+            Collection<ClassDescriptor> referencedClassDescriptorList, Set<ClassDescriptor> calledClassDescriptors,
+            Map<ClassDescriptor, AnnotationValue> classAnnotations, FieldInfo[] fieldDescriptorList,
+            MethodInfo[] methodInfoList, ClassDescriptor immediateEnclosingClass, boolean usesConcurrency,
+            boolean hasStubs) {
         super(classDescriptor, superclassDescriptor, interfaceDescriptorList, codeBaseEntry, accessFlags,
                 referencedClassDescriptorList, calledClassDescriptors, majorVersion, minorVersion);
         this.source = source;
@@ -301,13 +297,8 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
         this.hasStubs = hasStubs;
         this.methodsInCallOrder = computeMethodsInCallOrder();
         /*
-        if (false) {
-            System.out.println("Methods in call order for " + classDescriptor);
-            for (MethodInfo m : methodsInCallOrder) {
-                System.out.println("  " + m);
-            }
-            System.out.println();
-        }
+         * if (false) { System.out.println("Methods in call order for " + classDescriptor); for (MethodInfo m :
+         * methodsInCallOrder) { System.out.println("  " + m); } System.out.println(); }
          */
     }
 
@@ -354,8 +345,8 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
     public XField findField(String name, String signature, boolean isStatic) {
         int hash = FieldOrMethodDescriptor.getNameSigHashCode(name, signature);
         for (FieldInfo fInfo : xFields) {
-            if (fInfo.getNameSigHashCode() == hash && fInfo.getName().equals(name) && fInfo.getSignature().equals(signature)
-                    && fInfo.isStatic() == isStatic) {
+            if (fInfo.getNameSigHashCode() == hash && fInfo.getName().equals(name)
+                    && fInfo.getSignature().equals(signature) && fInfo.isStatic() == isStatic) {
                 return fInfo;
             }
         }
@@ -427,12 +418,10 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
     }
 
     /**
-     * Destructively add an annotation to the object. In general, this is not a
-     * great idea, since it could cause the same class to appear to have
-     * different annotations at different times. However, this method is
-     * necessary for "built-in" annotations that FindBugs adds to system
-     * classes. As long as we add such annotations early enough that nobody will
-     * notice, we should be ok.
+     * Destructively add an annotation to the object. In general, this is not a great idea, since it could cause the
+     * same class to appear to have different annotations at different times. However, this method is necessary for
+     * "built-in" annotations that FindBugs adds to system classes. As long as we add such annotations early enough that
+     * nobody will notice, we should be ok.
      *
      * @param annotationValue
      *            an AnnotationValue to add to the class

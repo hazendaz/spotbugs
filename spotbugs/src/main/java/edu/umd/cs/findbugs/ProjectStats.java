@@ -156,8 +156,7 @@ public class ProjectStats implements XMLWriteable, Cloneable {
      * Set the timestamp for this analysis run.
      *
      * @param timestamp
-     *            the time of the analysis run this ProjectStats represents, as
-     *            previously reported by writeXML.
+     *            the time of the analysis run this ProjectStats represents, as previously reported by writeXML.
      */
     public void setTimestamp(String timestamp) throws ParseException {
         this.analysisTimestamp = new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH).parse(timestamp);
@@ -198,10 +197,10 @@ public class ProjectStats implements XMLWriteable, Cloneable {
      * @param isInterface
      *            true if the class is an interface
      * @param size
-     *            a normalized class size value; see
-     *            detect/FindBugsSummaryStats.
+     *            a normalized class size value; see detect/FindBugsSummaryStats.
      */
-    public void addClass(@DottedClassName String className, @CheckForNull String sourceFile, boolean isInterface, int size) {
+    public void addClass(@DottedClassName String className, @CheckForNull String sourceFile, boolean isInterface,
+            int size) {
         addClass(className, sourceFile, isInterface, size, true);
     }
 
@@ -215,12 +214,12 @@ public class ProjectStats implements XMLWriteable, Cloneable {
      * @param isInterface
      *            true if the class is an interface
      * @param size
-     *            a normalized class size value; see
-     *            detect/FindBugsSummaryStats.
-     * @param updatePackageStats TODO
+     *            a normalized class size value; see detect/FindBugsSummaryStats.
+     * @param updatePackageStats
+     *            TODO
      */
-    public void addClass(@DottedClassName String className, @CheckForNull String sourceFile, boolean isInterface, int size,
-            boolean updatePackageStats) {
+    public void addClass(@DottedClassName String className, @CheckForNull String sourceFile, boolean isInterface,
+            int size, boolean updatePackageStats) {
         if (!hasClassStats) {
             // totalClasses/totalSize might be set from FindBugsSummary before when parsing XML: reset them
             totalClasses = 0;
@@ -395,7 +394,8 @@ public class ProjectStats implements XMLWriteable, Cloneable {
     public void writeXML(XMLOutput xmlOutput, boolean withMessages) throws IOException {
         xmlOutput.startTag("FindBugsSummary");
 
-        xmlOutput.addAttribute("timestamp", new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH).format(analysisTimestamp));
+        xmlOutput.addAttribute("timestamp",
+                new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH).format(analysisTimestamp));
         xmlOutput.addAttribute("total_classes", String.valueOf(getNumClasses()));
         xmlOutput.addAttribute("referenced_classes", String.valueOf(referencedClasses));
 

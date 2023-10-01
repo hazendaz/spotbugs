@@ -22,9 +22,7 @@ public class Issue2114Test extends AbstractIntegrationTest {
     }
 
     public void assertFoundDefaultEncodingRelianceInMethod(String methodName) {
-        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType("DM_DEFAULT_ENCODING")
-                .inMethod(methodName)
+        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType("DM_DEFAULT_ENCODING").inMethod(methodName)
                 .build();
 
         assertThat(getBugCollection(), containsExactly(1, matcher));

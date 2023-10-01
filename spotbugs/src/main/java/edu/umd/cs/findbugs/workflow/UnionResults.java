@@ -59,9 +59,7 @@ public class UnionResults {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.config.CommandLine#handleOption(java.lang.String,
-         * java.lang.String)
+         * @see edu.umd.cs.findbugs.config.CommandLine#handleOption(java.lang.String, java.lang.String)
          */
         @Override
         protected void handleOption(String option, String optionExtraPart) throws IOException {
@@ -75,9 +73,7 @@ public class UnionResults {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.config.CommandLine#handleOptionWithArgument(java
-         * .lang.String, java.lang.String)
+         * @see edu.umd.cs.findbugs.config.CommandLine#handleOptionWithArgument(java .lang.String, java.lang.String)
          */
         @Override
         protected void handleOptionWithArgument(String option, String argument) throws IOException {
@@ -128,8 +124,8 @@ public class UnionResults {
         FindBugs.setNoAnalysis();
         final UnionResultsCommandLine commandLine = new UnionResultsCommandLine();
 
-        int argCount = commandLine.parse(argv, 1, Integer.MAX_VALUE, "Usage: " + UnionResults.class.getName()
-                + " [options] [<results1> <results2> ... <resultsn>] ");
+        int argCount = commandLine.parse(argv, 1, Integer.MAX_VALUE,
+                "Usage: " + UnionResults.class.getName() + " [options] [<results1> <results2> ... <resultsn>] ");
 
         SortedBugCollection results = null;
         HashSet<String> hashes = new HashSet<>();
@@ -149,7 +145,8 @@ public class UnionResults {
         }
     }
 
-    private static SortedBugCollection iterateArguments(List<String> arguments, int argCount, SortedBugCollection results, HashSet<String> hashes) {
+    private static SortedBugCollection iterateArguments(List<String> arguments, int argCount,
+            SortedBugCollection results, HashSet<String> hashes) {
         for (int i = argCount; i < arguments.size(); i++) {
             String fileName = arguments.get(i);
             try {
@@ -178,7 +175,8 @@ public class UnionResults {
 
     private static List<String> readWrappedArguments(String fileName) throws IOException {
         List<String> wrappedArguments = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), Charset.forName("UTF-8")))) {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(fileName), Charset.forName("UTF-8")))) {
             String next;
             while ((next = reader.readLine()) != null) {
                 wrappedArguments.add(next);

@@ -92,7 +92,8 @@ public class BugActionProvider extends CommonActionProvider {
                     // if we have both java element AND line info, go to the
                     // line
                     if (editor instanceof ITextEditor && marker != null) {
-                        EditorUtil.goToLine(editor, marker.getAttribute(IMarker.LINE_NUMBER, EditorUtil.DEFAULT_LINE_IN_EDITOR));
+                        EditorUtil.goToLine(editor,
+                                marker.getAttribute(IMarker.LINE_NUMBER, EditorUtil.DEFAULT_LINE_IN_EDITOR));
                     }
                 } else if (marker != null) {
                     IDE.openEditor(FindbugsPlugin.getActiveWorkbenchWindow().getActivePage(), marker, true);
@@ -178,7 +179,6 @@ public class BugActionProvider extends CommonActionProvider {
                 }
             }
         };
-
 
         workingSetActionGroup = new WorkingSetFilterActionGroup(aSite.getViewSite().getShell(), filterChangeListener);
         if (provider == null)

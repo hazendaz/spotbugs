@@ -99,9 +99,10 @@ public class MainFrameMenu {
                 // no way to stop the save from
                 // overwriting the files we are about to load.
                 if (mainFrame.getCurProject() != null && mainFrame.isProjectChanged()) {
-                    int response = JOptionPane.showConfirmDialog(mainFrame, L10N.getLocalString("dlg.save_current_changes",
-                            "The current project has been changed, Save current changes?"), L10N.getLocalString(
-                                    "dlg.save_changes", "Save Changes?"), JOptionPane.YES_NO_CANCEL_OPTION,
+                    int response = JOptionPane.showConfirmDialog(mainFrame,
+                            L10N.getLocalString("dlg.save_current_changes",
+                                    "The current project has been changed, Save current changes?"),
+                            L10N.getLocalString("dlg.save_changes", "Save Changes?"), JOptionPane.YES_NO_CANCEL_OPTION,
                             JOptionPane.WARNING_MESSAGE);
 
                     if (response == JOptionPane.YES_OPTION) {
@@ -205,7 +206,6 @@ public class MainFrameMenu {
             mainFrame.clearBugCollection();
         });
         closeProjectItem.setEnabled(false);
-
 
         openMenuItem.setEnabled(true);
         attachAcceleratorKey(openMenuItem, KeyEvent.VK_O);
@@ -342,7 +342,8 @@ public class MainFrameMenu {
         ButtonGroup rankButtonGroup = new ButtonGroup();
         for (final ViewFilter.RankFilter r : ViewFilter.RankFilter.values()) {
             JRadioButtonMenuItem rbMenuItem = new JRadioButtonMenuItem(r.toString());
-            AnnotatedString.localiseButton(rbMenuItem, "menu.rankFilter_" + r.name().toLowerCase(Locale.ENGLISH), r.toString(), true);
+            AnnotatedString.localiseButton(rbMenuItem, "menu.rankFilter_" + r.name().toLowerCase(Locale.ENGLISH),
+                    r.toString(), true);
             rankButtonGroup.add(rbMenuItem);
             if (r == ViewFilter.RankFilter.ALL) {
                 rbMenuItem.setSelected(true);
@@ -359,7 +360,8 @@ public class MainFrameMenu {
         ButtonGroup priorityButtonGroup = new ButtonGroup();
         for (final ViewFilter.PriorityFilter r : ViewFilter.PriorityFilter.values()) {
             JRadioButtonMenuItem rbMenuItem = new JRadioButtonMenuItem(r.toString());
-            AnnotatedString.localiseButton(rbMenuItem, "menu.priorityFilter_" + r.name().toLowerCase(Locale.ENGLISH), r.toString(), true);
+            AnnotatedString.localiseButton(rbMenuItem, "menu.priorityFilter_" + r.name().toLowerCase(Locale.ENGLISH),
+                    r.toString(), true);
             priorityButtonGroup.add(rbMenuItem);
             if (r == ViewFilter.PriorityFilter.ALL_BUGS) {
                 rbMenuItem.setSelected(true);
@@ -382,7 +384,6 @@ public class MainFrameMenu {
             preferenceFrame.setLocationRelativeTo(mainFrame);
             preferenceFrame.setVisible(true);
 
-
         });
         viewMenu.add(filterMenu);
         for (final Matcher m : filters) {
@@ -395,23 +396,19 @@ public class MainFrameMenu {
 
             });
 
-
         }
-
 
     }
 
     /**
-     * This checks if the xmlFile is in the GUISaveState. If not adds it. Then
-     * adds the file to the recentMenuCache.
+     * This checks if the xmlFile is in the GUISaveState. If not adds it. Then adds the file to the recentMenuCache.
      *
      * @param xmlFile
      */
     /*
-     * If the file already existed, its already in the preferences, as well as
-     * the recent projects menu items, only add it if they change the name,
-     * otherwise everything we're storing is still accurate since all we're
-     * storing is the location of the file.
+     * If the file already existed, its already in the preferences, as well as the recent projects menu items, only add
+     * it if they change the name, otherwise everything we're storing is still accurate since all we're storing is the
+     * location of the file.
      */
     public void addFileToRecent(File xmlFile) {
         ArrayList<File> xmlFiles = GUISaveState.getInstance().getRecentFiles();
@@ -460,7 +457,8 @@ public class MainFrameMenu {
         }
     }
 
-    public void initOSX() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void initOSX()
+            throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         osxAdapter = Class.forName("edu.umd.cs.findbugs.gui2.OSXAdapter");
         Method registerMethod = osxAdapter.getDeclaredMethod("registerMacOSXApplication", MainFrame.class);
         if (registerMethod != null) {
@@ -506,8 +504,8 @@ public class MainFrameMenu {
      * @param map
      * @param navMenu
      */
-    private void addNavItem(final ActionMap map, JMenu navMenu, String menuNameKey, String menuNameDefault, String actionName,
-            int keyEvent) {
+    private void addNavItem(final ActionMap map, JMenu navMenu, String menuNameKey, String menuNameDefault,
+            String actionName, int keyEvent) {
         JMenuItem toggleItem = newJMenuItem(menuNameKey, menuNameDefault);
         toggleItem.addActionListener(mainFrame.getMainFrameTree().treeActionAdapter(map, actionName));
         MainFrameHelper.attachAcceleratorKeyNoCtrl(toggleItem, keyEvent);

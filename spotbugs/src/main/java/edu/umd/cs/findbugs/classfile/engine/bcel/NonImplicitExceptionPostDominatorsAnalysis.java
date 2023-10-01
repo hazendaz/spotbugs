@@ -26,10 +26,8 @@ import edu.umd.cs.findbugs.ba.PostDominatorsAnalysis;
 import edu.umd.cs.findbugs.ba.ReverseDepthFirstSearch;
 
 /**
- * PostDominatorsAnalysis variant in which implicit exception edges are ignored.
- * Implicit exception edges correspond to undeclared runtime exceptions; thus,
- * this analysis considers only normal control edges and declared exception
- * edges.
+ * PostDominatorsAnalysis variant in which implicit exception edges are ignored. Implicit exception edges correspond to
+ * undeclared runtime exceptions; thus, this analysis considers only normal control edges and declared exception edges.
  *
  * @author David Hovemeyer
  */

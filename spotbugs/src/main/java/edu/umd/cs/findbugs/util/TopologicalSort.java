@@ -259,6 +259,7 @@ public class TopologicalSort {
 
         /**
          * @param e
+         *
          * @return
          */
         private int getScore(E e) {
@@ -275,6 +276,7 @@ public class TopologicalSort {
 
         /**
          * @param e
+         *
          * @return
          */
         private int score(E e) {

@@ -66,31 +66,22 @@ public class TestCheckerFrameworkTypeAnnotations extends AbstractIntegrationTest
     }
 
     private void assertBugSpotted(String bugType, String method, int line) {
-        final BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType)
-                .inClass("CheckerFrameworkTypeAnnotations")
-                .inMethod(method)
-                .atLine(line)
-                .build();
+        final BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType(bugType)
+                .inClass("CheckerFrameworkTypeAnnotations").inMethod(method).atLine(line).build();
 
         assertThat(getBugCollection(), containsExactly(1, matcher));
     }
 
     private void assertNoBugSpotted(String bugType, String method) {
-        final BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType)
-                .inClass("CheckerFrameworkTypeAnnotations")
-                .inMethod(method)
-                .build();
+        final BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType(bugType)
+                .inClass("CheckerFrameworkTypeAnnotations").inMethod(method).build();
 
         assertThat(getBugCollection(), containsExactly(0, matcher));
     }
 
     private void assertBugsSpottedCount(String bugType, int expectedCount) {
-        final BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType(bugType)
-                .inClass("CheckerFrameworkTypeAnnotations")
-                .build();
+        final BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType(bugType)
+                .inClass("CheckerFrameworkTypeAnnotations").build();
 
         assertThat(getBugCollection(), containsExactly(expectedCount, matcher));
     }

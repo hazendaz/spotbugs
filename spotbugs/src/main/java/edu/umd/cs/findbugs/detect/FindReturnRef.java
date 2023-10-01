@@ -71,10 +71,10 @@ public class FindReturnRef extends OpcodeStackDetector {
     private final BugAccumulator bugAccumulator;
 
     private static final Matcher BUFFER_CLASS_MATCHER = Pattern.compile("Ljava/nio/[A-Za-z]+Buffer;").matcher("");
-    private static final Matcher DUPLICATE_METHODS_SIGNATURE_MATCHER =
-            Pattern.compile("\\(\\)Ljava/nio/[A-Za-z]+Buffer;").matcher("");
-    private static final Matcher WRAP_METHOD_SIGNATURE_MATCHER =
-            Pattern.compile("\\(\\[.\\)Ljava/nio/[A-Za-z]+Buffer;").matcher("");
+    private static final Matcher DUPLICATE_METHODS_SIGNATURE_MATCHER = Pattern
+            .compile("\\(\\)Ljava/nio/[A-Za-z]+Buffer;").matcher("");
+    private static final Matcher WRAP_METHOD_SIGNATURE_MATCHER = Pattern.compile("\\(\\[.\\)Ljava/nio/[A-Za-z]+Buffer;")
+            .matcher("");
 
     private enum CaptureKind {
         NONE, REP, ARRAY_CLONE, BUF
@@ -144,12 +144,11 @@ public class FindReturnRef extends OpcodeStackDetector {
             if (capture != CaptureKind.NONE) {
                 bugAccumulator.accumulateBug(
                         new BugInstance(this, "EI_EXPOSE_STATIC_" + (capture == CaptureKind.BUF ? "BUF2" : "REP2"),
-                                capture == CaptureKind.REP ? NORMAL_PRIORITY : LOW_PRIORITY)
-                                        .addClassAndMethod(this)
+                                capture == CaptureKind.REP ? NORMAL_PRIORITY : LOW_PRIORITY).addClassAndMethod(this)
                                         .addReferencedField(this)
                                         .add(LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(),
-                                                top.getRegisterNumber(),
-                                                getPC(), getPC() - 1)), this);
+                                                top.getRegisterNumber(), getPC(), getPC() - 1)),
+                        this);
             }
         }
         if (!staticMethod && seen == Const.PUTFIELD && nonPublicFieldOperand()
@@ -160,12 +159,11 @@ public class FindReturnRef extends OpcodeStackDetector {
             if (capture != CaptureKind.NONE && target.getRegisterNumber() == 0) {
                 bugAccumulator.accumulateBug(
                         new BugInstance(this, "EI_EXPOSE_" + (capture == CaptureKind.BUF ? "BUF2" : "REP2"),
-                                capture == CaptureKind.REP ? NORMAL_PRIORITY : LOW_PRIORITY)
-                                        .addClassAndMethod(this)
+                                capture == CaptureKind.REP ? NORMAL_PRIORITY : LOW_PRIORITY).addClassAndMethod(this)
                                         .addReferencedField(this)
                                         .add(LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(),
-                                                top.getRegisterNumber(),
-                                                getPC(), getPC() - 1)), this);
+                                                top.getRegisterNumber(), getPC(), getPC() - 1)),
+                        this);
             }
         }
 
@@ -192,19 +190,17 @@ public class FindReturnRef extends OpcodeStackDetector {
                     isBuf = true;
                 }
             }
-            if (field == null ||
-                    !isFieldOf(field, getClassDescriptor()) ||
-                    field.isPublic() ||
-                    AnalysisContext.currentXFactory().isEmptyArrayField(field) ||
-                    field.getName().indexOf("EMPTY") != -1 ||
-                    !MutableClasses.mutableSignature(TypeFrameModelingVisitor.getType(field).getSignature())) {
+            if (field == null || !isFieldOf(field, getClassDescriptor()) || field.isPublic()
+                    || AnalysisContext.currentXFactory().isEmptyArrayField(field)
+                    || field.getName().indexOf("EMPTY") != -1
+                    || !MutableClasses.mutableSignature(TypeFrameModelingVisitor.getType(field).getSignature())) {
                 return;
             }
-            bugAccumulator.accumulateBug(new BugInstance(this, (staticMethod ? "MS" : "EI") + "_EXPOSE_"
-                    + (isBuf ? "BUF" : "REP"),
-                    (isBuf || isArrayClone) ? LOW_PRIORITY : NORMAL_PRIORITY)
-                            .addClassAndMethod(this).addField(field.getClassName(), field.getName(),
-                                    field.getSignature(), field.isStatic()), this);
+            bugAccumulator.accumulateBug(
+                    new BugInstance(this, (staticMethod ? "MS" : "EI") + "_EXPOSE_" + (isBuf ? "BUF" : "REP"),
+                            (isBuf || isArrayClone) ? LOW_PRIORITY : NORMAL_PRIORITY).addClassAndMethod(this).addField(
+                                    field.getClassName(), field.getName(), field.getSignature(), field.isStatic()),
+                    this);
 
         }
 
@@ -218,8 +214,7 @@ public class FindReturnRef extends OpcodeStackDetector {
 
             if ("clone".equals(method.getName()) && item.isArray()
                     && MutableClasses.mutableSignature(item.getSignature().substring(1))) {
-                if (field != null && field.getClassDescriptor().equals(getClassDescriptor()) &&
-                        !field.isPublic()) {
+                if (field != null && field.getClassDescriptor().equals(getClassDescriptor()) && !field.isPublic()) {
                     fieldUnderClone = field;
                 } else if (item.isInitialParameter()) {
                     paramUnderClone = item;

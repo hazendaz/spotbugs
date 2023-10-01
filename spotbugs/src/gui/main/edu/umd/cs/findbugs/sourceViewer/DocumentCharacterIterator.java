@@ -89,11 +89,9 @@ public class DocumentCharacterIterator implements CharacterIterator {
     }
 
     /**
-     * Increments the iterator's index by one and returns the character at the
-     * new index.
+     * Increments the iterator's index by one and returns the character at the new index.
      *
-     * @return the character at the new position, or DONE if the new position is
-     *         off the end
+     * @return the character at the new position, or DONE if the new position is off the end
      */
     @Override
     public char next() {

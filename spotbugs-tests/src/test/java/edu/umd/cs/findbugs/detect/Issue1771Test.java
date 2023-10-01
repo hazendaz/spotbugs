@@ -25,8 +25,7 @@ public class Issue1771Test extends AbstractIntegrationTest {
     @Test
     public void test() {
         performAnalysis("../java11/ghIssues/Issue1771.class");
-        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                .bugType("EI_EXPOSE_REP").build();
+        BugInstanceMatcher matcher = new BugInstanceMatcherBuilder().bugType("EI_EXPOSE_REP").build();
         assertThat(getBugCollection(), containsExactly(0, matcher));
     }
 }

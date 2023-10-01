@@ -60,8 +60,8 @@ public class FindUnsyncGet extends BytecodeScanningDetector {
             MethodAnnotation getMethod = getMethods.get(propName);
             MethodAnnotation setMethod = setMethods.get(propName);
 
-            bugReporter.reportBug(new BugInstance(this, "UG_SYNC_SET_UNSYNC_GET", NORMAL_PRIORITY).addClass(prevClassName)
-                    .addMethod(getMethod).addMethod(setMethod));
+            bugReporter.reportBug(new BugInstance(this, "UG_SYNC_SET_UNSYNC_GET", NORMAL_PRIORITY)
+                    .addClass(prevClassName).addMethod(getMethod).addMethod(setMethod));
         }
         getMethods.clear();
         setMethods.clear();
@@ -82,13 +82,12 @@ public class FindUnsyncGet extends BytecodeScanningDetector {
         String name = obj.getName();
         boolean isSynchronized = (flags & Const.ACC_SYNCHRONIZED) != 0;
         /*
-         * String sig = obj.getSignature(); char firstArg = sig.charAt(1); char
-         * returnValue = sig.charAt(1 + sig.indexOf(')')); boolean firstArgIsRef
-         * = (firstArg == 'L') || (firstArg == '['); boolean returnValueIsRef =
+         * String sig = obj.getSignature(); char firstArg = sig.charAt(1); char returnValue = sig.charAt(1 +
+         * sig.indexOf(')')); boolean firstArgIsRef = (firstArg == 'L') || (firstArg == '['); boolean returnValueIsRef =
          * (returnValue == 'L') || (returnValue == '[');
          *
-         * System.out.println(className + "." + name + " " + firstArgIsRef + " "
-         * + returnValueIsRef + " " + isSynchronized + " " + isNative );
+         * System.out.println(className + "." + name + " " + firstArgIsRef + " " + returnValueIsRef + " " +
+         * isSynchronized + " " + isNative );
          */
         if (name.startsWith("get") && !isSynchronized
         // && returnValueIsRef

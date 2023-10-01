@@ -53,6 +53,7 @@ public class DirectlyRelevantTypeQualifiersDatabase {
      *
      * @param m
      *            MethodDescriptor identifying a method
+     *
      * @return Collection of type qualifiers applied directly to that method
      */
     public Collection<TypeQualifierValue<?>> getDirectlyRelevantTypeQualifiers(MethodDescriptor m) {
@@ -60,7 +61,7 @@ public class DirectlyRelevantTypeQualifiersDatabase {
         if (result != null) {
             return result;
         }
-        return Collections.<TypeQualifierValue<?>>emptyList();
+        return Collections.<TypeQualifierValue<?>> emptyList();
     }
 
     /**
@@ -69,19 +70,19 @@ public class DirectlyRelevantTypeQualifiersDatabase {
      * @return set of all known type qualifiers
      */
     public Set<TypeQualifierValue<?>> getAllKnownQualifiers() {
-        return Collections.<TypeQualifierValue<?>>unmodifiableSet(allKnownQualifiers);
+        return Collections.<TypeQualifierValue<?>> unmodifiableSet(allKnownQualifiers);
     }
 
     /**
-     * Set the collection of directly-relevant type qualifiers for a given
-     * method.
+     * Set the collection of directly-relevant type qualifiers for a given method.
      *
      * @param methodDescriptor
      *            MethodDescriptor identifying a method
      * @param qualifiers
      *            collection of directly-relevant type qualifiers for the method
      */
-    public void setDirectlyRelevantTypeQualifiers(MethodDescriptor methodDescriptor, Collection<TypeQualifierValue<?>> qualifiers) {
+    public void setDirectlyRelevantTypeQualifiers(MethodDescriptor methodDescriptor,
+            Collection<TypeQualifierValue<?>> qualifiers) {
         methodToDirectlyRelevantQualifiersMap.put(methodDescriptor, qualifiers);
         allKnownQualifiers.addAll(qualifiers);
     }

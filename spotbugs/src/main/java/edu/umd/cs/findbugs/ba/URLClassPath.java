@@ -40,8 +40,8 @@ import edu.umd.cs.findbugs.FindBugs;
 import edu.umd.cs.findbugs.util.Archive;
 
 /**
- * A work-alike class to use instead of BCEL's ClassPath class. The main
- * difference is that URLClassPath can load classfiles from URLs.
+ * A work-alike class to use instead of BCEL's ClassPath class. The main difference is that URLClassPath can load
+ * classfiles from URLs.
  *
  * @author David Hovemeyer
  */
@@ -53,12 +53,13 @@ public class URLClassPath implements AutoCloseable, Serializable {
      */
     private interface Entry extends AutoCloseable {
         /**
-         * Open an input stream to read a resource in the codebase described by
-         * this classpath entry.
+         * Open an input stream to read a resource in the codebase described by this classpath entry.
          *
          * @param resourceName
          *            name of resource to load: e.g., "java/lang/Object.class"
+         *
          * @return an InputStream, or null if the resource wasn't found
+         *
          * @throws IOException
          *             if an I/O error occurs
          */
@@ -77,8 +78,7 @@ public class URLClassPath implements AutoCloseable, Serializable {
     }
 
     /**
-     * Classpath entry class to load files from a zip/jar file in the local
-     * filesystem.
+     * Classpath entry class to load files from a zip/jar file in the local filesystem.
      */
     private static class LocalArchiveEntry implements Entry {
         private ZipFile zipFile;
@@ -96,8 +96,7 @@ public class URLClassPath implements AutoCloseable, Serializable {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.URLClassPath.Entry#openStream(java.lang.String)
+         * @see edu.umd.cs.findbugs.URLClassPath.Entry#openStream(java.lang.String)
          */
         @Override
         public InputStream openStream(String resourceName) throws IOException {
@@ -129,8 +128,7 @@ public class URLClassPath implements AutoCloseable, Serializable {
     }
 
     /**
-     * Classpath entry class to load files from a directory in the local
-     * filesystem.
+     * Classpath entry class to load files from a directory in the local filesystem.
      */
     private static class LocalDirectoryEntry implements Entry {
         private final String dirName;
@@ -140,6 +138,7 @@ public class URLClassPath implements AutoCloseable, Serializable {
          *
          * @param dirName
          *            name of the local directory
+         *
          * @throws IOException
          *             if dirName is not a directory
          */
@@ -153,8 +152,7 @@ public class URLClassPath implements AutoCloseable, Serializable {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.URLClassPath.Entry#openStream(java.lang.String)
+         * @see edu.umd.cs.findbugs.URLClassPath.Entry#openStream(java.lang.String)
          */
         @Override
         public InputStream openStream(String resourceName) throws IOException {
@@ -183,8 +181,8 @@ public class URLClassPath implements AutoCloseable, Serializable {
     }
 
     /**
-     * Classpath entry class to load files from a remote archive URL. It uses
-     * jar URLs to specify individual files within the remote archive.
+     * Classpath entry class to load files from a remote archive URL. It uses jar URLs to specify individual files
+     * within the remote archive.
      */
     private static class RemoteArchiveEntry implements Entry {
         private final URL remoteArchiveURL;
@@ -202,8 +200,7 @@ public class URLClassPath implements AutoCloseable, Serializable {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.URLClassPath.Entry#openStream(java.lang.String)
+         * @see edu.umd.cs.findbugs.URLClassPath.Entry#openStream(java.lang.String)
          */
         @Override
         public InputStream openStream(String resourceName) throws IOException {
@@ -251,8 +248,7 @@ public class URLClassPath implements AutoCloseable, Serializable {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.URLClassPath.Entry#openStream(java.lang.String)
+         * @see edu.umd.cs.findbugs.URLClassPath.Entry#openStream(java.lang.String)
          */
         @Override
         public InputStream openStream(String resourceName) throws IOException {
@@ -291,12 +287,12 @@ public class URLClassPath implements AutoCloseable, Serializable {
     }
 
     /**
-     * Add given filename/URL to the classpath. If no URL protocol is given, the
-     * filename is assumed to be a local file or directory. Remote directories
-     * must be specified with a "/" character at the end of the URL.
+     * Add given filename/URL to the classpath. If no URL protocol is given, the filename is assumed to be a local file
+     * or directory. Remote directories must be specified with a "/" character at the end of the URL.
      *
      * @param fileName
      *            filename or URL of codebase (directory or archive file)
+     *
      * @throws IOException
      *             if entry is invalid or does not exist
      */
@@ -355,11 +351,11 @@ public class URLClassPath implements AutoCloseable, Serializable {
      *
      * @param resourceName
      *            name of resource to load, e.g. "java/lang/Object.class"
-     * @return input stream to read resource, or null if resource could not be
-     *         found
+     *
+     * @return input stream to read resource, or null if resource could not be found
+     *
      * @throws IOException
-     *             if an IO error occurs trying to determine whether or not the
-     *             resource exists
+     *             if an IO error occurs trying to determine whether or not the resource exists
      */
     private InputStream getInputStreamForResource(String resourceName) {
         // Try each classpath entry, in order, until we find one
@@ -405,7 +401,9 @@ public class URLClassPath implements AutoCloseable, Serializable {
      *
      * @param className
      *            name of class to look up
+     *
      * @return the JavaClass object for the class
+     *
      * @throws ClassNotFoundException
      *             if the class couldn't be found
      */
@@ -460,8 +458,8 @@ public class URLClassPath implements AutoCloseable, Serializable {
      *
      * @param urlString
      *            the URL string
-     * @return the protocol name ("http", "file", etc.), or null if there is no
-     *         protocol
+     *
+     * @return the protocol name ("http", "file", etc.), or null if there is no protocol
      */
     public static String getURLProtocol(String urlString) {
         String protocol = null;
@@ -490,6 +488,7 @@ public class URLClassPath implements AutoCloseable, Serializable {
      *
      * @param fileExtension
      *            the file extension (e.g., ".jar")
+     *
      * @return true if the file extension indicates an archive, false otherwise
      */
     public static boolean isArchiveExtension(String fileExtension) {

@@ -34,9 +34,7 @@ public class Issue603Test extends AbstractIntegrationTest {
     @Test
     public void test() {
         performAnalysis("ghIssues/Issue603.class");
-        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("EI_EXPOSE_REP2")
-                .build();
+        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("EI_EXPOSE_REP2").build();
         assertThat(getBugCollection(), containsExactly(3, bugTypeMatcher));
     }
 }

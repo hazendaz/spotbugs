@@ -27,8 +27,7 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.log.Profiler;
 
 /**
- * An adapter allowing classes implementing the Detector interface to support
- * the new Detector2 interface.
+ * An adapter allowing classes implementing the Detector interface to support the new Detector2 interface.
  *
  * @author David Hovemeyer
  */
@@ -58,9 +57,7 @@ public class DetectorToDetector2Adapter implements Detector2 {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.Detector2#visitClass(edu.umd.cs.findbugs.classfile
-     * .ClassDescriptor)
+     * @see edu.umd.cs.findbugs.Detector2#visitClass(edu.umd.cs.findbugs.classfile .ClassDescriptor)
      */
     @Override
     public void visitClass(ClassDescriptor classDescriptor) throws CheckedAnalysisException {

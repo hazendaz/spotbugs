@@ -179,7 +179,7 @@ public class IsNullValueFrame extends Frame<IsNullValue> {
         if (trackValueNumbers) {
             return knownValueMap.keySet();
         } else {
-            return Collections.<ValueNumber>emptySet();
+            return Collections.<ValueNumber> emptySet();
         }
     }
 
@@ -187,7 +187,7 @@ public class IsNullValueFrame extends Frame<IsNullValue> {
         if (trackValueNumbers) {
             return knownValueMap.entrySet();
         } else {
-            return Collections.<Map.Entry<ValueNumber, IsNullValue>>emptySet();
+            return Collections.<Map.Entry<ValueNumber, IsNullValue>> emptySet();
         }
     }
 
@@ -286,8 +286,7 @@ public class IsNullValueFrame extends Frame<IsNullValue> {
     }
 
     /**
-     * Downgrade all NSP values in frame. Should be called when a non-exception
-     * control split occurs.
+     * Downgrade all NSP values in frame. Should be called when a non-exception control split occurs.
      */
     public void downgradeOnControlSplit() {
         final int numSlots = getNumSlots();

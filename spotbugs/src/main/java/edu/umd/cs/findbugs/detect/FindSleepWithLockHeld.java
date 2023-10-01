@@ -92,7 +92,8 @@ public class FindSleepWithLockHeld implements Detector {
         return bytecodeSet.get(Const.INVOKESTATIC);
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         // System.out.println("Checking " + method);
 
         CFG cfg = classContext.getCFG(method);
@@ -114,9 +115,8 @@ public class FindSleepWithLockHeld implements Detector {
 
             LockSet lockSet = lockDataflow.getFactAtLocation(location);
             if (lockSet.getNumLockedObjects() > 0) {
-                bugAccumulator.accumulateBug(
-                        new BugInstance(this, "SWL_SLEEP_WITH_LOCK_HELD", NORMAL_PRIORITY).addClassAndMethod(
-                                classContext.getJavaClass(), method), classContext, method, location);
+                bugAccumulator.accumulateBug(new BugInstance(this, "SWL_SLEEP_WITH_LOCK_HELD", NORMAL_PRIORITY)
+                        .addClassAndMethod(classContext.getJavaClass(), method), classContext, method, location);
             }
         }
         bugAccumulator.reportAccumulatedBugs();

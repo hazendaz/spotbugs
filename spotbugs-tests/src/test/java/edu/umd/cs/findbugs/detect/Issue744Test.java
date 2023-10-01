@@ -16,8 +16,7 @@ public class Issue744Test extends AbstractIntegrationTest {
     @Test
     public void test() {
         performAnalysis("ghIssues/Issue744.class");
-        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("DM_BOXED_PRIMITIVE_FOR_PARSING")
+        BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder().bugType("DM_BOXED_PRIMITIVE_FOR_PARSING")
                 .build();
         assertThat(getBugCollection(), containsExactly(4, bugTypeMatcher));
     }

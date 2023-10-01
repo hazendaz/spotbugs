@@ -28,10 +28,10 @@ import edu.umd.cs.findbugs.ba.DataflowAnalysisException;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * A PatternElement which matches NEW instructions and binds the result to a
- * variable.
+ * A PatternElement which matches NEW instructions and binds the result to a variable.
  *
  * @author David Hovemeyer
+ *
  * @see PatternElement
  */
 public class New extends OneVariableInstruction {
@@ -46,8 +46,8 @@ public class New extends OneVariableInstruction {
     }
 
     @Override
-    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before, ValueNumberFrame after,
-            BindingSet bindingSet) throws DataflowAnalysisException {
+    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before,
+            ValueNumberFrame after, BindingSet bindingSet) throws DataflowAnalysisException {
 
         Instruction ins = handle.getInstruction();
         if (!(ins instanceof NEW)) {

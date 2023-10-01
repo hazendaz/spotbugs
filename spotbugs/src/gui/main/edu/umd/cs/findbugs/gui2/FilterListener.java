@@ -19,10 +19,8 @@
 
 package edu.umd.cs.findbugs.gui2;
 
-
 /**
- * Implemented by BugTreeModel. Allows the model to clear its cache when the set
- * of filters changes.
+ * Implemented by BugTreeModel. Allows the model to clear its cache when the set of filters changes.
  */
 public interface FilterListener {
     enum Action {
@@ -30,6 +28,5 @@ public interface FilterListener {
     }
 
     public void clearCache();
-
 
 }

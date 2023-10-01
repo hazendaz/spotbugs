@@ -28,16 +28,13 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
-
 /**
- * Find nodes in a dom4j tree that match a particular XPath expression. The
- * main() driver prints out information about matching nodes in an XML document.
+ * Find nodes in a dom4j tree that match a particular XPath expression. The main() driver prints out information about
+ * matching nodes in an XML document.
  *
  * <p>
- * For example, to find the list of non-disabled detectors in a FindBugs plugin
- * descriptor, you can use the expression <blockquote>
- * <code>/FindbugsPlugin/Detector[boolean(@disabled)=false()]/@class</code>
- * </blockquote>
+ * For example, to find the list of non-disabled detectors in a FindBugs plugin descriptor, you can use the expression
+ * <blockquote> <code>/FindbugsPlugin/Detector[boolean(@disabled)=false()]/@class</code> </blockquote>
  *
  * @author David Hovemeyer
  */

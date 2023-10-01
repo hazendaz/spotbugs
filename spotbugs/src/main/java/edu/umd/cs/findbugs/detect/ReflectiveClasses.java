@@ -36,7 +36,8 @@ import edu.umd.cs.findbugs.util.ClassName;
 public class ReflectiveClasses extends BytecodeScanningDetector implements NonReportingDetector {
 
     public ReflectiveClasses(BugReporter bugReporter) {
-        AnalysisContext.currentXFactory().addReflectiveClasses(DescriptorFactory.createClassDescriptor(java.lang.System.class));
+        AnalysisContext.currentXFactory()
+                .addReflectiveClasses(DescriptorFactory.createClassDescriptor(java.lang.System.class));
     }
 
     String constantString;
