@@ -10,6 +10,7 @@ sonar {
     property 'sonar.coverage.jacoco.xmlReportPaths', layout.buildDirectory.map { Directory directory ->
       "${directory}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
     }
+    property 'sonar.skipCompile', 'true'
   }
 }
 
