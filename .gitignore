@@ -10,9 +10,6 @@ build
 *.iws
 classesEclipse
 .DS_Store
-deps/
-eclipse/
-bin/
 .vscode/
 
 # to sign eclipse plugin
