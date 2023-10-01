@@ -37,9 +37,8 @@ import edu.umd.cs.findbugs.util.ClassName;
 import edu.umd.cs.findbugs.util.Util;
 
 /**
- * For each source file that has reported bugs, compute a hash of all the issues
- * reported for that file. These hashes use line numbers, so a change that only
- * changes the line number of an issue will cause the hash to be different.
+ * For each source file that has reported bugs, compute a hash of all the issues reported for that file. These hashes
+ * use line numbers, so a change that only changes the line number of an issue will cause the hash to be different.
  *
  * @author William Pugh
  */
@@ -61,7 +60,8 @@ public class FileBugHash {
                 if (path.indexOf('.') == -1) {
                     path = cStat.getSourceFile();
                 } else {
-                    path = ClassName.toSlashedClassName(path.substring(0, path.lastIndexOf('.') + 1)) + cStat.getSourceFile();
+                    path = ClassName.toSlashedClassName(path.substring(0, path.lastIndexOf('.') + 1))
+                            + cStat.getSourceFile();
                 }
                 counts.put(path, 0);
                 Integer size = sizes.get(path);

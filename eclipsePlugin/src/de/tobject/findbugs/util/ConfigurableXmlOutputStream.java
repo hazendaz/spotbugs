@@ -38,6 +38,7 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
  * Write XML or plain text to an output stream.
  *
  * @see OutputStreamXMLOutput
+ *
  * @author Andrei Loskutov
  */
 public class ConfigurableXmlOutputStream implements XMLOutput {

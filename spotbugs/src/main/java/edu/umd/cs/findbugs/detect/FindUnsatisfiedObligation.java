@@ -76,12 +76,11 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Find unsatisfied obligations in Java methods. Examples: open streams, open
- * database connections, etc.
+ * Find unsatisfied obligations in Java methods. Examples: open streams, open database connections, etc.
  *
  * <p>
- * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011"
- * >Finding and preventing run-time error handling mistakes</a>, OOPSLA 2004.
+ * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011" >Finding and preventing run-time error
+ * handling mistakes</a>, OOPSLA 2004.
  * </p>
  *
  * @author David Hovemeyer
@@ -95,14 +94,14 @@ public class FindUnsatisfiedObligation extends CFGDetector {
     private static final boolean DEBUG_FP = SystemProperties.getBoolean("oa.debug.fp");
 
     /**
-     * Compute possible obligation transfers as a way of suppressing false
-     * positives due to "wrapper" objects. Not quite ready for prime time.
+     * Compute possible obligation transfers as a way of suppressing false positives due to "wrapper" objects. Not quite
+     * ready for prime time.
      */
     private static final boolean COMPUTE_TRANSFERS = SystemProperties.getBoolean("oa.transfers", true);
 
     /**
-     * Report path information from point of resource creation to CFG exit. This
-     * makes the reported warning a lot easier to understand.
+     * Report path information from point of resource creation to CFG exit. This makes the reported warning a lot easier
+     * to understand.
      */
     private static final boolean REPORT_PATH = SystemProperties.getBoolean("oa.reportpath", true);
 
@@ -161,8 +160,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
     }
 
     /**
-     * Helper class to keep track of possible obligation transfers observed
-     * along paths where an obligation appears to be leaked.
+     * Helper class to keep track of possible obligation transfers observed along paths where an obligation appears to
+     * be leaked.
      */
     private static class PossibleObligationTransfer {
         Obligation consumed;
@@ -174,11 +173,11 @@ public class FindUnsatisfiedObligation extends CFGDetector {
         }
 
         /**
-         * Determine whether the state has "balanced" obligation counts for the
-         * consumed and produced Obligation types.
+         * Determine whether the state has "balanced" obligation counts for the consumed and produced Obligation types.
          *
          * @param state
          *            a State
+         *
          * @return true if the obligation counts are balanced, false otherwise
          */
         private boolean balanced(State state) {
@@ -198,9 +197,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
     }
 
     /**
-     * A helper class to check a single method for unsatisfied obligations.
-     * Avoids having to pass millions of parameters to each method (type
-     * dataflow, null value dataflow, etc.).
+     * A helper class to check a single method for unsatisfied obligations. Avoids having to pass millions of parameters
+     * to each method (type dataflow, null value dataflow, etc.).
      */
     private class MethodChecker {
         MethodDescriptor methodDescriptor;
@@ -304,7 +302,6 @@ public class FindUnsatisfiedObligation extends CFGDetector {
                 // Apply the false-positive suppression heuristics
                 int leakCount = getAdjustedLeakCount(state, id);
 
-
                 if (leakCount > 0) {
                     leakedObligationMap.put(obligation, state);
                 }
@@ -316,8 +313,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
         private void reportWarning(Obligation obligation, State state, StateSet factAtExit) {
             String className = obligation.getClassName();
 
-            if (MemberUtils.isMainMethod(xmethod)
-                    && (className.contains("InputStream") || className.contains("Reader") || factAtExit.isOnExceptionPath())) {
+            if (MemberUtils.isMainMethod(xmethod) && (className.contains("InputStream") || className.contains("Reader")
+                    || factAtExit.isOnExceptionPath())) {
                 // Don't report unclosed input streams and readers in main()
                 // methods
                 return;
@@ -326,8 +323,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
             if (methodDescriptor.getName().equals(Const.CONSTRUCTOR_NAME)) {
                 try {
 
-                    if (subtypes2.isSubtype(methodDescriptor.getClassDescriptor(), DescriptorFactory.createClassDescriptorFromDottedClassName(
-                            obligation.getClassName()))) {
+                    if (subtypes2.isSubtype(methodDescriptor.getClassDescriptor(),
+                            DescriptorFactory.createClassDescriptorFromDottedClassName(obligation.getClassName()))) {
                         return;
                     }
 
@@ -335,25 +332,28 @@ public class FindUnsatisfiedObligation extends CFGDetector {
                     AnalysisContext.logError("huh", e);
                 }
             }
-            String bugPattern = factAtExit.isOnExceptionPath() ? "OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE" : "OBL_UNSATISFIED_OBLIGATION";
-            BugInstance bugInstance = new BugInstance(FindUnsatisfiedObligation.this, bugPattern,
-                    NORMAL_PRIORITY).addClassAndMethod(methodDescriptor).addClass(className).describe("CLASS_REFTYPE");
+            String bugPattern = factAtExit.isOnExceptionPath() ? "OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE"
+                    : "OBL_UNSATISFIED_OBLIGATION";
+            BugInstance bugInstance = new BugInstance(FindUnsatisfiedObligation.this, bugPattern, NORMAL_PRIORITY)
+                    .addClassAndMethod(methodDescriptor).addClass(className).describe("CLASS_REFTYPE");
 
             // Report how many instances of the obligation are remaining
-            bugInstance.addInt(state.getObligationSet().getCount(obligation.getId())).describe(
-                    IntAnnotation.INT_OBLIGATIONS_REMAINING);
+            bugInstance.addInt(state.getObligationSet().getCount(obligation.getId()))
+                    .describe(IntAnnotation.INT_OBLIGATIONS_REMAINING);
 
             // Add source line information
             annotateWarningWithSourceLineInformation(state, obligation, bugInstance);
 
             if (REPORT_OBLIGATION_SET) {
-                bugInstance.addString(state.getObligationSet().toString()).describe(StringAnnotation.REMAINING_OBLIGATIONS_ROLE);
+                bugInstance.addString(state.getObligationSet().toString())
+                        .describe(StringAnnotation.REMAINING_OBLIGATIONS_ROLE);
             }
 
             bugReporter.reportBug(bugInstance);
         }
 
-        private void annotateWarningWithSourceLineInformation(State state, Obligation obligation, BugInstance bugInstance) {
+        private void annotateWarningWithSourceLineInformation(State state, Obligation obligation,
+                BugInstance bugInstance) {
             // The reportPath() method currently does all reporting
             // of source line information.
             if (REPORT_PATH) {
@@ -362,8 +362,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
         }
 
         /**
-         * Helper class to apply the false-positive suppression heuristics along
-         * a Path where an obligation leak might have occurred.
+         * Helper class to apply the false-positive suppression heuristics along a Path where an obligation leak might
+         * have occurred.
          */
         private class PostProcessingPathVisitor implements PathVisitor {
             Obligation possiblyLeakedObligation;
@@ -379,10 +379,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
             List<PossibleObligationTransfer> transferList;
 
             public PostProcessingPathVisitor(Obligation possiblyLeakedObligation/*
-                                                                                * ,
-                                                                                * int
-                                                                                * initialLeakCount
-                                                                                */, State state) {
+                                                                                 * , int initialLeakCount
+                                                                                 */, State state) {
                 this.possiblyLeakedObligation = possiblyLeakedObligation;
                 this.state = state;
                 this.adjustedLeakCount = state.getObligationSet().getCount(possiblyLeakedObligation.getId());
@@ -429,13 +427,13 @@ public class FindUnsatisfiedObligation extends CFGDetector {
                             couldNotAnalyze = true;
                         }
                         Type tosType = typeFrame.getTopValue();
-                        if (tosType instanceof ObjectType
-                                && isPossibleInstanceOfObligationType(subtypes2, (ObjectType) tosType,
-                                        possiblyLeakedObligation.getType())) {
+                        if (tosType instanceof ObjectType && isPossibleInstanceOfObligationType(subtypes2,
+                                (ObjectType) tosType, possiblyLeakedObligation.getType())) {
                             // Remove one obligation of this type
                             adjustedLeakCount--;
                             if (DEBUG) {
-                                System.out.println("removing obligation to close " + tosType + " at " + handle.getPosition());
+                                System.out.println(
+                                        "removing obligation to close " + tosType + " at " + handle.getPosition());
                             }
                         }
                     }
@@ -483,8 +481,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
                         }
                         if (balanced) {
                             if (DEBUG_FP) {
-                                System.out.println("  Suppressing path because " + "a transfer appears to result in balanced "
-                                        + "outstanding obligations");
+                                System.out.println("  Suppressing path because "
+                                        + "a transfer appears to result in balanced " + "outstanding obligations");
                             }
 
                             adjustedLeakCount = 0;
@@ -529,7 +527,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
                 }
 
                 String methodName = inv.getMethodName(cpg);
-                Type producedType = Const.CONSTRUCTOR_NAME.equals(methodName) ? inv.getReferenceType(cpg) : inv.getReturnType(cpg);
+                Type producedType = Const.CONSTRUCTOR_NAME.equals(methodName) ? inv.getReferenceType(cpg)
+                        : inv.getReturnType(cpg);
 
                 if (DEBUG_FP && !(producedType instanceof ObjectType)) {
                     System.out.println("Produced type " + producedType + " not an ObjectType");
@@ -564,8 +563,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
                                 if (transferState.getObligationSet().getCount(consumed.getId()) > 0) {
                                     transferList.add(new PossibleObligationTransfer(consumed, produced));
                                     if (DEBUG_FP) {
-                                        System.out.println("===> Possible transfer of " + consumed + " to " + produced + " at "
-                                                + handle);
+                                        System.out.println("===> Possible transfer of " + consumed + " to " + produced
+                                                + " at " + handle);
                                     }
                                 } else if (DEBUG_FP) {
                                     System.out.println(handle + " not a transfer " + "of " + consumed + "->" + produced
@@ -609,20 +608,18 @@ public class FindUnsatisfiedObligation extends CFGDetector {
         }
 
         /**
-         * Get the adjusted leak count for the given State and obligation type.
-         * Use heuristics to account for:
+         * Get the adjusted leak count for the given State and obligation type. Use heuristics to account for:
          * <ul>
-         * <li>null checks (count the number of times the supposedly leaked
-         * obligation is compared to null, and subtract those from the leak
-         * count)</li>
-         * <li>field assignments (count number of times obligation type is
-         * assigned to a field, and subtract those from the leak count)</li>
-         * <li>return statements (if an instance of the obligation type is
-         * returned from the method, subtract one from leak count)</li>
+         * <li>null checks (count the number of times the supposedly leaked obligation is compared to null, and subtract
+         * those from the leak count)</li>
+         * <li>field assignments (count number of times obligation type is assigned to a field, and subtract those from
+         * the leak count)</li>
+         * <li>return statements (if an instance of the obligation type is returned from the method, subtract one from
+         * leak count)</li>
          * </ul>
          *
-         * @return the adjusted leak count (positive if leaked obligation,
-         *         negative if attempt to release an un-acquired obligation)
+         * @return the adjusted leak count (positive if leaked obligation, negative if attempt to release an un-acquired
+         *         obligation)
          */
         private int getAdjustedLeakCount(State state, int obligationId) {
 
@@ -638,8 +635,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
             }
         }
 
-        private boolean isPossibleInstanceOfObligationType(Subtypes2 subtypes2, ObjectType type, ObjectType obligationType)
-                throws ClassNotFoundException {
+        private boolean isPossibleInstanceOfObligationType(Subtypes2 subtypes2, ObjectType type,
+                ObjectType obligationType) throws ClassNotFoundException {
             //
             // If we're tracking, e.g., InputStream obligations,
             // and we see a FileInputStream reference being assigned
@@ -678,8 +675,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
                             State entryState = i.next();
                             if (entryState.getObligationSet().getCount(obligation.getId()) > 0) {
                                 lastSourceLine = SourceLineAnnotation.forFirstLineOfMethod(methodDescriptor);
-                                lastSourceLine
-                                        .setDescription(SourceLineAnnotation.ROLE_OBLIGATION_CREATED_BY_WILLCLOSE_PARAMETER);
+                                lastSourceLine.setDescription(
+                                        SourceLineAnnotation.ROLE_OBLIGATION_CREATED_BY_WILLCLOSE_PARAMETER);
                                 bugInstance.add(lastSourceLine);
                                 sawFirstCreation = true;
 
@@ -694,22 +691,24 @@ public class FindUnsatisfiedObligation extends CFGDetector {
 
                 @Override
                 public void visitInstructionHandle(InstructionHandle handle) {
-                    boolean isCreation = (dataflow.getAnalysis().getActionCache().addsObligation(curBlock, handle, obligation));
+                    boolean isCreation = (dataflow.getAnalysis().getActionCache().addsObligation(curBlock, handle,
+                            obligation));
 
                     if (!sawFirstCreation && !isCreation) {
                         return;
                     }
 
-                    SourceLineAnnotation sourceLine = SourceLineAnnotation.fromVisitedInstruction(methodDescriptor, new Location(
-                            handle, curBlock));
+                    SourceLineAnnotation sourceLine = SourceLineAnnotation.fromVisitedInstruction(methodDescriptor,
+                            new Location(handle, curBlock));
                     sourceLine.setDescription(isCreation ? SourceLineAnnotation.ROLE_OBLIGATION_CREATED
                             : SourceLineAnnotation.ROLE_PATH_CONTINUES);
 
-                    boolean isInteresting = (sourceLine.getStartLine() > 0)
-                            && (lastSourceLine == null || isCreation || sourceLine.getStartLine() != lastSourceLine.getStartLine());
+                    boolean isInteresting = (sourceLine.getStartLine() > 0) && (lastSourceLine == null || isCreation
+                            || sourceLine.getStartLine() != lastSourceLine.getStartLine());
 
                     if (REPORT_PATH_DEBUG) {
-                        System.out.println("  " + handle.getPosition() + " --> " + sourceLine + (isInteresting ? " **" : ""));
+                        System.out.println(
+                                "  " + handle.getPosition() + " --> " + sourceLine + (isInteresting ? " **" : ""));
                     }
                     if (isInteresting) {
                         bugInstance.add(sourceLine);
@@ -726,7 +725,8 @@ public class FindUnsatisfiedObligation extends CFGDetector {
                         System.out.println("Edge of type " + Edge.edgeTypeToString(edge.getType()) + " to "
                                 + edge.getTarget().getLabel());
                         if (edge.getTarget().getFirstInstruction() != null) {
-                            System.out.println("  First instruction in target: " + edge.getTarget().getFirstInstruction());
+                            System.out.println(
+                                    "  First instruction in target: " + edge.getTarget().getFirstInstruction());
                         }
                         if (edge.getTarget().isExceptionThrower()) {
                             System.out.println("  exception thrower for " + edge.getTarget().getExceptionThrower());

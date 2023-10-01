@@ -30,13 +30,13 @@ public interface DetectorFactoryChooser {
      *
      * @param factory
      *            the DetectorFactory
+     *
      * @return true if the DetectorFactory should be chosen, false if not
      */
     boolean choose(DetectorFactory factory);
 
     /**
-     * Enable the factory due to ordering constraints with other enabled
-     * detectors
+     * Enable the factory due to ordering constraints with other enabled detectors
      *
      * @param factory
      */

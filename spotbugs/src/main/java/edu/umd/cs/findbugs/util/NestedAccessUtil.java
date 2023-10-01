@@ -65,6 +65,7 @@ public class NestedAccessUtil {
      *
      * @param javaClass
      *            The class for which to check.
+     *
      * @return {@code true} if the specified class is a nested class or defines nested class, {@code false} otherwise.
      */
     public static boolean hasNest(JavaClass javaClass) {
@@ -84,6 +85,7 @@ public class NestedAccessUtil {
      *
      * @param javaClass
      *            The class for which to check.
+     *
      * @return {@code true} if the specified class supports nested access as per JEP 181.
      *
      * @see NestedAccessUtil
@@ -99,8 +101,10 @@ public class NestedAccessUtil {
      *            The class for which qualified class names of nest mates are retrieved.
      * @param analysisContext
      *            The analysis context, used to look-up a nest host class if required.
+     *
      * @return The qualified class name of all nest mates. If the specified class is not a nested class or does not have
      *         nested classes, an empty list is returned.
+     *
      * @throws ClassNotFoundException
      *             If a nest host class was looked-up but could not be found.
      *

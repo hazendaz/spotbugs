@@ -98,7 +98,8 @@ public class ResourceInMultipleThreadsDetector extends OpcodeStackDetector {
             try {
                 collectFieldsUsedInThreads(seen);
             } catch (CheckedAnalysisException e) {
-                bugReporter.logError(String.format("Detector %s caught exception while analyzing class %s", getClass().getName(), getClassName()), e);
+                bugReporter.logError(String.format("Detector %s caught exception while analyzing class %s",
+                        getClass().getName(), getClassName()), e);
             }
         }
     }
@@ -106,7 +107,8 @@ public class ResourceInMultipleThreadsDetector extends OpcodeStackDetector {
     private void collectMethodsUsedInThreads(int seen) {
         if (seen == Const.INVOKEDYNAMIC) {
             JavaClass javaClass = getThisClass();
-            Optional<Method> lambdaMethod = getMethodFromBootstrap(javaClass, (ConstantInvokeDynamic) getConstantRefOperand());
+            Optional<Method> lambdaMethod = getMethodFromBootstrap(javaClass,
+                    (ConstantInvokeDynamic) getConstantRefOperand());
             if (lambdaMethod.isPresent()) {
                 XMethod lambdaXMethod = XFactory.createXMethod(javaClass, lambdaMethod.get());
                 calledMethodsByMethods.computeIfAbsent(getXMethod(), v -> new HashSet<>()).add(lambdaXMethod);
@@ -118,7 +120,8 @@ public class ResourceInMultipleThreadsDetector extends OpcodeStackDetector {
                 }
             }
 
-        } else if ((seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE || seen == Const.INVOKESPECIAL || seen == Const.INVOKESTATIC)) {
+        } else if ((seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE || seen == Const.INVOKESPECIAL
+                || seen == Const.INVOKESTATIC)) {
             XMethod calledMethod = getXMethodOperand();
             if (calledMethod != null) {
                 calledMethodsByMethods.computeIfAbsent(getXMethod(), v -> new HashSet<>()).add(calledMethod);
@@ -139,16 +142,14 @@ public class ResourceInMultipleThreadsDetector extends OpcodeStackDetector {
     }
 
     /**
-     * Ignore a special case where a Thread is passed to the {@code java.lang.Runtime} class,
-     * so it is used as a shutdown hook.
+     * Ignore a special case where a Thread is passed to the {@code java.lang.Runtime} class, so it is used as a
+     * shutdown hook.
      *
      * @return {@code true} if the Thread is passed to the {@code java.lang.Runtime} class, {@code false} otherwise
      */
     private boolean isJavaRuntimeMethod() {
-        return IntStream.range(0, getStack().getStackDepth())
-                .mapToObj(getStack()::getStackItem)
-                .map(OpcodeStack.Item::getReturnValueOf)
-                .filter(Objects::nonNull)
+        return IntStream.range(0, getStack().getStackDepth()).mapToObj(getStack()::getStackItem)
+                .map(OpcodeStack.Item::getReturnValueOf).filter(Objects::nonNull)
                 .anyMatch(method -> "java.lang.Runtime".equals(method.getClassName()));
     }
 
@@ -169,18 +170,20 @@ public class ResourceInMultipleThreadsDetector extends OpcodeStackDetector {
             OpcodeStack.Item stackItem = getStack().getStackItem(0);
             XField field = getXFieldOperand();
             if (field != null) {
-                if (stackItem.getReturnValueOf() != null && CollectionAnalysis.isSynchronizedCollection(stackItem.getReturnValueOf())) {
+                if (stackItem.getReturnValueOf() != null
+                        && CollectionAnalysis.isSynchronizedCollection(stackItem.getReturnValueOf())) {
                     synchronizedCollectionTypedFields.add(field);
-                } else if (!isAtomicTypedField(field)
-                        && !(Const.CONSTRUCTOR_NAME.equals(getMethodName()) || Const.STATIC_INITIALIZER_NAME.equals(getMethodName()))) {
+                } else if (!isAtomicTypedField(field) && !(Const.CONSTRUCTOR_NAME.equals(getMethodName())
+                        || Const.STATIC_INITIALIZER_NAME.equals(getMethodName()))) {
                     createOrUpdateFieldData(field, true, getMethod(), getXMethodOperand());
                 }
             }
-        } else if ((seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE || seen == Const.INVOKESPECIAL || seen == Const.INVOKESTATIC)
-                && getXMethodOperand() != null && getStack().getStackDepth() > 0
+        } else if ((seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE || seen == Const.INVOKESPECIAL
+                || seen == Const.INVOKESTATIC) && getXMethodOperand() != null && getStack().getStackDepth() > 0
                 && !MethodAnalysis.isDuplicatedLocation(getMethodDescriptor(), getPC())
                 && methodsUsedInThreads.contains(getXMethod())) {
-            // The field is accessed always be the last item in the stack, because the earlier elements are the arguments
+            // The field is accessed always be the last item in the stack, because the earlier elements are the
+            // arguments
             XField xField = getStack().getStackItem(getStack().getStackDepth() - 1).getXField();
             if (xField != null && !isAtomicTypedField(xField)) {
                 createOrUpdateFieldData(xField, false, getMethod(), getXMethodOperand());
@@ -189,14 +192,13 @@ public class ResourceInMultipleThreadsDetector extends OpcodeStackDetector {
     }
 
     private boolean isAtomicTypedField(XField xField) {
-        return xField.getSignature().contains("java/util/concurrent/atomic") || synchronizedCollectionTypedFields.contains(xField);
+        return xField.getSignature().contains("java/util/concurrent/atomic")
+                || synchronizedCollectionTypedFields.contains(xField);
     }
 
     private void createOrUpdateFieldData(XField xField, boolean putfield, Method containerMethod, XMethod xMethod) {
         BugInstance bug = new BugInstance(this, "AT_UNSAFE_RESOURCE_ACCESS_IN_THREAD", LOW_PRIORITY)
-                .addClassAndMethod(this)
-                .addSourceLine(this)
-                .addField(xField);
+                .addClassAndMethod(this).addSourceLine(this).addField(xField);
         if (!putfield) {
             bug.addCalledMethod(this);
         }
@@ -211,18 +213,18 @@ public class ResourceInMultipleThreadsDetector extends OpcodeStackDetector {
     @Override
     public void visitAfter(JavaClass javaClass) {
         super.visit(javaClass);
-        fieldsUsedInThreads.entrySet().stream()
-                .filter(entry -> isBug(entry.getValue()))
+        fieldsUsedInThreads.entrySet().stream().filter(entry -> isBug(entry.getValue()))
                 .flatMap(entry -> entry.getValue().methodBugs.values().stream().flatMap(Set::stream))
-                .collect(Collectors.toSet())
-                .forEach(bugReporter::reportBug);
+                .collect(Collectors.toSet()).forEach(bugReporter::reportBug);
     }
 
     /**
      * A bug is reported if the field is modified in multiple methods, it is not only accessed in synchronized blocks,
      * and it is not a synchronized collection or an atomic typed field.
      *
-     * @param data the field data
+     * @param data
+     *            the field data
+     *
      * @return {@code true} if the field is a bug, {@code false} otherwise
      */
     private static boolean isBug(FieldData data) {

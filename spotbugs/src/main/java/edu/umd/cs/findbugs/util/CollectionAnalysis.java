@@ -37,7 +37,9 @@ public final class CollectionAnalysis {
     /**
      * Check if a class member is a synchronized collection.
      *
-     * @param classMember the class member
+     * @param classMember
+     *            the class member
+     *
      * @return {@code true} if the class member is a synchronized collection, {@code false} otherwise
      */
     public static boolean isSynchronizedCollection(ClassMember classMember) {
@@ -47,14 +49,16 @@ public final class CollectionAnalysis {
     /**
      * Checks if a method is a synchronized collection creating one.
      *
-     * @param className name of the class containing the method
-     * @param methodName the name of the method
+     * @param className
+     *            name of the class containing the method
+     * @param methodName
+     *            the name of the method
+     *
      * @return {@code true} if it's a synchronized collection creating method, {@code false} otherwise
      */
     public static boolean isSynchronizedCollection(@DottedClassName String className, String methodName) {
-        final Set<String> interestingCollectionMethodNames = Set.of(
-                "synchronizedCollection", "synchronizedSet", "synchronizedSortedSet",
-                "synchronizedNavigableSet", "synchronizedList", "synchronizedMap",
+        final Set<String> interestingCollectionMethodNames = Set.of("synchronizedCollection", "synchronizedSet",
+                "synchronizedSortedSet", "synchronizedNavigableSet", "synchronizedList", "synchronizedMap",
                 "synchronizedSortedMap", "synchronizedNavigableMap");
         return "java.util.Collections".equals(className) && interestingCollectionMethodNames.contains(methodName);
     }

@@ -109,7 +109,8 @@ public class EqualsOperandShouldHaveClassCompatibleWithThis extends OpcodeStackD
             }
             Subtypes2 subtypes2 = AnalysisContext.currentAnalysisContext().getSubtypes2();
             try {
-                if (!c.isArray() && (subtypes2.isSubtype(c, thisClassDescriptor) || subtypes2.isSubtype(thisClassDescriptor, c))) {
+                if (!c.isArray() && (subtypes2.isSubtype(c, thisClassDescriptor)
+                        || subtypes2.isSubtype(thisClassDescriptor, c))) {
                     return;
                 }
 
@@ -120,8 +121,9 @@ public class EqualsOperandShouldHaveClassCompatibleWithThis extends OpcodeStackD
                 if ("java/lang/Object".equals(getSuperclassName()) && ClassName.isLocalOrAnonymous(getClassName())) {
                     priority++;
                 }
-                bugAccumulator.accumulateBug(new BugInstance(this, "EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS", priority)
-                        .addClassAndMethod(this).addType(c).describe(TypeAnnotation.FOUND_ROLE), this);
+                bugAccumulator
+                        .accumulateBug(new BugInstance(this, "EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS", priority)
+                                .addClassAndMethod(this).addType(c).describe(TypeAnnotation.FOUND_ROLE), this);
                 classSummary.checksForEqualTo(thisClassDescriptor, c);
 
             } catch (ClassNotFoundException e) {

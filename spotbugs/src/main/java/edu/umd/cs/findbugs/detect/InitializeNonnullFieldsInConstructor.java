@@ -90,7 +90,8 @@ public class InitializeNonnullFieldsInConstructor extends OpcodeStackDetector {
 
     @Override
     public void visit(Code code) {
-        boolean interesting = Const.CONSTRUCTOR_NAME.equals(getMethodName()) || Const.STATIC_INITIALIZER_NAME.equals(getMethodName());
+        boolean interesting = Const.CONSTRUCTOR_NAME.equals(getMethodName())
+                || Const.STATIC_INITIALIZER_NAME.equals(getMethodName());
         if (!interesting) {
             return;
         }
@@ -175,8 +176,10 @@ public class InitializeNonnullFieldsInConstructor extends OpcodeStackDetector {
                 OpcodeStack.Item itemToAssign = stack.getStackItem(0);
                 if (itemToAssign != null) {
                     XField fieldToAssign = itemToAssign.getXField();
-                    // do not count a field as initialized, if it is assigned to itself or if it is assigned another not initialized field
-                    if (fieldToAssign != null && (f.equals(fieldToAssign) || !initializedFields.contains(fieldToAssign))) {
+                    // do not count a field as initialized, if it is assigned to itself or if it is assigned another not
+                    // initialized field
+                    if (fieldToAssign != null
+                            && (f.equals(fieldToAssign) || !initializedFields.contains(fieldToAssign))) {
                         break;
                     }
                 }
@@ -198,10 +201,12 @@ public class InitializeNonnullFieldsInConstructor extends OpcodeStackDetector {
     }
 
     /**
-     * @return <code>true</code> if the last parameter of the invoked method is a <code>kotlin.jvm.internal.DefaultConstructorMarker</code>
+     * @return <code>true</code> if the last parameter of the invoked method is a
+     *         <code>kotlin.jvm.internal.DefaultConstructorMarker</code>
      */
     private boolean isKotlinGeneratedConstructor() {
-        GenericSignatureParser signatureParser = new GenericSignatureParser(getMethodDescriptorOperand().getSignature());
+        GenericSignatureParser signatureParser = new GenericSignatureParser(
+                getMethodDescriptorOperand().getSignature());
         Iterator<String> parameterSignatureIterator = signatureParser.parameterSignatureIterator();
 
         String lastParameter = null;

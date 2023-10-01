@@ -74,11 +74,9 @@ public class ClassParserUsingASM implements ClassParserInterface {
 
     private @SlashedClassName String slashedClassName;
 
-    //    private final ClassDescriptor expectedClassDescriptor;
+    // private final ClassDescriptor expectedClassDescriptor;
 
     private final ICodeBaseEntry codeBaseEntry;
-
-
 
     /**
      * @author pugh
@@ -138,8 +136,7 @@ public class ClassParserUsingASM implements ClassParserInterface {
 
         String bridgedMethodSignature;
 
-        IdentityMethodState identityState =
-                IdentityMethodState.INITIAL;
+        IdentityMethodState identityState = IdentityMethodState.INITIAL;
 
         ParameterLoadState parameterLoadState = ParameterLoadState.OTHER;
 
@@ -171,9 +168,8 @@ public class ClassParserUsingASM implements ClassParserInterface {
          * @param methodDesc
          * @param cBuilder
          */
-        private ClassParserMethodVisitor(TreeSet<ClassDescriptor> calledClassSet,
-                MethodInfo.Builder mBuilder, String methodName, int access,
-                String methodDesc, ClassNameAndSuperclassInfo.Builder cBuilder) {
+        private ClassParserMethodVisitor(TreeSet<ClassDescriptor> calledClassSet, MethodInfo.Builder mBuilder,
+                String methodName, int access, String methodDesc, ClassNameAndSuperclassInfo.Builder cBuilder) {
             this.calledClassSet = calledClassSet;
             this.mBuilder = mBuilder;
             this.methodName = methodName;
@@ -190,12 +186,7 @@ public class ClassParserUsingASM implements ClassParserInterface {
         }
 
         @Override
-        public void visitLocalVariable(String name,
-                String desc,
-                String signature,
-                Label start,
-                Label end,
-                int index) {
+        public void visitLocalVariable(String name, String desc, String signature, Label start, Label end, int index) {
             mBuilder.setVariableHasName(index);
 
         }
@@ -285,10 +276,7 @@ public class ClassParserUsingASM implements ClassParserInterface {
         }
 
         @Override
-        public void visitFieldInsn(int opcode,
-                String owner,
-                String name,
-                String desc) {
+        public void visitFieldInsn(int opcode, String owner, String name, String desc) {
             if (opcode == Opcodes.PUTFIELD && parameterLoadState == ParameterLoadState.LOADED_THIS_AND_PARAMETER
                     && owner.equals(slashedClassName) && name.startsWith("this$")) {
                 // the field that has name starts with "this$" is generated for non-static inner class
@@ -315,8 +303,7 @@ public class ClassParserUsingASM implements ClassParserInterface {
         }
 
         @Override
-        public void visitInvokeDynamicInsn(String name, String desc, Handle bsm,
-                Object... bsmArgs) {
+        public void visitInvokeDynamicInsn(String name, String desc, Handle bsm, Object... bsmArgs) {
             mBuilder.setUsesInvokeDynamic();
         }
 
@@ -509,8 +496,8 @@ public class ClassParserUsingASM implements ClassParserInterface {
         }
 
         @Override
-        public org.objectweb.asm.AnnotationVisitor visitTypeAnnotation(int typeRef, TypePath typePath,
-                String desc, boolean visible) {
+        public org.objectweb.asm.AnnotationVisitor visitTypeAnnotation(int typeRef, TypePath typePath, String desc,
+                boolean visible) {
             TypeReference typeRefObject = new TypeReference(typeRef);
             if (typeRefObject.getSort() == TypeReference.METHOD_FORMAL_PARAMETER && typePath == null) {
                 // treat as parameter annotation
@@ -535,6 +522,7 @@ public class ClassParserUsingASM implements ClassParserInterface {
     enum IdentityMethodState {
         INITIAL, LOADED_PARAMETER, NOT;
     }
+
     enum ParameterLoadState {
         OTHER, LOADED_THIS, LOADED_THIS_AND_PARAMETER;
     }
@@ -542,7 +530,7 @@ public class ClassParserUsingASM implements ClassParserInterface {
     public ClassParserUsingASM(ClassReader classReader, @CheckForNull ClassDescriptor expectedClassDescriptor,
             ICodeBaseEntry codeBaseEntry) {
         this.classReader = classReader;
-        //        this.expectedClassDescriptor = expectedClassDescriptor;
+        // this.expectedClassDescriptor = expectedClassDescriptor;
         this.codeBaseEntry = codeBaseEntry;
     }
 
@@ -555,10 +543,11 @@ public class ClassParserUsingASM implements ClassParserInterface {
 
         classReader.accept(new ClassVisitor(FindBugsASM.ASM_VERSION) {
 
-            //            boolean isInnerClass = false;
+            // boolean isInnerClass = false;
 
             @Override
-            public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
+            public void visit(int version, int access, String name, String signature, String superName,
+                    String[] interfaces) {
                 ClassParserUsingASM.this.slashedClassName = name;
                 cBuilder.setClassfileVersion(version >>> 16, version & 0xffff);
                 cBuilder.setAccessFlags(access);
@@ -594,8 +583,8 @@ public class ClassParserUsingASM implements ClassParserInterface {
 
             @Override
             public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
-                //                if (name.equals("this$0"))
-                //                    isInnerClass = true;
+                // if (name.equals("this$0"))
+                // isInnerClass = true;
 
                 if (desc == null) {
                     throw new NullPointerException("Description cannot be null");
@@ -641,14 +630,16 @@ public class ClassParserUsingASM implements ClassParserInterface {
             public MethodVisitor visitMethod(final int access, final String methodName, final String methodDesc,
                     String signature, String[] exceptions) {
                 if (cBuilder instanceof ClassInfo.Builder) {
-                    final MethodInfo.Builder mBuilder = new MethodInfo.Builder(slashedClassName, methodName, methodDesc, access);
+                    final MethodInfo.Builder mBuilder = new MethodInfo.Builder(slashedClassName, methodName, methodDesc,
+                            access);
                     mBuilder.setSourceSignature(signature);
                     mBuilder.setThrownExceptions(exceptions);
                     if ((access & Opcodes.ACC_SYNCHRONIZED) != 0) {
                         mBuilder.setUsesConcurrency();
                     }
 
-                    return new ClassParserMethodVisitor(calledClassSet, mBuilder, methodName, access, methodDesc, cBuilder);
+                    return new ClassParserMethodVisitor(calledClassSet, mBuilder, methodName, access, methodDesc,
+                            cBuilder);
 
                 }
                 return null;

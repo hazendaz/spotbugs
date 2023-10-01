@@ -81,8 +81,8 @@ class SarifBugReporterTest {
     }
 
     /**
-     * Root object&apos;s first field should be {@code "version"}, and it should be {@code "2.1.0"}.
-     * Root object also should have {@code "$schema"} field that points the JSON schema provided by SARIF community.
+     * Root object&apos;s first field should be {@code "version"}, and it should be {@code "2.1.0"}. Root object also
+     * should have {@code "$schema"} field that points the JSON schema provided by SARIF community.
      */
     @Test
     void testVersionAndSchema() {
@@ -93,14 +93,14 @@ class SarifBugReporterTest {
 
         assertThat("the first key in JSON should be 'version'", json, startsWith("{\"version\""));
         assertThat(jsonObject.get("version").getAsString(), is("2.1.0"));
-        assertThat(jsonObject.get("$schema").getAsString(), is(
-                "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"));
+        assertThat(jsonObject.get("$schema").getAsString(),
+                is("https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"));
     }
 
     /**
-     * {@code toolComponent} object in {@code "runs.tool.driver"} SHOULD have {@code "version"} (§3.19.2).
-     * A toolComponent object SHALL contain a {@code "name"} property (§3.19.8).
-     * A toolComponent object MAY contain a {@code "language"} property (§3.19.21).
+     * {@code toolComponent} object in {@code "runs.tool.driver"} SHOULD have {@code "version"} (§3.19.2). A
+     * toolComponent object SHALL contain a {@code "name"} property (§3.19.8). A toolComponent object MAY contain a
+     * {@code "language"} property (§3.19.21).
      */
     @Test
     void testDriver() {
@@ -136,7 +136,8 @@ class SarifBugReporterTest {
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern);
 
         // when
-        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10).addClass("the/target/Class"));
+        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10)
+                .addClass("the/target/Class"));
         reporter.finish();
 
         // then
@@ -149,7 +150,8 @@ class SarifBugReporterTest {
         assertThat(rules.size(), is(1));
         JsonObject rule = rules.get(0).getAsJsonObject();
         assertThat(rule.get("id").getAsString(), is(bugPattern.getType()));
-        String defaultText = rule.getAsJsonObject("messageStrings").getAsJsonObject("default").get("text").getAsString();
+        String defaultText = rule.getAsJsonObject("messageStrings").getAsJsonObject("default").get("text")
+                .getAsString();
         assertThat(defaultText, is("describing about this bug type with value {0}..."));
 
         assertThat(results.size(), is(1));
@@ -162,8 +164,6 @@ class SarifBugReporterTest {
         assertThat(arguments.get(0).getAsInt(), is(10));
     }
 
-
-
     @Test
     void testRuleWithInvalidArguments() {
         // given
@@ -174,7 +174,8 @@ class SarifBugReporterTest {
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern);
 
         // when
-        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10).addClass("the/target/Class"));
+        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10)
+                .addClass("the/target/Class"));
         reporter.finish();
 
         // then
@@ -187,7 +188,8 @@ class SarifBugReporterTest {
         assertThat(rules.size(), is(1));
         JsonObject rule = rules.get(0).getAsJsonObject();
         assertThat(rule.get("id").getAsString(), is(bugPattern.getType()));
-        String defaultText = rule.getAsJsonObject("messageStrings").getAsJsonObject("default").get("text").getAsString();
+        String defaultText = rule.getAsJsonObject("messageStrings").getAsJsonObject("default").get("text")
+                .getAsString();
         assertThat(defaultText, is("describing about this bug type with value {0}..."));
 
         assertThat(results.size(), is(1));
@@ -202,7 +204,8 @@ class SarifBugReporterTest {
 
     @Test
     void testMissingClassNotification() {
-        ClassDescriptor classDescriptor = DescriptorFactory.instance().getClassDescriptor("com/github/spotbugs/MissingClass");
+        ClassDescriptor classDescriptor = DescriptorFactory.instance()
+                .getClassDescriptor("com/github/spotbugs/MissingClass");
         reporter.reportMissingClass(classDescriptor);
         reporter.finish();
 
@@ -210,15 +213,14 @@ class SarifBugReporterTest {
         String json = writer.toString();
         JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
         JsonObject run = jsonObject.getAsJsonArray("runs").get(0).getAsJsonObject();
-        JsonArray toolConfigurationNotifications = run.getAsJsonArray("invocations")
-                .get(0).getAsJsonObject()
+        JsonArray toolConfigurationNotifications = run.getAsJsonArray("invocations").get(0).getAsJsonObject()
                 .getAsJsonArray("toolConfigurationNotifications");
 
         assertThat(toolConfigurationNotifications.size(), is(1));
         JsonObject notification = toolConfigurationNotifications.get(0).getAsJsonObject();
         assertThat(notification.getAsJsonObject("descriptor").get("id").getAsString(), is("spotbugs-missing-classes"));
-        assertThat(notification.getAsJsonObject("message").get("text").getAsString(), is(
-                "Classes needed for analysis were missing: [com.github.spotbugs.MissingClass]"));
+        assertThat(notification.getAsJsonObject("message").get("text").getAsString(),
+                is("Classes needed for analysis were missing: [com.github.spotbugs.MissingClass]"));
     }
 
     @Test
@@ -229,8 +231,7 @@ class SarifBugReporterTest {
         String json = writer.toString();
         JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
         JsonObject run = jsonObject.getAsJsonArray("runs").get(0).getAsJsonObject();
-        JsonArray toolExecutionNotifications = run.getAsJsonArray("invocations")
-                .get(0).getAsJsonObject()
+        JsonArray toolExecutionNotifications = run.getAsJsonArray("invocations").get(0).getAsJsonObject()
                 .getAsJsonArray("toolExecutionNotifications");
 
         assertThat(toolExecutionNotifications.size(), is(1));
@@ -242,15 +243,15 @@ class SarifBugReporterTest {
 
     @Test
     void testExceptionNotification() {
-        reporter.getProject().getSourceFinder().setSourceBaseList(Collections.singletonList(new File("src/test/java").getAbsolutePath()));
+        reporter.getProject().getSourceFinder()
+                .setSourceBaseList(Collections.singletonList(new File("src/test/java").getAbsolutePath()));
         reporter.logError("Unexpected Error", new Exception("Unexpected Problem"));
         reporter.finish();
 
         String json = writer.toString();
         JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
         JsonObject run = jsonObject.getAsJsonArray("runs").get(0).getAsJsonObject();
-        JsonArray toolExecutionNotifications = run.getAsJsonArray("invocations")
-                .get(0).getAsJsonObject()
+        JsonArray toolExecutionNotifications = run.getAsJsonArray("invocations").get(0).getAsJsonObject()
                 .getAsJsonArray("toolExecutionNotifications");
 
         assertThat(toolExecutionNotifications.size(), is(1));
@@ -259,7 +260,8 @@ class SarifBugReporterTest {
         assertThat(notification.getAsJsonObject("message").get("text").getAsString(), is("Unexpected Error"));
         assertTrue(notification.has("exception"));
         JsonArray frames = notification.getAsJsonObject("exception").getAsJsonObject("stack").getAsJsonArray("frames");
-        JsonObject physicalLocation = frames.get(0).getAsJsonObject().getAsJsonObject("location").getAsJsonObject("physicalLocation");
+        JsonObject physicalLocation = frames.get(0).getAsJsonObject().getAsJsonObject("location")
+                .getAsJsonObject("physicalLocation");
         String uri = physicalLocation.getAsJsonObject("artifactLocation").get("uri").getAsString();
         assertThat(uri, is("edu/umd/cs/findbugs/sarif/SarifBugReporterTest.java"));
     }
@@ -272,8 +274,7 @@ class SarifBugReporterTest {
         String json = writer.toString();
         JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
         JsonObject run = jsonObject.getAsJsonArray("runs").get(0).getAsJsonObject();
-        JsonArray toolExecutionNotifications = run.getAsJsonArray("invocations")
-                .get(0).getAsJsonObject()
+        JsonArray toolExecutionNotifications = run.getAsJsonArray("invocations").get(0).getAsJsonObject()
                 .getAsJsonArray("toolExecutionNotifications");
 
         assertThat(toolExecutionNotifications.size(), is(1));
@@ -289,7 +290,8 @@ class SarifBugReporterTest {
                 "longDescription", "detailText", "https://example.com/help.html", 0);
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern);
 
-        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10).addClass("the/target/Class"));
+        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10)
+                .addClass("the/target/Class"));
         reporter.finish();
 
         String json = writer.toString();
@@ -342,7 +344,8 @@ class SarifBugReporterTest {
                 "longDescription", "detailText", "https://example.com/help.html", 0);
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern);
 
-        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10).addClass("SampleClass"));
+        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10)
+                .addClass("SampleClass"));
         reporter.finish();
 
         String json = writer.toString();
@@ -351,16 +354,16 @@ class SarifBugReporterTest {
 
         JsonObject originalUriBaseIds = run.getAsJsonObject("originalUriBaseIds");
         String uriBaseId = takeFirstKey(originalUriBaseIds).get();
-        assertThat(URI.create(originalUriBaseIds.getAsJsonObject(uriBaseId).get("uri").getAsString()), is(tmpDir.toUri()));
+        assertThat(URI.create(originalUriBaseIds.getAsJsonObject(uriBaseId).get("uri").getAsString()),
+                is(tmpDir.toUri()));
 
         JsonArray results = run.getAsJsonArray("results");
         assertThat(results.size(), is(1));
         JsonObject result = results.get(0).getAsJsonObject();
-        JsonObject artifactLocation = result.getAsJsonArray("locations").get(0).getAsJsonObject().getAsJsonObject("physicalLocation").getAsJsonObject(
-                "artifactLocation");
+        JsonObject artifactLocation = result.getAsJsonArray("locations").get(0).getAsJsonObject()
+                .getAsJsonObject("physicalLocation").getAsJsonObject("artifactLocation");
         String relativeUri = artifactLocation.get("uri").getAsString();
-        assertThat("relative URI that can be resolved by the uriBase",
-                relativeUri, is("SampleClass.java"));
+        assertThat("relative URI that can be resolved by the uriBase", relativeUri, is("SampleClass.java"));
         assertThat(artifactLocation.get("uriBaseId").getAsString(), is(uriBaseId));
     }
 
@@ -374,8 +377,8 @@ class SarifBugReporterTest {
         SourceFinder sourceFinder = reporter.getProject().getSourceFinder();
         sourceFinder.setSourceBaseList(Collections.singleton(tmpDir.toString()));
 
-        BugPattern bugPattern = new BugPattern(type, "abbrev", "category", false, "shortDescription",
-                "longDescription", "detailText", "https://example.com/help.html", cweid);
+        BugPattern bugPattern = new BugPattern(type, "abbrev", "category", false, "shortDescription", "longDescription",
+                "detailText", "https://example.com/help.html", cweid);
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern);
 
         reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10)
@@ -448,7 +451,8 @@ class SarifBugReporterTest {
                 "longDescription", "detailText", "https://example.com/help.html", 0);
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern);
 
-        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10).addClass("the/target/Class"));
+        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10)
+                .addClass("the/target/Class"));
         reporter.finish();
 
         String json = writer.toString();

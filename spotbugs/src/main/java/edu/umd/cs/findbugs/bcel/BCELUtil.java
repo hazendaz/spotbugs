@@ -47,11 +47,12 @@ public abstract class BCELUtil {
      *            a JavaClass
      * @param method
      *            a Method belonging to the JavaClass
+     *
      * @return a MethodDescriptor identifying the method
      */
     public static MethodDescriptor getMethodDescriptor(JavaClass jclass, Method method) {
-        return DescriptorFactory.instance().getMethodDescriptor(ClassName.toSlashedClassName(jclass.getClassName()), method.getName(),
-                method.getSignature(), method.isStatic());
+        return DescriptorFactory.instance().getMethodDescriptor(ClassName.toSlashedClassName(jclass.getClassName()),
+                method.getName(), method.getSignature(), method.isStatic());
     }
 
     /**
@@ -59,6 +60,7 @@ public abstract class BCELUtil {
      *
      * @param jclass
      *            a JavaClass
+     *
      * @return a ClassDescriptor identifying that JavaClass
      */
     public static ClassDescriptor getClassDescriptor(JavaClass jclass) {
@@ -84,11 +86,13 @@ public abstract class BCELUtil {
     /**
      * Checks if the given member is synthetic
      *
-     * @param m The member to be checked
+     * @param m
+     *            The member to be checked
+     *
      * @return True if the member is synthetic, false otherwise
-     * @deprecated You probably don't care for synthetic members, but want to
-     *             know if the developer added it (think of lambdas), use
-     *             {@link MemberUtils#isUserGenerated(FieldOrMethod)} instead
+     *
+     * @deprecated You probably don't care for synthetic members, but want to know if the developer added it (think of
+     *             lambdas), use {@link MemberUtils#isUserGenerated(FieldOrMethod)} instead
      */
     @Deprecated
     public static boolean isSynthetic(FieldOrMethod m) {

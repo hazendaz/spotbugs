@@ -50,8 +50,7 @@ public abstract class FindBugsJob extends Job {
             @Override
             public void run() {
                 PlatformUI.getWorkbench().getProgressService().registerIconForFamily(
-                        FindbugsPlugin.getDefault().getImageDescriptor("runFindbugs.png"),
-                        FindbugsPlugin.class);
+                        FindbugsPlugin.getDefault().getImageDescriptor("runFindbugs.png"), FindbugsPlugin.class);
             }
         });
     }
@@ -64,8 +63,7 @@ public abstract class FindBugsJob extends Job {
         }
         Job[] jobs = Job.getJobManager().find(FindbugsPlugin.class);
         for (Job job2 : jobs) {
-            if (job2 instanceof FindBugsJob
-                    && job.getResource().equals(((FindBugsJob) job2).getResource())
+            if (job2 instanceof FindBugsJob && job.getResource().equals(((FindBugsJob) job2).getResource())
                     && job2.getState() != Job.RUNNING) {
                 job2.cancel();
             }
@@ -163,8 +161,8 @@ public abstract class FindBugsJob extends Job {
     /**
      * Acquires an analysis permit unless first cancelled.
      *
-     * @return {@code true} if permit has been acquired, {@code false} if
-     *         cancellation was observed and permit has not been acquired
+     * @return {@code true} if permit has been acquired, {@code false} if cancellation was observed and permit has not
+     *         been acquired
      */
     private static boolean acquireAnalysisPermitUnlessCancelled(IProgressMonitor monitor) throws InterruptedException {
         do {

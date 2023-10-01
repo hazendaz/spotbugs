@@ -25,6 +25,7 @@ import java.util.Iterator;
  * Perform a forward depth first search of a graph.
  *
  * @author David Hovemeyer
+ *
  * @see Graph
  * @see AbstractDepthFirstSearch
  */

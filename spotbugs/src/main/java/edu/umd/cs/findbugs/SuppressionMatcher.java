@@ -92,10 +92,8 @@ public class SuppressionMatcher implements Matcher {
 
     public void validateSuppressionUsage(BugReporter bugReporter, UselessSuppressionDetector detector) {
         Stream.concat(suppressedWarnings.values().stream(), suppressedPackageWarnings.values().stream())
-                .flatMap(Collection::stream)
-                .filter(w -> w.isUselessSuppressionReportable() && !matched.contains(w))
-                .map(w -> w.buildUselessSuppressionBugInstance(detector))
-                .forEach(bugReporter::reportBug);
+                .flatMap(Collection::stream).filter(w -> w.isUselessSuppressionReportable() && !matched.contains(w))
+                .map(w -> w.buildUselessSuppressionBugInstance(detector)).forEach(bugReporter::reportBug);
     }
 
     @Override

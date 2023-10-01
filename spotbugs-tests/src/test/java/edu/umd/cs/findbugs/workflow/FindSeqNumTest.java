@@ -108,12 +108,14 @@ class FindSeqNumTest {
 
     @Test
     void testAfterJune25() {
-        assertEquals(Long.MAX_VALUE, Filter.FilterCommandLine.getVersionNum(versionNames, timeStamps, "June 25, 2005", true, 3));
+        assertEquals(Long.MAX_VALUE,
+                Filter.FilterCommandLine.getVersionNum(versionNames, timeStamps, "June 25, 2005", true, 3));
     }
 
     @Test
     void testBeforeMay5() {
-        assertEquals(Long.MIN_VALUE, Filter.FilterCommandLine.getVersionNum(versionNames, timeStamps, "5/5/2005", false, 3));
+        assertEquals(Long.MIN_VALUE,
+                Filter.FilterCommandLine.getVersionNum(versionNames, timeStamps, "5/5/2005", false, 3));
     }
 
     @Test

@@ -85,14 +85,13 @@ class BugCollectionAnalyserTest {
     void testGetRulesGetResultsGetCweTaxonomyOneBugNoCweId() {
         String type = "TYPE";
 
-        BugPattern bugPattern = new BugPattern(type, "abbrev", "category", false, "shortDescription",
-                "longDescription", "detailText", "https://example.com/help.html", 0);
+        BugPattern bugPattern = new BugPattern(type, "abbrev", "category", false, "shortDescription", "longDescription",
+                "detailText", "https://example.com/help.html", 0);
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern);
 
         BugCollection bugCollection = new SortedBugCollection();
 
-        BugInstance bug1 = new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment())
-                .addInt(10)
+        BugInstance bug1 = new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addInt(10)
                 .addClass("SampleClass");
 
         SourceLineAnnotation lineAnnotation = new SourceLineAnnotation("SimpleTest", "Test.java", 1, 3, 0, 0);
@@ -123,8 +122,7 @@ class BugCollectionAnalyserTest {
         BugPattern bugPattern = new BugPattern("TYPE_NO_CWE", "abbrev", "category", false, "shortDescription",
                 "longDescription", "detailText", "https://example.com/help.html", 0);
         BugPattern bugPattern2 = new BugPattern("TYPE_WITH_CWE", "abbrev", "category", false, "shortDescription",
-                "longDescription",
-                "detailText", "https://example.com/help.html", 0);
+                "longDescription", "detailText", "https://example.com/help.html", 0);
 
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern);
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern2);

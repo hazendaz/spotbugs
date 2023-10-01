@@ -50,7 +50,8 @@ public class IntCast2LongAsInstant extends OpcodeStackDetector {
         if (seen == Const.SIPUSH) {
             lastConstantForSIPUSH = getIntConstant();
         }
-        if (seen == Const.INVOKEINTERFACE || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKESPECIAL || seen == Const.INVOKESTATIC) {
+        if (seen == Const.INVOKEINTERFACE || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKESPECIAL
+                || seen == Const.INVOKESTATIC) {
             String signature = getSigConstantOperand();
 
             int numberArguments = PreorderVisitor.getNumberArguments(signature);
@@ -68,8 +69,9 @@ public class IntCast2LongAsInstant extends OpcodeStackDetector {
                             priority = HIGH_PRIORITY;
 
                         }
-                        BugInstance bug = new BugInstance(this, "ICAST_INT_2_LONG_AS_INSTANT", priority).addClassAndMethod(this)
-                                .addCalledMethod(this).addValueSource(item, this).addSourceLine(this);
+                        BugInstance bug = new BugInstance(this, "ICAST_INT_2_LONG_AS_INSTANT", priority)
+                                .addClassAndMethod(this).addCalledMethod(this).addValueSource(item, this)
+                                .addSourceLine(this);
                         bugReporter.reportBug(bug);
                     }
 

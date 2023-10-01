@@ -27,8 +27,7 @@ import edu.umd.cs.findbugs.model.ClassNameRewriterUtil;
 import edu.umd.cs.findbugs.model.IdentityClassNameRewriter;
 
 /**
- * Compare bug instances by only those criteria which we would expect to remain
- * constant between versions.
+ * Compare bug instances by only those criteria which we would expect to remain constant between versions.
  */
 public class VersionInsensitiveBugComparator implements WarningComparator {
 
@@ -51,8 +50,7 @@ public class VersionInsensitiveBugComparator implements WarningComparator {
     }
 
     /**
-     * Wrapper for BugAnnotation iterators, which filters out annotations we
-     * don't care about.
+     * Wrapper for BugAnnotation iterators, which filters out annotations we don't care about.
      */
     private class FilteringAnnotationIterator implements Iterator<BugAnnotation> {
         private final Iterator<BugAnnotation> iter;
@@ -106,30 +104,15 @@ public class VersionInsensitiveBugComparator implements WarningComparator {
     }
 
     /*
-    private static int compareNullElements(Object a, Object b) {
-        if (a != null)
-            return 1;
-        else if (b != null)
-            return -1;
-        else
-            return 0;
-    }
-    
-    private static String getCode(String pattern) {
-        int sep = pattern.indexOf('_');
-        if (sep < 0) {
-            return "";
-        }
-        return pattern.substring(0, sep);
-    }
-    
-    private void dump(BugInstance bug) {
-        System.out.println(bug.getMessage());
-        Iterator<BugAnnotation> i = bug.annotationIterator();
-        while (i.hasNext()) {
-            System.out.println("  " + i.next());
-        }
-    }*/
+     * private static int compareNullElements(Object a, Object b) { if (a != null) return 1; else if (b != null) return
+     * -1; else return 0; }
+     *
+     * private static String getCode(String pattern) { int sep = pattern.indexOf('_'); if (sep < 0) { return ""; }
+     * return pattern.substring(0, sep); }
+     *
+     * private void dump(BugInstance bug) { System.out.println(bug.getMessage()); Iterator<BugAnnotation> i =
+     * bug.annotationIterator(); while (i.hasNext()) { System.out.println("  " + i.next()); } }
+     */
 
     @Override
     public int compare(BugInstance lhs, BugInstance rhs) {
@@ -182,11 +165,11 @@ public class VersionInsensitiveBugComparator implements WarningComparator {
                 if (lhsClass == rhsClass) {
                     break;
                 }
-                if (lhsClass == LocalVariableAnnotation.class && !((LocalVariableAnnotation) lhsAnnotation).isSignificant()
-                        && lhsIter.hasNext()) {
+                if (lhsClass == LocalVariableAnnotation.class
+                        && !((LocalVariableAnnotation) lhsAnnotation).isSignificant() && lhsIter.hasNext()) {
                     lhsAnnotation = lhsIter.next();
-                } else if (rhsClass == LocalVariableAnnotation.class && !((LocalVariableAnnotation) rhsAnnotation).isSignificant()
-                        && rhsIter.hasNext()) {
+                } else if (rhsClass == LocalVariableAnnotation.class
+                        && !((LocalVariableAnnotation) rhsAnnotation).isSignificant() && rhsIter.hasNext()) {
                     rhsAnnotation = rhsIter.next();
                 } else {
                     return lhsClass.getName().compareTo(rhsClass.getName());
@@ -197,8 +180,10 @@ public class VersionInsensitiveBugComparator implements WarningComparator {
                 // ClassAnnotations should have their class names rewritten to
                 // handle moved and renamed classes.
 
-                String lhsClassName = classNameRewriter.rewriteClassName(((ClassAnnotation) lhsAnnotation).getClassName());
-                String rhsClassName = classNameRewriter.rewriteClassName(((ClassAnnotation) rhsAnnotation).getClassName());
+                String lhsClassName = classNameRewriter
+                        .rewriteClassName(((ClassAnnotation) lhsAnnotation).getClassName());
+                String rhsClassName = classNameRewriter
+                        .rewriteClassName(((ClassAnnotation) rhsAnnotation).getClassName());
 
                 cmp = lhsClassName.compareTo(rhsClassName);
 

@@ -27,26 +27,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class to pre-screen class files, so that only a subset are analyzed. This
- * supports the -onlyAnalyze command line option.
+ * Class to pre-screen class files, so that only a subset are analyzed. This supports the -onlyAnalyze command line
+ * option.
  *
- * Modified February 2006 in four ways: a) don't break windows platform by
- * hard-coding '/' as the directory separator b) store list of Matchers, not
- * Patterns, so we don't keep instantiating Matchers c) fix suffix bug, so
- * FooBar and Foo$Bar no longer match Bar d) addAllowedPackage() can now handle
- * unicode chars in filenames, though we still may not be handling every case
- * mentioned in section 7.2.1 of the JLS
+ * Modified February 2006 in four ways: a) don't break windows platform by hard-coding '/' as the directory separator b)
+ * store list of Matchers, not Patterns, so we don't keep instantiating Matchers c) fix suffix bug, so FooBar and
+ * Foo$Bar no longer match Bar d) addAllowedPackage() can now handle unicode chars in filenames, though we still may not
+ * be handling every case mentioned in section 7.2.1 of the JLS
  *
  * @see FindBugs
+ *
  * @author David Hovemeyer
  */
 public class ClassScreener implements IClassScreener {
     private static final Logger LOG = LoggerFactory.getLogger(ClassScreener.class);
 
     /**
-     * regular expression fragment to match a directory separator. note: could
-     * use File.separatorChar instead, but that could be argued to be not
-     * general enough
+     * regular expression fragment to match a directory separator. note: could use File.separatorChar instead, but that
+     * could be argued to be not general enough
      */
     private static final String SEP = "[/\\\\]"; // could include ':' for
     // classic macOS
@@ -56,8 +54,8 @@ public class ClassScreener implements IClassScreener {
     // group
 
     /**
-     * regular expression fragment to match a char of a class or package name.
-     * Actually, we just allow any char except a dot or a directory separator.
+     * regular expression fragment to match a char of a class or package name. Actually, we just allow any char except a
+     * dot or a directory separator.
      */
     private static final String JAVA_IDENTIFIER_PART = "[^./\\\\]";
 
@@ -66,10 +64,9 @@ public class ClassScreener implements IClassScreener {
     private final LinkedList<Matcher> excludePatternList;
 
     /**
-     * Constructor. By default, the ClassScreener will match <em>all</em> class
-     * files. Once addAllowedClass() and addAllowedPackage() are called, the
-     * ClassScreener will only match the explicitly included classes and
-     * packages unless explicitly excluded.
+     * Constructor. By default, the ClassScreener will match <em>all</em> class files. Once addAllowedClass() and
+     * addAllowedPackage() are called, the ClassScreener will only match the explicitly included classes and packages
+     * unless explicitly excluded.
      */
     public ClassScreener() {
         includePatternList = new LinkedList<>();
@@ -77,22 +74,20 @@ public class ClassScreener implements IClassScreener {
     }
 
     /**
-     * replace the dots in a fully-qualified class/package name to a regular
-     * expression fragment that will match file names.
+     * replace the dots in a fully-qualified class/package name to a regular expression fragment that will match file
+     * names.
      *
      * @param dotsName
      *            such as "java.io" or "java.io.File"
-     * @return regex fragment such as "java[/\\\\]io" (single backslash escaped
-     *         twice)
+     *
+     * @return regex fragment such as "java[/\\\\]io" (single backslash escaped twice)
      */
     private static String dotsToRegex(String dotsName) {
         /*
-         * oops, next line requires JDK 1.5 return dotsName.replace("$",
-         * "\\$").replace(".", SEP); could use String.replaceAll(regex, repl)
-         * but that can be problematic--javadoc says "Note that backslashes (\)
-         * and dollar signs ($) in the replacement string may cause the results
-         * to be different than if it were being treated as a literal
-         * replacement"
+         * oops, next line requires JDK 1.5 return dotsName.replace("$", "\\$").replace(".", SEP); could use
+         * String.replaceAll(regex, repl) but that can be problematic--javadoc says "Note that backslashes (\) and
+         * dollar signs ($) in the replacement string may cause the results to be different than if it were being
+         * treated as a literal replacement"
          */
         String tmp = dotsName.replace("$", "\\$");
         return tmp.replace(".", SEP);
@@ -122,8 +117,8 @@ public class ClassScreener implements IClassScreener {
     }
 
     /**
-     * Add the name of a package to be matched by the screener. All class files
-     * that appear to be in the package should be matched.
+     * Add the name of a package to be matched by the screener. All class files that appear to be in the package should
+     * be matched.
      *
      * @param packageName
      *            name of the package to be matched
@@ -147,9 +142,8 @@ public class ClassScreener implements IClassScreener {
     }
 
     /**
-     * Add the name of a prefix to be matched by the screener. All class files
-     * that appear to be in the package specified by the prefix, or a more
-     * deeply nested package, should be matched.
+     * Add the name of a prefix to be matched by the screener. All class files that appear to be in the package
+     * specified by the prefix, or a more deeply nested package, should be matched.
      *
      * @param prefix
      *            name of the prefix to be matched

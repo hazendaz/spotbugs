@@ -45,16 +45,17 @@ import org.eclipse.pde.internal.core.ClasspathUtilCore;
 import de.tobject.findbugs.FindbugsPlugin;
 
 /**
- * Helper class to resolve full classpath for Eclipse plugin projects. Plugin
- * projects are very special for Eclipse and they differ from "usual" java
- * projects...
+ * Helper class to resolve full classpath for Eclipse plugin projects. Plugin projects are very special for Eclipse and
+ * they differ from "usual" java projects...
  *
  * @author Andrei
  */
 public class PDEClassPathGenerator {
 
     /**
-     * @param javaProject non null
+     * @param javaProject
+     *            non null
+     *
      * @return never null (may be empty array)
      */
     public static String[] computeClassPath(IJavaProject javaProject) {
@@ -89,15 +90,15 @@ public class PDEClassPathGenerator {
             IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
             for (IClasspathEntry entry : rawClasspath) {
                 if (entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
-                    IClasspathContainer classpathContainer = JavaCore.getClasspathContainer(entry.getPath(), javaProject);
+                    IClasspathContainer classpathContainer = JavaCore.getClasspathContainer(entry.getPath(),
+                            javaProject);
                     if (classpathContainer instanceof JREContainer) {
                         IClasspathEntry[] classpathEntries = classpathContainer.getClasspathEntries();
                         for (IClasspathEntry iClasspathEntry : classpathEntries) {
                             IPath path = iClasspathEntry.getPath();
                             // smallest possible fix for #1228 Eclipse plugin always uses host VM to resolve JDK classes
-                            if (isValidPath(path) &&
-                                    ("rt.jar".equals(path.lastSegment())
-                                            || "jrt-fs.jar".equals(path.lastSegment())
+                            if (isValidPath(path)
+                                    && ("rt.jar".equals(path.lastSegment()) || "jrt-fs.jar".equals(path.lastSegment())
                                             || "jce.jar".equals(path.lastSegment()))) {
                                 classPath.add(path.toOSString());
                             }
@@ -112,7 +113,9 @@ public class PDEClassPathGenerator {
     }
 
     /**
-     * @param path may be null
+     * @param path
+     *            may be null
+     *
      * @return true if the path is considered as valid for the classpath
      */
     private static boolean isValidPath(IPath path) {
@@ -165,8 +168,7 @@ public class PDEClassPathGenerator {
             // extra cleanup for some directories on classpath
             String bundleLocation = bd.getLocation();
             if (bundleLocation != null && !"jar".equals(location.getFileExtension())
-                    && new File(bundleLocation).isDirectory()
-                    && bd.getSymbolicName().equals(location.lastSegment())) {
+                    && new File(bundleLocation).isDirectory() && bd.getSymbolicName().equals(location.lastSegment())) {
                 // ignore badly resolved plugin directories inside workspace
                 // ("." as classpath is resolved as plugin root directory)
                 // which is, if under workspace, NOT a part of the classpath

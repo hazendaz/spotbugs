@@ -65,7 +65,8 @@ class SignatureUtilTest {
     }
 
     /**
-     * If the method signature is a regex and there are array types we should escape the '[' or it we be processed as a regex group start.
+     * If the method signature is a regex and there are array types we should escape the '[' or it we be processed as a
+     * regex group start.
      *
      * @see NameMatch This class uses {@code ~} to judge signature is regexp or not.
      */

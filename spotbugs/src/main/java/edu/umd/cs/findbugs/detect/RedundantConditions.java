@@ -74,15 +74,19 @@ public class RedundantConditions implements Detector {
             }
             for (RedundantCondition condition : analysis.getRedundantConditions()) {
                 int priority = getPriority(methodDescriptor, condition);
-                SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(classContext, method,
-                        condition.getLocation().getHandle().getPosition());
-                BugInstance bug = new BugInstance(condition.isByType() ? "UC_USELESS_CONDITION_TYPE" : "UC_USELESS_CONDITION", priority)
-                        .addClassAndMethod(methodDescriptor).add(new StringAnnotation(normalize(condition.getTrueCondition())));
+                SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(classContext,
+                        method, condition.getLocation().getHandle().getPosition());
+                BugInstance bug = new BugInstance(
+                        condition.isByType() ? "UC_USELESS_CONDITION_TYPE" : "UC_USELESS_CONDITION", priority)
+                                .addClassAndMethod(methodDescriptor)
+                                .add(new StringAnnotation(normalize(condition.getTrueCondition())));
                 if (condition.isByType()) {
                     bug.addType(condition.getSignature());
                 }
-                if (condition.isDeadCodeUnreachable() && condition.getDeadCodeLocation() != null && priority == HIGH_PRIORITY) {
-                    bug.addSourceLine(methodDescriptor, condition.getDeadCodeLocation()).describe(SourceLineAnnotation.ROLE_UNREACHABLE_CODE);
+                if (condition.isDeadCodeUnreachable() && condition.getDeadCodeLocation() != null
+                        && priority == HIGH_PRIORITY) {
+                    bug.addSourceLine(methodDescriptor, condition.getDeadCodeLocation())
+                            .describe(SourceLineAnnotation.ROLE_UNREACHABLE_CODE);
                 }
                 bugAccumulator.accumulateBug(bug, sourceLineAnnotation);
             }
@@ -129,10 +133,10 @@ public class RedundantConditions implements Detector {
             }
         }
         int priority = condition.isDeadCodeUnreachable() ? HIGH_PRIORITY
-                : condition.isBorder()
-                        || condition.getSignature().equals("Z") ? LOW_PRIORITY : NORMAL_PRIORITY;
+                : condition.isBorder() || condition.getSignature().equals("Z") ? LOW_PRIORITY : NORMAL_PRIORITY;
         // check for boolean conversion
-        if (condition.getDeadCodeLocation() != null && condition.getLiveCodeLocation() != null && condition.isDeadCodeUnreachable()) {
+        if (condition.getDeadCodeLocation() != null && condition.getLiveCodeLocation() != null
+                && condition.isDeadCodeUnreachable()) {
             InstructionHandle deadHandle = condition.getDeadCodeLocation().getHandle();
             InstructionHandle liveHandle = condition.getLiveCodeLocation().getHandle();
             int deadValue = getIntValue(deadHandle);
@@ -152,7 +156,8 @@ public class RedundantConditions implements Detector {
                     } else {
                         return priority;
                     }
-                    if (!(middle.getInstruction() instanceof GOTO) || ((GOTO) middle.getInstruction()).getTarget() != after) {
+                    if (!(middle.getInstruction() instanceof GOTO)
+                            || ((GOTO) middle.getInstruction()).getTarget() != after) {
                         return priority;
                     }
                     MethodGen methodGen;
@@ -165,8 +170,8 @@ public class RedundantConditions implements Detector {
                     Instruction consumerInst = consumer == null ? null : consumer.getInstruction();
                     if (consumerInst != null) {
                         short opcode = consumerInst.getOpcode();
-                        if (opcode == Const.IADD || opcode == Const.ISUB || opcode == Const.IMUL
-                                || opcode == Const.ISHR || opcode == Const.ISHL || opcode == Const.IUSHR) {
+                        if (opcode == Const.IADD || opcode == Const.ISUB || opcode == Const.IMUL || opcode == Const.ISHR
+                                || opcode == Const.ISHL || opcode == Const.IUSHR) {
                             // It's actually integer expression with explicit ? 1 : 0 or ? 0 : 1 operation
                             return priority;
                         }
@@ -180,12 +185,14 @@ public class RedundantConditions implements Detector {
                         ConstantPoolGen constantPool = methodGen.getConstantPool();
                         String methodName = ((InvokeInstruction) consumerInst).getMethodName(constantPool);
                         // Ignore values conditions used in assertion methods
-                        if ((methodName.equals("assertTrue") || methodName.equals("checkArgument") || methodName.equals("isLegal")
-                                || methodName.equals("isTrue"))) {
-                            return liveValue == 1 ? condition.isBorder() ? IGNORE_PRIORITY : LOW_PRIORITY : HIGH_PRIORITY;
+                        if ((methodName.equals("assertTrue") || methodName.equals("checkArgument")
+                                || methodName.equals("isLegal") || methodName.equals("isTrue"))) {
+                            return liveValue == 1 ? condition.isBorder() ? IGNORE_PRIORITY : LOW_PRIORITY
+                                    : HIGH_PRIORITY;
                         }
                         if ((methodName.equals("assertFalse") || methodName.equals("isFalse"))) {
-                            return liveValue == 0 ? condition.isBorder() ? IGNORE_PRIORITY : LOW_PRIORITY : HIGH_PRIORITY;
+                            return liveValue == 0 ? condition.isBorder() ? IGNORE_PRIORITY : LOW_PRIORITY
+                                    : HIGH_PRIORITY;
                         }
                     }
                 }
@@ -195,10 +202,13 @@ public class RedundantConditions implements Detector {
     }
 
     /**
-     * @param methodGen method
-     * @param start instruction to scan
-     * @return instruction which consumes value which was on top of stack before start instruction
-     * or null if cannot be determined
+     * @param methodGen
+     *            method
+     * @param start
+     *            instruction to scan
+     *
+     * @return instruction which consumes value which was on top of stack before start instruction or null if cannot be
+     *         determined
      */
     private InstructionHandle getConsumer(MethodGen methodGen, InstructionHandle start) {
         int depth = 1;

@@ -142,15 +142,14 @@ public class FindPotentialSecurityCheckBasedOnUntrustedSource extends OpcodeStac
 
     @Override
     public void visit(Method obj) {
-        isDoPrivilegedRun = isDoPrivileged && "run".equals(getMethodName())
-                && getMethodSig().startsWith("()");
+        isDoPrivilegedRun = isDoPrivileged && "run".equals(getMethodName()) && getMethodSig().startsWith("()");
         isLambdaCalledInDoPrivileged = lambdaCalledInDoPrivileged.containsKey(obj);
     }
 
     @Override
     public void visit(Code obj) {
-        if (isDoPrivilegedDeprecated
-                || (!isDoPrivilegedRun && !isLambdaCalledInDoPrivileged && (!getThisClass().isPublic() || !getMethod().isPublic()))) {
+        if (isDoPrivilegedDeprecated || (!isDoPrivilegedRun && !isLambdaCalledInDoPrivileged
+                && (!getThisClass().isPublic() || !getMethod().isPublic()))) {
             return;
         }
         super.visit(obj);
@@ -261,8 +260,7 @@ public class FindPotentialSecurityCheckBasedOnUntrustedSource extends OpcodeStac
     private void addToMethodsCalledInsidePrivilegedAction(XMethod calledMethod, OpcodeStack.Item object) {
         Set<CallerInfo> objects = methodsCalledInsidePrivilegedAction.computeIfAbsent(calledMethod,
                 k -> new HashSet<>());
-        objects.add(new CallerInfo(object, getThisClass(),
-                SourceLineAnnotation.fromVisitedInstruction(this)));
+        objects.add(new CallerInfo(object, getThisClass(), SourceLineAnnotation.fromVisitedInstruction(this)));
     }
 
     private void addToNonFinalMethodsCalledOnParam(ClassDescriptor calledClass, XMethod calledMethod,
@@ -333,31 +331,27 @@ public class FindPotentialSecurityCheckBasedOnUntrustedSource extends OpcodeStac
     }
 
     private void reportBug(CallPair callPair) {
-        bugAccumulator.accumulateBug(new BugInstance(this, "USC_POTENTIAL_SECURITY_CHECK_BASED_ON_UNTRUSTED_SOURCE",
-                NORMAL_PRIORITY)
-                .addClassAndMethod(this)
-                .addSourceLine(this)
-                .addClass(callPair.outside.calledClass.getClassName())
-                .addCalledMethod(callPair.outside.calledClass.getClassName(),
-                        callPair.outside.calledMethod.getName(), callPair.outside.calledMethod.getSignature(),
-                        callPair.outside.calledMethod.isStatic())
-                .addSourceLine(callPair.outside.srcLine)
-                .addSourceLine(callPair.inside.srcLine), this);
+        bugAccumulator.accumulateBug(
+                new BugInstance(this, "USC_POTENTIAL_SECURITY_CHECK_BASED_ON_UNTRUSTED_SOURCE", NORMAL_PRIORITY)
+                        .addClassAndMethod(this).addSourceLine(this)
+                        .addClass(callPair.outside.calledClass.getClassName())
+                        .addCalledMethod(callPair.outside.calledClass.getClassName(),
+                                callPair.outside.calledMethod.getName(), callPair.outside.calledMethod.getSignature(),
+                                callPair.outside.calledMethod.isStatic())
+                        .addSourceLine(callPair.outside.srcLine).addSourceLine(callPair.inside.srcLine),
+                this);
     }
 
-    private void reportBug(JavaClass cls, XMethod method, SourceLineAnnotation srcLine,
-            CalleeInfo calleInfo, SourceLineAnnotation insideSrcLine) {
-        bugAccumulator.accumulateBug(new BugInstance(this, "USC_POTENTIAL_SECURITY_CHECK_BASED_ON_UNTRUSTED_SOURCE",
-                NORMAL_PRIORITY)
-                .addClass(cls)
-                .addMethod(method)
-                .addSourceLine(srcLine)
-                .addClass(calleInfo.calledClass.getClassName())
-                .addCalledMethod(calleInfo.calledClass.getClassName(),
-                        calleInfo.calledMethod.getName(), calleInfo.calledMethod.getSignature(),
-                        calleInfo.calledMethod.isStatic())
-                .addSourceLine(calleInfo.srcLine)
-                .addSourceLine(insideSrcLine), this);
+    private void reportBug(JavaClass cls, XMethod method, SourceLineAnnotation srcLine, CalleeInfo calleInfo,
+            SourceLineAnnotation insideSrcLine) {
+        bugAccumulator.accumulateBug(
+                new BugInstance(this, "USC_POTENTIAL_SECURITY_CHECK_BASED_ON_UNTRUSTED_SOURCE", NORMAL_PRIORITY)
+                        .addClass(cls).addMethod(method).addSourceLine(srcLine)
+                        .addClass(calleInfo.calledClass.getClassName())
+                        .addCalledMethod(calleInfo.calledClass.getClassName(), calleInfo.calledMethod.getName(),
+                                calleInfo.calledMethod.getSignature(), calleInfo.calledMethod.isStatic())
+                        .addSourceLine(calleInfo.srcLine).addSourceLine(insideSrcLine),
+                this);
     }
 
     @Override

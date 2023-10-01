@@ -57,8 +57,8 @@ public class MultiThreadedCodeIdentifierUtils {
 
     public static boolean isPartOfMultiThreadedCode(ClassContext classContext) {
         JavaClass javaClass = classContext.getJavaClass();
-        if (Subtypes2.instanceOf(javaClass, JAVA_LANG_RUNNABLE) ||
-                Stream.of(javaClass.getFields()).anyMatch(MultiThreadedCodeIdentifierUtils::isFieldIndicatingMultiThreadedContainer)) {
+        if (Subtypes2.instanceOf(javaClass, JAVA_LANG_RUNNABLE) || Stream.of(javaClass.getFields())
+                .anyMatch(MultiThreadedCodeIdentifierUtils::isFieldIndicatingMultiThreadedContainer)) {
             return true;
         }
 
@@ -76,7 +76,8 @@ public class MultiThreadedCodeIdentifierUtils {
         }
 
         LocalVariableTable lvt = method.getLocalVariableTable();
-        if (lvt != null && Stream.of(lvt.getLocalVariableTable()).anyMatch(lv -> isFromAtomicPackage(lv.getSignature()))) {
+        if (lvt != null
+                && Stream.of(lvt.getLocalVariableTable()).anyMatch(lv -> isFromAtomicPackage(lv.getSignature()))) {
             return true;
         }
 
@@ -100,7 +101,8 @@ public class MultiThreadedCodeIdentifierUtils {
                 InvokeInstruction iins = (InvokeInstruction) ins;
                 String className = iins.getClassName(cpg);
                 String methodName = iins.getMethodName(cpg);
-                if (isConcurrentLockInterfaceCall(className, methodName) || CollectionAnalysis.isSynchronizedCollection(className, methodName)) {
+                if (isConcurrentLockInterfaceCall(className, methodName)
+                        || CollectionAnalysis.isSynchronizedCollection(className, methodName)) {
                     return true;
                 }
             }
@@ -111,11 +113,8 @@ public class MultiThreadedCodeIdentifierUtils {
     }
 
     private static boolean isConcurrentLockInterfaceCall(@DottedClassName String className, String methodName) {
-        return isInstanceOfLock(className)
-                && ("lock".equals(methodName)
-                        || "unlock".equals(methodName)
-                        || "tryLock".equals(methodName)
-                        || "lockInterruptibly".equals(methodName));
+        return isInstanceOfLock(className) && ("lock".equals(methodName) || "unlock".equals(methodName)
+                || "tryLock".equals(methodName) || "lockInterruptibly".equals(methodName));
     }
 
     private static boolean isInstanceOfLock(@DottedClassName String className) {
@@ -147,13 +146,15 @@ public class MultiThreadedCodeIdentifierUtils {
                 }
             }
         } catch (DataflowAnalysisException e) {
-            AnalysisContext.logError(String.format("Synchronization check caught an error when analyzing %s method.", currentMethod.getName()), e);
+            AnalysisContext.logError(String.format("Synchronization check caught an error when analyzing %s method.",
+                    currentMethod.getName()), e);
         }
         return false;
     }
 
     /**
-     * @return <code>true</code> if the class is explicitly annotated with <code>NotThreadSafe</code> to document that it is not thread safe
+     * @return <code>true</code> if the class is explicitly annotated with <code>NotThreadSafe</code> to document that
+     *         it is not thread safe
      */
     public static boolean isNotThreadSafe(ClassContext classContext) {
         JavaClass javaClass = classContext.getJavaClass();

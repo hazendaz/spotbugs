@@ -59,7 +59,8 @@ public class FindNonSerializableValuePassedToWriteObject implements Detector {
         }
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         MethodGen methodGen = classContext.getMethodGen(method);
         if (methodGen == null) {
             return;
@@ -140,14 +141,13 @@ public class FindNonSerializableValuePassedToWriteObject implements Detector {
                     isSerializable = isRemote;
                 }
 
-
                 SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(classContext,
                         methodGen, sourceFile, handle);
 
                 bugReporter.reportBug(new BugInstance(this, "DMI_NONSERIALIZABLE_OBJECT_WRITTEN",
                         isSerializable < 0.15 ? HIGH_PRIORITY : isSerializable > 0.5 ? LOW_PRIORITY : NORMAL_PRIORITY)
-                        .addClassAndMethod(methodGen, sourceFile).addType(problem).describe(TypeAnnotation.FOUND_ROLE)
-                        .addSourceLine(sourceLineAnnotation));
+                                .addClassAndMethod(methodGen, sourceFile).addType(problem)
+                                .describe(TypeAnnotation.FOUND_ROLE).addSourceLine(sourceLineAnnotation));
 
             } catch (ClassNotFoundException e) {
                 // ignore

@@ -30,12 +30,18 @@ class FindVulnerableSecurityCheckMethodsTest extends AbstractIntegrationTest {
         performAnalysis("vulnerablesecuritycheckmethodstest/GoodVulnerableSecurityCheckMethodsTest.class",
                 "vulnerablesecuritycheckmethodstest/FindVulnerableSecurityCheckMethodsTest.class",
                 "vulnerablesecuritycheckmethodstest/SecurityManager.class");
-        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest", "goodvulnerablesecuritycheckmethodstestCheck");
-        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest", "goodVulnerableSecurityCheckMethodsTestCheck2");
-        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest", "goodVulnerableSecurityCheckMethodsTestCheck4");
-        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest", "goodVulnerableSecurityCheckMethodsTestCheck5");
-        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest", "goodVulnerableSecurityCheckMethodsTestCheck6");
-        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest", "goodVulnerableSecurityCheckMethodsTestCheck7");
+        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest",
+                "goodvulnerablesecuritycheckmethodstestCheck");
+        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest",
+                "goodVulnerableSecurityCheckMethodsTestCheck2");
+        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest",
+                "goodVulnerableSecurityCheckMethodsTestCheck4");
+        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest",
+                "goodVulnerableSecurityCheckMethodsTestCheck5");
+        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest",
+                "goodVulnerableSecurityCheckMethodsTestCheck6");
+        assertNoBugInMethod(BUG_TYPE, "FindVulnerableSecurityCheckMethodsTest",
+                "goodVulnerableSecurityCheckMethodsTestCheck7");
 
         assertNoBugInClass(BUG_TYPE, "GoodVulnerableSecurityCheckMethodsTest");
     }

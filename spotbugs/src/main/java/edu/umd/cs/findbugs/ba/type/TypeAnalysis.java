@@ -69,17 +69,18 @@ import edu.umd.cs.findbugs.ba.vna.ValueNumberDataflow;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * <p>A forward dataflow analysis to determine the types of all values in the Java
- * stack frame at all points in a Java method. The values include local
- * variables and values on the Java operand stack.
+ * <p>
+ * A forward dataflow analysis to determine the types of all values in the Java stack frame at all points in a Java
+ * method. The values include local variables and values on the Java operand stack.
  * </p>
  * <p>
- * As a side effect, the analysis computes the exception set throwable on each
- * exception edge in the CFG. This information can be used to prune infeasible
- * exception edges, and mark exception edges which propagate only implicit
- * exceptions.</p>
+ * As a side effect, the analysis computes the exception set throwable on each exception edge in the CFG. This
+ * information can be used to prune infeasible exception edges, and mark exception edges which propagate only implicit
+ * exceptions.
+ * </p>
  *
  * @author David Hovemeyer
+ *
  * @see Dataflow
  * @see edu.umd.cs.findbugs.ba.DataflowAnalysis
  * @see TypeFrame
@@ -94,10 +95,9 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     public static final boolean FORCE_ACCURATE_EXCEPTIONS = SystemProperties.getBoolean("ta.accurateExceptions");
 
     /**
-     * Repository of information about thrown exceptions computed for a basic
-     * block and its outgoing exception edges. It contains a result TypeFrame,
-     * which is used to detect when the exception information needs to be
-     * recomputed for the block.
+     * Repository of information about thrown exceptions computed for a basic block and its outgoing exception edges. It
+     * contains a result TypeFrame, which is used to detect when the exception information needs to be recomputed for
+     * the block.
      */
     private class CachedExceptionSet {
         private final TypeFrame result;
@@ -196,8 +196,7 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
      * @param typeMerger
      *            object to merge types
      * @param visitor
-     *            a TypeFrameModelingVisitor to use to model the effect of
-     *            instructions
+     *            a TypeFrameModelingVisitor to use to model the effect of instructions
      * @param lookupFailureCallback
      *            lookup failure callback
      * @param exceptionSetFactory
@@ -250,8 +249,9 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
      */
     public TypeAnalysis(Method method, MethodGen methodGen, CFG cfg, DepthFirstSearch dfs, TypeMerger typeMerger,
             RepositoryLookupFailureCallback lookupFailureCallback, ExceptionSetFactory exceptionSetFactory) {
-        this(method, methodGen, cfg, dfs, typeMerger, new TypeFrameModelingVisitor(methodGen.getConstantPool(), typeMerger),
-                lookupFailureCallback, exceptionSetFactory);
+        this(method, methodGen, cfg, dfs, typeMerger,
+                new TypeFrameModelingVisitor(methodGen.getConstantPool(), typeMerger), lookupFailureCallback,
+                exceptionSetFactory);
         if (TypeFrameModelingVisitor.DEBUG) {
             System.out.println(methodGen.getClassName() + "." + methodGen.getName() + " " + methodGen.getSignature());
         }
@@ -280,9 +280,8 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     }
 
     /**
-     * Set the ValueNumberDataflow for the method being analyzed. This is
-     * optional; if set, it will be used to make instanceof instructions more
-     * precise.
+     * Set the ValueNumberDataflow for the method being analyzed. This is optional; if set, it will be used to make
+     * instanceof instructions more precise.
      *
      * @param valueNumberDataflow
      *            the ValueNumberDataflow
@@ -293,8 +292,7 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     }
 
     /**
-     * Set the FieldStoreTypeDatabase. This can be used to get more accurate
-     * types for values loaded from fields.
+     * Set the FieldStoreTypeDatabase. This can be used to get more accurate types for values loaded from fields.
      *
      * @param database
      *            the FieldStoreTypeDatabase
@@ -304,11 +302,12 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     }
 
     /**
-     * Get the set of exceptions that can be thrown on given edge. This should
-     * only be called after the analysis completes.
+     * Get the set of exceptions that can be thrown on given edge. This should only be called after the analysis
+     * completes.
      *
      * @param edge
      *            the Edge
+     *
      * @return the ExceptionSet
      */
     public ExceptionSet getEdgeExceptionSet(Edge edge) {
@@ -425,17 +424,18 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
         // update the cached information about it.
         instanceOfCheckMap.remove(basicBlock);
         if (visitor.isInstanceOfFollowedByBranch()) {
-            InstanceOfCheck check = new InstanceOfCheck(visitor.getInstanceOfValueNumber(), visitor.getInstanceOfType());
+            InstanceOfCheck check = new InstanceOfCheck(visitor.getInstanceOfValueNumber(),
+                    visitor.getInstanceOfType());
             instanceOfCheckMap.put(basicBlock, check);
         }
     }
 
-    private void computeThrownExceptionTypes(BasicBlock basicBlock, @CheckForNull InstructionHandle end, TypeFrame result)
-            throws DataflowAnalysisException {
+    private void computeThrownExceptionTypes(BasicBlock basicBlock, @CheckForNull InstructionHandle end,
+            TypeFrame result) throws DataflowAnalysisException {
 
         // Do nothing if we're not computing propagated exceptions
-        if (!(FORCE_ACCURATE_EXCEPTIONS || AnalysisContext.currentAnalysisContext().getBoolProperty(
-                AnalysisFeatures.ACCURATE_EXCEPTIONS))) {
+        if (!(FORCE_ACCURATE_EXCEPTIONS
+                || AnalysisContext.currentAnalysisContext().getBoolProperty(AnalysisFeatures.ACCURATE_EXCEPTIONS))) {
             return;
         }
 
@@ -517,8 +517,8 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
                 // Determine the type of exception(s) caught.
                 Type catchType = null;
 
-                if (FORCE_ACCURATE_EXCEPTIONS
-                        || AnalysisContext.currentAnalysisContext().getBoolProperty(AnalysisFeatures.ACCURATE_EXCEPTIONS)) {
+                if (FORCE_ACCURATE_EXCEPTIONS || AnalysisContext.currentAnalysisContext()
+                        .getBoolProperty(AnalysisFeatures.ACCURATE_EXCEPTIONS)) {
                     try {
                         // Ideally, the exceptions that can be propagated
                         // on this edge has already been computed.
@@ -591,7 +591,8 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
         int edgeType = edge.getType();
         int numSlots = Math.min(fact.getNumSlots(), vnaFrame.getNumSlots());
 
-        if ((edgeType == EdgeTypes.IFCMP_EDGE && (branchOpcode == Const.IFNE || branchOpcode == Const.IFGT || branchOpcode == Const.IFNULL))
+        if ((edgeType == EdgeTypes.IFCMP_EDGE
+                && (branchOpcode == Const.IFNE || branchOpcode == Const.IFGT || branchOpcode == Const.IFNULL))
 
                 || (edgeType == EdgeTypes.FALL_THROUGH_EDGE && (branchOpcode == Const.IFEQ || branchOpcode == Const.IFLE
                         || branchOpcode == Const.IFNONNULL))) {
@@ -613,7 +614,8 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
                 // downcast.
                 // Otherwise, just set it to TOP.
                 try {
-                    boolean guaranteed = Hierarchy.isSubtype((ReferenceType) checkedType, (ReferenceType) instanceOfType);
+                    boolean guaranteed = Hierarchy.isSubtype((ReferenceType) checkedType,
+                            (ReferenceType) instanceOfType);
                     if (guaranteed) {
                         continue;
                     }
@@ -652,7 +654,8 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
                     continue;
                 }
                 try {
-                    boolean guaranteed = Hierarchy.isSubtype((ReferenceType) checkedType, (ReferenceType) instanceOfType);
+                    boolean guaranteed = Hierarchy.isSubtype((ReferenceType) checkedType,
+                            (ReferenceType) instanceOfType);
                     if (!guaranteed) {
                         continue;
                     }
@@ -687,12 +690,12 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     }
 
     /**
-     * Get the cached set of exceptions that can be thrown from given basic
-     * block. If this information hasn't been computed yet, then an empty
-     * exception set is returned.
+     * Get the cached set of exceptions that can be thrown from given basic block. If this information hasn't been
+     * computed yet, then an empty exception set is returned.
      *
      * @param basicBlock
      *            the block to get the cached exception set for
+     *
      * @return the CachedExceptionSet for the block
      */
     private CachedExceptionSet getCachedExceptionSet(BasicBlock basicBlock) {
@@ -716,21 +719,21 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     }
 
     /**
-     * Compute the set of exceptions that can be thrown from the given basic
-     * block. This should only be called if the existing cached exception set is
-     * out of date.
+     * Compute the set of exceptions that can be thrown from the given basic block. This should only be called if the
+     * existing cached exception set is out of date.
      *
      * @param basicBlock
      *            the basic block
      * @param result
-     *            the result fact for the block; this is used to determine
-     *            whether or not the cached exception set is up to date
+     *            the result fact for the block; this is used to determine whether or not the cached exception set is up
+     *            to date
+     *
      * @return the cached exception set for the block
      */
-    private CachedExceptionSet computeBlockExceptionSet(BasicBlock basicBlock, TypeFrame result) throws DataflowAnalysisException {
+    private CachedExceptionSet computeBlockExceptionSet(BasicBlock basicBlock, TypeFrame result)
+            throws DataflowAnalysisException {
 
         ExceptionSet exceptionSet = computeThrownExceptionTypes(basicBlock);
-
 
         TypeFrame copyOfResult = createFact();
         copy(result, copyOfResult);
@@ -742,17 +745,16 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     }
 
     /**
-     * Based on the set of exceptions that can be thrown from the source basic
-     * block, compute the set of exceptions that can propagate along given
-     * exception edge. This method should be called for each outgoing exception
-     * edge in sequence, so the caught exceptions can be removed from the thrown
-     * exception set as needed.
+     * Based on the set of exceptions that can be thrown from the source basic block, compute the set of exceptions that
+     * can propagate along given exception edge. This method should be called for each outgoing exception edge in
+     * sequence, so the caught exceptions can be removed from the thrown exception set as needed.
      *
      * @param edge
      *            the exception edge
      * @param thrownExceptionSet
-     *            current set of exceptions that can be thrown, taking earlier
-     *            (higher priority) exception edges into account
+     *            current set of exceptions that can be thrown, taking earlier (higher priority) exception edges into
+     *            account
+     *
      * @return the set of exceptions that can propagate along this edge
      */
     private ExceptionSet computeEdgeExceptionSet(Edge edge, ExceptionSet thrownExceptionSet) {
@@ -826,7 +828,8 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     }
 
     /**
-     * @return <code>true</code> if the block catching <code>catchType</code> (which might be a multi-catch block) is catching exceptions of type <code>thrownType</code>
+     * @return <code>true</code> if the block catching <code>catchType</code> (which might be a multi-catch block) is
+     *         catching exceptions of type <code>thrownType</code>
      */
     private boolean handlerBlockCatches(ObjectType catchType, ObjectType thrownType) throws ClassNotFoundException {
         if (catchType instanceof ExceptionObjectType) {
@@ -847,11 +850,11 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     }
 
     /**
-     * Compute the set of exception types that can be thrown by given basic
-     * block.
+     * Compute the set of exception types that can be thrown by given basic block.
      *
      * @param basicBlock
      *            the basic block
+     *
      * @return the set of exceptions that can be thrown by the block
      */
     private ExceptionSet computeThrownExceptionTypes(BasicBlock basicBlock) throws DataflowAnalysisException {

@@ -54,7 +54,8 @@ public class DisplayNonmodelMessage {
         messageFrame = frame;
     }
 
-    public static void displayNonmodelMessage(String title, String message, @CheckForNull Component centerOver, boolean onTop) {
+    public static void displayNonmodelMessage(String title, String message, @CheckForNull Component centerOver,
+            boolean onTop) {
         boolean positionWindow = false;
         if (messageFrame == null) {
             positionWindow = true;
@@ -111,23 +112,13 @@ public class DisplayNonmodelMessage {
     // Following Runnable instances should be converted to lambdas in future:
 
     /*
-    static Runnable moveToFrontLater = new Runnable() {
-        @Override
-        public void run() {
-            sleep(5);
-            SwingUtilities.invokeLater(moveToFront);
-        }
-    };
-    
-    static Runnable moveToFront = new Runnable() {
-        @Override
-        public void run() {
-            JFrame frame = messageFrame;
-            if (frame != null) {
-                frame.toFront();
-            }
-        }
-    };
+     * static Runnable moveToFrontLater = new Runnable() {
+     *
+     * @Override public void run() { sleep(5); SwingUtilities.invokeLater(moveToFront); } };
+     *
+     * static Runnable moveToFront = new Runnable() {
+     *
+     * @Override public void run() { JFrame frame = messageFrame; if (frame != null) { frame.toFront(); } } };
      */
 
     static Runnable clearAlwaysOnTop = () -> {

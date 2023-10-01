@@ -28,9 +28,8 @@ import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * A JavaClass and a Method belonging to the class. This is useful for answering
- * a method lookup query which must concretely identify both the class and the
- * method.
+ * A JavaClass and a Method belonging to the class. This is useful for answering a method lookup query which must
+ * concretely identify both the class and the method.
  *
  * @author David Hovemeyer
  */
@@ -57,6 +56,7 @@ public class JavaClassAndMethod {
      *
      * @param method
      *            an XMethod specifying a specific method in a specific class
+     *
      * @throws ClassNotFoundException
      */
     public JavaClassAndMethod(XMethod method) throws ClassNotFoundException {
@@ -100,8 +100,8 @@ public class JavaClassAndMethod {
      * @return the MethodDescriptor uniquely naming this method
      */
     public MethodDescriptor toMethodDescriptor() {
-        return DescriptorFactory.instance().getMethodDescriptor(getSlashedClassName(), method.getName(), method.getSignature(),
-                method.isStatic());
+        return DescriptorFactory.instance().getMethodDescriptor(getSlashedClassName(), method.getName(),
+                method.getSignature(), method.isStatic());
     }
 
     private String getSlashedClassName() {

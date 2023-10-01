@@ -51,8 +51,7 @@ import edu.umd.cs.findbugs.SortedBugCollection;
 /**
  * @author Andrei
  */
-public class BugLabelProvider implements /* IStyledLabelProvider, */ ICommonLabelProvider,
-        IColorProvider {
+public class BugLabelProvider implements /* IStyledLabelProvider, */ ICommonLabelProvider, IColorProvider {
 
     private final WorkbenchLabelProvider wbProvider;
 

@@ -248,8 +248,8 @@ class FindOverridableMethodCallTest extends AbstractIntegrationTest {
 
         checkOneBug();
 
-        assertBugInMethodAtLineWithConfidence("MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR", className, Const.CONSTRUCTOR_NAME, constructorLine,
-                Confidence.LOW);
+        assertBugInMethodAtLineWithConfidence("MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR", className,
+                Const.CONSTRUCTOR_NAME, constructorLine, Confidence.LOW);
         assertBugInMethodAtLine("MC_OVERRIDABLE_METHOD_CALL_IN_CLONE", className, "clone", cloneLine);
     }
 

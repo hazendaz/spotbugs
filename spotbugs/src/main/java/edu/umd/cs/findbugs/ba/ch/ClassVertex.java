@@ -27,8 +27,7 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.graph.AbstractVertex;
 
 /**
- * Vertex class - represents a class or interface in the InheritanceGraph. Edges
- * connect subtypes to supertypes.
+ * Vertex class - represents a class or interface in the InheritanceGraph. Edges connect subtypes to supertypes.
  *
  * @author David Hovemeyer
  */
@@ -90,6 +89,7 @@ class ClassVertex extends AbstractVertex<InheritanceEdge, ClassVertex> {
      *            ClassDescriptor naming the class or interface
      * @param xclass
      *            object containing information about a class or interface
+     *
      * @return ClassVertex
      */
     public static ClassVertex createResolvedClassVertex(ClassDescriptor classDescriptor, XClass xclass) {
@@ -103,6 +103,7 @@ class ClassVertex extends AbstractVertex<InheritanceEdge, ClassVertex> {
      *            ClassDescriptor naming the missing class or interface
      * @param isInterface
      *            true if missing class is an interface, false otherwise
+     *
      * @return ClassVertex
      */
     public static ClassVertex createMissingClassVertex(ClassDescriptor classDescriptor, boolean isInterface) {
@@ -124,8 +125,7 @@ class ClassVertex extends AbstractVertex<InheritanceEdge, ClassVertex> {
     }
 
     /**
-     * Return true if this ClassVertex corresponds to a resolved class, or false
-     * if the class could not be found.
+     * Return true if this ClassVertex corresponds to a resolved class, or false if the class could not be found.
      */
     public boolean isResolved() {
         return xclass != null;
@@ -154,8 +154,7 @@ class ClassVertex extends AbstractVertex<InheritanceEdge, ClassVertex> {
     }
 
     /**
-     * @return true if this ClassVertex represents an application class, false
-     *         otherwise
+     * @return true if this ClassVertex represents an application class, false otherwise
      */
     public boolean isApplicationClass() {
         return isFlagSet(APPLICATION_CLASS);

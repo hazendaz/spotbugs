@@ -38,8 +38,9 @@ import edu.umd.cs.findbugs.ba.XMethod;
 public final class MemberUtils {
 
     /**
-     * This will capture annotations such as <code>org.immutables.value.Generated</code> or <code>lombok.Generated</code>.
-     * Note that <code>javax.annotation.Generated</code>, <code>javax.annotation.processing.Generated</code> only have source retention and are not visible to SpotBugs.
+     * This will capture annotations such as <code>org.immutables.value.Generated</code> or
+     * <code>lombok.Generated</code>. Note that <code>javax.annotation.Generated</code>,
+     * <code>javax.annotation.processing.Generated</code> only have source retention and are not visible to SpotBugs.
      */
     private static final String GENERATED_TYPE_SUFFIX = "/Generated;";
     private static final String GENERATED_NAME_SUFFIX = "/Generated";
@@ -110,10 +111,12 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the method could be a lambda. Notice this is a best-check,
-     * since once compiled lambda methods are not univocally distinguishable.
+     * Checks if the method could be a lambda. Notice this is a best-check, since once compiled lambda methods are not
+     * univocally distinguishable.
      *
-     * @param m The method to check if it's a lambda
+     * @param m
+     *            The method to check if it's a lambda
+     *
      * @return True if this could be a lambda, false otherwise
      */
     public static boolean couldBeLambda(final Method m) {
@@ -121,10 +124,12 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the method could be a lambda. Notice this is a best-check,
-     * since once compiled lambda methods are not univocally distinguishable.
+     * Checks if the method could be a lambda. Notice this is a best-check, since once compiled lambda methods are not
+     * univocally distinguishable.
      *
-     * @param m The method to check if it's a lambda
+     * @param m
+     *            The method to check if it's a lambda
+     *
      * @return True if this could be a lambda, false otherwise
      */
     public static boolean couldBeLambda(final XMethod m) {
@@ -132,10 +137,12 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the method could be a lambda. Notice this is a best-check,
-     * since once compiled lambda methods are not univocally distinguishable.
+     * Checks if the method could be a lambda. Notice this is a best-check, since once compiled lambda methods are not
+     * univocally distinguishable.
      *
-     * @param m The method to check if it's a lambda
+     * @param m
+     *            The method to check if it's a lambda
+     *
      * @return True if this could be a lambda, false otherwise
      */
     public static boolean couldBeLambda(final MethodGen m) {
@@ -143,12 +150,10 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the given method was user-generated. This takes into
-     * account for instance lambda methods, that even though they are marked as
-     * "synthetic", they are user-generated, and therefore interesting to
-     * analysis. Methods annotated with annotations such as Lombok's Generated are not considered user-generated.
+     * Checks if the given method was user-generated. This takes into account for instance lambda methods, that even
+     * though they are marked as "synthetic", they are user-generated, and therefore interesting to analysis. Methods
+     * annotated with annotations such as Lombok's Generated are not considered user-generated.
      *
-     * @param m The field or method to check.
      * @return True if the given member is user generated, false otherwise.
      */
     public static boolean isUserGenerated(final FieldOrMethod m) {
@@ -156,36 +161,36 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the given method was user-generated. This takes into
-     * account for instance lambda methods, that even though they are marked as
-     * "synthetic", they are user-generated, and therefore interesting to
-     * analysis. Methods annotated with annotations such as Lombok's Generated are not considered user-generated.
+     * Checks if the given method was user-generated. This takes into account for instance lambda methods, that even
+     * though they are marked as "synthetic", they are user-generated, and therefore interesting to analysis. Methods
+     * annotated with annotations such as Lombok's Generated are not considered user-generated.
      *
-     * @param m The field or method to check.
      * @return True if the given member is user generated, false otherwise.
      */
     public static boolean isUserGenerated(final ClassMember m) {
-        return (!m.isSynthetic() || (m instanceof XMethod && couldBeLambda((XMethod) m))) && (!(m instanceof XMethod) || !isGenerated(
-                (XMethod) m));
+        return (!m.isSynthetic() || (m instanceof XMethod && couldBeLambda((XMethod) m)))
+                && (!(m instanceof XMethod) || !isGenerated((XMethod) m));
     }
 
     /**
-     * Checks if the given method was user-generated. This takes into
-     * account for instance lambda methods, that even though they are marked as
-     * "synthetic", they are user-generated, and therefore interesting to
-     * analysis. Methods annotated with annotations such as Lombok's Generated are not considered user-generated.
+     * Checks if the given method was user-generated. This takes into account for instance lambda methods, that even
+     * though they are marked as "synthetic", they are user-generated, and therefore interesting to analysis. Methods
+     * annotated with annotations such as Lombok's Generated are not considered user-generated.
      *
-     * @param m The field or method to check.
      * @return True if the given member is user generated, false otherwise.
      */
     public static boolean isUserGenerated(final FieldGenOrMethodGen m) {
-        return (!internalIsSynthetic(m) || (m instanceof MethodGen && couldBeLambda((MethodGen) m))) && !isGeneratedMethod(m);
+        return (!internalIsSynthetic(m) || (m instanceof MethodGen && couldBeLambda((MethodGen) m)))
+                && !isGeneratedMethod(m);
     }
 
     /**
-     * Checks if the given class was user-generated, classes annotated with annotations such as Immutables' Generated are not considered user-generated.
+     * Checks if the given class was user-generated, classes annotated with annotations such as Immutables' Generated
+     * are not considered user-generated.
      *
-     * @param c The class to check.
+     * @param c
+     *            The class to check.
+     *
      * @return True if the given class is user generated, false otherwise.
      */
     public static boolean isUserGenerated(final XClass c) {
@@ -193,11 +198,15 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the given method is a main method. It takes into account the changes introduced in JEP 445.
-     * A main method has non-private access, is named "main", returns void, and has a single string array argument or has no arguments.
+     * Checks if the given method is a main method. It takes into account the changes introduced in JEP 445. A main
+     * method has non-private access, is named "main", returns void, and has a single string array argument or has no
+     * arguments.
+     *
      * @see <a href="https://openjdk.org/jeps/445">JEP 445: Unnamed Classes and Instance Main Methods</a>
      *
-     * @param method The method to check
+     * @param method
+     *            The method to check
+     *
      * @return true if the method is a main method, false otherwise
      */
     public static boolean isMainMethod(final Method method) {
@@ -206,11 +215,15 @@ public final class MemberUtils {
     }
 
     /**
-     * Checks if the given method is a main method. It takes into account the changes introduced in JEP 445.
-     * A main method has non-private access, is named "main", returns void, and has a single string array argument or has no arguments.
+     * Checks if the given method is a main method. It takes into account the changes introduced in JEP 445. A main
+     * method has non-private access, is named "main", returns void, and has a single string array argument or has no
+     * arguments.
+     *
      * @see <a href="https://openjdk.org/jeps/445">JEP 445: Unnamed Classes and Instance Main Methods</a>
      *
-     * @param method The method to check
+     * @param method
+     *            The method to check
+     *
      * @return true if the method is a main method, false otherwise
      */
     public static boolean isMainMethod(final XMethod method) {

@@ -49,8 +49,7 @@ class LoadMessagesTest {
     private void loadMessages(String fileName) {
         URL messageURL = PluginLoader.class.getResource(fileName);
         SAXReader reader = XMLUtil.buildSAXReader();
-        try (InputStream input = IO.openNonCachedStream(messageURL);
-                Reader stream = UTF8.bufferedReader(input)) {
+        try (InputStream input = IO.openNonCachedStream(messageURL); Reader stream = UTF8.bufferedReader(input)) {
             reader.read(stream);
         } catch (IOException | DocumentException e) {
             fail("Failed to load messages from file " + fileName, e);

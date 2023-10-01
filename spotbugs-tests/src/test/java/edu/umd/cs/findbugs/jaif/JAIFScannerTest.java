@@ -146,7 +146,8 @@ class JAIFScannerTest {
 
     @Test
     void testScanStringLiteral() throws Exception {
-        JAIFScanner scanner = getScanner("\"hello\"    \"foobie bletch\"  \"\\\"\"  \"\\\\\\6\\45\\037\"  \"\\b\\t\\f\\n\"  ");
+        JAIFScanner scanner = getScanner(
+                "\"hello\"    \"foobie bletch\"  \"\\\"\"  \"\\\\\\6\\45\\037\"  \"\\b\\t\\f\\n\"  ");
 
         checkToken(scanner, "\"hello\"", JAIFTokenKind.STRING_LITERAL);
         checkToken(scanner, "\"foobie bletch\"", JAIFTokenKind.STRING_LITERAL);

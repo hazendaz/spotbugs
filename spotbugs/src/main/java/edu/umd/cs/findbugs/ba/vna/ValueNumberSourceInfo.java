@@ -37,8 +37,7 @@ import edu.umd.cs.findbugs.ba.Location;
 import edu.umd.cs.findbugs.ba.XField;
 
 /**
- * Helper methods to find out information about the source of the value
- * represented by a given ValueNumber.
+ * Helper methods to find out information about the source of the value represented by a given ValueNumber.
  *
  * @author Bill Pugh
  * @author David Hovemeyer
@@ -52,17 +51,18 @@ public abstract class ValueNumberSourceInfo {
      * @param vnaFrame
      * @param partialRole
      *            TODO
+     *
      * @return the annotation
      */
-    public static @CheckForNull BugAnnotation findAnnotationFromValueNumber(Method method, Location location, ValueNumber valueNumber,
-            ValueNumberFrame vnaFrame, @CheckForNull String partialRole) {
+    public static @CheckForNull BugAnnotation findAnnotationFromValueNumber(Method method, Location location,
+            ValueNumber valueNumber, ValueNumberFrame vnaFrame, @CheckForNull String partialRole) {
         if (location.getHandle().getInstruction() instanceof ACONST_NULL) {
             StringAnnotation nullConstant = new StringAnnotation("null");
             nullConstant.setDescription(StringAnnotation.STRING_NONSTRING_CONSTANT_ROLE);
             return nullConstant;
         }
-        LocalVariableAnnotation ann = ValueNumberSourceInfo.findLocalAnnotationFromValueNumber(method, location, valueNumber,
-                vnaFrame);
+        LocalVariableAnnotation ann = ValueNumberSourceInfo.findLocalAnnotationFromValueNumber(method, location,
+                valueNumber, vnaFrame);
         if (ann != null && partialRole != null) {
             ann.setDescription("LOCAL_VARIABLE_" + partialRole);
         }
@@ -70,7 +70,8 @@ public abstract class ValueNumberSourceInfo {
         if (ann != null && ann.isSignificant()) {
             return ann;
         }
-        FieldAnnotation field = ValueNumberSourceInfo.findFieldAnnotationFromValueNumber(method, location, valueNumber, vnaFrame);
+        FieldAnnotation field = ValueNumberSourceInfo.findFieldAnnotationFromValueNumber(method, location, valueNumber,
+                vnaFrame);
         if (field != null) {
             if (partialRole != null) {
                 field.setDescription("FIELD_" + partialRole);
@@ -91,10 +92,11 @@ public abstract class ValueNumberSourceInfo {
      * @param vnaFrame
      * @param partialRole
      *            TODO
+     *
      * @return the annotation
      */
-    public static @Nonnull BugAnnotation findRequiredAnnotationFromValueNumber(Method method, Location location, ValueNumber valueNumber,
-            ValueNumberFrame vnaFrame, @CheckForNull String partialRole) {
+    public static @Nonnull BugAnnotation findRequiredAnnotationFromValueNumber(Method method, Location location,
+            ValueNumber valueNumber, ValueNumberFrame vnaFrame, @CheckForNull String partialRole) {
         BugAnnotation result = findAnnotationFromValueNumber(method, location, valueNumber, vnaFrame, partialRole);
         if (result != null) {
             return result;
@@ -128,8 +130,8 @@ public abstract class ValueNumberSourceInfo {
         return null;
     }
 
-    public static FieldAnnotation findFieldAnnotationFromValueNumber(Method method, Location location, ValueNumber valueNumber,
-            ValueNumberFrame vnaFrame) {
+    public static FieldAnnotation findFieldAnnotationFromValueNumber(Method method, Location location,
+            ValueNumber valueNumber, ValueNumberFrame vnaFrame) {
         XField field = ValueNumberSourceInfo.findXFieldFromValueNumber(method, location, valueNumber, vnaFrame);
         if (field == null) {
             return null;
@@ -155,11 +157,12 @@ public abstract class ValueNumberSourceInfo {
      * @param method
      * @param location
      * @param stackPos
+     *
      * @throws DataflowAnalysisException
      * @throws CFGBuilderException
      */
-    public static @CheckForNull BugAnnotation getFromValueNumber(ClassContext classContext, Method method, Location location, int stackPos)
-            throws DataflowAnalysisException, CFGBuilderException {
+    public static @CheckForNull BugAnnotation getFromValueNumber(ClassContext classContext, Method method,
+            Location location, int stackPos) throws DataflowAnalysisException, CFGBuilderException {
         ValueNumberFrame vnaFrame = classContext.getValueNumberDataflow(method).getFactAtLocation(location);
         if (!vnaFrame.isValid()) {
             return null;

@@ -25,10 +25,12 @@ public class SpotBugsRunner {
      * <p>
      * Add an entry to aux classpath of SpotBugs analysis.
      * </p>
+     *
      * @param engineCustomization
-     *      A customization of the engine to apply before running engine#execute
+     *            A customization of the engine to apply before running engine#execute
      * @param path
-     *      A path of the target class file or jar file. Non-null.
+     *            A path of the target class file or jar file. Non-null.
+     *
      * @return callee itself, so caller can chain another method in fluent interface.
      */
     // TODO let users specify "groupId:artifactId:packaging:version:classifier" like Grape in Groovy
@@ -46,10 +48,12 @@ public class SpotBugsRunner {
      * <p>
      * Run SpotBugs under given condition, and return its result.
      * </p>
+     *
      * @param engineCustomization
-     *      A customization of the engine to apply before running engine#execute
+     *            A customization of the engine to apply before running engine#execute
      * @param paths
-     *     Paths of target class files
+     *            Paths of target class files
+     *
      * @return a {@link BugCollection} which contains all detected bugs.
      */
     // TODO let users specify SlashedClassName, then find its file path automatically
@@ -65,8 +69,10 @@ public class SpotBugsRunner {
      * <p>
      * Run SpotBugs under given condition, and return its result.
      * </p>
+     *
      * @param paths
-     *     Paths of target class files
+     *            Paths of target class files
+     *
      * @return a {@link BugCollection} which contains all detected bugs.
      */
     // TODO let users specify SlashedClassName, then find its file path automatically

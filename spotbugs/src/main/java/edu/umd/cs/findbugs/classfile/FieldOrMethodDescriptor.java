@@ -42,7 +42,8 @@ public abstract class FieldOrMethodDescriptor implements FieldOrMethodName {
 
     private final int nameSigHashCode;
 
-    protected FieldOrMethodDescriptor(@SlashedClassName String slashedClassName, String name, String signature, boolean isStatic) {
+    protected FieldOrMethodDescriptor(@SlashedClassName String slashedClassName, String name, String signature,
+            boolean isStatic) {
         assert slashedClassName.indexOf('.') == -1 : "class name not in VM format: " + slashedClassName;
 
         this.slashedClassName = slashedClassName;
@@ -117,7 +118,6 @@ public abstract class FieldOrMethodDescriptor implements FieldOrMethodName {
         }
         return (this.isStatic ? 1 : 0) - (o.isStatic() ? 1 : 0);
     }
-
 
     protected boolean haveEqualFields(FieldOrMethodDescriptor other) {
         return this.isStatic == other.isStatic && this.slashedClassName.equals(other.slashedClassName)

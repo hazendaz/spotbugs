@@ -42,6 +42,7 @@ public class ConfidenceMatcher implements Matcher {
      *
      * @param confidenceAsString
      *            the confidence, as a String
+     *
      * @throws FilterException
      */
     public ConfidenceMatcher(String confidenceAsString) {

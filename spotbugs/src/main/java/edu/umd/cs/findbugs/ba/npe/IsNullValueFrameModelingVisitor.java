@@ -93,9 +93,7 @@ public class IsNullValueFrameModelingVisitor extends AbstractFrameModelingVisito
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.AbstractFrameModelingVisitor#analyzeInstruction
-     * (org.apache.bcel.generic.Instruction)
+     * @see edu.umd.cs.findbugs.ba.AbstractFrameModelingVisitor#analyzeInstruction (org.apache.bcel.generic.Instruction)
      */
     @Override
     public void analyzeInstruction(Instruction ins) throws DataflowAnalysisException {
@@ -126,8 +124,7 @@ public class IsNullValueFrameModelingVisitor extends AbstractFrameModelingVisito
     }
 
     /**
-     * @return Returns the slotContainingNewNullValue; or -1 if no new null
-     *         value was produced
+     * @return Returns the slotContainingNewNullValue; or -1 if no new null value was produced
      */
     public int getSlotContainingNewNullValue() {
         return slotContainingNewNullValue;
@@ -166,8 +163,8 @@ public class IsNullValueFrameModelingVisitor extends AbstractFrameModelingVisito
     }
 
     /**
-     * Handle method invocations. Generally, we want to get rid of null
-     * information following a call to a likely exception thrower or assertion.
+     * Handle method invocations. Generally, we want to get rid of null information following a call to a likely
+     * exception thrower or assertion.
      */
     private void handleInvoke(InvokeInstruction obj) {
         if (obj instanceof INVOKEDYNAMIC) {
@@ -181,8 +178,8 @@ public class IsNullValueFrameModelingVisitor extends AbstractFrameModelingVisito
         if (trackValueNumbers) {
             try {
                 ValueNumberFrame vnaFrame = vnaDataflow.getFactAtLocation(location);
-                Set<ValueNumber> nonnullParameters = UnconditionalValueDerefAnalysis.checkAllNonNullParams(location, vnaFrame,
-                        cpg, null, null, typeDataflow);
+                Set<ValueNumber> nonnullParameters = UnconditionalValueDerefAnalysis.checkAllNonNullParams(location,
+                        vnaFrame, cpg, null, null, typeDataflow);
 
                 if (!nonnullParameters.isEmpty()) {
                     IsNullValue kaboom = IsNullValue.noKaboomNonNullValue(location);
@@ -264,8 +261,7 @@ public class IsNullValueFrameModelingVisitor extends AbstractFrameModelingVisito
             if (IsNullValueAnalysis.DEBUG) {
                 System.out.println("Null value returned from " + calledMethod);
             }
-            pushValue = IsNullValue.nullOnSimplePathValue().markInformationAsComingFromReturnValueOfMethod(
-                    calledMethod,
+            pushValue = IsNullValue.nullOnSimplePathValue().markInformationAsComingFromReturnValueOfMethod(calledMethod,
                     annotation);
         } else if (annotation == NullnessAnnotation.NULLABLE) {
             pushValue = IsNullValue.nonReportingNotNullValue();
@@ -275,8 +271,7 @@ public class IsNullValueFrameModelingVisitor extends AbstractFrameModelingVisito
             if (IsNullValueAnalysis.DEBUG) {
                 System.out.println("NonNull value return from " + calledMethod);
             }
-            pushValue = IsNullValue.nonNullValue().markInformationAsComingFromReturnValueOfMethod(
-                    calledMethod,
+            pushValue = IsNullValue.nonNullValue().markInformationAsComingFromReturnValueOfMethod(calledMethod,
                     annotation);
 
         } else {
@@ -286,8 +281,7 @@ public class IsNullValueFrameModelingVisitor extends AbstractFrameModelingVisito
     }
 
     /**
-     * Hook indicating that a new (possibly-null) value is on the top of the
-     * stack.
+     * Hook indicating that a new (possibly-null) value is on the top of the stack.
      */
     private void newValueOnTOS() {
         IsNullValueFrame frame = getFrame();
@@ -376,9 +370,7 @@ public class IsNullValueFrameModelingVisitor extends AbstractFrameModelingVisito
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.AbstractFrameModelingVisitor#visitGETSTATIC(org
-     * .apache.bcel.generic.GETSTATIC)
+     * @see edu.umd.cs.findbugs.ba.AbstractFrameModelingVisitor#visitGETSTATIC(org .apache.bcel.generic.GETSTATIC)
      */
     @Override
     public void visitGETSTATIC(GETSTATIC obj) {
@@ -423,15 +415,14 @@ public class IsNullValueFrameModelingVisitor extends AbstractFrameModelingVisito
     }
 
     /**
-     * Check given Instruction to see if it produces a known value. If so, model
-     * the instruction and return true. Otherwise, do nothing and return false.
-     * Should only be used for instructions that produce a single value on the
+     * Check given Instruction to see if it produces a known value. If so, model the instruction and return true.
+     * Otherwise, do nothing and return false. Should only be used for instructions that produce a single value on the
      * top of the stack.
      *
      * @param obj
      *            the Instruction the instruction
-     * @return true if the instruction produced a known value and was modeled,
-     *         false otherwise
+     *
+     * @return true if the instruction produced a known value and was modeled, false otherwise
      */
     private boolean checkForKnownValue(Instruction obj) {
         if (trackValueNumbers) {

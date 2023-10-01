@@ -44,13 +44,12 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Factory for producing ForwardTypeQualifierDataflow objects for various kinds
- * of type qualifiers.
+ * Factory for producing ForwardTypeQualifierDataflow objects for various kinds of type qualifiers.
  *
  * @author David Hovemeyer
  */
-public class ForwardTypeQualifierDataflowFactory extends
-        TypeQualifierDataflowFactory<ForwardTypeQualifierDataflowAnalysis, ForwardTypeQualifierDataflow> {
+public class ForwardTypeQualifierDataflowFactory
+        extends TypeQualifierDataflowFactory<ForwardTypeQualifierDataflowAnalysis, ForwardTypeQualifierDataflow> {
 
     /**
      * Constructor.
@@ -62,13 +61,13 @@ public class ForwardTypeQualifierDataflowFactory extends
         super(methodDescriptor);
     }
 
-
     @Override
     protected ForwardTypeQualifierDataflow getDataflow(DepthFirstSearch dfs, XMethod xmethod, CFG cfg,
             ValueNumberDataflow vnaDataflow, ConstantPoolGen cpg, IAnalysisCache analysisCache,
-            MethodDescriptor methodDescriptor, TypeQualifierValue<?> typeQualifierValue) throws DataflowAnalysisException {
-        ForwardTypeQualifierDataflowAnalysis analysis = new ForwardTypeQualifierDataflowAnalysis(dfs, xmethod, cfg, vnaDataflow,
-                cpg, typeQualifierValue);
+            MethodDescriptor methodDescriptor, TypeQualifierValue<?> typeQualifierValue)
+            throws DataflowAnalysisException {
+        ForwardTypeQualifierDataflowAnalysis analysis = new ForwardTypeQualifierDataflowAnalysis(dfs, xmethod, cfg,
+                vnaDataflow, cpg, typeQualifierValue);
         analysis.registerSourceSinkLocations();
 
         ForwardTypeQualifierDataflow dataflow = new ForwardTypeQualifierDataflow(cfg, analysis);
@@ -80,8 +79,8 @@ public class ForwardTypeQualifierDataflowFactory extends
     }
 
     @Override
-    protected void populateDatabase(ForwardTypeQualifierDataflow dataflow, ValueNumberDataflow vnaDataflow, XMethod xmethod,
-            TypeQualifierValue<?> tqv) throws CheckedAnalysisException {
+    protected void populateDatabase(ForwardTypeQualifierDataflow dataflow, ValueNumberDataflow vnaDataflow,
+            XMethod xmethod, TypeQualifierValue<?> tqv) throws CheckedAnalysisException {
         assert TypeQualifierDatabase.USE_DATABASE;
 
         if (xmethod.getSignature().endsWith(")V")) {
@@ -114,8 +113,8 @@ public class ForwardTypeQualifierDataflowFactory extends
 
                     if (topFlowValue != null) {
                         if (TypeQualifierDatabase.DEBUG) {
-                            System.out.println("at pc " + handle.getPosition() + " of " + xmethod + ", return value for " + tqv
-                                    + " is " + topFlowValue);
+                            System.out.println("at pc " + handle.getPosition() + " of " + xmethod
+                                    + ", return value for " + tqv + " is " + topFlowValue);
                         }
                         if (effectiveFlowValue == null) {
                             effectiveFlowValue = topFlowValue;
@@ -129,9 +128,11 @@ public class ForwardTypeQualifierDataflowFactory extends
             if (effectiveFlowValue == FlowValue.ALWAYS || effectiveFlowValue == FlowValue.NEVER) {
                 TypeQualifierDatabase tqdb = Global.getAnalysisCache().getDatabase(TypeQualifierDatabase.class);
                 if (TypeQualifierDatabase.DEBUG) {
-                    System.out.println("inferring return value for " + xmethod + " of" + tqv + " : " + effectiveFlowValue);
+                    System.out.println(
+                            "inferring return value for " + xmethod + " of" + tqv + " : " + effectiveFlowValue);
                 }
-                tqa = TypeQualifierAnnotation.getValue(tqv, effectiveFlowValue == FlowValue.ALWAYS ? When.ALWAYS : When.NEVER);
+                tqa = TypeQualifierAnnotation.getValue(tqv,
+                        effectiveFlowValue == FlowValue.ALWAYS ? When.ALWAYS : When.NEVER);
                 tqdb.setReturnValue(xmethod.getMethodDescriptor(), tqv, tqa);
             }
         }

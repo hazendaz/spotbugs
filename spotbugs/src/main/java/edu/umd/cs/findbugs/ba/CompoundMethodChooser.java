@@ -43,9 +43,7 @@ public class CompoundMethodChooser implements JavaClassAndMethodChooser {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.JavaClassAndMethodChooser#choose(edu.umd.cs.findbugs
-     * .ba.XMethod)
+     * @see edu.umd.cs.findbugs.ba.JavaClassAndMethodChooser#choose(edu.umd.cs.findbugs .ba.XMethod)
      */
     @Override
     public boolean choose(XMethod method) {

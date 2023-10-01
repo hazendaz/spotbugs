@@ -55,9 +55,8 @@ public class Analysis {
     private static final boolean DEBUG = SystemProperties.getBoolean("ctq.debug.analysis");
 
     /**
-     * This system property enables additional work to try to detect all
-     * *effective* type qualifiers (direct, inherited, and default) applied to
-     * methods and called methods.
+     * This system property enables additional work to try to detect all *effective* type qualifiers (direct, inherited,
+     * and default) applied to methods and called methods.
      *
      * This step uses an interprocedural call graph.
      */
@@ -71,11 +70,13 @@ public class Analysis {
      *
      * @param methodDescriptor
      *            a method
+     *
      * @return Collection of relevant type qualifiers needing to be checked
+     *
      * @throws CheckedAnalysisException
      */
-    public static Collection<TypeQualifierValue<?>> getRelevantTypeQualifiers(MethodDescriptor methodDescriptor, CFG cfg)
-            throws CheckedAnalysisException {
+    public static Collection<TypeQualifierValue<?>> getRelevantTypeQualifiers(MethodDescriptor methodDescriptor,
+            CFG cfg) throws CheckedAnalysisException {
 
         final HashSet<TypeQualifierValue<?>> result = new HashSet<>();
 
@@ -101,7 +102,8 @@ public class Analysis {
             addEffectiveRelevantQualifiers(result, xmethod);
 
             IAnalysisCache analysisCache = Global.getAnalysisCache();
-            ConstantPoolGen cpg = analysisCache.getClassAnalysis(ConstantPoolGen.class, methodDescriptor.getClassDescriptor());
+            ConstantPoolGen cpg = analysisCache.getClassAnalysis(ConstantPoolGen.class,
+                    methodDescriptor.getClassDescriptor());
             for (Iterator<Location> i = cfg.locationIterator(); i.hasNext();) {
                 Location location = i.next();
                 Instruction ins = location.getHandle().getInstruction();
@@ -147,11 +149,11 @@ public class Analysis {
                             .traverseSupertypesDepthFirst(xmethod.getClassDescriptor(), visitor);
                 } catch (ClassNotFoundException e) {
                     AnalysisContext.currentAnalysisContext().getLookupFailureCallback().reportMissingClass(e);
-                    return Collections.<TypeQualifierValue<?>>emptySet();
+                    return Collections.<TypeQualifierValue<?>> emptySet();
                 } catch (UncheckedAnalysisException e) {
                     AnalysisContext.currentAnalysisContext().getLookupFailureCallback()
                             .logError("Error getting relevant type qualifiers for " + xmethod.toString(), e);
-                    return Collections.<TypeQualifierValue<?>>emptySet();
+                    return Collections.<TypeQualifierValue<?>> emptySet();
                 }
             }
         }

@@ -38,7 +38,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-
 class ClassFactoryTest {
 
     @BeforeEach
@@ -115,9 +114,8 @@ class ClassFactoryTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {
-        "../spotbugsTestCases/src/classSamples/recordCompileWithJaCoCo0.8.8/Foo.clazz",
-        "../spotbugsTestCases/src/classSamples/recordCompileWithJaCoCo0.8.8/FooWithMember.clazz" })
+    @ValueSource(strings = { "../spotbugsTestCases/src/classSamples/recordCompileWithJaCoCo0.8.8/Foo.clazz",
+            "../spotbugsTestCases/src/classSamples/recordCompileWithJaCoCo0.8.8/FooWithMember.clazz" })
     void acceptConstantDynamic(String fileName) throws Exception {
         try (SingleFileCodeBase codeBase = new SingleFileCodeBase(null, fileName)) {
             ClassDescriptor classDescriptor = codeBase.getClassDescriptor();

@@ -40,7 +40,8 @@ public class IteratorIdioms extends BytecodeScanningDetector implements Stateles
 
     private static final String HAS_NEXT_NAME = "hasNext";
 
-    private final ClassDescriptor iteratorDescriptor = DescriptorFactory.createClassDescriptor(java.util.Iterator.class);
+    private final ClassDescriptor iteratorDescriptor = DescriptorFactory
+            .createClassDescriptor(java.util.Iterator.class);
 
     private final BugReporter bugReporter;
 
@@ -75,11 +76,9 @@ public class IteratorIdioms extends BytecodeScanningDetector implements Stateles
         }
     }
 
-
     @Override
     public void visit(Method method) {
-        if (method.isPublic()
-                && (NEXT_NAME.equals(method.getName()) || HAS_NEXT_NAME.equals(method.getName()))
+        if (method.isPublic() && (NEXT_NAME.equals(method.getName()) || HAS_NEXT_NAME.equals(method.getName()))
                 && method.getArgumentTypes().length == 0) {
             shouldVisitCode = true;
             super.visit(method);
@@ -123,8 +122,7 @@ public class IteratorIdioms extends BytecodeScanningDetector implements Stateles
         } else if (seen == Const.INVOKESPECIAL || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE) {
             sawCall = true;
             String name = getNameConstantOperand().toLowerCase();
-            if (name.indexOf("next") >= 0
-                    || name.indexOf("previous") >= 0) {
+            if (name.indexOf("next") >= 0 || name.indexOf("previous") >= 0) {
                 sawNoSuchElement = true;
             }
         }

@@ -55,40 +55,38 @@ import edu.umd.cs.findbugs.util.Util;
 import edu.umd.cs.findbugs.util.Values;
 
 /**
- * Facade for class hierarchy queries. These typically access the class
- * hierarchy using the {@link org.apache.bcel.Repository} class. Callers should
- * generally expect to handle ClassNotFoundException for when referenced classes
- * can't be found.
+ * Facade for class hierarchy queries. These typically access the class hierarchy using the
+ * {@link org.apache.bcel.Repository} class. Callers should generally expect to handle ClassNotFoundException for when
+ * referenced classes can't be found.
  *
  * @author William Pugh
  */
 public class Hierarchy2 {
 
-    private static final ClassDescriptor objectDescriptor = DescriptorFactory.createClassDescriptor(java.lang.Object.class);
+    private static final ClassDescriptor objectDescriptor = DescriptorFactory
+            .createClassDescriptor(java.lang.Object.class);
 
     /**
-     * Look up the method referenced by given InvokeInstruction. This method
-     * does <em>not</em> look for implementations in super or subclasses
-     * according to the virtual dispatch rules.
+     * Look up the method referenced by given InvokeInstruction. This method does <em>not</em> look for implementations
+     * in super or subclasses according to the virtual dispatch rules.
      *
      * @param inv
      *            the InvokeInstruction
      * @param cpg
-     *            the ConstantPoolGen used by the class the InvokeInstruction
-     *            belongs to
+     *            the ConstantPoolGen used by the class the InvokeInstruction belongs to
      * @param chooser
-     *            JavaClassAndMethodChooser to use to pick the method from among
-     *            the candidates
-     * @return the JavaClassAndMethod, or null if no such method is defined in
-     *         the class
+     *            JavaClassAndMethodChooser to use to pick the method from among the candidates
+     *
+     * @return the JavaClassAndMethod, or null if no such method is defined in the class
      */
-    public static XMethod findExactMethod(InvokeInstruction inv, ConstantPoolGen cpg, JavaClassAndMethodChooser chooser) {
+    public static XMethod findExactMethod(InvokeInstruction inv, ConstantPoolGen cpg,
+            JavaClassAndMethodChooser chooser) {
         String className = inv.getClassName(cpg);
         String methodName = inv.getName(cpg);
         String methodSig = inv.getSignature(cpg);
 
-        XMethod result = findMethod(DescriptorFactory.createClassDescriptorFromDottedClassName(className), methodName, methodSig,
-                inv instanceof INVOKESTATIC);
+        XMethod result = findMethod(DescriptorFactory.createClassDescriptorFromDottedClassName(className), methodName,
+                methodSig, inv instanceof INVOKESTATIC);
 
         return thisOrNothing(result, chooser);
     }
@@ -142,9 +140,8 @@ public class Hierarchy2 {
             }
 
             try {
-                return thisOrNothing(
-                        findInvocationLeastUpperBound(getXClassFromDottedClassName(className), methodName, methodSig,
-                                opcode == Const.INVOKESTATIC, opcode == Const.INVOKEINTERFACE), methodChooser);
+                return thisOrNothing(findInvocationLeastUpperBound(getXClassFromDottedClassName(className), methodName,
+                        methodSig, opcode == Const.INVOKESTATIC, opcode == Const.INVOKEINTERFACE), methodChooser);
             } catch (CheckedAnalysisException e) {
                 return null;
             }
@@ -152,18 +149,18 @@ public class Hierarchy2 {
         }
     }
 
-    public static @CheckForNull XMethod findInvocationLeastUpperBound(ClassDescriptor classDesc, String methodName, String methodSig,
-            boolean invokeStatic,
-            boolean invokeInterface) {
+    public static @CheckForNull XMethod findInvocationLeastUpperBound(ClassDescriptor classDesc, String methodName,
+            String methodSig, boolean invokeStatic, boolean invokeInterface) {
         try {
-            return findInvocationLeastUpperBound(getXClass(classDesc), methodName, methodSig, invokeStatic, invokeInterface);
+            return findInvocationLeastUpperBound(getXClass(classDesc), methodName, methodSig, invokeStatic,
+                    invokeInterface);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static @CheckForNull XMethod findInvocationLeastUpperBound(XClass jClass, String methodName, String methodSig, boolean invokeStatic,
-            boolean invokeInterface) {
+    public static @CheckForNull XMethod findInvocationLeastUpperBound(XClass jClass, String methodName,
+            String methodSig, boolean invokeStatic, boolean invokeInterface) {
         XMethod result = findMethod(jClass.getClassDescriptor(), methodName, methodSig, invokeStatic);
         if (result != null) {
             return result;
@@ -186,8 +183,8 @@ public class Hierarchy2 {
         return null;
     }
 
-    public static @CheckForNull XMethod findInvocationLeastUpperBound0(XClass jClass, String methodName, String methodSig, boolean invokeStatic,
-            boolean invokeInterface) {
+    public static @CheckForNull XMethod findInvocationLeastUpperBound0(XClass jClass, String methodName,
+            String methodSig, boolean invokeStatic, boolean invokeInterface) {
         XMethod result = findMethod(jClass.getClassDescriptor(), methodName, methodSig, invokeStatic);
         if (result != null) {
             return result;
@@ -216,7 +213,6 @@ public class Hierarchy2 {
         return result;
 
     }
-
 
     public static @CheckForNull XMethod findFirstSuperMethod(XMethod m) {
 
@@ -262,7 +258,8 @@ public class Hierarchy2 {
         }
     }
 
-    public static @CheckForNull XMethod findMethod(ClassDescriptor classDescriptor, String methodName, String methodSig, boolean isStatic) {
+    public static @CheckForNull XMethod findMethod(ClassDescriptor classDescriptor, String methodName, String methodSig,
+            boolean isStatic) {
         try {
             return getXClass(classDescriptor).findMethod(methodName, methodSig, isStatic);
         } catch (CheckedAnalysisException e) {
@@ -283,8 +280,7 @@ public class Hierarchy2 {
     }
 
     /**
-     * Resolve possible method call targets. This works for both static and
-     * instance method calls.
+     * Resolve possible method call targets. This works for both static and instance method calls.
      *
      * @param invokeInstruction
      *            the InvokeInstruction
@@ -292,12 +288,14 @@ public class Hierarchy2 {
      *            the TypeFrame containing the types of stack values
      * @param cpg
      *            the ConstantPoolGen
+     *
      * @return Set of methods which might be called
+     *
      * @throws DataflowAnalysisException
      * @throws ClassNotFoundException
      */
-    public static @Nonnull Set<XMethod> resolveMethodCallTargets(InvokeInstruction invokeInstruction, TypeFrame typeFrame, ConstantPoolGen cpg)
-            throws DataflowAnalysisException, ClassNotFoundException {
+    public static @Nonnull Set<XMethod> resolveMethodCallTargets(InvokeInstruction invokeInstruction,
+            TypeFrame typeFrame, ConstantPoolGen cpg) throws DataflowAnalysisException, ClassNotFoundException {
 
         short opcode = invokeInstruction.getOpcode();
 
@@ -306,12 +304,12 @@ public class Hierarchy2 {
         }
 
         if (!typeFrame.isValid()) {
-            return Collections.<XMethod>emptySet();
+            return Collections.<XMethod> emptySet();
         }
 
         // XXX handle INVOKEDYNAMIC
         if (opcode == Const.INVOKEDYNAMIC) {
-            return Collections.<XMethod>emptySet();
+            return Collections.<XMethod> emptySet();
         }
 
         Type receiverType;
@@ -330,20 +328,21 @@ public class Hierarchy2 {
             int instanceStackLocation = typeFrame.getInstanceStackLocation(invokeInstruction, cpg);
             receiverType = typeFrame.getStackValue(instanceStackLocation);
             if (!(receiverType instanceof ReferenceType)) {
-                return Collections.<XMethod>emptySet();
+                return Collections.<XMethod> emptySet();
             }
             receiverTypeIsExact = typeFrame.isExact(instanceStackLocation);
         }
         if (DEBUG_METHOD_LOOKUP) {
-            System.out.println("[receiver type is " + receiverType + ", " + (receiverTypeIsExact ? "exact]" : " not exact]"));
+            System.out.println(
+                    "[receiver type is " + receiverType + ", " + (receiverTypeIsExact ? "exact]" : " not exact]"));
         }
 
         return resolveMethodCallTargets((ReferenceType) receiverType, invokeInstruction, cpg, receiverTypeIsExact);
     }
 
     /**
-     * Resolve possible instance method call targets. Assumes that invokevirtual
-     * and invokeinterface methods may call any subtype of the receiver class.
+     * Resolve possible instance method call targets. Assumes that invokevirtual and invokeinterface methods may call
+     * any subtype of the receiver class.
      *
      * @param receiverType
      *            type of the receiver object
@@ -351,7 +350,9 @@ public class Hierarchy2 {
      *            the InvokeInstruction
      * @param cpg
      *            the ConstantPoolGen
+     *
      * @return Set of methods which might be called
+     *
      * @throws ClassNotFoundException
      */
     public static Set<XMethod> resolveMethodCallTargets(ReferenceType receiverType, InvokeInstruction invokeInstruction,
@@ -369,9 +370,10 @@ public class Hierarchy2 {
      * @param cpg
      *            the ConstantPoolGen
      * @param receiverTypeIsExact
-     *            if true, the receiver type is known exactly, which should
-     *            allow a precise result
+     *            if true, the receiver type is known exactly, which should allow a precise result
+     *
      * @return Set of methods which might be called
+     *
      * @throws ClassNotFoundException
      */
     public static Set<XMethod> resolveMethodCallTargets(ReferenceType receiverType, InvokeInstruction invokeInstruction,
@@ -388,9 +390,10 @@ public class Hierarchy2 {
         // They should just resolve to Object methods.
         if (receiverType instanceof ArrayType) {
             try {
-                return Util.emptyOrNonnullSingleton(getXClass(objectDescriptor).findMethod(methodName, methodSig, false));
+                return Util
+                        .emptyOrNonnullSingleton(getXClass(objectDescriptor).findMethod(methodName, methodSig, false));
             } catch (CheckedAnalysisException e) {
-                return Collections.<XMethod>emptySet();
+                return Collections.<XMethod> emptySet();
             }
         }
 
@@ -402,18 +405,18 @@ public class Hierarchy2 {
                     invokeInstruction instanceof INVOKESPECIAL);
         }
         assert receiverType instanceof NullType;
-        return Collections.<XMethod>emptySet();
+        return Collections.<XMethod> emptySet();
 
     }
 
-    public static Set<XMethod> resolveVirtualMethodCallTargets(String receiverClassName, String methodName, String methodSig,
-            boolean receiverTypeIsExact, boolean invokeSpecial) throws ClassNotFoundException {
+    public static Set<XMethod> resolveVirtualMethodCallTargets(String receiverClassName, String methodName,
+            String methodSig, boolean receiverTypeIsExact, boolean invokeSpecial) throws ClassNotFoundException {
         ClassDescriptor receiverDesc = DescriptorFactory.createClassDescriptorFromDottedClassName(receiverClassName);
         return resolveVirtualMethodCallTargets(receiverDesc, methodName, methodSig, receiverTypeIsExact, invokeSpecial);
     }
 
-    public static Set<XMethod> resolveVirtualMethodCallTargets(XMethod target, boolean receiverTypeIsExact, boolean invokeSpecial)
-            throws ClassNotFoundException {
+    public static Set<XMethod> resolveVirtualMethodCallTargets(XMethod target, boolean receiverTypeIsExact,
+            boolean invokeSpecial) throws ClassNotFoundException {
         return resolveVirtualMethodCallTargets(target.getClassDescriptor(), target.getName(), target.getSignature(),
                 receiverTypeIsExact, invokeSpecial);
     }
@@ -422,8 +425,8 @@ public class Hierarchy2 {
 
     private static final boolean OPEN_WORLD_DEBUG = SystemProperties.getBoolean("findbugs.openworld.debug", false);
 
-    public static Set<XMethod> resolveVirtualMethodCallTargets(ClassDescriptor receiverDesc, String methodName, String methodSig,
-            boolean receiverTypeIsExact, boolean invokeSpecial) throws ClassNotFoundException {
+    public static Set<XMethod> resolveVirtualMethodCallTargets(ClassDescriptor receiverDesc, String methodName,
+            String methodSig, boolean receiverTypeIsExact, boolean invokeSpecial) throws ClassNotFoundException {
         // Figure out the upper bound for the method.
         // This is what will be called if this is not a virtual call site.
         AnalysisContext analysisContext = AnalysisContext.currentAnalysisContext();
@@ -431,7 +434,7 @@ public class Hierarchy2 {
         try {
             xClass = getXClass(receiverDesc);
         } catch (CheckedAnalysisException e) {
-            return Collections.<XMethod>emptySet();
+            return Collections.<XMethod> emptySet();
         }
 
         HashSet<XMethod> result = new LinkedHashSet<>();
@@ -481,13 +484,13 @@ public class Hierarchy2 {
      * @param inv
      *            the InvokeInstruction
      * @param cpg
-     *            the ConstantPoolGen used by the class the InvokeInstruction
-     *            belongs to
-     * @return array of ObjectTypes of thrown exceptions, or null if we can't
-     *         find the method implementation
+     *            the ConstantPoolGen used by the class the InvokeInstruction belongs to
+     *
+     * @return array of ObjectTypes of thrown exceptions, or null if we can't find the method implementation
      */
     public static @CheckForNull ObjectType[] findDeclaredExceptions(InvokeInstruction inv, ConstantPoolGen cpg) {
-        XMethod method = findInvocationLeastUpperBound(inv, cpg, inv instanceof INVOKESTATIC ? STATIC_METHOD : INSTANCE_METHOD);
+        XMethod method = findInvocationLeastUpperBound(inv, cpg,
+                inv instanceof INVOKESTATIC ? STATIC_METHOD : INSTANCE_METHOD);
 
         if (method == null) {
             return null;

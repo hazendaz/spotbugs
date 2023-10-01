@@ -37,9 +37,8 @@ import org.eclipse.ui.IMarkerResolution;
 import de.tobject.findbugs.FindbugsPlugin;
 
 /**
- * The <CODE>BugResolutionAssociations</CODE> is the container for the loaded
- * bug-resolutions. For each registered bug pattern, at least one resolution-class
- * has to be specified. Also an instance of a bug resolution can be associated
+ * The <CODE>BugResolutionAssociations</CODE> is the container for the loaded bug-resolutions. For each registered bug
+ * pattern, at least one resolution-class has to be specified. Also an instance of a bug resolution can be associated
  * with a bug pattern.
  *
  * @author <a href="mailto:twyss@hsr.ch">Thierry Wyss</a>

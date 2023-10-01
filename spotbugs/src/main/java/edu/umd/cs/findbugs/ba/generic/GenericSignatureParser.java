@@ -33,7 +33,6 @@ import org.apache.bcel.generic.InvokeInstruction;
 import org.apache.bcel.generic.ObjectType;
 import org.apache.bcel.generic.Type;
 
-
 /**
  * A simple class to parse method signatures that include generic information.
  * <p>
@@ -136,8 +135,7 @@ public class GenericSignatureParser {
     private final String signature;
 
     /**
-     * Parses a generic method signature of the form:
-     * <code>(argument_signature)return_type_signature</code>
+     * Parses a generic method signature of the form: <code>(argument_signature)return_type_signature</code>
      *
      * @param signature
      *            the method signature to be parsed
@@ -196,6 +194,7 @@ public class GenericSignatureParser {
      *
      * @param inv
      * @param cpg
+     *
      * @return int number of parameters
      */
     public static int getNumParametersForInvocation(InvokeInstruction inv, ConstantPoolGen cpg) {
@@ -206,8 +205,9 @@ public class GenericSignatureParser {
     /**
      * @param target
      *            the method whose signature is to be parsed
-     * @return an iterator over the parameters of the generic signature of
-     *         method. Returns null if the generic signature cannot be parsed
+     *
+     * @return an iterator over the parameters of the generic signature of method. Returns null if the generic signature
+     *         cannot be parsed
      */
     public static @CheckForNull Iterator<String> getGenericSignatureIterator(Method target) {
         try {
@@ -247,8 +247,8 @@ public class GenericSignatureParser {
     }
 
     /**
-     * Compare a plain method signature to the a generic method Signature and
-     * return true if they have the same number of parameters.
+     * Compare a plain method signature to the a generic method Signature and return true if they have the same number
+     * of parameters.
      *
      * @see GenericSignatureParser#getNumParameters()
      */

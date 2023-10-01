@@ -29,10 +29,10 @@ import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * Factory for ValueNumbers. A single Factory must be used to create all of the
- * ValueNumbers for a method.
+ * Factory for ValueNumbers. A single Factory must be used to create all of the ValueNumbers for a method.
  *
  * @author David Hovemeyer
+ *
  * @see ValueNumber
  */
 public class ValueNumberFactory {

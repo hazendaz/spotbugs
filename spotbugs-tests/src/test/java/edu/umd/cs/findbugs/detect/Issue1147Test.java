@@ -7,10 +7,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 class Issue1147Test extends AbstractIntegrationTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {
-        "ghIssues/Issue1147.class",
-        "../../../../src/classSamples/compiledWithCorretto11.0.4_10/Issue1147.class"
-    })
+    @ValueSource(strings = { "ghIssues/Issue1147.class",
+            "../../../../src/classSamples/compiledWithCorretto11.0.4_10/Issue1147.class" })
     void testIssue(String path) {
         performAnalysis(path);
 

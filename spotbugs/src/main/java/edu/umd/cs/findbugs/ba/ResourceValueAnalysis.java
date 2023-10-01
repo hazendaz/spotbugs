@@ -31,8 +31,8 @@ import org.apache.bcel.generic.MethodGen;
 import edu.umd.cs.findbugs.SystemProperties;
 
 @javax.annotation.ParametersAreNonnullByDefault
-public class ResourceValueAnalysis<Resource> extends FrameDataflowAnalysis<ResourceValue, ResourceValueFrame> implements
-        EdgeTypes {
+public class ResourceValueAnalysis<Resource> extends FrameDataflowAnalysis<ResourceValue, ResourceValueFrame>
+        implements EdgeTypes {
 
     private static final boolean DEBUG = SystemProperties.getBoolean("dataflow.debug");
 
@@ -48,8 +48,8 @@ public class ResourceValueAnalysis<Resource> extends FrameDataflowAnalysis<Resou
 
     private final boolean ignoreImplicitExceptions;
 
-    public ResourceValueAnalysis(MethodGen methodGen, CFG cfg, DepthFirstSearch dfs, ResourceTracker<Resource> resourceTracker,
-            Resource resource) {
+    public ResourceValueAnalysis(MethodGen methodGen, CFG cfg, DepthFirstSearch dfs,
+            ResourceTracker<Resource> resourceTracker, Resource resource) {
 
         super(dfs);
         this.methodGen = methodGen;
@@ -80,7 +80,8 @@ public class ResourceValueAnalysis<Resource> extends FrameDataflowAnalysis<Resou
     }
 
     @Override
-    public void meetInto(ResourceValueFrame fact, Edge edge, ResourceValueFrame result) throws DataflowAnalysisException {
+    public void meetInto(ResourceValueFrame fact, Edge edge, ResourceValueFrame result)
+            throws DataflowAnalysisException {
         BasicBlock source = edge.getSource();
         BasicBlock dest = edge.getTarget();
 
@@ -121,9 +122,8 @@ public class ResourceValueAnalysis<Resource> extends FrameDataflowAnalysis<Resou
                 if (DEBUG && fallThroughSuccessor == null) {
                     System.out.println("Null fall through successor!");
                 }
-                if (fallThroughSuccessor != null
-                        && resourceTracker.isResourceClose(fallThroughSuccessor, exceptionThrower, methodGen.getConstantPool(),
-                                resource, fact)) {
+                if (fallThroughSuccessor != null && resourceTracker.isResourceClose(fallThroughSuccessor,
+                        exceptionThrower, methodGen.getConstantPool(), resource, fact)) {
                     tmpFact = modifyFrame(fact, tmpFact);
                     tmpFact.setStatus(ResourceValueFrame.State.CLOSED);
                     if (DEBUG) {
@@ -139,7 +139,8 @@ public class ResourceValueAnalysis<Resource> extends FrameDataflowAnalysis<Resou
                 tmpFact.pushValue(ResourceValue.notInstance());
             }
         } else {
-            if (result.getStatus() == ResourceValueFrame.State.NOT_OPEN_ON_EXCEPTION_PATH && fact.getStatus() == ResourceValueFrame.State.CLOSED) {
+            if (result.getStatus() == ResourceValueFrame.State.NOT_OPEN_ON_EXCEPTION_PATH
+                    && fact.getStatus() == ResourceValueFrame.State.CLOSED) {
                 tmpFact = modifyFrame(fact, null);
                 tmpFact.setStatus(ResourceValueFrame.State.CLOSED_WITHOUT_OPENED);
             }
@@ -194,8 +195,8 @@ public class ResourceValueAnalysis<Resource> extends FrameDataflowAnalysis<Resou
                         ResourceValueFrame frameAtIf = getFactAtLocation(new Location(lastInSourceHandle, source));
                         ResourceValue topValue = frameAtIf.getValue(frameAtIf.getNumSlots() - 1);
 
-                        if (topValue.isInstance()
-                                && ((isNullCheck && edgeType == IFCMP_EDGE) || (isNonNullCheck && edgeType == FALL_THROUGH_EDGE))) {
+                        if (topValue.isInstance() && ((isNullCheck && edgeType == IFCMP_EDGE)
+                                || (isNonNullCheck && edgeType == FALL_THROUGH_EDGE))) {
                             tmpFact = modifyFrame(fact, tmpFact);
                             tmpFact.setStatus(ResourceValueFrame.State.NONEXISTENT);
                         }
@@ -217,7 +218,8 @@ public class ResourceValueAnalysis<Resource> extends FrameDataflowAnalysis<Resou
         super.mergeInto(frame, result);
 
         // Merge status
-        result.setStatus(result.getStatus().getType() > frame.getStatus().getType() ? frame.getStatus() : result.getStatus());
+        result.setStatus(
+                result.getStatus().getType() > frame.getStatus().getType() ? frame.getStatus() : result.getStatus());
     }
 
     @Override

@@ -54,7 +54,8 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
      * @param bugType
      *            Expected bug type
      * @param className
-     *            Class name, matches to any of the following: fully dotted class name, simple name, in case of inner classes the simple name with the container class separated by $.
+     *            Class name, matches to any of the following: fully dotted class name, simple name, in case of inner
+     *            classes the simple name with the container class separated by $.
      * @param methodName
      *            Method name
      * @param fieldName
@@ -111,7 +112,8 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
                 int endDollar = fullName.indexOf('$');
                 String simpleName = fullName.substring(startDot, endDollar != -1 ? endDollar : fullName.length());
                 String simpleNameInner = fullName.substring(startDot);
-                criteriaMatches &= fullName.equals(className) || simpleName.equals(className) || simpleNameInner.equals(className);
+                criteriaMatches &= fullName.equals(className) || simpleName.equals(className)
+                        || simpleNameInner.equals(className);
             }
             if (methodName != null) {
                 MethodAnnotation methodAnn = extractBugAnnotation(bugInstance, MethodAnnotation.class);
@@ -123,8 +125,9 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
 
                 if (methodAnn.getMethodName().startsWith("apply") && fullClassName != null) {
                     Matcher m = ANON_FUNCTION_SCALA_PATTERN.matcher(fullClassName);
-                    if (m.find()) { //Scala function enclose in
-                        criteriaMatches &= methodAnn.getMethodName().equals(methodName) || methodName.equals(m.group(1));
+                    if (m.find()) { // Scala function enclose in
+                        criteriaMatches &= methodAnn.getMethodName().equals(methodName)
+                                || methodName.equals(m.group(1));
                     }
                 } else { //
                     criteriaMatches &= methodAnn.getMethodName().equals(methodName);
@@ -156,12 +159,14 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
                 if (srcAnn == null) {
                     return false;
                 }
-                criteriaMatches &= srcAnn.getStartLine() - 1 <= lineNumberApprox && lineNumberApprox <= srcAnn.getEndLine() + 1;
+                criteriaMatches &= srcAnn.getStartLine() - 1 <= lineNumberApprox
+                        && lineNumberApprox <= srcAnn.getEndLine() + 1;
             }
             if (jspFile != null) {
                 ClassAnnotation classAnn = extractBugAnnotation(bugInstance, ClassAnnotation.class);
-                String fullName = classAnn.getClassName().replace(".", "/").replace("_005f", "_").replace("_jsp", ".jsp");
-                //String simpleName = fullName.substring(fullName.lastIndexOf("/") + 1);
+                String fullName = classAnn.getClassName().replace(".", "/").replace("_005f", "_").replace("_jsp",
+                        ".jsp");
+                // String simpleName = fullName.substring(fullName.lastIndexOf("/") + 1);
                 criteriaMatches &= fullName.endsWith(jspFile);
             }
             if (multipleChoicesLine != null) {
@@ -176,9 +181,9 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
                         break;
                     }
                 }
-                //if(!found) {
-                //log.info("The bug was between lines "+srcAnn.getStartLine()+" and "+srcAnn.getEndLine());
-                //}
+                // if(!found) {
+                // log.info("The bug was between lines "+srcAnn.getStartLine()+" and "+srcAnn.getEndLine());
+                // }
                 criteriaMatches &= found;
             }
             return criteriaMatches;
@@ -227,12 +232,8 @@ public class BugInstanceMatcher extends BaseMatcher<BugInstance> {
 
         if (item instanceof BugInstance) {
             BugInstance bugInstance = (BugInstance) item;
-            boolean hasCriteria = bugType != null
-                    && className != null
-                    && methodName != null
-                    && fieldName != null
-                    && variableName != null
-                    && lineNumber != null;
+            boolean hasCriteria = bugType != null && className != null && methodName != null && fieldName != null
+                    && variableName != null && lineNumber != null;
 
             if (bugType != null || !hasCriteria) {
                 description.appendText("bugType=").appendValue(bugInstance.getType()).appendText(",");

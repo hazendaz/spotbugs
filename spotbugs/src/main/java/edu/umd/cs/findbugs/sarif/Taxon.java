@@ -18,8 +18,8 @@ public class Taxon implements Comparable<Taxon> {
     private final String fullDescription;
     private final Level severityLevel;
 
-    private Taxon(@NonNull String id, @NonNull UUID guid,
-            @NonNull String shortDescription, @NonNull String fullDescription, @NonNull Level severityLevel) {
+    private Taxon(@NonNull String id, @NonNull UUID guid, @NonNull String shortDescription,
+            @NonNull String fullDescription, @NonNull Level severityLevel) {
         this.id = id;
         this.guid = guid;
         this.shortDescription = shortDescription;
@@ -35,10 +35,11 @@ public class Taxon implements Comparable<Taxon> {
      * @param shortDescription
      * @param fullDescription
      * @param severityLevel
+     *
      * @return a new taxon
      */
-    public static Taxon from(@NonNull String id, @NonNull UUID guid,
-            @NonNull String shortDescription, @NonNull String fullDescription, @NonNull Level severityLevel) {
+    public static Taxon from(@NonNull String id, @NonNull UUID guid, @NonNull String shortDescription,
+            @NonNull String fullDescription, @NonNull Level severityLevel) {
         return new Taxon(id, guid, shortDescription, fullDescription, severityLevel);
     }
 

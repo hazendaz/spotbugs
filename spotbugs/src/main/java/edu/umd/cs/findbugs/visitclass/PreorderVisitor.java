@@ -86,16 +86,19 @@ import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 
 /**
- * <p>Interface to make the use of a visitor pattern programming style possible.
- * I.e. a class that implements this interface can traverse the contents of a
- * Java class just by calling the `accept' method which all classes have.
+ * <p>
+ * Interface to make the use of a visitor pattern programming style possible. I.e. a class that implements this
+ * interface can traverse the contents of a Java class just by calling the `accept' method which all classes have.
  * </p>
- * <p>Implemented by wish of <A HREF="http://www.inf.fu-berlin.de/~bokowski">Boris
- * Bokowski</A>.</p>
+ * <p>
+ * Implemented by wish of <A HREF="http://www.inf.fu-berlin.de/~bokowski">Boris Bokowski</A>.
+ * </p>
  * <p>
  * If don't like it, blame him. If you do like it thank me 8-)
  * </p>
+ *
  * @author <A HREF="http://www.inf.fu-berlin.de/~dahm">M. Dahm</A>
+ *
  * @version 970819
  */
 public class PreorderVisitor extends BetterVisitor {
@@ -180,8 +183,7 @@ public class PreorderVisitor extends BetterVisitor {
     }
 
     public Set<String> getSurroundingCaughtExceptions(int pc, int maxTryBlockSize) {
-        return getSurroundingCaughtExceptionTypes(pc, maxTryBlockSize).stream()
-                .map(ex -> "C" + ex)
+        return getSurroundingCaughtExceptionTypes(pc, maxTryBlockSize).stream().map(ex -> "C" + ex)
                 .collect(Collectors.toSet());
     }
 
@@ -215,6 +217,7 @@ public class PreorderVisitor extends BetterVisitor {
      * Get lines of code in try block that surround pc
      *
      * @param pc
+     *
      * @return number of lines of code in try block
      */
     public int getSizeOfSurroundingTryBlock(int pc) {
@@ -225,6 +228,7 @@ public class PreorderVisitor extends BetterVisitor {
      * Get lines of code in try block that surround pc
      *
      * @param pc
+     *
      * @return number of lines of code in try block
      */
     public int getSizeOfSurroundingTryBlock(String vmNameOfExceptionClass, int pc) {
@@ -356,7 +360,6 @@ public class PreorderVisitor extends BetterVisitor {
 
     boolean visitMethodsInCallOrder;
 
-
     protected boolean isVisitMethodsInCallOrder() {
         return visitMethodsInCallOrder;
     }
@@ -486,8 +489,7 @@ public class PreorderVisitor extends BetterVisitor {
     }
 
     /**
-     * Get the slash-formatted class name for the current or most recently
-     * visited class
+     * Get the slash-formatted class name for the current or most recently visited class
      */
     public @SlashedClassName String getClassName() {
         return className;
@@ -499,8 +501,7 @@ public class PreorderVisitor extends BetterVisitor {
     }
 
     /**
-     * Get the (slash-formatted?) package name for the current or most recently
-     * visited class
+     * Get the (slash-formatted?) package name for the current or most recently visited class
      */
     public String getPackageName() {
         return packageName;
@@ -512,16 +513,14 @@ public class PreorderVisitor extends BetterVisitor {
     }
 
     /**
-     * Get the slash-formatted superclass name for the current or most recently
-     * visited class
+     * Get the slash-formatted superclass name for the current or most recently visited class
      */
     public @SlashedClassName String getSuperclassName() {
         return superclassName;
     }
 
     /**
-     * Get the dotted superclass name for the current or most recently visited
-     * class
+     * Get the dotted superclass name for the current or most recently visited class
      */
     public @DottedClassName String getDottedSuperclassName() {
         return dottedSuperclassName;
@@ -540,7 +539,8 @@ public class PreorderVisitor extends BetterVisitor {
         if (fullyQualifiedMethodName == null) {
             getMethodName();
             getDottedMethodSig();
-            StringBuilder ref = new StringBuilder(5 + dottedClassName.length() + methodName.length() + dottedMethodSig.length());
+            StringBuilder ref = new StringBuilder(
+                    5 + dottedClassName.length() + methodName.length() + dottedMethodSig.length());
 
             ref.append(dottedClassName).append(".").append(methodName).append(" : ").append(dottedMethodSig);
             fullyQualifiedMethodName = ref.toString();
@@ -629,10 +629,14 @@ public class PreorderVisitor extends BetterVisitor {
     }
 
     /**
-     * Returns true if given constant pool probably has a reference to any of supplied methods
-     * Useful to exclude from analysis uninteresting classes
-     * @param cp constant pool
-     * @param methods methods collection
+     * Returns true if given constant pool probably has a reference to any of supplied methods Useful to exclude from
+     * analysis uninteresting classes
+     *
+     * @param cp
+     *            constant pool
+     * @param methods
+     *            methods collection
+     *
      * @return true if method is found
      */
     public static boolean hasInterestingMethod(ConstantPool cp, Collection<MethodDescriptor> methods) {
@@ -647,7 +651,8 @@ public class PreorderVisitor extends BetterVisitor {
                 int hash = FieldOrMethodDescriptor.getNameSigHashCode(name, signature);
                 for (MethodDescriptor method : methods) {
                     if (method.getNameSigHashCode() == hash
-                            && (method.getSlashedClassName().isEmpty() || method.getSlashedClassName().equals(className))
+                            && (method.getSlashedClassName().isEmpty()
+                                    || method.getSlashedClassName().equals(className))
                             && method.getName().equals(name) && method.getSignature().equals(signature)) {
                         return true;
                     }
@@ -674,8 +679,7 @@ public class PreorderVisitor extends BetterVisitor {
     }
 
     /**
-     * If currently visiting a method, get the method's slash-formatted
-     * signature
+     * If currently visiting a method, get the method's slash-formatted signature
      */
     public String getMethodSig() {
         if (!visitingMethod) {
@@ -755,7 +759,8 @@ public class PreorderVisitor extends BetterVisitor {
     @Override
     public String toString() {
         if (visitingMethod) {
-            return this.getClass().getSimpleName() + " analyzing " + getClassName() + "." + getMethodName() + getMethodSig();
+            return this.getClass().getSimpleName() + " analyzing " + getClassName() + "." + getMethodName()
+                    + getMethodSig();
         } else if (visitingField) {
             return this.getClass().getSimpleName() + " analyzing " + getClassName() + "." + getFieldName();
         }
@@ -765,9 +770,7 @@ public class PreorderVisitor extends BetterVisitor {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.classfile.Visitor#visitAnnotation(org.apache.bcel.classfile
-     * .Annotations)
+     * @see org.apache.bcel.classfile.Visitor#visitAnnotation(org.apache.bcel.classfile .Annotations)
      */
     @Override
     public void visitAnnotation(Annotations arg0) {
@@ -778,9 +781,7 @@ public class PreorderVisitor extends BetterVisitor {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.classfile.Visitor#visitAnnotationDefault(org.apache.bcel
-     * .classfile.AnnotationDefault)
+     * @see org.apache.bcel.classfile.Visitor#visitAnnotationDefault(org.apache.bcel .classfile.AnnotationDefault)
      */
     @Override
     public void visitAnnotationDefault(AnnotationDefault arg0) {
@@ -791,9 +792,7 @@ public class PreorderVisitor extends BetterVisitor {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.classfile.Visitor#visitAnnotationEntry(org.apache.bcel
-     * .classfile.AnnotationEntry)
+     * @see org.apache.bcel.classfile.Visitor#visitAnnotationEntry(org.apache.bcel .classfile.AnnotationEntry)
      */
     @Override
     public void visitAnnotationEntry(AnnotationEntry arg0) {
@@ -804,9 +803,7 @@ public class PreorderVisitor extends BetterVisitor {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.classfile.Visitor#visitEnclosingMethod(org.apache.bcel
-     * .classfile.EnclosingMethod)
+     * @see org.apache.bcel.classfile.Visitor#visitEnclosingMethod(org.apache.bcel .classfile.EnclosingMethod)
      */
     @Override
     public void visitEnclosingMethod(EnclosingMethod arg0) {
@@ -817,9 +814,7 @@ public class PreorderVisitor extends BetterVisitor {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.classfile.Visitor#visitParameterAnnotation(org.apache
-     * .bcel.classfile.ParameterAnnotations)
+     * @see org.apache.bcel.classfile.Visitor#visitParameterAnnotation(org.apache .bcel.classfile.ParameterAnnotations)
      */
     @Override
     public void visitParameterAnnotation(ParameterAnnotations arg0) {

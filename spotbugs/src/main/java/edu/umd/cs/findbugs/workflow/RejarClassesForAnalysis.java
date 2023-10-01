@@ -158,9 +158,7 @@ public class RejarClassesForAnalysis {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.config.CommandLine#handleOption(java.lang.String,
-         * java.lang.String)
+         * @see edu.umd.cs.findbugs.config.CommandLine#handleOption(java.lang.String, java.lang.String)
          */
         @Override
         protected void handleOption(String option, String optionExtraPart) throws IOException {
@@ -176,9 +174,7 @@ public class RejarClassesForAnalysis {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.config.CommandLine#handleOptionWithArgument(java
-         * .lang.String, java.lang.String)
+         * @see edu.umd.cs.findbugs.config.CommandLine#handleOptionWithArgument(java .lang.String, java.lang.String)
          */
         @Override
         protected void handleOptionWithArgument(String option, String argument) throws IOException {
@@ -295,8 +291,8 @@ public class RejarClassesForAnalysis {
     public static void main(String args[]) throws Exception {
         FindBugs.setNoAnalysis();
         RejarClassesForAnalysisCommandLine commandLine = new RejarClassesForAnalysisCommandLine();
-        int argCount = commandLine.parse(args, 0, Integer.MAX_VALUE, "Usage: " + RejarClassesForAnalysis.class.getName()
-                + " [options] [<jarFile>+] ");
+        int argCount = commandLine.parse(args, 0, Integer.MAX_VALUE,
+                "Usage: " + RejarClassesForAnalysis.class.getName() + " [options] [<jarFile>+] ");
         RejarClassesForAnalysis doit = new RejarClassesForAnalysis(commandLine, argCount, args);
         doit.execute();
     }
@@ -383,7 +379,8 @@ public class RejarClassesForAnalysis {
                         filesToAnalyze.add(name);
                         numFilesToAnalyze++;
                     } else if (!commandLine.ignoreTimestamps && oldTimestamp < timestamp) {
-                        System.out.printf("Found later version of %s; switching from %s to %s%n", name, copyFrom.get(name), f);
+                        System.out.printf("Found later version of %s; switching from %s to %s%n", name,
+                                copyFrom.get(name), f);
                         copied.put(name, timestamp);
                         copyFrom.put(name, f);
                     }
@@ -391,6 +388,7 @@ public class RejarClassesForAnalysis {
 
                 /**
                  * @param dottedName
+                 *
                  * @return
                  */
 
@@ -421,8 +419,7 @@ public class RejarClassesForAnalysis {
                     classFileFound = true;
                     long timestamp = ze.getTime();
                     Long oldTimestamp = copied.get(name);
-                    if (oldTimestamp == null
-                            || (!commandLine.ignoreTimestamps && oldTimestamp < timestamp)) {
+                    if (oldTimestamp == null || (!commandLine.ignoreTimestamps && oldTimestamp < timestamp)) {
                         copied.put(name, timestamp);
                         copyFrom.put(name, f);
                     }
@@ -493,7 +490,6 @@ public class RejarClassesForAnalysis {
                 if (commandLine.skip(ze)) {
                     return;
                 }
-
 
                 String name = ze.getName();
                 String dottedName = ClassName.toDottedClassName(name);
@@ -580,7 +576,6 @@ public class RejarClassesForAnalysis {
         return new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(newFile)));
     }
 
-
     private boolean embeddedNameMismatch(ZipFile zipInputFile, ZipEntry ze) throws IOException {
         InputStream zipIn = zipInputFile.getInputStream(ze);
         String name = ze.getName();
@@ -664,7 +659,6 @@ public class RejarClassesForAnalysis {
 
     }
 
-
     public ZipEntry newZipEntry(ZipEntry ze) {
         ZipEntry ze2 = new ZipEntry(ze.getName());
         ze2.setComment(ze.getComment());
@@ -673,10 +667,10 @@ public class RejarClassesForAnalysis {
         return ze2;
     }
 
-
     static class ClassFileNameMismatch extends IOException {
 
     }
+
     interface ZipElementHandler {
         void handle(ZipFile file, ZipEntry ze) throws IOException;
     }

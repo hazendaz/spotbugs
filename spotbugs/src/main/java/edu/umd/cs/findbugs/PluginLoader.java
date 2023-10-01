@@ -84,21 +84,20 @@ import edu.umd.cs.findbugs.util.JavaWebStart;
 import edu.umd.cs.findbugs.xml.XMLUtil;
 
 /**
- * Loader for a FindBugs plugin. A plugin is a jar file containing two metadata
- * files, "findbugs.xml" and "messages.xml". Those files specify
+ * Loader for a FindBugs plugin. A plugin is a jar file containing two metadata files, "findbugs.xml" and
+ * "messages.xml". Those files specify
  * <ul>
  * <li>the bug pattern Detector classes,
- * <li>the bug patterns detected (including all text for displaying detected
- * instances of those patterns), and
+ * <li>the bug patterns detected (including all text for displaying detected instances of those patterns), and
  * <li>the "bug codes" which group together related bug instances
  * </ul>
  *
  * <p>
- * The PluginLoader creates a Plugin object to store the Detector factories and
- * metadata.
+ * The PluginLoader creates a Plugin object to store the Detector factories and metadata.
  * </p>
  *
  * @author David Hovemeyer
+ *
  * @see Plugin
  * @see PluginException
  */
@@ -112,7 +111,6 @@ public class PluginLoader implements AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(PluginLoader.class);
     static boolean lazyInitialization = false;
     static LinkedList<PluginLoader> partiallyInitialized = new LinkedList<>();
-
 
     // Keep a count of how many plugins we've seen without a
     // "pluginid" attribute, so we can assign them all unique ids.
@@ -157,6 +155,7 @@ public class PluginLoader implements AutoCloseable {
      *
      * @param url
      *            the URL of the plugin Jar file
+     *
      * @throws PluginException
      *             if the plugin cannot be fully loaded
      */
@@ -165,7 +164,6 @@ public class PluginLoader implements AutoCloseable {
         this(url, toUri(url), null, false, true);
     }
 
-
     /**
      * Constructor.
      *
@@ -173,6 +171,7 @@ public class PluginLoader implements AutoCloseable {
      *            the URL of the plugin Jar file
      * @param parent
      *            the parent classloader
+     *
      * @deprecated Use {@link #PluginLoader(URL,URI,ClassLoader,boolean,boolean)} instead
      */
     @Deprecated
@@ -193,11 +192,12 @@ public class PluginLoader implements AutoCloseable {
      * @param parent
      *            the parent classloader
      * @param isInitial
-     *          is this plugin loaded from one of the standard locations for plugins
+     *            is this plugin loaded from one of the standard locations for plugins
      * @param optional
-     *          is this an optional plugin
+     *            is this an optional plugin
      */
-    private PluginLoader(@Nonnull URL url, URI uri, ClassLoader parent, boolean isInitial, boolean optional) throws PluginException {
+    private PluginLoader(@Nonnull URL url, URI uri, ClassLoader parent, boolean isInitial, boolean optional)
+            throws PluginException {
         URL[] loaderURLs = createClassloaderUrls(url);
         classLoaderForResources = buildURLClassLoader(loaderURLs);
         loadedFrom = url;
@@ -211,7 +211,8 @@ public class PluginLoader implements AutoCloseable {
             classLoader = buildURLClassLoader(loaderURLs, parent);
         } else {
             if (parent != PluginLoader.class.getClassLoader()) {
-                throw new IllegalArgumentException("Can't specify parentid " + parentId + " and provide a separate class loader");
+                throw new IllegalArgumentException(
+                        "Can't specify parentid " + parentId + " and provide a separate class loader");
             }
             Plugin parentPlugin = Plugin.getByPluginId(parentId);
             if (parentPlugin != null) {
@@ -249,7 +250,8 @@ public class PluginLoader implements AutoCloseable {
                     i.remove();
                     try {
                         URL[] loaderURLs = PluginLoader.createClassloaderUrls(pluginLoader.loadedFrom);
-                        pluginLoader.classLoader = pluginLoader.buildURLClassLoader(loaderURLs, parent.getClassLoader());
+                        pluginLoader.classLoader = pluginLoader.buildURLClassLoader(loaderURLs,
+                                parent.getClassLoader());
                         pluginLoader.loadPluginComponents();
                         Plugin.putPlugin(pluginLoader.loadedFromUri, pluginLoader.plugin);
                     } catch (PluginException e) {
@@ -279,11 +281,12 @@ public class PluginLoader implements AutoCloseable {
     }
 
     /**
-     * Creates a new {@link URLClassLoader} and adds it to the list of classloaders
-     * we need to close if we close the corresponding plugin
+     * Creates a new {@link URLClassLoader} and adds it to the list of classloaders we need to close if we close the
+     * corresponding plugin
      *
-     * @param
-     *            urls the URLs from which to load classes and resources
+     * @param urls
+     *            the URLs from which to load classes and resources
+     *
      * @return a new {@link URLClassLoader}
      */
     private URLClassLoader buildURLClassLoader(URL[] urls) {
@@ -294,13 +297,14 @@ public class PluginLoader implements AutoCloseable {
     }
 
     /**
-     * Creates a new {@link URLClassLoader} and adds it to the list of classloaders
-     * we need to close if we close the corresponding plugin
+     * Creates a new {@link URLClassLoader} and adds it to the list of classloaders we need to close if we close the
+     * corresponding plugin
      *
-     * @param
-     *            urls the URLs from which to load classes and resources
-     * @param
-     *            parent the parent class loader for delegation
+     * @param urls
+     *            the URLs from which to load classes and resources
+     * @param parent
+     *            the parent class loader for delegation
+     *
      * @return a new {@link URLClassLoader}
      */
     private URLClassLoader buildURLClassLoader(URL[] urls, ClassLoader parent) {
@@ -312,7 +316,9 @@ public class PluginLoader implements AutoCloseable {
 
     /**
      * Closes the class loaders created in this {@link PluginLoader}
-     * @throws IOException if a class loader fails to close, in that case the other classloaders won't be closed
+     *
+     * @throws IOException
+     *             if a class loader fails to close, in that case the other classloaders won't be closed
      */
     @Override
     public void close() throws IOException {
@@ -321,20 +327,17 @@ public class PluginLoader implements AutoCloseable {
         }
     }
 
-
     /**
-     * Patch for issue 3429143: allow plugins load classes/resources from 3rd
-     * party jars
+     * Patch for issue 3429143: allow plugins load classes/resources from 3rd party jars
      *
      * @param url
      *            plugin jar location as url
-     * @return non empty list with url to be used for loading classes from given
-     *         plugin. If plugin jar contains standard Java manifest file, all
-     *         entries of its "Class-Path" attribute will be translated to the
-     *         jar-relative url's and added to the returned list. If plugin jar
-     *         does not contains a manifest, or manifest does not have
-     *         "Class-Path" attribute, the given argument will be the only entry
-     *         in the array.
+     *
+     * @return non empty list with url to be used for loading classes from given plugin. If plugin jar contains standard
+     *         Java manifest file, all entries of its "Class-Path" attribute will be translated to the jar-relative
+     *         url's and added to the returned list. If plugin jar does not contains a manifest, or manifest does not
+     *         have "Class-Path" attribute, the given argument will be the only entry in the array.
+     *
      * @throws PluginException
      */
     private static @Nonnull URL[] createClassloaderUrls(@Nonnull URL url) throws PluginException {
@@ -377,8 +380,8 @@ public class PluginLoader implements AutoCloseable {
         return urls.toArray(new URL[0]);
     }
 
-    private static void addClassPathFromManifest(@Nonnull URL url, @Nonnull List<URL> urls,
-            @Nonnull Manifest mf) throws MalformedURLException {
+    private static void addClassPathFromManifest(@Nonnull URL url, @Nonnull List<URL> urls, @Nonnull Manifest mf)
+            throws MalformedURLException {
         Attributes atts = mf.getMainAttributes();
         if (atts == null) {
             return;
@@ -396,8 +399,8 @@ public class PluginLoader implements AutoCloseable {
     }
 
     /**
-     * Trying to find the manifest of "exploded plugin" in the current dir, "standard jar" manifest
-     * location or "standard" Eclipse location (sibling to the current classpath)
+     * Trying to find the manifest of "exploded plugin" in the current dir, "standard jar" manifest location or
+     * "standard" Eclipse location (sibling to the current classpath)
      */
     @CheckForNull
     private static File guessManifest(@Nonnull File parent) {
@@ -415,9 +418,9 @@ public class PluginLoader implements AutoCloseable {
     }
 
     /**
-     * Constructor. Loads a plugin using the caller's class loader. This
-     * constructor should only be used to load the "core" findbugs detectors,
-     * which are built into findbugs.jar.
+     * Constructor. Loads a plugin using the caller's class loader. This constructor should only be used to load the
+     * "core" findbugs detectors, which are built into findbugs.jar.
+     *
      * @throws PluginException
      */
     @Deprecated
@@ -552,15 +555,14 @@ public class PluginLoader implements AutoCloseable {
     }
 
     /**
-     * Get a resource using the URLClassLoader classLoader. We try findResource
-     * first because (based on experiment) we can trust it to prefer resources
-     * in the jarfile to resources on the filesystem. Simply calling
-     * classLoader.getResource() allows the filesystem to override the jarfile,
-     * which can mess things up if, for example, there is a findbugs.xml or
-     * messages.xml in the current directory.
+     * Get a resource using the URLClassLoader classLoader. We try findResource first because (based on experiment) we
+     * can trust it to prefer resources in the jarfile to resources on the filesystem. Simply calling
+     * classLoader.getResource() allows the filesystem to override the jarfile, which can mess things up if, for
+     * example, there is a findbugs.xml or messages.xml in the current directory.
      *
      * @param name
      *            resource to get
+     *
      * @return URL for the resource, or null if it could not be found
      */
     public URL getResource(String name) {
@@ -632,7 +634,10 @@ public class PluginLoader implements AutoCloseable {
 
     /**
      * Try to load resource from JAR file of Findbugs core plugin.
-     * @param slashedResourceName Name of resource to load
+     *
+     * @param slashedResourceName
+     *            Name of resource to load
+     *
      * @return URL which points resource in jar file, or null if JAR file not found
      */
     @CheckForNull
@@ -662,8 +667,8 @@ public class PluginLoader implements AutoCloseable {
     }
 
     /**
-     * @return URL of findbugs.jar,
-     * or null if found no jar file which contains FindBugs.class
+     * @return URL of findbugs.jar, or null if found no jar file which contains FindBugs.class
+     *
      * @throws MalformedURLException
      */
     @CheckForNull
@@ -715,7 +720,8 @@ public class PluginLoader implements AutoCloseable {
         return null;
     }
 
-    private static <T> Class<? extends T> getClass(ClassLoader loader, @DottedClassName String className, Class<T> type) throws PluginException {
+    private static <T> Class<? extends T> getClass(ClassLoader loader, @DottedClassName String className, Class<T> type)
+            throws PluginException {
         try {
             return loader.loadClass(className).asSubclass(type);
         } catch (ClassNotFoundException e) {
@@ -739,8 +745,7 @@ public class PluginLoader implements AutoCloseable {
         return constructedPlugin;
     }
 
-    private void loadPluginComponents()
-            throws PluginException {
+    private void loadPluginComponents() throws PluginException {
         Document pluginDescriptor = getPluginDescriptor();
         List<Document> messageCollectionList = getMessageDocuments();
 
@@ -751,19 +756,18 @@ public class PluginLoader implements AutoCloseable {
                 @DottedClassName
                 String componentKindname = componentNode.valueOf("@componentKind");
                 if (componentKindname == null) {
-                    throw new PluginException("Missing @componentKind for " + plugin.getPluginId()
-                            + " loaded from " + loadedFrom);
+                    throw new PluginException(
+                            "Missing @componentKind for " + plugin.getPluginId() + " loaded from " + loadedFrom);
                 }
                 @DottedClassName
                 String componentClassname = componentNode.valueOf("@componentClass");
                 if (componentClassname == null) {
-                    throw new PluginException("Missing @componentClassname for " + plugin.getPluginId()
-                            + " loaded from " + loadedFrom);
+                    throw new PluginException(
+                            "Missing @componentClassname for " + plugin.getPluginId() + " loaded from " + loadedFrom);
                 }
                 String componentId = componentNode.valueOf("@id");
                 if (componentId == null) {
-                    throw new PluginException("Missing @id for " + plugin.getPluginId()
-                            + " loaded from " + loadedFrom);
+                    throw new PluginException("Missing @id for " + plugin.getPluginId() + " loaded from " + loadedFrom);
                 }
 
                 try {
@@ -779,8 +783,8 @@ public class PluginLoader implements AutoCloseable {
                     if (propertiesLocation != null && !propertiesLocation.isEmpty()) {
                         URL properiesURL = classLoaderForResources.getResource(propertiesLocation);
                         if (properiesURL == null) {
-                            AnalysisContext.logError("Could not load properties for " + plugin.getPluginId() + " component " + componentId
-                                    + " from " + propertiesLocation);
+                            AnalysisContext.logError("Could not load properties for " + plugin.getPluginId()
+                                    + " component " + componentId + " from " + propertiesLocation);
                             continue;
                         }
                         properties.loadPropertiesFromURL(properiesURL);
@@ -793,11 +797,11 @@ public class PluginLoader implements AutoCloseable {
                     }
 
                     Class<?> componentKind = classLoader.loadClass(componentKindname);
-                    loadComponentPlugin(plugin, componentKind, componentClassname, componentId, disabled, description, details,
-                            properties);
+                    loadComponentPlugin(plugin, componentKind, componentClassname, componentId, disabled, description,
+                            details, properties);
                 } catch (RuntimeException e) {
-                    AnalysisContext.logError("Unable to load ComponentPlugin " + componentId +
-                            " : " + componentClassname + " implementing " + componentKindname, e);
+                    AnalysisContext.logError("Unable to load ComponentPlugin " + componentId + " : "
+                            + componentClassname + " implementing " + componentKindname, e);
                 }
             }
 
@@ -828,9 +832,8 @@ public class PluginLoader implements AutoCloseable {
                         Class<?> mainClass = classLoader.loadClass(className);
                         plugin.addFindBugsMain(mainClass, cmd, description, kind, analysis);
                     } catch (Exception e) {
-                        String msg = "Unable to load FindBugsMain " + cmd +
-                                " : " + className + " in plugin " + plugin.getPluginId()
-                                + " loaded from " + loadedFrom;
+                        String msg = "Unable to load FindBugsMain " + cmd + " : " + className + " in plugin "
+                                + plugin.getPluginId() + " loaded from " + loadedFrom;
                         PluginException e2 = new PluginException(msg, e);
                         AnalysisContext.logError(msg, e2);
                     }
@@ -856,12 +859,13 @@ public class PluginLoader implements AutoCloseable {
                 if (!FindBugs.isNoAnalysis()) {
                     detectorClass = classLoader.loadClass(className);
 
-                    if (!Detector.class.isAssignableFrom(detectorClass) && !Detector2.class.isAssignableFrom(detectorClass)) {
+                    if (!Detector.class.isAssignableFrom(detectorClass)
+                            && !Detector2.class.isAssignableFrom(detectorClass)) {
                         throw new PluginException("Class " + className + " does not implement Detector or Detector2");
                     }
                 }
-                DetectorFactory factory = new DetectorFactory(plugin, className, detectorClass, !"true".equals(disabled), speed,
-                        reports, requireJRE);
+                DetectorFactory factory = new DetectorFactory(plugin, className, detectorClass,
+                        !"true".equals(disabled), speed, reports, requireJRE);
                 if (Boolean.parseBoolean(hidden)) {
                     factory.setHidden(true);
                 }
@@ -870,8 +874,9 @@ public class PluginLoader implements AutoCloseable {
 
                 // Find Detector node in one of the messages files,
                 // to get the detail HTML.
-                Node node = findMessageNode(messageCollectionList, "/MessageCollection/Detector[@class='" + className
-                        + "']/Details", "Missing Detector description for detector " + className);
+                Node node = findMessageNode(messageCollectionList,
+                        "/MessageCollection/Detector[@class='" + className + "']/Details",
+                        "Missing Detector description for detector " + className);
 
                 Element details = (Element) node;
                 String detailHTML = details.getText();
@@ -928,7 +933,6 @@ public class PluginLoader implements AutoCloseable {
             }
         }
 
-
         for (Document messageCollection : messageCollectionList) {
             List<Node> categoryNodeList = XMLUtil.selectNodes(messageCollection, "/MessageCollection/BugCategory");
             LOG.debug("found {} categories in {}", categoryNodeList.size(), plugin.getPluginId());
@@ -978,9 +982,10 @@ public class PluginLoader implements AutoCloseable {
 
             // Find the matching element in messages.xml (or translations)
             String query = "/MessageCollection/BugPattern[@type='" + type + "']";
-            Node messageNode = findMessageNode(messageCollectionList, query, "messages.xml missing BugPattern element for type "
-                    + type);
-            Node bugsUrlNode = messageNode.getDocument().selectSingleNode("/MessageCollection/Plugin/" + (experimental ? "AllBugsUrl" : "BugsUrl"));
+            Node messageNode = findMessageNode(messageCollectionList, query,
+                    "messages.xml missing BugPattern element for type " + type);
+            Node bugsUrlNode = messageNode.getDocument()
+                    .selectSingleNode("/MessageCollection/Plugin/" + (experimental ? "AllBugsUrl" : "BugsUrl"));
 
             String bugsUrl = bugsUrlNode == null ? null : bugsUrlNode.getText();
 
@@ -997,7 +1002,8 @@ public class PluginLoader implements AutoCloseable {
                 assert true; // ignore
             }
 
-            BugPattern bugPattern = new BugPattern(type, abbrev, category, experimental, shortDesc, longDesc, detailText, bugsUrl, cweid);
+            BugPattern bugPattern = new BugPattern(type, abbrev, category, experimental, shortDesc, longDesc,
+                    detailText, bugsUrl, cweid);
 
             try {
                 String deprecatedStr = bugPatternNode.valueOf("@deprecated");
@@ -1058,8 +1064,8 @@ public class PluginLoader implements AutoCloseable {
                     throw new PluginException(engineRegistrarClass + " does not implement IAnalysisEngineRegistrar");
                 }
 
-                plugin.setEngineRegistrarClass(engineRegistrarClass
-                        .<IAnalysisEngineRegistrar>asSubclass(IAnalysisEngineRegistrar.class));
+                plugin.setEngineRegistrarClass(
+                        engineRegistrarClass.<IAnalysisEngineRegistrar> asSubclass(IAnalysisEngineRegistrar.class));
             } catch (ClassNotFoundException e) {
                 throw new PluginException("Could not instantiate analysis engine registrar class: " + e, e);
             }
@@ -1130,7 +1136,8 @@ public class PluginLoader implements AutoCloseable {
             try {
                 constructedPlugin.setWebsite(website);
             } catch (URISyntaxException e1) {
-                AnalysisContext.logError("Plugin " + constructedPlugin.getPluginId() + " has invalid website: " + website, e1);
+                AnalysisContext
+                        .logError("Plugin " + constructedPlugin.getPluginId() + " has invalid website: " + website, e1);
             }
         }
 
@@ -1139,7 +1146,8 @@ public class PluginLoader implements AutoCloseable {
             try {
                 constructedPlugin.setUpdateUrl(updateUrl);
             } catch (URISyntaxException e1) {
-                AnalysisContext.logError("Plugin " + constructedPlugin.getPluginId() + " has invalid update check URL: " + website, e1);
+                AnalysisContext.logError(
+                        "Plugin " + constructedPlugin.getPluginId() + " has invalid update check URL: " + website, e1);
             }
         }
 
@@ -1195,11 +1203,11 @@ public class PluginLoader implements AutoCloseable {
         }
         SAXReader reader = XMLUtil.buildSAXReader();
 
-        try (InputStream input = IO.openNonCachedStream(findbugsXML_URL);
-                Reader r = UTF8.bufferedReader(input)) {
+        try (InputStream input = IO.openNonCachedStream(findbugsXML_URL); Reader r = UTF8.bufferedReader(input)) {
             pluginDescriptor = reader.read(r);
         } catch (DocumentException e) {
-            throw new PluginException("Couldn't parse \"" + findbugsXML_URL + "\" using " + reader.getClass().getName(), e);
+            throw new PluginException("Couldn't parse \"" + findbugsXML_URL + "\" using " + reader.getClass().getName(),
+                    e);
         } catch (IOException e) {
             throw new PluginException("Couldn't open \"" + findbugsXML_URL + "\"", e);
         }
@@ -1230,8 +1238,7 @@ public class PluginLoader implements AutoCloseable {
                 addCollection(messageCollectionList, m);
             } catch (PluginException e) {
                 caught = e;
-                AnalysisContext.logError(
-                        "Error loading localized message file:" + m, e);
+                AnalysisContext.logError("Error loading localized message file:" + m, e);
             }
         }
         if (messageCollectionList.isEmpty()) {
@@ -1243,10 +1250,9 @@ public class PluginLoader implements AutoCloseable {
         return messageCollectionList;
     }
 
-
-    private <T> void loadComponentPlugin(Plugin plugin,
-            Class<T> componentKind, @DottedClassName String componentClassname, String filterId,
-            boolean disabled, String description, String details, PropertyBundle properties) throws PluginException {
+    private <T> void loadComponentPlugin(Plugin plugin, Class<T> componentKind,
+            @DottedClassName String componentClassname, String filterId, boolean disabled, String description,
+            String details, PropertyBundle properties) throws PluginException {
         Class<? extends T> componentClass = null;
         if (!FindBugs.isNoAnalysis() || componentKind == edu.umd.cs.findbugs.bugReporter.BugReporterDecorator.class) {
             componentClass = getClass(classLoader, componentClassname, componentKind);
@@ -1272,9 +1278,8 @@ public class PluginLoader implements AutoCloseable {
 
     private DetectorFactorySelector getConstraintSelector(Element constraintElement, Plugin plugin,
             String singleDetectorElementName/*
-                                            * , String
-                                            * detectorCategoryElementName
-                                            */) throws PluginException {
+                                             * , String detectorCategoryElementName
+                                             */) throws PluginException {
         Node node = constraintElement.selectSingleNode("./" + singleDetectorElementName);
         if (node != null) {
             String detectorClass = node.valueOf("@class");
@@ -1321,8 +1326,7 @@ public class PluginLoader implements AutoCloseable {
         URL messageURL = getResource(filename);
         if (messageURL != null) {
             SAXReader reader = XMLUtil.buildSAXReader();
-            try (InputStream input = IO.openNonCachedStream(messageURL);
-                    Reader stream = UTF8.bufferedReader(input)) {
+            try (InputStream input = IO.openNonCachedStream(messageURL); Reader stream = UTF8.bufferedReader(input)) {
                 Document messageCollection;
                 messageCollection = reader.read(stream);
                 messageCollectionList.add(messageCollection);
@@ -1361,7 +1365,8 @@ public class PluginLoader implements AutoCloseable {
         return child.getText();
     }
 
-    public static PluginLoader getPluginLoader(URL url, ClassLoader parent, boolean isInitial, boolean optional) throws PluginException {
+    public static PluginLoader getPluginLoader(URL url, ClassLoader parent, boolean isInitial, boolean optional)
+            throws PluginException {
         URI uri = toUri(url);
         Plugin plugin = Plugin.getPlugin(uri);
         if (plugin != null) {
@@ -1573,8 +1578,7 @@ public class PluginLoader implements AutoCloseable {
             throw new IllegalArgumentException(message);
         }
         if (!file.isFile() || !file.canRead()) {
-            String message = "File " + path
-                    + " is not a file or is not readable";
+            String message = "File " + path + " is not a file or is not readable";
             throw new IllegalArgumentException(message);
         }
         if (file.length() == 0) {
@@ -1585,13 +1589,11 @@ public class PluginLoader implements AutoCloseable {
         try (ZipFile zip = new ZipFile(file)) {
             ZipEntry findbugsXML = zip.getEntry("findbugs.xml");
             if (findbugsXML == null) {
-                throw new IllegalArgumentException(
-                        "plugin doesn't contain a findbugs.xml file");
+                throw new IllegalArgumentException("plugin doesn't contain a findbugs.xml file");
             }
             ZipEntry messagesXML = zip.getEntry("messages.xml");
             if (messagesXML == null) {
-                throw new IllegalArgumentException(
-                        "plugin doesn't contain a messages.xml file");
+                throw new IllegalArgumentException("plugin doesn't contain a messages.xml file");
             }
             Document pluginDocument = parseDocument(zip.getInputStream(findbugsXML));
             String pluginId = pluginDocument.valueOf(XPATH_PLUGIN_PLUGINID).trim();
@@ -1606,8 +1608,7 @@ public class PluginLoader implements AutoCloseable {
                 Document msgDocument = parseDocument(zip.getInputStream(msgEntry));
                 msgDocuments.add(msgDocument);
             }
-            String shortDesc = findMessageText(msgDocuments,
-                    XPATH_PLUGIN_SHORT_DESCRIPTION, "");
+            String shortDesc = findMessageText(msgDocuments, XPATH_PLUGIN_SHORT_DESCRIPTION, "");
             return new Summary(pluginId, shortDesc, provider, website);
         } catch (DocumentException | IOException e) {
             throw new IllegalArgumentException(e);

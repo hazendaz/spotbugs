@@ -99,7 +99,8 @@ public class ShowInPackageExplorerAction implements IObjectActionDelegate {
             return;
         }
         BugGroup group = (BugGroup) firstElement;
-        if (group.getType() == GroupType.Class || group.getType() == GroupType.Package || group.getType() == GroupType.Project) {
+        if (group.getType() == GroupType.Class || group.getType() == GroupType.Package
+                || group.getType() == GroupType.Project) {
             data = group.getData();
             action.setEnabled(data != null);
         } else {

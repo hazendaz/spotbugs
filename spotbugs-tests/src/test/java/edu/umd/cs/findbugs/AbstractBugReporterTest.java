@@ -41,10 +41,14 @@ class AbstractBugReporterTest {
     /**
      * Function to do the actual test and make assertions.
      *
-     * @param expectedReport true/false depending on expected outcome
-     * @param message human-readable message
-     * @param rankThreshold the rank threshold
-     * @param priorityThreshold the priority threshold
+     * @param expectedReport
+     *            true/false depending on expected outcome
+     * @param message
+     *            human-readable message
+     * @param rankThreshold
+     *            the rank threshold
+     * @param priorityThreshold
+     *            the priority threshold
      */
     private void assertReported(boolean expectedReport, String message, int rankThreshold, int priorityThreshold) {
         reporter.reset();
@@ -57,39 +61,37 @@ class AbstractBugReporterTest {
 
     @Test
     void verifyPriorityThresholdWorks() {
-        assertReported(false, "Normal bug report blocked on high",
-                BugRanker.VISIBLE_RANK_MAX, Priorities.HIGH_PRIORITY);
+        assertReported(false, "Normal bug report blocked on high", BugRanker.VISIBLE_RANK_MAX,
+                Priorities.HIGH_PRIORITY);
 
-        assertReported(true, "Normal bug report reported on normal",
-                BugRanker.VISIBLE_RANK_MAX, Priorities.NORMAL_PRIORITY);
+        assertReported(true, "Normal bug report reported on normal", BugRanker.VISIBLE_RANK_MAX,
+                Priorities.NORMAL_PRIORITY);
 
-        assertReported(true, "Normal bug report reported on low",
-                BugRanker.VISIBLE_RANK_MAX, Priorities.LOW_PRIORITY);
+        assertReported(true, "Normal bug report reported on low", BugRanker.VISIBLE_RANK_MAX, Priorities.LOW_PRIORITY);
     }
 
     @Test
     void verifyRankThresholdWorks() {
         int bugRank = bugInstance.getBugRank();
 
-        assertReported(false, "Rank " + bugRank + " bug report blocked on min visible",
-                BugRanker.VISIBLE_RANK_MIN, Priorities.LOW_PRIORITY);
+        assertReported(false, "Rank " + bugRank + " bug report blocked on min visible", BugRanker.VISIBLE_RANK_MIN,
+                Priorities.LOW_PRIORITY);
 
-        assertReported(true, "Rank " + bugRank + " bug report works on equal",
-                bugRank, Priorities.LOW_PRIORITY);
+        assertReported(true, "Rank " + bugRank + " bug report works on equal", bugRank, Priorities.LOW_PRIORITY);
 
-        assertReported(true, "Rank " + bugRank + " bug report works on max visible",
-                BugRanker.VISIBLE_RANK_MAX, Priorities.LOW_PRIORITY);
+        assertReported(true, "Rank " + bugRank + " bug report works on max visible", BugRanker.VISIBLE_RANK_MAX,
+                Priorities.LOW_PRIORITY);
     }
 
     @Test
     void verifyRelaxedOperationWorks() {
         reporter.setIsRelaxed(true);
-        assertReported(true, "Relaxed bug reported even when it would not",
-                BugRanker.VISIBLE_RANK_MIN, Priorities.HIGH_PRIORITY);
+        assertReported(true, "Relaxed bug reported even when it would not", BugRanker.VISIBLE_RANK_MIN,
+                Priorities.HIGH_PRIORITY);
 
         reporter.setIsRelaxed(false);
-        assertReported(false, "No report when not relaxed and blocked",
-                BugRanker.VISIBLE_RANK_MIN, Priorities.HIGH_PRIORITY);
+        assertReported(false, "No report when not relaxed and blocked", BugRanker.VISIBLE_RANK_MIN,
+                Priorities.HIGH_PRIORITY);
     }
 
     private class ObservableBugReporter extends AbstractBugReporter {

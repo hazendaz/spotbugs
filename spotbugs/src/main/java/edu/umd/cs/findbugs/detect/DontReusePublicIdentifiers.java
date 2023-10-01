@@ -50,8 +50,9 @@ public class DontReusePublicIdentifiers extends BytecodeScanningDetector {
     public void visit(JavaClass obj) {
         String simpleName = ClassName.extractSimpleName(obj.getClassName());
         if (PUBLIC_IDENTIFIERS.contains(simpleName)) {
-            bugReporter.reportBug(new BugInstance(this, "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_CLASS_NAMES", NORMAL_PRIORITY)
-                    .addClass(this));
+            bugReporter
+                    .reportBug(new BugInstance(this, "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_CLASS_NAMES", NORMAL_PRIORITY)
+                            .addClass(this));
         }
     }
 
@@ -59,9 +60,9 @@ public class DontReusePublicIdentifiers extends BytecodeScanningDetector {
     public void visit(Field obj) {
         String name = obj.getName();
         if (PUBLIC_IDENTIFIERS.contains(name)) {
-            bugReporter.reportBug(new BugInstance(this, "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_FIELD_NAMES", NORMAL_PRIORITY)
-                    .addClass(this)
-                    .addField(this));
+            bugReporter
+                    .reportBug(new BugInstance(this, "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_FIELD_NAMES", NORMAL_PRIORITY)
+                            .addClass(this).addField(this));
         }
     }
 
@@ -90,9 +91,10 @@ public class DontReusePublicIdentifiers extends BytecodeScanningDetector {
                 boolean foundInInterfaces = lookUpMethod(obj, interfaces);
 
                 if (!foundInSupers && !foundInInterfaces) {
-                    bugReporter.reportBug(new BugInstance(this, "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_METHOD_NAMES", NORMAL_PRIORITY)
-                            .addClassAndMethod(this)
-                            .addSourceLine(SourceLineAnnotation.forEntireMethod(currentClass, obj)));
+                    bugReporter.reportBug(
+                            new BugInstance(this, "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_METHOD_NAMES", NORMAL_PRIORITY)
+                                    .addClassAndMethod(this)
+                                    .addSourceLine(SourceLineAnnotation.forEntireMethod(currentClass, obj)));
                 }
 
             } catch (ClassNotFoundException e) {
@@ -113,11 +115,11 @@ public class DontReusePublicIdentifiers extends BytecodeScanningDetector {
             }
 
             if (PUBLIC_IDENTIFIERS.contains(varName)) {
-                LocalVariableAnnotation localVariableAnnotation = new LocalVariableAnnotation(varName, variable.getIndex(), this.getPC());
-                bugReporter.reportBug(new BugInstance(this, "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_LOCAL_VARIABLE_NAMES", NORMAL_PRIORITY)
-                        .addClassAndMethod(this)
-                        .add(localVariableAnnotation)
-                        .addSourceLine(getClassContext(), this, this.getPC()));
+                LocalVariableAnnotation localVariableAnnotation = new LocalVariableAnnotation(varName,
+                        variable.getIndex(), this.getPC());
+                bugReporter.reportBug(new BugInstance(this, "PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_LOCAL_VARIABLE_NAMES",
+                        NORMAL_PRIORITY).addClassAndMethod(this).add(localVariableAnnotation)
+                                .addSourceLine(getClassContext(), this, this.getPC()));
             }
         }
     }

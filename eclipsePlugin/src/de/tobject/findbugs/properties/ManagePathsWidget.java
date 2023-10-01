@@ -42,8 +42,7 @@ import org.eclipse.swt.widgets.Table;
 import de.tobject.findbugs.FindbugsPlugin;
 
 /**
- * List box with two buttons on the left side: "add" and "remove". First the
- * viewer must be created, then the buttons.
+ * List box with two buttons on the left side: "add" and "remove". First the viewer must be created, then the buttons.
  *
  * @author andrei
  */

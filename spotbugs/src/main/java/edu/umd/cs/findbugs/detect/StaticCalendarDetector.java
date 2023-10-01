@@ -50,11 +50,9 @@ import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 
 /**
- * Detector for static fields of type {@link java.util.Calendar} or
- * {@link java.text.DateFormat} and their subclasses. Because
- * {@link java.util.Calendar} is unsafe for multithreaded use, static fields
- * look suspicious. To work correctly, all access would need to be synchronized
- * by the client which cannot be guaranteed.
+ * Detector for static fields of type {@link java.util.Calendar} or {@link java.text.DateFormat} and their subclasses.
+ * Because {@link java.util.Calendar} is unsafe for multithreaded use, static fields look suspicious. To work correctly,
+ * all access would need to be synchronized by the client which cannot be guaranteed.
  *
  * @author Daniel Schneller
  */
@@ -64,12 +62,10 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
     private static final boolean DEBUG = Boolean.getBoolean("debug.staticcal");
 
     /**
-     * External flag to determine whether to skip the test for synchronized
-     * blocks (default: if a call on a static Calendar or DateFormat is detected
-     * inside a synchronizationb block, it will not be reported). Setting this
-     * to <code>true</code> will report method calls on static fields if they
-     * are in a synchronized block. As the check currently does not take into
-     * account the lock's mutex it may be useful to switch allow
+     * External flag to determine whether to skip the test for synchronized blocks (default: if a call on a static
+     * Calendar or DateFormat is detected inside a synchronizationb block, it will not be reported). Setting this to
+     * <code>true</code> will report method calls on static fields if they are in a synchronized block. As the check
+     * currently does not take into account the lock's mutex it may be useful to switch allow
      */
     private static final String PROP_SKIP_SYNCHRONIZED_CHECK = "staticcal.skipsynccheck";
 
@@ -87,8 +83,7 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
     private final ClassDescriptor calendarType = DescriptorFactory.createClassDescriptor(java.util.Calendar.class);
 
     /**
-     * {@link org.apache.bcel.generic.ObjectType} for
-     * {@link java.text.DateFormat}
+     * {@link org.apache.bcel.generic.ObjectType} for {@link java.text.DateFormat}
      */
     private final ClassDescriptor dateFormatType = DescriptorFactory.createClassDescriptor(java.text.DateFormat.class);
 
@@ -159,18 +154,15 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
     }
 
     /**
-     * Checks if the visited field is of type {@link java.util.Calendar} or
-     * {@link java.text.DateFormat} or a subclass of either one. If so and the
-     * field is static and non-private it is suspicious and will be reported.
+     * Checks if the visited field is of type {@link java.util.Calendar} or {@link java.text.DateFormat} or a subclass
+     * of either one. If so and the field is static and non-private it is suspicious and will be reported.
      */
     @Override
     public void visit(Field aField) {
         if (aField.isPrivate()) {
             /*
-             * private fields are harmless, as long as they are used correctly
-             * inside their own class. This should be something the rest of this
-             * detector can find out, so do not report them, they might be false
-             * positives.
+             * private fields are harmless, as long as they are used correctly inside their own class. This should be
+             * something the rest of this detector can find out, so do not report them, they might be false positives.
              */
             return;
         }
@@ -198,7 +190,8 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
                 }
                 if (tBugType != null) {
 
-                    pendingBugs.put(getXField(), new BugInstance(this, tBugType, priority).addClass(currentClass).addField(this));
+                    pendingBugs.put(getXField(),
+                            new BugInstance(this, tBugType, priority).addClass(currentClass).addField(this));
                 }
             } catch (ClassNotFoundException e) {
                 AnalysisContext.reportMissingClass(e);
@@ -210,9 +203,7 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.visitclass.BetterVisitor#visitMethod(org.apache.bcel
-     * .classfile.Method)
+     * @see edu.umd.cs.findbugs.visitclass.BetterVisitor#visitMethod(org.apache.bcel .classfile.Method)
      */
     @Override
     public void visitMethod(Method obj) {
@@ -237,14 +228,13 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
     }
 
     /**
-     * Checks for method invocations (
-     * {@link org.apache.bcel.generic.INVOKEVIRTUAL}) call on a static
-     * {@link java.util.Calendar} or {@link java.text.DateFormat} fields. The
-     * {@link OpcodeStack} is used to determine if an invocation is done on such
-     * a static field.
+     * Checks for method invocations ( {@link org.apache.bcel.generic.INVOKEVIRTUAL}) call on a static
+     * {@link java.util.Calendar} or {@link java.text.DateFormat} fields. The {@link OpcodeStack} is used to determine
+     * if an invocation is done on such a static field.
      *
      * @param seen
      *            An opcode to be analyzed
+     *
      * @see edu.umd.cs.findbugs.visitclass.DismantleBytecode#sawOpcode(int)
      */
     @Override
@@ -252,7 +242,8 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
 
         if (seen == Const.GETSTATIC) {
             XField f = getXFieldOperand();
-            if (pendingBugs.containsKey(f) && !MultiThreadedCodeIdentifierUtils.isLocked(currentMethod, currentCFG, currentLockDataFlow, getPC())) {
+            if (pendingBugs.containsKey(f) && !MultiThreadedCodeIdentifierUtils.isLocked(currentMethod, currentCFG,
+                    currentLockDataFlow, getPC())) {
                 reporter.reportBug(pendingBugs.remove(f));
             }
         }
@@ -290,7 +281,8 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
                 return;
             }
 
-            if (Const.STATIC_INITIALIZER_NAME.equals(getMethodName()) && field.getClassName().equals(getDottedClassName())) {
+            if (Const.STATIC_INITIALIZER_NAME.equals(getMethodName())
+                    && field.getClassName().equals(getDottedClassName())) {
                 return;
             }
             String invokedName = getNameConstantOperand();
@@ -307,10 +299,10 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
 
             if (!SystemProperties.getBoolean(PROP_SKIP_SYNCHRONIZED_CHECK)
                     // check synchronization
-                    && MultiThreadedCodeIdentifierUtils.isLocked(currentMethod, currentCFG, currentLockDataFlow, getPC())) {
+                    && MultiThreadedCodeIdentifierUtils.isLocked(currentMethod, currentCFG, currentLockDataFlow,
+                            getPC())) {
                 return;
             }
-
 
             // if we get here, we want to generate a report, depending on the
             // type
@@ -332,12 +324,13 @@ public class StaticCalendarDetector extends OpcodeStackDetector {
                     priority = LOW_PRIORITY;
                 }
                 if (invokedName.startsWith("set") || "format".equals(invokedName) || "add".equals(invokedName)
-                        || "clear".equals(invokedName) || "parse".equals(invokedName) || "applyPattern".equals(invokedName)) {
+                        || "clear".equals(invokedName) || "parse".equals(invokedName)
+                        || "applyPattern".equals(invokedName)) {
                     priority--;
                 }
             }
-            bugAccumulator.accumulateBug(new BugInstance(this, tBugType, priority).addClassAndMethod(this).addCalledMethod(this)
-                    .addOptionalField(field), this);
+            bugAccumulator.accumulateBug(new BugInstance(this, tBugType, priority).addClassAndMethod(this)
+                    .addCalledMethod(this).addOptionalField(field), this);
 
         } catch (ClassNotFoundException e) {
             AnalysisContext.reportMissingClass(e);

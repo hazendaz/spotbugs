@@ -10,7 +10,8 @@ import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.Method;
 
 /**
- * A detector that checks for lines in JUnit tests that look like `assertTrue(object instanceof Class)` and discourages them.
+ * A detector that checks for lines in JUnit tests that look like `assertTrue(object instanceof Class)` and discourages
+ * them.
  *
  * It may be more useful to observe error messages from bad casts, as this may reveal more information regarding the
  * circumstances of the exception than a "false is not true" assert message.
@@ -62,8 +63,8 @@ public class DontAssertInstanceofInTests extends OpcodeStackDetector {
                 String ciOp = getClassConstantOperand();
                 String ncOp = getNameConstantOperand();
 
-                if (("org/junit/Assert".equals(ciOp) || "org/junit/jupiter/api/Assertion".equals(ciOp)) &&
-                        "assertTrue".equals(ncOp)) {
+                if (("org/junit/Assert".equals(ciOp) || "org/junit/jupiter/api/Assertion".equals(ciOp))
+                        && "assertTrue".equals(ncOp)) {
                     // This condition only triggers if the previous opcode was instanceof,
                     // so currBug is guaranteed to be a new BugInstance.
                     currBug.addClassAndMethod(this) // {2}

@@ -35,9 +35,7 @@ public class UnpackedBytecodeCallback implements BytecodeScanner.Callback {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.BytecodeScanner.Callback#handleInstruction(int,
-     * int)
+     * @see edu.umd.cs.findbugs.ba.BytecodeScanner.Callback#handleInstruction(int, int)
      */
     @Override
     public void handleInstruction(int opcode, int index) {

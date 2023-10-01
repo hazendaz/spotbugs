@@ -33,7 +33,9 @@ import edu.umd.cs.findbugs.BytecodeScanningDetector;
 import edu.umd.cs.findbugs.StatelessDetector;
 
 /**
- * <p>A Detector to look for useless control flow. For example,</p>
+ * <p>
+ * A Detector to look for useless control flow. For example,
+ * </p>
  *
  * <pre>
  * if (argv.length == 1)
@@ -41,13 +43,13 @@ import edu.umd.cs.findbugs.StatelessDetector;
  * System.out.println(&quot;Hello, &quot; + argv[0]);
  * </pre>
  *
- * <p>In this kind of bug, we'll see an ifcmp instruction where the IF target is
- * the same as the fall-through target.
+ * <p>
+ * In this kind of bug, we'll see an ifcmp instruction where the IF target is the same as the fall-through target.
  * </p>
  * <p>
- * The idea for this detector came from Richard P. King, and the idea of looking
- * for if instructions with identical branch and fall-through targets is from
- * Mike Fagan.</p>
+ * The idea for this detector came from Richard P. King, and the idea of looking for if instructions with identical
+ * branch and fall-through targets is from Mike Fagan.
+ * </p>
  *
  * @author David Hovemeyer
  */
@@ -96,8 +98,8 @@ public class FindUselessControlFlow extends BytecodeScanningDetector implements 
                 int targetLineNumber = lineNumbers.getSourceLine(getBranchFallThrough());
                 int nextLine = getNextSourceLine(lineNumbers, branchLineNumber);
 
-                if (branchLineNumber + 1 == targetLineNumber || branchLineNumber == targetLineNumber
-                        && nextLine == branchLineNumber + 1) {
+                if (branchLineNumber + 1 == targetLineNumber
+                        || branchLineNumber == targetLineNumber && nextLine == branchLineNumber + 1) {
                     priority = HIGH_PRIORITY;
                 } else if (branchLineNumber + 2 < Math.max(targetLineNumber, nextLine)) {
                     priority = LOW_PRIORITY;
@@ -106,8 +108,8 @@ public class FindUselessControlFlow extends BytecodeScanningDetector implements 
                 priority = LOW_PRIORITY;
             }
             bugAccumulator.accumulateBug(new BugInstance(this,
-                    priority == HIGH_PRIORITY ? "UCF_USELESS_CONTROL_FLOW_NEXT_LINE" : "UCF_USELESS_CONTROL_FLOW", priority)
-                    .addClassAndMethod(this), this);
+                    priority == HIGH_PRIORITY ? "UCF_USELESS_CONTROL_FLOW_NEXT_LINE" : "UCF_USELESS_CONTROL_FLOW",
+                    priority).addClassAndMethod(this), this);
         }
     }
 

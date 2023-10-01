@@ -11,15 +11,17 @@ public class ClassWarningSuppressor extends WarningSuppressor {
     ClassAnnotation clazz;
 
     /**
-     * Indicates whether this class was "user generated" as defined in {@link MemberUtils#isUserGenerated(edu.umd.cs.findbugs.ba.XClass)}
-     * When a class is not user generated we are not interested in reporting warnings, in particular we do not want to report US_USELESS_SUPPRESSION_ON_CLASS
+     * Indicates whether this class was "user generated" as defined in
+     * {@link MemberUtils#isUserGenerated(edu.umd.cs.findbugs.ba.XClass)} When a class is not user generated we are not
+     * interested in reporting warnings, in particular we do not want to report US_USELESS_SUPPRESSION_ON_CLASS
      */
     private final boolean userGeneratedClass;
 
     /**
      * @param userGeneratedClass
      */
-    public ClassWarningSuppressor(String bugPattern, SuppressMatchType matchType, ClassAnnotation clazz, boolean userGeneratedClass) {
+    public ClassWarningSuppressor(String bugPattern, SuppressMatchType matchType, ClassAnnotation clazz,
+            boolean userGeneratedClass) {
         super(bugPattern, matchType);
         this.clazz = clazz;
         this.userGeneratedClass = userGeneratedClass;
@@ -35,8 +37,7 @@ public class ClassWarningSuppressor extends WarningSuppressor {
 
     @Override
     public BugInstance buildUselessSuppressionBugInstance(UselessSuppressionDetector detector) {
-        return new BugInstance(detector, BUG_TYPE, PRIORITY)
-                .addClass(clazz.getClassDescriptor())
+        return new BugInstance(detector, BUG_TYPE, PRIORITY).addClass(clazz.getClassDescriptor())
                 .addString(adjustBugPatternForMessage());
     }
 

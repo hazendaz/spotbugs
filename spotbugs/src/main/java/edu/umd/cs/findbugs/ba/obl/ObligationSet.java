@@ -25,8 +25,8 @@ import java.util.Arrays;
  * A multiset of obligations that must be cleaned up by error-handling code.
  *
  * <p>
- * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011"
- * >Finding and preventing run-time error handling mistakes</a>, OOPSLA 2004.
+ * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011" >Finding and preventing run-time error
+ * handling mistakes</a>, OOPSLA 2004.
  * </p>
  *
  * @author David Hovemeyer
@@ -47,7 +47,6 @@ public class ObligationSet {
         this.factory = factory;
         invalidate();
     }
-
 
     public boolean isEmpty() {
         for (short s : countList) {
@@ -121,8 +120,8 @@ public class ObligationSet {
     }
 
     /*
-     * NOTE: this string is incorporated into a StringAnnotation when reporting
-     * OBL_ warnings, so the output needs to be user-friendly.
+     * NOTE: this string is incorporated into a StringAnnotation when reporting OBL_ warnings, so the output needs to be
+     * user-friendly.
      */
     @Override
     public String toString() {

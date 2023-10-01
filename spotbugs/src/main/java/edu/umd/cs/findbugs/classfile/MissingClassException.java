@@ -20,8 +20,7 @@
 package edu.umd.cs.findbugs.classfile;
 
 /**
- * CheckedAnalysisException subtype to indicate that a required class was
- * missing.
+ * CheckedAnalysisException subtype to indicate that a required class was missing.
  *
  * @author David Hovemeyer
  */

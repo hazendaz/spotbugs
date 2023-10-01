@@ -60,8 +60,8 @@ import edu.umd.cs.findbugs.util.MapCache;
 import edu.umd.cs.findbugs.util.Strings;
 
 /**
- * Build a BugCollection based on SAX events. This is intended to replace the
- * old DOM-based parsing of XML bug result files, which was very slow.
+ * Build a BugCollection based on SAX events. This is intended to replace the old DOM-based parsing of XML bug result
+ * files, which was very slow.
  *
  * @author David Hovemeyer
  */
@@ -313,7 +313,8 @@ public class SAXBugCollectionHandler extends DefaultHandler {
                         bugAnnotationWithSourceLines.setSourceLines(createSourceLineAnnotation(qName, attributes));
                     }
                 } else if (BugCollection.ERRORS_ELEMENT_NAME.equals(outerElement)) {
-                    if (BugCollection.ANALYSIS_ERROR_ELEMENT_NAME.equals(qName) || BugCollection.ERROR_ELEMENT_NAME.equals(qName)) {
+                    if (BugCollection.ANALYSIS_ERROR_ELEMENT_NAME.equals(qName)
+                            || BugCollection.ERROR_ELEMENT_NAME.equals(qName)) {
                         analysisError = new AnalysisError("Unknown error");
                         stackTrace.clear();
                     }
@@ -384,7 +385,8 @@ public class SAXBugCollectionHandler extends DefaultHandler {
                     assert prjct != null;
                     if (Project.PLUGIN_ELEMENT_NAME.equals(qName)) {
                         String pluginId = getRequiredAttribute(attributes, Project.PLUGIN_ID_ATTRIBUTE_NAME, qName);
-                        Boolean enabled = Boolean.valueOf(getRequiredAttribute(attributes, Project.PLUGIN_STATUS_ELEMENT_NAME, qName));
+                        Boolean enabled = Boolean
+                                .valueOf(getRequiredAttribute(attributes, Project.PLUGIN_STATUS_ELEMENT_NAME, qName));
                         prjct.setPluginStatusTrinary(pluginId, enabled);
                     }
                 }
@@ -445,8 +447,8 @@ public class SAXBugCollectionHandler extends DefaultHandler {
         String disabled = getOptionalAttribute(attributes, "disabled");
         nextMatchedIsDisabled = "true".equals(disabled);
         if ("Bug".equals(qName)) {
-            addMatcher(new BugMatcher(getOptionalAttribute(attributes, "code"), getOptionalAttribute(attributes, "pattern"),
-                    getOptionalAttribute(attributes, "category")));
+            addMatcher(new BugMatcher(getOptionalAttribute(attributes, "code"),
+                    getOptionalAttribute(attributes, "pattern"), getOptionalAttribute(attributes, "category")));
         } else if ("Class".equals(qName)) {
             String role = getOptionalAttribute(attributes, "role");
             addMatcher(new ClassMatcher(getRequiredAttribute(attributes, "name", qName), role));
@@ -455,11 +457,11 @@ public class SAXBugCollectionHandler extends DefaultHandler {
             String typeParameters = getOptionalAttribute(attributes, "typeParameters");
             addMatcher(new TypeMatcher(getRequiredAttribute(attributes, "descriptor", qName), role, typeParameters));
         } else if ("FirstVersion".equals(qName)) {
-            addMatcher(new FirstVersionMatcher(getRequiredAttribute(attributes, "value", qName), getRequiredAttribute(attributes,
-                    "relOp", qName)));
+            addMatcher(new FirstVersionMatcher(getRequiredAttribute(attributes, "value", qName),
+                    getRequiredAttribute(attributes, "relOp", qName)));
         } else if ("LastVersion".equals(qName)) {
-            addMatcher(new LastVersionMatcher(getRequiredAttribute(attributes, "value", qName), getRequiredAttribute(attributes,
-                    "relOp", qName)));
+            addMatcher(new LastVersionMatcher(getRequiredAttribute(attributes, "value", qName),
+                    getRequiredAttribute(attributes, "relOp", qName)));
         } else if ("BugCode".equals(qName)) {
             addMatcher(new BugMatcher(getRequiredAttribute(attributes, "name", qName), "", ""));
         } else if ("Local".equals(qName)) {
@@ -545,14 +547,14 @@ public class SAXBugCollectionHandler extends DefaultHandler {
                     isStatic = "false"; // Hack for old data
                 }
 
-                bugAnnotation = bugAnnotationWithSourceLines = new MethodAnnotation(classname, fieldOrMethodName, signature,
-                        Boolean.valueOf(isStatic));
+                bugAnnotation = bugAnnotationWithSourceLines = new MethodAnnotation(classname, fieldOrMethodName,
+                        signature, Boolean.valueOf(isStatic));
 
             } else {
                 String isStatic = getRequiredAttribute(attributes, "isStatic", qName);
                 String sourceSignature = getOptionalAttribute(attributes, "sourceSignature");
-                bugAnnotation = bugAnnotationWithSourceLines = new FieldAnnotation(classname, fieldOrMethodName, signature,
-                        sourceSignature, Boolean.valueOf(isStatic));
+                bugAnnotation = bugAnnotationWithSourceLines = new FieldAnnotation(classname, fieldOrMethodName,
+                        signature, sourceSignature, Boolean.valueOf(isStatic));
             }
             if (classAnnotationNames != null) {
                 ((PackageMemberAnnotation) bugAnnotation)
@@ -615,10 +617,11 @@ public class SAXBugCollectionHandler extends DefaultHandler {
                 throw new SAXException("Factory method for " + qName + " is not accessible.", e);
             } catch (InvocationTargetException e) {
                 if (e.getTargetException() instanceof Exception) {
-                    throw new SAXException("Factory method for " + qName + " threw an exception.", (Exception) e.getTargetException());
+                    throw new SAXException("Factory method for " + qName + " threw an exception.",
+                            (Exception) e.getTargetException());
                 } else {
-                    throw new SAXException("Factory method for " + qName + " threw an exception:\n" + Arrays.toString(e.getTargetException()
-                            .getStackTrace()));
+                    throw new SAXException("Factory method for " + qName + " threw an exception:\n"
+                            + Arrays.toString(e.getTargetException().getStackTrace()));
                 }
             }
         }
@@ -642,24 +645,19 @@ public class SAXBugCollectionHandler extends DefaultHandler {
     /*
      * Extract a hash value from an element.
      *
-     * @param qName
-     *            name of element containing hash value
-     * @param attributes
-     *            element attributes
+     * @param qName name of element containing hash value
+     *
+     * @param attributes element attributes
+     *
      * @return the decoded hash value
+     *
      * @throws SAXException
      *
-    private byte[] extractHash(String qName, Attributes attributes) throws SAXException {
-        String encodedHash = getRequiredAttribute(attributes, "value", qName);
-        byte[] hash;
-        try {
-            // System.out.println("Extract hash " + encodedHash);
-            hash = ClassHash.stringToHash(encodedHash);
-        } catch (IllegalArgumentException e) {
-            throw new SAXException("Invalid class hash", e);
-        }
-        return hash;
-    }*/
+     * private byte[] extractHash(String qName, Attributes attributes) throws SAXException { String encodedHash =
+     * getRequiredAttribute(attributes, "value", qName); byte[] hash; try { // System.out.println("Extract hash " +
+     * encodedHash); hash = ClassHash.stringToHash(encodedHash); } catch (IllegalArgumentException e) { throw new
+     * SAXException("Invalid class hash", e); } return hash; }
+     */
 
     private void setAnnotationRole(Attributes attributes, BugAnnotation bugAnnotation) {
         String role = getOptionalAttribute(attributes, "role");
@@ -796,7 +794,8 @@ public class SAXBugCollectionHandler extends DefaultHandler {
         textBuffer.append(ch, start, length);
     }
 
-    private String getRequiredAttribute(Attributes attributes, String attrName, String elementName) throws SAXException {
+    private String getRequiredAttribute(Attributes attributes, String attrName, String elementName)
+            throws SAXException {
         String value = attributes.getValue(attrName);
         if (value == null) {
             throw new SAXException(elementName + " element missing " + attrName + " attribute");

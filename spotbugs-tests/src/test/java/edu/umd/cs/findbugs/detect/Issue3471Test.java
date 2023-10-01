@@ -11,8 +11,7 @@ class Issue3471Test extends AbstractIntegrationTest {
     @Test
     @DisabledOnJre({ JRE.JAVA_8, JRE.JAVA_11 })
     void testRecordsSuppressions() {
-        performAnalysis("../java17/Issue3471.class",
-                "../java17/Issue3471$Issue3471ExposeRep.class",
+        performAnalysis("../java17/Issue3471.class", "../java17/Issue3471$Issue3471ExposeRep.class",
                 "../java17/Issue3471$Issue3471Suppressed.class");
 
         assertBugInClassCount("EI_EXPOSE_REP", "Issue3471$Issue3471Suppressed", 0);

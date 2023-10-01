@@ -37,7 +37,9 @@ import de.tobject.findbugs.FindbugsPlugin;
  * Project utility class.
  *
  * @author Peter Friese
+ *
  * @version 1.0
+ *
  * @since 25.07.2003
  */
 public class ProjectUtilities {
@@ -51,6 +53,7 @@ public class ProjectUtilities {
      *            The project the nature will be applied to.
      * @param monitor
      *            A progress monitor. Must not be null.
+     *
      * @throws CoreException
      */
     public static void addFindBugsNature(IProject project, IProgressMonitor monitor) throws CoreException {
@@ -79,11 +82,10 @@ public class ProjectUtilities {
     }
 
     /**
-     * Using the natures name, check whether the current project has FindBugs
-     * nature.
+     * Using the natures name, check whether the current project has FindBugs nature.
      *
-     * @return boolean <code>true</code>, if the FindBugs nature is assigned to
-     *         the project, <code>false</code> otherwise.
+     * @return boolean <code>true</code>, if the FindBugs nature is assigned to the project, <code>false</code>
+     *         otherwise.
      */
     public static boolean hasFindBugsNature(IProject project) {
         try {
@@ -116,6 +118,7 @@ public class ProjectUtilities {
      *            The project the nature will be removed from.
      * @param monitor
      *            A progress monitor. Must not be null.
+     *
      * @throws CoreException
      */
     public static void removeFindBugsNature(IProject project, IProgressMonitor monitor) throws CoreException {

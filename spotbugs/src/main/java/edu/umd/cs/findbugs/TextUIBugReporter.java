@@ -26,12 +26,10 @@ import java.util.Iterator;
 import edu.umd.cs.findbugs.charsets.UTF8;
 
 /**
- * Base class for BugReporters which provides convenient formatting and
- * reporting of warnings and analysis errors.
+ * Base class for BugReporters which provides convenient formatting and reporting of warnings and analysis errors.
  *
  * <p>
- * "TextUIBugReporter" is a bit of a misnomer, since this class is useful in
- * GUIs, too.
+ * "TextUIBugReporter" is a bit of a misnomer, since this class is useful in GUIs, too.
  * </p>
  *
  * @author David Hovemeyer
@@ -184,8 +182,8 @@ public abstract class TextUIBugReporter extends AbstractBugReporter implements C
     }
 
     /**
-     * Emit one line of the error message report. By default, error messages are
-     * printed to System.err. Subclasses may override.
+     * Emit one line of the error message report. By default, error messages are printed to System.err. Subclasses may
+     * override.
      *
      * @param line
      *            one line of the error report
@@ -253,7 +251,6 @@ public abstract class TextUIBugReporter extends AbstractBugReporter implements C
     public boolean isDuplicateOf(TextUIBugReporter other) {
         return outputTarget != null && outputTarget.equals(other.outputTarget);
     }
-
 
     public boolean isApplySuppressions() {
         return applySuppressions;

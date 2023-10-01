@@ -76,8 +76,10 @@ public class BugInstanceMatcherBuilder {
 
     /**
      * @deprecated Use atJspLine for JSP line mapping
+     *
      * @param lineNumberApprox
      *            Line to verify accepting an offset of 1
+     *
      * @return this
      */
     @Deprecated
@@ -91,6 +93,7 @@ public class BugInstanceMatcherBuilder {
      *
      * @param confidence
      *            The desired confidence
+     *
      * @return this
      */
     public BugInstanceMatcherBuilder withConfidence(Confidence confidence) {
@@ -112,11 +115,11 @@ public class BugInstanceMatcherBuilder {
      * @return Hamcrest Matcher
      */
     public BugInstanceMatcher build() {
-        //JSP line to Java source conversion
+        // JSP line to Java source conversion
         List<Integer> multipleChoicesLine = null;
         if (jspLine != null) {
             if (jspFile != null) {
-                //Map JSP lines to Java base on the smap file if available
+                // Map JSP lines to Java base on the smap file if available
                 multipleChoicesLine = mapJspToJavaLine(jspFile, jspLine);
             } else {
                 throw new RuntimeException("JSP file not set.");
@@ -134,7 +137,7 @@ public class BugInstanceMatcherBuilder {
             throw new RuntimeException("SMAP File are missing. (" + smapFile + ")");
         }
         try {
-            //Convert
+            // Convert
             final String contents = new String(Files.readAllBytes(smapFile.toPath()), StandardCharsets.UTF_8);
             final SmapParser smapParser = new SmapParser(contents);
             final List<Integer> javaLineNumbers = smapParser.getJavaLineNumbers(jspLine);

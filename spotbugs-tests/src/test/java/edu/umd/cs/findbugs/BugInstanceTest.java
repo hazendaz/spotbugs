@@ -32,12 +32,10 @@ class BugInstanceTest {
     private static final String EXPECTED_XML = ""
             + "<BugInstance type=\"UUF_UNUSED_FIELD\" priority=\"1\" rank=\"16\" abbrev=\"UuF\" category=\"PERFORMANCE\">\n"
             + "  <Class classname=\"ghIssues.issue543.ImmutableFoobarValue.class\" classAnnotationNames=\"org.immutables.value.Generated\">\n"
-            + "    <SourceLine classname=\"ghIssues.issue543.ImmutableFoobarValue.class\"/>\n"
-            + "  </Class>\n"
+            + "    <SourceLine classname=\"ghIssues.issue543.ImmutableFoobarValue.class\"/>\n" + "  </Class>\n"
             + "  <Method classname=\"ghIssues.issue543.ImmutableFoobarValue.class\" name=\"foo\" signature=\"int\" isStatic=\"false\" classAnnotationNames=\"org.immutables.value.Generated\"/>\n"
             + "  <Field classname=\"ghIssues.issue543.ImmutableFoobarValue.class\" name=\"foo\" signature=\"int\" isStatic=\"false\" classAnnotationNames=\"org.immutables.value.Generated\">\n"
-            + "    <SourceLine classname=\"ghIssues.issue543.ImmutableFoobarValue.class\"/>\n"
-            + "  </Field>\n"
+            + "    <SourceLine classname=\"ghIssues.issue543.ImmutableFoobarValue.class\"/>\n" + "  </Field>\n"
             + "</BugInstance>";
 
     @Test
@@ -119,7 +117,8 @@ class BugInstanceTest {
         b.setProperty("D", "d");
         checkPropertyIterator(b.propertyIterator(), new String[] { "A", "B", "D" }, new String[] { "a", "b", "d" });
         b.setProperty("E", "e");
-        checkPropertyIterator(b.propertyIterator(), new String[] { "A", "B", "D", "E" }, new String[] { "a", "b", "d", "e" });
+        checkPropertyIterator(b.propertyIterator(), new String[] { "A", "B", "D", "E" },
+                new String[] { "a", "b", "d", "e" });
     }
 
     @Test

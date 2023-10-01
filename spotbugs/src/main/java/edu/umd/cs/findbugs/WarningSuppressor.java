@@ -109,8 +109,8 @@ public abstract class WarningSuppressor implements Matcher {
     }
 
     /**
-     * @return The alternate suppressors that might have been generated from a single <code>SuppressWarnings</code> annotation.
-     * See {@link NoteSuppressedWarnings}
+     * @return The alternate suppressors that might have been generated from a single <code>SuppressWarnings</code>
+     *         annotation. See {@link NoteSuppressedWarnings}
      */
     public Collection<WarningSuppressor> getAlternateSuppressors() {
         return Collections.unmodifiableCollection(alternateSuppressors);

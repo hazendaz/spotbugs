@@ -41,8 +41,10 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
  * @author Tagir Valeev
  */
 public class FindComparatorProblems extends OpcodeStackDetector {
-    private static final MethodDescriptor FLOAT_DESCRIPTOR = new MethodDescriptor("java/lang/Float", "compare", "(FF)I", true);
-    private static final MethodDescriptor DOUBLE_DESCRIPTOR = new MethodDescriptor("java/lang/Double", "compare", "(DD)I", true);
+    private static final MethodDescriptor FLOAT_DESCRIPTOR = new MethodDescriptor("java/lang/Float", "compare", "(FF)I",
+            true);
+    private static final MethodDescriptor DOUBLE_DESCRIPTOR = new MethodDescriptor("java/lang/Double", "compare",
+            "(DD)I", true);
 
     private boolean isComparator;
     private int lastEmptyStackPC;
@@ -65,9 +67,9 @@ public class FindComparatorProblems extends OpcodeStackDetector {
 
     @Override
     public boolean shouldVisitCode(Code obj) {
-        return !getMethodDescriptor().isStatic()
-                && ((isComparator && getMethodName().equals("compare") && getMethodSig().endsWith(")I")) || ((getMethodName()
-                        .equals("compareTo") && getMethodSig().equals("(L" + getClassName() + ";)I"))));
+        return !getMethodDescriptor().isStatic() && ((isComparator && getMethodName().equals("compare")
+                && getMethodSig().endsWith(")I"))
+                || ((getMethodName().equals("compareTo") && getMethodSig().equals("(L" + getClassName() + ";)I"))));
     }
 
     @Override
@@ -83,20 +85,19 @@ public class FindComparatorProblems extends OpcodeStackDetector {
         if (getStack().getStackDepth() == 0) {
             this.lastEmptyStackPC = getPC();
         }
-        if ((seen == Const.DCMPG || seen == Const.DCMPL || seen == Const.FCMPL || seen == Const.FCMPG) && getStack().getStackDepth() == 2) {
+        if ((seen == Const.DCMPG || seen == Const.DCMPL || seen == Const.FCMPL || seen == Const.FCMPG)
+                && getStack().getStackDepth() == 2) {
             int[] startEnd = new int[] { this.lastEmptyStackPC, getPC() };
             for (Iterator<int[]> iterator = twoDoublesInStack.iterator(); iterator.hasNext();) {
                 int[] oldStartEnd = iterator.next();
                 if (codeEquals(oldStartEnd, startEnd)) {
                     Item item1 = getStack().getStackItem(0);
                     Item item2 = getStack().getStackItem(1);
-                    accumulator.accumulateBug(
-                            new BugInstance("CO_COMPARETO_INCORRECT_FLOATING", NORMAL_PRIORITY).addClassAndMethod(this)
-                                    .addType(item1.getSignature())
-                                    .addMethod(item1.getSignature().equals("D") ? DOUBLE_DESCRIPTOR : FLOAT_DESCRIPTOR).describe(
-                                            MethodAnnotation.SHOULD_CALL)
-                                    .addValueSource(item1, this)
-                                    .addValueSource(item2, this), this);
+                    accumulator.accumulateBug(new BugInstance("CO_COMPARETO_INCORRECT_FLOATING", NORMAL_PRIORITY)
+                            .addClassAndMethod(this).addType(item1.getSignature())
+                            .addMethod(item1.getSignature().equals("D") ? DOUBLE_DESCRIPTOR : FLOAT_DESCRIPTOR)
+                            .describe(MethodAnnotation.SHOULD_CALL).addValueSource(item1, this)
+                            .addValueSource(item2, this), this);
                     iterator.remove();
                     return;
                 }
@@ -107,15 +108,18 @@ public class FindComparatorProblems extends OpcodeStackDetector {
             OpcodeStack.Item top = stack.getStackItem(0);
             Object o = top.getConstant();
             if (o instanceof Integer && ((Integer) o).intValue() == Integer.MIN_VALUE) {
-                accumulator.accumulateBug(
-                        new BugInstance(this, "CO_COMPARETO_RESULTS_MIN_VALUE", NORMAL_PRIORITY).addClassAndMethod(this), this);
+                accumulator.accumulateBug(new BugInstance(this, "CO_COMPARETO_RESULTS_MIN_VALUE", NORMAL_PRIORITY)
+                        .addClassAndMethod(this), this);
             }
         }
     }
 
     /**
-     * @param oldStartEnd - int[] {oldStart, oldEnd}
-     * @param startEnd - int[] {start, end}
+     * @param oldStartEnd
+     *            - int[] {oldStart, oldEnd}
+     * @param startEnd
+     *            - int[] {start, end}
+     *
      * @return true if code slices are the same
      */
     private boolean codeEquals(int[] oldStartEnd, int[] startEnd) {

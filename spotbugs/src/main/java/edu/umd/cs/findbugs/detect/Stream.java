@@ -37,17 +37,18 @@ import edu.umd.cs.findbugs.ba.ResourceValue;
 import edu.umd.cs.findbugs.ba.ResourceValueFrame;
 
 /**
- * <p>A Stream object marks the location in the code where a stream is created. It
- * also is responsible for determining some aspects of how the stream state is
- * tracked by the ResourceValueAnalysis, such as when the stream is opened or
- * closed, and whether implicit exception edges are significant.
+ * <p>
+ * A Stream object marks the location in the code where a stream is created. It also is responsible for determining some
+ * aspects of how the stream state is tracked by the ResourceValueAnalysis, such as when the stream is opened or closed,
+ * and whether implicit exception edges are significant.
  * </p>
  * <p>
  * TODO: change streamClass and streamBase to ObjectType
  * </p>
  * <p>
- * TODO: isStreamOpen() and isStreamClose() should probably be abstract, so we
- * can customize how they work for different kinds of streams</p>
+ * TODO: isStreamOpen() and isStreamClose() should probably be abstract, so we can customize how they work for different
+ * kinds of streams
+ * </p>
  */
 public class Stream extends ResourceCreationPoint implements Comparable<Stream> {
     private final String streamBase;
@@ -72,17 +73,15 @@ public class Stream extends ResourceCreationPoint implements Comparable<Stream> 
     }
 
     /**
-     * Constructor. By default, Stream objects are marked as uninteresting.
-     * setInteresting("BUG_TYPE") must be called explicitly to mark the Stream
-     * as interesting.
+     * Constructor. By default, Stream objects are marked as uninteresting. setInteresting("BUG_TYPE") must be called
+     * explicitly to mark the Stream as interesting.
      *
      * @param location
      *            where the stream is created
      * @param streamClass
      *            type of Stream
      * @param streamBase
-     *            highest class in the class hierarchy through which stream's
-     *            close() method could be called
+     *            highest class in the class hierarchy through which stream's close() method could be called
      */
     public Stream(Location location, String streamClass, String streamBase) {
         super(location, streamClass);
@@ -95,8 +94,7 @@ public class Stream extends ResourceCreationPoint implements Comparable<Stream> 
      * Mark this Stream as interesting.
      *
      * @param bugType
-     *            the bug type that should be reported if the stream is not
-     *            closed on all paths out of the method
+     *            the bug type that should be reported if the stream is not closed on all paths out of the method
      */
     public Stream setInteresting(String bugType) {
         this.isUninteresting = false;
@@ -105,9 +103,8 @@ public class Stream extends ResourceCreationPoint implements Comparable<Stream> 
     }
 
     /**
-     * Mark whether or not implicit exception edges should be ignored by
-     * ResourceValueAnalysis when determining whether or not stream is closed on
-     * all paths out of method.
+     * Mark whether or not implicit exception edges should be ignored by ResourceValueAnalysis when determining whether
+     * or not stream is closed on all paths out of method.
      */
     public Stream setIgnoreImplicitExceptions(boolean enable) {
         ignoreImplicitExceptions = enable;
@@ -115,8 +112,8 @@ public class Stream extends ResourceCreationPoint implements Comparable<Stream> 
     }
 
     /**
-     * Mark whether or not Stream is open as soon as it is created, or whether a
-     * later method or constructor must explicitly open it.
+     * Mark whether or not Stream is open as soon as it is created, or whether a later method or constructor must
+     * explicitly open it.
      */
     public Stream setIsOpenOnCreation(boolean enable) {
         isOpenOnCreation = enable;
@@ -173,14 +170,14 @@ public class Stream extends ResourceCreationPoint implements Comparable<Stream> 
     }
 
     /**
-     * Return whether or not the Stream is closed on all paths out of the
-     * method.
+     * Return whether or not the Stream is closed on all paths out of the method.
      */
     public boolean isClosed() {
         return isClosed;
     }
 
-    public boolean isStreamOpen(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg, ResourceValueFrame frame) {
+    public boolean isStreamOpen(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg,
+            ResourceValueFrame frame) {
         if (isOpenOnCreation) {
             return false;
         }
@@ -217,8 +214,8 @@ public class Stream extends ResourceCreationPoint implements Comparable<Stream> 
         return false;
     }
 
-    public boolean isStreamClose(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg, ResourceValueFrame frame,
-            RepositoryLookupFailureCallback lookupFailureCallback) {
+    public boolean isStreamClose(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg,
+            ResourceValueFrame frame, RepositoryLookupFailureCallback lookupFailureCallback) {
         if (!mightCloseStream(basicBlock, handle, cpg)) {
             return false;
         }
@@ -276,7 +273,8 @@ public class Stream extends ResourceCreationPoint implements Comparable<Stream> 
 
     @Override
     public int hashCode() {
-        return getLocation().hashCode() + 3 * streamBase.hashCode() + 7 * getResourceClass().hashCode() + 11 * instanceParam;
+        return getLocation().hashCode() + 3 * streamBase.hashCode() + 7 * getResourceClass().hashCode()
+                + 11 * instanceParam;
     }
 
     @Override
@@ -285,10 +283,8 @@ public class Stream extends ResourceCreationPoint implements Comparable<Stream> 
             return false;
         }
         Stream other = (Stream) o;
-        return getLocation().equals(other.getLocation())
-                && streamBase.equals(other.streamBase)
-                && getResourceClass().equals(other.getResourceClass())
-                && instanceParam == other.instanceParam;
+        return getLocation().equals(other.getLocation()) && streamBase.equals(other.streamBase)
+                && getResourceClass().equals(other.getResourceClass()) && instanceParam == other.instanceParam;
     }
 
     @Override

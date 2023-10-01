@@ -29,6 +29,7 @@ public class ClassFileLocator {
     /**
      * @param path
      *            class name
+     *
      * @return Full path to the class file base on class name.
      */
     public String getClassFilePath(String path) {
@@ -45,7 +46,7 @@ public class ClassFileLocator {
     public String getJspFilePath(String path) {
         ClassLoader cl = getClass().getClassLoader();
 
-        //This is subject to change base on the JSP compiler implementation
+        // This is subject to change base on the JSP compiler implementation
         String generatedClassName = path.replace("_", "_005f").replace(".jsp", "_jsp");
         URL url = cl.getResource("jsp/" + generatedClassName + ".class");
         if (url == null) {

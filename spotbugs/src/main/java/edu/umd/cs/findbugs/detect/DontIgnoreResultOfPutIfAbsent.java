@@ -129,7 +129,8 @@ public class DontIgnoreResultOfPutIfAbsent implements Detector {
     static final boolean DEBUG = false;
 
     @edu.umd.cs.findbugs.internalAnnotations.StaticConstant
-    static final Set<String> immutableClassNames = Set.of("java/lang/Integer", "java/lang/Long", "java/lang/String", "java/util/Comparator");
+    static final Set<String> immutableClassNames = Set.of("java/lang/Integer", "java/lang/Long", "java/lang/String",
+            "java/util/Comparator");
 
     private static int getPriorityForBeingMutable(Type type) {
         if (type instanceof ArrayType) {
@@ -168,8 +169,8 @@ public class DontIgnoreResultOfPutIfAbsent implements Detector {
                     }
                     String signature = f.getSignature();
                     if (signature.startsWith("Ljava/util/concurrent") || signature.startsWith("Ljava/lang/StringB")
-                            || signature.charAt(0) == '[' || signature.indexOf("Map") >= 0 || signature.indexOf("List") >= 0
-                            || signature.indexOf("Set") >= 0) {
+                            || signature.charAt(0) == '[' || signature.indexOf("Map") >= 0
+                            || signature.indexOf("List") >= 0 || signature.indexOf("Set") >= 0) {
                         hasMutableField = hasUpdates = true;
                     }
 
@@ -190,13 +191,15 @@ public class DontIgnoreResultOfPutIfAbsent implements Detector {
         }
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws DataflowAnalysisException, CFGBuilderException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws DataflowAnalysisException, CFGBuilderException {
         if (BCELUtil.isSynthetic(method) || (method.getAccessFlags() & Const.ACC_BRIDGE) == Const.ACC_BRIDGE) {
             return;
         }
 
         if (DEBUG) {
-            System.out.println("    Analyzing method " + classContext.getJavaClass().getClassName() + "." + method.getName());
+            System.out.println(
+                    "    Analyzing method " + classContext.getJavaClass().getClassName() + "." + method.getName());
         }
 
         JavaClass javaClass = classContext.getJavaClass();
@@ -224,22 +227,24 @@ public class DontIgnoreResultOfPutIfAbsent implements Detector {
                             && !(invoke instanceof INVOKESTATIC)) {
                         TypeFrame typeFrame = typeDataflow.getFactAtLocation(location);
                         Type objType = typeFrame.getStackValue(2);
-                        if (extendsConcurrentMap(ClassName.fromFieldSignatureToDottedClassName(objType.getSignature()))) {
+                        if (extendsConcurrentMap(
+                                ClassName.fromFieldSignatureToDottedClassName(objType.getSignature()))) {
                             InstructionHandle next = handle.getNext();
                             boolean isIgnored = next != null && next.getInstruction() instanceof POP;
-                            //                        boolean isImmediateNullTest = next != null
-                            //                                && (next.getInstruction() instanceof IFNULL || next.getInstruction() instanceof IFNONNULL);
+                            // boolean isImmediateNullTest = next != null
+                            // && (next.getInstruction() instanceof IFNULL || next.getInstruction() instanceof
+                            // IFNONNULL);
                             if (isIgnored) {
                                 BitSet live = llsaDataflow.getAnalysis().getFactAtLocation(location);
                                 ValueNumberFrame vna = vnaDataflow.getAnalysis().getFactAtLocation(location);
                                 ValueNumber vn = vna.getTopValue();
 
                                 int locals = vna.getNumLocals();
-                                //                            boolean isRetained = false;
+                                // boolean isRetained = false;
                                 for (int pos = 0; pos < locals; pos++) {
                                     if (vna.getValue(pos).equals(vn) && live.get(pos)) {
-                                        BugAnnotation ba = ValueNumberSourceInfo.findAnnotationFromValueNumber(method, location, vn,
-                                                vnaDataflow.getFactAtLocation(location), "VALUE_OF");
+                                        BugAnnotation ba = ValueNumberSourceInfo.findAnnotationFromValueNumber(method,
+                                                location, vn, vnaDataflow.getFactAtLocation(location), "VALUE_OF");
                                         if (ba == null) {
                                             continue;
                                         }
@@ -247,12 +252,13 @@ public class DontIgnoreResultOfPutIfAbsent implements Detector {
                                         Type type = typeFrame.getTopValue();
                                         int priority = getPriorityForBeingMutable(type);
                                         BugInstance bugInstance = new BugInstance(this, pattern, priority)
-                                                .addClassAndMethod(methodGen, sourceFileName).addCalledMethod(methodGen, invoke)
-                                                .add(new TypeAnnotation(type)).add(ba);
-                                        SourceLineAnnotation where = SourceLineAnnotation.fromVisitedInstruction(classContext,
-                                                method, location);
+                                                .addClassAndMethod(methodGen, sourceFileName)
+                                                .addCalledMethod(methodGen, invoke).add(new TypeAnnotation(type))
+                                                .add(ba);
+                                        SourceLineAnnotation where = SourceLineAnnotation
+                                                .fromVisitedInstruction(classContext, method, location);
                                         accumulator.accumulateBug(bugInstance, where);
-                                        //                                    isRetained = true;
+                                        // isRetained = true;
                                         break;
                                     }
                                 }

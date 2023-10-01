@@ -98,7 +98,8 @@ public final class FindMismatchedWaitOrNotify implements Detector, StatelessDete
         }
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
 
         MethodGen methodGen = classContext.getMethodGen(method);
         if (methodGen == null) {
@@ -163,7 +164,8 @@ public final class FindMismatchedWaitOrNotify implements Detector, StatelessDete
 
                         bugAccumulator.accumulateBug(
                                 new BugInstance(this, type, priority).addClassAndMethod(methodGen, sourceFile),
-                                SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile, handle));
+                                SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile,
+                                        handle));
                     }
                 }
             }

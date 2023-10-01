@@ -36,27 +36,27 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 import edu.umd.cs.findbugs.visitclass.PreorderVisitor;
 
 /**
- * We found a problem with the new OpenJDK that everyone is now using to compile
- * and run java code. In particular, the java.util.logging.Logger behavior has
- * changed. Instead of using strong references, it now uses weak references
- * internally. That's a reasonable change, but unfortunately some code relies on
- * the old behavior - when changing logger configuration, it simply drops the
- * logger reference. That means that the garbage collector is free to reclaim
- * that memory, which means that the logger configuration is lost.
+ * We found a problem with the new OpenJDK that everyone is now using to compile and run java code. In particular, the
+ * java.util.logging.Logger behavior has changed. Instead of using strong references, it now uses weak references
+ * internally. That's a reasonable change, but unfortunately some code relies on the old behavior - when changing logger
+ * configuration, it simply drops the logger reference. That means that the garbage collector is free to reclaim that
+ * memory, which means that the logger configuration is lost.
  */
 public class LostLoggerDueToWeakReference extends OpcodeStackDetector {
     private static final List<MethodDescriptor> methods = List.of(
-            new MethodDescriptor("java/util/logging/Logger", "getLogger", "(Ljava/lang/String;)Ljava/util/logging/Logger;", true),
-            new MethodDescriptor("java/util/logging/Logger", "getLogger", "(Ljava/lang/String;Ljava/lang/String;)Ljava/util/logging/Logger;", true));
+            new MethodDescriptor("java/util/logging/Logger", "getLogger",
+                    "(Ljava/lang/String;)Ljava/util/logging/Logger;", true),
+            new MethodDescriptor("java/util/logging/Logger", "getLogger",
+                    "(Ljava/lang/String;Ljava/lang/String;)Ljava/util/logging/Logger;", true));
 
-    //    final BugReporter bugReporter;
+    // final BugReporter bugReporter;
 
     final BugAccumulator bugAccumulator;
 
     final HashSet<String> namesOfSetterMethods = new HashSet<>();
 
     public LostLoggerDueToWeakReference(BugReporter bugReporter) {
-        //        this.bugReporter = bugReporter;
+        // this.bugReporter = bugReporter;
         this.bugAccumulator = new BugAccumulator(bugReporter);
         namesOfSetterMethods.add("addHandler");
         namesOfSetterMethods.add("setUseParentHandlers");
@@ -78,10 +78,8 @@ public class LostLoggerDueToWeakReference extends OpcodeStackDetector {
             loggerEscaped = loggerImported = false;
             super.visit(code); // make callbacks to sawOpcode for all opcodes
             /*
-            if (false) {
-                System.out.println(getFullyQualifiedMethodName());
-                System.out.printf("%d %s %s\n", sawGetLogger, loggerEscaped, loggerImported);
-            }
+             * if (false) { System.out.println(getFullyQualifiedMethodName()); System.out.printf("%d %s %s\n",
+             * sawGetLogger, loggerEscaped, loggerImported); }
              */
             if (sawGetLogger >= 0 && !loggerEscaped && !loggerImported) {
                 bugAccumulator.reportAccumulatedBugs();
@@ -104,7 +102,8 @@ public class LostLoggerDueToWeakReference extends OpcodeStackDetector {
         }
         switch (seen) {
         case Const.INVOKESTATIC:
-            if ("java/util/logging/Logger".equals(getClassConstantOperand()) && "getLogger".equals(getNameConstantOperand())) {
+            if ("java/util/logging/Logger".equals(getClassConstantOperand())
+                    && "getLogger".equals(getNameConstantOperand())) {
                 OpcodeStack.Item item = stack.getStackItem(0);
                 if (!"".equals(item.getConstant())) {
                     sawGetLogger = getPC();

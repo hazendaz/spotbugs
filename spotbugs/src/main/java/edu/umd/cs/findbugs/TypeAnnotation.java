@@ -31,8 +31,8 @@ import edu.umd.cs.findbugs.xml.XMLAttributeList;
 import edu.umd.cs.findbugs.xml.XMLOutput;
 
 /**
- * Bug annotation class for java types. This is of lighter weight than
- * ClassAnnotation, and can be used for things like array types.
+ * Bug annotation class for java types. This is of lighter weight than ClassAnnotation, and can be used for things like
+ * array types.
  *
  * @see ClassAnnotation
  */
@@ -60,10 +60,8 @@ public class TypeAnnotation extends BugAnnotationWithSourceLines {
      *
      * <p>
      * For information on type descriptors, <br>
-     * see http://java.sun.com/docs/books/vmspec/2nd-edition/html/ClassFile.doc.
-     * html#14152 <br>
-     * or http://www.murrayc.com/learning/java/java_classfileformat.shtml#
-     * TypeDescriptors
+     * see http://java.sun.com/docs/books/vmspec/2nd-edition/html/ClassFile.doc. html#14152 <br>
+     * or http://www.murrayc.com/learning/java/java_classfileformat.shtml# TypeDescriptors
      *
      * @param typeDescriptor
      *            a jvm type descriptor, such as "[I"
@@ -180,8 +178,7 @@ public class TypeAnnotation extends BugAnnotationWithSourceLines {
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * XML Conversion support
+     * ---------------------------------------------------------------------- XML Conversion support
      * ----------------------------------------------------------------------
      */
 

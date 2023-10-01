@@ -22,11 +22,11 @@ package edu.umd.cs.findbugs.ba.type;
 import org.apache.bcel.generic.Type;
 
 /**
- * Special type used to represent the "extra" part of a long value. We say that
- * when a long is stored, local <i>n</i> will have type long, and local
- * <i>n+1</i> will have this type.
+ * Special type used to represent the "extra" part of a long value. We say that when a long is stored, local <i>n</i>
+ * will have type long, and local <i>n+1</i> will have this type.
  *
  * @author David Hovemeyer
+ *
  * @see TypeAnalysis
  * @see TypeFrame
  * @see TypeMerger

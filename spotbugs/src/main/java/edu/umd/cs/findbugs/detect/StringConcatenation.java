@@ -36,9 +36,8 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 import edu.umd.cs.findbugs.visitclass.DismantleBytecode;
 
 /**
- * Find occurrences of using the String "+" or "+=" operators within a loop.
- * This is much less efficient than creating a dedicated StringBuffer object
- * outside the loop, and then appending to it.
+ * Find occurrences of using the String "+" or "+=" operators within a loop. This is much less efficient than creating a
+ * dedicated StringBuffer object outside the loop, and then appending to it.
  *
  * @author Dave Brosius
  * @author William Pugh
@@ -237,7 +236,8 @@ public class StringConcatenation extends OpcodeStackDetector implements Stateles
             // one sourceforge bug (Bug1811106) pointed out that for
             // do/while loops, it may be a if_icmpge. I generalized
             // it to any branch.
-            if (DismantleBytecode.isBranch(seen) && (getPC() - getBranchTarget()) < 300 && getBranchTarget() <= createPC) {
+            if (DismantleBytecode.isBranch(seen) && (getPC() - getBranchTarget()) < 300
+                    && getBranchTarget() <= createPC) {
 
                 // Next check: was the destination register clobbered
                 // elsewhere in this loop?
@@ -285,8 +285,8 @@ public class StringConcatenation extends OpcodeStackDetector implements Stateles
                 && "(Ljava/lang/Object;)Ljava/lang/String;".equals(getSigConstantOperand())) {
         }
         if (DEBUG && state != oldState) {
-            System.out.println("At PC " + getPC() + " changing from state " + oldState + " to state " + state + ", regOnStack = "
-                    + getRegisterOnStack());
+            System.out.println("At PC " + getPC() + " changing from state " + oldState + " to state " + state
+                    + ", regOnStack = " + getRegisterOnStack());
         }
     }
 }

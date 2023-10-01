@@ -114,7 +114,8 @@ public class MultipleInstantiationsOfSingletons extends OpcodeStackDetector {
             isCloneable = java.util.stream.Stream.of(interfaces).anyMatch(i -> i.equals(cloneableInterface));
             isSerializable = java.util.stream.Stream.of(interfaces).anyMatch(i -> i.equals(serializableInterface));
 
-            implementsCloneableDirectly = java.util.stream.Stream.of(obj.getInterfaces()).anyMatch(i -> i.equals(cloneableInterface));
+            implementsCloneableDirectly = java.util.stream.Stream.of(obj.getInterfaces())
+                    .anyMatch(i -> i.equals(cloneableInterface));
         } catch (ClassNotFoundException e) {
             bugReporter.reportMissingClass(e);
         }
@@ -125,7 +126,8 @@ public class MultipleInstantiationsOfSingletons extends OpcodeStackDetector {
     @Override
     public void visit(Method obj) {
         if ("clone".equals(getMethodName()) && "()Ljava/lang/Object;".equals(getMethodSig())) {
-            cloneOnlyThrowsException = PruneUnconditionalExceptionThrowerEdges.doesMethodUnconditionallyThrowException(getXMethod());
+            cloneOnlyThrowsException = PruneUnconditionalExceptionThrowerEdges
+                    .doesMethodUnconditionallyThrowException(getXMethod());
             cloneMethod = getXMethod();
         }
 
@@ -151,8 +153,10 @@ public class MultipleInstantiationsOfSingletons extends OpcodeStackDetector {
                         try {
                             ValueNumberDataflow vnaDataflow = getClassContext().getValueNumberDataflow(getMethod());
                             IsNullValueDataflow invDataflow = getClassContext().getIsNullValueDataflow(getMethod());
-                            ValueNumberFrame vFrame = vnaDataflow.getAnalysis().getFactAtPC(vnaDataflow.getCFG(), getPC());
-                            IsNullValueFrame iFrame = invDataflow.getAnalysis().getFactAtPC(invDataflow.getCFG(), getPC());
+                            ValueNumberFrame vFrame = vnaDataflow.getAnalysis().getFactAtPC(vnaDataflow.getCFG(),
+                                    getPC());
+                            IsNullValueFrame iFrame = invDataflow.getAnalysis().getFactAtPC(invDataflow.getCFG(),
+                                    getPC());
                             AvailableLoad l = new AvailableLoad(field);
                             ValueNumber[] availableLoads = vFrame.getAvailableLoad(l);
                             if (availableLoads != null && iFrame.isTrackValueNumbers()) {
@@ -165,15 +169,18 @@ public class MultipleInstantiationsOfSingletons extends OpcodeStackDetector {
                             }
 
                         } catch (DataflowAnalysisException | CFGBuilderException e) {
-                            bugReporter.logError(String.format("Detector %s caught an exception while analyzing %s.",
-                                    this.getClass().getName(), getClassContext().getJavaClass().getClassName()), e);
+                            bugReporter.logError(
+                                    String.format("Detector %s caught an exception while analyzing %s.",
+                                            this.getClass().getName(), getClassContext().getJavaClass().getClassName()),
+                                    e);
                         }
                     }
                 }
             }
         } else if (seen == Const.ATHROW && "clone".equals(getMethodName()) && stack.getStackDepth() > 0) {
             OpcodeStack.Item item = stack.getStackItem(0);
-            if (item != null && cloneOnlyThrowsException && "Ljava/lang/CloneNotSupportedException;".equals(item.getSignature())) {
+            if (item != null && cloneOnlyThrowsException
+                    && "Ljava/lang/CloneNotSupportedException;".equals(item.getSignature())) {
                 cloneOnlyThrowsCloneNotSupportedException = true;
             }
         } else if (seen == Const.ARETURN && stack.getStackDepth() > 0) {
@@ -191,14 +198,16 @@ public class MultipleInstantiationsOfSingletons extends OpcodeStackDetector {
                         && Const.CONSTRUCTOR_NAME.equals(calledMethod.getName())
                         && calledMethod.getClassName().equals(getDottedClassName())
                         && getClassName().equals(calledMethodReturnType)
-                        && !Const.CONSTRUCTOR_NAME.equals(getMethodName()) && !Const.STATIC_INITIALIZER_NAME.equals(getMethodName())
+                        && !Const.CONSTRUCTOR_NAME.equals(getMethodName())
+                        && !Const.STATIC_INITIALIZER_NAME.equals(getMethodName())
                         && !("clone".equals(getMethodName()) && "()Ljava/lang/Object;".equals(getMethodSig()))) {
                     hasNoFactoryMethod = false;
                 }
             }
         } else if (seen == Const.MONITORENTER) {
             methodsUsingMonitor.add(getXMethod());
-        } else if (seen == Const.INVOKEVIRTUAL || seen == Const.INVOKESPECIAL || seen == Const.INVOKESTATIC || seen == Const.INVOKEINTERFACE) {
+        } else if (seen == Const.INVOKEVIRTUAL || seen == Const.INVOKESPECIAL || seen == Const.INVOKESTATIC
+                || seen == Const.INVOKEINTERFACE) {
             if (!calledMethodsByMethods.containsKey(getXMethod())) {
                 calledMethodsByMethods.put(getXMethod(), new ArrayList<>());
             }
@@ -225,39 +234,41 @@ public class MultipleInstantiationsOfSingletons extends OpcodeStackDetector {
         // - has an instance getter method
         // - the instance field is either eagerly or lazily initialized
 
-        if (!(hasSingletonPostFix
-                || (isInstanceAssignOk && hasNoFactoryMethod && instanceGetterMethod != null
-                        && (isInstanceFieldEagerlyInitialized || isInstanceFieldLazilyInitialized)
-                        && !javaClass.isAbstract() && !javaClass.isInterface() && !javaClass.isRecord()))) {
+        if (!(hasSingletonPostFix || (isInstanceAssignOk && hasNoFactoryMethod && instanceGetterMethod != null
+                && (isInstanceFieldEagerlyInitialized || isInstanceFieldLazilyInitialized) && !javaClass.isAbstract()
+                && !javaClass.isInterface() && !javaClass.isRecord()))) {
             return;
         }
 
         for (Method m : javaClass.getMethods()) {
             if (Const.CONSTRUCTOR_NAME.equals(m.getName()) && !m.isPrivate()) {
-                bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR", NORMAL_PRIORITY)
-                        .addClass(this)
-                        .addMethod(javaClass, m));
+                bugReporter
+                        .reportBug(new BugInstance(this, "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR", NORMAL_PRIORITY)
+                                .addClass(this).addMethod(javaClass, m));
 
                 break;
             }
         }
 
-        if (instanceGetterMethod != null && isInstanceFieldLazilyInitialized && !hasSynchronized(instanceGetterMethod, new HashSet<>())) {
-            bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", NORMAL_PRIORITY).addClass(this)
-                    .addMethod(instanceGetterMethod));
+        if (instanceGetterMethod != null && isInstanceFieldLazilyInitialized
+                && !hasSynchronized(instanceGetterMethod, new HashSet<>())) {
+            bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", NORMAL_PRIORITY)
+                    .addClass(this).addMethod(instanceGetterMethod));
         }
 
         if (!cloneOnlyThrowsCloneNotSupportedException) { // no or not only CloneNotSupportedException
             if (isCloneable) {
                 if (implementsCloneableDirectly) { // directly
-                    bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_IMPLEMENTS_CLONEABLE", NORMAL_PRIORITY).addClass(this)
-                            .addMethod(cloneMethod));
+                    bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_IMPLEMENTS_CLONEABLE", NORMAL_PRIORITY)
+                            .addClass(this).addMethod(cloneMethod));
                 } else { // indirectly
-                    bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_INDIRECTLY_IMPLEMENTS_CLONEABLE", NORMAL_PRIORITY).addClass(this));
+                    bugReporter.reportBug(
+                            new BugInstance(this, "SING_SINGLETON_INDIRECTLY_IMPLEMENTS_CLONEABLE", NORMAL_PRIORITY)
+                                    .addClass(this));
                 }
             } else if (cloneMethod != null) {
-                bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_IMPLEMENTS_CLONE_METHOD", NORMAL_PRIORITY).addClass(this)
-                        .addMethod(cloneMethod));
+                bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_IMPLEMENTS_CLONE_METHOD", NORMAL_PRIORITY)
+                        .addClass(this).addMethod(cloneMethod));
             }
         }
 
@@ -265,10 +276,13 @@ public class MultipleInstantiationsOfSingletons extends OpcodeStackDetector {
             if (javaClass.isEnum()) {
                 int numberOfEnumValues = getNumberOfEnumValues(javaClass);
                 if (numberOfEnumValues > 1) {
-                    bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_IMPLEMENTS_SERIALIZABLE", NORMAL_PRIORITY).addClass(this));
+                    bugReporter
+                            .reportBug(new BugInstance(this, "SING_SINGLETON_IMPLEMENTS_SERIALIZABLE", NORMAL_PRIORITY)
+                                    .addClass(this));
                 }
             } else {
-                bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_IMPLEMENTS_SERIALIZABLE", NORMAL_PRIORITY).addClass(this));
+                bugReporter.reportBug(new BugInstance(this, "SING_SINGLETON_IMPLEMENTS_SERIALIZABLE", NORMAL_PRIORITY)
+                        .addClass(this));
             }
         }
 
@@ -276,8 +290,12 @@ public class MultipleInstantiationsOfSingletons extends OpcodeStackDetector {
     }
 
     /**
-     * @param method The method we are checking
-     * @param visitedMethods The set of methods we have already visited, to break recursion when methods are called recursively. To be initially empty.
+     * @param method
+     *            The method we are checking
+     * @param visitedMethods
+     *            The set of methods we have already visited, to break recursion when methods are called recursively. To
+     *            be initially empty.
+     *
      * @return true if the method (or one of the methods called recursively) is synchronized or uses a monitor.
      */
     private boolean hasSynchronized(XMethod method, Set<XMethod> visitedMethods) {
@@ -310,9 +328,12 @@ public class MultipleInstantiationsOfSingletons extends OpcodeStackDetector {
             return result.length;
         } catch (ClassNotFoundException e) {
             bugReporter.reportMissingClass(e);
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            bugReporter.logError(String.format("Detector %s caught an exception while determining the number of enum values of %s.",
-                    this.getClass().getName(), javaClass.getClassName()), e);
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e) {
+            bugReporter.logError(
+                    String.format("Detector %s caught an exception while determining the number of enum values of %s.",
+                            this.getClass().getName(), javaClass.getClassName()),
+                    e);
         }
         return 0;
     }

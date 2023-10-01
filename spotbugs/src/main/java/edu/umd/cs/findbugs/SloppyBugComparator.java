@@ -24,8 +24,8 @@ import edu.umd.cs.findbugs.model.ClassNameRewriterUtil;
 import edu.umd.cs.findbugs.model.IdentityClassNameRewriter;
 
 /**
- * Very sloppy bug comparator: if the warnings are of the same type, and in the
- * same class/method/field, assume they are the same.
+ * Very sloppy bug comparator: if the warnings are of the same type, and in the same class/method/field, assume they are
+ * the same.
  *
  * @author David Hovemeyer
  */
@@ -58,6 +58,7 @@ public class SloppyBugComparator implements WarningComparator {
      *            left hand class annotation
      * @param rhs
      *            right hand class annotation
+     *
      * @return comparison of the class annotations
      */
     private int compareClassesAllowingNull(ClassAnnotation lhs, ClassAnnotation rhs) {
@@ -160,9 +161,7 @@ public class SloppyBugComparator implements WarningComparator {
     }
 
     /*
-    private static String getAbbrevFromBugType(String type) {
-        int bar = type.indexOf('_');
-        return (bar >= 0) ? type.substring(0, bar) : "";
-    }
+     * private static String getAbbrevFromBugType(String type) { int bar = type.indexOf('_'); return (bar >= 0) ?
+     * type.substring(0, bar) : ""; }
      */
 }

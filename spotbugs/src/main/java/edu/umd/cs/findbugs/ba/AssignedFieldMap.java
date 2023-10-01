@@ -21,73 +21,56 @@ package edu.umd.cs.findbugs.ba;
 
 public class AssignedFieldMap {
     /*
-     * private final Map<Method, Set<XField>> assignedFieldSetForMethodMap;
-     * private final JavaClass myClass;
+     * private final Map<Method, Set<XField>> assignedFieldSetForMethodMap; private final JavaClass myClass;
      *
-     * public AssignedFieldMap(JavaClass jclass) {
-     * this.assignedFieldSetForMethodMap = new IdentityHashMap<Method,
+     * public AssignedFieldMap(JavaClass jclass) { this.assignedFieldSetForMethodMap = new IdentityHashMap<Method,
      * Set<XField>>(); this.myClass = jclass; }
      *
-     * public void build() throws ClassNotFoundException { // Build a set of all
-     * fields that could be assigned // by methods in this class Set<XField>
-     * assignableFieldSet = new HashSet<XField>(); scanFields(myClass,
-     * assignableFieldSet); JavaClass[] superClassList =
-     * myClass.getSuperClasses(); if (superClassList != null) { for (JavaClass
-     * aSuperClassList : superClassList) { scanFields(aSuperClassList,
-     * assignableFieldSet); } }
+     * public void build() throws ClassNotFoundException { // Build a set of all fields that could be assigned // by
+     * methods in this class Set<XField> assignableFieldSet = new HashSet<XField>(); scanFields(myClass,
+     * assignableFieldSet); JavaClass[] superClassList = myClass.getSuperClasses(); if (superClassList != null) { for
+     * (JavaClass aSuperClassList : superClassList) { scanFields(aSuperClassList, assignableFieldSet); } }
      *
-     * Method[] methodList = myClass.getMethods(); for (Method method :
-     * methodList) {
+     * Method[] methodList = myClass.getMethods(); for (Method method : methodList) {
      *
      * scanMethod(method, assignableFieldSet); } }
      *
-     * public Set<XField> getAssignedFieldSetForMethod(Method method) {
-     * Set<XField> set = assignedFieldSetForMethodMap.get(method); if (set ==
-     * null) { set = new HashSet<XField>();
+     * public Set<XField> getAssignedFieldSetForMethod(Method method) { Set<XField> set =
+     * assignedFieldSetForMethodMap.get(method); if (set == null) { set = new HashSet<XField>();
      * assignedFieldSetForMethodMap.put(method, set); } return set; }
      *
-     * private void scanFields(JavaClass jclass, Set<XField> assignableFieldSet)
-     * { // JavaClass myClass = classContext.getJavaClass(); String myClassName
-     * = myClass.getClassName(); String myPackageName =
+     * private void scanFields(JavaClass jclass, Set<XField> assignableFieldSet) { // JavaClass myClass =
+     * classContext.getJavaClass(); String myClassName = myClass.getClassName(); String myPackageName =
      * myClass.getPackageName();
      *
-     * String superClassName = jclass.getClassName(); String superPackageName =
-     * jclass.getPackageName();
+     * String superClassName = jclass.getClassName(); String superPackageName = jclass.getPackageName();
      *
-     * Field[] fieldList = jclass.getFields(); for (Field field : fieldList) {
-     * if (field.isStatic()) continue; boolean assignable; if (field.isPublic()
-     * || field.isProtected()) assignable = true; else if (field.isPrivate())
-     * assignable = myClassName.equals(superClassName); else // package
-     * protected assignable = myPackageName.equals(superPackageName);
+     * Field[] fieldList = jclass.getFields(); for (Field field : fieldList) { if (field.isStatic()) continue; boolean
+     * assignable; if (field.isPublic() || field.isProtected()) assignable = true; else if (field.isPrivate())
+     * assignable = myClassName.equals(superClassName); else // package protected assignable =
+     * myPackageName.equals(superPackageName);
      *
-     * if (assignable) { assignableFieldSet.add(new
-     * InstanceField(superClassName, field.getName(), field.getSignature(),
+     * if (assignable) { assignableFieldSet.add(new InstanceField(superClassName, field.getName(), field.getSignature(),
      * field.getAccessFlags())); } } }
      *
-     * private void scanMethod(Method method, Set<XField> assignableFieldSet)
-     * throws ClassNotFoundException { //MethodGen methodGen =
-     * classContext.getMethodGen(method);
+     * private void scanMethod(Method method, Set<XField> assignableFieldSet) throws ClassNotFoundException {
+     * //MethodGen methodGen = classContext.getMethodGen(method);
      *
-     * MethodGen methodGen; try { methodGen=
-     * Global.getAnalysisCache().getMethodAnalysis(MethodGen.class,
-     * BCELUtil.getMethodDescriptor(myClass, method)); } catch
-     * (CheckedAnalysisException e) { // Should not happen throw new
-     * AnalysisException("Could not get MethodGen for Method", e); }
+     * MethodGen methodGen; try { methodGen= Global.getAnalysisCache().getMethodAnalysis(MethodGen.class,
+     * BCELUtil.getMethodDescriptor(myClass, method)); } catch (CheckedAnalysisException e) { // Should not happen throw
+     * new AnalysisException("Could not get MethodGen for Method", e); }
      *
-     * if (methodGen == null) return; InstructionList il =
-     * methodGen.getInstructionList(); InstructionHandle handle = il.getStart();
+     * if (methodGen == null) return; InstructionList il = methodGen.getInstructionList(); InstructionHandle handle =
+     * il.getStart();
      *
      * ConstantPoolGen cpg = methodGen.getConstantPool();
      *
-     * while (handle != null) { Instruction ins = handle.getInstruction(); short
-     * opcode = ins.getOpcode(); if (opcode == Const.PUTFIELD) { PUTFIELD
-     * putfield = (PUTFIELD) ins;
+     * while (handle != null) { Instruction ins = handle.getInstruction(); short opcode = ins.getOpcode(); if (opcode ==
+     * Const.PUTFIELD) { PUTFIELD putfield = (PUTFIELD) ins;
      *
-     * XField instanceField = Hierarchy.findXField(putfield, cpg); if
-     * (instanceField != null && assignableFieldSet.contains(instanceField)) {
-     * Set<XField> assignedFieldSetForMethod =
-     * getAssignedFieldSetForMethod(method);
-     * assignedFieldSetForMethod.add(instanceField); } }
+     * XField instanceField = Hierarchy.findXField(putfield, cpg); if (instanceField != null &&
+     * assignableFieldSet.contains(instanceField)) { Set<XField> assignedFieldSetForMethod =
+     * getAssignedFieldSetForMethod(method); assignedFieldSetForMethod.add(instanceField); } }
      *
      * handle = handle.getNext(); } }
      */

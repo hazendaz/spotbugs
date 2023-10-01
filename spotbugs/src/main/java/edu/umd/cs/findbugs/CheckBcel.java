@@ -25,13 +25,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Check that the BCEL classes present seem to be the right ones. Specifically,
- * we check whether the ones extended in FindBugs code are non-final. The
- * following BCEL classes are extended in FindBugs code:
+ * Check that the BCEL classes present seem to be the right ones. Specifically, we check whether the ones extended in
+ * FindBugs code are non-final. The following BCEL classes are extended in FindBugs code:
  *
- * org.apache.bcel.generic.ObjectType; org.apache.bcel.generic.Type;
- * org.apache.bcel.Constants; org.apache.bcel.classfile.EmptyVisitor
- * org.apache.bcel.Repository;
+ * org.apache.bcel.generic.ObjectType; org.apache.bcel.generic.Type; org.apache.bcel.Constants;
+ * org.apache.bcel.classfile.EmptyVisitor org.apache.bcel.Repository;
  *
  * @author langmead
  */
@@ -54,6 +52,7 @@ public class CheckBcel {
      *
      * @param c
      *            the class to check
+     *
      * @return true iff Class is declared final
      */
     private static boolean isFinal(Class<?> c) {
@@ -75,9 +74,8 @@ public class CheckBcel {
     }
 
     /**
-     * Check that the BCEL classes present seem to be the right ones.
-     * Specifically, we check whether the ones extended in FindBugs code are
-     * non-final.
+     * Check that the BCEL classes present seem to be the right ones. Specifically, we check whether the ones extended
+     * in FindBugs code are non-final.
      *
      * @return true iff all checks passed
      */

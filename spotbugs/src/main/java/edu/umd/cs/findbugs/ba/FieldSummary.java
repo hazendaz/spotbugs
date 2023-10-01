@@ -145,7 +145,7 @@ public class FieldSummary {
     public Set<XField> getFieldsWritten(@Nullable XMethod method) {
         Set<XField> result = fieldsWritten.get(method);
         if (result == null) {
-            return Collections.<XField>emptySet();
+            return Collections.<XField> emptySet();
         }
         return result;
     }

@@ -33,21 +33,24 @@ import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.plugin.eclipse.quickfix.exception.BugResolutionException;
 
 /**
- * Statements that are useless should be removed from the code. The
- * <CODE>RemoveUselessStatementResolution</CODE> removes such statements.
+ * Statements that are useless should be removed from the code. The <CODE>RemoveUselessStatementResolution</CODE>
+ * removes such statements.
  *
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#SA_FIELD_SELF_ASSIGNMENT">SA_FIELD_SELF_ASSIGNMENT</a>
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#SA_LOCAL_SELF_ASSIGNMENT">SA_LOCAL_SELF_ASSIGNMENT</a>
+ * @see <a href=
+ *      "http://findbugs.sourceforge.net/bugDescriptions.html#SA_FIELD_SELF_ASSIGNMENT">SA_FIELD_SELF_ASSIGNMENT</a>
+ * @see <a href=
+ *      "http://findbugs.sourceforge.net/bugDescriptions.html#SA_LOCAL_SELF_ASSIGNMENT">SA_LOCAL_SELF_ASSIGNMENT</a>
+ *
  * @author <a href="mailto:mbusarel@hsr.ch">Marco Busarello</a>
  * @author <a href="mailto:twyss@hsr.ch">Thierry Wyss</a>
+ *
  * @version 1.0
  */
 public class RemoveUselessStatementResolution extends BugResolution {
 
     @Override
-    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug) throws BugResolutionException {
+    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug)
+            throws BugResolutionException {
         Assert.isNotNull(rewrite);
         Assert.isNotNull(workingUnit);
         Assert.isNotNull(bug);

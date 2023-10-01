@@ -34,6 +34,7 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
  * A BugAnnotation object specifying a Java class involved in the bug.
  *
  * @author David Hovemeyer
+ *
  * @see BugAnnotation
  * @see BugInstance
  */
@@ -57,7 +58,6 @@ public class ClassAnnotation extends PackageMemberAnnotation {
     public static final String ANNOTATION_ROLE = "CLASS_ANNOTATION";
 
     public static final String TYPE_QUALIFIER_ROLE = "CLASS_TYPE_QUALIFIER";
-
 
     /**
      * Constructor.
@@ -83,6 +83,7 @@ public class ClassAnnotation extends PackageMemberAnnotation {
      *
      * @param classDescriptor
      *            the ClassDescriptor
+     *
      * @return the ClassAnnotation
      */
     public static ClassAnnotation fromClassDescriptor(ClassDescriptor classDescriptor) {
@@ -160,7 +161,8 @@ public class ClassAnnotation extends PackageMemberAnnotation {
         return sourceLines;
     }
 
-    public static SourceLineAnnotation getSourceLinesForClass(@DottedClassName String className, String sourceFileName) {
+    public static SourceLineAnnotation getSourceLinesForClass(@DottedClassName String className,
+            String sourceFileName) {
 
         // Create source line annotation for class on demand
 
@@ -175,13 +177,13 @@ public class ClassAnnotation extends PackageMemberAnnotation {
         if (classLine == null) {
             return SourceLineAnnotation.getSourceAnnotationForClass(className, sourceFileName);
         } else {
-            return new SourceLineAnnotation(className, sourceFileName, classLine.getStart(), classLine.getEnd(), -1, -1);
+            return new SourceLineAnnotation(className, sourceFileName, classLine.getStart(), classLine.getEnd(), -1,
+                    -1);
         }
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * XML Conversion support
+     * ---------------------------------------------------------------------- XML Conversion support
      * ----------------------------------------------------------------------
      */
 

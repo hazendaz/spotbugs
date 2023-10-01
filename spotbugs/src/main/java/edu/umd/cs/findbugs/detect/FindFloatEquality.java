@@ -172,8 +172,8 @@ public class FindFloatEquality extends OpcodeStackDetector implements StatelessD
         case Const.IFEQ:
         case Const.IFNE:
             if (state == SAW_COMP) {
-                SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(getClassContext(), this,
-                        getPC());
+                SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation
+                        .fromVisitedInstruction(getClassContext(), this, getPC());
                 if (sourceLineAnnotation != null) {
                     found.add(sourceLineAnnotation);
                 }

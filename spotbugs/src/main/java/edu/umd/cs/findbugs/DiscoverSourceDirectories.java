@@ -46,10 +46,9 @@ import edu.umd.cs.findbugs.classfile.engine.ClassParserUsingASM;
 import edu.umd.cs.findbugs.classfile.impl.ClassFactory;
 
 /**
- * Based on the contents of the application directories/archives in a Project,
- * and a "root" source directory (under which some number of "real" source
- * directories may be located), scan to find the source directories containing
- * the application's source files.
+ * Based on the contents of the application directories/archives in a Project, and a "root" source directory (under
+ * which some number of "real" source directories may be located), scan to find the source directories containing the
+ * application's source files.
  *
  * @author David Hovemeyer
  */
@@ -67,8 +66,7 @@ public class DiscoverSourceDirectories {
     private final List<String> discoveredSourceDirectoryList;
 
     /**
-     * Progress callback interface for reporting the progress of source
-     * directory discovery.
+     * Progress callback interface for reporting the progress of source directory discovery.
      */
     public interface Progress extends IClassPathBuilderProgress {
         public void startRecursiveDirectorySearch();
@@ -168,8 +166,7 @@ public class DiscoverSourceDirectories {
     }
 
     /**
-     * Set the "root" source directory: we expect all of the actual source
-     * directories to be underneath it.
+     * Set the "root" source directory: we expect all of the actual source directories to be underneath it.
      *
      * @param rootSourceDirectory
      *            the root source directory
@@ -179,8 +176,7 @@ public class DiscoverSourceDirectories {
     }
 
     /**
-     * Set the error logger to use to report errors during scanning. By default,
-     * a no-op error logger is used.
+     * Set the error logger to use to report errors during scanning. By default, a no-op error logger is used.
      *
      * @param errorLogger
      *            error logger to use to report errors during scanning
@@ -200,8 +196,7 @@ public class DiscoverSourceDirectories {
     }
 
     /**
-     * Get the list of discovered source directories. These can be added to a
-     * Project.
+     * Get the list of discovered source directories. These can be added to a Project.
      *
      * @return list of discovered source directories.
      */
@@ -249,8 +244,8 @@ public class DiscoverSourceDirectories {
         }
     }
 
-    private IClassPath buildClassPath(IClassPathBuilder builder, IClassFactory factory) throws InterruptedException, IOException,
-            CheckedAnalysisException {
+    private IClassPath buildClassPath(IClassPathBuilder builder, IClassFactory factory)
+            throws InterruptedException, IOException, CheckedAnalysisException {
 
         progress.startScanningArchives(project.getFileCount());
 
@@ -271,15 +266,15 @@ public class DiscoverSourceDirectories {
         return classPath;
     }
 
-    private String findFullyQualifiedSourceFileName(IClassPath classPath, ClassDescriptor classDesc) throws IOException,
-            CheckedAnalysisException {
+    private String findFullyQualifiedSourceFileName(IClassPath classPath, ClassDescriptor classDesc)
+            throws IOException, CheckedAnalysisException {
         try {
             // Open and parse the class file to attempt
             // to discover the source file name.
             ICodeBaseEntry codeBaseEntry = classPath.lookupResource(classDesc.toResourceName());
 
-            ClassParserUsingASM classParser = new ClassParserUsingASM(new ClassReader(codeBaseEntry.openResource()), classDesc,
-                    codeBaseEntry);
+            ClassParserUsingASM classParser = new ClassParserUsingASM(new ClassReader(codeBaseEntry.openResource()),
+                    classDesc, codeBaseEntry);
 
             ClassInfo.Builder classInfoBuilder = new ClassInfo.Builder();
             classParser.parse(classInfoBuilder);
@@ -366,7 +361,8 @@ public class DiscoverSourceDirectories {
      */
     public static void main(String[] args) throws IOException, CheckedAnalysisException, InterruptedException {
         if (args.length != 2) {
-            System.err.println("Usage: " + DiscoverSourceDirectories.class.getName() + " <project file> <root source dir>");
+            System.err.println(
+                    "Usage: " + DiscoverSourceDirectories.class.getName() + " <project file> <root source dir>");
             System.exit(1);
         }
 

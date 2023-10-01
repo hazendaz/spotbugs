@@ -24,8 +24,7 @@ class Issue1642Test extends AbstractIntegrationTest {
         assertBugAtField("NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR", "Issue1642", "x");
 
         BugInstanceMatcher fieldYMatcher = new BugInstanceMatcherBuilder()
-                .bugType("NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-                .atField("y").build();
+                .bugType("NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR").atField("y").build();
         // y is matched twice, once on the field and once in the constructor
         assertThat(getBugCollection(), containsExactly(2, fieldYMatcher));
     }

@@ -34,7 +34,8 @@ import edu.umd.cs.findbugs.ba.ClassContext;
 import edu.umd.cs.findbugs.bcel.BCELUtil;
 import edu.umd.cs.findbugs.visitclass.AnnotationVisitor;
 
-public class NoteAnnotationRetention extends AnnotationVisitor implements Detector, NonReportingDetector, FirstPassDetector {
+public class NoteAnnotationRetention extends AnnotationVisitor
+        implements Detector, NonReportingDetector, FirstPassDetector {
 
     private boolean runtimeRetention;
 

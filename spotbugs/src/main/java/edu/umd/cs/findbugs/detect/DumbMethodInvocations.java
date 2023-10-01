@@ -32,13 +32,12 @@ import edu.umd.cs.findbugs.detect.BuildStringPassthruGraph.MethodParameter;
 import edu.umd.cs.findbugs.detect.BuildStringPassthruGraph.StringPassthruDatabase;
 
 public class DumbMethodInvocations implements Detector {
-    private static final MethodDescriptor STRING_SUBSTRING =
-            new MethodDescriptor("java/lang/String", "substring", "(I)Ljava/lang/String;");
-    private static final MethodDescriptor STRINGBUILDER_SUBSTRING =
-            new MethodDescriptor("java/lang/StringBuilder", "substring", "(I)Ljava/lang/String;");
-    private static final MethodDescriptor STRINGBUFFER_SUBSTRING =
-            new MethodDescriptor("java/lang/StringBuffer", "substring", "(I)Ljava/lang/String;");
-
+    private static final MethodDescriptor STRING_SUBSTRING = new MethodDescriptor("java/lang/String", "substring",
+            "(I)Ljava/lang/String;");
+    private static final MethodDescriptor STRINGBUILDER_SUBSTRING = new MethodDescriptor("java/lang/StringBuilder",
+            "substring", "(I)Ljava/lang/String;");
+    private static final MethodDescriptor STRINGBUFFER_SUBSTRING = new MethodDescriptor("java/lang/StringBuffer",
+            "substring", "(I)Ljava/lang/String;");
 
     private final BugReporter bugReporter;
 
@@ -53,9 +52,11 @@ public class DumbMethodInvocations implements Detector {
 
         StringPassthruDatabase database = Global.getAnalysisCache().getDatabase(StringPassthruDatabase.class);
         allFileNameStringMethods = database.getFileNameStringMethods();
-        allDatabasePasswordMethods = database.findLinkedMethods(Collections.singleton(new MethodParameter(new MethodDescriptor(
-                "java/sql/DriverManager", "getConnection",
-                "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;", true), 2)));
+        allDatabasePasswordMethods = database
+                .findLinkedMethods(Collections.singleton(new MethodParameter(
+                        new MethodDescriptor("java/sql/DriverManager", "getConnection",
+                                "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;", true),
+                        2)));
     }
 
     @Override
@@ -82,7 +83,8 @@ public class DumbMethodInvocations implements Detector {
         }
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         CFG cfg = classContext.getCFG(method);
         ConstantDataflow constantDataflow = classContext.getConstantDataflow(method);
         ConstantPoolGen cpg = classContext.getConstantPoolGen();
@@ -113,19 +115,23 @@ public class DumbMethodInvocations implements Detector {
                     if (operandValue.isConstantString()) {
                         String password = operandValue.getConstantString();
                         if (password.isEmpty()) {
-                            bugAccumulator.accumulateBug(new BugInstance(this, "DMI_EMPTY_DB_PASSWORD", NORMAL_PRIORITY)
-                                    .addClassAndMethod(methodGen, sourceFile), classContext, methodGen, sourceFile, location);
+                            bugAccumulator
+                                    .accumulateBug(
+                                            new BugInstance(this, "DMI_EMPTY_DB_PASSWORD", NORMAL_PRIORITY)
+                                                    .addClassAndMethod(methodGen, sourceFile),
+                                            classContext, methodGen, sourceFile, location);
                         } else {
-                            bugAccumulator.accumulateBug(new BugInstance(this, "DMI_CONSTANT_DB_PASSWORD", NORMAL_PRIORITY)
-                                    .addClassAndMethod(methodGen, sourceFile), classContext, methodGen, sourceFile, location);
+                            bugAccumulator.accumulateBug(
+                                    new BugInstance(this, "DMI_CONSTANT_DB_PASSWORD", NORMAL_PRIORITY)
+                                            .addClassAndMethod(methodGen, sourceFile),
+                                    classContext, methodGen, sourceFile, location);
                         }
 
                     }
                 }
             }
 
-            if (md.equals(STRING_SUBSTRING)
-                    || md.equals(STRINGBUILDER_SUBSTRING)
+            if (md.equals(STRING_SUBSTRING) || md.equals(STRINGBUILDER_SUBSTRING)
                     || md.equals(STRINGBUFFER_SUBSTRING)) {
 
                 Constant operandValue = frame.getTopValue();
@@ -139,8 +145,9 @@ public class DumbMethodInvocations implements Detector {
                         bugType = "DMI_MISLEADING_SUBSTRING";
                     }
 
-                    bugAccumulator.accumulateBug(new BugInstance(this, bugType, NORMAL_PRIORITY)
-                            .addClassAndMethod(methodGen, sourceFile), classContext, methodGen, sourceFile, location);
+                    bugAccumulator.accumulateBug(
+                            new BugInstance(this, bugType, NORMAL_PRIORITY).addClassAndMethod(methodGen, sourceFile),
+                            classContext, methodGen, sourceFile, location);
                 }
 
             } else if (allFileNameStringMethods.containsKey(md)) {
@@ -159,9 +166,10 @@ public class DumbMethodInvocations implements Detector {
                         } else if (v.indexOf("/home") >= 0) {
                             priority = HIGH_PRIORITY;
                         }
-                        bugAccumulator.accumulateBug(new BugInstance(this, "DMI_HARDCODED_ABSOLUTE_FILENAME", priority)
-                                .addClassAndMethod(methodGen, sourceFile).addString(v).describe("FILE_NAME"), classContext,
-                                methodGen, sourceFile, location);
+                        bugAccumulator.accumulateBug(
+                                new BugInstance(this, "DMI_HARDCODED_ABSOLUTE_FILENAME", priority)
+                                        .addClassAndMethod(methodGen, sourceFile).addString(v).describe("FILE_NAME"),
+                                classContext, methodGen, sourceFile, location);
                     }
                 }
 

@@ -22,7 +22,6 @@ import org.apache.bcel.Const;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
 
-
 import edu.umd.cs.findbugs.BugAccumulator;
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.BugReporter;
@@ -68,30 +67,28 @@ public class ReflectionIncreaseAccessibility extends OpcodeStackDetector {
                 return;
             }
             XMethod met = getXMethodOperand();
-            if (!securityCheck && obj.isInitialParameter() && obj.getXField() == null &&
-                    "java.lang.Class".equals(cls.getClassName()) &&
-                    "newInstance".equals(met.getName()) &&
-                    "()Ljava/lang/Object;".equals(met.getSignature())) {
-                bugAccumulator.accumulateBug(new BugInstance(this,
-                        "REFLC_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_CLASS", NORMAL_PRIORITY)
-                        .addClassAndMethod(this), this);
-            } else if ("java.lang.Class".equals(cls.getClassName()) &&
-                    "getDeclaredField".equals(met.getName()) &&
-                    "(Ljava/lang/String;)Ljava/lang/reflect/Field;".equals(met.getSignature())) {
+            if (!securityCheck && obj.isInitialParameter() && obj.getXField() == null
+                    && "java.lang.Class".equals(cls.getClassName()) && "newInstance".equals(met.getName())
+                    && "()Ljava/lang/Object;".equals(met.getSignature())) {
+                bugAccumulator.accumulateBug(
+                        new BugInstance(this, "REFLC_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_CLASS", NORMAL_PRIORITY)
+                                .addClassAndMethod(this),
+                        this);
+            } else if ("java.lang.Class".equals(cls.getClassName()) && "getDeclaredField".equals(met.getName())
+                    && "(Ljava/lang/String;)Ljava/lang/reflect/Field;".equals(met.getSignature())) {
                 OpcodeStack.Item param = stack.getStackItem(0);
                 fieldNameUnderGet = param.isInitialParameter() && param.getXField() == null;
-            } else if (!securityCheck && "java.lang.reflect.Field".equals(cls.getClassName()) &&
-                    met.getName().startsWith("set")) {
+            } else if (!securityCheck && "java.lang.reflect.Field".equals(cls.getClassName())
+                    && met.getName().startsWith("set")) {
                 Boolean fieldIsFromParam = (Boolean) obj.getUserValue();
                 if (fieldIsFromParam != null && fieldIsFromParam.booleanValue()) {
-                    bugAccumulator.accumulateBug(new BugInstance(this,
-                            "REFLF_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_FIELD", NORMAL_PRIORITY)
-                            .addClassAndMethod(this), this);
+                    bugAccumulator
+                            .accumulateBug(new BugInstance(this, "REFLF_REFLECTION_MAY_INCREASE_ACCESSIBILITY_OF_FIELD",
+                                    NORMAL_PRIORITY).addClassAndMethod(this), this);
                 }
-            } else if ("java.lang.SecurityManager".equals(cls.getClassName()) &&
-                    "checkPackageAccess".equals(met.getName()) &&
-                    "(Ljava/lang/String;)V".equals(met.getSignature()) &&
-                    getPackageName().equals((String) stack.getStackItem(0).getConstant())) {
+            } else if ("java.lang.SecurityManager".equals(cls.getClassName())
+                    && "checkPackageAccess".equals(met.getName()) && "(Ljava/lang/String;)V".equals(met.getSignature())
+                    && getPackageName().equals((String) stack.getStackItem(0).getConstant())) {
                 securityCheck = true;
             }
         } catch (ClassNotFoundException e) {

@@ -40,9 +40,7 @@ public abstract class FieldPropertyDatabase<Property> extends PropertyDatabase<F
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.interproc.PropertyDatabase#parseKey(java.lang.
-     * String)
+     * @see edu.umd.cs.findbugs.ba.interproc.PropertyDatabase#parseKey(java.lang. String)
      */
     @Override
     protected FieldDescriptor parseKey(String s) throws PropertyDatabaseFormatException {
@@ -61,16 +59,14 @@ public abstract class FieldPropertyDatabase<Property> extends PropertyDatabase<F
             throw new PropertyDatabaseFormatException("Invalid field access flags: " + tuple[3]);
         }
 
-        return DescriptorFactory.instance().getFieldDescriptor(ClassName.toSlashedClassName(className), fieldName, signature,
-                (accessFlags & Const.ACC_STATIC) != 0);
+        return DescriptorFactory.instance().getFieldDescriptor(ClassName.toSlashedClassName(className), fieldName,
+                signature, (accessFlags & Const.ACC_STATIC) != 0);
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.interproc.PropertyDatabase#writeKey(java.io.Writer
-     * , KeyType)
+     * @see edu.umd.cs.findbugs.ba.interproc.PropertyDatabase#writeKey(java.io.Writer , KeyType)
      */
 
     @Override

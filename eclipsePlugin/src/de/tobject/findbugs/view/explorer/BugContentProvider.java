@@ -77,8 +77,7 @@ public class BugContentProvider implements ICommonContentProvider {
     private Object input;
 
     /**
-     * Root group, either empty OR contains BugGroups OR contains Markers (last
-     * one only if the hierarchy is plain list)
+     * Root group, either empty OR contains BugGroups OR contains Markers (last one only if the hierarchy is plain list)
      */
     private BugGroup rootElement;
 
@@ -321,8 +320,8 @@ public class BugContentProvider implements ICommonContentProvider {
      * @param parents
      *            all the common parents
      * @param parent
-     *            "empty" root node, which must be filled in with markers from
-     *            set of given parents
+     *            "empty" root node, which must be filled in with markers from set of given parents
+     *
      * @return
      */
     private synchronized Object[] createChildren(GroupType desiredType, Set<IResource> parents, BugGroup parent) {
@@ -375,12 +374,12 @@ public class BugContentProvider implements ICommonContentProvider {
                     }
                     errorMessages.add(debugDescription);
                     if (FindbugsPlugin.getDefault().isDebugging()) {
-                        FindbugsPlugin.getDefault().logWarning(
-                                "BugContentProvider.createGroups: failed to find " + debugDescription + " for marker on file "
-                                        + marker.getResource());
+                        FindbugsPlugin.getDefault().logWarning("BugContentProvider.createGroups: failed to find "
+                                + debugDescription + " for marker on file " + marker.getResource());
                     }
                 } catch (CoreException e) {
-                    FindbugsPlugin.getDefault().logException(e, "Exception on retrieving debug data for: " + mapper.getType());
+                    FindbugsPlugin.getDefault().logException(e,
+                            "Exception on retrieving debug data for: " + mapper.getType());
                 }
                 continue;
             }
@@ -411,7 +410,8 @@ public class BugContentProvider implements ICommonContentProvider {
     }
 
     private IMarker[] getMarkers(IResource resource) {
-        if ((resource instanceof IProject && !((IProject) resource).isAccessible()) || !resourceFilter.contains(resource)) {
+        if ((resource instanceof IProject && !((IProject) resource).isAccessible())
+                || !resourceFilter.contains(resource)) {
             return EMPTY;
         }
         return MarkerUtil.getAllMarkers(resource);
@@ -456,10 +456,8 @@ public class BugContentProvider implements ICommonContentProvider {
             workingSet = workingSetManager.getWorkingSet(workingSetName);
         } /*
            * else if (PlatformUI.getPreferenceStore().getBoolean(
-           * IWorkbenchPreferenceConstants.USE_WINDOW_WORKING_SET_BY_DEFAULT)) {
-           * // use the window set by default if the global preference is set
-           * workingSet =
-           * PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage
+           * IWorkbenchPreferenceConstants.USE_WINDOW_WORKING_SET_BY_DEFAULT)) { // use the window set by default if the
+           * global preference is set workingSet = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage
            * ().getAggregateWorkingSet(); }
            */
         if (workingSet != null) {
@@ -468,8 +466,8 @@ public class BugContentProvider implements ICommonContentProvider {
     }
 
     /**
-     * @return list of the *visible* parents with changed children to refresh
-     *         the viewer. Returns empty list if the full refresh is needed
+     * @return list of the *visible* parents with changed children to refresh the viewer. Returns empty list if the full
+     *         refresh is needed
      */
     public synchronized Set<BugGroup> updateContent(List<DeltaInfo> deltas) {
         int oldRootSize = rootElement.getChildren().length;
@@ -502,8 +500,7 @@ public class BugContentProvider implements ICommonContentProvider {
                 addMarker(changedMarker, changedParents, patternFilter);
                 break;
             default:
-                FindbugsPlugin.getDefault()
-                        .logWarning("UNKNOWN delta change kind" + delta.changeKind);
+                FindbugsPlugin.getDefault().logWarning("UNKNOWN delta change kind" + delta.changeKind);
 
             }
         }
@@ -550,9 +547,9 @@ public class BugContentProvider implements ICommonContentProvider {
         Identifier id = mapper.getIdentifier(marker);
         if (id == null) {
             if (FindbugsPlugin.getDefault().isDebugging()) {
-                FindbugsPlugin.getDefault().logWarning(
-                        "BugContentProvider.createPatternGroups: " + "Failed to find bug id of type " + mapper.getType()
-                                + " for marker on file " + marker.getResource());
+                FindbugsPlugin.getDefault()
+                        .logWarning("BugContentProvider.createPatternGroups: " + "Failed to find bug id of type "
+                                + mapper.getType() + " for marker on file " + marker.getResource());
             }
             return;
         }
@@ -610,9 +607,8 @@ public class BugContentProvider implements ICommonContentProvider {
     }
 
     /**
-     * @return true if the element is accessible from the content viewer point
-     *         of view. After "go into" action parent elements can became
-     *         inaccessible to the viewer
+     * @return true if the element is accessible from the content viewer point of view. After "go into" action parent
+     *         elements can became inaccessible to the viewer
      */
     public boolean isAccessible(BugGroup group) {
         BugGroup rootGroup;
@@ -703,7 +699,8 @@ public class BugContentProvider implements ICommonContentProvider {
     }
 
     public static BugContentProvider getProvider(INavigatorContentService service) {
-        INavigatorContentExtension extensionById = service.getContentExtensionById(FindbugsPlugin.BUG_CONTENT_PROVIDER_ID);
+        INavigatorContentExtension extensionById = service
+                .getContentExtensionById(FindbugsPlugin.BUG_CONTENT_PROVIDER_ID);
         IContentProvider provider = extensionById.getContentProvider();
         if (provider instanceof BugContentProvider) {
             return (BugContentProvider) provider;

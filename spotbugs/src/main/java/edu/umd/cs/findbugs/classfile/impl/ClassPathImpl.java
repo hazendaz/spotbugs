@@ -68,9 +68,7 @@ public class ClassPathImpl implements IClassPath {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IClassPath#addCodeBase(edu.umd.cs.findbugs
-     * .classfile.ICodeBase)
+     * @see edu.umd.cs.findbugs.classfile.IClassPath#addCodeBase(edu.umd.cs.findbugs .classfile.ICodeBase)
      */
     @Override
     public void addCodeBase(ICodeBase codeBase) {
@@ -137,8 +135,7 @@ public class ClassPathImpl implements IClassPath {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IClassPath#lookupResource(java.lang.String)
+     * @see edu.umd.cs.findbugs.classfile.IClassPath#lookupResource(java.lang.String)
      */
     @Override
     public ICodeBaseEntry lookupResource(String resourceName) throws ResourceNotFoundException {
@@ -176,8 +173,8 @@ public class ClassPathImpl implements IClassPath {
      *            list of codebases to search
      * @param resourceName
      *            name of resource
-     * @return codebase entry for the named resource, or null if the named
-     *         resource cannot be found
+     *
+     * @return codebase entry for the named resource, or null if the named resource cannot be found
      */
     private ICodeBaseEntry search(List<? extends ICodeBase> codeBaseList, String resourceName) {
         for (ICodeBase codeBase : codeBaseList) {
@@ -193,9 +190,8 @@ public class ClassPathImpl implements IClassPath {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IClassPath#mapResourceNameToCodeBaseEntry
-     * (java.lang.String, edu.umd.cs.findbugs.classfile.ICodeBaseEntry)
+     * @see edu.umd.cs.findbugs.classfile.IClassPath#mapResourceNameToCodeBaseEntry (java.lang.String,
+     * edu.umd.cs.findbugs.classfile.ICodeBaseEntry)
      */
     @Override
     public void mapResourceNameToCodeBaseEntry(String resourceName, ICodeBaseEntry codeBaseEntry) {

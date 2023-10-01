@@ -23,6 +23,7 @@ package edu.umd.cs.findbugs.ba.bcp;
  * A Binding binds a name to a Variable.
  *
  * @author David Hovemeyer
+ *
  * @see Variable
  */
 public class Binding {

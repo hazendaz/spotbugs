@@ -43,9 +43,8 @@ import edu.umd.cs.findbugs.bcel.BCELUtil;
 import edu.umd.cs.findbugs.visitclass.DismantleBytecode;
 
 /**
- * Scan methods for directly-relevant type qualifiers, building the
- * DirectlyRelevantTypeQualifiersDatabase. This helps the CheckTypeQualifiers
- * detector figure out which type qualifiers to check for each method.
+ * Scan methods for directly-relevant type qualifiers, building the DirectlyRelevantTypeQualifiersDatabase. This helps
+ * the CheckTypeQualifiers detector figure out which type qualifiers to check for each method.
  */
 public class NoteDirectlyRelevantTypeQualifiers extends DismantleBytecode implements Detector, NonReportingDetector {
 
@@ -80,8 +79,8 @@ public class NoteDirectlyRelevantTypeQualifiers extends DismantleBytecode implem
         super.visit(m);
 
         if (!applicableApplications.isEmpty()) {
-            qualifiers.setDirectlyRelevantTypeQualifiers(getMethodDescriptor(), new ArrayList<>(
-                    applicableApplications));
+            qualifiers.setDirectlyRelevantTypeQualifiers(getMethodDescriptor(),
+                    new ArrayList<>(applicableApplications));
         }
     }
 
@@ -112,7 +111,8 @@ public class NoteDirectlyRelevantTypeQualifiers extends DismantleBytecode implem
         case Const.PUTFIELD: {
             XField f = getXFieldOperand();
             if (f != null) {
-                Collection<TypeQualifierAnnotation> annotations = TypeQualifierApplications.getApplicableApplications(f);
+                Collection<TypeQualifierAnnotation> annotations = TypeQualifierApplications
+                        .getApplicableApplications(f);
                 Analysis.addKnownTypeQualifiers(applicableApplications, annotations);
             }
 

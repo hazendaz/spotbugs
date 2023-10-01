@@ -27,8 +27,8 @@ import org.apache.bcel.classfile.Method;
 import edu.umd.cs.findbugs.util.Util;
 
 /**
- * Compute a hash of the bytecode for given method. This can find methods which
- * have not been changed other than accessing different constant pool entries.
+ * Compute a hash of the bytecode for given method. This can find methods which have not been changed other than
+ * accessing different constant pool entries.
  *
  * @author David Hovemeyer
  */
@@ -104,6 +104,7 @@ public class MethodHash implements Comparable<MethodHash> {
      *
      * @param method
      *            the method
+     *
      * @return this object
      */
     public MethodHash computeHash(Method method) {
@@ -127,11 +128,11 @@ public class MethodHash implements Comparable<MethodHash> {
     }
 
     /**
-     * Return whether or not this method hash has the same value as the one
-     * given.
+     * Return whether or not this method hash has the same value as the one given.
      *
      * @param other
      *            another MethodHash
+     *
      * @return true if the hash values are the same, false if not
      */
     public boolean isSameHash(MethodHash other) {
@@ -181,6 +182,7 @@ public class MethodHash implements Comparable<MethodHash> {
      *
      * @param b
      *            a byte value
+     *
      * @return the unsigned integer value of the byte
      */
     private static int toUnsigned(byte b) {

@@ -24,10 +24,9 @@ import org.apache.bcel.generic.InstructionHandle;
 import edu.umd.cs.findbugs.ba.BasicBlock;
 
 /**
- * PatternElementMatch represents matching a PatternElement against a single
- * instruction. The "prev" field points to the previous PatternElementMatch. By
- * building up sequences of PatternElementMatch objects in this way, we can
- * implement nondeterministic matching without having to copy anything.
+ * PatternElementMatch represents matching a PatternElement against a single instruction. The "prev" field points to the
+ * previous PatternElementMatch. By building up sequences of PatternElementMatch objects in this way, we can implement
+ * nondeterministic matching without having to copy anything.
  */
 public class PatternElementMatch {
     private final PatternElement patternElement;
@@ -50,14 +49,13 @@ public class PatternElementMatch {
      * @param basicBlock
      *            the basic block containing the matched instruction
      * @param matchCount
-     *            the index (starting at zero) of the instructions matching the
-     *            PatternElement; multiple instructions can match the same
-     *            PatternElement
+     *            the index (starting at zero) of the instructions matching the PatternElement; multiple instructions
+     *            can match the same PatternElement
      * @param prev
      *            the previous PatternElementMatch
      */
-    public PatternElementMatch(PatternElement patternElement, InstructionHandle matchedInstruction, BasicBlock basicBlock,
-            int matchCount, PatternElementMatch prev) {
+    public PatternElementMatch(PatternElement patternElement, InstructionHandle matchedInstruction,
+            BasicBlock basicBlock, int matchCount, PatternElementMatch prev) {
         this.patternElement = patternElement;
         this.matchedInstruction = matchedInstruction;
         this.basicBlock = basicBlock;
@@ -87,9 +85,8 @@ public class PatternElementMatch {
     }
 
     /*
-     * Get the index of this instruction in terms of how many instructions have
-     * matched this PatternElement. (0 for the first instruction to match the
-     * PatternElement, etc.)
+     * Get the index of this instruction in terms of how many instructions have matched this PatternElement. (0 for the
+     * first instruction to match the PatternElement, etc.)
      */
     public int getMatchCount() {
         return matchCount;
@@ -103,8 +100,7 @@ public class PatternElementMatch {
     }
 
     /**
-     * Get the <em>first</em> instruction matched by the PatternElement with
-     * given label.
+     * Get the <em>first</em> instruction matched by the PatternElement with given label.
      */
     public InstructionHandle getLabeledInstruction(String label) {
         PatternElementMatch first = getFirstLabeledMatch(label);
@@ -143,8 +139,7 @@ public class PatternElementMatch {
     }
 
     /**
-     * Return whether or not the most recently matched instruction allows
-     * trailing edges.
+     * Return whether or not the most recently matched instruction allows trailing edges.
      */
     public boolean allowTrailingEdges() {
         return patternElement.allowTrailingEdges();

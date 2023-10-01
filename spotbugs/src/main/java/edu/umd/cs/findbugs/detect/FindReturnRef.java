@@ -84,10 +84,10 @@ public class FindReturnRef extends OpcodeStackDetector {
     private final BugAccumulator bugAccumulator;
 
     private static final Pattern BUFFER_CLASS_PATTERN = Pattern.compile("Ljava/nio/[A-Za-z]+Buffer;");
-    private static final Pattern DUPLICATE_METHODS_SIGNATURE_PATTERN =
-            Pattern.compile("\\(\\)Ljava/nio/[A-Za-z]+Buffer;");
-    private static final Pattern WRAP_METHOD_SIGNATURE_PATTERN =
-            Pattern.compile("\\(\\[.\\)Ljava/nio/[A-Za-z]+Buffer;");
+    private static final Pattern DUPLICATE_METHODS_SIGNATURE_PATTERN = Pattern
+            .compile("\\(\\)Ljava/nio/[A-Za-z]+Buffer;");
+    private static final Pattern WRAP_METHOD_SIGNATURE_PATTERN = Pattern
+            .compile("\\(\\[.\\)Ljava/nio/[A-Za-z]+Buffer;");
 
     private enum CaptureKind {
         NONE, REP, ARRAY_CLONE, BUF
@@ -124,7 +124,8 @@ public class FindReturnRef extends OpcodeStackDetector {
                     fieldValues.computeIfAbsent(field, k -> new ArrayList<>());
 
                     if (!currentStack.isTop()) {
-                        // We might be at an instruction eliminated by OpcodeStackScanner, for instance because it is after if(1 != 1)
+                        // We might be at an instruction eliminated by OpcodeStackScanner, for instance because it is
+                        // after if(1 != 1)
                         fieldValues.get(field).add(currentStack.getStackItem(0));
                     }
 
@@ -136,7 +137,8 @@ public class FindReturnRef extends OpcodeStackDetector {
                             // The CFG might have been optimized in BetterCFGBuilder2.optimize() :
                             // The instruction targeters might be removed and some instructions are replaced by noop
                             if (ih.hasTargeters() && lastInstruction != null) {
-                                OpcodeStack prevStack = OpcodeStackScanner.getStackAt(javaClass, m, lastInstruction.getPosition());
+                                OpcodeStack prevStack = OpcodeStackScanner.getStackAt(javaClass, m,
+                                        lastInstruction.getPosition());
                                 if (prevStack.getStackDepth() > 1) {
                                     fieldValues.get(field).add(prevStack.getStackItem(0));
                                 }
@@ -188,12 +190,11 @@ public class FindReturnRef extends OpcodeStackDetector {
             if (capture != CaptureKind.NONE) {
                 bugAccumulator.accumulateBug(
                         new BugInstance(this, "EI_EXPOSE_STATIC_" + (capture == CaptureKind.BUF ? "BUF2" : "REP2"),
-                                capture == CaptureKind.REP ? NORMAL_PRIORITY : LOW_PRIORITY)
-                                .addClassAndMethod(this)
-                                .addReferencedField(this)
-                                .add(LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(),
-                                        top.getRegisterNumber(),
-                                        getPC(), getPC() - 1)), this);
+                                capture == CaptureKind.REP ? NORMAL_PRIORITY : LOW_PRIORITY).addClassAndMethod(this)
+                                        .addReferencedField(this)
+                                        .add(LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(),
+                                                top.getRegisterNumber(), getPC(), getPC() - 1)),
+                        this);
             }
         }
         if (!staticMethod && seen == Const.PUTFIELD && nonPublicFieldOperand()
@@ -204,12 +205,11 @@ public class FindReturnRef extends OpcodeStackDetector {
             if (capture != CaptureKind.NONE && (target.getRegisterNumber() == 0 || isNestedField(target.getXField()))) {
                 bugAccumulator.accumulateBug(
                         new BugInstance(this, "EI_EXPOSE_" + (capture == CaptureKind.BUF ? "BUF2" : "REP2"),
-                                capture == CaptureKind.REP ? NORMAL_PRIORITY : LOW_PRIORITY)
-                                .addClassAndMethod(this)
-                                .addReferencedField(this)
-                                .add(LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(),
-                                        top.getRegisterNumber(),
-                                        getPC(), getPC() - 1)), this);
+                                capture == CaptureKind.REP ? NORMAL_PRIORITY : LOW_PRIORITY).addClassAndMethod(this)
+                                        .addReferencedField(this)
+                                        .add(LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(),
+                                                top.getRegisterNumber(), getPC(), getPC() - 1)),
+                        this);
             }
         }
 
@@ -236,11 +236,8 @@ public class FindReturnRef extends OpcodeStackDetector {
                     isBuf = true;
                 }
             }
-            if (field == null
-                    || !isFieldOf(field, getClassDescriptor())
-                    || field.isPublic()
-                    || AnalysisContext.currentXFactory().isEmptyArrayField(field)
-                    || field.getName().contains("EMPTY")
+            if (field == null || !isFieldOf(field, getClassDescriptor()) || field.isPublic()
+                    || AnalysisContext.currentXFactory().isEmptyArrayField(field) || field.getName().contains("EMPTY")
                     || !MutableClasses.mutableSignature(TypeFrameModelingVisitor.getType(field).getSignature())) {
                 return;
             }
@@ -251,9 +248,9 @@ public class FindReturnRef extends OpcodeStackDetector {
 
             bugAccumulator.accumulateBug(
                     new BugInstance(this, (staticMethod ? "MS" : "EI") + "_EXPOSE_" + (isBuf ? "BUF" : "REP"),
-                            (isBuf || isArrayClone) ? LOW_PRIORITY : NORMAL_PRIORITY)
-                            .addClassAndMethod(this)
-                            .addField(field.getClassName(), field.getName(), field.getSignature(), field.isStatic()), this);
+                            (isBuf || isArrayClone) ? LOW_PRIORITY : NORMAL_PRIORITY).addClassAndMethod(this).addField(
+                                    field.getClassName(), field.getName(), field.getSignature(), field.isStatic()),
+                    this);
 
         }
 

@@ -40,12 +40,12 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * This detector is just a test harness to test a dataflow analysis class
- * specified by the dataflow.classname property.
+ * This detector is just a test harness to test a dataflow analysis class specified by the dataflow.classname property.
  *
  * @author David Hovemeyer
  */
-public class TestDataflowAnalysis<Fact, AnalysisType extends DataflowAnalysis<Fact>> implements Detector2, NonReportingDetector {
+public class TestDataflowAnalysis<Fact, AnalysisType extends DataflowAnalysis<Fact>>
+        implements Detector2, NonReportingDetector {
 
     private final String dataflowClassName;
 
@@ -72,9 +72,7 @@ public class TestDataflowAnalysis<Fact, AnalysisType extends DataflowAnalysis<Fa
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.Detector2#visitClass(edu.umd.cs.findbugs.classfile
-     * .ClassDescriptor)
+     * @see edu.umd.cs.findbugs.Detector2#visitClass(edu.umd.cs.findbugs.classfile .ClassDescriptor)
      */
     @Override
     public void visitClass(ClassDescriptor classDescriptor) throws CheckedAnalysisException {
@@ -137,7 +135,8 @@ public class TestDataflowAnalysis<Fact, AnalysisType extends DataflowAnalysis<Fa
         if (cls == null) {
             // Find the dataflow class from the plugin in which it was loaded
 
-            DetectorFactoryCollection detectorFactoryCollection = analysisCache.getDatabase(DetectorFactoryCollection.class);
+            DetectorFactoryCollection detectorFactoryCollection = analysisCache
+                    .getDatabase(DetectorFactoryCollection.class);
             for (Iterator<Plugin> i = detectorFactoryCollection.pluginIterator(); i.hasNext();) {
                 Plugin plugin = i.next();
 
@@ -156,10 +155,8 @@ public class TestDataflowAnalysis<Fact, AnalysisType extends DataflowAnalysis<Fa
             return;
         }
 
-
         dataflowClass = cls;
     }
-
 
     @SuppressWarnings("unchecked")
     private Class<? extends Dataflow<Fact, AnalysisType>> asDataflowClass(Class<?> c) {

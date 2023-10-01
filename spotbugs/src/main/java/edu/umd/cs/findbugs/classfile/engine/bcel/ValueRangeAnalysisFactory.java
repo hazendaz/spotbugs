@@ -97,13 +97,12 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
         }
     }
 
-    private static final Map<String, TypeLongRange> typeRanges = Map.of(
-            "Z", new TypeLongRange(0, 1, "Z"),
-            "B", new TypeLongRange(Byte.MIN_VALUE, Byte.MAX_VALUE, "B"),
-            "S", new TypeLongRange(Short.MIN_VALUE, Short.MAX_VALUE, "S"),
-            "I", new TypeLongRange(Integer.MIN_VALUE, Integer.MAX_VALUE, "I"),
-            "J", new TypeLongRange(Long.MIN_VALUE, Long.MAX_VALUE, "J"),
-            "C", new TypeLongRange(Character.MIN_VALUE, Character.MAX_VALUE, "C"));
+    private static final Map<String, TypeLongRange> typeRanges = Map.of("Z", new TypeLongRange(0, 1, "Z"), "B",
+            new TypeLongRange(Byte.MIN_VALUE, Byte.MAX_VALUE, "B"), "S",
+            new TypeLongRange(Short.MIN_VALUE, Short.MAX_VALUE, "S"), "I",
+            new TypeLongRange(Integer.MIN_VALUE, Integer.MAX_VALUE, "I"), "J",
+            new TypeLongRange(Long.MIN_VALUE, Long.MAX_VALUE, "J"), "C",
+            new TypeLongRange(Character.MIN_VALUE, Character.MAX_VALUE, "C"));
 
     public static class LongRangeSet implements Iterable<LongRangeSet> {
         private final SortedMap<Long, Long> map = new TreeMap<>();
@@ -188,8 +187,7 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
         public boolean intersects(LongRangeSet other) {
             for (Entry<Long, Long> entry : map.entrySet()) {
                 SortedMap<Long, Long> subMap = entry.getValue() == Long.MAX_VALUE ? other.map.tailMap(entry.getKey())
-                        : other.map
-                                .subMap(entry.getKey(), entry.getValue() + 1);
+                        : other.map.subMap(entry.getKey(), entry.getValue() + 1);
                 if (!subMap.isEmpty()) {
                     return true;
                 }
@@ -326,7 +324,8 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
         final Set<Long> numbers = new HashSet<>();
         final String varName;
 
-        public Branch(String varName, String trueCondition, String falseCondition, LongRangeSet trueSet, Number number) {
+        public Branch(String varName, String trueCondition, String falseCondition, LongRangeSet trueSet,
+                Number number) {
             this.trueSet = trueSet;
             this.trueCondition = fixCondition(trueCondition);
             this.falseCondition = fixCondition(falseCondition);
@@ -379,7 +378,8 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
         final Map<Integer, Value> types;
         final ValueNumberDataflow vnaDataflow;
 
-        public Context(ConstantPool cp, LocalVariableTable lvTable, Map<Integer, Value> types, ValueNumberDataflow vnaDataflow) {
+        public Context(ConstantPool cp, LocalVariableTable lvTable, Map<Integer, Value> types,
+                ValueNumberDataflow vnaDataflow) {
             this.cp = cp;
             this.lvTable = lvTable;
             this.types = types;
@@ -442,7 +442,8 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
                     ConstantNameAndType nameAndType = (ConstantNameAndType) cp.getConstant(desc.getNameAndTypeIndex());
                     String name = ((ConstantUtf8) cp.getConstant(nameAndType.getNameIndex())).getBytes();
                     String signature = ((ConstantUtf8) cp.getConstant(nameAndType.getSignatureIndex())).getBytes();
-                    return new Value(value.name + "." + name, vnaDataflow.getFactAfterLocation(new Location(ih, block)).getStackValue(0), signature);
+                    return new Value(value.name + "." + name,
+                            vnaDataflow.getFactAfterLocation(new Location(ih, block)).getStackValue(0), signature);
                 }
                 return null;
             }
@@ -452,16 +453,19 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
                 String className = cp.getConstantString(desc.getClassIndex(), CONSTANT_Class);
                 String name = ((ConstantUtf8) cp.getConstant(nameAndType.getNameIndex())).getBytes();
                 String signature = ((ConstantUtf8) cp.getConstant(nameAndType.getSignatureIndex())).getBytes();
-                if (className.equals("java/lang/Integer") && name.equals("intValue") && signature.equals("()I") ||
-                        className.equals("java/lang/Long") && name.equals("longValue") && signature.equals("()J") ||
-                        className.equals("java/lang/Short") && name.equals("shortValue") && signature.equals("()S") ||
-                        className.equals("java/lang/Byte") && name.equals("byteValue") && signature.equals("()B") ||
-                        className.equals("java/lang/Boolean") && name.equals("booleanValue") && signature.equals("()Z") ||
-                        className.equals("java/lang/Character") && name.equals("charValue") && signature.equals("()C")) {
+                if (className.equals("java/lang/Integer") && name.equals("intValue") && signature.equals("()I")
+                        || className.equals("java/lang/Long") && name.equals("longValue") && signature.equals("()J")
+                        || className.equals("java/lang/Short") && name.equals("shortValue") && signature.equals("()S")
+                        || className.equals("java/lang/Byte") && name.equals("byteValue") && signature.equals("()B")
+                        || className.equals("java/lang/Boolean") && name.equals("booleanValue")
+                                && signature.equals("()Z")
+                        || className.equals("java/lang/Character") && name.equals("charValue")
+                                && signature.equals("()C")) {
                     Object valueObj = extractValue(iterator, defSignature);
                     if (valueObj instanceof Value) {
                         Value value = (Value) valueObj;
-                        return new Value(value.name, value.vn, String.valueOf(signature.charAt(signature.length() - 1)));
+                        return new Value(value.name, value.vn,
+                                String.valueOf(signature.charAt(signature.length() - 1)));
                     }
                 }
                 if (className.equals("java/lang/String") && name.equals("length") && signature.equals("()I")) {
@@ -490,13 +494,15 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
                     name = lv.getName();
                     signature = lv.getSignature();
                 }
-                return new Value(name, vnaDataflow.getFactAfterLocation(new Location(ih, block)).getStackValue(0), signature);
+                return new Value(name, vnaDataflow.getFactAfterLocation(new Location(ih, block)).getStackValue(0),
+                        signature);
             }
             return inst;
         }
 
         /**
          * @param opcode
+         *
          * @return opcode which returns the same result when arguments are placed in opposite order
          */
         private static short revertOpcode(short opcode) {
@@ -522,7 +528,8 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
             }
         }
 
-        private Condition extractTwoArgCondition(BackIterator iterator, short cmpOpcode, String signature) throws DataflowAnalysisException {
+        private Condition extractTwoArgCondition(BackIterator iterator, short cmpOpcode, String signature)
+                throws DataflowAnalysisException {
             Object val2 = extractValue(iterator, signature);
             if (val2 instanceof Instruction) {
                 return null;
@@ -572,8 +579,9 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
         private final Location liveCodeLocation;
         private final Number number;
 
-        public RedundantCondition(Location location, String trueCondition, boolean hasDeadCode, Location deadCodeLocation,
-                Location liveCodeLocation, String signature, boolean byType, Number number, boolean border) {
+        public RedundantCondition(Location location, String trueCondition, boolean hasDeadCode,
+                Location deadCodeLocation, Location liveCodeLocation, String signature, boolean byType, Number number,
+                boolean border) {
             this.location = location;
             this.trueCondition = trueCondition;
             this.hasDeadCode = hasDeadCode;
@@ -635,7 +643,8 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
     }
 
     @Override
-    public ValueRangeAnalysis analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor) throws CheckedAnalysisException {
+    public ValueRangeAnalysis analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)
+            throws CheckedAnalysisException {
         XMethod xMethod = XFactory.createXMethod(descriptor);
         if (xMethod.isNative() || xMethod.isSynthetic() || xMethod.isAbstract()) {
             return null;
@@ -651,8 +660,9 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
         }
         ClassContext classContext = analysisCache.getClassAnalysis(ClassContext.class, descriptor.getClassDescriptor());
         Method method = analysisCache.getMethodAnalysis(Method.class, descriptor);
-        Context context = new Context(cfg.getMethodGen().getConstantPool().getConstantPool(), method.getCode().getLocalVariableTable(),
-                getParameterTypes(descriptor), classContext.getValueNumberDataflow(method));
+        Context context = new Context(cfg.getMethodGen().getConstantPool().getConstantPool(),
+                method.getCode().getLocalVariableTable(), getParameterTypes(descriptor),
+                classContext.getValueNumberDataflow(method));
         Map<ValueNumber, VariableData> analyzedArguments = new HashMap<>();
         Map<Edge, Branch> allEdges = new IdentityHashMap<>();
         for (Iterator<Edge> edgeIterator = cfg.edgeIterator(); edgeIterator.hasNext();) {
@@ -683,27 +693,33 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
                 switch (condition.opcode) {
                 case IF_ICMPGT:
                 case IFGT:
-                    branch = new Branch(varName, "> " + numberStr, "<= " + numberStr, data.splitSet.gt(number.longValue()), number);
+                    branch = new Branch(varName, "> " + numberStr, "<= " + numberStr,
+                            data.splitSet.gt(number.longValue()), number);
                     break;
                 case IF_ICMPLE:
                 case IFLE:
-                    branch = new Branch(varName, "<= " + numberStr, "> " + numberStr, data.splitSet.le(number.longValue()), number);
+                    branch = new Branch(varName, "<= " + numberStr, "> " + numberStr,
+                            data.splitSet.le(number.longValue()), number);
                     break;
                 case IF_ICMPGE:
                 case IFGE:
-                    branch = new Branch(varName, ">= " + numberStr, "< " + numberStr, data.splitSet.ge(number.longValue()), number);
+                    branch = new Branch(varName, ">= " + numberStr, "< " + numberStr,
+                            data.splitSet.ge(number.longValue()), number);
                     break;
                 case IF_ICMPLT:
                 case IFLT:
-                    branch = new Branch(varName, "< " + numberStr, ">= " + numberStr, data.splitSet.lt(number.longValue()), number);
+                    branch = new Branch(varName, "< " + numberStr, ">= " + numberStr,
+                            data.splitSet.lt(number.longValue()), number);
                     break;
                 case IF_ICMPEQ:
                 case IFEQ:
-                    branch = new Branch(varName, "== " + numberStr, "!= " + numberStr, data.splitSet.eq(number.longValue()), number);
+                    branch = new Branch(varName, "== " + numberStr, "!= " + numberStr,
+                            data.splitSet.eq(number.longValue()), number);
                     break;
                 case IF_ICMPNE:
                 case IFNE:
-                    branch = new Branch(varName, "!= " + numberStr, "== " + numberStr, data.splitSet.ne(number.longValue()), number);
+                    branch = new Branch(varName, "!= " + numberStr, "== " + numberStr,
+                            data.splitSet.ne(number.longValue()), number);
                     break;
                 default:
                     break;
@@ -747,7 +763,8 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
                         }
                     }
                     BasicBlock trueTarget = edge.getTarget();
-                    BasicBlock falseTarget = cfg.getSuccessorWithEdgeType(edge.getSource(), EdgeTypes.FALL_THROUGH_EDGE);
+                    BasicBlock falseTarget = cfg.getSuccessorWithEdgeType(edge.getSource(),
+                            EdgeTypes.FALL_THROUGH_EDGE);
                     String condition;
                     BasicBlock deadTarget;
                     BasicBlock aliveTarget;
@@ -760,10 +777,11 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
                         deadTarget = falseTarget;
                         aliveTarget = trueTarget;
                     }
-                    redundantConditions.add(new RedundantCondition(Location.getLastLocation(edge.getSource()), condition,
-                            !data.reachableBlocks.get(deadTarget.getLabel()), getLocation(deadTarget), getLocation(aliveTarget),
-                            branch.trueSet.getSignature(), branch.trueSet.isEmpty() || branch.trueSet.isFull(),
-                            branch.number, branch.numbers.contains(branch.number.longValue())));
+                    redundantConditions.add(new RedundantCondition(Location.getLastLocation(edge.getSource()),
+                            condition, !data.reachableBlocks.get(deadTarget.getLabel()), getLocation(deadTarget),
+                            getLocation(aliveTarget), branch.trueSet.getSignature(),
+                            branch.trueSet.isEmpty() || branch.trueSet.isFull(), branch.number,
+                            branch.numbers.contains(branch.number.longValue())));
                 }
             }
         }
@@ -800,8 +818,7 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
     }
 
     /**
-     * Expecting an assert block to look like this:
-     *<code>
+     * Expecting an assert block to look like this: <code>
      * 6  getstatic ghIssues.Issue608.$assertionsDisabled : boolean [7]<br>
      * 9  ifne 0<br>
      * 12  iload_1 [i]  // Loading some variable named "i"<br>
@@ -813,7 +830,10 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
      * 24  invokespecial java.lang.AssertionError(java.lang.Object) [17]<br>
      * 27  athrow<br>
      *</code>
-     * @param ih The InstructionHandle corresponding to the <code>ifne 0</code> in the above sample
+     *
+     * @param ih
+     *            The InstructionHandle corresponding to the <code>ifne 0</code> in the above sample
+     *
      * @return The position for the final <code>athrow</code>
      */
     private int findEndOfAssertBlock(InstructionHandle ih) {
@@ -913,7 +933,8 @@ public class ValueRangeAnalysisFactory implements IMethodAnalysisEngine<ValueRan
         return result;
     }
 
-    private static void walkCFG(final CFG cfg, LongRangeSet subRange, Map<Edge, Branch> edges, final BitSet reachedBlocks) {
+    private static void walkCFG(final CFG cfg, LongRangeSet subRange, Map<Edge, Branch> edges,
+            final BitSet reachedBlocks) {
         class WalkState {
             Set<Long> numbers;
             BasicBlock target;

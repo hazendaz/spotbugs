@@ -35,8 +35,7 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Factory to create and cache TypeQualifierDataflow objects for a particular
- * method.
+ * Factory to create and cache TypeQualifierDataflow objects for a particular method.
  *
  * @author David Hovemeyer
  */
@@ -87,8 +86,10 @@ public abstract class TypeQualifierDataflowFactory<AnalysisType extends TypeQual
             DepthFirstSearch dfs = analysisCache.getMethodAnalysis(DepthFirstSearch.class, methodDescriptor);
             XMethod xmethod = XFactory.createXMethod(methodDescriptor);
             CFG cfg = analysisCache.getMethodAnalysis(CFG.class, methodDescriptor);
-            ValueNumberDataflow vnaDataflow = analysisCache.getMethodAnalysis(ValueNumberDataflow.class, methodDescriptor);
-            ConstantPoolGen cpg = analysisCache.getClassAnalysis(ConstantPoolGen.class, methodDescriptor.getClassDescriptor());
+            ValueNumberDataflow vnaDataflow = analysisCache.getMethodAnalysis(ValueNumberDataflow.class,
+                    methodDescriptor);
+            ConstantPoolGen cpg = analysisCache.getClassAnalysis(ConstantPoolGen.class,
+                    methodDescriptor.getClassDescriptor());
 
             DataflowType dataflow = getDataflow(dfs, xmethod, cfg, vnaDataflow, cpg, analysisCache, methodDescriptor,
                     typeQualifierValue);
@@ -111,9 +112,10 @@ public abstract class TypeQualifierDataflowFactory<AnalysisType extends TypeQual
         return result;
     }
 
-    protected abstract DataflowType getDataflow(DepthFirstSearch dfs, XMethod xmethod, CFG cfg, ValueNumberDataflow vnaDataflow,
-            ConstantPoolGen cpg, IAnalysisCache analysisCache, MethodDescriptor methodDescriptor1,
-            TypeQualifierValue<?> typeQualifierValue) throws CheckedAnalysisException;
+    protected abstract DataflowType getDataflow(DepthFirstSearch dfs, XMethod xmethod, CFG cfg,
+            ValueNumberDataflow vnaDataflow, ConstantPoolGen cpg, IAnalysisCache analysisCache,
+            MethodDescriptor methodDescriptor1, TypeQualifierValue<?> typeQualifierValue)
+            throws CheckedAnalysisException;
 
     protected abstract void populateDatabase(DataflowType dataflow, ValueNumberDataflow vnaDataflow, XMethod xmethod,
             TypeQualifierValue<?> tqv) throws CheckedAnalysisException;

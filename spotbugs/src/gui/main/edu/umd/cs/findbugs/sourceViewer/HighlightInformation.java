@@ -25,7 +25,6 @@ import java.util.Map;
 
 import javax.annotation.CheckForNull;
 
-
 public class HighlightInformation {
 
     Map<Integer, Color> map = new HashMap<>();

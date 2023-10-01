@@ -32,6 +32,7 @@ public interface IAnalysisEngine<DescriptorType, ResultType> {
      *            the analysis cache
      * @param descriptor
      *            the descriptor of the class or method to be analyzed
+     *
      * @return the result of the analysis of the class or method
      */
     public ResultType analyze(IAnalysisCache analysisCache, DescriptorType descriptor) throws CheckedAnalysisException;

@@ -20,15 +20,13 @@
 package edu.umd.cs.findbugs.ba;
 
 /**
- * Constants defining the type of control flow edges, as well as flags defining
- * additional information about the edges.
+ * Constants defining the type of control flow edges, as well as flags defining additional information about the edges.
  *
  * @see Edge
  */
 public interface EdgeTypes {
     /*
-     * ----------------------------------------------------------------------
-     * Edge types
+     * ---------------------------------------------------------------------- Edge types
      * ----------------------------------------------------------------------
      */
 
@@ -81,22 +79,20 @@ public interface EdgeTypes {
     public static final int GOTO_EDGE = 6;
 
     /**
-     * Edge type for RETURN instructions. (These must go to the exit node of the
-     * CFG).
+     * Edge type for RETURN instructions. (These must go to the exit node of the CFG).
      */
     @Edge.Type
     public static final int RETURN_EDGE = 7;
 
     /**
-     * Edge representing the possibility that an exception might propagate out
-     * of the current method. Such edges always go to the exit node in the CFG.
+     * Edge representing the possibility that an exception might propagate out of the current method. Such edges always
+     * go to the exit node in the CFG.
      */
     @Edge.Type
     public static final int UNHANDLED_EXCEPTION_EDGE = 8;
 
     /**
-     * Edge representing control flow from an exception-raising basic block to
-     * an explicit handler for the exception.
+     * Edge representing control flow from an exception-raising basic block to an explicit handler for the exception.
      */
     @Edge.Type
     public static final int HANDLED_EXCEPTION_EDGE = 9;
@@ -108,8 +104,7 @@ public interface EdgeTypes {
     public static final int START_EDGE = 10;
 
     /**
-     * Special (synthetic) edge for path profiling; CFG entry to backedge
-     * target.
+     * Special (synthetic) edge for path profiling; CFG entry to backedge target.
      */
     @Edge.Type
     public static final int BACKEDGE_TARGET_EDGE = 11;
@@ -127,8 +122,7 @@ public interface EdgeTypes {
     public static final int EXIT_EDGE = 13;
 
     /*
-     * ----------------------------------------------------------------------
-     * Edge flags
+     * ---------------------------------------------------------------------- Edge flags
      * ----------------------------------------------------------------------
      */
 

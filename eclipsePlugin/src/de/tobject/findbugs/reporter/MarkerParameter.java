@@ -43,8 +43,7 @@ public class MarkerParameter {
     public final String markerType;
 
     /**
-     * Default value is {@link IMarker#SEVERITY_WARNING}, might be configured by
-     * user
+     * Default value is {@link IMarker#SEVERITY_WARNING}, might be configured by user
      */
     public Integer markerSeverity;
 

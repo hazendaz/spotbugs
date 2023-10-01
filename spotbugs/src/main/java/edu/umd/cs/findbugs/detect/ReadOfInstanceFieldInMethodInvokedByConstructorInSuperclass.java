@@ -120,8 +120,8 @@ public class ReadOfInstanceFieldInMethodInvokedByConstructorInSuperclass extends
         }
 
         int nextOpcode = getNextOpcode();
-        if (nullCheckedFields.contains(f) || nextOpcode == Const.IFNULL || nextOpcode == Const.IFNONNULL || nextOpcode == Const.IFEQ
-                || nextOpcode == Const.IFNE) {
+        if (nullCheckedFields.contains(f) || nextOpcode == Const.IFNULL || nextOpcode == Const.IFNONNULL
+                || nextOpcode == Const.IFEQ || nextOpcode == Const.IFNE) {
             priority++;
             nullCheckedFields.add(f);
         }
@@ -141,7 +141,8 @@ public class ReadOfInstanceFieldInMethodInvokedByConstructorInSuperclass extends
             if (upcallMethod == null) {
                 continue;
             }
-            Map<Integer, OpcodeStack.Item> putfieldsAt = PutfieldScanner.getPutfieldsFor(getThisClass(), upcallMethod, f);
+            Map<Integer, OpcodeStack.Item> putfieldsAt = PutfieldScanner.getPutfieldsFor(getThisClass(), upcallMethod,
+                    f);
             if (putfieldsAt.isEmpty()) {
                 continue;
             }
@@ -152,13 +153,15 @@ public class ReadOfInstanceFieldInMethodInvokedByConstructorInSuperclass extends
                 priority++;
             }
 
-            SourceLineAnnotation fieldSetAt = SourceLineAnnotation.fromVisitedInstruction(getThisClass(), upcallMethod, pc);
+            SourceLineAnnotation fieldSetAt = SourceLineAnnotation.fromVisitedInstruction(getThisClass(), upcallMethod,
+                    pc);
 
-            BugInstance bug = new BugInstance(this, "UR_UNINIT_READ_CALLED_FROM_SUPER_CONSTRUCTOR", priority).addClassAndMethod(
-                    this).addField(f);
+            BugInstance bug = new BugInstance(this, "UR_UNINIT_READ_CALLED_FROM_SUPER_CONSTRUCTOR", priority)
+                    .addClassAndMethod(this).addField(f);
             bug.addMethod(p.method).describe(MethodAnnotation.METHOD_SUPERCLASS_CONSTRUCTOR)
-                    .addSourceLine(p.getSourceLineAnnotation()).describe(SourceLineAnnotation.ROLE_CALLED_FROM_SUPERCLASS_AT)
-                    .addMethod(upcall).describe(MethodAnnotation.METHOD_CONSTRUCTOR).add(fieldSetAt)
+                    .addSourceLine(p.getSourceLineAnnotation())
+                    .describe(SourceLineAnnotation.ROLE_CALLED_FROM_SUPERCLASS_AT).addMethod(upcall)
+                    .describe(MethodAnnotation.METHOD_CONSTRUCTOR).add(fieldSetAt)
                     .describe(SourceLineAnnotation.ROLE_FIELD_SET_TOO_LATE_AT);
 
             accumulator.accumulateBug(bug, this);

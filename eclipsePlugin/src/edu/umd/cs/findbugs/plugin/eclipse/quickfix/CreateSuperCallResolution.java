@@ -44,19 +44,17 @@ import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.plugin.eclipse.quickfix.exception.BugResolutionException;
 
 /**
- * Some methods should implement a specific <CODE>super</CODE>-call for a clean
- * execution of the code. The <CODE>CreateSuperCallResolution</CODE> creates a
- * new <CODE>super</CODE>-call for these methods.
+ * Some methods should implement a specific <CODE>super</CODE>-call for a clean execution of the code. The
+ * <CODE>CreateSuperCallResolution</CODE> creates a new <CODE>super</CODE>-call for these methods.
  *
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#FI_MISSING_SUPER_CALL">FI_MISSING_SUPER_CALL</a>
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#IJU_SETUP_NO_SUPER">IJU_SETUP_NO_SUPER</a>
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#IJU_TEARDOWN_NO_SUPER">IJU_TEARDOWN_NO_SUPER</a>
+ * @see <a href="http://findbugs.sourceforge.net/bugDescriptions.html#FI_MISSING_SUPER_CALL">FI_MISSING_SUPER_CALL</a>
+ * @see <a href="http://findbugs.sourceforge.net/bugDescriptions.html#IJU_SETUP_NO_SUPER">IJU_SETUP_NO_SUPER</a>
+ * @see <a href="http://findbugs.sourceforge.net/bugDescriptions.html#IJU_TEARDOWN_NO_SUPER">IJU_TEARDOWN_NO_SUPER</a>
+ *
  * @author <a href="mailto:twyss@hsr.ch">Thierry Wyss</a>
  * @author <a href="mailto:mbusarel@hsr.ch">Marco Busarello</a>
  * @author <a href="mailto:g1zgragg@hsr.ch">Guido Zgraggen</a>
+ *
  * @version 1.0
  */
 public class CreateSuperCallResolution extends BugResolution {
@@ -69,7 +67,9 @@ public class CreateSuperCallResolution extends BugResolution {
 
     /**
      * Called on initialization
-     * @param options optional arguments
+     *
+     * @param options
+     *            optional arguments
      */
     @Override
     public void setOptions(@Nonnull Map<String, String> options) {
@@ -81,7 +81,8 @@ public class CreateSuperCallResolution extends BugResolution {
     }
 
     @Override
-    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug) throws BugResolutionException {
+    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug)
+            throws BugResolutionException {
         Assert.isNotNull(rewrite);
         Assert.isNotNull(workingUnit);
         Assert.isNotNull(bug);

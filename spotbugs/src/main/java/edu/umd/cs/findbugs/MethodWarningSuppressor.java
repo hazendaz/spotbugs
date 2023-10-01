@@ -11,17 +11,15 @@ public class MethodWarningSuppressor extends ClassWarningSuppressor {
     private final MethodAnnotation method;
 
     /**
-     * Indicates whether this method was "user generated" as defined in {@link MemberUtils#isUserGenerated(org.apache.bcel.classfile.FieldOrMethod)}
-     * When a method is not user generated we are not interested in reporting warnings, in particular we do not want to report US_USELESS_SUPPRESSION_ON_METHOD
+     * Indicates whether this method was "user generated" as defined in
+     * {@link MemberUtils#isUserGenerated(org.apache.bcel.classfile.FieldOrMethod)} When a method is not user generated
+     * we are not interested in reporting warnings, in particular we do not want to report
+     * US_USELESS_SUPPRESSION_ON_METHOD
      */
     private final boolean userGeneratedMethod;
 
-    public MethodWarningSuppressor(String bugPattern,
-            SuppressMatchType matchType,
-            ClassAnnotation clazz,
-            MethodAnnotation method,
-            boolean userGeneratedClass,
-            boolean userGeneratedMethod) {
+    public MethodWarningSuppressor(String bugPattern, SuppressMatchType matchType, ClassAnnotation clazz,
+            MethodAnnotation method, boolean userGeneratedClass, boolean userGeneratedMethod) {
         super(bugPattern, matchType, clazz, userGeneratedClass);
         this.method = method;
         this.userGeneratedMethod = userGeneratedMethod;
@@ -46,9 +44,7 @@ public class MethodWarningSuppressor extends ClassWarningSuppressor {
 
     @Override
     public BugInstance buildUselessSuppressionBugInstance(UselessSuppressionDetector detector) {
-        return new BugInstance(detector, BUG_TYPE, PRIORITY)
-                .addClass(clazz.getClassDescriptor())
-                .addMethod(method)
+        return new BugInstance(detector, BUG_TYPE, PRIORITY).addClass(clazz.getClassDescriptor()).addMethod(method)
                 .addString(adjustBugPatternForMessage());
     }
 

@@ -27,11 +27,10 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 import java.util.BitSet;
 
 /**
- * Analysis engine to produce NonImplicitExceptionDominatorsAnalysis objects
- * for analyzed methods.
+ * Analysis engine to produce NonImplicitExceptionDominatorsAnalysis objects for analyzed methods.
  */
-public class NonImplicitExceptionDominatorsAnalysisFactory extends
-        AnalysisFactory<NonImplicitExceptionDominatorsAnalysis> {
+public class NonImplicitExceptionDominatorsAnalysisFactory
+        extends AnalysisFactory<NonImplicitExceptionDominatorsAnalysis> {
     /**
      * Constructor.
      */
@@ -42,9 +41,8 @@ public class NonImplicitExceptionDominatorsAnalysisFactory extends
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public NonImplicitExceptionDominatorsAnalysis analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)

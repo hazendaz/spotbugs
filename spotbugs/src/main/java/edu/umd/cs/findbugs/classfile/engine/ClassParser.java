@@ -38,10 +38,9 @@ import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * Parse a class to extract symbolic information. see <a
- * href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/ClassFile.doc.html">
- * http://java.sun.com/docs/books/vmspec/2nd-edition/html/ClassFile.doc.html
- * </a>
+ * Parse a class to extract symbolic information. see
+ * <a href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/ClassFile.doc.html">
+ * http://java.sun.com/docs/books/vmspec/2nd-edition/html/ClassFile.doc.html </a>
  *
  * @author David Hovemeyer
  */
@@ -66,7 +65,7 @@ public class ClassParser implements ClassParserInterface {
 
     private Constant[] constantPool;
 
-    //    private ClassDescriptor immediateEnclosingClass;
+    // private ClassDescriptor immediateEnclosingClass;
 
     /**
      * Constructor.
@@ -78,7 +77,8 @@ public class ClassParser implements ClassParserInterface {
      * @param codeBaseEntry
      *            codebase entry class is loaded from
      */
-    public ClassParser(DataInputStream in, @CheckForNull ClassDescriptor expectedClassDescriptor, ICodeBaseEntry codeBaseEntry) {
+    public ClassParser(DataInputStream in, @CheckForNull ClassDescriptor expectedClassDescriptor,
+            ICodeBaseEntry codeBaseEntry) {
         this.in = in;
         this.expectedClassDescriptor = expectedClassDescriptor;
         this.codeBaseEntry = codeBaseEntry;
@@ -154,6 +154,7 @@ public class ClassParser implements ClassParserInterface {
      * Extract references to other classes.
      *
      * @return array of ClassDescriptors of referenced classes
+     *
      * @throws InvalidClassFileFormatException
      */
     private Collection<ClassDescriptor> extractReferencedClasses() throws InvalidClassFileFormatException {
@@ -170,7 +171,8 @@ public class ClassParser implements ClassParserInterface {
                 } else if (ClassName.isValidClassName(className)) {
                     referencedClassSet.add(DescriptorFactory.instance().getClassDescriptor(className));
                 }
-            } else if (constant.tag == IClassConstants.CONSTANT_Methodref || constant.tag == IClassConstants.CONSTANT_Fieldref
+            } else if (constant.tag == IClassConstants.CONSTANT_Methodref
+                    || constant.tag == IClassConstants.CONSTANT_Fieldref
                     || constant.tag == IClassConstants.CONSTANT_InterfaceMethodref) {
                 // Get the target class name
                 String className = getClassName((Integer) constant.data[0]);
@@ -184,7 +186,8 @@ public class ClassParser implements ClassParserInterface {
         return referencedClassSet;
     }
 
-    public static void extractReferencedClassesFromSignature(Set<ClassDescriptor> referencedClassSet, String signature) {
+    public static void extractReferencedClassesFromSignature(Set<ClassDescriptor> referencedClassSet,
+            String signature) {
         while (!signature.isEmpty()) {
             int start = signature.indexOf('L');
             if (start < 0) {
@@ -210,33 +213,33 @@ public class ClassParser implements ClassParserInterface {
     // D: double
     // i: 2-byte constant pool index
     // See https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.4
-    private static final String[] CONSTANT_FORMAT_MAP = { null,
-        "8", // 1:CONSTANT_Utf8
-        null, // 2:
-        "I", // 3: CONSTANT_Integer
-        "F", // 4: CONSTANT_Float
-        "L", // 5: CONSTANT_Long
-        "D", // 6: CONSTANT_Double
-        "i", // 7: CONSTANT_Class
-        "i", // 8: CONSTANT_String
-        "ii", // 9: CONSTANT_Fieldref
-        "ii", // 10: CONSTANT_Methodref
-        "ii", // 11: CONSTANT_InterfaceMethodref
-        "ii", // 12: CONSTANT_NameAndType
-        null, // 13:
-        null, // 14:
-        "bi", // 15: CONSTANT_MethodHandle
-        "i", // 16: CONSTANT_MethodType
-        "ii", // 17: CONSTANT_Dynamic
-        "ii", // 18: CONSTANT_InvokeDynamic
-        "i", // 19: CONSTANT_Module
-        "i", // 20: CONSTANT_Package
+    private static final String[] CONSTANT_FORMAT_MAP = { null, "8", // 1:CONSTANT_Utf8
+            null, // 2:
+            "I", // 3: CONSTANT_Integer
+            "F", // 4: CONSTANT_Float
+            "L", // 5: CONSTANT_Long
+            "D", // 6: CONSTANT_Double
+            "i", // 7: CONSTANT_Class
+            "i", // 8: CONSTANT_String
+            "ii", // 9: CONSTANT_Fieldref
+            "ii", // 10: CONSTANT_Methodref
+            "ii", // 11: CONSTANT_InterfaceMethodref
+            "ii", // 12: CONSTANT_NameAndType
+            null, // 13:
+            null, // 14:
+            "bi", // 15: CONSTANT_MethodHandle
+            "i", // 16: CONSTANT_MethodType
+            "ii", // 17: CONSTANT_Dynamic
+            "ii", // 18: CONSTANT_InvokeDynamic
+            "i", // 19: CONSTANT_Module
+            "i", // 20: CONSTANT_Package
     };
 
     /**
      * Read a constant from the constant pool. Return null for
      *
      * @return a StaticConstant
+     *
      * @throws InvalidClassFileFormatException
      * @throws IOException
      */
@@ -284,12 +287,13 @@ public class ClassParser implements ClassParserInterface {
     }
 
     /**
-     * Get a class name from a CONSTANT_Class. Note that this may be an array
-     * (e.g., "[Ljava/lang/String;").
+     * Get a class name from a CONSTANT_Class. Note that this may be an array (e.g., "[Ljava/lang/String;").
      *
      * @param index
      *            index of the constant
+     *
      * @return the class name
+     *
      * @throws InvalidClassFileFormatException
      */
     private @SlashedClassName String getClassName(int index) throws InvalidClassFileFormatException {
@@ -310,7 +314,9 @@ public class ClassParser implements ClassParserInterface {
      *
      * @param index
      *            index of the referenced class in the constant pool
+     *
      * @return the ClassDescriptor of the referenced class
+     *
      * @throws InvalidClassFileFormatException
      */
     private ClassDescriptor getClassDescriptor(int index) throws InvalidClassFileFormatException {
@@ -324,7 +330,9 @@ public class ClassParser implements ClassParserInterface {
      *
      * @param refIndex
      *            the constant pool index
+     *
      * @return the String at that index
+     *
      * @throws InvalidClassFileFormatException
      */
     private String getUtf8String(int refIndex) throws InvalidClassFileFormatException {
@@ -339,6 +347,7 @@ public class ClassParser implements ClassParserInterface {
      *
      * @param index
      *            the index to check
+     *
      * @throws InvalidClassFileFormatException
      *             if the index is not valid
      */
@@ -355,6 +364,7 @@ public class ClassParser implements ClassParserInterface {
      *            the constant to check
      * @param expectedTag
      *            the expected constant tag
+     *
      * @throws InvalidClassFileFormatException
      *             if the constant's tag does not match the expected tag
      */
@@ -373,33 +383,32 @@ public class ClassParser implements ClassParserInterface {
      *
      * @param thisClassDescriptor
      *            the ClassDescriptor of this class (being parsed)
+     *
      * @return the FieldDescriptor
+     *
      * @throws IOException
      * @throws InvalidClassFileFormatException
      *
-    private FieldDescriptor readField(ClassDescriptor thisClassDescriptor) throws IOException, InvalidClassFileFormatException {
-        return readFieldOrMethod(thisClassDescriptor, new FieldOrMethodDescriptorCreator<FieldDescriptor>() {
-            @Override
-            public FieldDescriptor create(String className, String name, String signature, int accessFlags) {
-                return DescriptorFactory.instance().getFieldDescriptor(className, name, signature,
-                        (accessFlags & IClassConstants.ACC_STATIC) != 0);
-            }
-        });
-    }*/
+     *             private FieldDescriptor readField(ClassDescriptor thisClassDescriptor) throws IOException,
+     *             InvalidClassFileFormatException { return readFieldOrMethod(thisClassDescriptor, new
+     *             FieldOrMethodDescriptorCreator<FieldDescriptor>() {
+     *
+     * @Override public FieldDescriptor create(String className, String name, String signature, int accessFlags) {
+     *           return DescriptorFactory.instance().getFieldDescriptor(className, name, signature, (accessFlags &
+     *           IClassConstants.ACC_STATIC) != 0); } }); }
+     */
 
     /**
      * Read method_info, read method descriptor.
      *
-    private MethodDescriptor readMethod(ClassDescriptor thisClassDescriptor) throws InvalidClassFileFormatException, IOException {
-        return readFieldOrMethod(thisClassDescriptor, new FieldOrMethodDescriptorCreator<MethodDescriptor>() {
-    
-            @Override
-            public MethodDescriptor create(String className, String name, String signature, int accessFlags) {
-                return DescriptorFactory.instance().getMethodDescriptor(className, name, signature,
-                        (accessFlags & IClassConstants.ACC_STATIC) != 0);
-            }
-        });
-    }*/
+     * private MethodDescriptor readMethod(ClassDescriptor thisClassDescriptor) throws InvalidClassFileFormatException,
+     * IOException { return readFieldOrMethod(thisClassDescriptor, new
+     * FieldOrMethodDescriptorCreator<MethodDescriptor>() {
+     *
+     * @Override public MethodDescriptor create(String className, String name, String signature, int accessFlags) {
+     *           return DescriptorFactory.instance().getMethodDescriptor(className, name, signature, (accessFlags &
+     *           IClassConstants.ACC_STATIC) != 0); } }); }
+     */
 
     /**
      * Read field_info or method_info. They have the same format.
@@ -410,28 +419,23 @@ public class ClassParser implements ClassParserInterface {
      *            class descriptor of class being parsed
      * @param creator
      *            callback to create the FieldDescriptor or MethodDescriptor
+     *
      * @return the parsed descriptor
+     *
      * @throws IOException
      * @throws InvalidClassFileFormatException
      *
-    private <E> E readFieldOrMethod(ClassDescriptor thisClassDescriptor, FieldOrMethodDescriptorCreator<E> creator)
-            throws IOException, InvalidClassFileFormatException {
-        int access_flags = in.readUnsignedShort();
-        int name_index = in.readUnsignedShort();
-        int descriptor_index = in.readUnsignedShort();
-        int attributes_count = in.readUnsignedShort();
-    
-        String name = getUtf8String(name_index);
-        String signature = getUtf8String(descriptor_index);
-        if (attributes_count < 0) {
-            throw new InvalidClassFileFormatException(expectedClassDescriptor, codeBaseEntry);
-        }
-        for (int i = 0; i < attributes_count; i++) {
-            readAttribute();
-        }
-    
-        return creator.create(thisClassDescriptor.getClassName(), name, signature, access_flags);
-    }*/
+     *             private <E> E readFieldOrMethod(ClassDescriptor thisClassDescriptor,
+     *             FieldOrMethodDescriptorCreator<E> creator) throws IOException, InvalidClassFileFormatException { int
+     *             access_flags = in.readUnsignedShort(); int name_index = in.readUnsignedShort(); int descriptor_index
+     *             = in.readUnsignedShort(); int attributes_count = in.readUnsignedShort();
+     *
+     *             String name = getUtf8String(name_index); String signature = getUtf8String(descriptor_index); if
+     *             (attributes_count < 0) { throw new InvalidClassFileFormatException(expectedClassDescriptor,
+     *             codeBaseEntry); } for (int i = 0; i < attributes_count; i++) { readAttribute(); }
+     *
+     *             return creator.create(thisClassDescriptor.getClassName(), name, signature, access_flags); }
+     */
 
     /**
      * Read an attribute.
@@ -439,55 +443,46 @@ public class ClassParser implements ClassParserInterface {
      * @throws IOException
      * @throws InvalidClassFileFormatException
      *
-    private void readAttribute() throws IOException, InvalidClassFileFormatException {
-        int attribute_name_index = in.readUnsignedShort();
-        String attrName = getUtf8String(attribute_name_index);
-    
-        int attribute_length = in.readInt();
-        if (attribute_length < 0) {
-            throw new InvalidClassFileFormatException(expectedClassDescriptor, codeBaseEntry);
-        }
-    
-        if (attrName.equals("InnerClasses")) {
-            readInnerClassesAttribute(attribute_length);
-        } else {
-            IO.skipFully(in, attribute_length);
-        }
-    }*/
+     *             private void readAttribute() throws IOException, InvalidClassFileFormatException { int
+     *             attribute_name_index = in.readUnsignedShort(); String attrName = getUtf8String(attribute_name_index);
+     *
+     *             int attribute_length = in.readInt(); if (attribute_length < 0) { throw new
+     *             InvalidClassFileFormatException(expectedClassDescriptor, codeBaseEntry); }
+     *
+     *             if (attrName.equals("InnerClasses")) { readInnerClassesAttribute(attribute_length); } else {
+     *             IO.skipFully(in, attribute_length); } }
+     */
 
     /**
      * Read an InnerClasses attribute.
      *
      * @param attribute_length
      *            length of attribute (excluding first 6 bytes)
+     *
      * @throws InvalidClassFileFormatException
      * @throws IOException
      *
-    private void readInnerClassesAttribute(int attribute_length) throws InvalidClassFileFormatException, IOException {
-        int number_of_classes = in.readUnsignedShort();
-        if (attribute_length != number_of_classes * 8) {
-            throw new InvalidClassFileFormatException(expectedClassDescriptor, codeBaseEntry);
-        }
-    
-        for (int i = 0; i < number_of_classes; i++) {
-            int inner_class_info_index = in.readUnsignedShort();
-            int outer_class_info_index = in.readUnsignedShort();
-            int inner_name_index = in.readUnsignedShort();
-            int inner_class_access_flags = in.readUnsignedShort();
-    
-            //            if (outer_class_info_index != 0) {
-            //                // Record which class this class is a member of.
-            //                this.immediateEnclosingClass = getClassDescriptor(outer_class_info_index);
-            //            }
-        }
-    }*/
+     *             private void readInnerClassesAttribute(int attribute_length) throws InvalidClassFileFormatException,
+     *             IOException { int number_of_classes = in.readUnsignedShort(); if (attribute_length !=
+     *             number_of_classes * 8) { throw new InvalidClassFileFormatException(expectedClassDescriptor,
+     *             codeBaseEntry); }
+     *
+     *             for (int i = 0; i < number_of_classes; i++) { int inner_class_info_index = in.readUnsignedShort();
+     *             int outer_class_info_index = in.readUnsignedShort(); int inner_name_index = in.readUnsignedShort();
+     *             int inner_class_access_flags = in.readUnsignedShort();
+     *
+     *             // if (outer_class_info_index != 0) { // // Record which class this class is a member of. //
+     *             this.immediateEnclosingClass = getClassDescriptor(outer_class_info_index); // } } }
+     */
 
     /**
      * Get the signature from a CONSTANT_NameAndType.
      *
      * @param index
      *            the index of the CONSTANT_NameAndType
+     *
      * @return the signature
+     *
      * @throws InvalidClassFileFormatException
      */
     private String getSignatureFromNameAndType(int index) throws InvalidClassFileFormatException {

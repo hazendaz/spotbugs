@@ -174,7 +174,8 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
         int childCount = getChildCount(o);
         if (index < 0 || index >= childCount) {
             if (SystemProperties.ASSERTIONS_ENABLED) {
-                System.out.printf("Unable to get child %d of %d from %s:%s%n", index, childCount, o.getClass().getSimpleName(), o);
+                System.out.printf("Unable to get child %d of %d from %s:%s%n", index, childCount,
+                        o.getClass().getSimpleName(), o);
             }
             return null;
         }
@@ -232,7 +233,8 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
             return bugSet.size();
         }
 
-        if ((a.size() == 0) || (a.last().key != st.getOrderBeforeDivider().get(st.getOrderBeforeDivider().size() - 1))) {
+        if ((a.size() == 0)
+                || (a.last().key != st.getOrderBeforeDivider().get(st.getOrderBeforeDivider().size() - 1))) {
             return enumsThatExist(a).size();
         } else {
             return bugSet.query(a).size();
@@ -240,9 +242,8 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
     }
 
     /*
-     * This contract has been changed to return a HashList of Stringpair, our
-     * own data structure in which finding the index of an object in the list is
-     * very fast
+     * This contract has been changed to return a HashList of Stringpair, our own data structure in which finding the
+     * index of an object in the list is very fast
      */
 
     private @Nonnull List<SortableValue> enumsThatExist(BugAspects a) {
@@ -428,10 +429,9 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
     }
 
     /*
-     * Recursively traverses the tree, opens all nodes matching any bug in the
-     * list, then creates the full paths to the bugs that are selected This
-     * keeps whatever bugs were selected selected when sorting DEPRECATED--Too
-     * Slow, use openPreviouslySelected
+     * Recursively traverses the tree, opens all nodes matching any bug in the list, then creates the full paths to the
+     * bugs that are selected This keeps whatever bugs were selected selected when sorting DEPRECATED--Too Slow, use
+     * openPreviouslySelected
      */
 
     public void crawlToOpen(TreePath path, ArrayList<BugLeafNode> bugLeafNodes, ArrayList<TreePath> treePaths) {
@@ -440,7 +440,8 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
                 for (BugLeafNode p : bugLeafNodes) {
                     if (p.matches((BugAspects) getChild(path.getLastPathComponent(), i))) {
                         tree.expandPath(path);
-                        crawlToOpen(path.pathByAddingChild(getChild(path.getLastPathComponent(), i)), bugLeafNodes, treePaths);
+                        crawlToOpen(path.pathByAddingChild(getChild(path.getLastPathComponent(), i)), bugLeafNodes,
+                                treePaths);
                         break;
                     }
                 }
@@ -496,8 +497,9 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
             return;
         }
 
-        TreeModelEvent event = new TreeModelEvent(this, path.getParentPath(), new int[] { getIndexOfChild(path.getParentPath()
-                .getLastPathComponent(), path.getLastPathComponent()) }, new Object[] { path.getLastPathComponent() });
+        TreeModelEvent event = new TreeModelEvent(this, path.getParentPath(),
+                new int[] { getIndexOfChild(path.getParentPath().getLastPathComponent(), path.getLastPathComponent()) },
+                new Object[] { path.getLastPathComponent() });
         for (TreeModelListener l : listeners) {
             l.treeNodesChanged(event);
         }
@@ -622,7 +624,8 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
         }
     }
 
-    public TreeModelEvent restructureBranch(ArrayList<String> stringsToBranch, boolean removing) throws BranchOperationException {
+    public TreeModelEvent restructureBranch(ArrayList<String> stringsToBranch, boolean removing)
+            throws BranchOperationException {
         if (removing) {
             return branchOperations(stringsToBranch, TreeModification.REMOVERESTRUCTURE);
         } else {
@@ -727,16 +730,18 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
         Debug.println(pathToBranch);
 
         if (whatToDo == TreeModification.INSERT) {
-            event = new TreeModelEvent(this, pathToBranch.getParentPath(), new int[] { getIndexOfChild(pathToBranch
-                    .getParentPath().getLastPathComponent(), pathToBranch.getLastPathComponent()) },
+            event = new TreeModelEvent(this, pathToBranch.getParentPath(),
+                    new int[] { getIndexOfChild(pathToBranch.getParentPath().getLastPathComponent(),
+                            pathToBranch.getLastPathComponent()) },
                     new Object[] { pathToBranch.getLastPathComponent() });
         } else if (whatToDo == TreeModification.INSERTRESTRUCTURE) {
             event = new TreeModelEvent(this, pathToBranch);
         }
 
         if (whatToDo == TreeModification.REMOVE) {
-            event = new TreeModelEvent(this, pathToBranch.getParentPath(), new int[] { getIndexOfChild(pathToBranch
-                    .getParentPath().getLastPathComponent(), pathToBranch.getLastPathComponent()) },
+            event = new TreeModelEvent(this, pathToBranch.getParentPath(),
+                    new int[] { getIndexOfChild(pathToBranch.getParentPath().getLastPathComponent(),
+                            pathToBranch.getLastPathComponent()) },
                     new Object[] { pathToBranch.getLastPathComponent() });
 
         } else if (whatToDo == TreeModification.REMOVERESTRUCTURE) {
@@ -761,9 +766,10 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
                 l.treeNodesRemoved(event);
             } else if (whatToDo == TreeModification.INSERT) {
                 l.treeNodesInserted(event);
-                l.treeStructureChanged(new TreeModelEvent(this, new TreePath(event.getPath()).pathByAddingChild(event
-                        .getChildren()[0])));
-            } else if (whatToDo == TreeModification.INSERTRESTRUCTURE || whatToDo == TreeModification.REMOVERESTRUCTURE) {
+                l.treeStructureChanged(new TreeModelEvent(this,
+                        new TreePath(event.getPath()).pathByAddingChild(event.getChildren()[0])));
+            } else if (whatToDo == TreeModification.INSERTRESTRUCTURE
+                    || whatToDo == TreeModification.REMOVERESTRUCTURE) {
                 l.treeStructureChanged(event);
             }
         }

@@ -22,8 +22,7 @@ package edu.umd.cs.findbugs.graph;
 import java.util.Iterator;
 
 /**
- * Graph interface; defines the operations used to access and manipulate a
- * graph.
+ * Graph interface; defines the operations used to access and manipulate a graph.
  */
 public interface Graph<EdgeType extends GraphEdge<EdgeType, VertexType>, VertexType extends GraphVertex<VertexType>> {
 
@@ -48,8 +47,7 @@ public interface Graph<EdgeType extends GraphEdge<EdgeType, VertexType>, VertexT
     public Iterator<VertexType> vertexIterator();
 
     /**
-     * Add given vertex to the graph. The vertex should not be part of any other
-     * graph.
+     * Add given vertex to the graph. The vertex should not be part of any other graph.
      *
      * @param v
      *            the vertex to add
@@ -61,44 +59,45 @@ public interface Graph<EdgeType extends GraphEdge<EdgeType, VertexType>, VertexT
      *
      * @param v
      *            the vertex
+     *
      * @return true if the vertex is part of the graph, false if not
      */
     public boolean containsVertex(VertexType v);
 
     /**
-     * Add a new edge to the graph. Duplicate edges (with same source and target
-     * vertices) are allowed.
+     * Add a new edge to the graph. Duplicate edges (with same source and target vertices) are allowed.
      *
      * @param source
      *            the source vertex
      * @param target
      *            the target vertex
+     *
      * @return the new edge
      */
     public EdgeType createEdge(VertexType source, VertexType target);
 
     /**
-     * Look up an edge by source and target vertex. If multiple edges with same
-     * source and target vertex exist, one is selected arbitrarily.
+     * Look up an edge by source and target vertex. If multiple edges with same source and target vertex exist, one is
+     * selected arbitrarily.
      *
      * @param source
      *            the source vertex
      * @param target
      *            the target vertex
+     *
      * @return a matching edge, or null if there is no matching edge
      */
     public EdgeType lookupEdge(VertexType source, VertexType target);
 
     /**
-     * Get the number of numeric (integer) labels that have been assigned to
-     * vertices in the graph. All vertices in the graph are guaranteed to have
-     * labels in the range 0..n, where n is the value returned by this method.
+     * Get the number of numeric (integer) labels that have been assigned to vertices in the graph. All vertices in the
+     * graph are guaranteed to have labels in the range 0..n, where n is the value returned by this method.
      */
     public int getNumVertexLabels();
 
     /**
-     * Reset number of (integer) labels. This might be necessary if an algorithm
-     * has assigned new labels to a graph's vertices.
+     * Reset number of (integer) labels. This might be necessary if an algorithm has assigned new labels to a graph's
+     * vertices.
      */
     public void setNumVertexLabels(int numLabels);
 
@@ -118,8 +117,7 @@ public interface Graph<EdgeType extends GraphEdge<EdgeType, VertexType>, VertexT
     public void removeEdge(EdgeType e);
 
     /**
-     * Remove given vertex from the graph. Note that all edges referencing the
-     * vertex will be removed.
+     * Remove given vertex from the graph. Note that all edges referencing the vertex will be removed.
      */
     public void removeVertex(VertexType v);
 
@@ -128,6 +126,7 @@ public interface Graph<EdgeType extends GraphEdge<EdgeType, VertexType>, VertexT
      *
      * @param source
      *            the source vertex
+     *
      * @return an Iterator over outgoing edges
      */
     public Iterator<EdgeType> outgoingEdgeIterator(VertexType source);
@@ -137,6 +136,7 @@ public interface Graph<EdgeType extends GraphEdge<EdgeType, VertexType>, VertexT
      *
      * @param target
      *            the target vertex
+     *
      * @return an Iterator over incoming edges
      */
     public Iterator<EdgeType> incomingEdgeIterator(VertexType target);
@@ -146,6 +146,7 @@ public interface Graph<EdgeType extends GraphEdge<EdgeType, VertexType>, VertexT
      *
      * @param vertex
      *            the vertex
+     *
      * @return number of edges going into the vertex
      */
     public int getNumIncomingEdges(VertexType vertex);
@@ -155,26 +156,27 @@ public interface Graph<EdgeType extends GraphEdge<EdgeType, VertexType>, VertexT
      *
      * @param vertex
      *            the vertex
+     *
      * @return number of edges going out of the vertex
      */
     public int getNumOutgoingEdges(VertexType vertex);
 
     /**
-     * Get an iterator over the successors of this vertex; i.e., the targets of
-     * the vertex's outgoing edges.
+     * Get an iterator over the successors of this vertex; i.e., the targets of the vertex's outgoing edges.
      *
      * @param source
      *            the source vertex
+     *
      * @return an Iterator over the successors of the vertex
      */
     public Iterator<VertexType> successorIterator(VertexType source);
 
     /**
-     * Get an iterator over the predecessors of this vertex; i.e., the sources
-     * of the vertex's incoming edges.
+     * Get an iterator over the predecessors of this vertex; i.e., the sources of the vertex's incoming edges.
      *
      * @param target
      *            the target vertex
+     *
      * @return an Iterator over the predecessors of the vertex
      */
     public Iterator<VertexType> predecessorIterator(VertexType target);

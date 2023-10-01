@@ -52,8 +52,8 @@ import edu.umd.cs.findbugs.util.TopologicalSort.OutEdges2;
 import edu.umd.cs.findbugs.util.Util;
 
 /**
- * ClassInfo represents important metadata about a loaded class, such as its
- * superclass, access flags, codebase entry, etc.
+ * ClassInfo represents important metadata about a loaded class, such as its superclass, access flags, codebase entry,
+ * etc.
  *
  * @author David Hovemeyer
  */
@@ -84,9 +84,8 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
     private boolean containingScopeCached;
 
     /**
-     * The class' polymorphic methods, indexed by name and signature.
-     * See {@link MethodHandle} which is a special case where a method has multiple signatures.
-     * The methods are assumed to be non-static.
+     * The class' polymorphic methods, indexed by name and signature. See {@link MethodHandle} which is a special case
+     * where a method has multiple signatures. The methods are assumed to be non-static.
      */
     private final Map<String, Map<String, MethodInfo>> polymorphicMethods;
 
@@ -123,7 +122,6 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
                 fields = fieldInfoList.toArray(new FieldInfo[0]);
             }
 
-
             for (MethodInfo m : methodInfoList) {
                 if (m.isBridge() && !bridgedSignatures.containsKey(m)) {
 
@@ -134,19 +132,16 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
                     String[] mArguments = new SignatureParser(m.getSignature()).getArguments();
 
                     for (MethodInfo to : methodInfoList) {
-                        if (m != to && !to.isBridge()
-                                && m.getName().equals(to.getName())
+                        if (m != to && !to.isBridge() && m.getName().equals(to.getName())
                                 && Arrays.equals(mArguments, new SignatureParser(to.getSignature()).getArguments())) {
                             if (DEBUG) {
                                 System.out.println("  to method:" + to);
                             }
                             bridgedSignatures.put(m, to.getSignature());
                         }
-                    } // end  for(MethodInfo to
-                } // end  if (m.isBridge()
-            } // end  for(MethodInfo m : methodInfoList)
-
-
+                    } // end for(MethodInfo to
+                } // end if (m.isBridge()
+            } // end for(MethodInfo m : methodInfoList)
 
             for (Map.Entry<MethodInfo, String> e : bridgedSignatures.entrySet()) {
                 MethodInfo method = e.getKey();
@@ -274,19 +269,19 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
      * @param accessFlags
      *            class's access flags
      * @param referencedClassDescriptorList
-     *            ClassDescriptors of all classes/interfaces referenced by the
-     *            class
+     *            ClassDescriptors of all classes/interfaces referenced by the class
      * @param fieldDescriptorList
      *            FieldDescriptors of fields defined in the class
      * @param methodInfoList
      *            MethodDescriptors of methods defined in the class
      */
-    private ClassInfo(ClassDescriptor classDescriptor, String classSourceSignature, ClassDescriptor superclassDescriptor,
-            ClassDescriptor[] interfaceDescriptorList, ICodeBaseEntry codeBaseEntry, int accessFlags, String source,
-            int majorVersion, int minorVersion, Collection<ClassDescriptor> referencedClassDescriptorList,
-            Set<ClassDescriptor> calledClassDescriptors, Map<ClassDescriptor, AnnotationValue> classAnnotations,
-            FieldInfo[] fieldDescriptorList, MethodInfo[] methodInfoList, ClassDescriptor immediateEnclosingClass,
-            boolean usesConcurrency, boolean hasStubs, Map<String, Map<String, MethodInfo>> polymorphicMethods) {
+    private ClassInfo(ClassDescriptor classDescriptor, String classSourceSignature,
+            ClassDescriptor superclassDescriptor, ClassDescriptor[] interfaceDescriptorList,
+            ICodeBaseEntry codeBaseEntry, int accessFlags, String source, int majorVersion, int minorVersion,
+            Collection<ClassDescriptor> referencedClassDescriptorList, Set<ClassDescriptor> calledClassDescriptors,
+            Map<ClassDescriptor, AnnotationValue> classAnnotations, FieldInfo[] fieldDescriptorList,
+            MethodInfo[] methodInfoList, ClassDescriptor immediateEnclosingClass, boolean usesConcurrency,
+            boolean hasStubs, Map<String, Map<String, MethodInfo>> polymorphicMethods) {
         super(classDescriptor, superclassDescriptor, interfaceDescriptorList, codeBaseEntry, accessFlags,
                 referencedClassDescriptorList, calledClassDescriptors, majorVersion, minorVersion);
         this.source = source;
@@ -326,7 +321,8 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
                 if (mInfo.getNameSigHashCode() == hash && mInfo.getSignature().equals(methodSig)) {
                     return mInfo;
                 } else if (mInfo.hasPolymorphicSignature()) {
-                    Map<String, MethodInfo> methods = polymorphicMethods.computeIfAbsent(methodName, n -> new HashMap<>());
+                    Map<String, MethodInfo> methods = polymorphicMethods.computeIfAbsent(methodName,
+                            n -> new HashMap<>());
                     return methods.computeIfAbsent(methodSig, s -> mInfo.withSignature(s));
                 }
             }
@@ -351,8 +347,8 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
     public XField findField(String name, String signature, boolean isStatic) {
         int hash = FieldOrMethodDescriptor.getNameSigHashCode(name, signature);
         for (FieldInfo fInfo : xFields) {
-            if (fInfo.getNameSigHashCode() == hash && fInfo.getName().equals(name) && fInfo.getSignature().equals(signature)
-                    && fInfo.isStatic() == isStatic) {
+            if (fInfo.getNameSigHashCode() == hash && fInfo.getName().equals(name)
+                    && fInfo.getSignature().equals(signature) && fInfo.isStatic() == isStatic) {
                 return fInfo;
             }
         }
@@ -424,12 +420,10 @@ public class ClassInfo extends ClassNameAndSuperclassInfo implements XClass {
     }
 
     /**
-     * Destructively add an annotation to the object. In general, this is not a
-     * great idea, since it could cause the same class to appear to have
-     * different annotations at different times. However, this method is
-     * necessary for "built-in" annotations that FindBugs adds to system
-     * classes. As long as we add such annotations early enough that nobody will
-     * notice, we should be ok.
+     * Destructively add an annotation to the object. In general, this is not a great idea, since it could cause the
+     * same class to appear to have different annotations at different times. However, this method is necessary for
+     * "built-in" annotations that FindBugs adds to system classes. As long as we add such annotations early enough that
+     * nobody will notice, we should be ok.
      *
      * @param annotationValue
      *            an AnnotationValue to add to the class

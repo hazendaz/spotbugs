@@ -22,9 +22,8 @@ import edu.umd.cs.findbugs.ba.Edge;
 import edu.umd.cs.findbugs.ba.Location;
 
 /**
- * An instruction recorded as a redundant reference comparison. We keep track of
- * the line number, in order to ensure that if the branch was duplicated, all
- * duplicates are determined in the same way. (If they aren't, then we don't
+ * An instruction recorded as a redundant reference comparison. We keep track of the line number, in order to ensure
+ * that if the branch was duplicated, all duplicates are determined in the same way. (If they aren't, then we don't
  * report it.)
  */
 public class RedundantBranch {

@@ -49,11 +49,9 @@ import edu.umd.cs.findbugs.log.Profiler;
 import edu.umd.cs.findbugs.util.DualKeyHashMap;
 
 /**
- * A TypeQualifierValue is a pair specifying a type qualifier annotation and a
- * value. Each TypeQualifierValue is effectively a different type qualifier. For
- * example, if Foo is a type qualifier annotation having an int value, then
- * Foo(0), Foo(1), etc. are all different type qualifiers which must be checked
- * separately.
+ * A TypeQualifierValue is a pair specifying a type qualifier annotation and a value. Each TypeQualifierValue is
+ * effectively a different type qualifier. For example, if Foo is a type qualifier annotation having an int value, then
+ * Foo(0), Foo(1), etc. are all different type qualifiers which must be checked separately.
  *
  * @author William Pugh
  */
@@ -61,11 +59,11 @@ public class TypeQualifierValue<A extends Annotation> {
     public static final boolean DEBUG = SystemProperties.getBoolean("tqv.debug");
     public static final boolean DEBUG_CLASSLOADING = SystemProperties.getBoolean("tqv.debug.classloading");
 
-    private static final ClassDescriptor EXCLUSIVE_ANNOTATION = DescriptorFactory.instance().getClassDescriptor(
-            javax.annotation.meta.Exclusive.class);
+    private static final ClassDescriptor EXCLUSIVE_ANNOTATION = DescriptorFactory.instance()
+            .getClassDescriptor(javax.annotation.meta.Exclusive.class);
 
-    private static final ClassDescriptor EXHAUSTIVE_ANNOTATION = DescriptorFactory.instance().getClassDescriptor(
-            javax.annotation.meta.Exhaustive.class);
+    private static final ClassDescriptor EXHAUSTIVE_ANNOTATION = DescriptorFactory.instance()
+            .getClassDescriptor(javax.annotation.meta.Exhaustive.class);
 
     public final ClassDescriptor typeQualifier;
     public final Class<A> typeQualifierClass;
@@ -82,14 +80,12 @@ public class TypeQualifierValue<A extends Annotation> {
 
     private final @CheckForNull TypeQualifierValidator<A> validator;
 
-
-
     private TypeQualifierValue(ClassDescriptor typeQualifier, @CheckForNull Object value) {
         this.typeQualifier = typeQualifier;
         this.value = value;
-        /**  will be set to true if this is a strict type qualifier value */
+        /** will be set to true if this is a strict type qualifier value */
         boolean isStrict1 = false;
-        /**  will be set to true if this is an exclusive type qualifier value */
+        /** will be set to true if this is an exclusive type qualifier value */
         boolean isExclusive1 = false;
         /** will be set to true if this is an exhaustive type qualifier value */
         boolean isExhaustive1 = false;
@@ -131,16 +127,16 @@ public class TypeQualifierValue<A extends Annotation> {
         this.isExclusive = isExclusive1;
         this.isExhaustive = isExhaustive1;
 
-
         if (xclass != null) {
-            ClassDescriptor checkerName = DescriptorFactory.createClassDescriptor(typeQualifier.getClassName() + "$Checker");
+            ClassDescriptor checkerName = DescriptorFactory
+                    .createClassDescriptor(typeQualifier.getClassName() + "$Checker");
 
             if (!SystemProperties.RUNNING_AS_IDE_PLUGIN) {
-                /* don't do this if running in Eclipse; check below is the quick
-                   fix for bug 3599258 (Random obscure Eclipse failures during analysis)
-                
-                   Also don't do this if running in IntelliJ IDEA. This causes weird issues
-                   either (see IDEA-230268)
+                /*
+                 * don't do this if running in Eclipse; check below is the quick fix for bug 3599258 (Random obscure
+                 * Eclipse failures during analysis)
+                 *
+                 * Also don't do this if running in IntelliJ IDEA. This causes weird issues either (see IDEA-230268)
                  */
 
                 try {
@@ -258,13 +254,13 @@ public class TypeQualifierValue<A extends Annotation> {
     }
 
     /**
-     * Given a ClassDescriptor/value pair, return the interned
-     * TypeQualifierValue representing that pair.
+     * Given a ClassDescriptor/value pair, return the interned TypeQualifierValue representing that pair.
      *
      * @param desc
      *            a ClassDescriptor denoting a type qualifier annotation
      * @param value
      *            a value
+     *
      * @return an interned TypeQualifierValue object
      */
     @SuppressWarnings("rawtypes")
@@ -281,7 +277,8 @@ public class TypeQualifierValue<A extends Annotation> {
     }
 
     @SuppressWarnings("unchecked")
-    public static @Nonnull <A extends Annotation> TypeQualifierValue<A> getValue(Class<A> clazz, @CheckForNull Object value) {
+    public static @Nonnull <A extends Annotation> TypeQualifierValue<A> getValue(Class<A> clazz,
+            @CheckForNull Object value) {
         return (TypeQualifierValue<A>) getValue(DescriptorFactory.createClassDescriptor(clazz), value);
     }
 
@@ -295,14 +292,15 @@ public class TypeQualifierValue<A extends Annotation> {
     }
 
     /**
-     * Get the "complementary" TypeQualifierValues for given exclusive type
-     * qualifier.
+     * Get the "complementary" TypeQualifierValues for given exclusive type qualifier.
      *
      * @param tqv
      *            a type qualifier (which must be exclusive)
+     *
      * @return Collection of complementary exclusive type qualifiers
      */
-    public static Collection<TypeQualifierValue<?>> getComplementaryExclusiveTypeQualifierValue(TypeQualifierValue<?> tqv) {
+    public static Collection<TypeQualifierValue<?>> getComplementaryExclusiveTypeQualifierValue(
+            TypeQualifierValue<?> tqv) {
         assert tqv.isExclusiveQualifier();
 
         LinkedList<TypeQualifierValue<?>> result = new LinkedList<>();
@@ -322,14 +320,13 @@ public class TypeQualifierValue<A extends Annotation> {
     }
 
     /**
-     * Determine whether or not given TypeQualifierValue has multiple variants.
-     * I.e., if Color is a type qualifier having values RED, GREEN, and BLUE,
-     * then there are 3 variants, Color(RED), Color(GREEN), and COLOR(BLUE).
+     * Determine whether or not given TypeQualifierValue has multiple variants. I.e., if Color is a type qualifier
+     * having values RED, GREEN, and BLUE, then there are 3 variants, Color(RED), Color(GREEN), and COLOR(BLUE).
      *
      * @param tqv
      *            a TypeQualifierValue
-     * @return true if there are multiple variants of this type qualifier, false
-     *         otherwise
+     *
+     * @return true if there are multiple variants of this type qualifier, false otherwise
      */
     public static boolean hasMultipleVariants(TypeQualifierValue<?> tqv) {
         int count = 0;
@@ -360,8 +357,7 @@ public class TypeQualifierValue<A extends Annotation> {
     }
 
     /**
-     * Return whether or not this TypeQualifierValue denotes an exclusive
-     * qualifier.
+     * Return whether or not this TypeQualifierValue denotes an exclusive qualifier.
      *
      * @return true if type qualifier is exclusive, false otherwise
      */
@@ -370,8 +366,7 @@ public class TypeQualifierValue<A extends Annotation> {
     }
 
     /**
-     * Return whether or not this TypeQualifierValue denotes an exhaustive
-     * qualifier.
+     * Return whether or not this TypeQualifierValue denotes an exhaustive qualifier.
      *
      * @return true if type qualifier is exhaustive, false otherwise
      */

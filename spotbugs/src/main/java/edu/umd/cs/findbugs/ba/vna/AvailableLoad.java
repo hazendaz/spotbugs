@@ -22,18 +22,18 @@ package edu.umd.cs.findbugs.ba.vna;
 import edu.umd.cs.findbugs.ba.XField;
 
 /**
- * <p>An AvailableLoad indicates a field and (optionally) object reference for
- * which a value is available. It is used to implement redundant load
- * elimination and forward substitution in ValueNumberAnalysis. The idea is that
- * programmers often reload fields unnecessarily when they "know" that the value
- * will not change. In order to deduce the intended meaning of such code, our
- * analyses need to figure out that such loads return the same value.
+ * <p>
+ * An AvailableLoad indicates a field and (optionally) object reference for which a value is available. It is used to
+ * implement redundant load elimination and forward substitution in ValueNumberAnalysis. The idea is that programmers
+ * often reload fields unnecessarily when they "know" that the value will not change. In order to deduce the intended
+ * meaning of such code, our analyses need to figure out that such loads return the same value.
  * </p>
  * <p>
- * AvailableLoad objects may be used as keys in both hash and tree sets and
- * maps.
+ * AvailableLoad objects may be used as keys in both hash and tree sets and maps.
  * </p>
+ *
  * @author David Hovemeyer
+ *
  * @see ValueNumberAnalysis
  */
 public class AvailableLoad implements Comparable<AvailableLoad> {
@@ -71,8 +71,7 @@ public class AvailableLoad implements Comparable<AvailableLoad> {
     /**
      * Get the ValueNumber of the object reference.
      *
-     * @return the ValueNumber, or null if this is a an available static field
-     *         load
+     * @return the ValueNumber, or null if this is a an available static field load
      */
     public ValueNumber getReference() {
         return reference;
@@ -124,8 +123,9 @@ public class AvailableLoad implements Comparable<AvailableLoad> {
             return false;
         }
         AvailableLoad other = (AvailableLoad) o;
-        return (reference == other.reference || (reference != null && other.reference != null && reference
-                .equals(other.reference))) && field.equals(other.field);
+        return (reference == other.reference
+                || (reference != null && other.reference != null && reference.equals(other.reference)))
+                && field.equals(other.field);
     }
 
     @Override

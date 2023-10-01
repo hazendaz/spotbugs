@@ -33,9 +33,8 @@ import edu.umd.cs.findbugs.ba.XMethod;
 import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 
 /**
- * if we get from a ConcurrentHashMap and assign to a variable... and don't do
- * anything else and perform a null check on it... and then do a set on it...
- * (or anything else inside the if that modifies it?) then we have a bug.
+ * if we get from a ConcurrentHashMap and assign to a variable... and don't do anything else and perform a null check on
+ * it... and then do a set on it... (or anything else inside the if that modifies it?) then we have a bug.
  *
  * @author Michael Midgley-Biggs
  */
@@ -55,7 +54,8 @@ public class AtomicityProblem extends OpcodeStackDetector {
 
     @Override
     public void visitClassContext(ClassContext classContext) {
-        if (hasInterestingClass(classContext.getJavaClass().getConstantPool(), Collections.singleton("java/util/concurrent/ConcurrentHashMap"))) {
+        if (hasInterestingClass(classContext.getJavaClass().getConstantPool(),
+                Collections.singleton("java/util/concurrent/ConcurrentHashMap"))) {
             super.visitClassContext(classContext);
         }
     }
@@ -70,8 +70,8 @@ public class AtomicityProblem extends OpcodeStackDetector {
     }
 
     /**
-     * This is the "dumb" version of the detector. It may generate false
-     * positives, and/or not detect all instances of the bug.
+     * This is the "dumb" version of the detector. It may generate false positives, and/or not detect all instances of
+     * the bug.
      *
      * @see edu.umd.cs.findbugs.visitclass.DismantleBytecode#sawOpcode(int)
      */
@@ -109,7 +109,8 @@ public class AtomicityProblem extends OpcodeStackDetector {
             if (DEBUG) {
                 System.out.println("Found null check");
             }
-            if (m != null && "java.util.concurrent.ConcurrentHashMap".equals(m.getClassName()) && "get".equals(m.getName())) {
+            if (m != null && "java.util.concurrent.ConcurrentHashMap".equals(m.getClassName())
+                    && "get".equals(m.getName())) {
                 lastQuestionableCheckTarget = getBranchTarget();
                 if (seen == Const.IFNULL) {
                     priority = LOW_PRIORITY;
@@ -124,10 +125,12 @@ public class AtomicityProblem extends OpcodeStackDetector {
             if ("java.util.concurrent.ConcurrentHashMap".equals(getDottedClassConstantOperand())) {
                 String methodName = getNameConstantOperand();
                 XClass xClass = getXClassOperand();
-                if (xClass != null && "put".equals(methodName) && (getPC() < lastQuestionableCheckTarget) && (lastQuestionableCheckTarget != -1)) {
-                    bugReporter.reportBug(new BugInstance(this, "AT_OPERATION_SEQUENCE_ON_CONCURRENT_ABSTRACTION", priority)
-                            .addClassAndMethod(this).addType(xClass.getClassDescriptor()).addCalledMethod(this)
-                            .addSourceLine(this));
+                if (xClass != null && "put".equals(methodName) && (getPC() < lastQuestionableCheckTarget)
+                        && (lastQuestionableCheckTarget != -1)) {
+                    bugReporter.reportBug(
+                            new BugInstance(this, "AT_OPERATION_SEQUENCE_ON_CONCURRENT_ABSTRACTION", priority)
+                                    .addClassAndMethod(this).addType(xClass.getClassDescriptor()).addCalledMethod(this)
+                                    .addSourceLine(this));
                 }
             }
             break;

@@ -35,15 +35,18 @@ public final class MethodAnalysis {
     }
 
     /**
-     * Check if the location is duplicated in the method.
-     * Locations in finally blocks will be duplicated in the bytecode level.
+     * Check if the location is duplicated in the method. Locations in finally blocks will be duplicated in the bytecode
+     * level.
      *
      * @return {@code true} if the location is duplicated in the method, {@code false} otherwise
-     * @throws CheckedAnalysisException if an error occurs during the analysis
+     *
+     * @throws CheckedAnalysisException
+     *             if an error occurs during the analysis
      */
-    public static boolean isDuplicatedLocation(MethodDescriptor methodDescriptor, int pc) throws CheckedAnalysisException {
-        FinallyDuplicatesInfoFactory.FinallyDuplicatesInfo methodAnalysis =
-                Global.getAnalysisCache().getMethodAnalysis(FinallyDuplicatesInfoFactory.FinallyDuplicatesInfo.class, methodDescriptor);
+    public static boolean isDuplicatedLocation(MethodDescriptor methodDescriptor, int pc)
+            throws CheckedAnalysisException {
+        FinallyDuplicatesInfoFactory.FinallyDuplicatesInfo methodAnalysis = Global.getAnalysisCache()
+                .getMethodAnalysis(FinallyDuplicatesInfoFactory.FinallyDuplicatesInfo.class, methodDescriptor);
         return methodAnalysis.getDuplicates(pc).stream().anyMatch(duplicatePc -> duplicatePc < pc);
     }
 }

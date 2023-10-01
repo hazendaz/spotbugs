@@ -78,9 +78,11 @@ public class CheckReturnAnnotationDatabase extends AnnotationDatabase<CheckRetur
         if (IGNORE_BUILTIN_ANNOTATIONS) {
             return;
         }
-        boolean missingClassWarningsSuppressed = AnalysisContext.currentAnalysisContext().setMissingClassWarningsSuppressed(true);
+        boolean missingClassWarningsSuppressed = AnalysisContext.currentAnalysisContext()
+                .setMissingClassWarningsSuppressed(true);
 
-        addMethodAnnotation("java.util.Iterator", "hasNext", "()Z", false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
+        addMethodAnnotation("java.util.Iterator", "hasNext", "()Z", false,
+                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
         addMethodAnnotation(JAVA_IO_FILE, "createNewFile", "()Z", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM_BAD_PRACTICE);
         addMethodAnnotation(JAVA_IO_FILE, "delete", "()Z", false,
@@ -102,10 +104,10 @@ public class CheckReturnAnnotationDatabase extends AnnotationDatabase<CheckRetur
         addMethodAnnotation("java.security.MessageDigest", "digest", "([B)[B", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
 
-        addMethodAnnotation("java.util.concurrent.locks.ReadWriteLock", "readLock", "()Ljava/util/concurrent/locks/Lock;", false,
-                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
-        addMethodAnnotation("java.util.concurrent.locks.ReadWriteLock", "writeLock", "()Ljava/util/concurrent/locks/Lock;",
-                false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
+        addMethodAnnotation("java.util.concurrent.locks.ReadWriteLock", "readLock",
+                "()Ljava/util/concurrent/locks/Lock;", false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
+        addMethodAnnotation("java.util.concurrent.locks.ReadWriteLock", "writeLock",
+                "()Ljava/util/concurrent/locks/Lock;", false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
         addMethodAnnotation(JAVA_UTIL_CONCURRENT_LOCKS_CONDITION, "await", J_LJAVA_UTIL_CONCURRENT_TIME_UNIT_Z, false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM_BAD_PRACTICE);
         addMethodAnnotation("java.util.concurrent.CountDownLatch", "await", J_LJAVA_UTIL_CONCURRENT_TIME_UNIT_Z, false,
@@ -120,8 +122,8 @@ public class CheckReturnAnnotationDatabase extends AnnotationDatabase<CheckRetur
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
         addMethodAnnotation(JAVA_UTIL_CONCURRENT_LOCKS_LOCK, "tryLock", J_LJAVA_UTIL_CONCURRENT_TIME_UNIT_Z, false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
-        addMethodAnnotation(JAVA_UTIL_CONCURRENT_LOCKS_LOCK, "newCondition", "()Ljava/util/concurrent/locks/Condition;", false,
-                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
+        addMethodAnnotation(JAVA_UTIL_CONCURRENT_LOCKS_LOCK, "newCondition", "()Ljava/util/concurrent/locks/Condition;",
+                false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
         addMethodAnnotation(JAVA_UTIL_CONCURRENT_LOCKS_LOCK, "tryLock", "()Z", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
         addMethodAnnotation(JAVA_UTIL_CONCURRENT_BLOCKING_QUEUE, OFFER,
@@ -154,18 +156,21 @@ public class CheckReturnAnnotationDatabase extends AnnotationDatabase<CheckRetur
         addWarningAboutSubmit(ScheduledThreadPoolExecutor.class);
         addWarningAboutSubmit(AbstractExecutorService.class);
 
-        addMethodAnnotation(JAVA_UTIL_CONCURRENT_BLOCKING_QUEUE, "poll", "(JLjava/util/concurrent/TimeUnit;)Ljava/lang/Object;",
-                false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
+        addMethodAnnotation(JAVA_UTIL_CONCURRENT_BLOCKING_QUEUE, "poll",
+                "(JLjava/util/concurrent/TimeUnit;)Ljava/lang/Object;", false,
+                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
         addMethodAnnotation("java.util.Queue", "poll", "()Ljava/lang/Object;", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
 
         addDefaultMethodAnnotation(JAVA_LANG_STRING, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
         addMethodAnnotation(JAVA_LANG_STRING, "getBytes", "(Ljava/lang/String;)[B", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_IGNORE);
-        addMethodAnnotation(JAVA_LANG_STRING, "charAt", "(I)C", false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
+        addMethodAnnotation(JAVA_LANG_STRING, "charAt", "(I)C", false,
+                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
         addMethodAnnotation(JAVA_LANG_STRING, "toString", "()Ljava/lang/String;", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
-        addMethodAnnotation(JAVA_LANG_STRING, "length", "()I", false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
+        addMethodAnnotation(JAVA_LANG_STRING, "length", "()I", false,
+                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
         addMethodAnnotation(JAVA_LANG_STRING, "matches", "(Ljava/lang/String;)Z", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
         addMethodAnnotation(JAVA_LANG_STRING, "intern", "()Ljava/lang/String;", false,
@@ -174,7 +179,8 @@ public class CheckReturnAnnotationDatabase extends AnnotationDatabase<CheckRetur
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_IGNORE);
         addMethodAnnotation(JAVA_LANG_STRING, Const.CONSTRUCTOR_NAME, LJAVA_LANG_STRING_V, false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
-        addMethodAnnotation(JAVA_LANG_STRING, Const.CONSTRUCTOR_NAME, "()V", false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
+        addMethodAnnotation(JAVA_LANG_STRING, Const.CONSTRUCTOR_NAME, "()V", false,
+                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW);
         addDefaultMethodAnnotation(JAVA_MATH_BIG_DECIMAL, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_HIGH);
         addMethodAnnotation(JAVA_MATH_BIG_DECIMAL, "inflate", "()Ljava/math/BigInteger;", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_IGNORE);
@@ -219,13 +225,15 @@ public class CheckReturnAnnotationDatabase extends AnnotationDatabase<CheckRetur
         addMethodAnnotation(JAVA_LANG_PROCESS_BUILDER, REDIRECT_ERROR_STREAM, "()Z", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
 
-        addMethodAnnotation("com.google.common.base.Preconditions", "checkNotNull", "(Ljava/lang/Object;)Ljava/lang/Object;", true,
-                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_IGNORE);
+        addMethodAnnotation("com.google.common.base.Preconditions", "checkNotNull",
+                "(Ljava/lang/Object;)Ljava/lang/Object;", true, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_IGNORE);
 
-        addDefaultMethodAnnotation("jsr166z.forkjoin.ParallelArray", CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
-        addDefaultMethodAnnotation("jsr166z.forkjoin.ParallelLongArray", CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
-        addDefaultMethodAnnotation("jsr166z.forkjoin.ParallelDoubleArray", CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
-
+        addDefaultMethodAnnotation("jsr166z.forkjoin.ParallelArray",
+                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
+        addDefaultMethodAnnotation("jsr166z.forkjoin.ParallelLongArray",
+                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
+        addDefaultMethodAnnotation("jsr166z.forkjoin.ParallelDoubleArray",
+                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
 
         addMethodAnnotation(java.sql.Statement.class, "executeQuery", "(Ljava/lang/String;)Ljava/sql/ResultSet;", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM);
@@ -249,11 +257,9 @@ public class CheckReturnAnnotationDatabase extends AnnotationDatabase<CheckRetur
      * @param c
      */
     private void addWarningAboutSubmit(Class<? extends ExecutorService> c) {
-        addMethodAnnotation(c.getName(), SUBMIT,
-                "(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Future;", false,
-                CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM_BAD_PRACTICE);
-        addMethodAnnotation(c.getName(), SUBMIT,
-                "(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;", false,
+        addMethodAnnotation(c.getName(), SUBMIT, "(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Future;",
+                false, CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM_BAD_PRACTICE);
+        addMethodAnnotation(c.getName(), SUBMIT, "(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;", false,
                 CheckReturnValueAnnotation.CHECK_RETURN_VALUE_LOW_BAD_PRACTICE);
         addMethodAnnotation(c.getName(), SUBMIT,
                 "(Ljava/lang/Runnable;Ljava/lang/Object;)Ljava/util/concurrent/Future;", false,
@@ -298,7 +304,8 @@ public class CheckReturnAnnotationDatabase extends AnnotationDatabase<CheckRetur
         } else if ("equals".equals(m.getName()) && LJAVA_LANG_OBJECT_Z.equals(m.getSignature()) && !m.isStatic()) {
             return CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM;
         } else if (m.getSignature().endsWith(")Ljava/lang/String;")
-                && ("java.lang.StringBuffer".equals(m.getClassName()) || "java.lang.StringBuilder".equals(m.getClassName()))) {
+                && ("java.lang.StringBuffer".equals(m.getClassName())
+                        || "java.lang.StringBuilder".equals(m.getClassName()))) {
             return CheckReturnValueAnnotation.CHECK_RETURN_VALUE_MEDIUM;
         }
         CheckReturnValueAnnotation annotationOnMethod = super.getResolvedAnnotation(o, getMinimal);

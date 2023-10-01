@@ -22,8 +22,8 @@ package edu.umd.cs.findbugs.graph;
 import java.util.Set;
 
 /**
- * Interface for an object which combines a set of vertices into a single
- * composite vertex; for example, after finding strongly connected components.
+ * Interface for an object which combines a set of vertices into a single composite vertex; for example, after finding
+ * strongly connected components.
  */
 public interface VertexCombinator<VertexType extends GraphVertex<VertexType>> {
     /**
@@ -31,6 +31,7 @@ public interface VertexCombinator<VertexType extends GraphVertex<VertexType>> {
      *
      * @param vertexSet
      *            set of vertices to be combined
+     *
      * @return the result of combining the vertices in the set
      */
     public VertexType combineVertices(Set<VertexType> vertexSet);

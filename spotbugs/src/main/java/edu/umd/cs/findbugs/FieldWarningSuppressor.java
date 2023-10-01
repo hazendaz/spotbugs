@@ -11,22 +11,19 @@ public class FieldWarningSuppressor extends ClassWarningSuppressor {
     FieldAnnotation field;
 
     /**
-     * Indicates whether this field was "user generated" as defined in {@link MemberUtils#isUserGenerated(org.apache.bcel.classfile.FieldOrMethod)}
-     * When a field is not user generated we are not interested in reporting warnings, in particular we do not want to report US_USELESS_SUPPRESSION_ON_FIELD
+     * Indicates whether this field was "user generated" as defined in
+     * {@link MemberUtils#isUserGenerated(org.apache.bcel.classfile.FieldOrMethod)} When a field is not user generated
+     * we are not interested in reporting warnings, in particular we do not want to report
+     * US_USELESS_SUPPRESSION_ON_FIELD
      */
     private final boolean userGeneratedField;
 
-    public FieldWarningSuppressor(String bugPattern,
-            SuppressMatchType matchType,
-            ClassAnnotation clazz,
-            FieldAnnotation field,
-            boolean userGeneratedClass,
-            boolean userGeneratedField) {
+    public FieldWarningSuppressor(String bugPattern, SuppressMatchType matchType, ClassAnnotation clazz,
+            FieldAnnotation field, boolean userGeneratedClass, boolean userGeneratedField) {
         super(bugPattern, matchType, clazz, userGeneratedClass);
         this.field = field;
         this.userGeneratedField = userGeneratedField;
     }
-
 
     @Override
     public String toString() {
@@ -52,9 +49,7 @@ public class FieldWarningSuppressor extends ClassWarningSuppressor {
 
     @Override
     public BugInstance buildUselessSuppressionBugInstance(UselessSuppressionDetector detector) {
-        return new BugInstance(detector, BUG_TYPE, PRIORITY)
-                .addClass(clazz.getClassDescriptor())
-                .addField(field)
+        return new BugInstance(detector, BUG_TYPE, PRIORITY).addClass(clazz.getClassDescriptor()).addField(field)
                 .addString(adjustBugPatternForMessage());
     }
 

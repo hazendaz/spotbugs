@@ -49,8 +49,7 @@ import org.eclipse.swt.widgets.Widget;
 
 import de.tobject.findbugs.builder.FindBugsWorker;
 
-abstract class PathsProvider extends SelectionAdapter implements IStructuredContentProvider,
-        ICheckStateProvider {
+abstract class PathsProvider extends SelectionAdapter implements IStructuredContentProvider, ICheckStateProvider {
     private static IPath lastUsedPath;
 
     protected final List<IPathElement> paths;

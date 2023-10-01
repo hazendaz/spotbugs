@@ -55,8 +55,7 @@ public class ParameterAnnotationAccumulator extends AbstractMethodAnnotationAccu
     }
 
     /**
-     * Returns true if the method overrides/implements a method in a superclass
-     * or interface
+     * Returns true if the method overrides/implements a method in a superclass or interface
      */
     @Override
     public boolean overrides() {

@@ -34,7 +34,8 @@ public class ApplyNewFilter {
     private final PreferencesFrame preferencesFrame;
     private final FilterActivityNotifier filterActivityNotifier;
 
-    public ApplyNewFilter(Filter suppressionFilter, PreferencesFrame preferencesFrame, FilterActivityNotifier filterActivityNotifier) {
+    public ApplyNewFilter(Filter suppressionFilter, PreferencesFrame preferencesFrame,
+            FilterActivityNotifier filterActivityNotifier) {
         this.suppressionFilter = suppressionFilter;
         this.preferencesFrame = preferencesFrame;
         this.filterActivityNotifier = filterActivityNotifier;

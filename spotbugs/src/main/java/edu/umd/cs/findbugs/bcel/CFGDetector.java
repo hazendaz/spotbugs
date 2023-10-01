@@ -54,9 +54,7 @@ public abstract class CFGDetector implements Detector2 {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.Detector2#visitClass(edu.umd.cs.findbugs.classfile
-     * .ClassDescriptor)
+     * @see edu.umd.cs.findbugs.Detector2#visitClass(edu.umd.cs.findbugs.classfile .ClassDescriptor)
      */
     @Override
     public void visitClass(ClassDescriptor classDescriptor) throws CheckedAnalysisException {
@@ -86,11 +84,11 @@ public abstract class CFGDetector implements Detector2 {
     }
 
     /**
-     * Visit the CFG (control flow graph) of a method to be analyzed. Should be
-     * overridden by subclasses.
+     * Visit the CFG (control flow graph) of a method to be analyzed. Should be overridden by subclasses.
      *
      * @param methodDescriptor
      * @param cfg
+     *
      * @throws CheckedAnalysisException
      */
     protected abstract void visitMethodCFG(MethodDescriptor methodDescriptor, CFG cfg) throws CheckedAnalysisException;

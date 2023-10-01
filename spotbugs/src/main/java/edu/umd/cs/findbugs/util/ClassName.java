@@ -90,10 +90,8 @@ public abstract class ClassName {
     }
 
     /**
-     * Converts from signature to slashed class name
-     * (e.g., from Ljava/lang/String; to java/lang/String).
-     * Returns null if it is the signature for an array or
-     * primitive type.
+     * Converts from signature to slashed class name (e.g., from Ljava/lang/String; to java/lang/String). Returns null
+     * if it is the signature for an array or primitive type.
      */
     public static @CheckForNull @SlashedClassName String fromFieldSignature(String signature) {
         if (signature.charAt(0) != 'L') {
@@ -103,11 +101,11 @@ public abstract class ClassName {
     }
 
     /**
-     * Convert class name to slashed format. If the class name is already in
-     * slashed format, it is returned unmodified.
+     * Convert class name to slashed format. If the class name is already in slashed format, it is returned unmodified.
      *
      * @param className
      *            a class name
+     *
      * @return the same class name in slashed format
      */
     @SlashedClassName
@@ -120,11 +118,11 @@ public abstract class ClassName {
     }
 
     /**
-     * Convert class name to dotted format. If the class name is already in
-     * dotted format, it is returned unmodified.
+     * Convert class name to dotted format. If the class name is already in dotted format, it is returned unmodified.
      *
      * @param className
      *            a class name
+     *
      * @return the same class name in dotted format
      */
     @DottedClassName
@@ -137,11 +135,12 @@ public abstract class ClassName {
     }
 
     /**
-     * Converts from signature to dotted class name
-     * (e.g., from Ljava/lang/String; to java.lang.String).
-     * Returns null if it is the signature for an array or primitive type.
+     * Converts from signature to dotted class name (e.g., from Ljava/lang/String; to java.lang.String). Returns null if
+     * it is the signature for an array or primitive type.
      *
-     * @param signature a class signature
+     * @param signature
+     *            a class signature
+     *
      * @return the class of the signature in dotted format
      */
     @DottedClassName
@@ -155,11 +154,11 @@ public abstract class ClassName {
     }
 
     /**
-     * extract the package name from a dotted class name. Package names are
-     * always in dotted format.
+     * extract the package name from a dotted class name. Package names are always in dotted format.
      *
      * @param className
      *            a dotted class name
+     *
      * @return the name of the package containing the class
      */
     public static @DottedClassName String extractPackageName(@DottedClassName String className) {
@@ -190,86 +189,77 @@ public abstract class ClassName {
      *
      * @param className
      *            a possible class name
+     *
      * @return true if it's a valid class name, false otherwise
      */
     public static boolean isValidClassName(String className) {
-        return !className.isEmpty() &&
-                (isValidBinaryClassName(className) ||
-                        isValidDottedClassName(className) ||
-                        isValidArrayFieldDescriptor(className) ||
-                        isValidClassFieldDescriptor(className));
+        return !className.isEmpty() && (isValidBinaryClassName(className) || isValidDottedClassName(className)
+                || isValidArrayFieldDescriptor(className) || isValidClassFieldDescriptor(className));
     }
 
     /**
-     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.2.1">
-     *     JVMS (Java SE 8 Edition) 4.2.1. Binary Class and Interface Names
-     *     </a>
+     * @see <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.2.1"> JVMS (Java SE 8
+     *      Edition) 4.2.1. Binary Class and Interface Names </a>
      */
     private static boolean isValidBinaryClassName(String className) {
-        return className.indexOf('.') == -1 &&
-                className.indexOf('[') == -1 &&
-                className.indexOf(';') == -1;
+        return className.indexOf('.') == -1 && className.indexOf('[') == -1 && className.indexOf(';') == -1;
     }
 
     private static boolean isValidDottedClassName(String className) {
-        return className.indexOf('/') == -1 &&
-                className.indexOf('[') == -1 &&
-                className.indexOf(';') == -1;
+        return className.indexOf('/') == -1 && className.indexOf('[') == -1 && className.indexOf(';') == -1;
     }
 
     /**
      * Determines whether a class name is a valid array field descriptor as per
-     * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.3.2">
-     * JVMS (Java SE 8 Edition) 4.3.2</a>
+     * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.3.2"> JVMS (Java SE 8 Edition)
+     * 4.3.2</a>
      *
-     * @param className a class name to test for validity - must be non-{@code null} and non-empty.
-     * @return {@code true} if {@code className} is a valid array field descriptor as
-     *          per JVMS 4.3.2, otherwise {@code false}
-     * @throws IndexOutOfBoundsException if {@code className} is empty.
-     * @throws NullPointerException if {@code className} is {@code null}.
+     * @param className
+     *            a class name to test for validity - must be non-{@code null} and non-empty.
+     *
+     * @return {@code true} if {@code className} is a valid array field descriptor as per JVMS 4.3.2, otherwise
+     *         {@code false}
+     *
+     * @throws IndexOutOfBoundsException
+     *             if {@code className} is empty.
+     * @throws NullPointerException
+     *             if {@code className} is {@code null}.
      */
     private static boolean isValidArrayFieldDescriptor(String className) {
         String tail = className.substring(1);
-        return className.startsWith("[") &&
-                (isValidArrayFieldDescriptor(tail) ||
-                        isValidClassFieldDescriptor(tail) ||
-                        isValidBaseTypeFieldDescriptor(tail));
+        return className.startsWith("[") && (isValidArrayFieldDescriptor(tail) || isValidClassFieldDescriptor(tail)
+                || isValidBaseTypeFieldDescriptor(tail));
 
     }
 
     private static boolean isValidClassFieldDescriptor(String className) {
-        return className.startsWith("L") &&
-                className.endsWith(";") &&
-                isValidBinaryClassName(className.substring(1, className.length() - 1));
+        return className.startsWith("L") && className.endsWith(";")
+                && isValidBinaryClassName(className.substring(1, className.length() - 1));
     }
 
     /**
      * Determines whether a class name is a valid array field descriptor as per
-     * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.3.2">
-     * JVMS (Java SE 8 Edition) 4.3.2</a>
+     * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.3.2"> JVMS (Java SE 8 Edition)
+     * 4.3.2</a>
      *
-     * @param className a class name to test for validity - must be non-{@code null} and non-empty.
-     * @return {@code true} if {@code className} is a valid basetype field descriptor as
-     *          per JVMS 4.3.2, otherwise {@code false}
+     * @param className
+     *            a class name to test for validity - must be non-{@code null} and non-empty.
+     *
+     * @return {@code true} if {@code className} is a valid basetype field descriptor as per JVMS 4.3.2, otherwise
+     *         {@code false}
      */
     public static boolean isValidBaseTypeFieldDescriptor(String className) {
-        return "B".equals(className) ||
-                "C".equals(className) ||
-                "D".equals(className) ||
-                "F".equals(className) ||
-                "I".equals(className) ||
-                "J".equals(className) ||
-                "S".equals(className) ||
-                "Z".equals(className);
+        return "B".equals(className) || "C".equals(className) || "D".equals(className) || "F".equals(className)
+                || "I".equals(className) || "J".equals(className) || "S".equals(className) || "Z".equals(className);
     }
 
     /**
-     * Does a class name appear to designate an anonymous or local (defined
-     * inside method) class? Only the name is analyzed. No classes are loaded or
-     * looked up.
+     * Does a class name appear to designate an anonymous or local (defined inside method) class? Only the name is
+     * analyzed. No classes are loaded or looked up.
      *
      * @param className
      *            class name, slashed or dotted, fully qualified or unqualified
+     *
      * @return true if className is the name of an anonymous or local class
      */
     public static boolean isLocalOrAnonymous(String className) {
@@ -281,11 +271,12 @@ public abstract class ClassName {
     }
 
     /**
-     * Does a class name appear to designate an anonymous class? Only
-     * the name is analyzed. No classes are loaded or looked up.
+     * Does a class name appear to designate an anonymous class? Only the name is analyzed. No classes are loaded or
+     * looked up.
      *
      * @param className
      *            class name, slashed or dotted, fully qualified or unqualified
+     *
      * @return true if className is the name of an anonymous class
      */
     public static boolean isAnonymous(String className) {
@@ -307,6 +298,7 @@ public abstract class ClassName {
      *
      * @param originalName
      *            JVM classname or signature
+     *
      * @return a slashed classname
      */
     public static @SlashedClassName String extractClassName(String originalName) {
@@ -359,17 +351,20 @@ public abstract class ClassName {
     }
 
     /**
-     * Perform a fuzzy matching, by comparing the Levenshtein distance of the
-     * simple class name and the search string. A maximum distance of 3 is used.
-     * This means the searchString and the className may differ by 3 single-character
+     * Perform a fuzzy matching, by comparing the Levenshtein distance of the simple class name and the search string. A
+     * maximum distance of 3 is used. This means the searchString and the className may differ by 3 single-character
      * edits (insertions, deletions or substitutions). This limit also speeds up the computation.
      * <p>
      * For more information on the Levenshtein distance see
-     * <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Wikipedia</a> and the
-     * <a href="https://commons.apache.org/proper/commons-text/apidocs/org/apache/commons/text/similarity/LevenshteinDistance.html">Apache Commons Text JavaDoc</a>.
+     * <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Wikipedia</a> and the <a href=
+     * "https://commons.apache.org/proper/commons-text/apidocs/org/apache/commons/text/similarity/LevenshteinDistance.html">Apache
+     * Commons Text JavaDoc</a>.
      *
-     * @param className    the full class name
-     * @param searchString the search string
+     * @param className
+     *            the full class name
+     * @param searchString
+     *            the search string
+     *
      * @return true, if the strings are similar, false otherwise
      */
     private static boolean fuzzyMatch(String className, String searchString) {
@@ -377,7 +372,6 @@ public abstract class ClassName {
         LevenshteinDistance ld = new LevenshteinDistance(3);
         return ld.apply(extractSimpleName(className), searchString) != -1;
     }
-
 
     public static @SlashedClassName String toSlashedClassName(Class<?> class1) {
         return toSlashedClassName(class1.getName());
