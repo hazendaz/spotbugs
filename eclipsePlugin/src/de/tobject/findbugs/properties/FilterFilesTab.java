@@ -131,7 +131,8 @@ public class FilterFilesTab extends Composite {
         @Override
         protected void configureDialog(FileDialog dialog) {
             dialog.setFilterExtensions(new String[] { "*.xml" });
-            dialog.setText(FindbugsPlugin.getDefault().getMessage(kind.propertyName) + ": select xml file(s) containing filters");
+            dialog.setText(FindbugsPlugin.getDefault().getMessage(kind.propertyName)
+                    + ": select xml file(s) containing filters");
         }
     }
 
@@ -141,8 +142,9 @@ public class FilterFilesTab extends Composite {
         setLayout(new GridLayout(2, true));
 
         Link label = new Link(this, SWT.NONE);
-        label.setText("Filter files may be used to include or exclude bug detection for particular classes and methods.\n"
-                + "<a href=\"http://spotbugs.readthedocs.io/en/latest/filter.html\">Details...</a>\n");
+        label.setText(
+                "Filter files may be used to include or exclude bug detection for particular classes and methods.\n"
+                        + "<a href=\"http://spotbugs.readthedocs.io/en/latest/filter.html\">Details...</a>\n");
 
         label.addSelectionListener(new SelectionListener() {
             @Override
@@ -173,9 +175,11 @@ public class FilterFilesTab extends Composite {
         excl.createButtonsArea(filterExcl);
 
         ManagePathsWidget excl2 = new ManagePathsWidget(this);
-        viewer = excl2.createViewer(getMessage(FilterKind.EXCLUDE_BUGS.propertyName),
-                "You can include past SpotBugs result XML files here to exclude those bugs from analysis. "
-                        + "<a href=\"http://spotbugs.readthedocs.io/en/latest/filter.html\">Details...</a>", true);
+        viewer = excl2
+                .createViewer(getMessage(FilterKind.EXCLUDE_BUGS.propertyName),
+                        "You can include past SpotBugs result XML files here to exclude those bugs from analysis. "
+                                + "<a href=\"http://spotbugs.readthedocs.io/en/latest/filter.html\">Details...</a>",
+                        true);
         filterExclBugs = createFilterProvider(viewer, FilterKind.EXCLUDE_BUGS, page);
         excl2.createButtonsArea(filterExclBugs);
 
@@ -194,6 +198,7 @@ public class FilterFilesTab extends Composite {
      *
      * @param key
      *            a message key
+     *
      * @return requested message
      */
     protected static String getMessage(String key) {

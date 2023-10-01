@@ -8,9 +8,7 @@ class Issue2147Test extends AbstractIntegrationTest {
 
     @Test
     void testIssue() {
-        performAnalysis("ghIssues/Issue2147.class",
-                "ghIssues/Issue2147A.class",
-                "ghIssues/Issue2147B.class",
+        performAnalysis("ghIssues/Issue2147.class", "ghIssues/Issue2147A.class", "ghIssues/Issue2147B.class",
                 "ghIssues/Issue2147C.class");
         assertNoBugType("URF_UNREAD_FIELD");
     }

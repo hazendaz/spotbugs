@@ -106,8 +106,10 @@ public class ResolveAllReferences extends PreorderVisitor implements Detector {
     }
 
     private String getMemberName(JavaClass c, String className, int memberNameIndex, int signatureIndex) {
-        return className + "." + ((ConstantUtf8) c.getConstantPool().getConstant(memberNameIndex, Const.CONSTANT_Utf8)).getBytes()
-                + " : " + ((ConstantUtf8) c.getConstantPool().getConstant(signatureIndex, Const.CONSTANT_Utf8)).getBytes();
+        return className + "."
+                + ((ConstantUtf8) c.getConstantPool().getConstant(memberNameIndex, Const.CONSTANT_Utf8)).getBytes()
+                + " : "
+                + ((ConstantUtf8) c.getConstantPool().getConstant(signatureIndex, Const.CONSTANT_Utf8)).getBytes();
     }
 
     private String getMemberName(String className, String memberName, String signature) {
@@ -146,8 +148,8 @@ public class ResolveAllReferences extends PreorderVisitor implements Detector {
             if (co instanceof ConstantClass) {
                 String ref = getClassName(obj, i);
                 if ((ref.startsWith("java") || ref.startsWith("org.w3c.dom")) && !defined.contains(ref)) {
-                    bugReporter.reportBug(new BugInstance(this, "VR_UNRESOLVABLE_REFERENCE", NORMAL_PRIORITY).addClass(obj)
-                            .addString(ref));
+                    bugReporter.reportBug(new BugInstance(this, "VR_UNRESOLVABLE_REFERENCE", NORMAL_PRIORITY)
+                            .addClass(obj).addString(ref));
                 }
 
             } else if (co instanceof ConstantFieldref) {
@@ -168,15 +170,16 @@ public class ResolveAllReferences extends PreorderVisitor implements Detector {
                     continue checkConstant;
                 }
                 ConstantNameAndType nt = (ConstantNameAndType) cp.getConstant(co2.getNameAndTypeIndex());
-                String name = ((ConstantUtf8) obj.getConstantPool().getConstant(nt.getNameIndex(), Const.CONSTANT_Utf8)).getBytes();
-                String signature = ((ConstantUtf8) obj.getConstantPool().getConstant(nt.getSignatureIndex(), Const.CONSTANT_Utf8))
+                String name = ((ConstantUtf8) obj.getConstantPool().getConstant(nt.getNameIndex(), Const.CONSTANT_Utf8))
                         .getBytes();
+                String signature = ((ConstantUtf8) obj.getConstantPool().getConstant(nt.getSignatureIndex(),
+                        Const.CONSTANT_Utf8)).getBytes();
 
                 try {
                     JavaClass target = Repository.lookupClass(className);
                     if (!find(target, name, signature)) {
-                        bugReporter.reportBug(new BugInstance(this, "VR_UNRESOLVABLE_REFERENCE", NORMAL_PRIORITY).addClass(obj)
-                                .addString(getMemberName(target.getClassName(), name, signature)));
+                        bugReporter.reportBug(new BugInstance(this, "VR_UNRESOLVABLE_REFERENCE", NORMAL_PRIORITY)
+                                .addClass(obj).addString(getMemberName(target.getClassName(), name, signature)));
                     }
 
                 } catch (ClassNotFoundException e) {

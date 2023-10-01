@@ -43,18 +43,18 @@ import javax.swing.JOptionPane;
 import edu.umd.cs.findbugs.util.ClassPathUtil;
 
 /**
- * The DetectorFactoryCollection stores all of the DetectorFactory objects used
- * to create the Detectors which implement the various analyses. It is a
- * singleton class.
+ * The DetectorFactoryCollection stores all of the DetectorFactory objects used to create the Detectors which implement
+ * the various analyses. It is a singleton class.
  *
  * @author David Hovemeyer
+ *
  * @see DetectorFactory
  */
 public class DetectorFactoryCollection {
 
     private static final Logger LOGGER = Logger.getLogger(DetectorFactoryCollection.class.getName());
     private static final boolean DEBUG_JAWS = SystemProperties.getBoolean("findbugs.jaws.debug");
-    //    private static final boolean DEBUG = Boolean.getBoolean("dfc.debug");
+    // private static final boolean DEBUG = Boolean.getBoolean("dfc.debug");
 
     private static DetectorFactoryCollection theInstance;
     private static final Object lock = new Object();
@@ -83,8 +83,7 @@ public class DetectorFactoryCollection {
         this(true, true, enabled, enabled);
     }
 
-    private DetectorFactoryCollection(boolean loadCore, boolean forceLoad,
-            @Nonnull Collection<Plugin> pluginsToLoad,
+    private DetectorFactoryCollection(boolean loadCore, boolean forceLoad, @Nonnull Collection<Plugin> pluginsToLoad,
             @Nonnull Collection<Plugin> enabledPlugins) {
         if (loadCore) {
             loadCorePlugin();
@@ -122,8 +121,8 @@ public class DetectorFactoryCollection {
     }
 
     /**
-     * Get the single instance of DetectorFactoryCollection, which knows each and every
-     * loaded plugin, independently of it's enablement
+     * Get the single instance of DetectorFactoryCollection, which knows each and every loaded plugin, independently of
+     * it's enablement
      */
     public static DetectorFactoryCollection instance() {
         synchronized (lock) {
@@ -150,8 +149,8 @@ public class DetectorFactoryCollection {
                             continue;
                         }
                         Plugin oldP = globalOptionsSetter.get(key);
-                        throw new RuntimeException(
-                                "Incompatible global options for " + key + "; conflict between " + oldP.getPluginId() + " and " + p.getPluginId());
+                        throw new RuntimeException("Incompatible global options for " + key + "; conflict between "
+                                + oldP.getPluginId() + " and " + p.getPluginId());
                     }
                     globalOptions.put(key, value);
                     globalOptionsSetter.put(key, p);
@@ -182,12 +181,12 @@ public class DetectorFactoryCollection {
         return corePlugin;
     }
 
-
     /**
      * Get a Plugin by its unique id.
      *
      * @param pluginId
      *            the unique id
+     *
      * @return the Plugin with that id, or null if no such Plugin is found
      */
     public Plugin getPluginById(String pluginId) {
@@ -195,16 +194,14 @@ public class DetectorFactoryCollection {
     }
 
     /**
-     * Return an Iterator over the DetectorFactory objects for all registered
-     * Detectors.
+     * Return an Iterator over the DetectorFactory objects for all registered Detectors.
      */
     public Iterator<DetectorFactory> factoryIterator() {
         return factoryList.iterator();
     }
 
     /**
-     * Return an Iterable over the DetectorFactory objects for all registered
-     * Detectors.
+     * Return an Iterable over the DetectorFactory objects for all registered Detectors.
      */
     public Iterable<DetectorFactory> getFactories() {
         return factoryList;
@@ -244,8 +241,8 @@ public class DetectorFactoryCollection {
      *
      * @param name
      *            the short name
-     * @return the DetectorFactory, or null if there is no factory with that
-     *         short name
+     *
+     * @return the DetectorFactory, or null if there is no factory with that short name
      */
     public DetectorFactory getFactory(String name) {
         return factoriesByName.get(name);
@@ -256,8 +253,8 @@ public class DetectorFactoryCollection {
      *
      * @param className
      *            the class name
-     * @return the DetectoryFactory, or null if there is no factory with that
-     *         class name
+     *
+     * @return the DetectoryFactory, or null if there is no factory with that class name
      */
     public DetectorFactory getFactoryByClassName(String className) {
         return factoriesByDetectorClassName.get(className);
@@ -274,8 +271,8 @@ public class DetectorFactoryCollection {
         if (!factoryList.contains(factory)) {
             factoryList.add(factory);
         } else {
-            LOGGER.log(Level.WARNING, "Trying to add already registered factory: " + factory +
-                    ", " + factory.getPlugin());
+            LOGGER.log(Level.WARNING,
+                    "Trying to add already registered factory: " + factory + ", " + factory.getPlugin());
         }
         factoriesByName.put(detectorName, factory);
         factoriesByDetectorClassName.put(factory.getFullName(), factory);
@@ -291,10 +288,8 @@ public class DetectorFactoryCollection {
         factoriesByDetectorClassName.remove(factory.getFullName());
     }
 
-
     /**
-     * See if the location of ${spotbugs.home} can be inferred from the location
-     * of findbugs.jar in the classpath.
+     * See if the location of ${spotbugs.home} can be inferred from the location of findbugs.jar in the classpath.
      *
      * @return inferred ${spotbugs.home}, or null if we can't figure it out
      */
@@ -412,13 +407,12 @@ public class DetectorFactoryCollection {
     }
 
     /**
-     * Set the metadata for a bug category. If the category's metadata has
-     * already been set, this does nothing.
+     * Set the metadata for a bug category. If the category's metadata has already been set, this does nothing.
+     *
      * @param bc
      *            the BugCategory object holding the metadata for the category
      *
-     * @return false if the category's metadata has already been set, true
-     *         otherwise
+     * @return false if the category's metadata has already been set, true otherwise
      */
     public boolean registerBugCategory(BugCategory bc) {
         String category = bc.getCategory();
@@ -468,6 +462,7 @@ public class DetectorFactoryCollection {
      *
      * @param bugType
      *            the bug type for the bug pattern
+     *
      * @return the BugPattern, or null if it can't be found
      */
     public @CheckForNull BugPattern lookupBugPattern(String bugType) {
@@ -490,13 +485,13 @@ public class DetectorFactoryCollection {
     }
 
     /**
-     * Get a description for given "bug type". FIXME: this is referred to
-     * elsewhere as the "bug code" or "bug abbrev". Should make the terminology
-     * consistent everywhere. In this case, the bug type refers to the short
-     * prefix code prepended to the long and short bug messages.
+     * Get a description for given "bug type". FIXME: this is referred to elsewhere as the "bug code" or "bug abbrev".
+     * Should make the terminology consistent everywhere. In this case, the bug type refers to the short prefix code
+     * prepended to the long and short bug messages.
      *
      * @param shortBugType
      *            the short bug type code
+     *
      * @return the description of that short bug type code means
      */
     public @Nonnull BugCode getBugCode(String shortBugType) {
@@ -508,7 +503,9 @@ public class DetectorFactoryCollection {
     }
 
     /**
-     * @param shortBugType the short bug type code
+     * @param shortBugType
+     *            the short bug type code
+     *
      * @return the description of that short bug type code means
      */
     public @CheckForNull BugCode lookupBugCode(String shortBugType) {
@@ -516,11 +513,11 @@ public class DetectorFactoryCollection {
     }
 
     /**
-     * Get the BugCategory object for a category key. Returns null if no
-     * BugCategory object can be found.
+     * Get the BugCategory object for a category key. Returns null if no BugCategory object can be found.
      *
      * @param category
      *            the category key
+     *
      * @return the BugCategory object (may be null)
      */
     public BugCategory getBugCategory(String category) {
@@ -528,8 +525,8 @@ public class DetectorFactoryCollection {
     }
 
     /**
-     * Get a Collection containing all known bug category keys. E.g.,
-     * "CORRECTNESS", "MT_CORRECTNESS", "PERFORMANCE", etc.
+     * Get a Collection containing all known bug category keys. E.g., "CORRECTNESS", "MT_CORRECTNESS", "PERFORMANCE",
+     * etc.
      *
      * Excludes hidden bug categories
      *

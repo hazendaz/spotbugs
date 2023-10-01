@@ -27,8 +27,7 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Analysis engine to produce NonExceptionPostDominatorsAnalysis objects for
- * analyzed methods.
+ * Analysis engine to produce NonExceptionPostDominatorsAnalysis objects for analyzed methods.
  *
  * @author David Hovemeyer
  */
@@ -40,19 +39,17 @@ public class NonExceptionPostDominatorsAnalysisFactory extends AnalysisFactory<N
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public NonExceptionPostDominatorsAnalysis analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)
             throws CheckedAnalysisException {
         CFG cfg = getCFG(analysisCache, descriptor);
         ReverseDepthFirstSearch rdfs = getReverseDepthFirstSearch(analysisCache, descriptor);
-        NonExceptionPostDominatorsAnalysis analysis = new NonExceptionPostDominatorsAnalysis(cfg, rdfs, getDepthFirstSearch(
-                analysisCache, descriptor));
-        Dataflow<java.util.BitSet, PostDominatorsAnalysis> dataflow = new Dataflow<>(cfg,
-                analysis);
+        NonExceptionPostDominatorsAnalysis analysis = new NonExceptionPostDominatorsAnalysis(cfg, rdfs,
+                getDepthFirstSearch(analysisCache, descriptor));
+        Dataflow<java.util.BitSet, PostDominatorsAnalysis> dataflow = new Dataflow<>(cfg, analysis);
         dataflow.execute();
         return analysis;
     }

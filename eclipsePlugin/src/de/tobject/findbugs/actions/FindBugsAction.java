@@ -67,7 +67,9 @@ import edu.umd.cs.findbugs.plugin.eclipse.util.MutexSchedulingRule;
  * @author Peter Friese
  * @author Phil Crosby
  * @author Andrei Loskutov
+ *
  * @version 1.1
+ *
  * @since 25.09.2003
  */
 public class FindBugsAction implements IObjectActionDelegate {
@@ -155,8 +157,7 @@ public class FindBugsAction implements IObjectActionDelegate {
     }
 
     /**
-     * Run a FindBugs analysis on the given resource, displaying a progress
-     * monitor.
+     * Run a FindBugs analysis on the given resource, displaying a progress monitor.
      *
      * @param part
      *
@@ -164,7 +165,8 @@ public class FindBugsAction implements IObjectActionDelegate {
      *            The resource to run the analysis on.
      */
     protected void work(IWorkbenchPart part, final IResource resource, final List<WorkItem> resources) {
-        FindBugsJob runFindBugs = new StartedFromViewJob("Finding bugs in " + resource.getName() + "...", resource, resources, part);
+        FindBugsJob runFindBugs = new StartedFromViewJob("Finding bugs in " + resource.getName() + "...", resource,
+                resources, part);
         runFindBugs.scheduleInteractive();
     }
 
@@ -199,9 +201,9 @@ public class FindBugsAction implements IObjectActionDelegate {
         String message = "SpotBugs analysis finished, " + warningsNumber
                 + " warnings found.\n\nSwitch to the SpotBugs perspective?";
 
-        MessageDialogWithToggle dialog = MessageDialogWithToggle.openYesNoCancelQuestion(null, "SpotBugs analysis finished",
-                message, "Remember the choice and do not ask me in the future", false, store,
-                FindBugsConstants.ASK_ABOUT_PERSPECTIVE_SWITCH);
+        MessageDialogWithToggle dialog = MessageDialogWithToggle.openYesNoCancelQuestion(null,
+                "SpotBugs analysis finished", message, "Remember the choice and do not ask me in the future", false,
+                store, FindBugsConstants.ASK_ABOUT_PERSPECTIVE_SWITCH);
 
         boolean remember = dialog.getToggleState();
         int returnCode = dialog.getReturnCode();
@@ -252,7 +254,8 @@ public class FindBugsAction implements IObjectActionDelegate {
 
         private final IWorkbenchPart targetPart;
 
-        private StartedFromViewJob(String name, IResource resource, List<WorkItem> resources, IWorkbenchPart targetPart) {
+        private StartedFromViewJob(String name, IResource resource, List<WorkItem> resources,
+                IWorkbenchPart targetPart) {
             super(name, resource);
             this.resources = resources;
             this.resource = resource;

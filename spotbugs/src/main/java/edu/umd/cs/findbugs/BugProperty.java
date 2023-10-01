@@ -27,9 +27,8 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
 import edu.umd.cs.findbugs.xml.XMLWriteable;
 
 /**
- * Name/value metadata pair that may be attached to a BugInstance. These are
- * different from BugAnnotations because they are not meant to be shown directly
- * to the user.
+ * Name/value metadata pair that may be attached to a BugInstance. These are different from BugAnnotations because they
+ * are not meant to be shown directly to the user.
  *
  * @author David Hovemeyer
  */
@@ -44,8 +43,7 @@ public class BugProperty implements XMLWriteable, Serializable, Cloneable {
     public static final String IS_BUG = "isBug";
 
     /**
-     * Integer property defining the warning severity (1=least severe, 5=most
-     * severe).
+     * Integer property defining the warning severity (1=least severe, 5=most severe).
      */
     public static final String SEVERITY = "severity";
 
@@ -109,6 +107,7 @@ public class BugProperty implements XMLWriteable, Serializable, Cloneable {
      * Get value of property as an integer.
      *
      * @return value of property as integer
+     *
      * @throws NumberFormatException
      *             if the value cannot be parsed as an integer
      */
@@ -147,9 +146,7 @@ public class BugProperty implements XMLWriteable, Serializable, Cloneable {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.xml.XMLWriteable#writeXML(edu.umd.cs.findbugs.xml
-     * .XMLOutput)
+     * @see edu.umd.cs.findbugs.xml.XMLWriteable#writeXML(edu.umd.cs.findbugs.xml .XMLOutput)
      */
     @Override
     public void writeXML(XMLOutput xmlOutput) throws IOException {

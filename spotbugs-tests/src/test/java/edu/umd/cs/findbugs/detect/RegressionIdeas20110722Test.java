@@ -24,8 +24,10 @@ class RegressionIdeas20110722Test extends AbstractIntegrationTest {
         assertNoBugInMethod("NP_NULL_ON_SOME_PATH", "Ideas_2011_07_22", "getHashCode5");
         assertRCNBug("getHashCode5", "x", 48);
         assertRCNBug("getHashCode6", "x", 55);
-        assertBugInMethodAtVariable("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE", "Ideas_2011_07_22", "getHashCode6", "x");
-        assertBugInMethodAtVariable("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE", "Ideas_2011_07_22", "getHashCode7", "x");
+        assertBugInMethodAtVariable("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE", "Ideas_2011_07_22",
+                "getHashCode6", "x");
+        assertBugInMethodAtVariable("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE", "Ideas_2011_07_22",
+                "getHashCode7", "x");
     }
 
     private void assertRCNBug(String method, String variable, int line) {

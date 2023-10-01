@@ -25,14 +25,13 @@ import org.apache.bcel.generic.MethodGen;
 
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
-
 /**
- * Factory object to create CFGBuilders for methods. Using a CFGBuilderFactory
- * is preferable to direct instantiation of CFGBuilders, because it gives us an
- * easy hook for plugging in new CFGBuilder implementations. (CFGs for Java are
- * a little tricky to get right.)
+ * Factory object to create CFGBuilders for methods. Using a CFGBuilderFactory is preferable to direct instantiation of
+ * CFGBuilders, because it gives us an easy hook for plugging in new CFGBuilder implementations. (CFGs for Java are a
+ * little tricky to get right.)
  *
  * @author David Hovemeyer
+ *
  * @see CFG
  * @see CFGBuilder
  */
@@ -43,6 +42,7 @@ public class CFGBuilderFactory {
      *
      * @param methodGen
      *            the method
+     *
      * @return a CFGBuilder for the method
      */
     public static CFGBuilder create(@Nonnull MethodDescriptor descriptor, @Nonnull MethodGen methodGen) {

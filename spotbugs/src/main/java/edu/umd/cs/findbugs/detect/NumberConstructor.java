@@ -38,19 +38,16 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 
 /**
- * Detector to find calls to Number constructors with base type argument in Java
- * 5 or newer bytecode.
+ * Detector to find calls to Number constructors with base type argument in Java 5 or newer bytecode.
  *
- * Using <code>new Integer(int)</code> is guaranteed to always result in a new
- * object whereas <code>Integer.valueOf(int)</code> allows caching of values to
- * be done by the javac, JVM class library or JIT.
+ * Using <code>new Integer(int)</code> is guaranteed to always result in a new object whereas
+ * <code>Integer.valueOf(int)</code> allows caching of values to be done by the javac, JVM class library or JIT.
  *
- * Currently only the JVM class library seems to do caching in the range of -128
- * to 127. There does not seem to be any caching for float and double which is
- * why those are reported as low priority.
+ * Currently only the JVM class library seems to do caching in the range of -128 to 127. There does not seem to be any
+ * caching for float and double which is why those are reported as low priority.
  *
- * All invokes of Number constructor with a constant argument are flagged as
- * high priority and invokes with unknown value are normal priority.
+ * All invokes of Number constructor with a constant argument are flagged as high priority and invokes with unknown
+ * value are normal priority.
  *
  * @author Mikko Tiihonen
  */
@@ -92,7 +89,8 @@ public class NumberConstructor extends OpcodeStackDetector {
 
     private void handle(@SlashedClassName String className, boolean isFloatingPoint, String sig) {
         MethodDescriptor boxingMethod = new MethodDescriptor(className, "valueOf", sig + "L" + className + ";", true);
-        MethodDescriptor parsingMethod = new MethodDescriptor(className, "valueOf", "(Ljava/lang/String;)" + "L" + className + ";", true);
+        MethodDescriptor parsingMethod = new MethodDescriptor(className, "valueOf",
+                "(Ljava/lang/String;)" + "L" + className + ";", true);
         boxClasses.put(className, new Pair(boxingMethod, parsingMethod));
         methods.add(new MethodDescriptor(className, Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"));
         methods.add(new MethodDescriptor(className, Const.CONSTRUCTOR_NAME, sig + "V"));
@@ -107,7 +105,8 @@ public class NumberConstructor extends OpcodeStackDetector {
     @Override
     public void visitClassContext(ClassContext classContext) {
         int majorVersion = classContext.getJavaClass().getMajor();
-        if (majorVersion >= Const.MAJOR_1_5 && hasInterestingMethod(classContext.getJavaClass().getConstantPool(), methods)) {
+        if (majorVersion >= Const.MAJOR_1_5
+                && hasInterestingMethod(classContext.getJavaClass().getConstantPool(), methods)) {
             super.visitClassContext(classContext);
         }
     }

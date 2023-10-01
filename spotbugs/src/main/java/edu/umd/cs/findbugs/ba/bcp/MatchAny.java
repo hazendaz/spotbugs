@@ -28,16 +28,18 @@ import edu.umd.cs.findbugs.ba.Edge;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * <p>A "meta" PatternElement that matches any of a list of other child
- * PatternElements. An example of how this is useful is that you might want to
- * match invocations of any of a number of different methods. To do this, you
- * can create a MatchAny with some number of Invoke elements as children.
+ * <p>
+ * A "meta" PatternElement that matches any of a list of other child PatternElements. An example of how this is useful
+ * is that you might want to match invocations of any of a number of different methods. To do this, you can create a
+ * MatchAny with some number of Invoke elements as children.
  * </p>
  * <p>
- * Note that the minOccur() and maxOccur() counts of the child PatternElements
- * are ignored. A MatchAny element always matches exactly one instruction.</p>
+ * Note that the minOccur() and maxOccur() counts of the child PatternElements are ignored. A MatchAny element always
+ * matches exactly one instruction.
+ * </p>
  *
  * @author David Hovemeyer
+ *
  * @see PatternElement
  */
 public class MatchAny extends PatternElement {
@@ -75,8 +77,8 @@ public class MatchAny extends PatternElement {
     }
 
     @Override
-    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before, ValueNumberFrame after,
-            BindingSet bindingSet) throws DataflowAnalysisException {
+    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before,
+            ValueNumberFrame after, BindingSet bindingSet) throws DataflowAnalysisException {
 
         for (PatternElement child : childList) {
             MatchResult matchResult = child.match(handle, cpg, before, after, bindingSet);

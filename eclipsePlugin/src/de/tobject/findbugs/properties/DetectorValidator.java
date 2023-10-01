@@ -64,11 +64,10 @@ public class DetectorValidator {
      *
      * @param path
      *            non null, full abstract path in the local file system
-     * @return {@link Status#OK_STATUS} in case that given path might be a valid
-     *         FindBugs detector package (jar file containing bugrank.txt,
-     *         findbugs.xml, messages.xml and at least one class file). Returns
-     *         error status in case anything goes wrong or file at given path is
-     *         not considered as a valid plugin.
+     *
+     * @return {@link Status#OK_STATUS} in case that given path might be a valid FindBugs detector package (jar file
+     *         containing bugrank.txt, findbugs.xml, messages.xml and at least one class file). Returns error status in
+     *         case anything goes wrong or file at given path is not considered as a valid plugin.
      */
     @Nonnull
     public ValidationStatus validate(String path) {
@@ -80,15 +79,14 @@ public class DetectorValidator {
             if (FindbugsPlugin.getDefault().isDebugging()) {
                 e.printStackTrace();
             }
-            return new ValidationStatus(IStatus.ERROR,
-                    "Invalid SpotBugs plugin archive: " + e.getMessage(), sum, e);
+            return new ValidationStatus(IStatus.ERROR, "Invalid SpotBugs plugin archive: " + e.getMessage(), sum, e);
         }
         Plugin loadedPlugin = Plugin.getByPluginId(sum.id);
         URI uri = file.toURI();
         if (loadedPlugin != null && !uri.equals(loadedPlugin.getPluginLoader().getURI())
                 && loadedPlugin.isGloballyEnabled()) {
-            return new ValidationStatus(IStatus.ERROR, "Duplicated SpotBugs plugin: " + sum.id + ", already loaded from: "
-                    + loadedPlugin.getPluginLoader().getURI(), sum, null);
+            return new ValidationStatus(IStatus.ERROR, "Duplicated SpotBugs plugin: " + sum.id
+                    + ", already loaded from: " + loadedPlugin.getPluginLoader().getURI(), sum, null);
         }
         return new ValidationStatus(IStatus.OK, Status.OK_STATUS.getMessage(), sum, null);
     }

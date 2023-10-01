@@ -27,6 +27,7 @@ import java.util.Map;
  * Map of metacharacters that need to be escaped, and what to replace them with.
  *
  * @see QuoteMetaCharacters
+ *
  * @author David Hovemeyer
  */
 public class MetaCharacterMap {

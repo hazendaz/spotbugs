@@ -59,9 +59,7 @@ public class CheckCalls implements Detector, NonReportingDetector {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.Detector#visitClassContext(edu.umd.cs.findbugs.ba
-     * .ClassContext)
+     * @see edu.umd.cs.findbugs.Detector#visitClassContext(edu.umd.cs.findbugs.ba .ClassContext)
      */
     @Override
     public void visitClassContext(ClassContext classContext) {
@@ -77,7 +75,8 @@ public class CheckCalls implements Detector, NonReportingDetector {
             }
 
             try {
-                System.out.println("Analyzing " + SignatureConverter.convertMethodSignature(classContext.getJavaClass(), method));
+                System.out.println(
+                        "Analyzing " + SignatureConverter.convertMethodSignature(classContext.getJavaClass(), method));
                 analyzeMethod(classContext, method);
             } catch (CFGBuilderException | DataflowAnalysisException e) {
                 bugReporter.logError("Error", e);
@@ -87,24 +86,24 @@ public class CheckCalls implements Detector, NonReportingDetector {
         }
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, ClassNotFoundException,
-            DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, ClassNotFoundException, DataflowAnalysisException {
         CFG cfg = classContext.getCFG(method);
         for (Iterator<Location> i = cfg.locationIterator(); i.hasNext();) {
             Location location = i.next();
             Instruction ins = location.getHandle().getInstruction();
 
             if (ins instanceof InvokeInstruction) {
-                if (TARGET_METHOD != null
-                        && !((InvokeInstruction) ins).getMethodName(classContext.getConstantPoolGen()).equals(TARGET_METHOD)) {
+                if (TARGET_METHOD != null && !((InvokeInstruction) ins).getMethodName(classContext.getConstantPoolGen())
+                        .equals(TARGET_METHOD)) {
                     continue;
                 }
 
                 System.out.println("\n*******************************************************\n");
 
                 System.out.println("Method invocation: " + location.getHandle());
-                System.out.println("\tInvoking: "
-                        + SignatureConverter.convertMethodSignature((InvokeInstruction) ins, classContext.getConstantPoolGen()));
+                System.out.println("\tInvoking: " + SignatureConverter.convertMethodSignature((InvokeInstruction) ins,
+                        classContext.getConstantPoolGen()));
 
                 JavaClassAndMethod proto = Hierarchy.findInvocationLeastUpperBound((InvokeInstruction) ins,
                         classContext.getConstantPoolGen());
@@ -115,7 +114,8 @@ public class CheckCalls implements Detector, NonReportingDetector {
                             + proto.getMethod());
                 }
                 Set<JavaClassAndMethod> calledMethodSet = Hierarchy.resolveMethodCallTargets((InvokeInstruction) ins,
-                        classContext.getTypeDataflow(method).getFactAtLocation(location), classContext.getConstantPoolGen());
+                        classContext.getTypeDataflow(method).getFactAtLocation(location),
+                        classContext.getConstantPoolGen());
                 System.out.println("\tTarget method set: " + calledMethodSet);
             }
         }

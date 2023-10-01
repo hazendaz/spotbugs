@@ -29,11 +29,9 @@ import org.apache.bcel.generic.MethodGen;
 import edu.umd.cs.findbugs.ba.XField;
 
 /**
- * Object which stores which fields are loaded and stored by the instructions in
- * a method (including through inner-class access methods), and also which
- * fields are loaded/stored by the overall method. The main purpose is for doing
- * redundant load elimination and forward substitution more efficiently, but it
- * might be useful in other situations.
+ * Object which stores which fields are loaded and stored by the instructions in a method (including through inner-class
+ * access methods), and also which fields are loaded/stored by the overall method. The main purpose is for doing
+ * redundant load elimination and forward substitution more efficiently, but it might be useful in other situations.
  *
  * @author David Hovemeyer
  */
@@ -78,11 +76,11 @@ public class LoadedFieldSet {
     }
 
     /**
-     * Get the number of times given field is loaded and stored within the
-     * method.
+     * Get the number of times given field is loaded and stored within the method.
      *
      * @param field
      *            the field
+     *
      * @return the load/store count object
      */
     public LoadStoreCount getLoadStoreCount(XField field) {
@@ -126,21 +124,20 @@ public class LoadedFieldSet {
      *
      * @param handle
      *            the instruction
-     * @return the field loaded or stored at the instruction, or null if the
-     *         instruction is not a load or store
+     *
+     * @return the field loaded or stored at the instruction, or null if the instruction is not a load or store
      */
     public XField getField(InstructionHandle handle) {
         return handleToFieldMap.get(handle);
     }
 
     /**
-     * Return whether or not the given field is loaded by any instruction in the
-     * method.
+     * Return whether or not the given field is loaded by any instruction in the method.
      *
      * @param field
      *            the field
-     * @return true if the field is loaded somewhere in the method, false if it
-     *         is never loaded
+     *
+     * @return true if the field is loaded somewhere in the method, false if it is never loaded
      */
     public boolean isLoaded(XField field) {
         return getLoadStoreCount(field).loadCount > 0;
@@ -151,6 +148,7 @@ public class LoadedFieldSet {
      *
      * @param handle
      *            the instruction
+     *
      * @return true if the instruction is a load, false if not
      */
     public boolean instructionIsLoad(InstructionHandle handle) {

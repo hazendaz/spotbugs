@@ -62,7 +62,8 @@ class QuickfixTest extends AbstractQuickfixTest {
 
     @Test
     void testCreateDoPrivilegedBlockResolution() throws CoreException, IOException {
-        doTestQuickfixResolution("CreateDoPrivilegedBlockResolutionExample.java", "DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED");
+        doTestQuickfixResolution("CreateDoPrivilegedBlockResolutionExample.java",
+                "DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED");
     }
 
     @Test

@@ -100,7 +100,8 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
         }
 
         @Override
-        public void transferInstruction(InstructionHandle handle, BasicBlock basicBlock) throws DataflowAnalysisException {
+        public void transferInstruction(InstructionHandle handle, BasicBlock basicBlock)
+                throws DataflowAnalysisException {
             final Instruction ins = handle.getInstruction();
             final ConstantPoolGen cpg = getCPG();
             final ResourceValueFrame frame = getFrame();
@@ -266,8 +267,8 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
         }
 
         @Override
-        public boolean isResourceClose(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg, Lock resource,
-                ResourceValueFrame frame) throws DataflowAnalysisException {
+        public boolean isResourceClose(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg,
+                Lock resource, ResourceValueFrame frame) throws DataflowAnalysisException {
 
             if (!mightCloseResource(basicBlock, handle, cpg)) {
                 return false;
@@ -360,8 +361,7 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Implementation
+     * ---------------------------------------------------------------------- Implementation
      * ----------------------------------------------------------------------
      */
 
@@ -372,9 +372,7 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.Detector#visitClassContext(edu.umd.cs.findbugs.ba
-     * .ClassContext)
+     * @see edu.umd.cs.findbugs.Detector#visitClassContext(edu.umd.cs.findbugs.ba .ClassContext)
      */
     @Override
     public void visitClassContext(ClassContext classContext) {
@@ -422,10 +420,10 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
     }
 
     @Override
-    public LockResourceTracker getResourceTracker(ClassContext classContext, Method method) throws CFGBuilderException,
-            DataflowAnalysisException {
-        return new LockResourceTracker(bugReporter, classContext.getCFG(method), classContext.getValueNumberDataflow(method),
-                classContext.getIsNullValueDataflow(method));
+    public LockResourceTracker getResourceTracker(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
+        return new LockResourceTracker(bugReporter, classContext.getCFG(method),
+                classContext.getValueNumberDataflow(method), classContext.getIsNullValueDataflow(method));
     }
 
     @Override
@@ -440,8 +438,7 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
         }
         ResourceValueFrame.State exitStatus = exitFrame.getStatus();
 
-        if (exitStatus == ResourceValueFrame.State.OPEN
-                || exitStatus == ResourceValueFrame.State.OPEN_ON_EXCEPTION_PATH
+        if (exitStatus == ResourceValueFrame.State.OPEN || exitStatus == ResourceValueFrame.State.OPEN_ON_EXCEPTION_PATH
                 || exitStatus == ResourceValueFrame.State.CLOSED_WITHOUT_OPENED) {
             String sourceFile = javaClass.getSourceFileName();
             Location location = resource.getLocation();
@@ -463,7 +460,8 @@ public class FindUnreleasedLock extends ResourceTrackingDetector<Lock, FindUnrel
                 bugType = "CWO_CLOSED_WITHOUT_OPENED";
                 priority = LOW_PRIORITY;
             }
-            bugAccumulator.accumulateBug(new BugInstance(this, bugType, priority).addClassAndMethod(methodGen, sourceFile),
+            bugAccumulator.accumulateBug(
+                    new BugInstance(this, bugType, priority).addClassAndMethod(methodGen, sourceFile),
                     SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile, handle));
         }
     }

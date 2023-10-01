@@ -44,6 +44,7 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
  * Builds the database of string parameters passed from method to method unchanged.
+ *
  * @author Tagir Valeev
  */
 public class BuildStringPassthruGraph extends OpcodeStackDetector implements NonReportingDetector {
@@ -93,8 +94,7 @@ public class BuildStringPassthruGraph extends OpcodeStackDetector implements Non
                 return false;
             }
             MethodParameter other = (MethodParameter) obj;
-            return Objects.equals(md, other.md)
-                    && parameterNumber == other.parameterNumber;
+            return Objects.equals(md, other.md) && parameterNumber == other.parameterNumber;
         }
     }
 
@@ -102,9 +102,12 @@ public class BuildStringPassthruGraph extends OpcodeStackDetector implements Non
         private static final List<MethodDescriptor> FILENAME_STRING_METHODS = List.of(
                 new MethodDescriptor("java/io/File", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"),
                 new MethodDescriptor("java/io/File", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Ljava/lang/String;)V"),
-                new MethodDescriptor("java/io/RandomAccessFile", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Ljava/lang/String;)V"),
-                new MethodDescriptor("java/nio/file/Path", "of", "(Ljava/lang/String;[Ljava/lang/String;)Ljava/nio/file/Path;", true),
-                new MethodDescriptor("java/nio/file/Paths", "get", "(Ljava/lang/String;[Ljava/lang/String;)Ljava/nio/file/Path;", true),
+                new MethodDescriptor("java/io/RandomAccessFile", Const.CONSTRUCTOR_NAME,
+                        "(Ljava/lang/String;Ljava/lang/String;)V"),
+                new MethodDescriptor("java/nio/file/Path", "of",
+                        "(Ljava/lang/String;[Ljava/lang/String;)Ljava/nio/file/Path;", true),
+                new MethodDescriptor("java/nio/file/Paths", "get",
+                        "(Ljava/lang/String;[Ljava/lang/String;)Ljava/nio/file/Path;", true),
                 new MethodDescriptor("java/io/FileReader", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"),
                 new MethodDescriptor("java/io/FileWriter", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"),
                 new MethodDescriptor("java/io/FileWriter", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Z)V"),
@@ -112,23 +115,31 @@ public class BuildStringPassthruGraph extends OpcodeStackDetector implements Non
                 new MethodDescriptor("java/io/FileOutputStream", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"),
                 new MethodDescriptor("java/io/FileOutputStream", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Z)V"),
                 new MethodDescriptor("java/util/Formatter", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"),
-                new MethodDescriptor("java/util/Formatter", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Ljava/lang/String;)V"),
-                new MethodDescriptor("java/util/Formatter", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Locale;)V"),
+                new MethodDescriptor("java/util/Formatter", Const.CONSTRUCTOR_NAME,
+                        "(Ljava/lang/String;Ljava/lang/String;)V"),
+                new MethodDescriptor("java/util/Formatter", Const.CONSTRUCTOR_NAME,
+                        "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Locale;)V"),
                 new MethodDescriptor("java/util/jar/JarFile", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"),
                 new MethodDescriptor("java/util/jar/JarFile", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Z)V"),
                 new MethodDescriptor("java/util/zip/ZipFile", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"),
-                new MethodDescriptor("java/util/zip/ZipFile", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Ljava/nio/charset/Charset;)V"),
+                new MethodDescriptor("java/util/zip/ZipFile", Const.CONSTRUCTOR_NAME,
+                        "(Ljava/lang/String;Ljava/nio/charset/Charset;)V"),
                 new MethodDescriptor("java/io/PrintStream", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"),
-                new MethodDescriptor("java/io/PrintStream", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Ljava/lang/String;)V"),
+                new MethodDescriptor("java/io/PrintStream", Const.CONSTRUCTOR_NAME,
+                        "(Ljava/lang/String;Ljava/lang/String;)V"),
                 new MethodDescriptor("java/io/PrintWriter", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V"),
-                new MethodDescriptor("java/io/PrintWriter", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;Ljava/lang/String;)V"));
+                new MethodDescriptor("java/io/PrintWriter", Const.CONSTRUCTOR_NAME,
+                        "(Ljava/lang/String;Ljava/lang/String;)V"));
 
         private final Map<MethodParameter, Set<MethodParameter>> graph = new HashMap<>();
 
         /**
          * Adds edge to the string passthru graph
-         * @param in callee
-         * @param out caller
+         *
+         * @param in
+         *            callee
+         * @param out
+         *            caller
          */
         void addEdge(MethodParameter in, MethodParameter out) {
             Set<MethodParameter> outs = graph.computeIfAbsent(in, k -> new HashSet<>());
@@ -154,12 +165,13 @@ public class BuildStringPassthruGraph extends OpcodeStackDetector implements Non
         }
 
         /**
-         * Returns methods which call directly or indirectly methods from inputs
-         * passing the parameter unchanged
+         * Returns methods which call directly or indirectly methods from inputs passing the parameter unchanged
          *
          * @param inputs
          *            input methods with parameter
-         * @return Map where keys are methods and values are parameter indexes which can be passed to requested methods unchanged
+         *
+         * @return Map where keys are methods and values are parameter indexes which can be passed to requested methods
+         *         unchanged
          */
         public Map<MethodDescriptor, int[]> findLinkedMethods(Set<MethodParameter> inputs) {
             Map<MethodDescriptor, int[]> result = new HashMap<>();
@@ -180,6 +192,7 @@ public class BuildStringPassthruGraph extends OpcodeStackDetector implements Non
 
         /**
          * Returns methods which parameter is the file name
+         *
          * @return Map where keys are methods and values are parameter indexes which are used as file names
          */
         public Map<MethodDescriptor, int[]> getFileNameStringMethods() {

@@ -35,12 +35,13 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * equals and hashCode are blocking methods on URL's. Warn about invoking equals
- * or hashCode on them, or defining Set or Maps with them as keys.
+ * equals and hashCode are blocking methods on URL's. Warn about invoking equals or hashCode on them, or defining Set or
+ * Maps with them as keys.
  */
 public class URLProblems extends OpcodeStackDetector {
 
-    private static final MethodDescriptor URL_EQUALS = new MethodDescriptor("java/net/URL", "equals", "(Ljava/lang/Object;)Z");
+    private static final MethodDescriptor URL_EQUALS = new MethodDescriptor("java/net/URL", "equals",
+            "(Ljava/lang/Object;)Z");
     private static final MethodDescriptor URL_HASHCODE = new MethodDescriptor("java/net/URL", "hashCode", "()I");
 
     static final String[] BAD_SIGNATURES = { "Hashtable<Ljava/net/URL", "Map<Ljava/net/URL", "Set<Ljava/net/URL" };
@@ -97,10 +98,11 @@ public class URLProblems extends OpcodeStackDetector {
                     bugReporter.reportBug(new BugInstance(this, "DMI_COLLECTION_OF_URLS", HIGH_PRIORITY).addClass(this)
                             .addVisitedField(this));
                 } else if (visitingMethod()) {
-                    bugReporter.reportBug(new BugInstance(this, "DMI_COLLECTION_OF_URLS", HIGH_PRIORITY).addClassAndMethod(this));
+                    bugReporter.reportBug(
+                            new BugInstance(this, "DMI_COLLECTION_OF_URLS", HIGH_PRIORITY).addClassAndMethod(this));
                 } else {
-                    bugReporter.reportBug(new BugInstance(this, "DMI_COLLECTION_OF_URLS", HIGH_PRIORITY).addClass(this).addClass(
-                            this));
+                    bugReporter.reportBug(new BugInstance(this, "DMI_COLLECTION_OF_URLS", HIGH_PRIORITY).addClass(this)
+                            .addClass(this));
                 }
             }
         }
@@ -136,9 +138,8 @@ public class URLProblems extends OpcodeStackDetector {
 
         if (seen == Const.INVOKEVIRTUAL && (getMethodDescriptorOperand().equals(URL_EQUALS)
                 || getMethodDescriptorOperand().equals(URL_HASHCODE))) {
-            accumulator.accumulateBug(
-                    new BugInstance(this, "DMI_BLOCKING_METHODS_ON_URL", HIGH_PRIORITY).addClassAndMethod(this)
-                            .addCalledMethod(this), this);
+            accumulator.accumulateBug(new BugInstance(this, "DMI_BLOCKING_METHODS_ON_URL", HIGH_PRIORITY)
+                    .addClassAndMethod(this).addCalledMethod(this), this);
         }
     }
 }

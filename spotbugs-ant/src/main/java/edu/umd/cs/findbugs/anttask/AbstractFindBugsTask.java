@@ -31,8 +31,7 @@ import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Reference;
 
 /**
- * Abstract base class for Ant tasks that run programs (main() methods) in
- * findbugs.jar or findbugsGUI.jar.
+ * Abstract base class for Ant tasks that run programs (main() methods) in findbugs.jar or findbugsGUI.jar.
  *
  * @author David Hovemeyer
  */
@@ -93,7 +92,8 @@ public abstract class AbstractFindBugsTask extends Task {
 
     private Java findbugsEngine;
 
-    public String execResultProperty = "edu.umd.cs.findbugs.anttask.AbstractFindBugsTask" + "." + RESULT_PROPERTY_SUFFIX;
+    public String execResultProperty = "edu.umd.cs.findbugs.anttask.AbstractFindBugsTask" + "."
+            + RESULT_PROPERTY_SUFFIX;
 
     /**
      * Constructor.
@@ -296,8 +296,9 @@ public abstract class AbstractFindBugsTask extends Task {
             String[] pluginFileList = pluginList.list();
             for (String pluginFile : pluginFileList) {
                 if (!pluginFile.endsWith(".jar")) {
-                    throw new BuildException("plugin file " + pluginFile + " is not a Jar file " + "in task <" + getTaskName()
-                            + "/>", getLocation());
+                    throw new BuildException(
+                            "plugin file " + pluginFile + " is not a Jar file " + "in task <" + getTaskName() + "/>",
+                            getLocation());
                 }
             }
         }
@@ -310,8 +311,8 @@ public abstract class AbstractFindBugsTask extends Task {
     }
 
     /**
-     * Create the FindBugs engine (the Java process that will run whatever
-     * FindBugs-related program this task is going to execute).
+     * Create the FindBugs engine (the Java process that will run whatever FindBugs-related program this task is going
+     * to execute).
      */
     protected void createFindbugsEngine() {
         findbugsEngine = new Java();
@@ -385,8 +386,7 @@ public abstract class AbstractFindBugsTask extends Task {
     }
 
     /**
-     * Sets the given string to be piped to standard input of the FindBugs JVM
-     * upon launching.
+     * Sets the given string to be piped to standard input of the FindBugs JVM upon launching.
      */
     protected void setInputString(String input) {
         findbugsEngine.setInputString(input);
@@ -410,18 +410,16 @@ public abstract class AbstractFindBugsTask extends Task {
         }
 
         /*
-         * set property containing return code of child process using a task
-         * identifier and a UUID to ensure exit code corresponds to this
-         * execution (the base Ant Task won't overwrite return code once it's
-         * been set, so unique identifiers must be used for each execution if we
-         * want to get the exit code)
+         * set property containing return code of child process using a task identifier and a UUID to ensure exit code
+         * corresponds to this execution (the base Ant Task won't overwrite return code once it's been set, so unique
+         * identifiers must be used for each execution if we want to get the exit code)
          */
         String execReturnCodeIdentifier = execResultProperty + "." + UUID.randomUUID().toString();
         getFindbugsEngine().setResultProperty(execReturnCodeIdentifier);
 
         /*
-         * if the execution fails, we'll report it ourself -- prevent the
-         * underlying Ant Java object from throwing an exception
+         * if the execution fails, we'll report it ourself -- prevent the underlying Ant Java object from throwing an
+         * exception
          */
         getFindbugsEngine().setFailonerror(false);
         try {

@@ -141,15 +141,15 @@ public class FunctionsThatMightBeMistakenForProcedures extends OpcodeStackDetect
                 funky = true;
             }
 
-            //            if (false) {
-            //                XClass c = getXClass();
-            //                String classSourceSig = c.getSourceSignature();
-            //                if (!genericReturnValue.equals(classSourceSig))
-            //                    return;
-            //            }
+            // if (false) {
+            // XClass c = getXClass();
+            // String classSourceSig = c.getSourceSignature();
+            // if (!genericReturnValue.equals(classSourceSig))
+            // return;
+            // }
         }
 
-        //         System.out.println("Investigating " + getFullyQualifiedMethodName());
+        // System.out.println("Investigating " + getFullyQualifiedMethodName());
         returnSelf = returnOther = updates = returnNew = returnUnknown = 0;
 
         if (testingEnabled && REPORT_INFERRED_METHODS
@@ -159,7 +159,7 @@ public class FunctionsThatMightBeMistakenForProcedures extends OpcodeStackDetect
             inferredMethod = null;
         }
         super.visit(code); // make callbacks to sawOpcode for all opcodes
-        //         System.out.printf("  %3d %3d %3d %3d%n", returnSelf, updates, returnOther, returnNew);
+        // System.out.printf(" %3d %3d %3d %3d%n", returnSelf, updates, returnOther, returnNew);
 
         if (returnSelf > 0 && returnOther == 0) {
             okToIgnore.add(m);
@@ -184,7 +184,7 @@ public class FunctionsThatMightBeMistakenForProcedures extends OpcodeStackDetect
                 doNotIgnoreHigh.add(m);
             }
             if (priority <= NORMAL_PRIORITY) {
-                // System.out.printf("  adding %d %s%n", priority,
+                // System.out.printf(" adding %d %s%n", priority,
                 // MethodAnnotation.fromVisitedMethod(this).getSourceLines());
                 doNotIgnore.add(m);
                 if (!m.isStatic()) {
@@ -192,12 +192,12 @@ public class FunctionsThatMightBeMistakenForProcedures extends OpcodeStackDetect
                     xFactory.addFunctionThatMightBeMistakenForProcedures(getMethodDescriptor());
                     if (inferredMethod != null) {
                         inferredMethod.setPriority(priority);
-                        inferredMethod.addString(String.format("%3d %3d %5d %3d", returnOther, returnSelf, returnNew, updates));
+                        inferredMethod.addString(
+                                String.format("%3d %3d %5d %3d", returnOther, returnSelf, returnNew, updates));
                         bugReporter.reportBug(inferredMethod);
                     }
                 }
             }
-
 
             inferredMethod = null;
 
@@ -270,23 +270,22 @@ public class FunctionsThatMightBeMistakenForProcedures extends OpcodeStackDetect
 
             }
 
-
             if (xMethod.isAbstract() && !xMethod.getClassDescriptor().equals(getClassDescriptor())) {
                 returnUnknown++;
                 break;
             }
             if (Const.CONSTRUCTOR_NAME.equals(xMethod.getName()) || doNotIgnoreHigh.contains(xMethod)) {
                 returnOther++;
-                // System.out.println("  calls " + xMethod);
-                // System.out.println("  at " +
+                // System.out.println(" calls " + xMethod);
+                // System.out.println(" at " +
                 // MethodAnnotation.fromXMethod(xMethod).getSourceLines());
                 if (Const.CONSTRUCTOR_NAME.equals(xMethod.getName()) || doNotIgnore.contains(xMethod)) {
                     returnNew++;
                 }
             } else if (doNotIgnore.contains(xMethod)) {
                 returnOther++;
-                // System.out.println("  calls " + xMethod);
-                // System.out.println("  at " +
+                // System.out.println(" calls " + xMethod);
+                // System.out.println(" at " +
                 // MethodAnnotation.fromXMethod(xMethod).getSourceLines());
 
             } else {

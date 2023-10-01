@@ -79,20 +79,20 @@ public class MergeSummarizeAndView {
             this.options = options;
             addOption("-workingDir", "filename",
                     "Comma separated list of current working directory paths, used to resolve relative paths (Jar, AuxClasspathEntry, SrcDir)");
-            addOption("-srcDir", "filename", "Comma separated list of directory paths, used to resolve relative SourceFile paths");
+            addOption("-srcDir", "filename",
+                    "Comma separated list of directory paths, used to resolve relative SourceFile paths");
             addOption("-maxRank", "rank", "maximum rank of issues to show in summary (default 12)");
             addOption("-maxConsideredRank", "rank", "maximum rank of issues to consider (default 14)");
             addOption("-maxAge", "days", "maximum age of issues to show in summary");
             addOption("-baseline", "date", "issues before this date are considered old (date format is MM/dd/yyyy)");
-            addSwitch("-gui", "display GUI for any warnings. Default: Displays GUI for warnings meeting filtering criteria");
+            addSwitch("-gui",
+                    "display GUI for any warnings. Default: Displays GUI for warnings meeting filtering criteria");
         }
 
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.config.CommandLine#handleOption(java.lang.String,
-         * java.lang.String)
+         * @see edu.umd.cs.findbugs.config.CommandLine#handleOption(java.lang.String, java.lang.String)
          */
         @Override
         protected void handleOption(String option, String optionExtraPart) throws IOException {
@@ -106,9 +106,7 @@ public class MergeSummarizeAndView {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.config.CommandLine#handleOptionWithArgument(java
-         * .lang.String, java.lang.String)
+         * @see edu.umd.cs.findbugs.config.CommandLine#handleOptionWithArgument(java .lang.String, java.lang.String)
          */
         @Override
         protected void handleOptionWithArgument(String option, String argument) throws IOException {
@@ -222,16 +220,15 @@ public class MergeSummarizeAndView {
     }
 
     /**
-     * @return Returns the number of issues that had a rank higher than the
-     *         maxRank (but not marked as harmless)
+     * @return Returns the number of issues that had a rank higher than the maxRank (but not marked as harmless)
      */
     public int getLowConfidence() {
         return numLowConfidence;
     }
 
     /**
-     * @return Returns the number of issues older than the age cutoff (but not
-     *         ranked higher than the maxRank or marked as harmless).
+     * @return Returns the number of issues older than the age cutoff (but not ranked higher than the maxRank or marked
+     *         as harmless).
      */
     public int getTooOld() {
         return tooOld;

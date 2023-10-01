@@ -24,10 +24,9 @@ import edu.umd.cs.findbugs.ba.DominatorsAnalysis;
 import edu.umd.cs.findbugs.ba.EdgeTypes;
 
 /**
- * DominatorsAnalysis variant in which implicit exception edges are ignored.
- * Implicit exception edges represent the control flow due to the emission
- * of unchecked exceptions, so the analysis only considers control flow
- * resulting from normal control structures and checked exceptions.
+ * DominatorsAnalysis variant in which implicit exception edges are ignored. Implicit exception edges represent the
+ * control flow due to the emission of unchecked exceptions, so the analysis only considers control flow resulting from
+ * normal control structures and checked exceptions.
  */
 public class NonImplicitExceptionDominatorsAnalysis extends DominatorsAnalysis {
     /**

@@ -26,8 +26,7 @@ import edu.umd.cs.findbugs.ba.Location;
 import edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback;
 
 /**
- * An object that examines a Location and determines if a Stream is created
- * there.
+ * An object that examines a Location and determines if a Stream is created there.
  */
 public interface StreamFactory {
     /**
@@ -36,17 +35,15 @@ public interface StreamFactory {
      * @param location
      *            the Location
      * @param type
-     *            the ObjectType associated with the instruction at the
-     *            location; the StreamResourceTracker prescreens for
-     *            TypedInstructions that are associated with ObjectTypes, since
-     *            they are the only instructions that could conceivably create a
-     *            stream object
+     *            the ObjectType associated with the instruction at the location; the StreamResourceTracker prescreens
+     *            for TypedInstructions that are associated with ObjectTypes, since they are the only instructions that
+     *            could conceivably create a stream object
      * @param cpg
      *            the ConstantPoolGen for the method
      * @param lookupFailureCallback
      *            used to report missing classes in the class hierarchy
-     * @return a Stream created at the Location, or null if no stream is created
-     *         there
+     *
+     * @return a Stream created at the Location, or null if no stream is created there
      */
     public Stream createStream(Location location, ObjectType type, ConstantPoolGen cpg,
             RepositoryLookupFailureCallback lookupFailureCallback);

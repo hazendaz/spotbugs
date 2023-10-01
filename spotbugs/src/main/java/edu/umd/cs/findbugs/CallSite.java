@@ -56,8 +56,7 @@ public class CallSite {
     }
 
     /**
-     * Get the Location (basic block and instruction) where the call site is
-     * located.
+     * Get the Location (basic block and instruction) where the call site is located.
      */
     public Location getLocation() {
         return location;
@@ -79,7 +78,8 @@ public class CallSite {
 
     @Override
     public int hashCode() {
-        return System.identityHashCode(method) ^ getBasicBlock().getLabel() ^ System.identityHashCode(location.getHandle());
+        return System.identityHashCode(method) ^ getBasicBlock().getLabel()
+                ^ System.identityHashCode(location.getHandle());
     }
 
     @Override

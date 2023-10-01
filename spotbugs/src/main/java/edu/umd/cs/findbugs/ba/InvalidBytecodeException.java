@@ -22,11 +22,10 @@ import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.MethodGen;
 
 /**
- * An exception that may be thrown by frame modeling visitor classes to indicate
- * that the method being analyzed contains invalid bytecode. For example, this
- * can be thrown to indicate that a method invocation requires more stack
- * operands than are available. AbstractFrameModelingVisitor will catch this
- * exception and rethrow it as a checked DataflowAnalysisException.
+ * An exception that may be thrown by frame modeling visitor classes to indicate that the method being analyzed contains
+ * invalid bytecode. For example, this can be thrown to indicate that a method invocation requires more stack operands
+ * than are available. AbstractFrameModelingVisitor will catch this exception and rethrow it as a checked
+ * DataflowAnalysisException.
  *
  * @author David Hovemeyer
  */

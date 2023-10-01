@@ -124,13 +124,8 @@ class AnnotationMatcherTest {
         AnnotationMatcher sm = new AnnotationMatcher(annotationName);
 
         String matcherXml = writeXMLAndGetStringOutput(sm, false);
-        String filterXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                + "\n<FindBugsFilter>"
-                + "\n<Match>"
-                + "\n"
-                + matcherXml
-                + "\n</Match>"
-                + "\n</FindBugsFilter>\n";
+        String filterXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n<FindBugsFilter>" + "\n<Match>" + "\n"
+                + matcherXml + "\n</Match>" + "\n</FindBugsFilter>\n";
 
         return new Filter(new StringInputStream(filterXml));
     }
@@ -143,15 +138,11 @@ class AnnotationMatcherTest {
                 Path.of("../spotbugsTestCases/build/classes/java/main/org/immutables/value/Value$Immutable.class"),
                 Path.of("../spotbugsTestCases/build/classes/java/main/ghIssues/issue543/FoobarValue.class"),
                 Path.of("../spotbugsTestCases/build/classes/java/main/ghIssues/issue543/ImmutableFoobarValue.class"),
-                Path.of(
-                        "../spotbugsTestCases/build/classes/java/main/ghIssues/issue543/ImmutableFoobarValue$1.class"),
-                Path.of(
-                        "../spotbugsTestCases/build/classes/java/main/ghIssues/issue543/ImmutableFoobarValue$Builder.class"));
+                Path.of("../spotbugsTestCases/build/classes/java/main/ghIssues/issue543/ImmutableFoobarValue$1.class"),
+                Path.of("../spotbugsTestCases/build/classes/java/main/ghIssues/issue543/ImmutableFoobarValue$Builder.class"));
 
         AnnotationMatcher bugInstanceMatcher = new AnnotationMatcher(annotationName);
-        long numberOfMatchedBugs = bugCollection.getCollection().stream()
-                .filter(bugInstanceMatcher::match)
-                .count();
+        long numberOfMatchedBugs = bugCollection.getCollection().stream().filter(bugInstanceMatcher::match).count();
 
         assertEquals(4, numberOfMatchedBugs);
     }
@@ -163,34 +154,20 @@ class AnnotationMatcherTest {
                 Path.of("../spotbugsTestCases/build/classes/java/main/ghIssues/issue543/GeneratedOnClassMembers.class"));
 
         BugInstanceMatcher[] bugsWithGeneratedAnnotation = {
-            new BugInstanceMatcherBuilder()
-                    .bugType("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-                    .atField("a")
-                    .atLine(9)
-                    .build(),
-            new BugInstanceMatcherBuilder()
-                    .bugType("NP_TOSTRING_COULD_RETURN_NULL")
-                    .inMethod("toString")
-                    .atLine(15)
-                    .build(),
-            new BugInstanceMatcherBuilder()
-                    .bugType("ES_COMPARING_PARAMETER_STRING_WITH_EQ")
-                    .inMethod("test")
-                    .atLine(27)
-                    .build(),
-        };
+                new BugInstanceMatcherBuilder().bugType("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD").atField("a").atLine(9)
+                        .build(),
+                new BugInstanceMatcherBuilder().bugType("NP_TOSTRING_COULD_RETURN_NULL").inMethod("toString").atLine(15)
+                        .build(),
+                new BugInstanceMatcherBuilder().bugType("ES_COMPARING_PARAMETER_STRING_WITH_EQ").inMethod("test")
+                        .atLine(27).build(), };
         BugInstanceMatcher bugWithoutGeneratedAnnotation = new BugInstanceMatcherBuilder()
-                .bugType("DMI_HARDCODED_ABSOLUTE_FILENAME")
-                .inMethod("test")
-                .atLine(20)
-                .build();
+                .bugType("DMI_HARDCODED_ABSOLUTE_FILENAME").inMethod("test").atLine(20).build();
 
         assertThat(bugCollection, hasItem(bugWithoutGeneratedAnnotation));
         assertThat(bugCollection, hasItems(bugsWithGeneratedAnnotation));
         AnnotationMatcher bugInstanceMatcher = new AnnotationMatcher("org.example.GeneratedCode");
         List<BugInstance> unmatchedBugs = bugCollection.getCollection().stream()
-                .filter(b -> !bugInstanceMatcher.match(b))
-                .collect(Collectors.toUnmodifiableList());
+                .filter(b -> !bugInstanceMatcher.match(b)).collect(Collectors.toUnmodifiableList());
 
         assertThat(unmatchedBugs, hasItem(bugWithoutGeneratedAnnotation));
         assertThat(unmatchedBugs, not(hasItems(bugsWithGeneratedAnnotation)));

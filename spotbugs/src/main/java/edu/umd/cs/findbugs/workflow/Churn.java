@@ -148,7 +148,8 @@ public class Churn {
     public void dump(PrintStream out) {
         for (int t = 1; t < aliveAt.length; t++) {
             if (aliveAt[t] != 0) {
-                System.out.printf("%3d%% %4d %5d %3d #decay%n", diedAfter[t] * 100 / aliveAt[t], diedAfter[t], aliveAt[t], t);
+                System.out.printf("%3d%% %4d %5d %3d #decay%n", diedAfter[t] * 100 / aliveAt[t], diedAfter[t],
+                        aliveAt[t], t);
             }
         }
         System.out.printf("%7s %3s %5s %5s %5s  %s%n", "chi", "%", "const", "fix", "max", "kind");
@@ -182,8 +183,8 @@ public class Churn {
                 }
                 double expectedFixed = baseFixRate * total;
                 double expectedPersist = (1 - baseFixRate) * total;
-                chiValue = (d.fixed - expectedFixed) * (d.fixed - expectedFixed) / expectedFixed + (d.persist - expectedPersist)
-                        * (d.persist - expectedPersist) / expectedPersist;
+                chiValue = (d.fixed - expectedFixed) * (d.fixed - expectedFixed) / expectedFixed
+                        + (d.persist - expectedPersist) * (d.persist - expectedPersist) / expectedPersist;
                 if (rawFixRate < lowFixRate) {
                     chiValue = -chiValue;
                 }
@@ -221,8 +222,8 @@ public class Churn {
 
         Churn churn = new Churn();
         ChurnCommandLine commandLine = churn.new ChurnCommandLine();
-        int argCount = commandLine
-                .parse(args, 0, 2, "Usage: " + Churn.class.getName() + " [options] [<xml results> [<history>]] ");
+        int argCount = commandLine.parse(args, 0, 2,
+                "Usage: " + Churn.class.getName() + " [options] [<xml results> [<history>]] ");
 
         SortedBugCollection bugCollection = new SortedBugCollection();
         if (argCount < args.length) {

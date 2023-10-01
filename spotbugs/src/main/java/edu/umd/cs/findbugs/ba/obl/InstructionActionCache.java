@@ -57,9 +57,8 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 
 /**
- * A cache for looking up the collection of ObligationPolicyDatabaseActions
- * associated with a given InstructionHandle. Avoids the need for repeated
- * (slow) lookups.
+ * A cache for looking up the collection of ObligationPolicyDatabaseActions associated with a given InstructionHandle.
+ * Avoids the need for repeated (slow) lookups.
  *
  * @author David Hovemeyer
  */
@@ -74,9 +73,8 @@ public class InstructionActionCache {
     private final TypeDataflow typeDataflow;
     private final ConstantPoolGen cpg;
 
-
-
-    public InstructionActionCache(ObligationPolicyDatabase database, XMethod xmethod, ConstantPoolGen cpg, TypeDataflow typeDataflow) {
+    public InstructionActionCache(ObligationPolicyDatabase database, XMethod xmethod, ConstantPoolGen cpg,
+            TypeDataflow typeDataflow) {
         this.database = database;
         this.actionCache = new HashMap<>();
         this.xmethod = xmethod;
@@ -104,8 +102,8 @@ public class InstructionActionCache {
                     System.out.println("Looking up actions for call to " + invokedMethod);
                 }
 
-
-                if (invokedMethod.getAnnotationDescriptors().contains(WILL_CLOSE) && methodName.startsWith("close") && signature.endsWith(")V")) {
+                if (invokedMethod.getAnnotationDescriptors().contains(WILL_CLOSE) && methodName.startsWith("close")
+                        && signature.endsWith(")V")) {
                     actionList = Collections.singletonList(ObligationPolicyDatabaseAction.CLEAR);
                 } else if (signature.indexOf(';') >= -1) {
                     ReferenceType receiverType = inv.getReferenceType(cpg);
@@ -120,15 +118,17 @@ public class InstructionActionCache {
                         try {
                             TypeFrame factAtLocation = null;
                             SignatureParser sigParser = new SignatureParser(signature);
-                            //                        int startIndex = 0;
-                            //                        if (!xmethod.isStatic())
-                            //                            startIndex = 1;
+                            // int startIndex = 0;
+                            // if (!xmethod.isStatic())
+                            // startIndex = 1;
                             Iterator<String> signatureIterator = sigParser.parameterSignatureIterator();
                             int parameters = sigParser.getNumParameters();
                             for (int i = 0; i < parameters; i++) {
                                 String sig = signatureIterator.next();
-                                Collection<ClassDescriptor> annotations = invokedMethod.getParameterAnnotationDescriptors(i);
-                                if (annotations.contains(WILL_CLOSE) || "Ljava/io/Closeable;".equals(sig) || methodName.startsWith("close")) {
+                                Collection<ClassDescriptor> annotations = invokedMethod
+                                        .getParameterAnnotationDescriptors(i);
+                                if (annotations.contains(WILL_CLOSE) || "Ljava/io/Closeable;".equals(sig)
+                                        || methodName.startsWith("close")) {
                                     // closing this value
                                     if (factAtLocation == null) {
                                         factAtLocation = typeDataflow.getFactAtLocation(new Location(handle, block));
@@ -136,9 +136,11 @@ public class InstructionActionCache {
 
                                     Type argumentType = factAtLocation.getArgument(inv, cpg, i, sigParser);
                                     if (argumentType instanceof ObjectType) {
-                                        Obligation obligation = database.getFactory().getObligationByType((ObjectType) argumentType);
+                                        Obligation obligation = database.getFactory()
+                                                .getObligationByType((ObjectType) argumentType);
                                         if (obligation != null) {
-                                            actionList.add(new ObligationPolicyDatabaseAction(ObligationPolicyDatabaseActionType.DEL, obligation));
+                                            actionList.add(new ObligationPolicyDatabaseAction(
+                                                    ObligationPolicyDatabaseActionType.DEL, obligation));
                                         }
 
                                     }
@@ -152,7 +154,6 @@ public class InstructionActionCache {
                             AnalysisContext.reportMissingClass(e);
                         } finally {
                         }
-
 
                     }
                     if (DEBUG_LOOKUP && !actionList.isEmpty()) {
@@ -173,11 +174,13 @@ public class InstructionActionCache {
                                     ObjectType sType = ObjectTypeFactory.getInstance(java.sql.Statement.class);
                                     Obligation sObligation = factory.getObligationByType(sType);
                                     actionList = Arrays.asList(
-                                            new ObligationPolicyDatabaseAction(ObligationPolicyDatabaseActionType.DEL, obligation),
-                                            new ObligationPolicyDatabaseAction(ObligationPolicyDatabaseActionType.DEL, sObligation));
+                                            new ObligationPolicyDatabaseAction(ObligationPolicyDatabaseActionType.DEL,
+                                                    obligation),
+                                            new ObligationPolicyDatabaseAction(ObligationPolicyDatabaseActionType.DEL,
+                                                    sObligation));
                                 } else {
-                                    actionList = Collections.singleton(new ObligationPolicyDatabaseAction(ObligationPolicyDatabaseActionType.DEL,
-                                            obligation));
+                                    actionList = Collections.singleton(new ObligationPolicyDatabaseAction(
+                                            ObligationPolicyDatabaseActionType.DEL, obligation));
                                 }
 
                             }

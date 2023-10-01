@@ -25,11 +25,11 @@ import java.util.Comparator;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Comparator to compare GraphVertex objects by their visitation times in a
- * search; for example, it could compare the finishing times produced by
- * DepthFirstSearch.
+ * Comparator to compare GraphVertex objects by their visitation times in a search; for example, it could compare the
+ * finishing times produced by DepthFirstSearch.
  */
-public class VisitationTimeComparator<VertexType extends GraphVertex<VertexType>> implements Comparator<VertexType>, Serializable {
+public class VisitationTimeComparator<VertexType extends GraphVertex<VertexType>>
+        implements Comparator<VertexType>, Serializable {
     private static final long serialVersionUID = 0L;
 
     /**

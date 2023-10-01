@@ -47,13 +47,17 @@ import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.plugin.eclipse.quickfix.exception.BugResolutionException;
 
 /**
- * Code that uses the == or != operators to compare Strings is bad code. The
- * <CODE>UseEqualsResolution</CODE> uses <CODE>equals()</CODE> instead.
+ * Code that uses the == or != operators to compare Strings is bad code. The <CODE>UseEqualsResolution</CODE> uses
+ * <CODE>equals()</CODE> instead.
  *
- * @see <a href="http://findbugs.sourceforge.net/bugDescriptions.html#ES_COMPARING_PARAMETER_STRING_WITH_EQ">ES_COMPARING_PARAMETER_STRING_WITH_EQ</a>
- * @see <a href="http://findbugs.sourceforge.net/bugDescriptions.html#ES_COMPARING_STRINGS_WITH_EQ">ES_COMPARING_STRINGS_WITH_EQ</a>
+ * @see <a href=
+ *      "http://findbugs.sourceforge.net/bugDescriptions.html#ES_COMPARING_PARAMETER_STRING_WITH_EQ">ES_COMPARING_PARAMETER_STRING_WITH_EQ</a>
+ * @see <a href=
+ *      "http://findbugs.sourceforge.net/bugDescriptions.html#ES_COMPARING_STRINGS_WITH_EQ">ES_COMPARING_STRINGS_WITH_EQ</a>
+ *
  * @author <a href="mailto:mbusarel@hsr.ch">Marco Busarello</a>
  * @author <a href="mailto:twyss@hsr.ch">Thierry Wyss</a>
+ *
  * @version 1.0
  */
 public class UseEqualsResolution extends BugResolution {
@@ -66,12 +70,14 @@ public class UseEqualsResolution extends BugResolution {
     }
 
     @Override
-    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug) throws BugResolutionException {
+    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug)
+            throws BugResolutionException {
         Assert.isNotNull(rewrite);
         Assert.isNotNull(workingUnit);
         Assert.isNotNull(bug);
 
-        InfixExpression[] stringEqualityChecks = findStringEqualityChecks(getASTNode(workingUnit, bug.getPrimarySourceLineAnnotation()));
+        InfixExpression[] stringEqualityChecks = findStringEqualityChecks(
+                getASTNode(workingUnit, bug.getPrimarySourceLineAnnotation()));
         for (InfixExpression stringEqualityCheck : stringEqualityChecks) {
             Operator operator = stringEqualityCheck.getOperator();
             Expression replaceExpression;
@@ -140,7 +146,8 @@ public class UseEqualsResolution extends BugResolution {
 
     static boolean isStringEqualityCheck(InfixExpression infix) {
         Operator op = infix.getOperator();
-        return (EQUALS.equals(op) || NOT_EQUALS.equals(op)) && isStringOperand(infix.getLeftOperand()) && isStringOperand(infix.getRightOperand());
+        return (EQUALS.equals(op) || NOT_EQUALS.equals(op)) && isStringOperand(infix.getLeftOperand())
+                && isStringOperand(infix.getRightOperand());
     }
 
     static boolean isStringOperand(Expression operand) {

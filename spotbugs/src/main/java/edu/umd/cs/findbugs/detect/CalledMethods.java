@@ -61,8 +61,8 @@ public class CalledMethods extends BytecodeScanningDetector implements NonReport
                 }
             }
         }
-        emptyArrayOnTOS = (seen == Const.ANEWARRAY || seen == Const.NEWARRAY || seen == Const.MULTIANEWARRAY && getIntConstant() == 1)
-                && getPrevOpcode(1) == Const.ICONST_0;
+        emptyArrayOnTOS = (seen == Const.ANEWARRAY || seen == Const.NEWARRAY
+                || seen == Const.MULTIANEWARRAY && getIntConstant() == 1) && getPrevOpcode(1) == Const.ICONST_0;
 
         if (seen == Const.GETSTATIC || seen == Const.GETFIELD) {
             XField f = getXFieldOperand();

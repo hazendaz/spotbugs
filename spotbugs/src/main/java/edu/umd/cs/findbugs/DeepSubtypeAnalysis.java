@@ -79,8 +79,7 @@ public class DeepSubtypeAnalysis {
         return result;
     }
 
-    public static ReferenceType getLeastSerializableTypeComponent(ReferenceType type)
-            throws ClassNotFoundException {
+    public static ReferenceType getLeastSerializableTypeComponent(ReferenceType type) throws ClassNotFoundException {
         if (type instanceof ArrayType) {
             ArrayType a = (ArrayType) type;
             Type t = a.getBasicType();
@@ -226,7 +225,6 @@ public class DeepSubtypeAnalysis {
         Set<ClassDescriptor> directSubtypes = subtypes2.getDirectSubtypes(classDescriptor);
         directSubtypes.remove(classDescriptor);
 
-
         double confidence = 0.6;
         if (x.isAbstract() || x.isInterface()) {
             confidence = 0.8;
@@ -258,8 +256,6 @@ public class DeepSubtypeAnalysis {
             return result;
         }
 
-
-
         for (ClassDescriptor subtype : directSubtypes) {
             JavaClass subJavaClass = Repository.lookupClass(subtype.getDottedClassName());
             result = Math.max(result, confidence * Analyze.deepInstanceOf(subJavaClass, serializable));
@@ -270,7 +266,6 @@ public class DeepSubtypeAnalysis {
             }
         }
 
-
         if (DEBUG) {
             System.out.println("No high results; max: " + result);
         }
@@ -278,30 +273,31 @@ public class DeepSubtypeAnalysis {
     }
 
     /**
-     * Given two JavaClasses, try to estimate the probability that an reference
-     * of type x is also an instance of type y. Will return 0 only if it is
-     * impossible and 1 only if it is guaranteed.
+     * Given two JavaClasses, try to estimate the probability that an reference of type x is also an instance of type y.
+     * Will return 0 only if it is impossible and 1 only if it is guaranteed.
      *
      * @param x
      *            Known type of object
      * @param y
      *            Type queried about
+     *
      * @return 0 - 1 value indicating probability
      */
 
-    public static double deepInstanceOf(@DottedClassName String x, @DottedClassName String y) throws ClassNotFoundException {
+    public static double deepInstanceOf(@DottedClassName String x, @DottedClassName String y)
+            throws ClassNotFoundException {
         return Analyze.deepInstanceOf(x, y);
     }
 
     /**
-     * Given two JavaClasses, try to estimate the probability that an reference
-     * of type x is also an instance of type y. Will return 0 only if it is
-     * impossible and 1 only if it is guaranteed.
+     * Given two JavaClasses, try to estimate the probability that an reference of type x is also an instance of type y.
+     * Will return 0 only if it is impossible and 1 only if it is guaranteed.
      *
      * @param x
      *            Known type of object
      * @param y
      *            Type queried about
+     *
      * @return 0 - 1 value indicating probability
      */
     public static double deepInstanceOf(JavaClass x, JavaClass y) throws ClassNotFoundException {

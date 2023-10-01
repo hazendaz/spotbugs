@@ -87,8 +87,8 @@ public class QuestionableBooleanAssignment extends BytecodeScanningDetector impl
 
             case SEEN_ISTORE:
                 if (seen == Const.IFEQ || seen == Const.IFNE) {
-                    bug = new BugInstance(this, "QBA_QUESTIONABLE_BOOLEAN_ASSIGNMENT", HIGH_PRIORITY).addClassAndMethod(this)
-                            .addSourceLine(this);
+                    bug = new BugInstance(this, "QBA_QUESTIONABLE_BOOLEAN_ASSIGNMENT", HIGH_PRIORITY)
+                            .addClassAndMethod(this).addSourceLine(this);
                     state = SEEN_IF;
                 } else {
                     state = SEEN_NOTHING;

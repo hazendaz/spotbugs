@@ -85,7 +85,8 @@ public class LaunchBrowser {
                     JOptionPane.showMessageDialog(null, "desktop browse succeeded");
                 }
                 return true;
-            } catch (InvocationTargetException | IllegalAccessException | IllegalArgumentException | URISyntaxException ite) {
+            } catch (InvocationTargetException | IllegalAccessException | IllegalArgumentException
+                    | URISyntaxException ite) {
                 assert true;
             }
         }
@@ -143,17 +144,15 @@ public class LaunchBrowser {
     }
 
     /**
-     * attempt to show the given URL. will first attempt via the JNLP api, then
-     * will try showViaExec().
+     * attempt to show the given URL. will first attempt via the JNLP api, then will try showViaExec().
      *
      * @param url
      *            the URL
+     *
      * @return true on success
      */
     public static boolean showDocument(URL url) {
-        return showDocumentViaDesktop(url)
-                || showDocumentViaExec(url)
-                || JavaWebStart.showViaWebStart(url);
+        return showDocumentViaDesktop(url) || showDocumentViaExec(url) || JavaWebStart.showViaWebStart(url);
     }
 
 }

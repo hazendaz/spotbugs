@@ -27,10 +27,10 @@ import edu.umd.cs.findbugs.ba.Edge;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * A wildcard PatternElement, which matches any kind of instruction
- * indiscriminately.
+ * A wildcard PatternElement, which matches any kind of instruction indiscriminately.
  *
  * @author David Hovemeyer
+ *
  * @see PatternElement
  */
 public class Wild extends PatternElement {
@@ -38,8 +38,7 @@ public class Wild extends PatternElement {
     private int max;
 
     /**
-     * Default constructor. Creates a wildcard that matches from 0 to
-     * Integer.MAX_VALUE instructions.
+     * Default constructor. Creates a wildcard that matches from 0 to Integer.MAX_VALUE instructions.
      */
     public Wild() {
         this.min = 0;
@@ -47,8 +46,7 @@ public class Wild extends PatternElement {
     }
 
     /**
-     * Constructor. Matches any number of instructions from 0 to the maximum
-     * specified.
+     * Constructor. Matches any number of instructions from 0 to the maximum specified.
      *
      * @param max
      *            the maximum number of instructions the wildcard may match
@@ -100,8 +98,8 @@ public class Wild extends PatternElement {
     }
 
     @Override
-    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before, ValueNumberFrame after,
-            BindingSet bindingSet) throws DataflowAnalysisException {
+    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before,
+            ValueNumberFrame after, BindingSet bindingSet) throws DataflowAnalysisException {
         return new MatchResult(this, bindingSet);
     }
 }

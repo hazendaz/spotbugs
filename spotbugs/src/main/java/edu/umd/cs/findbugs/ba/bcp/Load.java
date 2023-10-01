@@ -31,10 +31,10 @@ import edu.umd.cs.findbugs.ba.vna.ValueNumber;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * A PatternElement representing a load from a field. Variables represent the
- * field and the result of the load.
+ * A PatternElement representing a load from a field. Variables represent the field and the result of the load.
  *
  * @author David Hovemeyer
+ *
  * @see PatternElement
  */
 public class Load extends FieldAccess {
@@ -52,8 +52,8 @@ public class Load extends FieldAccess {
     }
 
     @Override
-    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before, ValueNumberFrame after,
-            BindingSet bindingSet) throws DataflowAnalysisException {
+    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before,
+            ValueNumberFrame after, BindingSet bindingSet) throws DataflowAnalysisException {
 
         Variable field;
         Instruction ins = handle.getInstruction();
@@ -63,10 +63,12 @@ public class Load extends FieldAccess {
         if (ins instanceof GETFIELD) {
             fieldIns = (GETFIELD) ins;
             ValueNumber ref = before.getTopValue();
-            field = new FieldVariable(ref, fieldIns.getClassName(cpg), fieldIns.getFieldName(cpg), fieldIns.getSignature(cpg));
+            field = new FieldVariable(ref, fieldIns.getClassName(cpg), fieldIns.getFieldName(cpg),
+                    fieldIns.getSignature(cpg));
         } else if (ins instanceof GETSTATIC) {
             fieldIns = (GETSTATIC) ins;
-            field = new FieldVariable(fieldIns.getClassName(cpg), fieldIns.getFieldName(cpg), fieldIns.getSignature(cpg));
+            field = new FieldVariable(fieldIns.getClassName(cpg), fieldIns.getFieldName(cpg),
+                    fieldIns.getSignature(cpg));
         } else {
             return null;
         }

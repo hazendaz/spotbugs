@@ -30,9 +30,13 @@ import java.util.regex.Pattern;
 public class SignatureUtil {
 
     /**
-     * @param params The parameters for this method signature, or null, for instance <code>int, long</code>
-     * @param returns The return for this method signature, or null, for instance <code>double</code>
-     * @return The method signature or (in case either <code>params</code> or <code>returns</code> are null) a regex pattern matching the signatures. When a regex is returned the first character will be '~'.
+     * @param params
+     *            The parameters for this method signature, or null, for instance <code>int, long</code>
+     * @param returns
+     *            The return for this method signature, or null, for instance <code>double</code>
+     *
+     * @return The method signature or (in case either <code>params</code> or <code>returns</code> are null) a regex
+     *         pattern matching the signatures. When a regex is returned the first character will be '~'.
      */
     public static String createMethodSignature(String params, String returns) {
         if (params == null && returns == null) {

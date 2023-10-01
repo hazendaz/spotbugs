@@ -20,11 +20,11 @@
 package edu.umd.cs.findbugs;
 
 /**
- * A BugCode is an abbreviation that is shared among some number of BugPatterns.
- * For example, the code "HE" is shared by all of the BugPatterns that represent
- * hashcode/equals violations.
+ * A BugCode is an abbreviation that is shared among some number of BugPatterns. For example, the code "HE" is shared by
+ * all of the BugPatterns that represent hashcode/equals violations.
  *
  * @author David Hovemeyer
+ *
  * @see BugPattern
  */
 public class BugCode implements Comparable<BugCode> {
@@ -40,8 +40,7 @@ public class BugCode implements Comparable<BugCode> {
      * @param abbrev
      *            the abbreviation for the bug code
      * @param description
-     *            a short textual description of the class of bug pattern
-     *            represented by this bug code
+     *            a short textual description of the class of bug pattern represented by this bug code
      */
     public BugCode(String abbrev, String description) {
         this.abbrev = abbrev;

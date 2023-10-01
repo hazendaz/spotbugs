@@ -24,8 +24,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Algorithm to merge a set of vertices into a single vertex. Note that the
- * graph is modified as part of this process.
+ * Algorithm to merge a set of vertices into a single vertex. Note that the graph is modified as part of this process.
  */
 public class MergeVertices<GraphType extends Graph<EdgeType, VertexType>, EdgeType extends GraphEdge<EdgeType, VertexType>, VertexType extends GraphVertex<VertexType>> {
 

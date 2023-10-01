@@ -54,8 +54,8 @@ import edu.umd.cs.findbugs.Project;
 import edu.umd.cs.findbugs.util.Archive;
 
 /**
- * An item to work on for FB analysis - this can be entire project or single
- * file or a java element without corresponding resource (like external library)
+ * An item to work on for FB analysis - this can be entire project or single file or a java element without
+ * corresponding resource (like external library)
  *
  * @author Andrei
  */
@@ -189,15 +189,14 @@ public class WorkItem {
     }
 
     /**
-     * Add secondary types patterns (not nested in the type itself but contained
-     * in the java file)
+     * Add secondary types patterns (not nested in the type itself but contained in the java file)
      *
      * @param fileName
      *            java file name (not path!) without .java suffix
      * @param classNamePattern
      *            non null pattern for all matching .class file names
-     * @return modified classNamePattern, if there are more then one type
-     *         defined in the java file
+     *
+     * @return modified classNamePattern, if there are more then one type defined in the java file
      */
     private static String addSecondaryTypesToPattern(IFile file, String fileName, String classNamePattern) {
         ICompilationUnit cu = JavaCore.createCompilationUnitFrom(file);
@@ -254,9 +253,8 @@ public class WorkItem {
     }
 
     /**
-     * @return the resource which can be used to attach markers found for this
-     *         item. This resource must exist, and the return value can not be
-     *         null. The return value can be absolutely unrelated to the
+     * @return the resource which can be used to attach markers found for this item. This resource must exist, and the
+     *         return value can not be null. The return value can be absolutely unrelated to the
      *         {@link #getCorespondingResource()}.
      */
     public @Nonnull IResource getMarkerTarget() {
@@ -275,8 +273,7 @@ public class WorkItem {
     }
 
     /**
-     * @return number of markers which are <b>already</b> reported for given
-     *         work item.
+     * @return number of markers which are <b>already</b> reported for given work item.
      */
     public int getMarkerCount(boolean recursive) {
         return getMarkers(recursive).size();
@@ -299,19 +296,21 @@ public class WorkItem {
         if (!markerTarget.isAccessible()) {
             return Collections.emptySet();
         }
-        if (!recursive
-                && ((markerTarget.getType() == IResource.PROJECT && (javaElt instanceof IPackageFragmentRoot) || Util
-                        .isClassFile(javaElt)) || (Util.isJavaArchive(markerTarget) && Util.isClassFile(javaElt)))) {
+        if (!recursive && ((markerTarget.getType() == IResource.PROJECT && (javaElt instanceof IPackageFragmentRoot)
+                || Util.isClassFile(javaElt)) || (Util.isJavaArchive(markerTarget) && Util.isClassFile(javaElt)))) {
             recursive = true;
         }
-        IMarker[] markers = MarkerUtil.getMarkers(markerTarget, recursive ? IResource.DEPTH_INFINITE : IResource.DEPTH_ONE);
+        IMarker[] markers = MarkerUtil.getMarkers(markerTarget,
+                recursive ? IResource.DEPTH_INFINITE : IResource.DEPTH_ONE);
         return MarkerUtil.findMarkerForJavaElement(javaElt, markers, recursive);
     }
 
     /**
-     * @param srcPath may be null
+     * @param srcPath
+     *            may be null
      * @param outLocations
      *            key is the source root, value is output folder
+     *
      * @return source root folder matching (parent of) given path, or null
      */
     private static @Nullable IPath getMatchingSourceRoot(@Nullable IPath srcPath, Map<IPath, IPath> outLocations) {
@@ -338,11 +337,9 @@ public class WorkItem {
 
     /**
      *
-     * @return full absolute path corresponding to the work item (file or
-     *         directory). If the work item is a part of an archive, it's the
-     *         path to the archive file. If the work item is a project, it's the
-     *         path to the project root. TODO If the work item is an internal
-     *         java element (method, inner class etc), results are undefined
+     * @return full absolute path corresponding to the work item (file or directory). If the work item is a part of an
+     *         archive, it's the path to the archive file. If the work item is a project, it's the path to the project
+     *         root. TODO If the work item is an internal java element (method, inner class etc), results are undefined
      *         yet.
      */
     public @CheckForNull IPath getPath() {
@@ -359,7 +356,8 @@ public class WorkItem {
     public boolean isDirectory() {
         IResource corespondingResource = getCorespondingResource();
         if (corespondingResource != null) {
-            return corespondingResource.getType() == IResource.FOLDER || corespondingResource.getType() == IResource.PROJECT;
+            return corespondingResource.getType() == IResource.FOLDER
+                    || corespondingResource.getType() == IResource.PROJECT;
         }
         return false;
     }

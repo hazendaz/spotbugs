@@ -110,12 +110,12 @@ public class SelfCalls {
     }
 
     /**
-     * Determine whether we are interested in calls for the given method.
-     * Subclasses may override. The default version returns true for every
-     * method.
+     * Determine whether we are interested in calls for the given method. Subclasses may override. The default version
+     * returns true for every method.
      *
      * @param method
      *            the method
+     *
      * @return true if we want call sites for the method, false if not
      */
     public boolean wantCallsFor(Method method) {
@@ -221,7 +221,8 @@ public class SelfCalls {
             String signature = method.getSignature();
             boolean isStatic = method.isStatic();
 
-            if (methodName.equals(calledMethodName) && signature.equals(calledMethodSignature) && isStatic == isStaticCall) {
+            if (methodName.equals(calledMethodName) && signature.equals(calledMethodSignature)
+                    && isStatic == isStaticCall) {
                 // This method looks like a match.
                 return wantCallsFor(method) ? method : null;
             }

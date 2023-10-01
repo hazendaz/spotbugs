@@ -66,10 +66,12 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
     private final Set<String> packages = new HashSet<>();
 
     /**
-     * For records the header is compiled into fields, accessor methods and a canonical constructor.
-     * A <code>SuppressWarnings</code> annotation in the header is applied to the corresponding field, accessor method and parameter of the canonical constructor.
-     * In the end we want to report unnecessary suppressions, however when only one of the three suppressors is matched we do not want to report the two others as unnecessary.
-     * We link the suppressors together so we can detect whether at least one of them was matched in {@link SuppressionMatcher#match(edu.umd.cs.findbugs.BugInstance)}
+     * For records the header is compiled into fields, accessor methods and a canonical constructor. A
+     * <code>SuppressWarnings</code> annotation in the header is applied to the corresponding field, accessor method and
+     * parameter of the canonical constructor. In the end we want to report unnecessary suppressions, however when only
+     * one of the three suppressors is matched we do not want to report the two others as unnecessary. We link the
+     * suppressors together so we can detect whether at least one of them was matched in
+     * {@link SuppressionMatcher#match(edu.umd.cs.findbugs.BugInstance)}
      */
     private boolean isRecord;
     private boolean visitingCanonicalRecordConstructor;
@@ -123,9 +125,8 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
     @Override
     public void visitMethod(Method method) {
         // When we visit a record constructor with args types identical to the fields it is the canonical constructor
-        visitingCanonicalRecordConstructor = isRecord
-                && isConstructor(method)
-                && Arrays.equals(method.getArgumentTypes(), recordComponents.stream().map(c -> c.field.getType()).toArray());
+        visitingCanonicalRecordConstructor = isRecord && isConstructor(method) && Arrays
+                .equals(method.getArgumentTypes(), recordComponents.stream().map(c -> c.field.getType()).toArray());
     }
 
     private static boolean isConstructor(Method method) {
@@ -165,12 +166,12 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
     }
 
     public static boolean isSuppressWarnings(String annotationClass) {
-        return annotationClass.endsWith("SuppressWarnings")
-                || annotationClass.endsWith("SuppressFBWarnings");
+        return annotationClass.endsWith("SuppressWarnings") || annotationClass.endsWith("SuppressFBWarnings");
     }
 
     @Override
-    public void visitParameterAnnotation(int p, String annotationClass, Map<String, ElementValue> map, boolean runtimeVisible) {
+    public void visitParameterAnnotation(int p, String annotationClass, Map<String, ElementValue> map,
+            boolean runtimeVisible) {
         if (!isSuppressWarnings(annotationClass)) {
             return;
         }
@@ -196,13 +197,8 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
     private void suppressParameterWarning(int parameter, String pattern, SuppressMatchType matchType) {
         String className = getDottedClassName();
         ClassAnnotation clazz = new ClassAnnotation(className);
-        ParameterWarningSuppressor suppressor = new ParameterWarningSuppressor(
-                pattern,
-                matchType,
-                clazz,
-                MethodAnnotation.fromVisitedMethod(this),
-                parameter,
-                MemberUtils.isUserGenerated(getXClass()));
+        ParameterWarningSuppressor suppressor = new ParameterWarningSuppressor(pattern, matchType, clazz,
+                MethodAnnotation.fromVisitedMethod(this), parameter, MemberUtils.isUserGenerated(getXClass()));
 
         suppressionMatcher.addSuppressor(suppressor);
 
@@ -215,20 +211,13 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
         String className = getDottedClassName();
         ClassAnnotation clazz = new ClassAnnotation(className);
         if (className.endsWith(".package-info")) {
-            PackageWarningSuppressor suppressor = new PackageWarningSuppressor(
-                    pattern,
-                    matchType,
-                    ClassName.toDottedClassName(getPackageName()),
-                    MemberUtils.isUserGenerated(getXClass()));
+            PackageWarningSuppressor suppressor = new PackageWarningSuppressor(pattern, matchType,
+                    ClassName.toDottedClassName(getPackageName()), MemberUtils.isUserGenerated(getXClass()));
 
             suppressionMatcher.addPackageSuppressor(suppressor);
         } else if (visitingMethod()) {
-            MethodWarningSuppressor suppressor = new MethodWarningSuppressor(
-                    pattern,
-                    matchType,
-                    clazz,
-                    MethodAnnotation.fromVisitedMethod(this),
-                    MemberUtils.isUserGenerated(getXClass()),
+            MethodWarningSuppressor suppressor = new MethodWarningSuppressor(pattern, matchType, clazz,
+                    MethodAnnotation.fromVisitedMethod(this), MemberUtils.isUserGenerated(getXClass()),
                     MemberUtils.isUserGenerated(getMethod()) && MemberUtils.isUserGenerated(getXClass()));
 
             suppressionMatcher.addSuppressor(suppressor);
@@ -242,12 +231,8 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
                 }
             }
         } else if (visitingField()) {
-            FieldWarningSuppressor suppressor = new FieldWarningSuppressor(
-                    pattern,
-                    matchType,
-                    clazz,
-                    FieldAnnotation.fromVisitedField(this),
-                    MemberUtils.isUserGenerated(getXClass()),
+            FieldWarningSuppressor suppressor = new FieldWarningSuppressor(pattern, matchType, clazz,
+                    FieldAnnotation.fromVisitedField(this), MemberUtils.isUserGenerated(getXClass()),
                     MemberUtils.isUserGenerated(getField()) && MemberUtils.isUserGenerated(getXClass()));
 
             suppressionMatcher.addSuppressor(suppressor);
@@ -257,10 +242,7 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
                 suppressors.fieldSuppressor = suppressor;
             }
         } else {
-            ClassWarningSuppressor suppressor = new ClassWarningSuppressor(
-                    pattern,
-                    matchType,
-                    clazz,
+            ClassWarningSuppressor suppressor = new ClassWarningSuppressor(pattern, matchType, clazz,
                     MemberUtils.isUserGenerated(getXClass()));
 
             suppressionMatcher.addSuppressor(suppressor);
@@ -285,8 +267,7 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
 
         private Collection<WarningSuppressor> getSuppressors() {
             return Stream.of(canonicalConstructorSuppressor, accessorMethodSuppressor, fieldSuppressor)
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toList());
+                    .filter(Objects::nonNull).collect(Collectors.toList());
         }
     }
 }

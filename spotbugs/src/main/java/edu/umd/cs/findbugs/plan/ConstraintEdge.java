@@ -22,12 +22,12 @@ package edu.umd.cs.findbugs.plan;
 import edu.umd.cs.findbugs.graph.AbstractEdge;
 
 /**
- * Edge in a ConstraintGraph. Edges flow from earlier detectors to later
- * detectors.
+ * Edge in a ConstraintGraph. Edges flow from earlier detectors to later detectors.
  *
  * @see ConstraintGraph
  * @see DetectorNode
  * @see ExecutionPlan
+ *
  * @author David Hovemeyer
  */
 public class ConstraintEdge extends AbstractEdge<ConstraintEdge, DetectorNode> {
@@ -56,13 +56,11 @@ public class ConstraintEdge extends AbstractEdge<ConstraintEdge, DetectorNode> {
     }
 
     /**
-     * Determine whether or not this ConstraintEdge resulted from an ordering
-     * constraint having a single detector as its source (earlier detector). Such
-     * constraints automatically enable the source (earlier) detector if the
-     * target (later) detector is enabled.
+     * Determine whether or not this ConstraintEdge resulted from an ordering constraint having a single detector as its
+     * source (earlier detector). Such constraints automatically enable the source (earlier) detector if the target
+     * (later) detector is enabled.
      *
-     * @return true if this edge has a single detector as its source (earlier
-     *         detector)
+     * @return true if this edge has a single detector as its source (earlier detector)
      */
     public boolean isSingleSource() {
         return constraint.isSingleSource();

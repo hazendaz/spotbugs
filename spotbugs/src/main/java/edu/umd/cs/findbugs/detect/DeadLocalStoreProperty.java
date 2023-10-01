@@ -32,8 +32,8 @@ public class DeadLocalStoreProperty extends AbstractWarningProperty {
             "KILLED_BY_SUBSEQUENT_STORE", PriorityAdjustment.LOWER_PRIORITY);
 
     /** Store of database operation */
-    public static final DeadLocalStoreProperty STORE_OF_DATABASE_VALUE = new DeadLocalStoreProperty("STORE_OF_DATABASE_VALUE",
-            PriorityAdjustment.RAISE_PRIORITY_TO_AT_LEAST_NORMAL);
+    public static final DeadLocalStoreProperty STORE_OF_DATABASE_VALUE = new DeadLocalStoreProperty(
+            "STORE_OF_DATABASE_VALUE", PriorityAdjustment.RAISE_PRIORITY_TO_AT_LEAST_NORMAL);
 
     /** Dead store is of a defense programming constant value. */
     public static final DeadLocalStoreProperty DEFENSIVE_CONSTANT_OPCODE = new DeadLocalStoreProperty(
@@ -46,8 +46,8 @@ public class DeadLocalStoreProperty extends AbstractWarningProperty {
     /** The dead store is an increment. */
     public static final DeadLocalStoreProperty DEAD_INCREMENT = new DeadLocalStoreProperty("DEAD_INCREMENT",
             PriorityAdjustment.LOWER_PRIORITY);
-    public static final DeadLocalStoreProperty DEAD_INCREMENT_IN_RETURN = new DeadLocalStoreProperty("DEAD_INCREMENT_IN_RETURN",
-            PriorityAdjustment.NO_ADJUSTMENT);
+    public static final DeadLocalStoreProperty DEAD_INCREMENT_IN_RETURN = new DeadLocalStoreProperty(
+            "DEAD_INCREMENT_IN_RETURN", PriorityAdjustment.NO_ADJUSTMENT);
 
     public static final DeadLocalStoreProperty DEAD_INCREMENT_IN_MAIN = new DeadLocalStoreProperty("DEAD_INCREMENT",
             PriorityAdjustment.AT_MOST_LOW);
@@ -56,8 +56,8 @@ public class DeadLocalStoreProperty extends AbstractWarningProperty {
             PriorityAdjustment.A_LITTLE_BIT_HIGHER_PRIORITY);
 
     /** The dead store is an increment: the only one in the method. */
-    public static final DeadLocalStoreProperty SINGLE_DEAD_INCREMENT = new DeadLocalStoreProperty("SINGLE_DEAD_INCREMENT",
-            PriorityAdjustment.RAISE_PRIORITY);
+    public static final DeadLocalStoreProperty SINGLE_DEAD_INCREMENT = new DeadLocalStoreProperty(
+            "SINGLE_DEAD_INCREMENT", PriorityAdjustment.RAISE_PRIORITY);
 
     /** Dead store is of a newly allocated object. */
     public static final DeadLocalStoreProperty DEAD_OBJECT_STORE = new DeadLocalStoreProperty("DEAD_OBJECT_STORE",

@@ -36,19 +36,17 @@ import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 import edu.umd.cs.findbugs.classfile.Global;
 
 /**
- * Perform dataflow analysis on a method using a control flow graph. Both
- * forward and backward analyses can be performed.
+ * Perform dataflow analysis on a method using a control flow graph. Both forward and backward analyses can be
+ * performed.
  * <ul>
- * <li>The "start" point of each block is the entry (forward analyses) or the
- * exit (backward analyses).
- * <li>The "result" point of each block is the exit (forward analyses) or the
- * entry (backward analyses).
+ * <li>The "start" point of each block is the entry (forward analyses) or the exit (backward analyses).
+ * <li>The "result" point of each block is the exit (forward analyses) or the entry (backward analyses).
  * </ul>
- * The analysis's transfer function is applied to transform the meet of the
- * results of the block's logical predecessors (the block's start facts) into
- * the block's result facts.
+ * The analysis's transfer function is applied to transform the meet of the results of the block's logical predecessors
+ * (the block's start facts) into the block's result facts.
  *
  * @author David Hovemeyer
+ *
  * @see CFG
  * @see DataflowAnalysis
  */
@@ -135,9 +133,8 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
     }
 
     /**
-     * Run the algorithm. Afterwards, caller can use the getStartFact() and
-     * getResultFact() methods to to get dataflow facts at start and result
-     * points of each block.
+     * Run the algorithm. Afterwards, caller can use the getStartFact() and getResultFact() methods to to get dataflow
+     * facts at start and result points of each block.
      */
     public void execute() throws DataflowAnalysisException {
         boolean change;
@@ -156,10 +153,12 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
                 DEBUG = true;
                 reportAnalysis("Too many iterations");
                 System.out.println(this.getClass().getName());
-                if (this.getClass() == UnconditionalValueDerefDataflow.class || this.getClass() == LiveLocalStoreDataflow.class) {
+                if (this.getClass() == UnconditionalValueDerefDataflow.class
+                        || this.getClass() == LiveLocalStoreDataflow.class) {
                     try {
                         ClassContext cc = Global.getAnalysisCache().getClassAnalysis(ClassContext.class,
-                                DescriptorFactory.createClassDescriptorFromDottedClassName(cfg.getMethodGen().getClassName()));
+                                DescriptorFactory
+                                        .createClassDescriptorFromDottedClassName(cfg.getMethodGen().getClassName()));
                         System.out.println("Forwards cfg");
                         CFGPrinter printer = new CFGPrinter(cfg);
                         printer.setIsForwards(true);
@@ -177,7 +176,8 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
 
             if (DEBUG) {
                 System.out.println("----------------------------------------------------------------------");
-                System.out.println(this.getClass().getName() + " iteration: " + numIterations + ", timestamp: " + timestamp);
+                System.out.println(
+                        this.getClass().getName() + " iteration: " + numIterations + ", timestamp: " + timestamp);
                 MethodGen mg = cfg.getMethodGen();
                 System.out.println(mg.getClassName() + "." + mg.getName() + mg.getSignature());
                 System.out.println("----------------------------------------------------------------------");
@@ -187,8 +187,8 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
             if (numIterations >= MAX_ITERS + 9) {
                 DEBUG = debugWas;
 
-                throw new DataflowAnalysisException("Too many iterations (" + numIterations + ") in dataflow when analyzing "
-                        + getFullyQualifiedMethodName());
+                throw new DataflowAnalysisException("Too many iterations (" + numIterations
+                        + ") in dataflow when analyzing " + getFullyQualifiedMethodName());
             }
 
             analysis.startIteration();
@@ -292,8 +292,10 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
 
                                 needToRecompute = true;
                                 if (DEBUG) {
-                                    debug(block, "\n Need to recompute. My timestamp = " + lastCalculated + ", pred timestamp = "
-                                            + predLastUpdated + ",\n   pred fact = " + predFact + "\n");
+                                    debug(block,
+                                            "\n Need to recompute. My timestamp = " + lastCalculated
+                                                    + ", pred timestamp = " + predLastUpdated + ",\n   pred fact = "
+                                                    + predFact + "\n");
                                 }
                                 // break;
                             }
@@ -334,10 +336,12 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
                                 debug(block, logicalPred, edge, "\n  First pred is " + analysis.factToString(edgeFact)
                                         + "\n   last updated at " + analysis.getLastUpdateTimestamp(predFact) + "\n");
                             } else {
-                                debug(block, logicalPred, edge, "\n  Meet " + analysis.factToString(start) + "\n   with "
-                                        + analysis.factToString(edgeFact)
+                                debug(block, logicalPred, edge,
+                                        "\n  Meet " + analysis.factToString(start) + "\n   with "
+                                                + analysis.factToString(edgeFact)
 
-                                        + "\n   pred last updated at " + analysis.getLastUpdateTimestamp(predFact) + "\n");
+                                                + "\n   pred last updated at "
+                                                + analysis.getLastUpdateTimestamp(predFact) + "\n");
                             }
                         }
 
@@ -354,8 +358,8 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
                             pos = block.getFirstInstruction().getPosition();
                         }
                         if (DEBUG) {
-                            System.out.println(" [" + pos + "]==> " + analysis.factToString(start) + " @ " + timestamp
-                                    + " \n");
+                            System.out.println(
+                                    " [" + pos + "]==> " + analysis.factToString(start) + " @ " + timestamp + " \n");
                         }
                     }
                 }
@@ -372,13 +376,13 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
                     analysis.copy(result, origResult);
                 }
 
-                //                if (true || analysis.isTop(start)) {
+                // if (true || analysis.isTop(start)) {
                 // Apply the transfer function.
 
                 analysis.transfer(block, null, start, result);
-                //                } else {
-                //                    analysis.copy(start, result);
-                //                }
+                // } else {
+                // analysis.copy(start, result);
+                // }
 
                 if (DEBUG && SystemProperties.getBoolean("dataflow.blockdebug")) {
                     debug(block, "Dumping flow values for block:\n");
@@ -393,7 +397,8 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
 
                 // See if the result changed.
                 if (DEBUG) {
-                    debug(block, "orig result is " + (origResult == null ? "TOP" : analysis.factToString(origResult)) + "\n");
+                    debug(block, "orig result is " + (origResult == null ? "TOP" : analysis.factToString(origResult))
+                            + "\n");
                 }
                 boolean thisResultChanged = false;
                 if (resultWasTop) {
@@ -416,9 +421,8 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
                 }
 
                 if (DEBUG) {
-                    debug(block,
-                            "result is " + analysis.factToString(result) + " @ timestamp "
-                                    + analysis.getLastUpdateTimestamp(result) + "\n");
+                    debug(block, "result is " + analysis.factToString(result) + " @ timestamp "
+                            + analysis.getLastUpdateTimestamp(result) + "\n");
                 }
             }
 
@@ -431,7 +435,8 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
 
         if (DEBUG) {
             System.out.println("-- Quiescence achieved-------------------------------------------------");
-            System.out.println(this.getClass().getName() + " iteration: " + numIterations + ", timestamp: " + timestamp);
+            System.out
+                    .println(this.getClass().getName() + " iteration: " + numIterations + ", timestamp: " + timestamp);
             MethodGen mg = cfg.getMethodGen();
             System.out.println(mg.getClassName() + "." + mg.getName() + mg.getSignature());
             new RuntimeException("Quiescence achieved----------------------------------------------------------------")
@@ -490,13 +495,14 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
     }
 
     /**
-     * Get dataflow fact at (just before) given Location. Note "before" is meant
-     * in the logical sense, so for backward analyses, before means after the
-     * location in the control flow sense.
+     * Get dataflow fact at (just before) given Location. Note "before" is meant in the logical sense, so for backward
+     * analyses, before means after the location in the control flow sense.
      *
      * @param location
      *            the Location
+     *
      * @return the dataflow value at given Location
+     *
      * @throws DataflowAnalysisException
      */
     public/* final */Fact getFactAtLocation(Location location) throws DataflowAnalysisException {
@@ -504,13 +510,14 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
     }
 
     /**
-     * Get the dataflow fact representing the point just after given Location.
-     * Note "after" is meant in the logical sense, so for backward analyses,
-     * after means before the location in the control flow sense.
+     * Get the dataflow fact representing the point just after given Location. Note "after" is meant in the logical
+     * sense, so for backward analyses, after means before the location in the control flow sense.
      *
      * @param location
      *            the Location
+     *
      * @return the dataflow value after given Location
+     *
      * @throws DataflowAnalysisException
      */
     public/* final */Fact getFactAfterLocation(Location location) throws DataflowAnalysisException {
@@ -522,7 +529,9 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
      *
      * @param edge
      *            the edge
+     *
      * @return the fact that is true on the edge
+     *
      * @throws DataflowAnalysisException
      */
     public Fact getFactOnEdge(Edge edge) throws DataflowAnalysisException {
@@ -544,25 +553,24 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
     }
 
     /**
-     * Return an Iterator over edges that connect given block to its logical
-     * predecessors. For forward analyses, this is the incoming edges. For
-     * backward analyses, this is the outgoing edges.
+     * Return an Iterator over edges that connect given block to its logical predecessors. For forward analyses, this is
+     * the incoming edges. For backward analyses, this is the outgoing edges.
      */
     private Iterator<Edge> logicalPredecessorEdgeIterator(BasicBlock block) {
         return isForwards ? cfg.incomingEdgeIterator(block) : cfg.outgoingEdgeIterator(block);
     }
 
     /**
-     * Get the "logical" entry block of the CFG. For forward analyses, this is
-     * the entry block. For backward analyses, this is the exit block.
+     * Get the "logical" entry block of the CFG. For forward analyses, this is the entry block. For backward analyses,
+     * this is the exit block.
      */
     private BasicBlock logicalEntryBlock() {
         return isForwards ? cfg.getEntry() : cfg.getExit();
     }
 
     public void dumpDataflow(AnalysisType analysis) {
-        System.out.println(this.getClass().getName() + " analysis for " + getCFG().getMethodName() + getCFG().getMethodSig()
-                + " { ");
+        System.out.println(this.getClass().getName() + " analysis for " + getCFG().getMethodName()
+                + getCFG().getMethodSig() + " { ");
         try {
 
             for (Location loc : getCFG().orderedLocations()) {

@@ -22,8 +22,7 @@ package edu.umd.cs.findbugs.ba.jsr305;
 import edu.umd.cs.findbugs.ba.XMethod;
 
 /**
- * Accumulate relevant return type annotations for a given method by traversing
- * its supertypes.
+ * Accumulate relevant return type annotations for a given method by traversing its supertypes.
  *
  * @author David Hovemeyer
  */
@@ -36,8 +35,7 @@ class ReturnTypeAnnotationAccumulator extends AbstractMethodAnnotationAccumulato
      * Constructor.
      *
      * @param typeQualifierValue
-     *            TypeQualifierValue specifying the kind of annotation we want
-     *            to look up
+     *            TypeQualifierValue specifying the kind of annotation we want to look up
      * @param xmethod
      *            method whose effective return type annotation we want
      */
@@ -52,8 +50,7 @@ class ReturnTypeAnnotationAccumulator extends AbstractMethodAnnotationAccumulato
     }
 
     /**
-     * Returns true if the method overrides/implements a method in a superclass
-     * or interface
+     * Returns true if the method overrides/implements a method in a superclass or interface
      */
     @Override
     public boolean overrides() {

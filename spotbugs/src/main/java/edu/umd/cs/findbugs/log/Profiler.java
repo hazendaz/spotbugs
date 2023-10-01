@@ -169,6 +169,7 @@ public class Profiler implements IProfiler, XMLWriteable {
 
         /**
          * @param xmlOutput
+         *
          * @throws IOException
          */
 
@@ -196,7 +197,8 @@ public class Profiler implements IProfiler, XMLWriteable {
                 if (maxContext != null) {
                     xmlOutput.addAttribute("maxContext", String.valueOf(maxContext));
                 }
-                xmlOutput.addAttribute("standardDeviationMicrosecondsPerInvocation", String.valueOf(timeStandardDeviation));
+                xmlOutput.addAttribute("standardDeviationMicrosecondsPerInvocation",
+                        String.valueOf(timeStandardDeviation));
                 xmlOutput.stopTag(true);
             }
         }
@@ -384,8 +386,9 @@ public class Profiler implements IProfiler, XMLWriteable {
     }
 
     /**
-     * Default implementation uses {@link TotalTimeComparator} and prints out
-     * class statistics based on total time spent for a class
+     * Default implementation uses {@link TotalTimeComparator} and prints out class statistics based on total time spent
+     * for a class
+     *
      * @deprecated use {@link ProfileSummary#report} instead.
      */
     @Deprecated
@@ -399,6 +402,7 @@ public class Profiler implements IProfiler, XMLWriteable {
     /**
      * @param reportComparator
      *            non null comparator instance which will be used to sort the report statistics
+     *
      * @deprecated use {@link ProfileSummary#report} instead.
      */
     @Deprecated
@@ -416,7 +420,8 @@ public class Profiler implements IProfiler, XMLWriteable {
                 long time = p.totalTime.get();
                 int callCount = p.totalCalls.get();
                 if (filter.accepts(p)) {
-                    stream.printf("%8d  %8d  %8d %s%n", Long.valueOf(TimeUnit.MILLISECONDS.convert(time, TimeUnit.NANOSECONDS)),
+                    stream.printf("%8d  %8d  %8d %s%n",
+                            Long.valueOf(TimeUnit.MILLISECONDS.convert(time, TimeUnit.NANOSECONDS)),
                             Integer.valueOf(callCount),
                             Long.valueOf(TimeUnit.MICROSECONDS.convert(time / callCount, TimeUnit.NANOSECONDS)),
                             c.getSimpleName());
@@ -430,12 +435,11 @@ public class Profiler implements IProfiler, XMLWriteable {
     }
 
     /**
-     * Clears the previously accumulated data. This method is public because it
-     * can be accessed explicitly from clients (like Eclipse).
+     * Clears the previously accumulated data. This method is public because it can be accessed explicitly from clients
+     * (like Eclipse).
      * <p>
-     * There is no need to clear profiler data after each run, because a new
-     * profiler instance is used for each analysis run (see
-     * {@link FindBugs2#execute()}).
+     * There is no need to clear profiler data after each run, because a new profiler instance is used for each analysis
+     * run (see {@link FindBugs2#execute()}).
      */
     public void clear() {
         profile.clear();

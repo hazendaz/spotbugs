@@ -25,7 +25,6 @@ import javax.annotation.Nonnull;
 import org.apache.bcel.classfile.LocalVariable;
 import org.apache.bcel.classfile.LocalVariableTable;
 
-
 /**
  * Eases access to a BCEL LocalVariable object
  */

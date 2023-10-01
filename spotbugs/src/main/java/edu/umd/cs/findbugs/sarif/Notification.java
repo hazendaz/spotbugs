@@ -11,8 +11,11 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * A class representing {@code notification} object (§3.58) in {@code run.invocations.toolExecutionNotifications} (§3.20.21)
- * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317894">3.58 notification object</a>
+ * A class representing {@code notification} object (§3.58) in {@code run.invocations.toolExecutionNotifications}
+ * (§3.20.21)
+ *
+ * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317894">3.58 notification
+ *      object</a>
  */
 class Notification {
     @NonNull
@@ -24,7 +27,8 @@ class Notification {
     @Nullable
     final SarifException exception;
 
-    Notification(@NonNull String id, @NonNull String message, @NonNull Level level, @Nullable SarifException exception) {
+    Notification(@NonNull String id, @NonNull String message, @NonNull Level level,
+            @Nullable SarifException exception) {
         this.id = Objects.requireNonNull(id);
         this.message = Objects.requireNonNull(message);
         this.level = Objects.requireNonNull(level);
@@ -55,7 +59,8 @@ class Notification {
         if (cause == null) {
             return new Notification(id, error.getMessage(), Level.ERROR, null);
         } else {
-            return new Notification(id, error.getMessage(), Level.ERROR, SarifException.fromThrowable(cause, sourceFinder, baseToId));
+            return new Notification(id, error.getMessage(), Level.ERROR,
+                    SarifException.fromThrowable(cause, sourceFinder, baseToId));
         }
     }
 }

@@ -82,7 +82,8 @@ public class FormatStringChecker extends OpcodeStackDetector {
             }
         } else if (state == FormatState.READY_FOR_FORMAT && seen == Const.DUP) {
             state = FormatState.EXPECTING_ASSIGNMENT;
-        } else if (state == FormatState.EXPECTING_ASSIGNMENT && stack.getStackDepth() == stackDepth + 3 && seen == Const.AASTORE) {
+        } else if (state == FormatState.EXPECTING_ASSIGNMENT && stack.getStackDepth() == stackDepth + 3
+                && seen == Const.AASTORE) {
             Object pos = stack.getStackItem(1).getConstant();
             OpcodeStack.Item value = stack.getStackItem(0);
             if (pos instanceof Integer) {
@@ -96,16 +97,15 @@ public class FormatStringChecker extends OpcodeStackDetector {
             } else {
                 state = FormatState.NONE;
             }
-        } else if (state == FormatState.READY_FOR_FORMAT
-                && (seen == Const.INVOKESPECIAL || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKESTATIC || seen == Const.INVOKEINTERFACE)
+        } else if (state == FormatState.READY_FOR_FORMAT && (seen == Const.INVOKESPECIAL || seen == Const.INVOKEVIRTUAL
+                || seen == Const.INVOKESTATIC || seen == Const.INVOKEINTERFACE)
                 && stack.getStackDepth() == stackDepth) {
 
             String cl = getClassConstantOperand();
             String nm = getNameConstantOperand();
             String sig = getSigConstantOperand();
             XMethod m = getXMethodOperand();
-            if ((m == null || m.isVarArgs())
-                    && sig.contains("Ljava/lang/String;[Ljava/lang/Object;)")
+            if ((m == null || m.isVarArgs()) && sig.contains("Ljava/lang/String;[Ljava/lang/Object;)")
                     && ("java/util/Formatter".equals(cl) && "format".equals(nm)
                             || "java/lang/String".equals(cl) && "format".equals(nm)
                             || "java/io/PrintStream".equals(cl) && "format".equals(nm)
@@ -113,7 +113,8 @@ public class FormatStringChecker extends OpcodeStackDetector {
                             || cl.endsWith("Writer") && "format".equals(nm)
                             || cl.endsWith("Writer") && "printf".equals(nm))
                     || cl.endsWith("Logger") && nm.endsWith("fmt")
-                    || "([Ljava/lang/Object;)Ljava/lang/String;".equals(sig) && "java/lang/String".equals(cl) && "formatted".equals(nm)) {
+                    || "([Ljava/lang/Object;)Ljava/lang/String;".equals(sig) && "java/lang/String".equals(cl)
+                            && "formatted".equals(nm)) {
 
                 if (formatString.indexOf('\n') >= 0) {
                     bugReporter.reportBug(new BugInstance(this, "VA_FORMAT_STRING_USES_NEWLINE", NORMAL_PRIORITY)

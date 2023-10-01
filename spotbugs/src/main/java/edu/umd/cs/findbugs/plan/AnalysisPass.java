@@ -31,10 +31,10 @@ import edu.umd.cs.findbugs.Detector2;
 import edu.umd.cs.findbugs.DetectorFactory;
 
 /**
- * An analysis pass in the overall ExecutionPlan. This is a list of Detectors to
- * be applied to analyzed classes.
+ * An analysis pass in the overall ExecutionPlan. This is a list of Detectors to be applied to analyzed classes.
  *
  * @see ExecutionPlan
+ *
  * @author David Hovemeyer
  */
 public class AnalysisPass {
@@ -55,8 +55,8 @@ public class AnalysisPass {
     }
 
     /**
-     * Make given DetectorFactory a member of this pass. Does not position the
-     * factory within the overall list of detectors.
+     * Make given DetectorFactory a member of this pass. Does not position the factory within the overall list of
+     * detectors.
      *
      * @param factory
      *            a DetectorFactory
@@ -66,15 +66,16 @@ public class AnalysisPass {
     }
 
     /**
-     * Append the given DetectorFactory to the end of the ordered detector list.
-     * The factory must be a member of the pass.
+     * Append the given DetectorFactory to the end of the ordered detector list. The factory must be a member of the
+     * pass.
      *
      * @param factory
      *            a DetectorFactory
      */
     public void append(DetectorFactory factory) {
         if (!memberSet.contains(factory)) {
-            throw new IllegalArgumentException("Detector " + factory.getFullName() + " appended to pass it doesn't belong to");
+            throw new IllegalArgumentException(
+                    "Detector " + factory.getFullName() + " appended to pass it doesn't belong to");
         }
         this.orderedFactoryList.addLast(factory);
     }
@@ -89,8 +90,7 @@ public class AnalysisPass {
     }
 
     /**
-     * Get Set of pass members which haven't been assigned a position in the
-     * pass.
+     * Get Set of pass members which haven't been assigned a position in the pass.
      */
     public Set<DetectorFactory> getUnpositionedMembers() {
         HashSet<DetectorFactory> result = new HashSet<>(memberSet);
@@ -99,8 +99,7 @@ public class AnalysisPass {
     }
 
     /**
-     * Get an Iterator over the DetectorFactory objects in the pass, in their
-     * assigned order.
+     * Get an Iterator over the DetectorFactory objects in the pass, in their assigned order.
      */
     public Iterator<DetectorFactory> iterator() {
         return orderedFactoryList.iterator();
@@ -111,6 +110,7 @@ public class AnalysisPass {
      *
      * @param factory
      *            the DetectorFactory
+     *
      * @return true if this pass contains the DetectorFactory, false if not
      */
     public boolean contains(DetectorFactory factory) {
@@ -118,11 +118,11 @@ public class AnalysisPass {
     }
 
     /**
-     * Instantiate all of the Detector2s in this pass and return them in a
-     * (correctly-ordered) array.
+     * Instantiate all of the Detector2s in this pass and return them in a (correctly-ordered) array.
      *
      * @param bugReporter
      *            the BugReporter
+     *
      * @return array of Detector2s
      */
     public Detector2[] instantiateDetector2sInPass(BugReporter bugReporter) {
@@ -135,14 +135,15 @@ public class AnalysisPass {
     }
 
     /**
-     * Instantiate all of the detectors in this pass as objects implementing the
-     * BCEL-only Detector interface. Detectors that do not support this
-     * interface will not be created. Therefore, new code should use the
+     * Instantiate all of the detectors in this pass as objects implementing the BCEL-only Detector interface. Detectors
+     * that do not support this interface will not be created. Therefore, new code should use the
      * instantiateDetector2sInPass() method, which can support all detectors.
      *
      * @param bugReporter
      *            the BugReporter
+     *
      * @return array of Detectors
+     *
      * @deprecated call instantiateDetector2sInPass() instead
      */
     @Deprecated

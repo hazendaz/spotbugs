@@ -51,6 +51,7 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
  * A BugAnnotation specifying a particular field in particular class.
  *
  * @author David Hovemeyer
+ *
  * @see BugAnnotation
  */
 public class FieldAnnotation extends PackageMemberAnnotation {
@@ -122,11 +123,12 @@ public class FieldAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Factory method. Class name, field name, and field signatures are taken
-     * from the given visitor, which is visiting the field.
+     * Factory method. Class name, field name, and field signatures are taken from the given visitor, which is visiting
+     * the field.
      *
      * @param visitor
      *            the visitor which is visiting the field
+     *
      * @return the FieldAnnotation object
      */
     public static FieldAnnotation fromVisitedField(PreorderVisitor visitor) {
@@ -135,12 +137,12 @@ public class FieldAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Factory method. Class name, field name, and field signatures are taken
-     * from the given visitor, which is visiting a reference to the field (i.e.,
-     * a getfield or getstatic instruction).
+     * Factory method. Class name, field name, and field signatures are taken from the given visitor, which is visiting
+     * a reference to the field (i.e., a getfield or getstatic instruction).
      *
      * @param visitor
      *            the visitor which is visiting the field reference
+     *
      * @return the FieldAnnotation object
      */
     public static FieldAnnotation fromReferencedField(DismantleBytecode visitor) {
@@ -156,6 +158,7 @@ public class FieldAnnotation extends PackageMemberAnnotation {
      *            the name of the class which defines the field
      * @param field
      *            the BCEL Field object
+     *
      * @return the FieldAnnotation
      */
     public static FieldAnnotation fromBCELField(@DottedClassName String className, Field field) {
@@ -169,6 +172,7 @@ public class FieldAnnotation extends PackageMemberAnnotation {
      *            the class which defines the field
      * @param field
      *            the BCEL Field object
+     *
      * @return the FieldAnnotation
      */
     public static FieldAnnotation fromBCELField(JavaClass jClass, Field field) {
@@ -180,6 +184,7 @@ public class FieldAnnotation extends PackageMemberAnnotation {
      *
      * @param fieldDescriptor
      *            the FieldDescriptor
+     *
      * @return the FieldAnnotation
      */
     public static FieldAnnotation fromFieldDescriptor(FieldDescriptor fieldDescriptor) {
@@ -188,10 +193,9 @@ public class FieldAnnotation extends PackageMemberAnnotation {
     }
 
     public static FieldAnnotation fromXField(XField fieldDescriptor) {
-        return new FieldAnnotation(fieldDescriptor.getClassName(), fieldDescriptor.getName(), fieldDescriptor.getSignature(),
-                fieldDescriptor.getSourceSignature(), fieldDescriptor.isStatic());
+        return new FieldAnnotation(fieldDescriptor.getClassName(), fieldDescriptor.getName(),
+                fieldDescriptor.getSignature(), fieldDescriptor.getSourceSignature(), fieldDescriptor.isStatic());
     }
-
 
     public XField toXField() {
         return XFactory.createXField(className, fieldName, fieldSig, isStatic);
@@ -229,6 +233,7 @@ public class FieldAnnotation extends PackageMemberAnnotation {
      *            the Instruction to check
      * @param cpg
      *            ConstantPoolGen of the method containing the instruction
+     *
      * @return the Field if the instruction is a read of a field, null otherwise
      */
     public static FieldAnnotation isRead(Instruction ins, ConstantPoolGen cpg) {
@@ -248,6 +253,7 @@ public class FieldAnnotation extends PackageMemberAnnotation {
      *            the Instruction to check
      * @param cpg
      *            ConstantPoolGen of the method containing the instruction
+     *
      * @return the Field if instruction is a write of a field, null otherwise
      */
     public static FieldAnnotation isWrite(Instruction ins, ConstantPoolGen cpg) {
@@ -354,13 +360,13 @@ public class FieldAnnotation extends PackageMemberAnnotation {
             if (currentAnalysisContext == null) {
                 sourceLines = new SourceLineAnnotation(className, sourceFileName, -1, -1, -1, -1);
             } else {
-                SourceInfoMap.SourceLineRange fieldLine = currentAnalysisContext.getSourceInfoMap().getFieldLine(className,
-                        fieldName);
+                SourceInfoMap.SourceLineRange fieldLine = currentAnalysisContext.getSourceInfoMap()
+                        .getFieldLine(className, fieldName);
                 if (fieldLine == null) {
                     sourceLines = new SourceLineAnnotation(className, sourceFileName, -1, -1, -1, -1);
                 } else {
-                    sourceLines = new SourceLineAnnotation(className, sourceFileName, fieldLine.getStart(), fieldLine.getEnd(),
-                            -1, -1);
+                    sourceLines = new SourceLineAnnotation(className, sourceFileName, fieldLine.getStart(),
+                            fieldLine.getEnd(), -1, -1);
                 }
             }
         }
@@ -368,8 +374,7 @@ public class FieldAnnotation extends PackageMemberAnnotation {
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * XML Conversion support
+     * ---------------------------------------------------------------------- XML Conversion support
      * ----------------------------------------------------------------------
      */
 

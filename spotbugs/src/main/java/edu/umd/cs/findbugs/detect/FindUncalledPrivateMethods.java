@@ -97,9 +97,8 @@ public class FindUncalledPrivateMethods extends BytecodeScanningDetector impleme
         }
         super.visitMethod(obj);
         String methodName = getMethodName();
-        if (!"writeReplace".equals(methodName) && !"readResolve".equals(methodName)
-                && !"readObject".equals(methodName) && !"readObjectNoData".equals(methodName)
-                && !"writeObject".equals(methodName)
+        if (!"writeReplace".equals(methodName) && !"readResolve".equals(methodName) && !"readObject".equals(methodName)
+                && !"readObjectNoData".equals(methodName) && !"writeObject".equals(methodName)
                 && methodName.indexOf("debug") == -1 && methodName.indexOf("Debug") == -1
                 && methodName.indexOf("trace") == -1 && methodName.indexOf("Trace") == -1
                 && !Const.CONSTRUCTOR_NAME.equals(methodName) && !Const.STATIC_INITIALIZER_NAME.equals(methodName)) {
@@ -125,8 +124,8 @@ public class FindUncalledPrivateMethods extends BytecodeScanningDetector impleme
         case Const.INVOKEINTERFACE:
             if (getDottedClassConstantOperand().equals(className)) {
                 String clsName = getDottedClassConstantOperand();
-                MethodAnnotation called = new MethodAnnotation(clsName, getNameConstantOperand(), getSigConstantOperand(),
-                        seen == Const.INVOKESTATIC);
+                MethodAnnotation called = new MethodAnnotation(clsName, getNameConstantOperand(),
+                        getSigConstantOperand(), seen == Const.INVOKESTATIC);
                 calledMethods.add(called);
                 calledMethodNames.add(getNameConstantOperand().toLowerCase());
             }
@@ -147,7 +146,6 @@ public class FindUncalledPrivateMethods extends BytecodeScanningDetector impleme
         String[] parts = className.split("[$+.]");
         String simpleClassName = parts[parts.length - 1];
 
-
         if (NestedAccessUtil.supportsNestedAccess(javaClass)) {
             checkForNestedAccess(classContext, javaClass);
         }
@@ -160,11 +158,12 @@ public class FindUncalledPrivateMethods extends BytecodeScanningDetector impleme
                     Constant ref = cp.getConstant(((ConstantMethodHandle) constant).getReferenceIndex());
                     if (ref instanceof ConstantCP) {
                         String clsName = cp.getConstantString(((ConstantCP) ref).getClassIndex(), Const.CONSTANT_Class);
-                        ConstantNameAndType nameAndType = (ConstantNameAndType) cp.getConstant(((ConstantCP) ref).getNameAndTypeIndex());
+                        ConstantNameAndType nameAndType = (ConstantNameAndType) cp
+                                .getConstant(((ConstantCP) ref).getNameAndTypeIndex());
                         String name = ((ConstantUtf8) cp.getConstant(nameAndType.getNameIndex())).getBytes();
                         String signature = ((ConstantUtf8) cp.getConstant(nameAndType.getSignatureIndex())).getBytes();
-                        MethodAnnotation called = new MethodAnnotation(ClassName.toDottedClassName(clsName), name, signature,
-                                kind == 6 /* invokestatic */);
+                        MethodAnnotation called = new MethodAnnotation(ClassName.toDottedClassName(clsName), name,
+                                signature, kind == 6 /* invokestatic */);
                         calledMethods.add(called);
                         calledMethodNames.add(name.toLowerCase());
                     }
@@ -189,7 +188,8 @@ public class FindUncalledPrivateMethods extends BytecodeScanningDetector impleme
             if (methodName.length() > 1 && calledMethodNames.contains(methodName.toLowerCase())) {
                 priority = NORMAL_PRIORITY;
             }
-            BugInstance bugInstance = new BugInstance(this, "UPM_UNCALLED_PRIVATE_METHOD", priority).addClass(this).addMethod(m);
+            BugInstance bugInstance = new BugInstance(this, "UPM_UNCALLED_PRIVATE_METHOD", priority).addClass(this)
+                    .addMethod(m);
             bugReporter.reportBug(bugInstance);
         }
 

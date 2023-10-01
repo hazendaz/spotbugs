@@ -79,12 +79,8 @@ class SourceMatcherTest {
         SourceMatcher sm = new SourceMatcher(fileName);
 
         String xml = writeXMLAndGetStringOutput(sm, false);
-        xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                + "\n<FindBugsFilter>"
-                + "\n<Match>"
-                + "\n" + xml
-                + "\n</Match>"
-                + "\n</FindBugsFilter>\n";
+        xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n<FindBugsFilter>" + "\n<Match>" + "\n" + xml
+                + "\n</Match>" + "\n</FindBugsFilter>\n";
 
         Filter filter = new Filter(new StringInputStream(xml));
 
@@ -93,7 +89,6 @@ class SourceMatcherTest {
         bug.addClass("bla", fileName);
         assertTrue(filter.match(bug));
     }
-
 
     @Test
     void match() {

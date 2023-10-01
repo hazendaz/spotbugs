@@ -46,25 +46,24 @@ import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.plugin.eclipse.quickfix.exception.BugResolutionException;
 
 /**
- * The <CODE>UseValueOfResolution</CODE> replace the inefficient creation of an
- * instance, by the static <CODE>valueOf(...)</CODE> method.
+ * The <CODE>UseValueOfResolution</CODE> replace the inefficient creation of an instance, by the static
+ * <CODE>valueOf(...)</CODE> method.
  *
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_BOOLEAN_CTOR">DM_BOOLEAN_CTOR</a>
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_FP_NUMBER_CTOR">DM_FP_NUMBER_CTOR</a>
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a>
+ * @see <a href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_BOOLEAN_CTOR">DM_BOOLEAN_CTOR</a>
+ * @see <a href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_FP_NUMBER_CTOR">DM_FP_NUMBER_CTOR</a>
+ * @see <a href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a>
+ *
  * @author <a href="mailto:twyss@hsr.ch">Thierry Wyss</a>
  * @author <a href="mailto:mbusarel@hsr.ch">Marco Busarello</a>
+ *
  * @version 1.0
  */
 public class UseValueOfResolution extends BugResolution {
 
     private static final String VALUE_OF_METHOD_NAME = "valueOf";
 
-    private static final Set<String> primitiveWrapperClasses = Set.of("java.lang.Double", "java.lang.Integer", "java.lang.Boolean",
-            "java.lang.Float");
+    private static final Set<String> primitiveWrapperClasses = Set.of("java.lang.Double", "java.lang.Integer",
+            "java.lang.Boolean", "java.lang.Float");
 
     private boolean isDouble;
 
@@ -76,12 +75,13 @@ public class UseValueOfResolution extends BugResolution {
     }
 
     @Override
-    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug) throws BugResolutionException {
+    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug)
+            throws BugResolutionException {
         Assert.isNotNull(rewrite);
         Assert.isNotNull(workingUnit);
 
-        ClassInstanceCreation primitiveTypeCreation = findPrimitiveTypeCreation(getASTNode(workingUnit,
-                bug.getPrimarySourceLineAnnotation()));
+        ClassInstanceCreation primitiveTypeCreation = findPrimitiveTypeCreation(
+                getASTNode(workingUnit, bug.getPrimarySourceLineAnnotation()));
         if (primitiveTypeCreation == null) {
             throw new BugResolutionException("Primitive type creation not found.");
         }
@@ -174,7 +174,7 @@ public class UseValueOfResolution extends BugResolution {
         public String getLabelReplacement() {
             // returns what is in the constructor arguments
             if (primitiveTypeCreation == null || primitiveTypeCreation.arguments().isEmpty()) {
-                return "..."; //safe return value
+                return "..."; // safe return value
             }
             // can safely use toString() here because it's user facing, not being used as actual code
             return primitiveTypeCreation.arguments().get(0).toString();
@@ -182,12 +182,11 @@ public class UseValueOfResolution extends BugResolution {
 
         @Override
         public boolean isApplicable() {
-            // we must have found a primativeTypeCreation.  If we are not dealing with
-            // DM_FP_NUMBER_CTOR, it's automatically applicable.  Otherwise,
+            // we must have found a primativeTypeCreation. If we are not dealing with
+            // DM_FP_NUMBER_CTOR, it's automatically applicable. Otherwise,
             // we must match the isDouble argument with actually resolving a double
-            return primitiveTypeCreation != null
-                    && (!isFloatingPoint || (isDouble == "java.lang.Double".equals(primitiveTypeCreation.resolveTypeBinding()
-                            .getQualifiedName())));
+            return primitiveTypeCreation != null && (!isFloatingPoint || (isDouble == "java.lang.Double"
+                    .equals(primitiveTypeCreation.resolveTypeBinding().getQualifiedName())));
         }
 
     }

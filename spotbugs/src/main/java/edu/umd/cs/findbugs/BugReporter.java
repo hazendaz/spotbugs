@@ -26,9 +26,8 @@ import edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback;
 import edu.umd.cs.findbugs.classfile.IClassObserver;
 
 /**
- * Generic interface for bug reporter objects. A BugReporter accumulates all of
- * the information reported by the analysis, which includes bug reports, and
- * also auxiliary information such as analysis errors, missing classes, and
+ * Generic interface for bug reporter objects. A BugReporter accumulates all of the information reported by the
+ * analysis, which includes bug reports, and also auxiliary information such as analysis errors, missing classes, and
  * class to source file mapping.
  *
  * @author David Hovemeyer
@@ -57,14 +56,12 @@ public interface BugReporter extends RepositoryLookupFailureCallback, IClassObse
      * Set the priority threshold.
      *
      * @param threshold
-     *            bug instances must be at least as important as this priority
-     *            to be reported
+     *            bug instances must be at least as important as this priority to be reported
      */
     void setPriorityThreshold(int threshold);
 
     /**
-     * Report a bug. The implementation may report the bug immediately, or queue
-     * it for later.
+     * Report a bug. The implementation may report the bug immediately, or queue it for later.
      *
      * @param bugInstance
      *            object describing the bug instance
@@ -72,8 +69,7 @@ public interface BugReporter extends RepositoryLookupFailureCallback, IClassObse
     void reportBug(@Nonnull BugInstance bugInstance);
 
     /**
-     * Finish reporting bugs. If any bug reports have been queued, calling this
-     * method will flush them.
+     * Finish reporting bugs. If any bug reports have been queued, calling this method will flush them.
      */
     void finish();
 
@@ -91,8 +87,7 @@ public interface BugReporter extends RepositoryLookupFailureCallback, IClassObse
     void addObserver(BugReporterObserver observer);
 
     /**
-     * Get ProjectStats object used to store statistics about the overall
-     * project being analyzed.
+     * Get ProjectStats object used to store statistics about the overall project being analyzed.
      */
     ProjectStats getProjectStats();
 

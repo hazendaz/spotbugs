@@ -29,6 +29,7 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
  * Bug annotation class for string values.
  *
  * @author William Pugh
+ *
  * @see BugAnnotation
  */
 public class StringAnnotation implements BugAnnotation {
@@ -151,8 +152,7 @@ public class StringAnnotation implements BugAnnotation {
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * XML Conversion support
+     * ---------------------------------------------------------------------- XML Conversion support
      * ----------------------------------------------------------------------
      */
 

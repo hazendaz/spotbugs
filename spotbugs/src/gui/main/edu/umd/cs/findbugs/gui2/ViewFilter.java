@@ -40,7 +40,8 @@ public class ViewFilter {
     }
 
     enum PriorityFilter implements ViewFilterEnum {
-        HIGH_PRIORITY(1, "High priority only"), NORMAL_PRIORITY(2, "High and normal priority"), ALL_BUGS(10, "All bug priorities");
+        HIGH_PRIORITY(1, "High priority only"), NORMAL_PRIORITY(2, "High and normal priority"),
+        ALL_BUGS(10, "All bug priorities");
 
         final int maxPriority;
         final String displayName;
@@ -89,7 +90,6 @@ public class ViewFilter {
 
     }
 
-
     final MainFrame mf;
 
     RankFilter rank = RankFilter.ALL;
@@ -97,7 +97,6 @@ public class ViewFilter {
     PriorityFilter priority = PriorityFilter.ALL_BUGS;
 
     String[] classSearchStrings;
-
 
     static final Pattern legalClassSearchString = Pattern.compile("[\\p{javaLowerCase}\\p{javaUpperCase}0-9.$/_]*");
 
@@ -147,8 +146,7 @@ public class ViewFilter {
     }
 
     /**
-     * @deprecated Use {@link ClassName#matchedPrefixes(String[],String)}
-     *             instead
+     * @deprecated Use {@link ClassName#matchedPrefixes(String[],String)} instead
      */
     @Deprecated
     public static boolean matchedPrefixes(String[] classSearchStrings, @DottedClassName String className) {

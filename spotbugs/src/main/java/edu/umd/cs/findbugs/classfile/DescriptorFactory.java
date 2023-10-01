@@ -39,8 +39,7 @@ import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * Factory for creating ClassDescriptors, MethodDescriptors, and
- * FieldDescriptors.
+ * Factory for creating ClassDescriptors, MethodDescriptors, and FieldDescriptors.
  *
  * @author David Hovemeyer
  */
@@ -70,10 +69,11 @@ public class DescriptorFactory {
     }
 
     /**
-     * This method was designed to canonicalize String to improve performance,
-     * but now GC cost is cheaper than calculation cost in application thread
-     * so removing this old optimization makes SpotBugs 16% faster.
+     * This method was designed to canonicalize String to improve performance, but now GC cost is cheaper than
+     * calculation cost in application thread so removing this old optimization makes SpotBugs 16% faster.
+     *
      * @return given string instance
+     *
      * @deprecated this hack is needless for modern JVM, at least Java8
      */
     @Deprecated
@@ -114,6 +114,7 @@ public class DescriptorFactory {
      *
      * @param className
      *            a class name in VM (slashed) format
+     *
      * @return ClassDescriptor for that class
      */
     public @Nonnull ClassDescriptor getClassDescriptor(@SlashedClassName String className) {
@@ -136,6 +137,7 @@ public class DescriptorFactory {
      *
      * @param dottedClassName
      *            a class name in dotted format
+     *
      * @return ClassDescriptor for that class
      */
     public ClassDescriptor getClassDescriptorForDottedClassName(@DottedClassName String dottedClassName) {
@@ -149,22 +151,22 @@ public class DescriptorFactory {
     }
 
     public MethodDescriptor getMethodDescriptor(JavaClass jClass, Method method) {
-        return getMethodDescriptor(ClassName.toSlashedClassName(jClass.getClassName()), method.getName(), method.getSignature(),
-                method.isStatic());
+        return getMethodDescriptor(ClassName.toSlashedClassName(jClass.getClassName()), method.getName(),
+                method.getSignature(), method.isStatic());
     }
 
     /**
      * Get a MethodDescriptor.
      *
      * @param className
-     *            name of the class containing the method, in VM format (e.g.,
-     *            "java/lang/String")
+     *            name of the class containing the method, in VM format (e.g., "java/lang/String")
      * @param name
      *            name of the method
      * @param signature
      *            signature of the method
      * @param isStatic
      *            true if method is static, false otherwise
+     *
      * @return MethodDescriptor
      */
     public MethodDescriptor getMethodDescriptor(@SlashedClassName String className, String name, String signature,
@@ -215,25 +217,26 @@ public class DescriptorFactory {
     }
 
     public MethodDescriptor getMethodDescriptor(MethodAnnotation ma) {
-        return getMethodDescriptor(ClassName.toSlashedClassName(ma.getClassName()), ma.getMethodName(), ma.getMethodSignature(),
-                ma.isStatic());
+        return getMethodDescriptor(ClassName.toSlashedClassName(ma.getClassName()), ma.getMethodName(),
+                ma.getMethodSignature(), ma.isStatic());
     }
 
     /**
      * Get a FieldDescriptor.
      *
      * @param className
-     *            the name of the class the field belongs to, in VM format
-     *            (e.g., "java/lang/String")
+     *            the name of the class the field belongs to, in VM format (e.g., "java/lang/String")
      * @param name
      *            the name of the field
      * @param signature
      *            the field signature (type)
      * @param isStatic
      *            true if field is static, false if not
+     *
      * @return FieldDescriptor
      */
-    public FieldDescriptor getFieldDescriptor(@SlashedClassName String className, String name, String signature, boolean isStatic) {
+    public FieldDescriptor getFieldDescriptor(@SlashedClassName String className, String name, String signature,
+            boolean isStatic) {
         FieldDescriptor fieldDescriptor = new FieldDescriptor(className, name, signature, isStatic);
         FieldDescriptor existing = fieldDescriptorMap.get(fieldDescriptor);
         if (existing == null) {
@@ -249,8 +252,8 @@ public class DescriptorFactory {
     }
 
     public FieldDescriptor getFieldDescriptor(FieldAnnotation ma) {
-        return getFieldDescriptor(ClassName.toSlashedClassName(ma.getClassName()), ma.getFieldName(), ma.getFieldSignature(),
-                ma.isStatic());
+        return getFieldDescriptor(ClassName.toSlashedClassName(ma.getClassName()), ma.getFieldName(),
+                ma.getFieldSignature(), ma.isStatic());
     }
 
     /**
@@ -258,6 +261,7 @@ public class DescriptorFactory {
      *
      * @param type
      *            an ObjectType
+     *
      * @return a ClassDescriptor for the class described by the ObjectType
      */
     public static ClassDescriptor getClassDescriptor(ObjectType type) {
@@ -273,6 +277,7 @@ public class DescriptorFactory {
      *
      * @param resourceName
      *            the resource name
+     *
      * @return the class descriptor
      */
     public static ClassDescriptor createClassDescriptorFromResourceName(String resourceName) {
@@ -303,6 +308,7 @@ public class DescriptorFactory {
      *
      * @param resourceName
      *            the resource name
+     *
      * @return true if the resource is a class, false otherwise
      */
     public static boolean isClassResource(String resourceName) {
@@ -315,6 +321,7 @@ public class DescriptorFactory {
      *
      * @param resourceName
      *            the resource name
+     *
      * @return true if the resource is a module-info class, false otherwise
      */
     public static boolean isModuleInfo(String resourceName) {

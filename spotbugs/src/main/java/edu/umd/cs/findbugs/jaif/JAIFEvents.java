@@ -23,9 +23,8 @@ package edu.umd.cs.findbugs.jaif;
  * Callbacks for parsing an external annotation file.
  *
  * @author David Hovemeyer
- * @see <a
- *      href="http://groups.csail.mit.edu/pag/jsr308/annotation-file-utilities/">Annotation
- *      File Utilities/</a>
+ *
+ * @see <a href="http://groups.csail.mit.edu/pag/jsr308/annotation-file-utilities/">Annotation File Utilities/</a>
  */
 public interface JAIFEvents {
 
@@ -66,8 +65,7 @@ public interface JAIFEvents {
      * @param fieldName
      *            annotation field name
      * @param constant
-     *            constant value of the annotation field (one of the java.lang
-     *            wrapper types, or a String, or ???)
+     *            constant value of the annotation field (one of the java.lang wrapper types, or a String, or ???)
      */
     void annotationField(String fieldName, Object constant);
 

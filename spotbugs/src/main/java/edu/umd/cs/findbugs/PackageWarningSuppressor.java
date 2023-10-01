@@ -11,12 +11,14 @@ public class PackageWarningSuppressor extends WarningSuppressor {
     String packageName;
 
     /**
-     * Indicates whether this package was "user generated" as defined in {@link MemberUtils#isUserGenerated(edu.umd.cs.findbugs.ba.XClass)}
-     * When a package is not user generated we are not interested in reporting warnings, in particular we do not want to report US_USELESS_SUPPRESSION_ON_PACKAGE
+     * Indicates whether this package was "user generated" as defined in
+     * {@link MemberUtils#isUserGenerated(edu.umd.cs.findbugs.ba.XClass)} When a package is not user generated we are
+     * not interested in reporting warnings, in particular we do not want to report US_USELESS_SUPPRESSION_ON_PACKAGE
      */
     private final boolean userGeneratedPackage;
 
-    public PackageWarningSuppressor(String bugPattern, SuppressMatchType matchType, String packageName, boolean userGeneratedPackage) {
+    public PackageWarningSuppressor(String bugPattern, SuppressMatchType matchType, String packageName,
+            boolean userGeneratedPackage) {
         super(bugPattern, matchType);
         this.packageName = packageName;
         this.userGeneratedPackage = userGeneratedPackage;
@@ -45,8 +47,7 @@ public class PackageWarningSuppressor extends WarningSuppressor {
 
     @Override
     public BugInstance buildUselessSuppressionBugInstance(UselessSuppressionDetector detector) {
-        return new BugInstance(detector, BUG_TYPE, PRIORITY)
-                .addClass(packageName)
+        return new BugInstance(detector, BUG_TYPE, PRIORITY).addClass(packageName)
                 .addString(adjustBugPatternForMessage());
     }
 

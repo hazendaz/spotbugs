@@ -32,8 +32,8 @@ import org.apache.bcel.generic.ReturnInstruction;
 import org.apache.bcel.generic.Select;
 
 /**
- * Visitor to find all of the targets of an instruction whose InstructionHandle
- * is given. Note that we don't consider exception edges.
+ * Visitor to find all of the targets of an instruction whose InstructionHandle is given. Note that we don't consider
+ * exception edges.
  *
  * @author David Hovemeyer
  * @author Chadd Williams
@@ -58,8 +58,7 @@ public class TargetEnumeratingVisitor extends org.apache.bcel.generic.EmptyVisit
      * Constructor.
      *
      * @param handle
-     *            the handle of the instruction whose targets should be
-     *            enumerated
+     *            the handle of the instruction whose targets should be enumerated
      * @param constPoolGen
      *            the ConstantPoolGen object for the class
      */
@@ -101,8 +100,7 @@ public class TargetEnumeratingVisitor extends org.apache.bcel.generic.EmptyVisit
     }
 
     /**
-     * Iterate over Target objects representing control flow targets and their
-     * edge types.
+     * Iterate over Target objects representing control flow targets and their edge types.
      */
     public Iterator<Target> targetIterator() {
         return targetList.iterator();

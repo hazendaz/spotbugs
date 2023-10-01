@@ -83,8 +83,8 @@ public class FindFieldSelfAssignment extends OpcodeStackDetector implements Stat
             OpcodeStack.Item next = stack.getStackItem(1);
 
             if (possibleOverwrite != null && possibleOverwrite.equals(getXFieldOperand())) {
-                bugReporter.reportBug(new BugInstance(this, "SA_FIELD_SELF_ASSIGNMENT", Priorities.HIGH_PRIORITY).addClassAndMethod(this)
-                        .addReferencedField(this).addSourceLine(this));
+                bugReporter.reportBug(new BugInstance(this, "SA_FIELD_SELF_ASSIGNMENT", Priorities.HIGH_PRIORITY)
+                        .addClassAndMethod(this).addReferencedField(this).addSourceLine(this));
 
             }
             possibleOverwrite = null;
@@ -107,16 +107,17 @@ public class FindFieldSelfAssignment extends OpcodeStackDetector implements Stat
             XField f = top.getXField();
             int registerNumber = next.getRegisterNumber();
             if (f != null && f.equals(getXFieldOperand()) && registerNumber >= 0
-                    && registerNumber == top.getFieldLoadedFromRegister() && (top.getPC() == -1 || top.getPC() > lastMethodCall)) {
+                    && registerNumber == top.getFieldLoadedFromRegister()
+                    && (top.getPC() == -1 || top.getPC() > lastMethodCall)) {
                 int priority = NORMAL_PRIORITY;
 
-                LocalVariableAnnotation possibleMatch = LocalVariableAnnotation.findMatchingIgnoredParameter(getClassContext(),
-                        getMethod(), getNameConstantOperand(), getSigConstantOperand());
+                LocalVariableAnnotation possibleMatch = LocalVariableAnnotation.findMatchingIgnoredParameter(
+                        getClassContext(), getMethod(), getNameConstantOperand(), getSigConstantOperand());
                 if (possibleMatch != null) {
                     priority--;
                 } else {
-                    possibleMatch = LocalVariableAnnotation.findUniqueBestMatchingParameter(getClassContext(), getMethod(),
-                            getNameConstantOperand(), getSigConstantOperand());
+                    possibleMatch = LocalVariableAnnotation.findUniqueBestMatchingParameter(getClassContext(),
+                            getMethod(), getNameConstantOperand(), getSigConstantOperand());
                 }
                 if (possibleMatch == null) {
                     String signature = stack.getLVValue(registerNumber).getSignature();
@@ -131,8 +132,9 @@ public class FindFieldSelfAssignment extends OpcodeStackDetector implements Stat
                     }
                 }
 
-                bugReporter.reportBug(new BugInstance(this, "SA_FIELD_SELF_ASSIGNMENT", priority).addClassAndMethod(this)
-                        .addReferencedField(this).addOptionalAnnotation(possibleMatch).addSourceLine(this));
+                bugReporter
+                        .reportBug(new BugInstance(this, "SA_FIELD_SELF_ASSIGNMENT", priority).addClassAndMethod(this)
+                                .addReferencedField(this).addOptionalAnnotation(possibleMatch).addSourceLine(this));
 
             }
         } else {
@@ -157,10 +159,11 @@ public class FindFieldSelfAssignment extends OpcodeStackDetector implements Stat
             break;
         case 7:
             if (isRegisterStore() && register == getRegisterOperand()) {
-                bugReporter.reportBug(new BugInstance(this, "SA_LOCAL_DOUBLE_ASSIGNMENT", NORMAL_PRIORITY)
-                        .addClassAndMethod(this)
-                        .add(LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(), register, getPC(), getPC() - 1))
-                        .addSourceLine(this));
+                bugReporter
+                        .reportBug(new BugInstance(this, "SA_LOCAL_DOUBLE_ASSIGNMENT", NORMAL_PRIORITY)
+                                .addClassAndMethod(this).add(LocalVariableAnnotation
+                                        .getLocalVariableAnnotation(getMethod(), register, getPC(), getPC() - 1))
+                                .addSourceLine(this));
             }
             state = 0;
             break;

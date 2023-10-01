@@ -13,6 +13,7 @@ class Issue2183Test extends AbstractIntegrationTest {
     @DisabledOnJre(JRE.JAVA_8)
     void testIssue() {
         performAnalysis("../java11/ghIssues/Issue2183.class");
-        assertBugInMethodAtLineWithConfidence("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", "Issue2183", "test", 11, Confidence.HIGH);
+        assertBugInMethodAtLineWithConfidence("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", "Issue2183", "test", 11,
+                Confidence.HIGH);
     }
 }

@@ -49,7 +49,8 @@ public class StartInConstructor extends BytecodeScanningDetector implements Stat
 
     @Override
     public boolean shouldVisit(JavaClass obj) {
-        boolean isFinal = (obj.getAccessFlags() & Const.ACC_FINAL) != 0 || (obj.getAccessFlags() & Const.ACC_PUBLIC) == 0;
+        boolean isFinal = (obj.getAccessFlags() & Const.ACC_FINAL) != 0
+                || (obj.getAccessFlags() & Const.ACC_PUBLIC) == 0;
         return !isFinal;
     }
 
@@ -63,7 +64,8 @@ public class StartInConstructor extends BytecodeScanningDetector implements Stat
 
     @Override
     public void sawOpcode(int seen) {
-        if (seen == Const.INVOKEVIRTUAL && "start".equals(getNameConstantOperand()) && "()V".equals(getSigConstantOperand())) {
+        if (seen == Const.INVOKEVIRTUAL && "start".equals(getNameConstantOperand())
+                && "()V".equals(getSigConstantOperand())) {
             try {
                 if (Hierarchy.isSubtype(getDottedClassConstantOperand(), "java.lang.Thread")) {
                     int priority = Priorities.NORMAL_PRIORITY;

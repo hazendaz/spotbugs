@@ -66,7 +66,6 @@ public class UTF8 {
         return new PrintWriter(bufferedWriter(fileName));
     }
 
-
     public static PrintWriter printWriter(PrintStream printStream) {
         return new PrintWriter(new OutputStreamWriter(printStream, StandardCharsets.UTF_8));
     }

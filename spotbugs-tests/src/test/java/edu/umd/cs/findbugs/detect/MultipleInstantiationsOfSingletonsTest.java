@@ -8,15 +8,13 @@ import org.junit.jupiter.api.condition.JRE;
 class MultipleInstantiationsOfSingletonsTest extends AbstractIntegrationTest {
     @Test
     void abstractClassTest() {
-        performAnalysis("singletons/AbstractClass.class",
-                "singletons/AbstractClass$Nested.class");
+        performAnalysis("singletons/AbstractClass.class", "singletons/AbstractClass$Nested.class");
         assertNoBugs();
     }
 
     @Test
     void innerChildInstanceTest() {
-        performAnalysis("singletons/InnerChildInstance.class",
-                "singletons/InnerChildInstance$Unknown.class");
+        performAnalysis("singletons/InnerChildInstance.class", "singletons/InnerChildInstance$Unknown.class");
         assertNoBugs();
     }
 
@@ -190,7 +188,7 @@ class MultipleInstantiationsOfSingletonsTest extends AbstractIntegrationTest {
         // now cannot detect synchronization bug
         // because of the using of a monitor inside function
         assertBugTypeCount("SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", 0);
-        //assertSINGBug("SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", "InappropriateSynchronization", "getInstance");
+        // assertSINGBug("SING_SINGLETON_GETTER_NOT_SYNCHRONIZED", "InappropriateSynchronization", "getInstance");
 
         assertNoBugType("SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR");
         assertNoBugType("SING_SINGLETON_IMPLEMENTS_CLONEABLE");

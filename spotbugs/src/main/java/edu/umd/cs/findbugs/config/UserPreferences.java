@@ -54,8 +54,8 @@ import edu.umd.cs.findbugs.Plugin;
 import edu.umd.cs.findbugs.SystemProperties;
 
 /**
- * User Preferences outside of any one Project. This consists of a class to
- * manage the findbugs.prop file found in the user.home.
+ * User Preferences outside of any one Project. This consists of a class to manage the findbugs.prop file found in the
+ * user.home.
  *
  * @author Dave Brosius
  */
@@ -154,8 +154,7 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Read persistent global UserPreferences from file in the user's home
-     * directory.
+     * Read persistent global UserPreferences from file in the user's home directory.
      */
     public void read() {
         File prefFile = new File(SystemProperties.getProperty("user.home"), PREF_FILE_NAME);
@@ -170,11 +169,11 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Read user preferences from given input stream. The InputStream is
-     * guaranteed to be closed by this method.
+     * Read user preferences from given input stream. The InputStream is guaranteed to be closed by this method.
      *
      * @param in
      *            the InputStream
+     *
      * @throws IOException
      */
     public void read(@WillClose InputStream in) throws IOException {
@@ -207,7 +206,6 @@ public class UserPreferences implements Cloneable {
                 recentProjectsList.add(projectName);
             }
         }
-
 
         for (Map.Entry<?, ?> e : props.entrySet()) {
 
@@ -272,11 +270,11 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Write UserPreferences to given OutputStream. The OutputStream is
-     * guaranteed to be closed by this method.
+     * Write UserPreferences to given OutputStream. The OutputStream is guaranteed to be closed by this method.
      *
      * @param out
      *            the OutputStream
+     *
      * @throws IOException
      */
     public void write(@WillClose OutputStream out) throws IOException {
@@ -290,7 +288,8 @@ public class UserPreferences implements Cloneable {
         }
 
         for (Entry<String, Boolean> entry : detectorEnablementMap.entrySet()) {
-            props.put("detector" + entry.getKey(), entry.getKey() + BOOL_SEPARATOR + String.valueOf(entry.getValue().booleanValue()));
+            props.put("detector" + entry.getKey(),
+                    entry.getKey() + BOOL_SEPARATOR + String.valueOf(entry.getValue().booleanValue()));
         }
 
         // Save ProjectFilterSettings
@@ -325,8 +324,7 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Add given project filename to the front of the recently-used project
-     * list.
+     * Add given project filename to the front of the recently-used project list.
      *
      * @param projectName
      *            project filename
@@ -359,8 +357,7 @@ public class UserPreferences implements Cloneable {
      * @param factory
      *            the DetectorFactory for the Detector to be enabled/disabled
      * @param enable
-     *            true if the Detector should be enabled, false if it should be
-     *            Disabled
+     *            true if the Detector should be enabled, false if it should be Disabled
      */
     public void enableDetector(DetectorFactory factory, boolean enable) {
         detectorEnablementMap.put(factory.getShortName(), enable);
@@ -371,6 +368,7 @@ public class UserPreferences implements Cloneable {
      *
      * @param factory
      *            the DetectorFactory of the Detector
+     *
      * @return true if the Detector is enabled, false if not
      */
     public boolean isDetectorEnabled(DetectorFactory factory) {
@@ -385,8 +383,7 @@ public class UserPreferences implements Cloneable {
      * Enable or disable all known Detectors.
      *
      * @param enable
-     *            true if all detectors should be enabled, false if they should
-     *            all be disabled
+     *            true if all detectors should be enabled, false if they should all be disabled
      */
     public void enableAllDetectors(boolean enable) {
         detectorEnablementMap.clear();
@@ -439,12 +436,10 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Set the enabled/disabled status of running findbugs automatically for
-     * full builds.
+     * Set the enabled/disabled status of running findbugs automatically for full builds.
      *
      * @param enable
-     *            true if running FindBugs at full builds should be enabled,
-     *            false if it should be Disabled
+     *            true if running FindBugs at full builds should be enabled, false if it should be Disabled
      */
     public void setRunAtFullBuild(boolean enable) {
         this.runAtFullBuild = enable;
@@ -478,18 +473,20 @@ public class UserPreferences implements Cloneable {
         UserPreferences other = (UserPreferences) obj;
 
         return runAtFullBuild == other.runAtFullBuild && recentProjectsList.equals(other.recentProjectsList)
-                && detectorEnablementMap.equals(other.detectorEnablementMap) && filterSettings.equals(other.filterSettings)
-                && effort.equals(other.effort) && includeFilterFiles.equals(other.includeFilterFiles)
-                && excludeFilterFiles.equals(other.excludeFilterFiles) && excludeBugsFiles.equals(other.excludeBugsFiles)
-                && customPlugins.equals(other.customPlugins)
+                && detectorEnablementMap.equals(other.detectorEnablementMap)
+                && filterSettings.equals(other.filterSettings) && effort.equals(other.effort)
+                && includeFilterFiles.equals(other.includeFilterFiles)
+                && excludeFilterFiles.equals(other.excludeFilterFiles)
+                && excludeBugsFiles.equals(other.excludeBugsFiles) && customPlugins.equals(other.customPlugins)
                 && mergeSimilarWarnings == other.mergeSimilarWarnings;
     }
 
     @Override
     public int hashCode() {
-        return recentProjectsList.hashCode() + detectorEnablementMap.hashCode() + filterSettings.hashCode() + effort.hashCode()
-                + includeFilterFiles.hashCode() + excludeFilterFiles.hashCode() + (runAtFullBuild ? 1 : 0)
-                + excludeBugsFiles.hashCode() + customPlugins.hashCode() + (mergeSimilarWarnings ? 1 : 0);
+        return recentProjectsList.hashCode() + detectorEnablementMap.hashCode() + filterSettings.hashCode()
+                + effort.hashCode() + includeFilterFiles.hashCode() + excludeFilterFiles.hashCode()
+                + (runAtFullBuild ? 1 : 0) + excludeBugsFiles.hashCode() + customPlugins.hashCode()
+                + (mergeSimilarWarnings ? 1 : 0);
     }
 
     @Override
@@ -556,13 +553,12 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Additional plugins which could be used by {@link IFindBugsEngine} (if
-     * enabled), or which shouldn't be used (if disabled). If a plugin is not
-     * included in the set, it's enablement depends on it's default settings.
+     * Additional plugins which could be used by {@link IFindBugsEngine} (if enabled), or which shouldn't be used (if
+     * disabled). If a plugin is not included in the set, it's enablement depends on it's default settings.
      *
      * @param customPlugins
-     *            map with additional third party plugin locations (as absolute
-     *            paths), never null, but might be empty
+     *            map with additional third party plugin locations (as absolute paths), never null, but might be empty
+     *
      * @see Plugin#isCorePlugin()
      * @see Plugin#isGloballyEnabled()
      */
@@ -574,16 +570,14 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Additional plugins which could be used by {@link IFindBugsEngine} (if
-     * enabled), or which shouldn't be used (if disabled). If a plugin is not
-     * included in the set, it's enablement depends on it's default settings.
+     * Additional plugins which could be used by {@link IFindBugsEngine} (if enabled), or which shouldn't be used (if
+     * disabled). If a plugin is not included in the set, it's enablement depends on it's default settings.
      *
-     * @return map with additional third party plugins, might be empty, never
-     *         null. The keys are either absolute plugin paths or plugin id's.
-     *         <b>Special case</b>: if the path consists of one path segment
-     *         then it represents the plugin id for a plugin to be
-     *         <b>disabled</b>. A value of a particular key can be null (same as
+     * @return map with additional third party plugins, might be empty, never null. The keys are either absolute plugin
+     *         paths or plugin id's. <b>Special case</b>: if the path consists of one path segment then it represents
+     *         the plugin id for a plugin to be <b>disabled</b>. A value of a particular key can be null (same as
      *         disabled)
+     *
      * @see Plugin#isCorePlugin()
      * @see Plugin#isGloballyEnabled()
      */
@@ -592,15 +586,14 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Additional plugins which could be used or shouldn't be used (depending on
-     * given argument) by {@link IFindBugsEngine}. If a plugin is not included
-     * in the set, it's enablement depends on it's default settings.
+     * Additional plugins which could be used or shouldn't be used (depending on given argument) by
+     * {@link IFindBugsEngine}. If a plugin is not included in the set, it's enablement depends on it's default
+     * settings.
      *
-     * @return set with additional third party plugins, might be empty, never
-     *         null. The elements are either absolute plugin paths or plugin id's.
-     *         <b>Special case</b>: if the path consists of one path segment
-     *         then it represents the plugin id for a plugin to be
-     *         <b>disabled</b>.
+     * @return set with additional third party plugins, might be empty, never null. The elements are either absolute
+     *         plugin paths or plugin id's. <b>Special case</b>: if the path consists of one path segment then it
+     *         represents the plugin id for a plugin to be <b>disabled</b>.
+     *
      * @see Plugin#isCorePlugin()
      * @see Plugin#isGloballyEnabled()
      */
@@ -621,15 +614,14 @@ public class UserPreferences implements Cloneable {
         return result;
     }
 
-
     /**
-     * Helper method to read array of strings out of the properties file, using
-     * a Findbugs style format.
+     * Helper method to read array of strings out of the properties file, using a Findbugs style format.
      *
      * @param props
      *            The properties file to read the array from.
      * @param keyPrefix
      *            The key prefix of the array.
+     *
      * @return The array of Strings, or an empty array if no values exist.
      */
     private static Map<String, Boolean> readProperties(Properties props, String keyPrefix) {
@@ -657,8 +649,7 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Helper method to write array of strings out of the properties file, using
-     * a Findbugs style format.
+     * Helper method to write array of strings out of the properties file, using a Findbugs style format.
      *
      * @param props
      *            The properties file to write the array to.
@@ -688,11 +679,9 @@ public class UserPreferences implements Cloneable {
     }
 
     /**
-     * Returns the effort level as an array of feature settings as expected by
-     * FindBugs.
+     * Returns the effort level as an array of feature settings as expected by FindBugs.
      *
-     * @return The array of feature settings corresponding to the current effort
-     *         setting.
+     * @return The array of feature settings corresponding to the current effort setting.
      */
     public AnalysisFeatureSetting[] getAnalysisFeatureSettings() {
         if (EFFORT_DEFAULT.equals(effort)) {

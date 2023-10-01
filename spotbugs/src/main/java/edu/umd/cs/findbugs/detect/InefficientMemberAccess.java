@@ -75,22 +75,25 @@ public class InefficientMemberAccess extends BytecodeScanningDetector implements
             if (!parCls.equals(getClassConstantOperand())) {
                 return;
             }
-            if ((argTypes.length == 2) && !argTypes[1].getSignature().equals(new SignatureParser(methodSig).getReturnTypeSignature())) {
+            if ((argTypes.length == 2)
+                    && !argTypes[1].getSignature().equals(new SignatureParser(methodSig).getReturnTypeSignature())) {
                 return;
             }
 
             InnerClassAccess access = null;
             try {
                 String dottedClassConstantOperand = getDottedClassConstantOperand();
-                access = AnalysisContext.currentAnalysisContext().getInnerClassAccessMap().getInnerClassAccess(dottedClassConstantOperand,
-                        methodName);
+                access = AnalysisContext.currentAnalysisContext().getInnerClassAccessMap()
+                        .getInnerClassAccess(dottedClassConstantOperand, methodName);
                 if (access != null) {
-                    // if the enclosing class of the field differs from the enclosing class of the method, we shouldn't report
+                    // if the enclosing class of the field differs from the enclosing class of the method, we shouldn't
+                    // report
                     // because there is nothing wrong: see bug 1226
                     if (!access.getField().getClassName().equals(dottedClassConstantOperand)) {
                         return;
                     }
-                    // the access method is created to access the synthetic reference to the enclosing class, we shouldn't report
+                    // the access method is created to access the synthetic reference to the enclosing class, we
+                    // shouldn't report
                     // user can't do anything here, see bug 1191
                     if (access.getField().isSynthetic()) {
                         return;
@@ -99,8 +102,8 @@ public class InefficientMemberAccess extends BytecodeScanningDetector implements
             } catch (ClassNotFoundException e) {
             }
 
-            BugInstance bug = new BugInstance(this, "IMA_INEFFICIENT_MEMBER_ACCESS", LOW_PRIORITY).addClassAndMethod(this)
-                    .addSourceLine(this);
+            BugInstance bug = new BugInstance(this, "IMA_INEFFICIENT_MEMBER_ACCESS", LOW_PRIORITY)
+                    .addClassAndMethod(this).addSourceLine(this);
             if (access != null) {
                 bug.addField(access.getField());
             }

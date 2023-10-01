@@ -26,8 +26,8 @@ import java.util.StringTokenizer;
 /**
  * Matches a string against a set of predefined values.
  *
- * Value set is defined using a String containing a comma separated value list.
- * Heading an trailing whitespace on the values is ignored in matching.
+ * Value set is defined using a String containing a comma separated value list. Heading an trailing whitespace on the
+ * values is ignored in matching.
  *
  * @author rak
  */
@@ -70,6 +70,7 @@ public class StringSetMatch {
      * Returns true if the given string is contained in the value set.
      *
      * @param string
+     *
      * @return true if the given string is contained in the value set
      */
     public boolean match(String string) {

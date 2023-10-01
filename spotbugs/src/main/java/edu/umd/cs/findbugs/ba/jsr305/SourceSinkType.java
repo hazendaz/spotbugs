@@ -24,6 +24,7 @@ package edu.umd.cs.findbugs.ba.jsr305;
  *
  * @see SourceSinkInfo
  * @see TypeQualifierValueSet
+ *
  * @author David Hovemeyer
  */
 public enum SourceSinkType {

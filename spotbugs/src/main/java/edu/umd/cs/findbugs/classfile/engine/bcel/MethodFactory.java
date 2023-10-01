@@ -41,9 +41,8 @@ public class MethodFactory extends AnalysisFactory<Method> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public Method analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor) throws CheckedAnalysisException {
@@ -71,9 +70,7 @@ public class MethodFactory extends AnalysisFactory<Method> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs
-     * .findbugs.classfile.IAnalysisCache)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs .findbugs.classfile.IAnalysisCache)
      */
     @Override
     public void registerWith(IAnalysisCache analysisCache) {

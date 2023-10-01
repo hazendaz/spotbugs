@@ -1,6 +1,5 @@
 package edu.umd.cs.findbugs.detect;
 
-
 import org.junit.jupiter.api.Test;
 
 import edu.umd.cs.findbugs.AbstractIntegrationTest;

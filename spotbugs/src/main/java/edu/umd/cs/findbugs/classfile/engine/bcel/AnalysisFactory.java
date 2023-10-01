@@ -64,17 +64,14 @@ public abstract class AnalysisFactory<Analysis> implements IMethodAnalysisEngine
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * IAnalysisEngine methods
+     * ---------------------------------------------------------------------- IAnalysisEngine methods
      * ----------------------------------------------------------------------
      */
 
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs
-     * .findbugs.classfile.IAnalysisCache)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs .findbugs.classfile.IAnalysisCache)
      */
     @Override
     public void registerWith(IAnalysisCache analysisCache) {
@@ -84,12 +81,12 @@ public abstract class AnalysisFactory<Analysis> implements IMethodAnalysisEngine
     private static final Object NULL_ANALYSIS_RESULT = new Object();
 
     /*
-     * ----------------------------------------------------------------------
-     * Helper methods to get required analysis objects.
-     * ----------------------------------------------------------------------
+     * ---------------------------------------------------------------------- Helper methods to get required analysis
+     * objects. ----------------------------------------------------------------------
      */
 
-    protected CFG getCFG(IAnalysisCache analysisCache, MethodDescriptor methodDescriptor) throws CheckedAnalysisException {
+    protected CFG getCFG(IAnalysisCache analysisCache, MethodDescriptor methodDescriptor)
+            throws CheckedAnalysisException {
         return analysisCache.getMethodAnalysis(CFG.class, methodDescriptor);
     }
 
@@ -108,13 +105,13 @@ public abstract class AnalysisFactory<Analysis> implements IMethodAnalysisEngine
         return analysisCache.getMethodAnalysis(MethodGen.class, methodDescriptor);
     }
 
-    protected CompactLocationNumbering getCompactLocationNumbering(IAnalysisCache analysisCache, MethodDescriptor methodDescriptor)
-            throws CheckedAnalysisException {
+    protected CompactLocationNumbering getCompactLocationNumbering(IAnalysisCache analysisCache,
+            MethodDescriptor methodDescriptor) throws CheckedAnalysisException {
         return analysisCache.getMethodAnalysis(CompactLocationNumbering.class, methodDescriptor);
     }
 
-    protected ValueNumberDataflow getValueNumberDataflow(IAnalysisCache analysisCache, MethodDescriptor methodDescriptor)
-            throws CheckedAnalysisException {
+    protected ValueNumberDataflow getValueNumberDataflow(IAnalysisCache analysisCache,
+            MethodDescriptor methodDescriptor) throws CheckedAnalysisException {
         return analysisCache.getMethodAnalysis(ValueNumberDataflow.class, methodDescriptor);
     }
 
@@ -128,22 +125,23 @@ public abstract class AnalysisFactory<Analysis> implements IMethodAnalysisEngine
         return analysisCache.getClassAnalysis(JavaClass.class, classDescriptor);
     }
 
-    protected Method getMethod(IAnalysisCache analysisCache, MethodDescriptor methodDescriptor) throws CheckedAnalysisException {
+    protected Method getMethod(IAnalysisCache analysisCache, MethodDescriptor methodDescriptor)
+            throws CheckedAnalysisException {
         return analysisCache.getMethodAnalysis(Method.class, methodDescriptor);
     }
 
-    protected ReverseDepthFirstSearch getReverseDepthFirstSearch(IAnalysisCache analysisCache, MethodDescriptor methodDescriptor)
-            throws CheckedAnalysisException {
+    protected ReverseDepthFirstSearch getReverseDepthFirstSearch(IAnalysisCache analysisCache,
+            MethodDescriptor methodDescriptor) throws CheckedAnalysisException {
         return analysisCache.getMethodAnalysis(ReverseDepthFirstSearch.class, methodDescriptor);
     }
 
-    protected ExceptionSetFactory getExceptionSetFactory(IAnalysisCache analysisCache, MethodDescriptor methodDescriptor)
-            throws CheckedAnalysisException {
+    protected ExceptionSetFactory getExceptionSetFactory(IAnalysisCache analysisCache,
+            MethodDescriptor methodDescriptor) throws CheckedAnalysisException {
         return analysisCache.getMethodAnalysis(ExceptionSetFactory.class, methodDescriptor);
     }
 
-    protected IsNullValueDataflow getIsNullValueDataflow(IAnalysisCache analysisCache, MethodDescriptor methodDescriptor)
-            throws CheckedAnalysisException {
+    protected IsNullValueDataflow getIsNullValueDataflow(IAnalysisCache analysisCache,
+            MethodDescriptor methodDescriptor) throws CheckedAnalysisException {
         return analysisCache.getMethodAnalysis(IsNullValueDataflow.class, methodDescriptor);
     }
 

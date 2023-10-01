@@ -72,8 +72,10 @@ public class FindRunInvocations extends BytecodeScanningDetector implements Stat
                 if (amVisitingMainMethod() && getPC() == getCode().getLength() - 4 && isJustThread) {
                     return;
                 } else if ("run".equals(getNameConstantOperand())) {
-                    bugAccumulator.accumulateBug(new BugInstance(this, "RU_INVOKE_RUN", isJustThread ? HIGH_PRIORITY
-                            : NORMAL_PRIORITY).addClassAndMethod(this), this);
+                    bugAccumulator.accumulateBug(
+                            new BugInstance(this, "RU_INVOKE_RUN", isJustThread ? HIGH_PRIORITY : NORMAL_PRIORITY)
+                                    .addClassAndMethod(this),
+                            this);
                 }
             }
         }

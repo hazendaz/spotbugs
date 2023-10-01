@@ -72,10 +72,10 @@ import edu.umd.cs.findbugs.classfile.Global;
 import edu.umd.cs.findbugs.log.Profiler;
 
 /**
- * A user-friendly front end for finding null pointer dereferences and redundant
- * null comparisons.
+ * A user-friendly front end for finding null pointer dereferences and redundant null comparisons.
  *
  * @see IsNullValueAnalysis
+ *
  * @author David Hovemeyer
  */
 public class NullDerefAndRedundantComparisonFinder {
@@ -125,8 +125,7 @@ public class NullDerefAndRedundantComparisonFinder {
      * @param method
      *            the method to analyze
      * @param collector
-     *            the NullDerefAndRedundantComparisonCollector used to report
-     *            null derefs and redundant null comparisons
+     *            the NullDerefAndRedundantComparisonCollector used to report null derefs and redundant null comparisons
      */
     public NullDerefAndRedundantComparisonFinder(ClassContext classContext, Method method,
             NullDerefAndRedundantComparisonCollector collector) {
@@ -134,8 +133,8 @@ public class NullDerefAndRedundantComparisonFinder {
         this.classContext = classContext;
         this.method = method;
         this.collector = collector;
-        this.findGuaranteedDerefs = classContext.getAnalysisContext().getBoolProperty(
-                AnalysisFeatures.TRACK_GUARANTEED_VALUE_DEREFS_IN_NULL_POINTER_ANALYSIS);
+        this.findGuaranteedDerefs = classContext.getAnalysisContext()
+                .getBoolProperty(AnalysisFeatures.TRACK_GUARANTEED_VALUE_DEREFS_IN_NULL_POINTER_ANALYSIS);
         this.lineMentionedMultipleTimes = classContext.linesMentionedMultipleTimes(method);
 
         this.redundantBranchList = new LinkedList<>();
@@ -172,7 +171,8 @@ public class NullDerefAndRedundantComparisonFinder {
             AnalysisContext.reportMissingClass(e.getClassNotFoundException());
         } catch (CheckedAnalysisException e) {
             AnalysisContext.logError("Error while checking guaranteed derefs in "
-                    + classContext.getClassDescriptor().getDottedClassName() + "." + method.getName() + method.getSignature(), e);
+                    + classContext.getClassDescriptor().getDottedClassName() + "." + method.getName()
+                    + method.getSignature(), e);
         } finally {
             profiler.end(this.getClass());
         }
@@ -180,8 +180,7 @@ public class NullDerefAndRedundantComparisonFinder {
     }
 
     /**
-     * Examine basic blocks for null checks and potentially-redundant null
-     * comparisons.
+     * Examine basic blocks for null checks and potentially-redundant null comparisons.
      *
      * @throws DataflowAnalysisException
      * @throws CFGBuilderException
@@ -222,8 +221,7 @@ public class NullDerefAndRedundantComparisonFinder {
     }
 
     /**
-     * Examine null values. Report any that are guaranteed to be dereferenced on
-     * non-implicit-exception paths.
+     * Examine null values. Report any that are guaranteed to be dereferenced on non-implicit-exception paths.
      *
      * @throws CFGBuilderException
      * @throws DataflowAnalysisException
@@ -249,9 +247,9 @@ public class NullDerefAndRedundantComparisonFinder {
                 System.out.println("At location " + location);
             }
 
-            checkForUnconditionallyDereferencedNullValues(location, bugStatementLocationMap, nullValueGuaranteedDerefMap,
-                    vnaDataflow.getFactAtLocation(location), invDataflow.getFactAtLocation(location),
-                    uvdDataflow.getFactAfterLocation(location), false);
+            checkForUnconditionallyDereferencedNullValues(location, bugStatementLocationMap,
+                    nullValueGuaranteedDerefMap, vnaDataflow.getFactAtLocation(location),
+                    invDataflow.getFactAtLocation(location), uvdDataflow.getFactAfterLocation(location), false);
         }
         HashSet<ValueNumber> npeIfStatementCovered = new HashSet<>(nullValueGuaranteedDerefMap.keySet());
         Map<ValueNumber, SortedSet<Location>> bugEdgeLocationMap = new HashMap<>();
@@ -270,7 +268,8 @@ public class NullDerefAndRedundantComparisonFinder {
         reportBugs(nullValueGuaranteedDerefMap, npeIfStatementCovered, bugLocationMap, nullValueAssignmentMap);
     }
 
-    public Map<ValueNumber, Set<Location>> findNullAssignments(Set<LocationWhereValueBecomesNull> locationWhereValueBecomesNullSet) {
+    public Map<ValueNumber, Set<Location>> findNullAssignments(
+            Set<LocationWhereValueBecomesNull> locationWhereValueBecomesNullSet) {
         Map<ValueNumber, Set<Location>> nullValueAssignmentMap = new HashMap<>();
         for (LocationWhereValueBecomesNull lwvbn : locationWhereValueBecomesNullSet) {
             if (DEBUG_DEREFS) {
@@ -288,7 +287,8 @@ public class NullDerefAndRedundantComparisonFinder {
 
     public void reportBugs(Map<ValueNumber, NullValueUnconditionalDeref> nullValueGuaranteedDerefMap,
             HashSet<ValueNumber> npeIfStatementCovered, Map<ValueNumber, SortedSet<Location>> bugLocationMap,
-            Map<ValueNumber, Set<Location>> nullValueAssignmentMap) throws CFGBuilderException, DataflowAnalysisException {
+            Map<ValueNumber, Set<Location>> nullValueAssignmentMap)
+            throws CFGBuilderException, DataflowAnalysisException {
         // Report
         for (Map.Entry<ValueNumber, NullValueUnconditionalDeref> e : nullValueGuaranteedDerefMap.entrySet()) {
             ValueNumber valueNumber = e.getKey();
@@ -305,11 +305,12 @@ public class NullDerefAndRedundantComparisonFinder {
                     }
                 }
                 // TODO: figure out why this is failing
-                //                if (false) {
-                //                    assert false : "No assigned NullLocationSet for " + valueNumber + " in " + nullValueAssignmentMap.keySet()
-                //                            + " while analyzing " + classContext.getJavaClass().getClassName() + "." + method.getName();
-                //                }
-                assignedNullLocationSet = Collections.<Location>emptySet();
+                // if (false) {
+                // assert false : "No assigned NullLocationSet for " + valueNumber + " in " +
+                // nullValueAssignmentMap.keySet()
+                // + " while analyzing " + classContext.getJavaClass().getClassName() + "." + method.getName();
+                // }
+                assignedNullLocationSet = Collections.<Location> emptySet();
             }
             SortedSet<Location> knownNullAndDoomedAt = bugLocationMap.get(valueNumber);
 
@@ -324,8 +325,8 @@ public class NullDerefAndRedundantComparisonFinder {
                 }
                 if (variableAnnotation == null) {
                     for (Location loc : knownNullAndDoomedAt) {
-                        variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(method, loc, valueNumber,
-                                vnaDataflow.getFactAtLocation(loc), "VALUE_OF");
+                        variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(method, loc,
+                                valueNumber, vnaDataflow.getFactAtLocation(loc), "VALUE_OF");
                         if (variableAnnotation != null) {
                             break;
                         }
@@ -337,15 +338,16 @@ public class NullDerefAndRedundantComparisonFinder {
                             String methodName = invokeInstruction.getMethodName(cpg);
                             String methodSig = invokeInstruction.getSignature(cpg);
                             boolean isStatic = instruction instanceof INVOKESTATIC;
-                            variableAnnotation = MethodAnnotation.fromCalledMethod(className, methodName, methodSig, isStatic);
+                            variableAnnotation = MethodAnnotation.fromCalledMethod(className, methodName, methodSig,
+                                    isStatic);
                             break;
                         }
                     }
                 }
                 if (variableAnnotation == null) {
                     for (Location loc : assignedNullLocationSet) {
-                        variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(method, loc, valueNumber,
-                                vnaDataflow.getFactAtLocation(loc), "VALUE_OF");
+                        variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(method, loc,
+                                valueNumber, vnaDataflow.getFactAtLocation(loc), "VALUE_OF");
                         if (variableAnnotation != null) {
                             break;
                         }
@@ -355,8 +357,8 @@ public class NullDerefAndRedundantComparisonFinder {
             } catch (DataflowAnalysisException e2) {
             }
             if (variableAnnotation == null) {
-                variableAnnotation = new LocalVariableAnnotation("?", -1, derefLocationSet.iterator().next().getHandle()
-                        .getPosition());
+                variableAnnotation = new LocalVariableAnnotation("?", -1,
+                        derefLocationSet.iterator().next().getHandle().getPosition());
             }
 
             if (PRUNE_GUARANTEED_DEREFERENCES) {
@@ -370,8 +372,9 @@ public class NullDerefAndRedundantComparisonFinder {
 
             }
 
-            collector.foundGuaranteedNullDeref(assignedNullLocationSet, derefLocationSet, knownNullAndDoomedAt, vnaDataflow,
-                    valueNumber, variableAnnotation, e.getValue(), npeIfStatementCovered.contains(valueNumber));
+            collector.foundGuaranteedNullDeref(assignedNullLocationSet, derefLocationSet, knownNullAndDoomedAt,
+                    vnaDataflow, valueNumber, variableAnnotation, e.getValue(),
+                    npeIfStatementCovered.contains(valueNumber));
         }
     }
 
@@ -422,8 +425,8 @@ public class NullDerefAndRedundantComparisonFinder {
                     continue;
                 }
 
-                checkForUnconditionallyDereferencedNullValues(location, bugEdgeLocationMap, nullValueGuaranteedDerefMap, vnaFact,
-                        invFact, uvdFact, true);
+                checkForUnconditionallyDereferencedNullValues(location, bugEdgeLocationMap, nullValueGuaranteedDerefMap,
+                        vnaFact, invFact, uvdFact, true);
             }
         }
     }
@@ -481,14 +484,12 @@ public class NullDerefAndRedundantComparisonFinder {
     private static final boolean MY_DEBUG = false;
 
     /**
-     * Check for unconditionally dereferenced null values at a particular
-     * location in the CFG.
+     * Check for unconditionally dereferenced null values at a particular location in the CFG.
      *
      * @param thisLocation
      * @param knownNullAndDoomedAt
      * @param nullValueGuaranteedDerefMap
-     *            map to be populated with null values and where they are
-     *            derefed
+     *            map to be populated with null values and where they are derefed
      * @param vnaFrame
      *            value number frame to check
      * @param invFrame
@@ -520,32 +521,19 @@ public class NullDerefAndRedundantComparisonFinder {
         } else {
             slots = vnaFrame.getNumLocals();
             /*
-            if (false) {
-            InstructionHandle handle = thisLocation.getHandle();
-            if (handle != null && handle.getInstruction() instanceof NullnessConversationInstruction) {
-                try {
-                    IsNullValue isNullValue = invFrame.getStackValue(0);
-                    ValueNumber valueNumber = vnaFrame.getStackValue(0);
-                    if (!isNullValue.isDefinitelyNotNull() && !isNullValue.isDefinitelyNull() && derefSet.isUnconditionallyDereferenced(valueNumber)) {
-                        Location where = thisLocation;
-                        SortedSet<Location> doomedAt = knownNullAndDoomedAt.get(valueNumber);
-                        if (doomedAt == null)
-                            knownNullAndDoomedAt.put(valueNumber, doomedAt = new TreeSet<Location>());
-                        doomedAt.add(thisLocation);
-                        NullValueUnconditionalDeref nullValueUnconditionalDeref = nullValueGuaranteedDerefMap.get(valueNumber);
-                        if (nullValueUnconditionalDeref != null) {
-                            Set<Location> derefLocationSet = nullValueUnconditionalDeref.getDerefLocationSet();
-                            if (derefLocationSet.size() == 1)
-                                where = derefLocationSet.iterator().next();
-                        }
-                        noteUnconditionallyDereferencedNullValue(where, knownNullAndDoomedAt, nullValueGuaranteedDerefMap, derefSet,
-                                isNullValue, valueNumber);
-                    }
-                } catch (DataflowAnalysisException e) {
-                    AnalysisContext.logError("huh", e);
-                }
-            }
-            }
+             * if (false) { InstructionHandle handle = thisLocation.getHandle(); if (handle != null &&
+             * handle.getInstruction() instanceof NullnessConversationInstruction) { try { IsNullValue isNullValue =
+             * invFrame.getStackValue(0); ValueNumber valueNumber = vnaFrame.getStackValue(0); if
+             * (!isNullValue.isDefinitelyNotNull() && !isNullValue.isDefinitelyNull() &&
+             * derefSet.isUnconditionallyDereferenced(valueNumber)) { Location where = thisLocation; SortedSet<Location>
+             * doomedAt = knownNullAndDoomedAt.get(valueNumber); if (doomedAt == null)
+             * knownNullAndDoomedAt.put(valueNumber, doomedAt = new TreeSet<Location>()); doomedAt.add(thisLocation);
+             * NullValueUnconditionalDeref nullValueUnconditionalDeref = nullValueGuaranteedDerefMap.get(valueNumber);
+             * if (nullValueUnconditionalDeref != null) { Set<Location> derefLocationSet =
+             * nullValueUnconditionalDeref.getDerefLocationSet(); if (derefLocationSet.size() == 1) where =
+             * derefLocationSet.iterator().next(); } noteUnconditionallyDereferencedNullValue(where,
+             * knownNullAndDoomedAt, nullValueGuaranteedDerefMap, derefSet, isNullValue, valueNumber); } } catch
+             * (DataflowAnalysisException e) { AnalysisContext.logError("huh", e); } } }
              */
         }
 
@@ -563,7 +551,8 @@ public class NullDerefAndRedundantComparisonFinder {
                     System.out.println("IsNullValue frame: " + invFrame);
                     System.out.println("IsNullValue value: " + isNullValue);
                     System.out.println("Unconditional dere framef: " + derefSet);
-                    System.out.println("Unconditionally dereferenced: " + derefSet.isUnconditionallyDereferenced(valueNumber));
+                    System.out.println(
+                            "Unconditionally dereferenced: " + derefSet.isUnconditionallyDereferenced(valueNumber));
 
                 }
                 Location where = thisLocation;
@@ -571,13 +560,12 @@ public class NullDerefAndRedundantComparisonFinder {
                     try {
                         where = classContext.getCFG(method).getPreviousLocation(where);
                     } catch (CFGBuilderException e) {
-                        AnalysisContext.logError(
-                                "Error looking for previous instruction to " + where + " in "
-                                        + classContext.getFullyQualifiedMethodName(method), e);
+                        AnalysisContext.logError("Error looking for previous instruction to " + where + " in "
+                                + classContext.getFullyQualifiedMethodName(method), e);
                     }
                 }
-                noteUnconditionallyDereferencedNullValue(where, knownNullAndDoomedAt, nullValueGuaranteedDerefMap, derefSet,
-                        isNullValue, valueNumber);
+                noteUnconditionallyDereferencedNullValue(where, knownNullAndDoomedAt, nullValueGuaranteedDerefMap,
+                        derefSet, isNullValue, valueNumber);
             }
         }
 
@@ -586,19 +574,18 @@ public class NullDerefAndRedundantComparisonFinder {
         for (Map.Entry<ValueNumber, IsNullValue> entry : invFrame.getKnownValueMapEntrySet()) {
             ValueNumber valueNumber = entry.getKey();
             IsNullValue isNullValue = entry.getValue();
-            if ((isNullValue.isDefinitelyNull() || isNullValue.isNullOnSomePath()
-                    && (isNullValue.isReturnValue() || isNullValue.isFieldValue()))
+            if ((isNullValue.isDefinitelyNull()
+                    || isNullValue.isNullOnSomePath() && (isNullValue.isReturnValue() || isNullValue.isFieldValue()))
                     && derefSet.isUnconditionallyDereferenced(valueNumber)) {
 
-                noteUnconditionallyDereferencedNullValue(thisLocation, knownNullAndDoomedAt, nullValueGuaranteedDerefMap,
-                        derefSet, isNullValue, valueNumber);
+                noteUnconditionallyDereferencedNullValue(thisLocation, knownNullAndDoomedAt,
+                        nullValueGuaranteedDerefMap, derefSet, isNullValue, valueNumber);
             }
         }
     }
 
     /**
-     * Note the locations where a known-null value is unconditionally
-     * dereferenced.
+     * Note the locations where a known-null value is unconditionally dereferenced.
      *
      * @param thisLocation
      * @param bugLocations
@@ -613,8 +600,8 @@ public class NullDerefAndRedundantComparisonFinder {
      */
     private void noteUnconditionallyDereferencedNullValue(Location thisLocation,
             Map<ValueNumber, SortedSet<Location>> bugLocations,
-            Map<ValueNumber, NullValueUnconditionalDeref> nullValueGuaranteedDerefMap, UnconditionalValueDerefSet derefSet,
-            IsNullValue isNullValue, ValueNumber valueNumber) {
+            Map<ValueNumber, NullValueUnconditionalDeref> nullValueGuaranteedDerefMap,
+            UnconditionalValueDerefSet derefSet, IsNullValue isNullValue, ValueNumber valueNumber) {
         if (DEBUG) {
             System.out.println("%%% HIT for value number " + valueNumber + " @ " + thisLocation);
         }
@@ -670,11 +657,8 @@ public class NullDerefAndRedundantComparisonFinder {
             if (lineMentionedMultipleTimes.get(lineNumber) && confused) {
                 reportIt = false;
             } else if (redundantBranch.location.getBasicBlock().isInJSRSubroutine() /*
-                                                                                    * occurs
-                                                                                    * in
-                                                                                    * a
-                                                                                    * JSR
-                                                                                    */
+                                                                                     * occurs in a JSR
+                                                                                     */
                     && confused) {
                 reportIt = false;
             } else {
@@ -693,7 +677,8 @@ public class NullDerefAndRedundantComparisonFinder {
         }
     }
 
-    private void analyzeRefComparisonBranch(BasicBlock basicBlock, InstructionHandle lastHandle) throws DataflowAnalysisException {
+    private void analyzeRefComparisonBranch(BasicBlock basicBlock, InstructionHandle lastHandle)
+            throws DataflowAnalysisException {
 
         Location location = new Location(lastHandle, basicBlock);
 
@@ -756,7 +741,8 @@ public class NullDerefAndRedundantComparisonFinder {
     }
 
     /** This is called for both IFNULL and IFNONNULL instructions. */
-    private void analyzeIfNullBranch(BasicBlock basicBlock, InstructionHandle lastHandle) throws DataflowAnalysisException {
+    private void analyzeIfNullBranch(BasicBlock basicBlock, InstructionHandle lastHandle)
+            throws DataflowAnalysisException {
 
         Location location = new Location(lastHandle, basicBlock);
 
@@ -808,7 +794,8 @@ public class NullDerefAndRedundantComparisonFinder {
         // Determine which control edge is made infeasible by the redundant
         // comparison
         boolean wantNull = (opcode == Const.IFNULL);
-        int infeasibleEdgeType = (wantNull == top.isDefinitelyNull()) ? EdgeTypes.FALL_THROUGH_EDGE : EdgeTypes.IFCMP_EDGE;
+        int infeasibleEdgeType = (wantNull == top.isDefinitelyNull()) ? EdgeTypes.FALL_THROUGH_EDGE
+                : EdgeTypes.IFCMP_EDGE;
         Edge infeasibleEdge = invDataflow.getCFG().getOutgoingEdgeWithType(basicBlock, infeasibleEdgeType);
         redundantBranch.setInfeasibleEdge(infeasibleEdge);
 
@@ -818,8 +805,8 @@ public class NullDerefAndRedundantComparisonFinder {
         redundantBranchList.add(redundantBranch);
     }
 
-    private void analyzeNullCheck(IsNullValueDataflow invDataflow, BasicBlock basicBlock) throws DataflowAnalysisException,
-            CFGBuilderException {
+    private void analyzeNullCheck(IsNullValueDataflow invDataflow, BasicBlock basicBlock)
+            throws DataflowAnalysisException, CFGBuilderException {
         // Look for null checks where the value checked is definitely
         // null or null on some path.
 
@@ -839,8 +826,8 @@ public class NullDerefAndRedundantComparisonFinder {
         }
         if (refValue.isDefinitelyNotNull()) {
             return;
-            //        if (false && !refValue.mightBeNull())
-            //            return;
+            // if (false && !refValue.mightBeNull())
+            // return;
         }
 
         if (!refValue.isDefinitelyNull()) {
@@ -913,8 +900,8 @@ public class NullDerefAndRedundantComparisonFinder {
      *             instead
      */
     @Deprecated
-    public static FieldAnnotation findFieldAnnotationFromValueNumber(Method method, Location location, ValueNumber valueNumber,
-            ValueNumberFrame vnaFrame) {
+    public static FieldAnnotation findFieldAnnotationFromValueNumber(Method method, Location location,
+            ValueNumber valueNumber, ValueNumberFrame vnaFrame) {
         return ValueNumberSourceInfo.findFieldAnnotationFromValueNumber(method, location, valueNumber, vnaFrame);
     }
 
@@ -937,7 +924,8 @@ public class NullDerefAndRedundantComparisonFinder {
     @Deprecated
     public static BugAnnotation findAnnotationFromValueNumber(Method method, Location location, ValueNumber valueNumber,
             ValueNumberFrame vnaFrame) {
-        return ValueNumberSourceInfo.findRequiredAnnotationFromValueNumber(method, location, valueNumber, vnaFrame, null);
+        return ValueNumberSourceInfo.findRequiredAnnotationFromValueNumber(method, location, valueNumber, vnaFrame,
+                null);
     }
 
     private static int getLineNumber(Method method, InstructionHandle handle) {

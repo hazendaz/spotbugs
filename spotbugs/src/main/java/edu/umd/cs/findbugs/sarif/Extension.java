@@ -23,8 +23,8 @@ class Extension {
     @Nullable
     final String organization;
 
-    Extension(@NonNull String version, @NonNull String name, @Nullable String shortDescription, @Nullable String fullDescription,
-            @Nullable URI informationUri, @Nullable String organization) {
+    Extension(@NonNull String version, @NonNull String name, @Nullable String shortDescription,
+            @Nullable String fullDescription, @Nullable URI informationUri, @Nullable String organization) {
         this.version = Objects.requireNonNull(version);
         this.name = Objects.requireNonNull(name);
         this.shortDescription = shortDescription;
@@ -57,7 +57,7 @@ class Extension {
 
     static Extension fromPlugin(@NonNull Plugin plugin) {
         Objects.requireNonNull(plugin);
-        return new Extension(plugin.getVersion(), plugin.getPluginId(), plugin.getShortDescription(), plugin.getDetailedDescription(), plugin
-                .getWebsiteURI(), plugin.getProvider());
+        return new Extension(plugin.getVersion(), plugin.getPluginId(), plugin.getShortDescription(),
+                plugin.getDetailedDescription(), plugin.getWebsiteURI(), plugin.getProvider());
     }
 }

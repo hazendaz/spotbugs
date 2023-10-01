@@ -136,8 +136,8 @@ public class BugCollectionBugReporter extends TextUIBugReporter implements Debug
     }
 
     /**
-     * Emit one line of the error message report. By default, error messages are
-     * printed to System.err. Subclasses may override.
+     * Emit one line of the error message report. By default, error messages are printed to System.err. Subclasses may
+     * override.
      *
      * @param line
      *            one line of the error report
@@ -151,6 +151,5 @@ public class BugCollectionBugReporter extends TextUIBugReporter implements Debug
         line = line.replace("\t", "  ");
         writer.println(line);
     }
-
 
 }

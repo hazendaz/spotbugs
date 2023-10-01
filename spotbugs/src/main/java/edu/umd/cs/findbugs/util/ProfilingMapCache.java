@@ -53,7 +53,8 @@ public class ProfilingMapCache<K, V> extends MapCache<K, V> {
             if (e.getKey().equals(k)) {
                 count[age]++;
                 if (age > 20) {
-                    new RuntimeException("Reusing value from " + age + " steps ago in " + name).printStackTrace(System.out);
+                    new RuntimeException("Reusing value from " + age + " steps ago in " + name)
+                            .printStackTrace(System.out);
                 }
                 break;
             }

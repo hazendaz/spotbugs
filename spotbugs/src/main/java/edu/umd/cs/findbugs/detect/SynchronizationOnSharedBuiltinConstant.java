@@ -48,8 +48,9 @@ public class SynchronizationOnSharedBuiltinConstant extends OpcodeStackDetector 
     public SynchronizationOnSharedBuiltinConstant(BugReporter bugReporter) {
         this.bugAccumulator = new BugAccumulator(bugReporter);
         badSignatures = new HashSet<>();
-        badSignatures.addAll(Arrays.asList(new String[] { "Ljava/lang/Boolean;", "Ljava/lang/Double;", "Ljava/lang/Float;",
-            "Ljava/lang/Byte;", "Ljava/lang/Character;", "Ljava/lang/Short;", "Ljava/lang/Integer;", "Ljava/lang/Long;" }));
+        badSignatures.addAll(Arrays.asList(
+                new String[] { "Ljava/lang/Boolean;", "Ljava/lang/Double;", "Ljava/lang/Float;", "Ljava/lang/Byte;",
+                        "Ljava/lang/Character;", "Ljava/lang/Short;", "Ljava/lang/Integer;", "Ljava/lang/Long;" }));
     }
 
     private static boolean newlyConstructedObject(OpcodeStack.Item item) {
@@ -124,15 +125,16 @@ public class SynchronizationOnSharedBuiltinConstant extends OpcodeStackDetector 
                     priority--;
                 }
                 if (newlyConstructedObject(summary)) {
-                    pendingBug = new BugInstance(this, "DL_SYNCHRONIZATION_ON_UNSHARED_BOXED_PRIMITIVE", NORMAL_PRIORITY)
+                    pendingBug = new BugInstance(this, "DL_SYNCHRONIZATION_ON_UNSHARED_BOXED_PRIMITIVE",
+                            NORMAL_PRIORITY).addClassAndMethod(this).addType(syncSignature).addOptionalField(field)
+                                    .addOptionalLocalVariable(this, top);
+                } else if (isSyncOnBoolean) {
+                    pendingBug = new BugInstance(this, "DL_SYNCHRONIZATION_ON_BOOLEAN", priority)
+                            .addClassAndMethod(this).addOptionalField(field).addOptionalLocalVariable(this, top);
+                } else {
+                    pendingBug = new BugInstance(this, "DL_SYNCHRONIZATION_ON_BOXED_PRIMITIVE", priority)
                             .addClassAndMethod(this).addType(syncSignature).addOptionalField(field)
                             .addOptionalLocalVariable(this, top);
-                } else if (isSyncOnBoolean) {
-                    pendingBug = new BugInstance(this, "DL_SYNCHRONIZATION_ON_BOOLEAN", priority).addClassAndMethod(this)
-                            .addOptionalField(field).addOptionalLocalVariable(this, top);
-                } else {
-                    pendingBug = new BugInstance(this, "DL_SYNCHRONIZATION_ON_BOXED_PRIMITIVE", priority).addClassAndMethod(this)
-                            .addType(syncSignature).addOptionalField(field).addOptionalLocalVariable(this, top);
                 }
             }
             break;

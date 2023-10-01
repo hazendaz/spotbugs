@@ -89,9 +89,8 @@ import edu.umd.cs.findbugs.props.WarningPropertySet;
 import edu.umd.cs.findbugs.util.Util;
 
 /**
- * Find instance fields which are sometimes accessed (read or written) with the
- * receiver lock held and sometimes without. These are candidates to be data
- * races.
+ * Find instance fields which are sometimes accessed (read or written) with the receiver lock held and sometimes
+ * without. These are candidates to be data races.
  *
  * @author David Hovemeyer
  * @author Bill Pugh
@@ -107,49 +106,44 @@ public class FindInconsistentSync2 implements Detector {
     private static final boolean EVAL = SystemProperties.getBoolean("fis.eval");
 
     /*
-     * ----------------------------------------------------------------------
-     * Tuning parameters
+     * ---------------------------------------------------------------------- Tuning parameters
      * ----------------------------------------------------------------------
      */
 
     /**
-     * Minimum percent of unbiased field accesses that must be synchronized in
-     * order to report a field as inconsistently synchronized. This is meant to
-     * distinguish incidental synchronization from intentional synchronization.
+     * Minimum percent of unbiased field accesses that must be synchronized in order to report a field as inconsistently
+     * synchronized. This is meant to distinguish incidental synchronization from intentional synchronization.
      */
     private static final int MIN_SYNC_PERCENT = SystemProperties.getInt("findbugs.fis.minSyncPercent", 50);
 
     /**
-     * Bias that writes are given with respect to reads. The idea is that this
-     * should be above 1.0, because unsynchronized writes are more dangerous
-     * than unsynchronized reads.
+     * Bias that writes are given with respect to reads. The idea is that this should be above 1.0, because
+     * unsynchronized writes are more dangerous than unsynchronized reads.
      */
-    private static final double WRITE_BIAS = Double.parseDouble(SystemProperties.getProperty("findbugs.fis.writeBias", "2.0"));
+    private static final double WRITE_BIAS = Double
+            .parseDouble(SystemProperties.getProperty("findbugs.fis.writeBias", "2.0"));
 
     /**
-     * Factor which the biased number of unsynchronized accesses is multiplied
-     * by. I.e., for factor <i>f</i>, if <i>nUnsync</i> is the biased number of
-     * unsynchronized accesses, and <i>nSync</i> is the biased number of
+     * Factor which the biased number of unsynchronized accesses is multiplied by. I.e., for factor <i>f</i>, if
+     * <i>nUnsync</i> is the biased number of unsynchronized accesses, and <i>nSync</i> is the biased number of
      * synchronized accesses, and
      *
      * <pre>
      *      <i>f</i>(<i>nUnsync</i>) &gt; <i>nSync</i>
      * </pre>
      *
-     * then we report a bug. Default value is 2.0, which means that we report a
-     * bug if more than 1/3 of accesses are unsynchronized.
+     * then we report a bug. Default value is 2.0, which means that we report a bug if more than 1/3 of accesses are
+     * unsynchronized.
      * <p/>
      * <p>
-     * Note that <code>MIN_SYNC_PERCENT</code> also influences whether we report
-     * a bug: it specifies the minimum unbiased percentage of synchronized
-     * accesses.
+     * Note that <code>MIN_SYNC_PERCENT</code> also influences whether we report a bug: it specifies the minimum
+     * unbiased percentage of synchronized accesses.
      */
-    private static final double UNSYNC_FACTOR = Double.parseDouble(SystemProperties.getProperty("findbugs.fis.unsyncFactor",
-            "1.6"));
+    private static final double UNSYNC_FACTOR = Double
+            .parseDouble(SystemProperties.getProperty("findbugs.fis.unsyncFactor", "1.6"));
 
     /*
-     * ----------------------------------------------------------------------
-     * Helper classes
+     * ---------------------------------------------------------------------- Helper classes
      * ----------------------------------------------------------------------
      */
 
@@ -200,7 +194,8 @@ public class FindInconsistentSync2 implements Detector {
     }
 
     // Single threaded servlets are only in javax namespace
-    private static ClassDescriptor javaxServlet = DescriptorFactory.createClassDescriptor("javax/servlet/GenericServlet");
+    private static ClassDescriptor javaxServlet = DescriptorFactory
+            .createClassDescriptor("javax/servlet/GenericServlet");
     private static ClassDescriptor singleThreadedServlet = DescriptorFactory
             .createClassDescriptor("javax/servlet/SingleThreadModel");
 
@@ -209,7 +204,8 @@ public class FindInconsistentSync2 implements Detector {
 
         try {
             Subtypes2 subtypes2 = AnalysisContext.currentAnalysisContext().getSubtypes2();
-            if (subtypes2.isSubtype(classDescriptor, javaxServlet) && !subtypes2.isSubtype(classDescriptor, singleThreadedServlet)) {
+            if (subtypes2.isSubtype(classDescriptor, javaxServlet)
+                    && !subtypes2.isSubtype(classDescriptor, singleThreadedServlet)) {
                 return true;
             }
         } catch (ClassNotFoundException e) {
@@ -220,9 +216,8 @@ public class FindInconsistentSync2 implements Detector {
     }
 
     /**
-     * The access statistics for a field. Stores the number of locked and
-     * unlocked reads and writes, as well as the number of accesses made with a
-     * lock held.
+     * The access statistics for a field. Stores the number of locked and unlocked reads and writes, as well as the
+     * number of accesses made with a lock held.
      */
     private static class FieldStats {
 
@@ -318,8 +313,7 @@ public class FindInconsistentSync2 implements Detector {
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Fields
+     * ---------------------------------------------------------------------- Fields
      * ----------------------------------------------------------------------
      */
 
@@ -328,8 +322,7 @@ public class FindInconsistentSync2 implements Detector {
     private final Map<XField, FieldStats> statMap = new HashMap<>();
 
     /*
-     * ----------------------------------------------------------------------
-     * Public methods
+     * ---------------------------------------------------------------------- Public methods
      * ----------------------------------------------------------------------
      */
 
@@ -373,7 +366,6 @@ public class FindInconsistentSync2 implements Detector {
             bugReporter.logError("Error finding locked call sites", e);
             return;
         }
-
 
         for (Method method : allMethods) {
             if (DEBUG) {
@@ -429,7 +421,8 @@ public class FindInconsistentSync2 implements Detector {
         if (statMap.isEmpty()) {
             return;
         }
-        JCIPAnnotationDatabase jcipAnotationDatabase = AnalysisContext.currentAnalysisContext().getJCIPAnnotationDatabase();
+        JCIPAnnotationDatabase jcipAnotationDatabase = AnalysisContext.currentAnalysisContext()
+                .getJCIPAnnotationDatabase();
         for (Entry<XField, FieldStats> entry : statMap.entrySet()) {
             XField xfield = entry.getKey();
             FieldStats stats = entry.getValue();
@@ -569,12 +562,12 @@ public class FindInconsistentSync2 implements Detector {
 
             BugInstance bugInstance;
             if (stats.isServletField()) {
-                bugInstance = new BugInstance(this, "MSF_MUTABLE_SERVLET_FIELD", Priorities.NORMAL_PRIORITY).addClass(
-                        xfield.getClassName()).addField(xfield);
+                bugInstance = new BugInstance(this, "MSF_MUTABLE_SERVLET_FIELD", Priorities.NORMAL_PRIORITY)
+                        .addClass(xfield.getClassName()).addField(xfield);
             } else {
                 bugInstance = new BugInstance(this, guardedByThis ? "IS_FIELD_NOT_GUARDED" : "IS2_INCONSISTENT_SYNC",
                         Priorities.NORMAL_PRIORITY).addClass(xfield.getClassName()).addField(xfield).addInt(printFreq)
-                        .describe(IntAnnotation.INT_SYNC_PERCENT);
+                                .describe(IntAnnotation.INT_SYNC_PERCENT);
             }
 
             propertySet.decorateBugInstance(bugInstance);
@@ -604,22 +597,21 @@ public class FindInconsistentSync2 implements Detector {
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Implementation
+     * ---------------------------------------------------------------------- Implementation
      * ----------------------------------------------------------------------
      */
 
     private static boolean isConstructor(String methodName) {
-        return Const.CONSTRUCTOR_NAME.equals(methodName) || Const.STATIC_INITIALIZER_NAME.equals(methodName) || "readObject".equals(methodName)
-                || "clone".equals(methodName) || "close".equals(methodName) || "writeObject".equals(methodName)
-                || "toString".equals(methodName) || "init".equals(methodName) || "initialize".equals(methodName)
-                || "dispose".equals(methodName) || "finalize".equals(methodName) || "this".equals(methodName)
-                || "_jspInit".equals(methodName) || "_jspDestroy".equals(methodName);
+        return Const.CONSTRUCTOR_NAME.equals(methodName) || Const.STATIC_INITIALIZER_NAME.equals(methodName)
+                || "readObject".equals(methodName) || "clone".equals(methodName) || "close".equals(methodName)
+                || "writeObject".equals(methodName) || "toString".equals(methodName) || "init".equals(methodName)
+                || "initialize".equals(methodName) || "dispose".equals(methodName) || "finalize".equals(methodName)
+                || "this".equals(methodName) || "_jspInit".equals(methodName) || "_jspDestroy".equals(methodName);
 
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method, Set<Method> lockedMethodSet) throws CFGBuilderException,
-            DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method, Set<Method> lockedMethodSet)
+            throws CFGBuilderException, DataflowAnalysisException {
 
         InnerClassAccessMap icam = AnalysisContext.currentAnalysisContext().getInnerClassAccessMap();
         ConstantPoolGen cpg = classContext.getConstantPoolGen();
@@ -631,7 +623,8 @@ public class FindInconsistentSync2 implements Detector {
         LockChecker lockChecker = classContext.getLockChecker(method);
         ValueNumberDataflow vnaDataflow = classContext.getValueNumberDataflow(method);
         boolean isGetterMethod = isGetterMethod(classContext, method);
-        MethodDescriptor methodDescriptor = DescriptorFactory.instance().getMethodDescriptor(classContext.getJavaClass(), method);
+        MethodDescriptor methodDescriptor = DescriptorFactory.instance()
+                .getMethodDescriptor(classContext.getJavaClass(), method);
         if (DEBUG) {
             System.out.println("**** Analyzing method " + SignatureConverter.convertMethodSignature(methodGen));
         }
@@ -715,7 +708,8 @@ public class FindInconsistentSync2 implements Detector {
                 boolean isExplicitlyLocked = lockSet.getLockCount(instance.getNumber()) > 0;
                 boolean isAccessedThroughThis = thisValue != null && thisValue.equals(instance);
                 boolean isLocked = isExplicitlyLocked
-                        || ((isConstructor(method.getName()) || lockedMethodSet.contains(method)) && isAccessedThroughThis)
+                        || ((isConstructor(method.getName()) || lockedMethodSet.contains(method))
+                                && isAccessedThroughThis)
                         || lockSet.containsReturnValue(vnaDataflow.getAnalysis().getFactory());
 
                 // Adjust the field so its class name is the same
@@ -741,8 +735,8 @@ public class FindInconsistentSync2 implements Detector {
                     // in which case we won't adjust the field type.
                     if (instanceType != TypeFrame.getNullType() && instanceType != TypeFrame.getBottomType()) {
                         if (!(instanceType instanceof ObjectType)) {
-                            throw new DataflowAnalysisException("Field accessed through non-object reference " + instanceType,
-                                    methodGen, handle);
+                            throw new DataflowAnalysisException(
+                                    "Field accessed through non-object reference " + instanceType, methodGen, handle);
                         }
                         ObjectType objType = (ObjectType) instanceType;
 
@@ -763,8 +757,8 @@ public class FindInconsistentSync2 implements Detector {
 
                 // if (isLocked || !isConstructor(method.getName())) {
                 if (DEBUG) {
-                    System.out.println("IS2:\t" + SignatureConverter.convertMethodSignature(methodGen) + "\t" + xfield + "\t"
-                            + ((isWrite ? "W" : "R") + "/" + (isLocked ? "L" : "U")));
+                    System.out.println("IS2:\t" + SignatureConverter.convertMethodSignature(methodGen) + "\t" + xfield
+                            + "\t" + ((isWrite ? "W" : "R") + "/" + (isLocked ? "L" : "U")));
                 }
 
                 if (!isLocked && methodDescriptor.getClassDescriptor().isAnonymousClass()) {
@@ -798,8 +792,8 @@ public class FindInconsistentSync2 implements Detector {
     }
 
     /**
-     * Determine whether or not the given method is a getter method. I.e.,
-     * if it just returns the value of an instance field.
+     * Determine whether or not the given method is a getter method. I.e., if it just returns the value of an instance
+     * field.
      *
      * @param classContext
      *            the ClassContext for the class containing the method
@@ -871,11 +865,11 @@ public class FindInconsistentSync2 implements Detector {
     }
 
     /**
-     * Find methods that appear to never be called from an unlocked context We
-     * assume that nonpublic methods will only be called from within the class,
-     * which is not really a valid assumption.
+     * Find methods that appear to never be called from an unlocked context We assume that nonpublic methods will only
+     * be called from within the class, which is not really a valid assumption.
      */
-    private static Set<Method> findNotUnlockedMethods(ClassContext classContext, SelfCalls selfCalls, Set<CallSite> obviouslyLockedSites) {
+    private static Set<Method> findNotUnlockedMethods(ClassContext classContext, SelfCalls selfCalls,
+            Set<CallSite> obviouslyLockedSites) {
 
         JavaClass javaClass = classContext.getJavaClass();
         Method[] methodList = javaClass.getMethods();
@@ -936,11 +930,11 @@ public class FindInconsistentSync2 implements Detector {
     }
 
     /**
-     * Find methods that appear to always be called from a locked context. We
-     * assume that nonpublic methods will only be called from within the class,
-     * which is not really a valid assumption.
+     * Find methods that appear to always be called from a locked context. We assume that nonpublic methods will only be
+     * called from within the class, which is not really a valid assumption.
      */
-    private static Set<Method> findLockedMethods(ClassContext classContext, SelfCalls selfCalls, Set<CallSite> obviouslyLockedSites) {
+    private static Set<Method> findLockedMethods(ClassContext classContext, SelfCalls selfCalls,
+            Set<CallSite> obviouslyLockedSites) {
 
         JavaClass javaClass = classContext.getJavaClass();
         Method[] methodList = javaClass.getMethods();
@@ -991,44 +985,34 @@ public class FindInconsistentSync2 implements Detector {
     }
 
     /**
-     * Find methods that do not appear to be reachable from public methods. Such
-     * methods will not be analyzed.
+     * Find methods that do not appear to be reachable from public methods. Such methods will not be analyzed.
      */
     /*
-     * private Set<Method> findPublicReachableMethods(ClassContext classContext,
-     * SelfCalls selfCalls) throws CFGBuilderException,
-     * DataflowAnalysisException {
+     * private Set<Method> findPublicReachableMethods(ClassContext classContext, SelfCalls selfCalls) throws
+     * CFGBuilderException, DataflowAnalysisException {
      *
-     * JavaClass javaClass = classContext.getJavaClass(); Method[] methodList =
-     * javaClass.getMethods();
+     * JavaClass javaClass = classContext.getJavaClass(); Method[] methodList = javaClass.getMethods();
      *
      * CallGraph callGraph = selfCalls.getCallGraph();
      *
-     * // Initially, assume all methods are locked Set<Method>
-     * publicReachableMethodSet = new HashSet<Method>();
+     * // Initially, assume all methods are locked Set<Method> publicReachableMethodSet = new HashSet<Method>();
      *
-     * // Assume all public methods are unlocked for (Method method :
-     * methodList) { if (method.isPublic() && !isConstructor(method.getName()))
-     * { publicReachableMethodSet.add(method); } }
+     * // Assume all public methods are unlocked for (Method method : methodList) { if (method.isPublic() &&
+     * !isConstructor(method.getName())) { publicReachableMethodSet.add(method); } }
      *
-     * // Explore the self-call graph to find nonpublic methods // that can be
-     * called from an unlocked context. boolean change; do { change = false;
+     * // Explore the self-call graph to find nonpublic methods // that can be called from an unlocked context. boolean
+     * change; do { change = false;
      *
-     * for (Iterator<CallGraphEdge> i = callGraph.edgeIterator(); i.hasNext();)
-     * { CallGraphEdge edge = i.next(); CallSite callSite = edge.getCallSite();
+     * for (Iterator<CallGraphEdge> i = callGraph.edgeIterator(); i.hasNext();) { CallGraphEdge edge = i.next();
+     * CallSite callSite = edge.getCallSite();
      *
-     * // Ignore obviously locked edges // If the calling method is locked,
-     * ignore the edge if
-     * (publicReachableMethodSet.contains(callSite.getMethod())) { // Calling
-     * method is reachable, so the called method // is also reachable.
-     * CallGraphNode target = edge.getTarget(); if
-     * (publicReachableMethodSet.add(target.getMethod())) change = true; } } }
-     * while (change);
+     * // Ignore obviously locked edges // If the calling method is locked, ignore the edge if
+     * (publicReachableMethodSet.contains(callSite.getMethod())) { // Calling method is reachable, so the called method
+     * // is also reachable. CallGraphNode target = edge.getTarget(); if
+     * (publicReachableMethodSet.add(target.getMethod())) change = true; } } } while (change);
      *
-     * if (DEBUG) { System.out.println(
-     * "Methods apparently reachable from public non-constructor methods:"); for
-     * (Method method : publicReachableMethodSet) { System.out.println("\t" +
-     * method.getName()); } }
+     * if (DEBUG) { System.out.println( "Methods apparently reachable from public non-constructor methods:"); for
+     * (Method method : publicReachableMethodSet) { System.out.println("\t" + method.getName()); } }
      *
      * return publicReachableMethodSet; }
      */

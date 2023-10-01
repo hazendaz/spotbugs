@@ -16,6 +16,7 @@ class Placeholder {
 
     /**
      * Key to formatting {@link edu.umd.cs.findbugs.BugAnnotation}.
+     *
      * @see edu.umd.cs.findbugs.BugAnnotation#format(String, ClassAnnotation)
      */
     @NonNull

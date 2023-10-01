@@ -32,9 +32,8 @@ import edu.umd.cs.findbugs.graph.DepthFirstSearch;
 import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 
 /**
- * A plan for executing Detectors on an application. Automatically assigns
- * Detectors to passes and orders Detectors within each pass based on ordering
- * constraints specified in the plugin descriptor(s).
+ * A plan for executing Detectors on an application. Automatically assigns Detectors to passes and orders Detectors
+ * within each pass based on ordering constraints specified in the plugin descriptor(s).
  *
  * @author David Hovemeyer
  */
@@ -90,9 +89,8 @@ public class ExecutionPlan {
     }
 
     /**
-     * Set the DetectorFactoryChooser to use to select which detectors to
-     * enable. This must be called before any Plugins are added to the execution
-     * plan.
+     * Set the DetectorFactoryChooser to use to select which detectors to enable. This must be called before any Plugins
+     * are added to the execution plan.
      */
     public void setDetectorFactoryChooser(DetectorFactoryChooser factoryChooser) {
         this.factoryChooser = factoryChooser;
@@ -126,15 +124,15 @@ public class ExecutionPlan {
                 System.out.println("  Detector factory " + factory.getShortName());
             }
             if (factoryMap.put(factory.getFullName(), factory) != null) {
-                throw new OrderingConstraintException("Detector " + factory.getFullName() + " is defined by more than one plugin");
+                throw new OrderingConstraintException(
+                        "Detector " + factory.getFullName() + " is defined by more than one plugin");
             }
         }
     }
 
     /**
-     * Build the execution plan. Using the ordering constraints specified in the
-     * plugin descriptor(s), assigns Detectors to passes and orders the
-     * Detectors within those passes.
+     * Build the execution plan. Using the ordering constraints specified in the plugin descriptor(s), assigns Detectors
+     * to passes and orders the Detectors within those passes.
      */
     public void build() throws OrderingConstraintException {
 
@@ -148,8 +146,8 @@ public class ExecutionPlan {
         allConstraints.addAll(intraPassConstraintList);
 
         Map<String, DetectorNode> nodeMapAll = new HashMap<>();
-        ConstraintGraph allPassConstraintGraph = buildConstraintGraph(nodeMapAll,
-                new HashSet<>(factoryMap.values()), allConstraints);
+        ConstraintGraph allPassConstraintGraph = buildConstraintGraph(nodeMapAll, new HashSet<>(factoryMap.values()),
+                allConstraints);
         boolean change;
         do {
             change = false;
@@ -184,8 +182,8 @@ public class ExecutionPlan {
 
         // Build inter-pass constraint graph
         Map<String, DetectorNode> nodeMap = new HashMap<>();
-        ConstraintGraph interPassConstraintGraph = buildConstraintGraph(nodeMap,
-                new HashSet<>(factoryMap.values()), interPassConstraintList);
+        ConstraintGraph interPassConstraintGraph = buildConstraintGraph(nodeMap, new HashSet<>(factoryMap.values()),
+                interPassConstraintList);
         if (DEBUG) {
             System.out.println(interPassConstraintGraph.getNumVertices() + " nodes in inter-pass constraint graph");
         }
@@ -247,19 +245,17 @@ public class ExecutionPlan {
     }
 
     /**
-     * Build a constraint graph. This represents ordering constraints between
-     * Detectors. A topological sort of the constraint graph will yield a
-     * correct ordering of the detectors (which may mean either passes or an
-     * ordering within a single pass, depending on whether the constraints are
-     * inter-pass or intra-pass).
+     * Build a constraint graph. This represents ordering constraints between Detectors. A topological sort of the
+     * constraint graph will yield a correct ordering of the detectors (which may mean either passes or an ordering
+     * within a single pass, depending on whether the constraints are inter-pass or intra-pass).
      *
      * @param nodeMap
-     *            map to be populated with detector class names to constraint
-     *            graph nodes for those detectors
+     *            map to be populated with detector class names to constraint graph nodes for those detectors
      * @param factorySet
      *            build the graph using these DetectorFactories as nodes
      * @param constraintList
      *            List of ordering constraints
+     *
      * @return the ConstraintGraph
      */
     private ConstraintGraph buildConstraintGraph(Map<String, DetectorNode> nodeMap, Set<DetectorFactory> factorySet,
@@ -268,7 +264,8 @@ public class ExecutionPlan {
         ConstraintGraph result = new ConstraintGraph();
 
         for (DetectorOrderingConstraint constraint : constraintList) {
-            Set<DetectorNode> earlierSet = addOrCreateDetectorNodes(constraint.getEarlier(), nodeMap, factorySet, result);
+            Set<DetectorNode> earlierSet = addOrCreateDetectorNodes(constraint.getEarlier(), nodeMap, factorySet,
+                    result);
             Set<DetectorNode> laterSet = addOrCreateDetectorNodes(constraint.getLater(), nodeMap, factorySet, result);
 
             createConstraintEdges(result, earlierSet, laterSet, constraint);
@@ -287,8 +284,8 @@ public class ExecutionPlan {
         return result;
     }
 
-    private Set<DetectorNode> addOrCreateDetectorNodes(DetectorFactorySelector selector, Map<String, DetectorNode> nodeMap,
-            Set<DetectorFactory> factorySet, ConstraintGraph constraintGraph) {
+    private Set<DetectorNode> addOrCreateDetectorNodes(DetectorFactorySelector selector,
+            Map<String, DetectorNode> nodeMap, Set<DetectorFactory> factorySet, ConstraintGraph constraintGraph) {
         HashSet<DetectorNode> result = new HashSet<>();
 
         Set<DetectorFactory> chosenSet = selectDetectors(selector, factorySet);
@@ -425,8 +422,7 @@ public class ExecutionPlan {
         }
 
         // Perform DFS, check for cycles
-        DepthFirstSearch<ConstraintGraph, ConstraintEdge, DetectorNode> dfs = new DepthFirstSearch<>(
-                constraintGraph);
+        DepthFirstSearch<ConstraintGraph, ConstraintEdge, DetectorNode> dfs = new DepthFirstSearch<>(constraintGraph);
         dfs.search();
         if (dfs.containsCycle()) {
             throw new OrderingConstraintException("Cycle in intra-pass ordering constraints!");
@@ -460,8 +456,8 @@ public class ExecutionPlan {
     }
 
     /**
-     * Append a DetectorFactory to the end position in an AnalysisPass. The
-     * DetectorFactory must be a member of the pass.
+     * Append a DetectorFactory to the end position in an AnalysisPass. The DetectorFactory must be a member of the
+     * pass.
      */
     private void appendToPass(DetectorFactory factory, AnalysisPass pass) {
         pass.append(factory);

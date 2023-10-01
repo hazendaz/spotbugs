@@ -33,16 +33,16 @@ import org.apache.tools.ant.types.FileSet;
 import edu.umd.cs.findbugs.workflow.UnionResults;
 
 /**
- * An ant task that is wraps the behavior of the UnionResults executable into an
- * ant task.
+ * An ant task that is wraps the behavior of the UnionResults executable into an ant task.
  *
  * {@literal <taskdef name="UnionBugs" classname="edu.umd.cs.findbugs.anttask.UnionBugs"
  * classpath="...">}
  *
- * {@literal <UnionBugs to="${basedir}/findbugs.xml" > <fileset dir="plugins"> <include
- * name="*_findbugs_partial.xml" /> </fileset> </UnionBugs>}
+ * {@literal <UnionBugs to="${basedir}/findbugs.xml" > <fileset dir="plugins"> <include name="*_findbugs_partial.xml" />
+ * </fileset> </UnionBugs>}
  *
  * @author Peter Franza <a href="mailto:pfranza@gmail.com">pfranza@gmail.com</a>
+ *
  * @version 1.0
  *
  * @ant.task category="utility"
@@ -142,6 +142,7 @@ public class UnionBugs extends Task {
      *            to Copy From
      * @param out
      *            to Copy To
+     *
      * @throws IOException
      */
     private static void copyFile(File in, File out) throws IOException {

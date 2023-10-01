@@ -35,8 +35,7 @@ import edu.umd.cs.findbugs.charsets.UTF8;
 import edu.umd.cs.findbugs.config.CommandLine;
 
 /**
- * Java main application to compute update a historical bug collection with
- * results from another build/analysis.
+ * Java main application to compute update a historical bug collection with results from another build/analysis.
  *
  * @author William Pugh
  */
@@ -89,8 +88,8 @@ public class ListBugDatabaseInfo {
         out.close();
     }
 
-    private static void listVersion(PrintWriter out, @CheckForNull String fileName, boolean formatDates) throws IOException,
-            DocumentException {
+    private static void listVersion(PrintWriter out, @CheckForNull String fileName, boolean formatDates)
+            throws IOException, DocumentException {
         SortedBugCollection origCollection;
         origCollection = new SortedBugCollection();
 

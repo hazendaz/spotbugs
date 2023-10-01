@@ -278,13 +278,13 @@ public class DetectorConfigurationTab extends Composite {
         }
 
         /**
-         * Return whether or not given DetectorFactory reports bug patterns in
-         * one of the currently-enabled set of bug categories.
+         * Return whether or not given DetectorFactory reports bug patterns in one of the currently-enabled set of bug
+         * categories.
          *
          * @param factory
          *            the DetectorFactory
-         * @return true if the factory reports bug patterns in one of the
-         *         currently-enabled bug categories, false if not
+         *
+         * @return true if the factory reports bug patterns in one of the currently-enabled bug categories, false if not
          */
         private boolean isFactoryVisible(DetectorFactory factory) {
             Map<DetectorFactory, Boolean> enabledDetectors = tab.propertyPage.getVisibleDetectors();
@@ -352,8 +352,8 @@ public class DetectorConfigurationTab extends Composite {
         sash.setLayoutData(layoutData);
 
         Table availableRulesTable = createDetectorsTableViewer(sash, page.getProject());
-        GridData tableLayoutData = new GridData(GridData.FILL_HORIZONTAL | GridData.FILL_VERTICAL | GridData.GRAB_HORIZONTAL
-                | GridData.GRAB_VERTICAL);
+        GridData tableLayoutData = new GridData(
+                GridData.FILL_HORIZONTAL | GridData.FILL_VERTICAL | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
         tableLayoutData.heightHint = 300;
         tableLayoutData.widthHint = 550;
         availableRulesTable.setLayoutData(tableLayoutData);
@@ -428,8 +428,7 @@ public class DetectorConfigurationTab extends Composite {
     }
 
     /**
-     * Tries to trim all the html out of the
-     * {@link DetectorFactory#getDetailHTML()} return value. See also private
+     * Tries to trim all the html out of the {@link DetectorFactory#getDetailHTML()} return value. See also private
      * {@link PluginLoader} .init() method.
      */
     private static String getDescriptionWithoutHtml(DetectorFactory factory) {
@@ -462,6 +461,7 @@ public class DetectorConfigurationTab extends Composite {
 
     /**
      * @param factory
+     *
      * @return
      */
     private String getBugsCategories(DetectorFactory factory) {
@@ -506,8 +506,8 @@ public class DetectorConfigurationTab extends Composite {
     }
 
     /**
-     * Disables all unchecked detector factories and enables checked factory
-     * detectors, leaving those not in the table unmodified.
+     * Disables all unchecked detector factories and enables checked factory detectors, leaving those not in the table
+     * unmodified.
      */
     protected void syncUserPreferencesWithTable() {
         TableItem[] itemList = availableFactoriesTableViewer.getTable().getItems();
@@ -530,7 +530,8 @@ public class DetectorConfigurationTab extends Composite {
      * @param sorter
      * @param column
      */
-    private void addColumnSelectionListener(final BugPatternTableSorter sorter, final TableColumn column, final COLUMN columnId) {
+    private void addColumnSelectionListener(final BugPatternTableSorter sorter, final TableColumn column,
+            final COLUMN columnId) {
         column.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -562,13 +563,13 @@ public class DetectorConfigurationTab extends Composite {
         int currentColumnIdx = 0;
         Table factoriesTable = availableFactoriesTableViewer.getTable();
 
-        TableColumn factoryNameColumn = createColumn(currentColumnIdx, factoriesTable, getMessage("property.detectorName"), 230,
-                COLUMN.DETECTOR_NAME);
+        TableColumn factoryNameColumn = createColumn(currentColumnIdx, factoriesTable,
+                getMessage("property.detectorName"), 230, COLUMN.DETECTOR_NAME);
         addColumnSelectionListener(sorter, factoryNameColumn, COLUMN.DETECTOR_NAME);
 
         currentColumnIdx++;
-        TableColumn bugsAbbrevColumn = createColumn(currentColumnIdx, factoriesTable, getMessage("property.bugCodes"), 75,
-                COLUMN.BUG_CODES);
+        TableColumn bugsAbbrevColumn = createColumn(currentColumnIdx, factoriesTable, getMessage("property.bugCodes"),
+                75, COLUMN.BUG_CODES);
         addColumnSelectionListener(sorter, bugsAbbrevColumn, COLUMN.BUG_CODES);
 
         currentColumnIdx++;
@@ -630,6 +631,7 @@ public class DetectorConfigurationTab extends Composite {
      *
      * @param key
      *            a message key
+     *
      * @return requested message
      */
     protected String getMessage(String key) {

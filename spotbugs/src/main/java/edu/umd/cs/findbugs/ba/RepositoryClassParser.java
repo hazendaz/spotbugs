@@ -27,9 +27,8 @@ import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.JavaClass;
 
 /**
- * A special version of ClassParser that automatically enters parsed classes
- * into the Repository. This allows us to use the Repository to inspect the
- * class hierarchy, based on the current class path.
+ * A special version of ClassParser that automatically enters parsed classes into the Repository. This allows us to use
+ * the Repository to inspect the class hierarchy, based on the current class path.
  */
 public class RepositoryClassParser {
     private final ClassParser classParser;
@@ -69,10 +68,10 @@ public class RepositoryClassParser {
     }
 
     /**
-     * Parse the class file into a JavaClass object. If successful, the new
-     * JavaClass is entered into the Repository.
+     * Parse the class file into a JavaClass object. If successful, the new JavaClass is entered into the Repository.
      *
      * @return the parsed JavaClass
+     *
      * @throws IOException
      *             if the class cannot be parsed
      */

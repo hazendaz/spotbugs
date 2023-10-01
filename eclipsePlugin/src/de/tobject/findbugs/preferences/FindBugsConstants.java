@@ -45,7 +45,7 @@ public final class FindBugsConstants {
     /** marker severity to use for bugs with of concern tank */
     public static final String RANK_OFCONCERN_MARKER_SEVERITY = FindBugsMarker.TYPE_OF_CONCERN;
 
-    /** marker severity to use for bugs with troubling rank*/
+    /** marker severity to use for bugs with troubling rank */
     public static final String RANK_TROUBLING_MARKER_SEVERITY = FindBugsMarker.TYPE_TROUBLING;
 
     /** marker severity to use for bugs with scary rank */
@@ -54,10 +54,8 @@ public final class FindBugsConstants {
     /** marker severity to use for bugs with scariest rank */
     public static final String RANK_SCARIEST_MARKER_SEVERITY = FindBugsMarker.TYPE_SCARIEST;
 
-
     /**
-     * comma separated list of bug patterns which should be omitted on export
-     * operation
+     * comma separated list of bug patterns which should be omitted on export operation
      */
     public static final String LAST_USED_EXPORT_FILTER = "lastUsedExportFilter";
 
@@ -80,8 +78,7 @@ public final class FindBugsConstants {
     // FB workspace level settings
 
     /**
-     * ask if FB should automatically switch to the FB perspective after
-     * analysis is done
+     * ask if FB should automatically switch to the FB perspective after analysis is done
      */
     public static final String ASK_ABOUT_PERSPECTIVE_SWITCH = "askAboutPerspectiveSwitch";
 

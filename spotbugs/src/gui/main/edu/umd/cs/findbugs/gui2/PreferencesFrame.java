@@ -290,9 +290,9 @@ public class PreferencesFrame extends FBDialog {
 
                 } catch (PluginException | MalformedURLException e1) {
                     LOGGER.log(Level.WARNING, "Could not load " + f.getPath(), e1);
-                    JOptionPane.showMessageDialog(PreferencesFrame.this, "Could not load " + f.getPath()
-                            + "\n\n"
-                            + e1.getClass().getSimpleName() + ": " + e1.getMessage(),
+                    JOptionPane.showMessageDialog(
+                            PreferencesFrame.this, "Could not load " + f.getPath() + "\n\n"
+                                    + e1.getClass().getSimpleName() + ": " + e1.getMessage(),
                             "Error Loading Plugin", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -304,7 +304,8 @@ public class PreferencesFrame extends FBDialog {
     }
 
     EnabledSettings isEnabled(@CheckForNull Project project, Plugin plugin) {
-        return new EnabledSettings(plugin.isGloballyEnabled(), project == null ? null : project.getPluginStatus(plugin));
+        return new EnabledSettings(plugin.isGloballyEnabled(),
+                project == null ? null : project.getPluginStatus(plugin));
     }
 
     private void rebuildPluginCheckboxes() {
@@ -315,9 +316,9 @@ public class PreferencesFrame extends FBDialog {
             g.fill = GridBagConstraints.NONE;
             g.insets = new Insets(5, 5, 5, 5);
             g.gridy = 0;
-            //        g.anchor = GridBagConstraints.WEST;
-            //        g.gridx = 1;
-            //        pluginPanelCenter.add(new JLabel("Global Setting"), g);
+            // g.anchor = GridBagConstraints.WEST;
+            // g.gridx = 1;
+            // pluginPanelCenter.add(new JLabel("Global Setting"), g);
             g.anchor = GridBagConstraints.CENTER;
             g.gridx = 2;
             pluginPanelCenter.add(new JLabel("Project Setting"), g);
@@ -338,8 +339,8 @@ public class PreferencesFrame extends FBDialog {
             if ("file".equals(url.getProtocol())) {
                 pluginUrlStr = new File(URLDecoder.decode(url.getPath(), StandardCharsets.UTF_8)).getAbsolutePath();
             }
-            text = String.format("<html>%s<br><font style='font-weight:normal;font-style:italic'>%s",
-                    text, pluginUrlStr);
+            text = String.format("<html>%s<br><font style='font-weight:normal;font-style:italic'>%s", text,
+                    pluginUrlStr);
 
             EnabledSettings enabled = isEnabled(currentProject, plugin);
             final JCheckBox checkGlobal = new JCheckBox(text, enabled.global);
@@ -391,7 +392,8 @@ public class PreferencesFrame extends FBDialog {
                 }
                 combo.setRenderer(new DefaultListCellRenderer() {
                     @Override
-                    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                    public Component getListCellRendererComponent(JList list, Object value, int index,
+                            boolean isSelected, boolean cellHasFocus) {
                         if (index == -1) {
                             if (value.equals("DEFAULT")) {
                                 value = "Default";
@@ -432,9 +434,9 @@ public class PreferencesFrame extends FBDialog {
             added++;
         }
         if (added == 0) {
-            JLabel label = new JLabel("<html>No plugins are loaded.<br> " +
-                    "Try installing <u><font color=blue>fb-contrib</font></u> - or write your own<br>" +
-                    "plugin for your project's needs!");
+            JLabel label = new JLabel("<html>No plugins are loaded.<br> "
+                    + "Try installing <u><font color=blue>fb-contrib</font></u> - or write your own<br>"
+                    + "plugin for your project's needs!");
             label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             label.addMouseListener(new MouseAdapter() {
                 @Override
@@ -470,7 +472,6 @@ public class PreferencesFrame extends FBDialog {
         GridBagConstraints c = new GridBagConstraints();
         c.ipadx = c.ipady = 5;
 
-
         float currFS = Driver.getFontSize();
 
         tabTextField = new JTextField(Integer.toString(GUISaveState.getInstance().getTabSize()));
@@ -481,7 +482,8 @@ public class PreferencesFrame extends FBDialog {
         fontTextField.setPreferredSize(new Dimension((int) (currFS * 6), (int) (currFS * 2)));
         addField(mainPanel, c, 1, "Font size", fontTextField);
 
-        packagePrefixLengthTextField = new JTextField(Integer.toString(GUISaveState.getInstance().getPackagePrefixSegments()));
+        packagePrefixLengthTextField = new JTextField(
+                Integer.toString(GUISaveState.getInstance().getPackagePrefixSegments()));
         packagePrefixLengthTextField.setPreferredSize(new Dimension((int) (currFS * 4), (int) (currFS * 2)));
         addField(mainPanel, c, 2, "Package prefix length", packagePrefixLengthTextField);
 
@@ -554,8 +556,7 @@ public class PreferencesFrame extends FBDialog {
         if (fontSize != GUISaveState.getInstance().getFontSize()) {
             GUISaveState.getInstance().setFontSize(fontSize);
             JOptionPane.showMessageDialog(instance, "To implement the new font size please restart SpotBugs.",
-                    "Changing Font",
-                    JOptionPane.INFORMATION_MESSAGE);
+                    "Changing Font", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -565,8 +566,8 @@ public class PreferencesFrame extends FBDialog {
         try {
             value = Integer.parseInt(packagePrefixLengthTextField.getText());
         } catch (NumberFormatException exc) {
-            JOptionPane.showMessageDialog(instance, "Error in package prefix length field.", "Package Prefix Length Error",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(instance, "Error in package prefix length field.",
+                    "Package Prefix Length Error", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -597,7 +598,8 @@ public class PreferencesFrame extends FBDialog {
     private JPanel createFilterPane() {
         JButton addButton = new JButton(edu.umd.cs.findbugs.L10N.getLocalString("dlg.add_dot_btn", "Add..."));
         JButton removeButton = new JButton(edu.umd.cs.findbugs.L10N.getLocalString("dlg.remove_btn", "Remove"));
-        JButton removeAllButton = new JButton(edu.umd.cs.findbugs.L10N.getLocalString("dlg.remove_all_btn", "Remove All"));
+        JButton removeAllButton = new JButton(
+                edu.umd.cs.findbugs.L10N.getLocalString("dlg.remove_all_btn", "Remove All"));
         JPanel filterPanel = new JPanel();
         filterPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -609,7 +611,8 @@ public class PreferencesFrame extends FBDialog {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        filterPanel.add(new JLabel("<HTML>These rules control which bugs are shown and which are hidden in this project"), gbc);
+        filterPanel.add(
+                new JLabel("<HTML>These rules control which bugs are shown and which are hidden in this project"), gbc);
 
         gbc.gridheight = 4;
         gbc.gridwidth = 1;
@@ -708,10 +711,9 @@ public class PreferencesFrame extends FBDialog {
         filterCheckBoxList.setListData(boxes.toArray(new MatchBox[boxes.size()]));
     }
 
-
     public static void updateFilters(boolean addedFilter) {
-        FilterActivity.notifyListeners(addedFilter ? FilterListener.Action.FILTERING
-                : FilterListener.Action.UNFILTERING, null);
+        FilterActivity.notifyListeners(
+                addedFilter ? FilterListener.Action.FILTERING : FilterListener.Action.UNFILTERING, null);
         MainFrame.getInstance().setProjectChanged(true);
     }
 
@@ -727,31 +729,30 @@ public class PreferencesFrame extends FBDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             int result = JOptionPane.showOptionDialog(PreferencesFrame.this,
-                    "Are you sure you want to uninstall " + plugin.getShortDescription() + "?" +
-                            "\n\nNo files will be deleted from your computer.", "",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                    "Are you sure you want to uninstall " + plugin.getShortDescription() + "?"
+                            + "\n\nNo files will be deleted from your computer.",
+                    "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     new Object[] { "Uninstall", "Cancel" }, "Cancel");
             if (result == 0) {
                 if (!GUISaveState.getInstance().removeCustomPlugin(url)) {
                     if ("file".equals(url.getProtocol())) {
-                        String path = new File(URLDecoder.decode(url.getPath(), StandardCharsets.UTF_8)).getAbsolutePath();
+                        String path = new File(URLDecoder.decode(url.getPath(), StandardCharsets.UTF_8))
+                                .getAbsolutePath();
                         try {
                             StringSelection contents = new StringSelection(path);
                             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(contents, contents);
                         } catch (Exception e1) {
                         }
                         JOptionPane.showMessageDialog(PreferencesFrame.this,
-                                "The plugin could not be uninstalled automatically.\n\n" +
-                                        "You can try to delete this plugin manually: \n"
-                                        + path + "\n\n(This path has been copied to your clipboard)",
+                                "The plugin could not be uninstalled automatically.\n\n"
+                                        + "You can try to delete this plugin manually: \n" + path
+                                        + "\n\n(This path has been copied to your clipboard)",
                                 "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(PreferencesFrame.this,
-                                "This plugin is not actually in the list of plugins...\n" +
-                                        "Not sure what to do...\n "
-                                        + url.toExternalForm()
-                                        + "\n\nPlugin URL's:\n" +
-                                        GUISaveState.getInstance().getCustomPlugins(),
+                                "This plugin is not actually in the list of plugins...\n" + "Not sure what to do...\n "
+                                        + url.toExternalForm() + "\n\nPlugin URL's:\n"
+                                        + GUISaveState.getInstance().getCustomPlugins(),
                                 "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {

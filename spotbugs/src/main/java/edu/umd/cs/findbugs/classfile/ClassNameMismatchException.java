@@ -20,8 +20,8 @@
 package edu.umd.cs.findbugs.classfile;
 
 /**
- * Exception to indicate that the class name defined in a class file does not
- * match its expected class name (as indicated by its resource name).
+ * Exception to indicate that the class name defined in a class file does not match its expected class name (as
+ * indicated by its resource name).
  *
  * @author David Hovemeyer
  */
@@ -40,8 +40,8 @@ public class ClassNameMismatchException extends InvalidClassFileFormatException 
      */
     public ClassNameMismatchException(ClassDescriptor expectedClassDescriptor, ClassDescriptor loadedClassDescriptor,
             ICodeBaseEntry codeBaseEntry) {
-        super("Expected class name " + expectedClassDescriptor + " does not match loaded class name " + loadedClassDescriptor,
-                expectedClassDescriptor, codeBaseEntry);
+        super("Expected class name " + expectedClassDescriptor + " does not match loaded class name "
+                + loadedClassDescriptor, expectedClassDescriptor, codeBaseEntry);
         this.loadedClassDescriptor = loadedClassDescriptor;
     }
 

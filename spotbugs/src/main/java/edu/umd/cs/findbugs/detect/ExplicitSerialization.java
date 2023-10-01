@@ -43,11 +43,15 @@ import edu.umd.cs.findbugs.classfile.Global;
 public class ExplicitSerialization extends OpcodeStackDetector implements NonReportingDetector {
 
     // The availability of these depends on the current analysis, so they can't be static
-    private final XMethod writeObject = XFactory.createXMethod("java.io.ObjectOutputStream", "writeObject", "(Ljava/lang/Object;)V", false);
-    private final XMethod readObject = XFactory.createXMethod("java.io.ObjectInputStream", "readObject", "()Ljava/lang/Object;", false);
+    private final XMethod writeObject = XFactory.createXMethod("java.io.ObjectOutputStream", "writeObject",
+            "(Ljava/lang/Object;)V", false);
+    private final XMethod readObject = XFactory.createXMethod("java.io.ObjectInputStream", "readObject",
+            "()Ljava/lang/Object;", false);
 
-    private static final ClassDescriptor ObjectOutputStream = DescriptorFactory.createClassDescriptor(ObjectOutputStream.class);
-    private static final ClassDescriptor ObjectInputStream = DescriptorFactory.createClassDescriptor(ObjectInputStream.class);
+    private static final ClassDescriptor ObjectOutputStream = DescriptorFactory
+            .createClassDescriptor(ObjectOutputStream.class);
+    private static final ClassDescriptor ObjectInputStream = DescriptorFactory
+            .createClassDescriptor(ObjectInputStream.class);
 
     private final UnreadFieldsData unreadFields;
 

@@ -20,6 +20,7 @@ public class GUIDCalculator {
      * UUID version 5, but without using a namespace.
      *
      * @param name
+     *
      * @return UUID version 5
      */
     public static UUID fromString(@NonNull String name) {
@@ -32,6 +33,7 @@ public class GUIDCalculator {
      *
      * @param namespace
      * @param name
+     *
      * @return UUID version 5
      */
     public static UUID fromNamespaceAndString(@NonNull UUID namespace, @NonNull String name) {

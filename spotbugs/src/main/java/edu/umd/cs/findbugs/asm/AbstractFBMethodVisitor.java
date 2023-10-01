@@ -19,7 +19,6 @@
 
 package edu.umd.cs.findbugs.asm;
 
-
 /**
  * @author pugh
  */

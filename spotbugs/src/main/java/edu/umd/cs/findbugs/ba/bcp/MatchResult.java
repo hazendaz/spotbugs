@@ -20,13 +20,12 @@
 package edu.umd.cs.findbugs.ba.bcp;
 
 /**
- * The result of matching a single PatternElement against a single instruction.
- * Specifies the PatternElement and the (possibly updated) BindingSet. The
- * reason we need this class is because some kinds of PatternElements, such as
- * MatchAny, may use it to indicate that a child PatternElement was the one that
- * actually matched the instruction.
+ * The result of matching a single PatternElement against a single instruction. Specifies the PatternElement and the
+ * (possibly updated) BindingSet. The reason we need this class is because some kinds of PatternElements, such as
+ * MatchAny, may use it to indicate that a child PatternElement was the one that actually matched the instruction.
  *
  * @author David Hovemeyer
+ *
  * @see PatternElement
  * @see BindingSet
  */

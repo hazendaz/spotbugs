@@ -19,10 +19,8 @@
 package edu.umd.cs.findbugs.props;
 
 /**
- * General warning properties. These are properties that could be attached to
- * any warning to provide information which might be useful in determining
- * whether or not the bug is a false positive, and/or the severity of the
- * warning.
+ * General warning properties. These are properties that could be attached to any warning to provide information which
+ * might be useful in determining whether or not the bug is a false positive, and/or the severity of the warning.
  *
  * @author David Hovemeyer
  */
@@ -32,8 +30,7 @@ public class GeneralWarningProperty extends AbstractWarningProperty {
     }
 
     /**
-     * The type of the receiver object in a method call or instance field
-     * access.
+     * The type of the receiver object in a method call or instance field access.
      */
     public static final GeneralWarningProperty RECEIVER_OBJECT_TYPE = new GeneralWarningProperty("RECEIVER_OBJECT_TYPE",
             PriorityAdjustment.NO_ADJUSTMENT);

@@ -40,7 +40,8 @@ import edu.umd.cs.findbugs.classfile.analysis.EnumValue;
  * @author William Pugh
  */
 public class TypeQualifierResolver {
-    static final ClassDescriptor typeQualifier = DescriptorFactory.createClassDescriptor(javax.annotation.meta.TypeQualifier.class);
+    static final ClassDescriptor typeQualifier = DescriptorFactory
+            .createClassDescriptor(javax.annotation.meta.TypeQualifier.class);
 
     static final ClassDescriptor typeQualifierNickname = DescriptorFactory
             .createClassDescriptor(javax.annotation.meta.TypeQualifierNickname.class);
@@ -48,47 +49,44 @@ public class TypeQualifierResolver {
     static final ClassDescriptor typeQualifierDefault = DescriptorFactory
             .createClassDescriptor(javax.annotation.meta.TypeQualifierDefault.class);
 
-    static final ClassDescriptor elementTypeDescriptor = DescriptorFactory
-            .createClassDescriptor(ElementType.class);
+    static final ClassDescriptor elementTypeDescriptor = DescriptorFactory.createClassDescriptor(ElementType.class);
 
     // javax.annotations.ParametersAreNonnullByDefault ?
-    static final ClassDescriptor eclipseNonNullByDefault = DescriptorFactory.createClassDescriptor("org/eclipse/jdt/annotation/NonNullByDefault");
+    static final ClassDescriptor eclipseNonNullByDefault = DescriptorFactory
+            .createClassDescriptor("org/eclipse/jdt/annotation/NonNullByDefault");
 
     private static final ClassDescriptor[] NON_NULL_CLASS_DESCRIPTORS = new ClassDescriptor[] {
-        DescriptorFactory.createClassDescriptor("edu/umd/cs/findbugs/annotations/NonNull"),
-        DescriptorFactory.createClassDescriptor("android/support/annotation/NonNull"),
-        DescriptorFactory.createClassDescriptor("androidx/annotation/NonNull"),
-        DescriptorFactory.createClassDescriptor("org/jetbrains/annotations/NotNull"),
-        DescriptorFactory.createClassDescriptor("org/eclipse/jdt/annotation/NonNull"),
-        eclipseNonNullByDefault,
-        DescriptorFactory.createClassDescriptor("org/checkerframework/checker/nullness/qual/NonNull"),
-        DescriptorFactory.createClassDescriptor("org/checkerframework/checker/nullness/compatqual/NonNullDecl"),
-        DescriptorFactory.createClassDescriptor("org/netbeans/api/annotations/common/NonNull"),
-        DescriptorFactory.createClassDescriptor("lombok/NonNull"),
-    };
+            DescriptorFactory.createClassDescriptor("edu/umd/cs/findbugs/annotations/NonNull"),
+            DescriptorFactory.createClassDescriptor("android/support/annotation/NonNull"),
+            DescriptorFactory.createClassDescriptor("androidx/annotation/NonNull"),
+            DescriptorFactory.createClassDescriptor("org/jetbrains/annotations/NotNull"),
+            DescriptorFactory.createClassDescriptor("org/eclipse/jdt/annotation/NonNull"), eclipseNonNullByDefault,
+            DescriptorFactory.createClassDescriptor("org/checkerframework/checker/nullness/qual/NonNull"),
+            DescriptorFactory.createClassDescriptor("org/checkerframework/checker/nullness/compatqual/NonNullDecl"),
+            DescriptorFactory.createClassDescriptor("org/netbeans/api/annotations/common/NonNull"),
+            DescriptorFactory.createClassDescriptor("lombok/NonNull"), };
 
     private static final ClassDescriptor[] NULLABLE_CLASS_DESCRIPTORS = new ClassDescriptor[] {
-        // intentionally ignored, semantics is different to other Nullable annotations, see <a href="https://github.com/spotbugs/spotbugs/issues/3243">#3243</a>
-        // DescriptorFactory.createClassDescriptor("edu/umd/cs/findbugs/annotations/Nullable"),
-        DescriptorFactory.createClassDescriptor("android/support/annotation/Nullable"),
-        DescriptorFactory.createClassDescriptor("androidx/annotation/Nullable"),
-        DescriptorFactory.createClassDescriptor("com/google/common/base/Nullable"),
-        DescriptorFactory.createClassDescriptor("org/apache/avro/reflect/Nullable"),
-        DescriptorFactory.createClassDescriptor("org/jetbrains/annotations/Nullable"),
-        DescriptorFactory.createClassDescriptor("org/eclipse/jdt/annotation/Nullable"),
-        DescriptorFactory.createClassDescriptor("org/checkerframework/checker/nullness/qual/Nullable"),
-        DescriptorFactory.createClassDescriptor("org/checkerframework/checker/nullness/compatqual/NullableDecl"),
-        DescriptorFactory.createClassDescriptor("org/netbeans/api/annotations/common/NullAllowed"),
-    };
+            // intentionally ignored, semantics is different to other Nullable annotations, see <a
+            // href="https://github.com/spotbugs/spotbugs/issues/3243">#3243</a>
+            // DescriptorFactory.createClassDescriptor("edu/umd/cs/findbugs/annotations/Nullable"),
+            DescriptorFactory.createClassDescriptor("android/support/annotation/Nullable"),
+            DescriptorFactory.createClassDescriptor("androidx/annotation/Nullable"),
+            DescriptorFactory.createClassDescriptor("com/google/common/base/Nullable"),
+            DescriptorFactory.createClassDescriptor("org/apache/avro/reflect/Nullable"),
+            DescriptorFactory.createClassDescriptor("org/jetbrains/annotations/Nullable"),
+            DescriptorFactory.createClassDescriptor("org/eclipse/jdt/annotation/Nullable"),
+            DescriptorFactory.createClassDescriptor("org/checkerframework/checker/nullness/qual/Nullable"),
+            DescriptorFactory.createClassDescriptor("org/checkerframework/checker/nullness/compatqual/NullableDecl"),
+            DescriptorFactory.createClassDescriptor("org/netbeans/api/annotations/common/NullAllowed"), };
 
     /**
-     * Resolve an AnnotationValue into a list of AnnotationValues representing
-     * type qualifier annotations.
+     * Resolve an AnnotationValue into a list of AnnotationValues representing type qualifier annotations.
      *
      * @param value
      *            AnnotationValue representing the use of an annotation
-     * @return Collection of AnnotationValues representing resolved
-     *         TypeQualifier annotations
+     *
+     * @return Collection of AnnotationValues representing resolved TypeQualifier annotations
      */
     public static Collection<AnnotationValue> resolveTypeQualifiers(AnnotationValue value) {
         LinkedList<AnnotationValue> result = new LinkedList<>();
@@ -97,13 +95,12 @@ public class TypeQualifierResolver {
     }
 
     /**
-     * Resolve collection of AnnotationValues (which have been used to annotate
-     * an AnnotatedObject or method parameter) into collection of resolved type
-     * qualifier AnnotationValues.
+     * Resolve collection of AnnotationValues (which have been used to annotate an AnnotatedObject or method parameter)
+     * into collection of resolved type qualifier AnnotationValues.
      *
      * @param values
-     *            Collection of AnnotationValues used to annotate an
-     *            AnnotatedObject or method parameter
+     *            Collection of AnnotationValues used to annotate an AnnotatedObject or method parameter
+     *
      * @return Collection of resolved type qualifier AnnotationValues
      */
     public static Collection<AnnotationValue> resolveTypeQualifierDefaults(Collection<AnnotationValue> values,
@@ -116,18 +113,16 @@ public class TypeQualifierResolver {
     }
 
     /**
-     * Resolve an annotation into AnnotationValues representing any type
-     * qualifier(s) the annotation resolves to. Detects annotations which are
-     * directly marked as TypeQualifier annotations, and also resolves the use
-     * of TypeQualifierNickname annotations.
+     * Resolve an annotation into AnnotationValues representing any type qualifier(s) the annotation resolves to.
+     * Detects annotations which are directly marked as TypeQualifier annotations, and also resolves the use of
+     * TypeQualifierNickname annotations.
      *
      * @param value
      *            AnnotationValue representing the use of an annotation
      * @param result
      *            LinkedList containing resolved type qualifier AnnotationValues
      * @param onStack
-     *            stack of annotations being processed; used to detect cycles in
-     *            type qualifier nicknames
+     *            stack of annotations being processed; used to detect cycles in type qualifier nicknames
      */
     private static void resolveTypeQualifierNicknames(AnnotationValue value, LinkedList<AnnotationValue> result,
             LinkedList<ClassDescriptor> onStack) {
@@ -143,14 +138,16 @@ public class TypeQualifierResolver {
             try {
                 for (ClassDescriptor descriptor : NULLABLE_CLASS_DESCRIPTORS) {
                     if (annotationClass.equals(descriptor)) {
-                        resolveTypeQualifierNicknames(new AnnotationValue(JSR305NullnessAnnotations.CHECK_FOR_NULL), result, onStack);
+                        resolveTypeQualifierNicknames(new AnnotationValue(JSR305NullnessAnnotations.CHECK_FOR_NULL),
+                                result, onStack);
                         return;
                     }
                 }
 
                 for (ClassDescriptor descriptor : NON_NULL_CLASS_DESCRIPTORS) {
                     if (annotationClass.equals(descriptor)) {
-                        resolveTypeQualifierNicknames(new AnnotationValue(JSR305NullnessAnnotations.NONNULL), result, onStack);
+                        resolveTypeQualifierNicknames(new AnnotationValue(JSR305NullnessAnnotations.NONNULL), result,
+                                onStack);
                         return;
                     }
                 }
@@ -187,13 +184,12 @@ public class TypeQualifierResolver {
     }
 
     /**
-     * Resolve collection of AnnotationValues (which have been used to annotate
-     * an AnnotatedObject or method parameter) into collection of resolved type
-     * qualifier AnnotationValues.
+     * Resolve collection of AnnotationValues (which have been used to annotate an AnnotatedObject or method parameter)
+     * into collection of resolved type qualifier AnnotationValues.
      *
      * @param values
-     *            Collection of AnnotationValues used to annotate an
-     *            AnnotatedObject or method parameter
+     *            Collection of AnnotationValues used to annotate an AnnotatedObject or method parameter
+     *
      * @return Collection of resolved type qualifier AnnotationValues
      */
     public static Collection<AnnotationValue> resolveTypeQualifiers(Collection<AnnotationValue> values) {
@@ -209,10 +205,9 @@ public class TypeQualifierResolver {
     }
 
     /**
-     * Resolve an annotation into AnnotationValues representing any type
-     * qualifier(s) the annotation resolves to. Detects annotations which are
-     * directly marked as TypeQualifier annotations, and also resolves the use
-     * of TypeQualifierNickname annotations.
+     * Resolve an annotation into AnnotationValues representing any type qualifier(s) the annotation resolves to.
+     * Detects annotations which are directly marked as TypeQualifier annotations, and also resolves the use of
+     * TypeQualifierNickname annotations.
      *
      * @param value
      *            AnnotationValue representing the use of an annotation

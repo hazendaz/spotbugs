@@ -115,16 +115,16 @@ public class Util {
 
     public static <T> Set<T> emptyOrNonnullSingleton(T t) {
         if (t == null) {
-            return Collections.<T>emptySet();
+            return Collections.<T> emptySet();
         }
-        return Collections.<T>singleton(t);
+        return Collections.<T> singleton(t);
     }
 
     public static <K, V> Map<K, V> immutableMap(Map<K, V> map) {
         if (map.size() == 0) {
-            return Collections.<K, V>emptyMap();
+            return Collections.<K, V> emptyMap();
         }
-        return Collections.<K, V>unmodifiableMap(map);
+        return Collections.<K, V> unmodifiableMap(map);
     }
 
     public static Reader getReader(@WillCloseWhenClosed InputStream in) {
@@ -268,6 +268,7 @@ public class Util {
     /**
      * @param i
      *            the Iterable whose first element is to be retrieved
+     *
      * @return first element of iterable
      */
     public static <E> E first(Iterable<E> i) {
@@ -338,8 +339,7 @@ public class Util {
     }
 
     public static boolean isPowerOfTwo(int i) {
-        return i > 0
-                && (i | (i - 1)) + 1 == 2 * i;
+        return i > 0 && (i | (i - 1)) + 1 == 2 * i;
     }
 
 }

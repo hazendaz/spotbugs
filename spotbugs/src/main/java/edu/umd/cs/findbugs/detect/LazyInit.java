@@ -154,12 +154,11 @@ public final class LazyInit extends ByteCodePatternDetector implements Stateless
     }
 
     @Override
-    public void reportMatch(ClassContext classContext, Method method, ByteCodePatternMatch match) throws CFGBuilderException,
-            DataflowAnalysisException {
+    public void reportMatch(ClassContext classContext, Method method, ByteCodePatternMatch match)
+            throws CFGBuilderException, DataflowAnalysisException {
         JavaClass javaClass = classContext.getJavaClass();
         MethodGen methodGen = classContext.getMethodGen(method);
         CFG cfg = classContext.getCFG(method);
-
 
         // Get the variable referenced in the pattern instance.
         BindingSet bindingSet = match.getBindingSet();
@@ -287,8 +286,8 @@ public final class LazyInit extends ByteCodePatternDetector implements Stateless
                 if (ins instanceof AllocationInstruction) {
                     sawNEW = true;
                 } else if (ins instanceof InvokeInstruction) {
-                    if (ins instanceof INVOKESTATIC
-                            && ((INVOKESTATIC) ins).getMethodName(classContext.getConstantPoolGen()).startsWith("new")) {
+                    if (ins instanceof INVOKESTATIC && ((INVOKESTATIC) ins)
+                            .getMethodName(classContext.getConstantPoolGen()).startsWith("new")) {
                         sawNEW = true;
                     }
                     sawINVOKE = true;
@@ -368,9 +367,10 @@ public final class LazyInit extends ByteCodePatternDetector implements Stateless
         InstructionHandle start = match.getLabeledInstruction("start");
         InstructionHandle end = match.getLabeledInstruction("end");
         String sourceFile = javaClass.getSourceFileName();
-        bugReporter.reportBug(new BugInstance(this, sawGetStaticAfterPutStatic ? "LI_LAZY_INIT_UPDATE_STATIC"
-                : "LI_LAZY_INIT_STATIC", priority).addClassAndMethod(methodGen, sourceFile).addField(xfield)
-                .describe("FIELD_ON").addSourceLine(classContext, methodGen, sourceFile, start, end));
+        bugReporter.reportBug(
+                new BugInstance(this, sawGetStaticAfterPutStatic ? "LI_LAZY_INIT_UPDATE_STATIC" : "LI_LAZY_INIT_STATIC",
+                        priority).addClassAndMethod(methodGen, sourceFile).addField(xfield).describe("FIELD_ON")
+                                .addSourceLine(classContext, methodGen, sourceFile, start, end));
         reported.set(testInstructionHandle.getPosition());
 
     }
@@ -380,8 +380,7 @@ public final class LazyInit extends ByteCodePatternDetector implements Stateless
             return true;
         }
         Instruction instruction = nextHandle.getInstruction();
-        return !(instruction instanceof ReturnInstruction
-                || instruction instanceof IfInstruction);
+        return !(instruction instanceof ReturnInstruction || instruction instanceof IfInstruction);
     }
 
 }

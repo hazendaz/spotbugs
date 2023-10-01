@@ -28,19 +28,18 @@ import edu.umd.cs.findbugs.SystemProperties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * A cache mapping instructions and input values to the output values they
- * produce. We must always produce the same output given identical input, or
- * else value number analysis will not terminate.
+ * A cache mapping instructions and input values to the output values they produce. We must always produce the same
+ * output given identical input, or else value number analysis will not terminate.
  *
  * @author David Hovemeyer
+ *
  * @see ValueNumberAnalysis
  */
 public class ValueNumberCache {
     private static final boolean DEBUG = SystemProperties.getBoolean("vn.debug");
 
     /**
-     * An entry in the cache. It represents an instruction with specific input
-     * values.
+     * An entry in the cache. It represents an instruction with specific input values.
      */
     public static class Entry {
         public final InstructionHandle handle;
@@ -114,8 +113,8 @@ public class ValueNumberCache {
      *
      * @param entry
      *            the entry
-     * @return the list of output values, or null if there is no matching entry
-     *         in the cache
+     *
+     * @return the list of output values, or null if there is no matching entry in the cache
      */
     public ValueNumber[] lookupOutputValues(Entry entry) {
         if (DEBUG) {
@@ -129,14 +128,13 @@ public class ValueNumberCache {
     }
 
     /**
-     * Add output values for given entry. Assumes that lookupOutputValues() has
-     * determined that the entry is not in the cache.
+     * Add output values for given entry. Assumes that lookupOutputValues() has determined that the entry is not in the
+     * cache.
      *
      * @param entry
      *            the entry
      * @param outputValueList
-     *            the list of output values produced by the entry's instruction
-     *            and input values
+     *            the list of output values produced by the entry's instruction and input values
      */
     public void addOutputValues(Entry entry, ValueNumber[] outputValueList) {
         ValueNumber[] old = entryToOutputMap.put(entry, outputValueList);

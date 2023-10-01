@@ -47,8 +47,7 @@ public abstract class FindBugsJob extends Job {
         // see bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=298795
         // we must run this stupid code in the UI thread
         Display.getDefault().asyncExec(() -> PlatformUI.getWorkbench().getProgressService().registerIconForFamily(
-                FindbugsPlugin.getDefault().getImageDescriptor("runFindbugs.png"),
-                FindbugsPlugin.class));
+                FindbugsPlugin.getDefault().getImageDescriptor("runFindbugs.png"), FindbugsPlugin.class));
     }
 
     private final IResource resource;
@@ -59,8 +58,7 @@ public abstract class FindBugsJob extends Job {
         }
         Job[] jobs = Job.getJobManager().find(FindbugsPlugin.class);
         for (Job job2 : jobs) {
-            if (job2 instanceof FindBugsJob
-                    && job.getResource().equals(((FindBugsJob) job2).getResource())
+            if (job2 instanceof FindBugsJob && job.getResource().equals(((FindBugsJob) job2).getResource())
                     && job2.getState() != Job.RUNNING) {
                 job2.cancel();
             }
@@ -158,8 +156,8 @@ public abstract class FindBugsJob extends Job {
     /**
      * Acquires an analysis permit unless first cancelled.
      *
-     * @return {@code true} if permit has been acquired, {@code false} if
-     *         cancellation was observed and permit has not been acquired
+     * @return {@code true} if permit has been acquired, {@code false} if cancellation was observed and permit has not
+     *         been acquired
      */
     private static boolean acquireAnalysisPermitUnlessCancelled(IProgressMonitor monitor) throws InterruptedException {
         do {

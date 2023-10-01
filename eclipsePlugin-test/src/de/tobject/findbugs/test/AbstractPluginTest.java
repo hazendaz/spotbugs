@@ -77,11 +77,9 @@ import edu.umd.cs.findbugs.config.UserPreferences;
  * Subclasses must:
  * <ul>
  * <li>implement getTestScenario() to return the required TestScenario.</li>
- * <li>call setUpTestProject(TestScenario) and tearDownTestProject() during
- * setUp and tearDown respectively. The argument for the setup must be the same
- * test scenario as returned by getTestScenario(). The fixture may be shared by
- * all tests in the same class, if the tests don't modify the project or are
- * independent from the modifications.</li>
+ * <li>call setUpTestProject(TestScenario) and tearDownTestProject() during setUp and tearDown respectively. The
+ * argument for the setup must be the same test scenario as returned by getTestScenario(). The fixture may be shared by
+ * all tests in the same class, if the tests don't modify the project or are independent from the modifications.</li>
  * </ul>
  *
  * @author Tomás Pollak
@@ -95,8 +93,7 @@ public abstract class AbstractPluginTest {
     protected static final String TEST_PROJECT = "TestProject";
 
     /**
-     * Hook for subclasses to add extra classpath entries to the test project
-     * during the setup of the test.
+     * Hook for subclasses to add extra classpath entries to the test project during the setup of the test.
      */
     protected static void addExtraClassPathEntries(TestScenario scenario) throws CoreException {
         // Add JUnit if the test scenario requires it
@@ -133,8 +130,8 @@ public abstract class AbstractPluginTest {
     }
 
     /**
-     * Create a new Java project with a source folder and copy the test files of
-     * the plugin to the source folder. Compile the project.
+     * Create a new Java project with a source folder and copy the test files of the plugin to the source folder.
+     * Compile the project.
      */
     protected static void setUpTestProject(TestScenario scenario) throws Exception {
         // Create the test project
@@ -170,7 +167,7 @@ public abstract class AbstractPluginTest {
         performDummySearch();
         waitForJobs();
         processUiEvents(100);
-        //        processUiEvents(10000);
+        // processUiEvents(10000);
     }
 
     /**
@@ -248,6 +245,7 @@ public abstract class AbstractPluginTest {
      *            The expected number of bugs.
      * @param project
      *            The IProject that contains the bugs.
+     *
      * @throws CoreException
      */
     protected void assertBugsCount(int expected, IProject project) throws CoreException {
@@ -279,8 +277,7 @@ public abstract class AbstractPluginTest {
     }
 
     /**
-     * Asserts that the number of present markers of the given type match the
-     * given expected count.
+     * Asserts that the number of present markers of the given type match the given expected count.
      *
      * @param expectedBugType
      *            The expected bug type.
@@ -288,9 +285,11 @@ public abstract class AbstractPluginTest {
      *            The expected bug type count.
      * @param markers
      *            The array of markers to assert on.
+     *
      * @throws CoreException
      */
-    protected void assertMarkers(String expectedBugType, int expectedBugTypeCount, IMarker[] markers) throws CoreException {
+    protected void assertMarkers(String expectedBugType, int expectedBugTypeCount, IMarker[] markers)
+            throws CoreException {
         int seenBugTypeCount = 0;
         for (int i = 0; i < markers.length; i++) {
             IMarker marker = markers[i];
@@ -298,8 +297,8 @@ public abstract class AbstractPluginTest {
                 seenBugTypeCount++;
             }
         }
-        assertEquals(expectedBugTypeCount, seenBugTypeCount,
-                "Expected " + expectedBugTypeCount + " of markers " + expectedBugType + " but seen " + seenBugTypeCount);
+        assertEquals(expectedBugTypeCount, seenBugTypeCount, "Expected " + expectedBugTypeCount + " of markers "
+                + expectedBugType + " but seen " + seenBugTypeCount);
     }
 
     protected void assertNoBugs() throws CoreException {
@@ -311,8 +310,7 @@ public abstract class AbstractPluginTest {
     }
 
     /**
-     * Asserts that the number of detected bugs of the given type match the
-     * given expected count.
+     * Asserts that the number of detected bugs of the given type match the given expected count.
      *
      * @param expectedBugType
      *            The expected bug type.
@@ -320,9 +318,11 @@ public abstract class AbstractPluginTest {
      *            The expected bug type count.
      * @param project
      *            The IProject that contains the bugs.
+     *
      * @throws CoreException
      */
-    protected void assertReportedBugs(String expectedBugType, int expectedBugCount, IProject project) throws CoreException {
+    protected void assertReportedBugs(String expectedBugType, int expectedBugCount, IProject project)
+            throws CoreException {
         int seenBugCount = 0;
         SortedBugCollection bugs = FindbugsPlugin.getBugCollection(project, null);
         for (BugInstance bug : bugs) {
@@ -382,8 +382,7 @@ public abstract class AbstractPluginTest {
     }
 
     /**
-     * Suspend the calling thread until all the background jobs belonging to the
-     * given family are done.
+     * Suspend the calling thread until all the background jobs belonging to the given family are done.
      *
      * @see org.eclipse.core.runtime.jobs.Job#belongsTo(Object)
      *

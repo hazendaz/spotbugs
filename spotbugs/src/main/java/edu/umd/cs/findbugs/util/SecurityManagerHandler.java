@@ -6,11 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Since Java 17, the security manager is deprecated for removal and invoking related methods
- * causes a warning to be printed to the console. This intermediate disables the use of
- * security manager-related APIs on Java 17 or later, unless using the security manager is
- * explicitly configured by setting the <i>edu.umd.cs.findbugs.securityManagerDisabled</i>
- * property.
+ * Since Java 17, the security manager is deprecated for removal and invoking related methods causes a warning to be
+ * printed to the console. This intermediate disables the use of security manager-related APIs on Java 17 or later,
+ * unless using the security manager is explicitly configured by setting the
+ * <i>edu.umd.cs.findbugs.securityManagerDisabled</i> property.
  */
 public class SecurityManagerHandler {
 
@@ -38,8 +37,7 @@ public class SecurityManagerHandler {
     }
 
     /**
-     * Disables the security manager by setting {@link System#setSecurityManager(SecurityManager)}
-     * to {@code null}.
+     * Disables the security manager by setting {@link System#setSecurityManager(SecurityManager)} to {@code null}.
      */
     public static void disableSecurityManager() {
         if (SECURITY_MANAGER_DISABLED) {
@@ -49,12 +47,12 @@ public class SecurityManagerHandler {
     }
 
     /**
-     * This method is a safeguard for running this library on a JVM that might no longer include
-     * the security manager API after removal. As the JVM verifies methods lazily, and since this
-     * method will never be invoked, validation of this method with a missing type can never fail.
+     * This method is a safeguard for running this library on a JVM that might no longer include the security manager
+     * API after removal. As the JVM verifies methods lazily, and since this method will never be invoked, validation of
+     * this method with a missing type can never fail.
      *
-     * As some environments do not support setting the security manager but always return null
-     * when getting it, we check if a security manager is set before disabling it.
+     * As some environments do not support setting the security manager but always return null when getting it, we check
+     * if a security manager is set before disabling it.
      */
     private static void doDisableSecurityManager() {
         SecurityManager sm = System.getSecurityManager();

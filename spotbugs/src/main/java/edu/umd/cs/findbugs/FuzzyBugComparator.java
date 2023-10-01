@@ -28,27 +28,25 @@ import edu.umd.cs.findbugs.internalAnnotations.StaticConstant;
 import edu.umd.cs.findbugs.model.ClassNameRewriter;
 
 /**
- * A slightly more intellegent way of comparing BugInstances from two versions
- * to see if they are the "same". Uses class and method hashes to try to handle
- * renamings, at least for simple cases. (<em>Hashes disabled for the
- * time being.</em>) Uses opcode context to try to identify code that is the
- * same, even if it moves within the method. Also compares by bug abbreviation
- * rather than bug type, since the "same" bug can change type if the context
- * changes (e.g., "definitely null" to "null on simple path" for a null pointer
- * dereference). Also, we often change bug types between different versions of
- * FindBugs.
+ * A slightly more intellegent way of comparing BugInstances from two versions to see if they are the "same". Uses class
+ * and method hashes to try to handle renamings, at least for simple cases. (<em>Hashes disabled for the time
+ * being.</em>) Uses opcode context to try to identify code that is the same, even if it moves within the method. Also
+ * compares by bug abbreviation rather than bug type, since the "same" bug can change type if the context changes (e.g.,
+ * "definitely null" to "null on simple path" for a null pointer dereference). Also, we often change bug types between
+ * different versions of FindBugs.
  *
  * @see edu.umd.cs.findbugs.BugInstance
  * @see edu.umd.cs.findbugs.VersionInsensitiveBugComparator
+ *
  * @author David Hovemeyer
  */
 public class FuzzyBugComparator implements WarningComparator {
     private static final boolean DEBUG = false;
 
     // Don't use hashes for now. Still ironing out issues there.
-    //    private static final boolean USE_HASHES = false;
+    // private static final boolean USE_HASHES = false;
 
-    //    private static final long serialVersionUID = 1L;
+    // private static final long serialVersionUID = 1L;
 
     /**
      * Filter ignored BugAnnotations from given Iterator.
@@ -99,16 +97,14 @@ public class FuzzyBugComparator implements WarningComparator {
     }
 
     /**
-     * Keep track of which BugCollections the various BugInstances have come
-     * from.
+     * Keep track of which BugCollections the various BugInstances have come from.
      */
     private final IdentityHashMap<BugInstance, BugCollection> bugCollectionMap;
 
     private ClassNameRewriter classNameRewriter;
 
     /**
-     * Map of class hashes to canonical class names used for comparison
-     * purposes.
+     * Map of class hashes to canonical class names used for comparison purposes.
      */
     // private Map<ClassHash, String> classHashToCanonicalClassNameMap;
 
@@ -122,8 +118,7 @@ public class FuzzyBugComparator implements WarningComparator {
     }
 
     /**
-     * Register a BugCollection. This allows us to find the class and method
-     * hashes for BugInstances to be compared.
+     * Register a BugCollection. This allows us to find the class and method hashes for BugInstances to be compared.
      *
      * @param bugCollection
      *            a BugCollection
@@ -211,15 +206,12 @@ public class FuzzyBugComparator implements WarningComparator {
 
     /*
      * @param type
+     *
      * @return the code of the Bug
      *
-    private String getCode(String type) {
-        int bar = type.indexOf('_');
-        if (bar < 0)
-            return "";
-        else
-            return type.substring(0, bar);
-    }*/
+     * private String getCode(String type) { int bar = type.indexOf('_'); if (bar < 0) return ""; else return
+     * type.substring(0, bar); }
+     */
 
     private static int compareNullElements(Object a, Object b) {
         if (a != null) {
@@ -253,6 +245,7 @@ public class FuzzyBugComparator implements WarningComparator {
 
     /**
      * @param className
+     *
      * @return the rewritten class name
      */
     private String rewriteClassName(String className) {
@@ -275,10 +268,9 @@ public class FuzzyBugComparator implements WarningComparator {
     }
 
     /**
-     * For now, just look at the 2 preceding and succeeding opcodes for fuzzy
-     * source line matching.
+     * For now, just look at the 2 preceding and succeeding opcodes for fuzzy source line matching.
      */
-    //    private static final int NUM_CONTEXT_OPCODES = 2;
+    // private static final int NUM_CONTEXT_OPCODES = 2;
 
     /**
      * Compare source line annotations.
@@ -291,6 +283,7 @@ public class FuzzyBugComparator implements WarningComparator {
      *            a SourceLineAnnotation
      * @param rhs
      *            another SourceLineAnnotation
+     *
      * @return comparison of lhs and rhs
      */
     public int compareSourceLines(BugCollection lhsCollection, BugCollection rhsCollection, SourceLineAnnotation lhs,
@@ -312,33 +305,17 @@ public class FuzzyBugComparator implements WarningComparator {
     @StaticConstant
     private static final Set<String> significantDescriptionSet = Set.of(
             // Classes, methods, and fields are significant.
-            "CLASS_DEFAULT",
-            "CLASS_EXCEPTION",
-            "CLASS_REFTYPE",
-            ClassAnnotation.SUPERCLASS_ROLE,
-            ClassAnnotation.IMPLEMENTED_INTERFACE_ROLE,
-            ClassAnnotation.INTERFACE_ROLE,
-            "METHOD_DEFAULT",
-            MethodAnnotation.METHOD_CALLED,
-            "METHOD_DANGEROUS_TARGET", // but do NOT use safe targets
-            "METHOD_DECLARED_NONNULL",
-            "FIELD_DEFAULT",
-            "FIELD_ON",
-            "FIELD_SUPER",
-            "FIELD_MASKED",
-            "FIELD_MASKING",
-            "FIELD_STORED",
-            "TYPE_DEFAULT",
-            "TYPE_EXPECTED",
-            "TYPE_FOUND",
+            "CLASS_DEFAULT", "CLASS_EXCEPTION", "CLASS_REFTYPE", ClassAnnotation.SUPERCLASS_ROLE,
+            ClassAnnotation.IMPLEMENTED_INTERFACE_ROLE, ClassAnnotation.INTERFACE_ROLE, "METHOD_DEFAULT",
+            MethodAnnotation.METHOD_CALLED, "METHOD_DANGEROUS_TARGET", // but do NOT use safe targets
+            "METHOD_DECLARED_NONNULL", "FIELD_DEFAULT", "FIELD_ON", "FIELD_SUPER", "FIELD_MASKED", "FIELD_MASKING",
+            "FIELD_STORED", "TYPE_DEFAULT", "TYPE_EXPECTED", "TYPE_FOUND",
 
             "LOCAL_VARIABLE_NAMED",
 
             // Many int annotations are NOT significant: e.g., sync %, biased locked %, bytecode offset, etc.
             // The null parameter annotations, however, are definitely significant.
-            "INT_NULL_ARG",
-            "INT_MAYBE_NULL_ARG",
-            "INT_NONNULL_PARAM",
+            "INT_NULL_ARG", "INT_MAYBE_NULL_ARG", "INT_NONNULL_PARAM",
             // Only DEFAULT source line annotations are significant.
             "SOURCE_LINE_DEFAULT");
 

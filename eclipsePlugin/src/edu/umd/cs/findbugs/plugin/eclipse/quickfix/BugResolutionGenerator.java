@@ -32,8 +32,7 @@ import de.tobject.findbugs.FindbugsPlugin;
 import de.tobject.findbugs.reporter.MarkerUtil;
 
 /**
- * The <CODE>BugResolutionGenerator</CODE> searches for bug-resolutions, that can
- * be used to fix the specific bug-type.
+ * The <CODE>BugResolutionGenerator</CODE> searches for bug-resolutions, that can be used to fix the specific bug-type.
  *
  * @author <a href="mailto:twyss@hsr.ch">Thierry Wyss</a>
  * @author <a href="mailto:mbusarel@hsr.ch">Marco Busarello</a>

@@ -31,7 +31,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317670">3.28 location object</a>
+ * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317670">3.28 location
+ *      object</a>
  */
 class Location {
     @Nullable
@@ -74,8 +75,8 @@ class Location {
         Objects.requireNonNull(baseToId);
 
         final PhysicalLocation physicalLocation = findPhysicalLocation(bugInstance, sourceFinder, baseToId);
-        return LogicalLocation.fromBugInstance(bugInstance).map(logicalLocation -> new Location(physicalLocation,
-                Collections.singleton(logicalLocation)));
+        return LogicalLocation.fromBugInstance(bugInstance)
+                .map(logicalLocation -> new Location(physicalLocation, Collections.singleton(logicalLocation)));
     }
 
     static Location fromStackTraceElement(@NonNull StackTraceElement element, @NonNull SourceFinder sourceFinder,
@@ -90,8 +91,8 @@ class Location {
     }
 
     @CheckForNull
-    private static PhysicalLocation findPhysicalLocation(@NonNull BugInstance bugInstance, @NonNull SourceFinder sourceFinder,
-            Map<URI, String> baseToId) {
+    private static PhysicalLocation findPhysicalLocation(@NonNull BugInstance bugInstance,
+            @NonNull SourceFinder sourceFinder, Map<URI, String> baseToId) {
         try {
             return PhysicalLocation.fromBugAnnotation(bugInstance, sourceFinder, baseToId).orElse(null);
         } catch (IllegalStateException e) {
@@ -101,17 +102,17 @@ class Location {
     }
 
     @CheckForNull
-    private static Optional<PhysicalLocation> findPhysicalLocation(@NonNull StackTraceElement element, @NonNull SourceFinder sourceFinder,
-            Map<URI, String> baseToId) {
-        Optional<Region> region = Optional.of(element.getLineNumber())
-                .filter(line -> line > 0)
+    private static Optional<PhysicalLocation> findPhysicalLocation(@NonNull StackTraceElement element,
+            @NonNull SourceFinder sourceFinder, Map<URI, String> baseToId) {
+        Optional<Region> region = Optional.of(element.getLineNumber()).filter(line -> line > 0)
                 .map(line -> new Region(line, line));
         return ArtifactLocation.fromStackTraceElement(element, sourceFinder, baseToId)
                 .map(artifactLocation -> new PhysicalLocation(artifactLocation, region.orElse(null)));
     }
 
     /**
-     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317427">3.4 artifactLocation object</a>
+     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317427">3.4
+     *      artifactLocation object</a>
      */
     static final class ArtifactLocation {
         @NonNull
@@ -131,8 +132,8 @@ class Location {
             return locationJson;
         }
 
-        static Optional<ArtifactLocation> fromBugAnnotation(@NonNull ClassAnnotation classAnnotation, @NonNull SourceLineAnnotation bugAnnotation,
-                @NonNull SourceFinder sourceFinder,
+        static Optional<ArtifactLocation> fromBugAnnotation(@NonNull ClassAnnotation classAnnotation,
+                @NonNull SourceLineAnnotation bugAnnotation, @NonNull SourceFinder sourceFinder,
                 @NonNull Map<URI, String> baseToId) {
             Objects.requireNonNull(bugAnnotation);
             Objects.requireNonNull(sourceFinder);
@@ -162,7 +163,8 @@ class Location {
             }
         }
 
-        static Optional<ArtifactLocation> fromStackTraceElement(StackTraceElement element, SourceFinder sourceFinder, Map<URI, String> baseToId) {
+        static Optional<ArtifactLocation> fromStackTraceElement(StackTraceElement element, SourceFinder sourceFinder,
+                Map<URI, String> baseToId) {
             Objects.requireNonNull(element);
             Objects.requireNonNull(sourceFinder);
             Objects.requireNonNull(baseToId);
@@ -187,7 +189,8 @@ class Location {
     }
 
     /**
-     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317685">3.30 region object</a>
+     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317685">3.30 region
+     *      object</a>
      */
     static final class Region {
         /**
@@ -227,7 +230,8 @@ class Location {
     }
 
     /**
-     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317678">3.29 physicalLocation object</a>
+     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317678">3.29
+     *      physicalLocation object</a>
      */
     static final class PhysicalLocation {
         @NonNull
@@ -254,14 +258,16 @@ class Location {
             ClassAnnotation primaryClass = bugInstance.getPrimaryClass();
             SourceLineAnnotation sourceLine = bugInstance.getPrimarySourceLineAnnotation();
 
-            Optional<ArtifactLocation> artifactLocation = ArtifactLocation.fromBugAnnotation(primaryClass, sourceLine, sourceFinder, baseToId);
+            Optional<ArtifactLocation> artifactLocation = ArtifactLocation.fromBugAnnotation(primaryClass, sourceLine,
+                    sourceFinder, baseToId);
             Optional<Region> region = Region.fromBugAnnotation(sourceLine);
             return artifactLocation.map(location -> new PhysicalLocation(location, region.orElse(null)));
         }
     }
 
     /**
-     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317719">3.33 logicalLocation object</a>
+     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317719">3.33
+     *      logicalLocation object</a>
      */
     static final class LogicalLocation {
         @NonNull
@@ -275,8 +281,8 @@ class Location {
         @NonNull
         final Map<String, String> properties = new HashMap<>();
 
-        LogicalLocation(@NonNull String name, @Nullable String decoratedName, @NonNull String kind, @Nullable String fullyQualifiedName,
-                @Nullable Map<String, String> properties) {
+        LogicalLocation(@NonNull String name, @Nullable String decoratedName, @NonNull String kind,
+                @Nullable String fullyQualifiedName, @Nullable Map<String, String> properties) {
             this.name = Objects.requireNonNull(name);
             this.decoratedName = decoratedName;
             this.kind = Objects.requireNonNull(kind);
@@ -336,11 +342,13 @@ class Location {
             BugAnnotation annotation = null;
             if (localVariableAnnotation != null) {
                 annotation = localVariableAnnotation;
-                fullyQualifiedName = String.format("%s#%s", methodAnnotation.getFullMethod(classAnnotation), localVariableAnnotation.getName());
+                fullyQualifiedName = String.format("%s#%s", methodAnnotation.getFullMethod(classAnnotation),
+                        localVariableAnnotation.getName());
             } else {
                 if (fieldAnnotation != null) {
                     annotation = fieldAnnotation;
-                    fullyQualifiedName = String.format("%s.%s", classAnnotation.getClassName(), fieldAnnotation.getFieldName());
+                    fullyQualifiedName = String.format("%s.%s", classAnnotation.getClassName(),
+                            fieldAnnotation.getFieldName());
                 } else {
                     if (methodAnnotation != null) {
                         annotation = methodAnnotation;

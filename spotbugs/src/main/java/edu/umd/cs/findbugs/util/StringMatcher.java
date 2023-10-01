@@ -30,6 +30,7 @@ public interface StringMatcher {
      *
      * @param s
      *            a String
+     *
      * @return true if the String matches, false if it does not match
      */
     public boolean matches(String s);

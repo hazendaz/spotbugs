@@ -30,7 +30,8 @@ import edu.umd.cs.findbugs.log.Profiler;
  * @author pugh
  */
 @Deprecated
-public class NullnessAnnotationDatabase extends AnnotationDatabase<NullnessAnnotation> implements INullnessAnnotationDatabase {
+public class NullnessAnnotationDatabase extends AnnotationDatabase<NullnessAnnotation>
+        implements INullnessAnnotationDatabase {
 
     public NullnessAnnotationDatabase() {
         setAddClassOnly(true);
@@ -62,7 +63,6 @@ public class NullnessAnnotationDatabase extends AnnotationDatabase<NullnessAnnot
         XMethodParameter xmp = new XMethodParameter(m, param);
         NullnessAnnotation resolvedAnnotation = getResolvedAnnotation(xmp, true);
 
-
         return resolvedAnnotation == NullnessAnnotation.NONNULL;
     }
 
@@ -80,7 +80,8 @@ public class NullnessAnnotationDatabase extends AnnotationDatabase<NullnessAnnot
                 // bug code for it
                 int parameterNumber = mp.getParameterNumber();
                 if (parameterNumber == 0) {
-                    if ("equals".equals(m.getName()) && "(Ljava/lang/Object;)Z".equals(m.getSignature()) && !m.isStatic()) {
+                    if ("equals".equals(m.getName()) && "(Ljava/lang/Object;)Z".equals(m.getSignature())
+                            && !m.isStatic()) {
                         return NullnessAnnotation.CHECK_FOR_NULL;
                     } else if (MemberUtils.isMainMethod(m)) {
                         return NullnessAnnotation.NONNULL;
@@ -94,10 +95,9 @@ public class NullnessAnnotationDatabase extends AnnotationDatabase<NullnessAnnot
                 XMethod m = (XMethod) o;
                 String name = m.getName();
                 String signature = m.getSignature();
-                if (!m.isStatic()
-                        && ("clone".equals(name) && "()Ljava/lang/Object;".equals(signature) || "toString".equals(name)
-                                && "()Ljava/lang/String;".equals(signature) || m.isPrivate() && "readResolve".equals(name)
-                                        && "()Ljava/lang/Object;".equals(signature))) {
+                if (!m.isStatic() && ("clone".equals(name) && "()Ljava/lang/Object;".equals(signature)
+                        || "toString".equals(name) && "()Ljava/lang/String;".equals(signature)
+                        || m.isPrivate() && "readResolve".equals(name) && "()Ljava/lang/Object;".equals(signature))) {
                     NullnessAnnotation result = super.getDirectAnnotation(m);
                     if (result != null) {
                         return result;
@@ -128,12 +128,14 @@ public class NullnessAnnotationDatabase extends AnnotationDatabase<NullnessAnnot
     }
 
     @Override
-    public void addFieldAnnotation(String name, String name2, String sig, boolean isStatic, NullnessAnnotation annotation) {
+    public void addFieldAnnotation(String name, String name2, String sig, boolean isStatic,
+            NullnessAnnotation annotation) {
         super.addFieldAnnotation(name, name2, sig, isStatic, annotation);
     }
 
     @Override
-    public void addMethodAnnotation(String name, String name2, String sig, boolean isStatic, NullnessAnnotation annotation) {
+    public void addMethodAnnotation(String name, String name2, String sig, boolean isStatic,
+            NullnessAnnotation annotation) {
         super.addMethodAnnotation(name, name2, sig, isStatic, annotation);
     }
 

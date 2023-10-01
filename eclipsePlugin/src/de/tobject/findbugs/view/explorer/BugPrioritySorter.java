@@ -84,6 +84,7 @@ public class BugPrioritySorter extends ViewerSorter {
      *
      * @param m1
      * @param m2
+     *
      * @return
      */
     static int compareMarkers(IMarker m1, IMarker m2) {

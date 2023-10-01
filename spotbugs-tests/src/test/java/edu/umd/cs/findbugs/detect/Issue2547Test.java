@@ -10,8 +10,7 @@ class Issue2547Test extends AbstractIntegrationTest {
 
     @Test
     void testIssue() {
-        performAnalysis("ghIssues/issue2547/Issue2547.class",
-                "ghIssues/issue2547/MyEx.class",
+        performAnalysis("ghIssues/issue2547/Issue2547.class", "ghIssues/issue2547/MyEx.class",
                 "ghIssues/issue2547/ExceptionFactory.class");
 
         assertBugTypeCount("RV_EXCEPTION_NOT_THROWN", 2);

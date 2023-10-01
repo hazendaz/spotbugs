@@ -27,12 +27,11 @@ import edu.umd.cs.findbugs.ba.deref.UnconditionalValueDerefAnalysis;
 import edu.umd.cs.findbugs.ba.deref.UnconditionalValueDerefSet;
 
 /**
- * A useful starting point for defining a dataflow analysis. Handles access and
- * caching of start and result facts for basic blocks.
+ * A useful starting point for defining a dataflow analysis. Handles access and caching of start and result facts for
+ * basic blocks.
  *
  * <p>
- * Subclasses that model instructions within basic blocks should extend
- * AbstractDataflowAnalysis.
+ * Subclasses that model instructions within basic blocks should extend AbstractDataflowAnalysis.
  * </p>
  *
  * @author David Hovemeyer
@@ -76,18 +75,19 @@ public abstract class BasicAbstractDataflowAnalysis<Fact> implements DataflowAna
     }
 
     /**
-     * Get dataflow fact at (just before) given Location. Note "before" is meant
-     * in the logical sense, so for backward analyses, before means after the
-     * location in the control flow sense.
+     * Get dataflow fact at (just before) given Location. Note "before" is meant in the logical sense, so for backward
+     * analyses, before means after the location in the control flow sense.
      *
      * <p>
-     * The default implementation ignores instructions within basic blocks.
-     * Subclasses that model individual instructions must override this method.
+     * The default implementation ignores instructions within basic blocks. Subclasses that model individual
+     * instructions must override this method.
      * </p>
      *
      * @param location
      *            the Location
+     *
      * @return the dataflow value at given Location
+     *
      * @throws DataflowAnalysisException
      */
     @Override
@@ -96,18 +96,19 @@ public abstract class BasicAbstractDataflowAnalysis<Fact> implements DataflowAna
     }
 
     /**
-     * Get the dataflow fact representing the point just after given Location.
-     * Note "after" is meant in the logical sense, so for backward analyses,
-     * after means before the location in the control flow sense.
+     * Get the dataflow fact representing the point just after given Location. Note "after" is meant in the logical
+     * sense, so for backward analyses, after means before the location in the control flow sense.
      *
      * <p>
-     * The default implementation ignores instructions within basic blocks.
-     * Subclasses that model individual instructions must override this method.
+     * The default implementation ignores instructions within basic blocks. Subclasses that model individual
+     * instructions must override this method.
      * </p>
      *
      * @param location
      *            the Location
+     *
      * @return the dataflow value after given Location
+     *
      * @throws DataflowAnalysisException
      */
     @Override
@@ -116,12 +117,13 @@ public abstract class BasicAbstractDataflowAnalysis<Fact> implements DataflowAna
     }
 
     /**
-     * Get the fact that is true on the given control edge,
-     * <em>after applying the edge transfer function</em> (if any).
+     * Get the fact that is true on the given control edge, <em>after applying the edge transfer function</em> (if any).
      *
      * @param edge
      *            the edge
+     *
      * @return the fact that is true after applying the edge transfer function
+     *
      * @throws DataflowAnalysisException
      */
     @Override
@@ -136,12 +138,11 @@ public abstract class BasicAbstractDataflowAnalysis<Fact> implements DataflowAna
         Fact result = createFact();
         makeFactTop(result);
         if (this instanceof UnconditionalValueDerefAnalysis) {
-            ((UnconditionalValueDerefAnalysis) this).meetInto((UnconditionalValueDerefSet) predFact,
-                    edge, (UnconditionalValueDerefSet) result, true);
+            ((UnconditionalValueDerefAnalysis) this).meetInto((UnconditionalValueDerefSet) predFact, edge,
+                    (UnconditionalValueDerefSet) result, true);
         } else {
             meetInto(predFact, edge, result);
         }
-
 
         return result;
     }
@@ -169,9 +170,7 @@ public abstract class BasicAbstractDataflowAnalysis<Fact> implements DataflowAna
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.DataflowAnalysis#edgeTransfer(edu.umd.cs.findbugs
-     * .ba.Edge, java.lang.Object)
+     * @see edu.umd.cs.findbugs.ba.DataflowAnalysis#edgeTransfer(edu.umd.cs.findbugs .ba.Edge, java.lang.Object)
      */
     @Override
     public void edgeTransfer(Edge edge, Fact fact) throws DataflowAnalysisException {

@@ -68,7 +68,6 @@ public final class SourceCodeDisplay implements Runnable {
         t.start();
     }
 
-
     static class DisplayMe {
         public DisplayMe(BugInstance bug, SourceLineAnnotation source) {
             this.bug = bug;
@@ -165,13 +164,11 @@ public final class SourceCodeDisplay implements Runnable {
         }
     }
 
-
     private final class DisplayBug implements Runnable {
 
         private final SourceLineAnnotation mySourceLine;
         private final JavaSourceDocument src;
         private final BugInstance myBug;
-
 
         private DisplayBug(JavaSourceDocument src, BugInstance myBug, SourceLineAnnotation mySourceLine) {
             this.mySourceLine = mySourceLine;
@@ -231,7 +228,8 @@ public final class SourceCodeDisplay implements Runnable {
         String sourceFile = sourceAnnotation.getSourcePath();
         String sourceFile2 = src.getSourceFile().getFullFileName();
         if (!java.io.File.separator.equals(String.valueOf(SourceLineAnnotation.CANONICAL_PACKAGE_SEPARATOR))) {
-            sourceFile2 = sourceFile2.replace(java.io.File.separatorChar, SourceLineAnnotation.CANONICAL_PACKAGE_SEPARATOR);
+            sourceFile2 = sourceFile2.replace(java.io.File.separatorChar,
+                    SourceLineAnnotation.CANONICAL_PACKAGE_SEPARATOR);
         }
         if (!sourceFile2.endsWith(sourceFile)) {
             return;

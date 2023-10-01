@@ -41,12 +41,11 @@ import edu.umd.cs.findbugs.xml.XMLAttributeList;
 import edu.umd.cs.findbugs.xml.XMLOutput;
 
 /**
- * A BugAnnotation specifying a particular method in a particular class. A
- * MethodAnnotation may (optionally) have a SourceLineAnnotation directly
- * embedded inside it to indicate the range of source lines where the method is
- * defined.
+ * A BugAnnotation specifying a particular method in a particular class. A MethodAnnotation may (optionally) have a
+ * SourceLineAnnotation directly embedded inside it to indicate the range of source lines where the method is defined.
  *
  * @author David Hovemeyer
+ *
  * @see BugAnnotation
  */
 public class MethodAnnotation extends PackageMemberAnnotation {
@@ -116,16 +115,15 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Factory method to create a MethodAnnotation from the method the given
-     * visitor is currently visiting.
+     * Factory method to create a MethodAnnotation from the method the given visitor is currently visiting.
      *
      * @param visitor
      *            the BetterVisitor currently visiting the method
      */
     public static MethodAnnotation fromVisitedMethod(PreorderVisitor visitor) {
         String className = visitor.getDottedClassName();
-        MethodAnnotation result = new MethodAnnotation(className, visitor.getMethodName(), visitor.getMethodSig(), visitor
-                .getMethod().isStatic());
+        MethodAnnotation result = new MethodAnnotation(className, visitor.getMethodName(), visitor.getMethodSig(),
+                visitor.getMethod().isStatic());
 
         // Try to find the source lines for the method
         SourceLineAnnotation srcLines = SourceLineAnnotation.fromVisitedMethod(visitor);
@@ -135,11 +133,12 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Factory method to create a MethodAnnotation from a method called by the
-     * instruction the given visitor is currently visiting.
+     * Factory method to create a MethodAnnotation from a method called by the instruction the given visitor is
+     * currently visiting.
      *
      * @param visitor
      *            the visitor
+     *
      * @return the MethodAnnotation representing the called method
      */
     public static MethodAnnotation fromCalledMethod(DismantleBytecode visitor) {
@@ -165,9 +164,8 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Factory method to create the MethodAnnotation from the classname, method
-     * name, signature, etc. The method tries to look up source line information
-     * for the method.
+     * Factory method to create the MethodAnnotation from the classname, method name, signature, etc. The method tries
+     * to look up source line information for the method.
      *
      * @param className
      *            name of the class containing the method
@@ -177,9 +175,11 @@ public class MethodAnnotation extends PackageMemberAnnotation {
      *            signature of the method
      * @param accessFlags
      *            the access flags of the method
+     *
      * @return the MethodAnnotation
      */
-    public static MethodAnnotation fromForeignMethod(@SlashedClassName String className, String methodName, String methodSig, int accessFlags) {
+    public static MethodAnnotation fromForeignMethod(@SlashedClassName String className, String methodName,
+            String methodSig, int accessFlags) {
 
         className = ClassName.toDottedClassName(className);
 
@@ -188,7 +188,8 @@ public class MethodAnnotation extends PackageMemberAnnotation {
         MethodAnnotation methodAnnotation = new MethodAnnotation(className, methodName, methodSig,
                 (accessFlags & Const.ACC_STATIC) != 0);
 
-        SourceLineAnnotation sourceLines = SourceLineAnnotation.getSourceAnnotationForMethod(className, methodName, methodSig);
+        SourceLineAnnotation sourceLines = SourceLineAnnotation.getSourceAnnotationForMethod(className, methodName,
+                methodSig);
 
         methodAnnotation.setSourceLines(sourceLines);
 
@@ -196,9 +197,8 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Factory method to create the MethodAnnotation from the classname, method
-     * name, signature, etc. The method tries to look up source line information
-     * for the method.
+     * Factory method to create the MethodAnnotation from the classname, method name, signature, etc. The method tries
+     * to look up source line information for the method.
      *
      * @param className
      *            name of the class containing the method
@@ -208,9 +208,11 @@ public class MethodAnnotation extends PackageMemberAnnotation {
      *            signature of the method
      * @param isStatic
      *            true if the method is static, false otherwise
+     *
      * @return the MethodAnnotation
      */
-    public static MethodAnnotation fromForeignMethod(String className, String methodName, String methodSig, boolean isStatic) {
+    public static MethodAnnotation fromForeignMethod(String className, String methodName, String methodSig,
+            boolean isStatic) {
 
         // FIXME: would be nice to do this without using BCEL
 
@@ -221,8 +223,8 @@ public class MethodAnnotation extends PackageMemberAnnotation {
         MethodAnnotation methodAnnotation = new MethodAnnotation(className, methodName, methodSig, isStatic);
 
         if (AnalysisContext.currentAnalysisContext() != null) {
-            SourceLineAnnotation sourceLines = SourceLineAnnotation
-                    .getSourceAnnotationForMethod(className, methodName, methodSig);
+            SourceLineAnnotation sourceLines = SourceLineAnnotation.getSourceAnnotationForMethod(className, methodName,
+                    methodSig);
 
             methodAnnotation.setSourceLines(sourceLines);
         }
@@ -231,9 +233,8 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Create a MethodAnnotation from a method that is not directly accessible.
-     * We will use the repository to try to find its class in order to populate
-     * the information as fully as possible.
+     * Create a MethodAnnotation from a method that is not directly accessible. We will use the repository to try to
+     * find its class in order to populate the information as fully as possible.
      *
      * @param className
      *            class containing called method
@@ -243,9 +244,11 @@ public class MethodAnnotation extends PackageMemberAnnotation {
      *            signature of called method
      * @param isStatic
      *            true if called method is static
+     *
      * @return the MethodAnnotation for the called method
      */
-    public static MethodAnnotation fromCalledMethod(String className, String methodName, String methodSig, boolean isStatic) {
+    public static MethodAnnotation fromCalledMethod(String className, String methodName, String methodSig,
+            boolean isStatic) {
 
         MethodAnnotation methodAnnotation = fromForeignMethod(className, methodName, methodSig, isStatic);
         methodAnnotation.setDescription(METHOD_CALLED);
@@ -258,6 +261,7 @@ public class MethodAnnotation extends PackageMemberAnnotation {
      *
      * @param xmethod
      *            the XMethod
+     *
      * @return the MethodAnnotation
      */
     public static MethodAnnotation fromXMethod(XMethod xmethod) {
@@ -269,6 +273,7 @@ public class MethodAnnotation extends PackageMemberAnnotation {
      *
      * @param methodDescriptor
      *            the MethodDescriptor
+     *
      * @return the MethodAnnotation
      */
     public static MethodAnnotation fromMethodDescriptor(MethodDescriptor methodDescriptor) {
@@ -282,7 +287,6 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     public String getMethodName() {
         return methodName;
     }
-
 
     public String getJavaSourceMethodName() {
         if (Const.STATIC_INITIALIZER_NAME.equals(methodName)) {
@@ -364,8 +368,8 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Get the "full" method name. This is a format which looks sort of like a
-     * method signature that would appear in Java source code.
+     * Get the "full" method name. This is a format which looks sort of like a method signature that would appear in
+     * Java source code.
      */
     public String getNameInClass(ClassAnnotation primaryClass) {
         return getNameInClass(true, false, false, false);
@@ -380,18 +384,17 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Get the "full" method name. This is a format which looks sort of like a
-     * method signature that would appear in Java source code.
+     * Get the "full" method name. This is a format which looks sort of like a method signature that would appear in
+     * Java source code.
      *
-     * note: If shortenPackeges==true, this will return the same value as
-     * getNameInClass(), except that method caches the result and this one does
-     * not. Calling this one may be slow.
+     * note: If shortenPackeges==true, this will return the same value as getNameInClass(), except that method caches
+     * the result and this one does not. Calling this one may be slow.
      *
      * @param shortenPackages
-     *            whether to shorten package names if they are in java or in the
-     *            same package as this method.
+     *            whether to shorten package names if they are in java or in the same package as this method.
      */
-    public String getNameInClass(boolean shortenPackages, boolean useJVMMethodName, boolean hash, boolean omitMethodName) {
+    public String getNameInClass(boolean shortenPackages, boolean useJVMMethodName, boolean hash,
+            boolean omitMethodName) {
         // Convert to "nice" representation
         StringBuilder result = new StringBuilder();
         if (!omitMethodName) {
@@ -434,8 +437,8 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     /**
-     * Get the "full" method name. This is a format which looks sort of like a
-     * method signature that would appear in Java source code.
+     * Get the "full" method name. This is a format which looks sort of like a method signature that would appear in
+     * Java source code.
      */
     public String getFullMethod(ClassAnnotation primaryClass) {
         if (fullMethod == null) {
@@ -471,7 +474,8 @@ public class MethodAnnotation extends PackageMemberAnnotation {
             return false;
         }
         MethodAnnotation other = (MethodAnnotation) o;
-        return className.equals(other.className) && methodName.equals(other.methodName) && methodSig.equals(other.methodSig);
+        return className.equals(other.className) && methodName.equals(other.methodName)
+                && methodSig.equals(other.methodSig);
     }
 
     @Override
@@ -495,8 +499,7 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * XML Conversion support
+     * ---------------------------------------------------------------------- XML Conversion support
      * ----------------------------------------------------------------------
      */
 

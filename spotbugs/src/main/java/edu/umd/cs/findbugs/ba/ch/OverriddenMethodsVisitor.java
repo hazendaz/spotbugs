@@ -24,11 +24,9 @@ import edu.umd.cs.findbugs.ba.XMethod;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 
 /**
- * This class implements a best-effort visitation of all methods overridden by a
- * given derived instance method. Objects extending this class can be used with
- * the
- * {@link Subtypes2#traverseSupertypes(ClassDescriptor, InheritanceGraphVisitor)}
- * method.
+ * This class implements a best-effort visitation of all methods overridden by a given derived instance method. Objects
+ * extending this class can be used with the
+ * {@link Subtypes2#traverseSupertypes(ClassDescriptor, InheritanceGraphVisitor)} method.
  *
  * @author David Hovemeyer
  */
@@ -56,9 +54,8 @@ public abstract class OverriddenMethodsVisitor implements SupertypeTraversalVisi
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.ch.InheritanceGraphVisitor#visitClass(edu.umd.
-     * cs.findbugs.classfile.ClassDescriptor, edu.umd.cs.findbugs.ba.XClass)
+     * @see edu.umd.cs.findbugs.ba.ch.InheritanceGraphVisitor#visitClass(edu.umd. cs.findbugs.classfile.ClassDescriptor,
+     * edu.umd.cs.findbugs.ba.XClass)
      */
     @Override
     public boolean visitClass(ClassDescriptor classDescriptor, XClass xclass) {
@@ -85,16 +82,14 @@ public abstract class OverriddenMethodsVisitor implements SupertypeTraversalVisi
     }
 
     /**
-     * Downcall method: will be called for each method overridden by the derived
-     * method object passed to the constructor. Note that this method will be
-     * called <em>for</em> the original derived method, since this is useful for
-     * some applications.
+     * Downcall method: will be called for each method overridden by the derived method object passed to the
+     * constructor. Note that this method will be called <em>for</em> the original derived method, since this is useful
+     * for some applications.
      *
      * @param xmethod
-     *            a method which is overridden by the original derived method,
-     *            or is the original derived method
-     * @return true if the traversal should continue into superclasses, false
-     *         otherwise
+     *            a method which is overridden by the original derived method, or is the original derived method
+     *
+     * @return true if the traversal should continue into superclasses, false otherwise
      */
     protected abstract boolean visitOverriddenMethod(XMethod xmethod);
 }

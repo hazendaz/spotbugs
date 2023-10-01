@@ -40,9 +40,8 @@ import edu.umd.cs.findbugs.plugins.DuplicatePluginIdException;
 
 /**
  * <p>
- * This class runs analysis with SpotBugs. The target class files and
- * auxClasspathEntries should be specified before you invoke {@link #run(Consumer, Path...)}
- * method.
+ * This class runs analysis with SpotBugs. The target class files and auxClasspathEntries should be specified before you
+ * invoke {@link #run(Consumer, Path...)} method.
  * </p>
  *
  * @since 3.1
@@ -52,8 +51,9 @@ public class AnalysisRunner {
     private final List<Path> auxClasspathEntries = new ArrayList<>();
 
     /**
-     * SpotBugs stores relation between plugin-id and {@link Plugin} instance in a static field ({@code Plugin.allPlugins}),
-     * so we need to store Plugin information in static field too, to avoid duplicated plugin loading.
+     * SpotBugs stores relation between plugin-id and {@link Plugin} instance in a static field
+     * ({@code Plugin.allPlugins}), so we need to store Plugin information in static field too, to avoid duplicated
+     * plugin loading.
      */
     @Nullable
     private static final File PLUGIN_JAR;
@@ -120,8 +120,7 @@ public class AnalysisRunner {
             }
             if (!bugReporter.getQueuedErrors().isEmpty()) {
                 bugReporter.reportQueuedErrors();
-                throw new AssertionError(
-                        "Analysis failed with exception. Check stderr for detail.");
+                throw new AssertionError("Analysis failed with exception. Check stderr for detail.");
             }
             return bugReporter;
         }
@@ -150,11 +149,11 @@ public class AnalysisRunner {
     }
 
     /**
-     * Create a jar file which contains all resource files. This is necessary to
-     * let {@link Plugin#loadCustomPlugin(File, Project)} load custom plugin to
-     * test.
+     * Create a jar file which contains all resource files. This is necessary to let
+     * {@link Plugin#loadCustomPlugin(File, Project)} load custom plugin to test.
      *
      * @return a {@link File} instance which represent generated jar file
+     *
      * @throws IOException
      * @throws URISyntaxException
      */

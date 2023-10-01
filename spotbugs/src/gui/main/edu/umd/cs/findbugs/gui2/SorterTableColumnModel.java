@@ -49,8 +49,7 @@ import javax.swing.tree.TreeModel;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Handles the sorting order and informs the treeModel when changes are
- * necessary
+ * Handles the sorting order and informs the treeModel when changes are necessary
  *
  * @author Dan
  *
@@ -169,15 +168,17 @@ public class SorterTableColumnModel implements TableColumnModel {
         private final TableCellRenderer defaultRenderer = new JTableHeader().getDefaultRenderer();
 
         @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
-                int column) {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
 
-            Component comp = defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            Component comp = defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
+                    column);
             if (comp instanceof JLabel) {
                 JLabel cell = (JLabel) comp;
                 cell.setFont(cell.getFont().deriveFont(Driver.getFontSize()));
                 cell.setFont(cell.getFont().deriveFont(Font.BOLD));
-                cell.setBorder(BorderFactory.createCompoundBorder(cell.getBorder(), BorderFactory.createEmptyBorder(0, 6, 0, 6)));
+                cell.setBorder(BorderFactory.createCompoundBorder(cell.getBorder(),
+                        BorderFactory.createEmptyBorder(0, 6, 0, 6)));
                 cell.setHorizontalAlignment(SwingConstants.CENTER);
                 if (value == Sortables.DIVIDER) {
                     URL arrows = MainFrame.class.getResource("arrows.png");
@@ -276,14 +277,15 @@ public class SorterTableColumnModel implements TableColumnModel {
 
     @Override
     public Enumeration<TableColumn> getColumns() {
-        return Collections.<TableColumn>enumeration(columnList);
+        return Collections.<TableColumn> enumeration(columnList);
     }
 
     @Override
     public int getColumnIndex(Object columnIdentifier) {
 
         if (columnIdentifier == null) {
-            throw new IllegalArgumentException("Don't send null to getColumnIndex, null shouldn't be in the sorting table.");
+            throw new IllegalArgumentException(
+                    "Don't send null to getColumnIndex, null shouldn't be in the sorting table.");
         }
 
         for (int x = 0; x < columnList.size(); x++) {

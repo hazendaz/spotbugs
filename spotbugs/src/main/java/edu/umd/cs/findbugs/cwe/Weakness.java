@@ -8,6 +8,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
  * points as compared to the CWE list. In addition, it does not contain references to other weaknesses.
  *
  * @author Jeremias Eppler
+ *
  * @see WeaknessCatalog
  */
 public class Weakness {
@@ -30,6 +31,7 @@ public class Weakness {
      * @param name
      * @param description
      * @param severity
+     *
      * @return Weakness
      */
     public static Weakness of(@NonNull int cweid, @NonNull String name, @NonNull String description,

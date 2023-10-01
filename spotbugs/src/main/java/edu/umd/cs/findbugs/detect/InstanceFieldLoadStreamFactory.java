@@ -39,9 +39,8 @@ public class InstanceFieldLoadStreamFactory implements StreamFactory {
     private String bugPatternType;
 
     /**
-     * Constructor. By default, Streams created by this factory will not be
-     * marked as interesting. The setBugPatternType() method should be called to
-     * make the factory produce interesting streams.
+     * Constructor. By default, Streams created by this factory will not be marked as interesting. The
+     * setBugPatternType() method should be called to make the factory produce interesting streams.
      *
      * @param streamBaseClass
      *            the base class of the streams produced by the factory
@@ -51,8 +50,8 @@ public class InstanceFieldLoadStreamFactory implements StreamFactory {
     }
 
     /**
-     * Set the bug pattern type reported for unclosed streams loaded from this
-     * field. This makes the created streams "interesting".
+     * Set the bug pattern type reported for unclosed streams loaded from this field. This makes the created streams
+     * "interesting".
      *
      * @param bugPatternType
      *            the bug pattern type

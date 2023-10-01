@@ -100,17 +100,18 @@ public class CrossSiteScripting extends OpcodeStackDetector {
 
         OpcodeStack.Item oldTop = top;
         top = null;
-        if (seen == Const.INVOKESPECIAL || seen == Const.INVOKESTATIC || seen == Const.INVOKEINTERFACE || seen == Const.INVOKEVIRTUAL) {
+        if (seen == Const.INVOKESPECIAL || seen == Const.INVOKESTATIC || seen == Const.INVOKEINTERFACE
+                || seen == Const.INVOKEVIRTUAL) {
             int[] params = allFileNameStringMethods.get(getMethodDescriptorOperand());
             if (params != null) {
                 int numArgs = getNumberArguments(getSigConstantOperand());
                 for (int param : params) {
                     OpcodeStack.Item path = stack.getStackItem(numArgs - 1 - param);
                     if (isTainted(path)) {
-                        String bugPattern = taintPriority(path) == Priorities.HIGH_PRIORITY ? "PT_ABSOLUTE_PATH_TRAVERSAL"
-                                : "PT_RELATIVE_PATH_TRAVERSAL";
-                        annotateAndReport(new BugInstance(this, bugPattern, Priorities.NORMAL_PRIORITY).addClassAndMethod(this)
-                                .addCalledMethod(this), path);
+                        String bugPattern = taintPriority(path) == Priorities.HIGH_PRIORITY
+                                ? "PT_ABSOLUTE_PATH_TRAVERSAL" : "PT_RELATIVE_PATH_TRAVERSAL";
+                        annotateAndReport(new BugInstance(this, bugPattern, Priorities.NORMAL_PRIORITY)
+                                .addClassAndMethod(this).addCalledMethod(this), path);
                     }
                 }
             }
@@ -120,14 +121,16 @@ public class CrossSiteScripting extends OpcodeStackDetector {
             String calledMethodName = getNameConstantOperand();
             String calledMethodSig = getSigConstantOperand();
 
-            if (("javax/servlet/http/Cookie".equals(calledClassName) || "jakarta/servlet/http/Cookie".equals(calledClassName))
+            if (("javax/servlet/http/Cookie".equals(calledClassName)
+                    || "jakarta/servlet/http/Cookie".equals(calledClassName))
                     && Const.CONSTRUCTOR_NAME.equals(calledMethodName)
                     && "(Ljava/lang/String;Ljava/lang/String;)V".equals(calledMethodSig)) {
                 OpcodeStack.Item value = stack.getStackItem(0);
                 OpcodeStack.Item name = stack.getStackItem(1);
                 if (value.isServletParameterTainted() || name.isServletParameterTainted()) {
                     int priority = Math.min(taintPriority(value), taintPriority(name));
-                    annotateAndReport(new BugInstance(this, "HRS_REQUEST_PARAMETER_TO_COOKIE", priority).addClassAndMethod(this),
+                    annotateAndReport(
+                            new BugInstance(this, "HRS_REQUEST_PARAMETER_TO_COOKIE", priority).addClassAndMethod(this),
                             value.isServletParameterTainted() ? value : name);
                 }
 
@@ -137,14 +140,15 @@ public class CrossSiteScripting extends OpcodeStackDetector {
             String calledClassName = getClassConstantOperand();
             String calledMethodName = getNameConstantOperand();
             String calledMethodSig = getSigConstantOperand();
-            if (("javax/servlet/http/HttpServletResponse".equals(calledClassName) || "jakarta/servlet/http/HttpServletResponse".equals(
-                    calledClassName))
+            if (("javax/servlet/http/HttpServletResponse".equals(calledClassName)
+                    || "jakarta/servlet/http/HttpServletResponse".equals(calledClassName))
                     && "setContentType".equals(calledMethodName)) {
                 OpcodeStack.Item writing = stack.getStackItem(0);
                 if ("text/plain".equals(writing.getConstant())) {
                     isPlainText = true;
                 }
-            } else if (("javax/servlet/http/HttpSession".equals(calledClassName) || "jakarta/servlet/http/HttpSession".equals(calledClassName))
+            } else if (("javax/servlet/http/HttpSession".equals(calledClassName)
+                    || "jakarta/servlet/http/HttpSession".equals(calledClassName))
                     && "setAttribute".equals(calledMethodName)) {
 
                 OpcodeStack.Item value = stack.getStackItem(0);
@@ -153,7 +157,8 @@ public class CrossSiteScripting extends OpcodeStackDetector {
                 if (nameConstant instanceof String) {
                     map.put((String) nameConstant, value);
                 }
-            } else if (("javax/servlet/http/HttpSession".equals(calledClassName) || "jakarta/servlet/http/HttpSession".equals(calledClassName))
+            } else if (("javax/servlet/http/HttpSession".equals(calledClassName)
+                    || "jakarta/servlet/http/HttpSession".equals(calledClassName))
                     && "getAttribute".equals(calledMethodName)) {
                 OpcodeStack.Item name = stack.getStackItem(0);
                 Object nameConstant = name.getConstant();
@@ -164,8 +169,8 @@ public class CrossSiteScripting extends OpcodeStackDetector {
                         replaceTop = top;
                     }
                 }
-            } else if (("javax/servlet/http/HttpServletResponse".equals(calledClassName) || "jakarta/servlet/http/HttpServletResponse".equals(
-                    calledClassName))
+            } else if (("javax/servlet/http/HttpServletResponse".equals(calledClassName)
+                    || "jakarta/servlet/http/HttpServletResponse".equals(calledClassName))
                     && (calledMethodName.startsWith("send") || calledMethodName.endsWith("Header"))
                     && calledMethodSig.endsWith("Ljava/lang/String;)V")) {
 
@@ -191,8 +196,10 @@ public class CrossSiteScripting extends OpcodeStackDetector {
             String calledMethodSig = getSigConstantOperand();
 
             if ((calledMethodName.startsWith("print") || "write".equals(calledMethodName))
-                    && ("javax/servlet/jsp/JspWriter".equals(calledClassName) || "jakarta/servlet/jsp/JspWriter".equals(calledClassName))
-                    && ("(Ljava/lang/Object;)V".equals(calledMethodSig) || "(Ljava/lang/String;)V".equals(calledMethodSig))) {
+                    && ("javax/servlet/jsp/JspWriter".equals(calledClassName)
+                            || "jakarta/servlet/jsp/JspWriter".equals(calledClassName))
+                    && ("(Ljava/lang/Object;)V".equals(calledMethodSig)
+                            || "(Ljava/lang/String;)V".equals(calledMethodSig))) {
                 OpcodeStack.Item writing = stack.getStackItem(0);
                 // System.out.println(SourceLineAnnotation.fromVisitedInstruction(this)
                 // + " writing " + writing);
@@ -209,7 +216,8 @@ public class CrossSiteScripting extends OpcodeStackDetector {
                 }
             } else if (calledClassName.startsWith("java/io/") && calledClassName.endsWith("Writer")
                     && (calledMethodName.startsWith("print") || calledMethodName.startsWith("write"))
-                    && ("(Ljava/lang/Object;)V".equals(calledMethodSig) || "(Ljava/lang/String;)V".equals(calledMethodSig))) {
+                    && ("(Ljava/lang/Object;)V".equals(calledMethodSig)
+                            || "(Ljava/lang/String;)V".equals(calledMethodSig))) {
                 OpcodeStack.Item writing = stack.getStackItem(0);
                 OpcodeStack.Item writingTo = stack.getStackItem(1);
                 if (isTainted(writing) && writingTo.isServletWriter()) {
@@ -236,20 +244,12 @@ public class CrossSiteScripting extends OpcodeStackDetector {
     }
 
     /*
-    private boolean isDirectTaint(OpcodeStack.Item writing) {
-        if (writing == null)
-            return false;
-        if (! writing.isServletParameterTainted())
-            return false;
-        XMethod m = writing.getReturnValueOf();
-        if (m == null)
-            return false;
-        if (!m.getName().equals("getParameter"))
-            return false;
-        String clsName = m.getClassName();
-        return clsName.equals("javax/servlet/http/HttpServletRequest") || clsName.equals("javax/servlet/http/ServletRequest")
-                || clsName.equals("jakarta/servlet/http/HttpServletRequest") || clsName.equals("jakarta/servlet/http/ServletRequest");
-    }
+     * private boolean isDirectTaint(OpcodeStack.Item writing) { if (writing == null) return false; if (!
+     * writing.isServletParameterTainted()) return false; XMethod m = writing.getReturnValueOf(); if (m == null) return
+     * false; if (!m.getName().equals("getParameter")) return false; String clsName = m.getClassName(); return
+     * clsName.equals("javax/servlet/http/HttpServletRequest") || clsName.equals("javax/servlet/http/ServletRequest") ||
+     * clsName.equals("jakarta/servlet/http/HttpServletRequest") ||
+     * clsName.equals("jakarta/servlet/http/ServletRequest"); }
      */
 
     private int taintPriority(OpcodeStack.Item writing) {

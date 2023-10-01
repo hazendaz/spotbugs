@@ -68,7 +68,8 @@ public class MainFrameLoadSaveHelper implements Serializable {
             f = filterOpenFileChooser.getSelectedFile();
 
             if (!f.exists()) {
-                JOptionPane.showMessageDialog(filterOpenFileChooser, "No such file", "Invalid File", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(filterOpenFileChooser, "No such file", "Invalid File",
+                        JOptionPane.WARNING_MESSAGE);
                 retry = true;
                 continue;
             }
@@ -113,8 +114,9 @@ public class MainFrameLoadSaveHelper implements Serializable {
             final File f = saveOpenFileChooser.getSelectedFile();
 
             if (!fileType.isValid(f)) {
-                JOptionPane.showMessageDialog(saveOpenFileChooser, "That file is not compatible with the chosen file type",
-                        "Invalid File", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(saveOpenFileChooser,
+                        "That file is not compatible with the chosen file type", "Invalid File",
+                        JOptionPane.WARNING_MESSAGE);
                 loading = true;
                 continue;
             }
@@ -130,7 +132,8 @@ public class MainFrameLoadSaveHelper implements Serializable {
 
                 if (!mainFrame.openAnalysis(f, fileType)) {
                     // TODO: Deal if something happens when loading analysis
-                    JOptionPane.showMessageDialog(saveOpenFileChooser, "An error occurred while trying to load the analysis.");
+                    JOptionPane.showMessageDialog(saveOpenFileChooser,
+                            "An error occurred while trying to load the analysis.");
                     loading = true;
                     continue tryAgain;
                 }
@@ -138,7 +141,8 @@ public class MainFrameLoadSaveHelper implements Serializable {
             case FBP_FILE:
                 if (!openFBPFile(f)) {
                     // TODO: Deal if something happens when loading analysis
-                    JOptionPane.showMessageDialog(saveOpenFileChooser, "An error occurred while trying to load the analysis.");
+                    JOptionPane.showMessageDialog(saveOpenFileChooser,
+                            "An error occurred while trying to load the analysis.");
                     loading = true;
                     continue tryAgain;
                 }
@@ -146,7 +150,8 @@ public class MainFrameLoadSaveHelper implements Serializable {
             case FBA_FILE:
                 if (!openFBAFile(f)) {
                     // TODO: Deal if something happens when loading analysis
-                    JOptionPane.showMessageDialog(saveOpenFileChooser, "An error occurred while trying to load the analysis.");
+                    JOptionPane.showMessageDialog(saveOpenFileChooser,
+                            "An error occurred while trying to load the analysis.");
                     loading = true;
                     continue tryAgain;
                 }
@@ -160,9 +165,11 @@ public class MainFrameLoadSaveHelper implements Serializable {
     /** Returns true if cancelled */
     private boolean askToSave() {
         if (mainFrame.isProjectChanged()) {
-            int response = JOptionPane.showConfirmDialog(mainFrame, L10N.getLocalString("dlg.save_current_changes",
-                    "The current project has been changed, Save current changes?"), L10N.getLocalString("dlg.save_changes",
-                            "Save Changes?"), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(mainFrame,
+                    L10N.getLocalString("dlg.save_current_changes",
+                            "The current project has been changed, Save current changes?"),
+                    L10N.getLocalString("dlg.save_changes", "Save Changes?"), JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
 
             if (response == JOptionPane.YES_OPTION) {
                 if (mainFrame.getSaveFile() != null) {
@@ -245,7 +252,8 @@ public class MainFrameLoadSaveHelper implements Serializable {
         saveOpenFileChooser.setDialogTitle(L10N.getLocalString("dlg.saveas_ttl", "Save as..."));
 
         if (mainFrame.getCurrentProject() == null) {
-            JOptionPane.showMessageDialog(mainFrame, L10N.getLocalString("dlg.no_proj_save_lbl", "There is no project to save"));
+            JOptionPane.showMessageDialog(mainFrame,
+                    L10N.getLocalString("dlg.no_proj_save_lbl", "There is no project to save"));
             return false;
         }
 
@@ -277,8 +285,9 @@ public class MainFrameLoadSaveHelper implements Serializable {
             f = convertFile(f, fileType);
 
             if (!fileType.isValid(f)) {
-                JOptionPane.showMessageDialog(saveOpenFileChooser, "That file is not compatible with the chosen file type",
-                        "Invalid File", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(saveOpenFileChooser,
+                        "That file is not compatible with the chosen file type", "Invalid File",
+                        JOptionPane.WARNING_MESSAGE);
                 retry = true;
                 continue;
             }
@@ -290,27 +299,31 @@ public class MainFrameLoadSaveHelper implements Serializable {
                 switch (fileType) {
                 case HTML_OUTPUT:
                     response = JOptionPane.showConfirmDialog(saveOpenFileChooser,
-                            L10N.getLocalString("dlg.analysis_exists_lbl", "This html output already exists.\nReplace it?"),
+                            L10N.getLocalString("dlg.analysis_exists_lbl",
+                                    "This html output already exists.\nReplace it?"),
                             L10N.getLocalString("dlg.warning_ttl", "Warning!"), JOptionPane.OK_CANCEL_OPTION,
                             JOptionPane.WARNING_MESSAGE);
                     break;
                 case XML_ANALYSIS:
                     response = JOptionPane.showConfirmDialog(saveOpenFileChooser,
-                            L10N.getLocalString("dlg.analysis_exists_lbl", "This analysis already exists.\nReplace it?"),
+                            L10N.getLocalString("dlg.analysis_exists_lbl",
+                                    "This analysis already exists.\nReplace it?"),
                             L10N.getLocalString("dlg.warning_ttl", "Warning!"), JOptionPane.OK_CANCEL_OPTION,
                             JOptionPane.WARNING_MESSAGE);
                     break;
                 case FBP_FILE:
                     response = JOptionPane.showConfirmDialog(saveOpenFileChooser,
                             L10N.getLocalString("FB Project File already exists",
-                                    "This FB project file already exists.\nDo you want to replace it?"), L10N.getLocalString(
-                                            "dlg.warning_ttl", "Warning!"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                                    "This FB project file already exists.\nDo you want to replace it?"),
+                            L10N.getLocalString("dlg.warning_ttl", "Warning!"), JOptionPane.OK_CANCEL_OPTION,
+                            JOptionPane.WARNING_MESSAGE);
                     break;
                 case FBA_FILE:
-                    response = JOptionPane.showConfirmDialog(saveOpenFileChooser, L10N.getLocalString(
-                            "FB Analysis File already exists",
-                            "This FB analysis file already exists.\nDo you want to replace it?"), L10N.getLocalString(
-                                    "dlg.warning_ttl", "Warning!"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                    response = JOptionPane.showConfirmDialog(saveOpenFileChooser,
+                            L10N.getLocalString("FB Analysis File already exists",
+                                    "This FB analysis file already exists.\nDo you want to replace it?"),
+                            L10N.getLocalString("dlg.warning_ttl", "Warning!"), JOptionPane.OK_CANCEL_OPTION,
+                            JOptionPane.WARNING_MESSAGE);
                     break;
                 default:
                     assert false;
@@ -413,7 +426,8 @@ public class MainFrameLoadSaveHelper implements Serializable {
         }
 
         if (result != SaveReturn.SAVE_SUCCESSFUL) {
-            JOptionPane.showMessageDialog(mainFrame, L10N.getLocalString("dlg.saving_error_lbl", "An error occurred in saving."));
+            JOptionPane.showMessageDialog(mainFrame,
+                    L10N.getLocalString("dlg.saving_error_lbl", "An error occurred in saving."));
         }
     }
 
@@ -464,9 +478,8 @@ public class MainFrameLoadSaveHelper implements Serializable {
     }
 
     /**
-     * Save current analysis as file passed in. Return SAVE_SUCCESSFUL if save
-     * successful. Method doesn't do much. This method is more if need to do
-     * other things in the future for saving analysis. And to keep saving naming
+     * Save current analysis as file passed in. Return SAVE_SUCCESSFUL if save successful. Method doesn't do much. This
+     * method is more if need to do other things in the future for saving analysis. And to keep saving naming
      * convention.
      */
     SaveReturn saveAnalysis(final File f) {

@@ -59,7 +59,8 @@ public class BadlyOverriddenAdapter extends BytecodeScanningDetector {
             String className = superClass.getClassName();
 
             // A more generic way to add Adapters would be nice here
-            isAdapter = ((className.endsWith("Adapter")) && ("java.awt.event".equals(packageName) || "javax.swing.event".equals(packageName)))
+            isAdapter = ((className.endsWith("Adapter"))
+                    && ("java.awt.event".equals(packageName) || "javax.swing.event".equals(packageName)))
                     || (("DefaultHandler".equals(className) && ("org.xml.sax.helpers".equals(packageName))));
             if (isAdapter) {
                 Method[] methods = superClass.getMethods();
@@ -89,8 +90,9 @@ public class BadlyOverriddenAdapter extends BytecodeScanningDetector {
             if (!Const.CONSTRUCTOR_NAME.equals(methodName) && signature != null) {
                 if (!signature.equals(obj.getSignature())) {
                     if (!badOverrideMap.keySet().contains(methodName)) {
-                        badOverrideMap.put(methodName, new BugInstance(this, "BOA_BADLY_OVERRIDDEN_ADAPTER", NORMAL_PRIORITY)
-                                .addClassAndMethod(this).addSourceLine(this));
+                        badOverrideMap.put(methodName,
+                                new BugInstance(this, "BOA_BADLY_OVERRIDDEN_ADAPTER", NORMAL_PRIORITY)
+                                        .addClassAndMethod(this).addSourceLine(this));
                     }
                 } else {
                     badOverrideMap.put(methodName, null);

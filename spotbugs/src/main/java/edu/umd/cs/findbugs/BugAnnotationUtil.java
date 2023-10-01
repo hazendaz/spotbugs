@@ -42,6 +42,7 @@ public abstract class BugAnnotationUtil {
      *            the XML attribute list
      * @param addMessages
      *            true if descriptive messages should be added
+     *
      * @throws IOException
      */
     public static void writeXML(XMLOutput xmlOutput, String elementName, BugAnnotation annotation,

@@ -76,8 +76,9 @@ public class FilterPatternAction implements IObjectActionDelegate {
         store.setValue(FindBugsConstants.LAST_USED_EXPORT_FILTER, ids);
         BugContentProvider provider = BugContentProvider.getProvider(navigator.getNavigatorContentService());
         if (!provider.isBugFilterActive()) {
-            MessageDialog.openWarning(null, "Toggle Filter", "Filtering by pattern or type id is currently not enabled!\n"
-                    + "To enable it, please select \"Toggle Filters...->Bugs by Id\" filter!");
+            MessageDialog.openWarning(null, "Toggle Filter",
+                    "Filtering by pattern or type id is currently not enabled!\n"
+                            + "To enable it, please select \"Toggle Filters...->Bugs by Id\" filter!");
 
         }
         provider.refreshFilters();

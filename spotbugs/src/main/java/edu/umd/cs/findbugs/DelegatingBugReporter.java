@@ -27,8 +27,8 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * A BugReporter which delegates all method calls to another BugReporter. This
- * is useful for customizing the behavior of another bug reporter.
+ * A BugReporter which delegates all method calls to another BugReporter. This is useful for customizing the behavior of
+ * another bug reporter.
  *
  * @author David Hovemeyer
  */

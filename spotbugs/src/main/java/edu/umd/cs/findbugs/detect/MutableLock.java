@@ -82,12 +82,14 @@ public class MutableLock extends BytecodeScanningDetector implements StatelessDe
             }
             break;
         case Const.GETFIELD:
-            if (thisOnTOS && getClassConstantOperand().equals(getClassName()) && setFields.contains(getNameConstantOperand())
-                    && asUnsignedByte(codeBytes[getPC() + 3]) == Const.DUP && asUnsignedByte(codeBytes[getPC() + 5]) == Const.MONITORENTER
+            if (thisOnTOS && getClassConstantOperand().equals(getClassName())
+                    && setFields.contains(getNameConstantOperand())
+                    && asUnsignedByte(codeBytes[getPC() + 3]) == Const.DUP
+                    && asUnsignedByte(codeBytes[getPC() + 5]) == Const.MONITORENTER
 
                     && !finalFields.contains(getNameConstantOperand())) {
-                bugReporter.reportBug(new BugInstance(this, "ML_SYNC_ON_UPDATED_FIELD", NORMAL_PRIORITY).addClassAndMethod(this)
-                        .addReferencedField(this).addSourceLine(this, getPC() + 5));
+                bugReporter.reportBug(new BugInstance(this, "ML_SYNC_ON_UPDATED_FIELD", NORMAL_PRIORITY)
+                        .addClassAndMethod(this).addReferencedField(this).addSourceLine(this, getPC() + 5));
             }
             break;
         default:

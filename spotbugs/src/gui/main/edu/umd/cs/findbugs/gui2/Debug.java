@@ -20,8 +20,7 @@
 package edu.umd.cs.findbugs.gui2;
 
 /**
- * For debugging purposes only... Make sure DEBUG is set to false before you
- * release a new version.
+ * For debugging purposes only... Make sure DEBUG is set to false before you release a new version.
  *
  * @author Dan
  *

@@ -103,8 +103,7 @@ public class SystemProperties {
     }
 
     /**
-     * This method is public to allow clients to set system properties via any
-     * {@link URL}
+     * This method is public to allow clients to set system properties via any {@link URL}
      *
      * @param url
      *            an url to load system properties from, may be nullerrorMsg
@@ -121,14 +120,11 @@ public class SystemProperties {
     }
 
     /**
-     * Get boolean property, returning false if a security manager prevents us
-     * from accessing system properties
+     * Get boolean property, returning false if a security manager prevents us from accessing system properties
      * <p>
      * (incomplete) list of known system properties
      * <ul>
-     * <li>
-     * "report_TESTING_pattern_in_standard_detectors" - default is false
-     * </li>
+     * <li>"report_TESTING_pattern_in_standard_detectors" - default is false</li>
      * </ul>
      *
      * @return true if the property exists and is set to true
@@ -159,7 +155,9 @@ public class SystemProperties {
      *            property name
      * @param arg1
      *            default value
+     *
      * @return the int value (or arg1 if the property does not exist)
+     *
      * @deprecated Use {@link #getInt(String,int)} instead
      */
     @Deprecated
@@ -172,6 +170,7 @@ public class SystemProperties {
      *            property name
      * @param defaultValue
      *            default value
+     *
      * @return the int value (or defaultValue if the property does not exist)
      */
     public static int getInt(String name, int defaultValue) {
@@ -189,6 +188,7 @@ public class SystemProperties {
     /**
      * @param name
      *            property name
+     *
      * @return string value (or null if the property does not exist)
      */
     public static String getOSDependentProperty(String name) {
@@ -203,6 +203,7 @@ public class SystemProperties {
     /**
      * @param name
      *            property name
+     *
      * @return string value (or null if the property does not exist)
      */
     public static String getProperty(String name) {
@@ -231,6 +232,7 @@ public class SystemProperties {
      *            property name
      * @param defaultValue
      *            default value
+     *
      * @return string value (or defaultValue if the property does not exist)
      */
     public static String getProperty(String name, String defaultValue) {
@@ -258,8 +260,8 @@ public class SystemProperties {
                 p = Pattern.compile(URL_REWRITE_PATTERN_STRING);
                 String ignored = String.format(URL_REWRITE_FORMAT, "");
             } catch (PatternSyntaxException e) {
-                throw new IllegalArgumentException("Bad findbugs.urlRewritePattern '" + URL_REWRITE_PATTERN_STRING + "' - "
-                        + e.getClass().getSimpleName() + ": " + e.getMessage());
+                throw new IllegalArgumentException("Bad findbugs.urlRewritePattern '" + URL_REWRITE_PATTERN_STRING
+                        + "' - " + e.getClass().getSimpleName() + ": " + e.getMessage());
             } catch (IllegalFormatException e) {
                 throw new IllegalArgumentException("Bad findbugs.urlRewriteFormat '" + URL_REWRITE_FORMAT + "' - "
                         + e.getClass().getSimpleName() + ": " + e.getMessage());

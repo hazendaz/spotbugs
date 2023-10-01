@@ -47,8 +47,7 @@ import edu.umd.cs.findbugs.xml.OutputStreamXMLOutput;
 import edu.umd.cs.findbugs.xml.XMLOutput;
 
 /**
- * Filter to match a subset of BugInstances. The filter criteria are read from
- * an XML file.
+ * Filter to match a subset of BugInstances. The filter criteria are read from an XML file.
  *
  * @author David Hovemeyer
  */
@@ -128,6 +127,7 @@ public class Filter extends OrMatcher {
      *
      * @param fileName
      *            name of the filter file
+     *
      * @throws IOException
      */
     public Filter(String fileName) throws IOException {
@@ -143,6 +143,7 @@ public class Filter extends OrMatcher {
      *
      * @param stream
      *            content of the filter file
+     *
      * @throws IOException
      */
     public Filter(InputStream stream) throws IOException {
@@ -201,6 +202,7 @@ public class Filter extends OrMatcher {
      *
      * @param fileName
      *            name of the filter file
+     *
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
@@ -216,11 +218,13 @@ public class Filter extends OrMatcher {
      *
      * @param fileName
      *            name of the filter file
+     *
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
      */
-    private void parse(String fileName, @WillClose InputStream stream) throws IOException, SAXException, ParserConfigurationException {
+    private void parse(String fileName, @WillClose InputStream stream)
+            throws IOException, SAXException, ParserConfigurationException {
         try {
             SAXBugCollectionHandler handler = new SAXBugCollectionHandler(this, new File(fileName));
             SAXParserFactory parserFactory = SAXParserFactory.newInstance();

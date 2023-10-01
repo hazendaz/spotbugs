@@ -71,7 +71,8 @@ public class TestingGround {
         DetectorFactoryCollection.instance(); // load plugins
 
         CommandLine commandLine = new CommandLine();
-        int argCount = commandLine.parse(args, 0, 2, "Usage: " + TestingGround.class.getName() + " [options] [<xml results>] ");
+        int argCount = commandLine.parse(args, 0, 2,
+                "Usage: " + TestingGround.class.getName() + " [options] [<xml results>] ");
 
         SortedBugCollection bugCollection = new SortedBugCollection();
         if (argCount < args.length) {

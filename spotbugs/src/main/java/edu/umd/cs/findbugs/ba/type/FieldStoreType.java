@@ -31,9 +31,8 @@ import edu.umd.cs.findbugs.ba.Hierarchy;
 import edu.umd.cs.findbugs.ba.ch.Subtypes2;
 
 /**
- * Field property storing the types of values stored in a field. The idea is
- * that we may be able to determine a more precise type for values loaded from
- * the field than the field type alone would indicate.
+ * Field property storing the types of values stored in a field. The idea is that we may be able to determine a more
+ * precise type for values loaded from the field than the field type alone would indicate.
  *
  * @author David Hovemeyer
  */
@@ -77,10 +76,8 @@ public class FieldStoreType {
                 // FIXME: this will mangle interface types, since
                 // getFirstCommonSuperclass() ignores interfaces.
                 /*
-                 * leastSupertype = (leastSupertype == null) ? (ReferenceType)
-                 * type :
-                 * leastSupertype.getFirstCommonSuperclass((ReferenceType)
-                 * type);
+                 * leastSupertype = (leastSupertype == null) ? (ReferenceType) type :
+                 * leastSupertype.getFirstCommonSuperclass((ReferenceType) type);
                  */
                 if (leastSupertype == null) {
                     leastSupertype = (ReferenceType) type;

@@ -101,8 +101,7 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
 
         final Map<ClassDescriptor, AnnotationValue> methodAnnotations = new HashMap<>(4);
 
-        final Map<Integer, Map<ClassDescriptor, AnnotationValue>> methodParameterAnnotations = new HashMap<>(
-                4);
+        final Map<Integer, Map<ClassDescriptor, AnnotationValue>> methodParameterAnnotations = new HashMap<>(4);
 
         @Override
         public String toString() {
@@ -191,8 +190,8 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
             }
             return new MethodInfo(className, methodName, methodSignature, methodSourceSignature, accessFlags,
                     isUnconditionalThrower, isUnsupported, usesConcurrency, hasBackBranch, isStub, isIdentity,
-                    usesInvokeDynamic, methodCallCount, exceptions, accessMethodForMethod,
-                    accessMethodForField, methodAnnotations, methodParameterAnnotations, variableIsSynthetic);
+                    usesInvokeDynamic, methodCallCount, exceptions, accessMethodForMethod, accessMethodForField,
+                    methodAnnotations, methodParameterAnnotations, variableIsSynthetic);
         }
 
         public void setIsUnconditionalThrower() {
@@ -284,14 +283,13 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
         return getDatabase().invokeDynamicMethods;
     }
 
-    MethodInfo(@SlashedClassName String className, String methodName, String methodSignature, String methodSourceSignature,
-            int accessFlags, boolean isUnconditionalThrower, boolean isUnsupported, boolean usesConcurrency,
-            boolean hasBackBranch, boolean isStub, boolean isIdentity,
+    MethodInfo(@SlashedClassName String className, String methodName, String methodSignature,
+            String methodSourceSignature, int accessFlags, boolean isUnconditionalThrower, boolean isUnsupported,
+            boolean usesConcurrency, boolean hasBackBranch, boolean isStub, boolean isIdentity,
             boolean usesInvokeDynamic, int methodCallCount, @CheckForNull String[] exceptions,
-            @CheckForNull MethodDescriptor accessMethodForMethod,
-            @CheckForNull FieldDescriptor accessMethodForField,
-            Map<ClassDescriptor, AnnotationValue> methodAnnotations, Map<Integer, Map<ClassDescriptor, AnnotationValue>> methodParameterAnnotations,
-            long variableIsSynthetic) {
+            @CheckForNull MethodDescriptor accessMethodForMethod, @CheckForNull FieldDescriptor accessMethodForField,
+            Map<ClassDescriptor, AnnotationValue> methodAnnotations,
+            Map<Integer, Map<ClassDescriptor, AnnotationValue>> methodParameterAnnotations, long variableIsSynthetic) {
         super(className, methodName, methodSignature, (accessFlags & Const.ACC_STATIC) != 0);
         this.accessFlags = accessFlags;
         this.exceptions = exceptions;
@@ -327,7 +325,8 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
 
     private boolean computeHasPolymorphicSignature(Map<ClassDescriptor, AnnotationValue> methodAnnotations) {
         for (ClassDescriptor annotationDescriptor : methodAnnotations.keySet()) {
-            if ("java.lang.invoke.MethodHandle$PolymorphicSignature".equals(annotationDescriptor.getDottedClassName())) {
+            if ("java.lang.invoke.MethodHandle$PolymorphicSignature"
+                    .equals(annotationDescriptor.getDottedClassName())) {
                 return true;
             }
         }
@@ -339,8 +338,6 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
     public @CheckForNull String[] getThrownExceptions() {
         return exceptions;
     }
-
-
 
     @Override
     public boolean isUnconditionalThrower() {
@@ -356,7 +353,6 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
     public boolean usesInvokeDynamic() {
         return getInvokeDynamicMethods().containsKey(this);
     }
-
 
     @Override
     public boolean isUnsupported() {
@@ -446,7 +442,8 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
             return XFactory.compare((XMethod) this, (XMethod) rhs);
         }
 
-        throw new ClassCastException("Can't compare a " + this.getClass().getName() + " to a " + rhs.getClass().getName());
+        throw new ClassCastException(
+                "Can't compare a " + this.getClass().getName() + " to a " + rhs.getClass().getName());
     }
 
     /*
@@ -523,7 +520,7 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
     public Collection<ClassDescriptor> getParameterAnnotationDescriptors(int param) {
         Map<ClassDescriptor, AnnotationValue> map = methodParameterAnnotations.get(param);
         if (map == null) {
-            return Collections.<ClassDescriptor>emptySet();
+            return Collections.<ClassDescriptor> emptySet();
         }
         return map.keySet();
     }
@@ -546,7 +543,7 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
     public Collection<AnnotationValue> getParameterAnnotations(int param) {
         Map<ClassDescriptor, AnnotationValue> map = methodParameterAnnotations.get(param);
         if (map == null) {
-            return Collections.<AnnotationValue>emptySet();
+            return Collections.<AnnotationValue> emptySet();
         }
         return map.values();
     }
@@ -575,18 +572,16 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
     }
 
     /**
-     * Destructively add an annotation. We do this for "built-in" annotations
-     * that might not be directly evident in the code. It's not a great idea in
-     * general, but we can get away with it as long as it's done early enough
-     * (i.e., before anyone asks what annotations this method has.)
+     * Destructively add an annotation. We do this for "built-in" annotations that might not be directly evident in the
+     * code. It's not a great idea in general, but we can get away with it as long as it's done early enough (i.e.,
+     * before anyone asks what annotations this method has.)
      *
      * @param annotationValue
      *            an AnnotationValue representing a method annotation
      */
     @Override
     public void addAnnotation(AnnotationValue annotationValue) {
-        HashMap<ClassDescriptor, AnnotationValue> updatedAnnotations = new HashMap<>(
-                methodAnnotations);
+        HashMap<ClassDescriptor, AnnotationValue> updatedAnnotations = new HashMap<>(methodAnnotations);
         updatedAnnotations.put(annotationValue.getAnnotationClass(), annotationValue);
         methodAnnotations = updatedAnnotations;
         TypeQualifierApplications.updateAnnotations(this);
@@ -659,7 +654,6 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
         return usesConcurrency;
     }
 
-
     public boolean hasBackBranch() {
         return hasBackBranch;
     }
@@ -715,28 +709,17 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
     }
 
     /**
-     * @param otherMethodSignature A method signature, for instance ()Ljava/lang/Object;
+     * @param otherMethodSignature
+     *            A method signature, for instance ()Ljava/lang/Object;
+     *
      * @return a new {@link MethodInfo} with the given signature
      */
     public MethodInfo withSignature(String otherMethodSignature) {
-        return new MethodInfo(getSlashedClassName(),
-                getName(),
-                otherMethodSignature,
-                otherMethodSignature,
-                accessFlags,
-                getUnconditionalthrowers().containsKey(this),
-                getUnconditionalthrowers().containsKey(this),
-                usesConcurrency,
-                hasBackBranch,
-                isStub,
-                getIdentitymethods().containsKey(this),
-                getInvokeDynamicMethods().containsKey(this),
-                methodCallCount,
-                exceptions,
-                getAccessmethodformethod().get(this),
-                getAccessmethodforfield().get(this),
-                methodAnnotations,
-                methodParameterAnnotations,
-                variableIsSynthetic);
+        return new MethodInfo(getSlashedClassName(), getName(), otherMethodSignature, otherMethodSignature, accessFlags,
+                getUnconditionalthrowers().containsKey(this), getUnconditionalthrowers().containsKey(this),
+                usesConcurrency, hasBackBranch, isStub, getIdentitymethods().containsKey(this),
+                getInvokeDynamicMethods().containsKey(this), methodCallCount, exceptions,
+                getAccessmethodformethod().get(this), getAccessmethodforfield().get(this), methodAnnotations,
+                methodParameterAnnotations, variableIsSynthetic);
     }
 }

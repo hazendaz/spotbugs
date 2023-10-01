@@ -20,8 +20,7 @@
 package edu.umd.cs.findbugs.classfile;
 
 /**
- * Interface for a registrar class that registers analysis engines with an
- * analysis cache.
+ * Interface for a registrar class that registers analysis engines with an analysis cache.
  *
  * @author David Hovemeyer
  */

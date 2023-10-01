@@ -57,12 +57,11 @@ import edu.umd.cs.findbugs.classfile.IErrorLogger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Dataflow analysis to track obligations (i/o streams and other resources which
- * must be closed).
+ * Dataflow analysis to track obligations (i/o streams and other resources which must be closed).
  *
  * <p>
- * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011"
- * >Finding and preventing run-time error handling mistakes</a>, OOPSLA 2004.
+ * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011" >Finding and preventing run-time error
+ * handling mistakes</a>, OOPSLA 2004.
  * </p>
  *
  * @author David Hovemeyer
@@ -105,8 +104,7 @@ public class ObligationAnalysis extends ForwardDataflowAnalysis<StateSet> {
      * @param factory
      *            the ObligationFactory defining the obligation types
      * @param database
-     *            the PolicyDatabase defining the methods which add and delete
-     *            obligations
+     *            the PolicyDatabase defining the methods which add and delete obligations
      * @param errorLogger
      *            callback to use when reporting missing classes
      */
@@ -211,9 +209,8 @@ public class ObligationAnalysis extends ForwardDataflowAnalysis<StateSet> {
         if (isPossibleIfComparison(edge)) {
             Obligation comparedObligation = comparesObligationTypeToNull(edge);
             if (comparedObligation != null/*
-                                          * && comparedObligation.equals(
-                                          * possiblyLeakedObligation)
-                                          */) {
+                                           * && comparedObligation.equals( possiblyLeakedObligation)
+                                           */) {
                 if (DEBUG_NULL_CHECK) {
                     System.out.println("Deleting " + comparedObligation.toString() + " on edge from comparison "
                             + edge.getSource().getLastInstruction());
@@ -226,7 +223,8 @@ public class ObligationAnalysis extends ForwardDataflowAnalysis<StateSet> {
                     Obligation resultSet = database.getFactory().getObligationByName("java.sql.ResultSet");
                     fact.deleteObligation(resultSet, edge.getTarget().getLabel());
                     if (DEBUG_NULL_CHECK) {
-                        LOG.debug("Deleting {} on edge from comparison {}", resultSet, edge.getSource().getLastInstruction());
+                        LOG.debug("Deleting {} on edge from comparison {}", resultSet,
+                                edge.getSource().getLastInstruction());
                     }
                 }
             }
@@ -374,9 +372,7 @@ public class ObligationAnalysis extends ForwardDataflowAnalysis<StateSet> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.DataflowAnalysis#makeFactTop(edu.umd.cs.findbugs
-     * .ba.obl.StateSet)
+     * @see edu.umd.cs.findbugs.ba.DataflowAnalysis#makeFactTop(edu.umd.cs.findbugs .ba.obl.StateSet)
      */
     @Override
     public void makeFactTop(StateSet fact) {
@@ -401,9 +397,9 @@ public class ObligationAnalysis extends ForwardDataflowAnalysis<StateSet> {
             for (Iterator<State> i = inputFact.stateIterator(); i.hasNext();) {
                 State state = i.next();
                 Path path = state.getPath();
-                if (path.getLength() > 0
-                        && path.getBlockIdAt(path.getLength() - 1) != edge.getSource().getLabel()) {
-                    throw new IllegalStateException("on edge " + edge + ": state " + state + " missing source label in path");
+                if (path.getLength() > 0 && path.getBlockIdAt(path.getLength() - 1) != edge.getSource().getLabel()) {
+                    throw new IllegalStateException(
+                            "on edge " + edge + ": state " + state + " missing source label in path");
                 }
             }
         }
@@ -413,8 +409,7 @@ public class ObligationAnalysis extends ForwardDataflowAnalysis<StateSet> {
             // Nothing to do
         } else if (inputFact.isBottom() || result.isTop() || result.isEmpty()) {
             copy(inputFact, result);
-        } else if (inputFact.isOnExceptionPath()
-                && !result.isOnExceptionPath()) {
+        } else if (inputFact.isOnExceptionPath() && !result.isOnExceptionPath()) {
             if (DEBUG) {
                 System.out.println("Ignoring " + inputFact + " in favor of " + result);
                 BasicBlock from = edge.getSource();
@@ -422,8 +417,7 @@ public class ObligationAnalysis extends ForwardDataflowAnalysis<StateSet> {
                 System.out.printf("  edge %s -> %s%n", from, to);
             }
             // Nothing to do
-        } else if (!inputFact.isOnExceptionPath() && !inputFact.isEmpty()
-                && result.isOnExceptionPath()) {
+        } else if (!inputFact.isOnExceptionPath() && !inputFact.isEmpty() && result.isOnExceptionPath()) {
             if (DEBUG) {
                 System.out.println("overwriting " + result + " with " + inputFact);
             }

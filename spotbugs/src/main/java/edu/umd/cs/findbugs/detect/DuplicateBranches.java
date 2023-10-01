@@ -177,8 +177,7 @@ public class DuplicateBranches extends PreorderVisitor implements Detector {
     }
 
     /**
-     * Like bb.getFirstInstruction() except that if null is returned it will
-     * follow the FALL_THROUGH_EDGE (if any)
+     * Like bb.getFirstInstruction() except that if null is returned it will follow the FALL_THROUGH_EDGE (if any)
      */
     private static InstructionHandle getDeepFirstInstruction(CFG cfg, BasicBlock bb) {
         InstructionHandle ih = bb.getFirstInstruction();
@@ -270,8 +269,8 @@ public class DuplicateBranches extends PreorderVisitor implements Detector {
         }
         for (Collection<Integer> clauses : map.values()) {
             if (clauses.size() > 1) {
-                BugInstance bug = new BugInstance(this, "DB_DUPLICATE_SWITCH_CLAUSES", LOW_PRIORITY).addClassAndMethod(
-                        classContext.getJavaClass(), method);
+                BugInstance bug = new BugInstance(this, "DB_DUPLICATE_SWITCH_CLAUSES", LOW_PRIORITY)
+                        .addClassAndMethod(classContext.getJavaClass(), method);
                 for (int i : clauses) {
                     bug.addSourceLineRange(this.classContext, this, switchPos[i], switchPos[i + 1] - 1); // not
                 }
@@ -303,8 +302,7 @@ public class DuplicateBranches extends PreorderVisitor implements Detector {
     }
 
     /**
-     * determine the end position (exclusive) of the final case by looking at
-     * the gotos at the ends of the other cases
+     * determine the end position (exclusive) of the final case by looking at the gotos at the ends of the other cases
      */
     private static int getFinalTarget(CFG cfg, int myPos, Collection<InstructionHandle> prevs) {
         int maxGoto = 0;
@@ -338,19 +336,16 @@ public class DuplicateBranches extends PreorderVisitor implements Detector {
             }
         }
         /*
-         * ok, there are three cases: a) maxGoto == myPos: There is no default
-         * case within the switch. b) maxGoto > myPos: maxGoto is the end
-         * (exclusive) of the default case c) maxGoto < myPos: all the cases do
-         * something like return or throw, so who knows if there is a default
-         * case (and it's length)?
+         * ok, there are three cases: a) maxGoto == myPos: There is no default case within the switch. b) maxGoto >
+         * myPos: maxGoto is the end (exclusive) of the default case c) maxGoto < myPos: all the cases do something like
+         * return or throw, so who knows if there is a default case (and it's length)?
          */
         if (maxGoto < myPos && myBB != null) {
             /*
-             * We're in case (c), so let's guess that the end of the basic block
-             * is the end of the default case (if it exists). This may give
-             * false negatives (if the default case has branches, for example)
-             * but shouldn't give false negatives (because if it matches one of
-             * the cases, then it has also matched that case's return/throw).
+             * We're in case (c), so let's guess that the end of the basic block is the end of the default case (if it
+             * exists). This may give false negatives (if the default case has branches, for example) but shouldn't give
+             * false negatives (because if it matches one of the cases, then it has also matched that case's
+             * return/throw).
              */
             InstructionHandle last = myBB.getLastInstruction();
             if (last != null) {
@@ -375,7 +370,8 @@ public class DuplicateBranches extends PreorderVisitor implements Detector {
             int pos;
             while (sequence.available() > 0 && ((pos = sequence.getIndex()) < end)) {
                 Instruction ins = Instruction.readInstruction(sequence);
-                if ((ins instanceof BranchInstruction) && !(ins instanceof TABLESWITCH) && !(ins instanceof LOOKUPSWITCH)) {
+                if ((ins instanceof BranchInstruction) && !(ins instanceof TABLESWITCH)
+                        && !(ins instanceof LOOKUPSWITCH)) {
                     BranchInstruction bi = (BranchInstruction) ins;
                     int offset = bi.getIndex();
                     int target = offset + pos;

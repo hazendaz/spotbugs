@@ -99,8 +99,7 @@ public class ResourceUtils {
     }
 
     /**
-     * recurse add all the files matching given name pattern inside the given
-     * directory and all subdirectories
+     * recurse add all the files matching given name pattern inside the given directory and all subdirectories
      */
     public static void addFiles(final Project findBugsProject, File clzDir, final Pattern pat) {
         if (clzDir.isDirectory()) {
@@ -111,6 +110,7 @@ public class ResourceUtils {
     /**
      * @param relativePath
      *            workspace relative path
+     *
      * @return given path if path is not known in workspace
      */
     public static IPath relativeToAbsolute(IPath relativePath) {
@@ -123,11 +123,10 @@ public class ResourceUtils {
     }
 
     /**
-     * Returns a list of all <b>Java source related</b> files in a resource
-     * delta. This is of help when performing an incremental build.
+     * Returns a list of all <b>Java source related</b> files in a resource delta. This is of help when performing an
+     * incremental build.
      *
-     * @return Collection A list of all <b>Java source related</b> files to be
-     *         built.
+     * @return Collection A list of all <b>Java source related</b> files to be built.
      */
     public static List<WorkItem> collectIncremental(IResourceDelta delta) {
         // XXX deleted packages should be considered to remove markers
@@ -143,7 +142,8 @@ public class ResourceUtils {
             int childType = child.getType();
             int deltaKind = childDelta.getKind();
             if (childType == IResource.FILE) {
-                if ((deltaKind == IResourceDelta.ADDED || deltaKind == IResourceDelta.CHANGED) && Util.isJavaFile(child)) {
+                if ((deltaKind == IResourceDelta.ADDED || deltaKind == IResourceDelta.CHANGED)
+                        && Util.isJavaFile(child)) {
                     result.add(new WorkItem(child));
                 }
             } else if (childType == IResource.FOLDER) {
@@ -173,20 +173,19 @@ public class ResourceUtils {
     }
 
     /**
-     * Collects and combines the selection which may contain sources from
-     * different projects and / or multiple sources from same project.
+     * Collects and combines the selection which may contain sources from different projects and / or multiple sources
+     * from same project.
      * <p>
-     * If selection contains hierarchical data (like file and it's parent
-     * directory), the only topmost element is returned (same for directories
-     * from projects).
+     * If selection contains hierarchical data (like file and it's parent directory), the only topmost element is
+     * returned (same for directories from projects).
      * <p>
-     * The children from selected parents are not resolved, so that the return
-     * value contains the 'highest' possible hierarchical elements without
-     * children.
+     * The children from selected parents are not resolved, so that the return value contains the 'highest' possible
+     * hierarchical elements without children.
      *
      * @param structuredSelection
-     * @return a map with the project as a key and selected resources as value.
-     *         If project itself was selected, then key is the same as value.
+     *
+     * @return a map with the project as a key and selected resources as value. If project itself was selected, then key
+     *         is the same as value.
      */
     public static Map<IProject, List<WorkItem>> getResourcesPerProject(IStructuredSelection structuredSelection) {
         Map<IProject, List<WorkItem>> projectsMap = new HashMap<>();
@@ -222,6 +221,7 @@ public class ResourceUtils {
     /**
      * @param wset
      *            non null working set
+     *
      * @return non null set with work items, which may be empty
      */
     public static Set<WorkItem> getResources(IWorkingSet wset) {
@@ -252,7 +252,8 @@ public class ResourceUtils {
      * @param resource
      * @param projectsMap
      */
-    private static void mapResource(WorkItem resource, Map<IProject, List<WorkItem>> projectsMap, boolean checkJavaProject) {
+    private static void mapResource(WorkItem resource, Map<IProject, List<WorkItem>> projectsMap,
+            boolean checkJavaProject) {
 
         IProject project = resource.getProject();
         if (checkJavaProject && !ProjectUtilities.isJavaProject(project)) {
@@ -275,6 +276,7 @@ public class ResourceUtils {
      * Extracts only files from a change set
      *
      * @param set
+     *
      * @return
      */
     @SuppressWarnings("restriction")
@@ -300,8 +302,8 @@ public class ResourceUtils {
     /**
      * @param resources
      * @param candidate
-     * @return true if the given list contains at least one parent of the given
-     *         candidate
+     *
+     * @return true if the given list contains at least one parent of the given candidate
      */
     private static boolean containsParents(List<WorkItem> resources, WorkItem candidate) {
         IPath location = candidate.getPath();
@@ -325,8 +327,8 @@ public class ResourceUtils {
      * Convenient method to get work items (java related stuff) from adaptables
      *
      * @param element
-     *            an IAdaptable object which may provide an adapter for
-     *            IResource
+     *            an IAdaptable object which may provide an adapter for IResource
+     *
      * @return resource object or null
      */
     @CheckForNull
@@ -347,7 +349,8 @@ public class ResourceUtils {
             Object adapter = ((IAdaptable) element).getAdapter(IResource.class);
             if (adapter instanceof IResource) {
                 IResource resource = (IResource) adapter;
-                if (resource.getType() == IResource.FILE && !Util.isJavaArtifact(resource) || !resource.isAccessible()) {
+                if (resource.getType() == IResource.FILE && !Util.isJavaArtifact(resource)
+                        || !resource.isAccessible()) {
                     // Ignore non java files or deleted/closed files/projects
                     return null;
                 }
@@ -369,8 +372,8 @@ public class ResourceUtils {
      * Convenient method to get resources from adaptables
      *
      * @param element
-     *            an IAdaptable object which may provide an adapter for
-     *            IResource
+     *            an IAdaptable object which may provide an adapter for IResource
+     *
      * @return resource object or null
      */
     @javax.annotation.CheckForNull

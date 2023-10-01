@@ -55,7 +55,8 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 public class SwitchFallthrough extends OpcodeStackDetector implements StatelessDetector {
     private static final boolean DEBUG = SystemProperties.getBoolean("switchFallthrough.debug");
 
-    private static final boolean LOOK_IN_SOURCE_FOR_FALLTHRU_COMMENT = SystemProperties.getBoolean("findbugs.sf.comment");
+    private static final boolean LOOK_IN_SOURCE_FOR_FALLTHRU_COMMENT = SystemProperties
+            .getBoolean("findbugs.sf.comment");
 
     private SwitchHandler switchHdlr;
 
@@ -110,7 +111,8 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
                 priority = LOW_PRIORITY;
             }
             for (SourceLineAnnotation s : found) {
-                bugAccumulator.accumulateBug(new BugInstance(this, "SF_SWITCH_FALLTHROUGH", priority).addClassAndMethod(this), s);
+                bugAccumulator.accumulateBug(
+                        new BugInstance(this, "SF_SWITCH_FALLTHROUGH", priority).addClassAndMethod(this), s);
             }
         }
 
@@ -134,8 +136,8 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
                 return;
             }
 
-            bugAccumulator.accumulateBug(new BugInstance(this, "SF_SWITCH_NO_DEFAULT", NORMAL_PRIORITY).addClassAndMethod(this),
-                    s);
+            bugAccumulator.accumulateBug(
+                    new BugInstance(this, "SF_SWITCH_NO_DEFAULT", NORMAL_PRIORITY).addClassAndMethod(this), s);
         }
 
     }
@@ -152,8 +154,8 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
                 System.out.printf("%4d: goto %-7d %s %s %s %d%n", getPC(), getBranchTarget(), reachable, isCaseOffset,
                         isDefaultOffset, switchHdlr.stackSize());
             } else {
-                System.out.printf("%4d: %-12s %s %s %s %d%n", getPC(), Const.getOpcodeName(seen), reachable, isCaseOffset,
-                        isDefaultOffset, switchHdlr.stackSize());
+                System.out.printf("%4d: %-12s %s %s %s %d%n", getPC(), Const.getOpcodeName(seen), reachable,
+                        isCaseOffset, isDefaultOffset, switchHdlr.stackSize());
             }
         }
 
@@ -166,13 +168,14 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
             potentiallyDeadFieldsFromBeforeFallthrough = new HashSet<>(potentiallyDeadFields);
             if (!hasFallThruComment(lastPC + 1, getPC() - 1)) {
                 if (!isDefaultOffset) {
-                    SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstructionRange(
-                            getClassContext(), this, lastPC, getPC());
+                    SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation
+                            .fromVisitedInstructionRange(getClassContext(), this, lastPC, getPC());
                     found.add(sourceLineAnnotation);
                 } else if (getPC() >= biggestJumpTarget) {
                     SourceLineAnnotation sourceLineAnnotation = switchHdlr.getCurrentSwitchStatement(this);
                     if (DEBUG) {
-                        System.out.printf("Found fallthrough to default offset at %d (BJT is %d)%n", getPC(), biggestJumpTarget);
+                        System.out.printf("Found fallthrough to default offset at %d (BJT is %d)%n", getPC(),
+                                biggestJumpTarget);
                     }
 
                     foundSwitchNoDefault(sourceLineAnnotation);
@@ -181,9 +184,7 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
 
         }
 
-        if (isSwitch(seen)
-                || isReturn(seen)
-                || (isBranch(seen) && isBranchTargetOutsideOfNextCase())) {
+        if (isSwitch(seen) || isReturn(seen) || (isBranch(seen) && isBranchTargetOutsideOfNextCase())) {
             clearAllDeadStores();
         }
 
@@ -201,8 +202,9 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
                 if (potentiallyDeadFields.contains(f) && potentiallyDeadFieldsFromBeforeFallthrough.contains(f)) {
                     // killed store
                     priority = HIGH_PRIORITY;
-                    bugAccumulator.accumulateBug(new BugInstance(this, "SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH", priority)
-                            .addClassAndMethod(this).addField(f), this);
+                    bugAccumulator
+                            .accumulateBug(new BugInstance(this, "SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH", priority)
+                                    .addClassAndMethod(this).addField(f), this);
 
                 }
                 potentiallyDeadFields.add(f);
@@ -210,7 +212,8 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
         }
 
         if (seen == Const.ATHROW) {
-            int sz = edu.umd.cs.findbugs.visitclass.Util.getSizeOfSurroundingTryBlock(getMethod(), (String) null, getPC());
+            int sz = edu.umd.cs.findbugs.visitclass.Util.getSizeOfSurroundingTryBlock(getMethod(), (String) null,
+                    getPC());
             if (sz == Integer.MAX_VALUE) {
 
                 BitSet dead = new BitSet();
@@ -219,9 +222,12 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
                 if (dead.cardinality() > 0) {
                     int register = dead.nextSetBit(0);
                     priority = HIGH_PRIORITY;
-                    deadStore = LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(), register, getPC() - 1, getPC());
-                    bugAccumulator.accumulateBug(new BugInstance(this, "SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH_TO_THROW",
-                            priority).addClassAndMethod(this).add(deadStore), this);
+                    deadStore = LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(), register, getPC() - 1,
+                            getPC());
+                    bugAccumulator.accumulateBug(
+                            new BugInstance(this, "SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH_TO_THROW", priority)
+                                    .addClassAndMethod(this).add(deadStore),
+                            this);
                 }
             }
             clearAllDeadStores();
@@ -234,7 +240,8 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
             if (potentiallyDeadStores.get(register) && (potentiallyDeadStoresFromBeforeFallthrough.get(register))) {
                 // killed store
                 priority = HIGH_PRIORITY;
-                deadStore = LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(), register, getPC() - 1, getPC());
+                deadStore = LocalVariableAnnotation.getLocalVariableAnnotation(getMethod(), register, getPC() - 1,
+                        getPC());
                 bugAccumulator.accumulateBug(new BugInstance(this, "SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH", priority)
                         .addClassAndMethod(this).add(deadStore), this);
 
@@ -242,8 +249,8 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
             potentiallyDeadStores.set(register);
         }
 
-
-        if (seen == Const.INVOKEVIRTUAL && "ordinal".equals(getNameConstantOperand()) && "()I".equals(getSigConstantOperand())) {
+        if (seen == Const.INVOKEVIRTUAL && "ordinal".equals(getNameConstantOperand())
+                && "()I".equals(getSigConstantOperand())) {
             XClass c = getXClassOperand();
             if (c != null) {
                 ClassDescriptor superclassDescriptor = c.getSuperclassDescriptor();
@@ -298,29 +305,33 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
             break;
 
         case Const.INVOKESTATIC:
-            reachable = !("exit".equals(getNameConstantOperand()) && "java/lang/System".equals(getClassConstantOperand()));
+            reachable = !("exit".equals(getNameConstantOperand())
+                    && "java/lang/System".equals(getClassConstantOperand()));
             break;
 
         default:
             reachable = true;
         }
 
-        justSawHashcode = seen == Const.INVOKEVIRTUAL && "hashCode".equals(getNameConstantOperand()) && "()I".equals(getSigConstantOperand());
+        justSawHashcode = seen == Const.INVOKEVIRTUAL && "hashCode".equals(getNameConstantOperand())
+                && "()I".equals(getSigConstantOperand());
         lastPC = getPC();
     }
 
     /**
-     * A GOTO might correspond to a <code>break</code> or to a do/while/for loop.
-     * For loops the branch target will be before the offset of the next case, for breaks we're exiting the switch so the target is actually even after the end of the last case.
-     * The branch target might be before the switch when we're inside another structure such as a loop.
+     * A GOTO might correspond to a <code>break</code> or to a do/while/for loop. For loops the branch target will be
+     * before the offset of the next case, for breaks we're exiting the switch so the target is actually even after the
+     * end of the last case. The branch target might be before the switch when we're inside another structure such as a
+     * loop.
      *
      * @return <code>true</code> if:
-     * <ul>
-     * <li> the branch target is a GOTO instruction as it is the case for a no-op (empty block) in an arrow-syntax switch
-     * <li> the branch target is after the next switch offset as it is the case for a switch break</li>
-     * <li> or the branch target is before the PC corresponding to the switch instruction</li>
-     * <li> or there's no next switch case (as it is the case for the default case)</li>
-     * </ul>
+     *         <ul>
+     *         <li>the branch target is a GOTO instruction as it is the case for a no-op (empty block) in an
+     *         arrow-syntax switch
+     *         <li>the branch target is after the next switch offset as it is the case for a switch break</li>
+     *         <li>or the branch target is before the PC corresponding to the switch instruction</li>
+     *         <li>or there's no next switch case (as it is the case for the default case)</li>
+     *         </ul>
      */
     public boolean isBranchTargetOutsideOfNextCase() {
         int branchTarget = getBranchTarget();
@@ -331,7 +342,8 @@ public class SwitchFallthrough extends OpcodeStackDetector implements StatelessD
         SwitchDetails nextSwitchDetails = switchHdlr.getNextSwitchDetails(this);
 
         if (nextSwitchDetails != null) {
-            return branchTarget > nextSwitchDetails.getNextSwitchOffset(getPC()) || branchTarget < nextSwitchDetails.getSwitchPC();
+            return branchTarget > nextSwitchDetails.getNextSwitchOffset(getPC())
+                    || branchTarget < nextSwitchDetails.getSwitchPC();
         } else {
             return true;
         }

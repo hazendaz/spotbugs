@@ -88,6 +88,7 @@ public class SuppressionDecorator extends BugReporterDecorator {
 
     /**
      * @param rawIn
+     *
      * @throws IOException
      */
     private void processPackageList(@WillClose Reader rawIn) throws IOException {

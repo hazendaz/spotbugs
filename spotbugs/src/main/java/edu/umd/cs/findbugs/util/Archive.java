@@ -38,13 +38,12 @@ public class Archive {
     public static final Set<String> ARCHIVE_EXTENSION_SET = Set.of(".jar", ".zip", ".war", ".ear", ".sar");
 
     /**
-     * Determine whether or not the given filename appears to identify a zip/jar
-     * archive.
+     * Determine whether or not the given filename appears to identify a zip/jar archive.
      *
      * @param fileName
      *            the filename
-     * @return true if the filename appears to identify an archive, false
-     *         otherwise
+     *
+     * @return true if the filename appears to identify an archive, false otherwise
      */
     public static boolean isArchiveFileName(String fileName) {
         String extension = getExtension(fileName);

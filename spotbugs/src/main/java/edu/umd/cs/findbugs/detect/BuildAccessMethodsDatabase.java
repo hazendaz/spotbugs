@@ -36,7 +36,8 @@ public class BuildAccessMethodsDatabase extends BytecodeScanningDetector impleme
     private AccessMethodDatabase database;
 
     /**
-     * @param bugReporter Unused, but we need that argument so the constructor can be called via reflection
+     * @param bugReporter
+     *            Unused, but we need that argument so the constructor can be called via reflection
      */
     public BuildAccessMethodsDatabase(BugReporter bugReporter) {
         database = new AccessMethodDatabase();

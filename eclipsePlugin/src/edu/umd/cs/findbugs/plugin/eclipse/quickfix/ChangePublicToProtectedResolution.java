@@ -40,21 +40,23 @@ import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.plugin.eclipse.quickfix.exception.BugResolutionException;
 
 /**
- * Methods that should be accessed only by the class itself or by direct
- * subclasses should have <CODE>protected</CODE> access, not <CODE>public</CODE>
- * . The class <CODE>ChangePublicToProtectedResolution</CODE> replaces the
- * modifier of such methods by the modifier <CODE>protected</CODE>.
+ * Methods that should be accessed only by the class itself or by direct subclasses should have <CODE>protected</CODE>
+ * access, not <CODE>public</CODE> . The class <CODE>ChangePublicToProtectedResolution</CODE> replaces the modifier of
+ * such methods by the modifier <CODE>protected</CODE>.
  *
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#FI_PUBLIC_SHOULD_BE_PROTECTED">FI_PUBLIC_SHOULD_BE_PROTECTED</a>
+ * @see <a href=
+ *      "http://findbugs.sourceforge.net/bugDescriptions.html#FI_PUBLIC_SHOULD_BE_PROTECTED">FI_PUBLIC_SHOULD_BE_PROTECTED</a>
+ *
  * @author <a href="mailto:mbusarel@hsr.ch">Marco Busarello</a>
  * @author <a href="mailto:twyss@hsr.ch">Thierry Wyss</a>
+ *
  * @version 1.0
  */
 public class ChangePublicToProtectedResolution extends BugResolution {
 
     @Override
-    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug) throws BugResolutionException {
+    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug)
+            throws BugResolutionException {
         Assert.isNotNull(rewrite);
         Assert.isNotNull(workingUnit);
         Assert.isNotNull(bug);

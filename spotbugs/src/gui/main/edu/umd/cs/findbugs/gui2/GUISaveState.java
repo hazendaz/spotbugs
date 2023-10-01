@@ -44,8 +44,8 @@ import edu.umd.cs.findbugs.PluginException;
 import edu.umd.cs.findbugs.SystemProperties;
 
 /**
- * Saves all the stuff that should be saved for each run, like recent projects,
- * previous comments, the current docking layout and the sort order
+ * Saves all the stuff that should be saved for each run, like recent projects, previous comments, the current docking
+ * layout and the sort order
  *
  * For project related things, look in ProjectSettings
  *
@@ -53,9 +53,8 @@ import edu.umd.cs.findbugs.SystemProperties;
  *
  */
 /*
- * GUISaveState uses the Preferences API, don't look for a file anywhere, there
- * isn't one, well... there might be, but its all system dependent where it is
- * and how its stored
+ * GUISaveState uses the Preferences API, don't look for a file anywhere, there isn't one, well... there might be, but
+ * its all system dependent where it is and how its stored
  */
 public class GUISaveState {
 
@@ -70,7 +69,7 @@ public class GUISaveState {
     static final int MAXNUMRECENTPROJECTS = 10;
 
     private static final Sortables[] DEFAULT_COLUMN_HEADERS = new Sortables[] { Sortables.CATEGORY, Sortables.BUGCODE,
-        Sortables.TYPE, Sortables.DIVIDER, Sortables.BUG_RANK };
+            Sortables.TYPE, Sortables.DIVIDER, Sortables.BUG_RANK };
 
     private static final String[] RECENTPROJECTKEYS = new String[MAXNUMRECENTPROJECTS];
 
@@ -90,7 +89,6 @@ public class GUISaveState {
     private static final String ENABLED_PLUGINS = "EnabledPlugins";
     private static final String DISABLED_PLUGINS = "DisabledPlugins";
     private static final String CUSTOM_PLUGINS = "CustomPlugins";
-
 
     static {
         for (int x = 0; x < RECENTPROJECTKEYS.length; x++) {
@@ -163,8 +161,8 @@ public class GUISaveState {
 
         newInstance.fontSize = p.getFloat(FONT_SIZE, 12.0f);
 
-        newInstance.starterDirectoryForLoadBugs = new File(p.get(GUISaveState.STARTERDIRECTORY,
-                SystemProperties.getProperty("user.dir")));
+        newInstance.starterDirectoryForLoadBugs = new File(
+                p.get(GUISaveState.STARTERDIRECTORY, SystemProperties.getProperty("user.dir")));
 
         int prevCommentsSize = p.getInt(GUISaveState.PREVCOMMENTSSIZE, 0);
 
@@ -312,8 +310,7 @@ public class GUISaveState {
     }
 
     /**
-     * This should be the method called to add a reused file for the recent
-     * menu.
+     * This should be the method called to add a reused file for the recent menu.
      */
     public void fileReused(File f) {
         if (!recentFiles.contains(f)) {

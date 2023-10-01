@@ -39,8 +39,7 @@ import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * Subclass of PreorderVisitor that visits annotations on classes, fields,
- * methods, and method parameters.
+ * Subclass of PreorderVisitor that visits annotations on classes, fields, methods, and method parameters.
  *
  * @author William Pugh
  */
@@ -58,7 +57,8 @@ public class AnnotationVisitor extends PreorderVisitor {
      * @param runtimeVisible
      *            true if annotation is runtime visible
      */
-    public void visitAnnotation(@DottedClassName String annotationClass, Map<String, ElementValue> map, boolean runtimeVisible) {
+    public void visitAnnotation(@DottedClassName String annotationClass, Map<String, ElementValue> map,
+            boolean runtimeVisible) {
         if (DEBUG) {
             System.out.println("Annotation: " + annotationClass);
             for (Map.Entry<String, ElementValue> e : map.entrySet()) {
@@ -101,7 +101,8 @@ public class AnnotationVisitor extends PreorderVisitor {
     }
 
     @CheckForNull
-    protected static <E extends Enum<E>> E getAnnotationParameterAsEnum(Map<String, ElementValue> map, String parameter, Class<E> type) {
+    protected static <E extends Enum<E>> E getAnnotationParameterAsEnum(Map<String, ElementValue> map, String parameter,
+            Class<E> type) {
         ElementValue ev = map.get(parameter);
 
         if (ev instanceof EnumElementValue) {
@@ -117,8 +118,7 @@ public class AnnotationVisitor extends PreorderVisitor {
      * Visit annotation on a method parameter
      *
      * @param p
-     *            parameter number, starting at zero ("this" parameter is not
-     *            counted)
+     *            parameter number, starting at zero ("this" parameter is not counted)
      * @param annotationClass
      *            class of annotation
      * @param map
@@ -135,135 +135,49 @@ public class AnnotationVisitor extends PreorderVisitor {
     }
 
     /*
-    
-    private static final String RUNTIME_INVISIBLE_PARAMETER_ANNOTATIONS = "RuntimeInvisibleParameterAnnotations";
-    private static final String RUNTIME_INVISIBLE_ANNOTATIONS = "RuntimeInvisibleAnnotations";
-    private static final String RUNTIME_VISIBLE_ANNOTATIONS = "RuntimeVisibleAnnotations";
-    private static final String RUNTIME_VISIBLE_PARAMETER_ANNOTATIONS = "RuntimeVisibleParameterAnnotations";
-    
-    private Map<String, Object> readAnnotationValues(DataInputStream bytes, int numPairs) throws IOException {
-        Map<String, Object> values = new HashMap<String, Object>();
-        for (int j = 0; j < numPairs; j++) {
-            int memberNameIndex = bytes.readUnsignedShort();
-            String memberName = ((ConstantUtf8) getConstantPool().getConstant(memberNameIndex)).getBytes();
-            if (DEBUG) {
-                System.out.println("memberName: " + memberName);
-            }
-            Object value = readAnnotationValue(bytes);
-            if (DEBUG) {
-                System.out.println(memberName + ":" + value);
-            }
-            values.put(memberName, value);
-        }
-        return values;
-    }
-    
-    
-    private @DottedClassName
-    String getAnnotationName(DataInputStream bytes) throws IOException {
-        int annotationNameIndex = bytes.readUnsignedShort();
-        String annotationName = ((ConstantUtf8) getConstantPool().getConstant(annotationNameIndex)).getBytes().replace('/', '.');
-        annotationName = annotationName.substring(1, annotationName.length() - 1);
-        if (DEBUG) {
-            System.out.println("Annotation name: " + annotationName);
-        }
-        return annotationName;
-    }
-    
-    
-    private Object readAnnotationValue(DataInputStream bytes) throws IOException {
-        try {
-            char tag = (char) bytes.readUnsignedByte();
-            if (DEBUG) {
-                System.out.println("tag: " + tag);
-            }
-            switch (tag) {
-            case '[': {
-                int sz = bytes.readUnsignedShort();
-                if (DEBUG) {
-                    System.out.println("Array of " + sz + " entries");
-                }
-                Object[] result = new Object[sz];
-                for (int i = 0; i < sz; i++) {
-                    result[i] = readAnnotationValue(bytes);
-                }
-                return result;
-            }
-            case 'B':
-            case 'C':
-            case 'D':
-            case 'F':
-            case 'I':
-            case 'J':
-            case 'S':
-            case 'Z':
-            case 's':
-            case 'c':
-                int cp_index = bytes.readUnsignedShort();
-                Constant c = getConstantPool().getConstant(cp_index);
-                switch (tag) {
-                case 'B':
-                    return (byte) ((ConstantInteger) c).getBytes();
-                case 'C':
-                    return (char) ((ConstantInteger) c).getBytes();
-                case 'D':
-                    return new Double(((ConstantDouble) c).getBytes());
-                case 'F':
-                    return new Float(((ConstantFloat) c).getBytes());
-                case 'I':
-                    return ((ConstantInteger) c).getBytes();
-                case 'J':
-                    return ((ConstantLong) c).getBytes();
-                case 'S':
-                    return (char) ((ConstantInteger) c).getBytes();
-                case 'Z':
-                    return Boolean.valueOf(((ConstantInteger) c).getBytes() != 0);
-                case 's':
-                    return ((ConstantUtf8) c).getBytes();
-                case 'c':
-                    String cName = ((ConstantUtf8) c).getBytes().replace('/', '.');
-                    if (cName.startsWith("L") && cName.endsWith(";")) {
-                        cName = cName.substring(1, cName.length() - 1);
-                    }
-                    if (DEBUG) {
-                        System.out.println("cName: " + cName);
-                    }
-                    return cName;
-                default:
-                    if (DEBUG) {
-                        System.out.println("Impossible");
-                    }
-                    throw new IllegalStateException("Impossible");
-                }
-            case '@':
-                throw new IllegalArgumentException("Not ready to handle annotations as elements of annotations");
-            case 'e': {
-                int cp1 = bytes.readUnsignedShort();
-                ConstantUtf8 c1 = (ConstantUtf8) getConstantPool().getConstant(cp1);
-                String cName = c1.getBytes().replace('/', '.');
-                if (cName.startsWith("L") && cName.endsWith(";")) {
-                    cName = cName.substring(1, cName.length() - 1);
-                }
-                int cp2 = bytes.readUnsignedShort();
-                ConstantUtf8 c2 = (ConstantUtf8) getConstantPool().getConstant(cp2);
-                String result = cName + "." + c2.getBytes();
-                // System.out.println(result);
-                return result;
-            }
-            default:
-                if (DEBUG) {
-                    System.out.println("Unexpected tag of " + tag);
-                }
-                throw new IllegalArgumentException("Unexpected tag of " + tag);
-            }
-        } catch (RuntimeException e) {
-            if (DEBUG) {
-                System.out.println("Problem processing annotation " + e.getMessage());
-                e.printStackTrace();
-            }
-            throw e;
-        }
-    }
+     *
+     * private static final String RUNTIME_INVISIBLE_PARAMETER_ANNOTATIONS = "RuntimeInvisibleParameterAnnotations";
+     * private static final String RUNTIME_INVISIBLE_ANNOTATIONS = "RuntimeInvisibleAnnotations"; private static final
+     * String RUNTIME_VISIBLE_ANNOTATIONS = "RuntimeVisibleAnnotations"; private static final String
+     * RUNTIME_VISIBLE_PARAMETER_ANNOTATIONS = "RuntimeVisibleParameterAnnotations";
+     *
+     * private Map<String, Object> readAnnotationValues(DataInputStream bytes, int numPairs) throws IOException {
+     * Map<String, Object> values = new HashMap<String, Object>(); for (int j = 0; j < numPairs; j++) { int
+     * memberNameIndex = bytes.readUnsignedShort(); String memberName = ((ConstantUtf8)
+     * getConstantPool().getConstant(memberNameIndex)).getBytes(); if (DEBUG) { System.out.println("memberName: " +
+     * memberName); } Object value = readAnnotationValue(bytes); if (DEBUG) { System.out.println(memberName + ":" +
+     * value); } values.put(memberName, value); } return values; }
+     *
+     *
+     * private @DottedClassName String getAnnotationName(DataInputStream bytes) throws IOException { int
+     * annotationNameIndex = bytes.readUnsignedShort(); String annotationName = ((ConstantUtf8)
+     * getConstantPool().getConstant(annotationNameIndex)).getBytes().replace('/', '.'); annotationName =
+     * annotationName.substring(1, annotationName.length() - 1); if (DEBUG) { System.out.println("Annotation name: " +
+     * annotationName); } return annotationName; }
+     *
+     *
+     * private Object readAnnotationValue(DataInputStream bytes) throws IOException { try { char tag = (char)
+     * bytes.readUnsignedByte(); if (DEBUG) { System.out.println("tag: " + tag); } switch (tag) { case '[': { int sz =
+     * bytes.readUnsignedShort(); if (DEBUG) { System.out.println("Array of " + sz + " entries"); } Object[] result =
+     * new Object[sz]; for (int i = 0; i < sz; i++) { result[i] = readAnnotationValue(bytes); } return result; } case
+     * 'B': case 'C': case 'D': case 'F': case 'I': case 'J': case 'S': case 'Z': case 's': case 'c': int cp_index =
+     * bytes.readUnsignedShort(); Constant c = getConstantPool().getConstant(cp_index); switch (tag) { case 'B': return
+     * (byte) ((ConstantInteger) c).getBytes(); case 'C': return (char) ((ConstantInteger) c).getBytes(); case 'D':
+     * return new Double(((ConstantDouble) c).getBytes()); case 'F': return new Float(((ConstantFloat) c).getBytes());
+     * case 'I': return ((ConstantInteger) c).getBytes(); case 'J': return ((ConstantLong) c).getBytes(); case 'S':
+     * return (char) ((ConstantInteger) c).getBytes(); case 'Z': return Boolean.valueOf(((ConstantInteger) c).getBytes()
+     * != 0); case 's': return ((ConstantUtf8) c).getBytes(); case 'c': String cName = ((ConstantUtf8)
+     * c).getBytes().replace('/', '.'); if (cName.startsWith("L") && cName.endsWith(";")) { cName = cName.substring(1,
+     * cName.length() - 1); } if (DEBUG) { System.out.println("cName: " + cName); } return cName; default: if (DEBUG) {
+     * System.out.println("Impossible"); } throw new IllegalStateException("Impossible"); } case '@': throw new
+     * IllegalArgumentException("Not ready to handle annotations as elements of annotations"); case 'e': { int cp1 =
+     * bytes.readUnsignedShort(); ConstantUtf8 c1 = (ConstantUtf8) getConstantPool().getConstant(cp1); String cName =
+     * c1.getBytes().replace('/', '.'); if (cName.startsWith("L") && cName.endsWith(";")) { cName = cName.substring(1,
+     * cName.length() - 1); } int cp2 = bytes.readUnsignedShort(); ConstantUtf8 c2 = (ConstantUtf8)
+     * getConstantPool().getConstant(cp2); String result = cName + "." + c2.getBytes(); // System.out.println(result);
+     * return result; } default: if (DEBUG) { System.out.println("Unexpected tag of " + tag); } throw new
+     * IllegalArgumentException("Unexpected tag of " + tag); } } catch (RuntimeException e) { if (DEBUG) {
+     * System.out.println("Problem processing annotation " + e.getMessage()); e.printStackTrace(); } throw e; } }
      */
 
     @Override
@@ -296,9 +210,7 @@ public class AnnotationVisitor extends PreorderVisitor {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.classfile.Visitor#visitAnnotation(org.apache.bcel.classfile
-     * .Annotations)
+     * @see org.apache.bcel.classfile.Visitor#visitAnnotation(org.apache.bcel.classfile .Annotations)
      */
     @Override
     public void visitAnnotation(Annotations arg0) {

@@ -41,9 +41,7 @@ public class SeverityClassificationPulldownAction implements IWorkbenchWindowPul
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.eclipse.ui.IWorkbenchWindowPulldownDelegate2#getMenu(org.eclipse.
-     * swt.widgets.Menu)
+     * @see org.eclipse.ui.IWorkbenchWindowPulldownDelegate2#getMenu(org.eclipse. swt.widgets.Menu)
      */
     @Override
     public Menu getMenu(Menu parent) {
@@ -53,9 +51,7 @@ public class SeverityClassificationPulldownAction implements IWorkbenchWindowPul
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.eclipse.ui.IWorkbenchWindowPulldownDelegate#getMenu(org.eclipse.swt
-     * .widgets.Control)
+     * @see org.eclipse.ui.IWorkbenchWindowPulldownDelegate#getMenu(org.eclipse.swt .widgets.Control)
      */
     @Override
     public Menu getMenu(Control parent) {
@@ -67,8 +63,8 @@ public class SeverityClassificationPulldownAction implements IWorkbenchWindowPul
     }
 
     /**
-     * Fill the drop-down menu. We allow the user to choose a severity from 1
-     * (least severe) to 5 (most severe). Default is 3.
+     * Fill the drop-down menu. We allow the user to choose a severity from 1 (least severe) to 5 (most severe). Default
+     * is 3.
      */
     private void fillMenu() {
         // Create a selection listener to handle when the
@@ -77,9 +73,7 @@ public class SeverityClassificationPulldownAction implements IWorkbenchWindowPul
             /*
              * (non-Javadoc)
              *
-             * @see
-             * org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse
-             * .swt.events.SelectionEvent)
+             * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse .swt.events.SelectionEvent)
              */
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -111,9 +105,7 @@ public class SeverityClassificationPulldownAction implements IWorkbenchWindowPul
             /*
              * (non-Javadoc)
              *
-             * @see
-             * org.eclipse.swt.events.MenuAdapter#menuShown(org.eclipse.swt.
-             * events.MenuEvent)
+             * @see org.eclipse.swt.events.MenuAdapter#menuShown(org.eclipse.swt. events.MenuEvent)
              */
             @Override
             public void menuShown(MenuEvent e) {
@@ -171,8 +163,7 @@ public class SeverityClassificationPulldownAction implements IWorkbenchWindowPul
      * Reset menu items so they are unchecked.
      *
      * @param enable
-     *            true if menu items should be enabled, false if they should be
-     *            disabled
+     *            true if menu items should be enabled, false if they should be disabled
      */
     private void resetMenuItems(boolean enable) {
         for (int i = 0; i < severityItemList.length; ++i) {
@@ -198,8 +189,7 @@ public class SeverityClassificationPulldownAction implements IWorkbenchWindowPul
     /*
      * (non-Javadoc)
      *
-     * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui.
-     * IWorkbenchWindow)
+     * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui. IWorkbenchWindow)
      */
     @Override
     public void init(IWorkbenchWindow window) {
@@ -219,9 +209,8 @@ public class SeverityClassificationPulldownAction implements IWorkbenchWindowPul
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
-     * .IAction, org.eclipse.jface.viewers.ISelection)
+     * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action .IAction,
+     * org.eclipse.jface.viewers.ISelection)
      */
     @Override
     public void selectionChanged(IAction action, ISelection selection) {

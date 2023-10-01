@@ -42,6 +42,7 @@ public class PriorityMatcher implements Matcher {
      *
      * @param priorityAsString
      *            the priority, as a String
+     *
      * @throws FilterException
      */
     public PriorityMatcher(String priorityAsString) {

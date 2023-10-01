@@ -73,7 +73,8 @@ public class LoadOfKnownNullValue implements Detector {
         }
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         BitSet lineMentionedMultipleTimes = classContext.linesMentionedMultipleTimes(method);
         BitSet linesWithLoadsOfNotDefinitelyNullValues = null;
 
@@ -169,17 +170,16 @@ public class LoadOfKnownNullValue implements Detector {
             if (v.isDefinitelyNull()) {
                 InstructionHandle nextHandle = handle.getNext();
                 Instruction next = nextHandle.getInstruction();
-                int position = location
-                        .getHandle().getPosition();
+                int position = location.getHandle().getPosition();
                 int catchSizeANY = Util.getSizeOfSurroundingTryBlock(method, "", position);
                 if (catchSizeANY < Integer.MAX_VALUE && isNullTestedClose(classContext, load, nextHandle, next)) {
                     continue;
                 }
                 InstructionHandle prevHandle = handle.getPrev();
-                SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen,
-                        sourceFile, handle);
-                SourceLineAnnotation prevSourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(classContext,
-                        methodGen, sourceFile, prevHandle);
+                SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(classContext,
+                        methodGen, sourceFile, handle);
+                SourceLineAnnotation prevSourceLineAnnotation = SourceLineAnnotation
+                        .fromVisitedInstruction(classContext, methodGen, sourceFile, prevHandle);
 
                 if (next instanceof ARETURN) {
                     // probably stored for duration of finally block
@@ -221,15 +221,16 @@ public class LoadOfKnownNullValue implements Detector {
                 BugAnnotation variableAnnotation = null;
                 try {
                     // Get the value number
-                    ValueNumberFrame vnaFrame = classContext.getValueNumberDataflow(method).getFactAfterLocation(location);
+                    ValueNumberFrame vnaFrame = classContext.getValueNumberDataflow(method)
+                            .getFactAfterLocation(location);
                     if (vnaFrame.isValid()) {
 
                         ValueNumber valueNumber = vnaFrame.getTopValue();
                         if (valueNumber.hasFlag(ValueNumber.CONSTANT_CLASS_OBJECT)) {
                             return;
                         }
-                        variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(method, location, valueNumber, vnaFrame,
-                                "VALUE_OF");
+                        variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(method, location,
+                                valueNumber, vnaFrame, "VALUE_OF");
                         if (variableAnnotation instanceof LocalVariableAnnotation) {
                             LocalVariableAnnotation local = (LocalVariableAnnotation) variableAnnotation;
                             if (!local.isNamed()) {
@@ -247,8 +248,8 @@ public class LoadOfKnownNullValue implements Detector {
                 // linesWithLoadsOfNotDefinitelyNullValues);
 
                 bugAccumulator.accumulateBug(
-                        new BugInstance(this, "NP_LOAD_OF_KNOWN_NULL_VALUE", priority).addClassAndMethod(methodGen, sourceFile)
-                                .addOptionalAnnotation(variableAnnotation),
+                        new BugInstance(this, "NP_LOAD_OF_KNOWN_NULL_VALUE", priority)
+                                .addClassAndMethod(methodGen, sourceFile).addOptionalAnnotation(variableAnnotation),
                         sourceLineAnnotation);
             }
 
@@ -260,7 +261,8 @@ public class LoadOfKnownNullValue implements Detector {
      * @param nextHandle
      * @param next
      */
-    private boolean isNullTestedClose(ClassContext classContext, ALOAD load, InstructionHandle nextHandle, Instruction next) {
+    private boolean isNullTestedClose(ClassContext classContext, ALOAD load, InstructionHandle nextHandle,
+            Instruction next) {
         if (!(next instanceof IFNULL)) {
             return false;
         }

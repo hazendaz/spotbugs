@@ -23,6 +23,7 @@ package edu.umd.cs.findbugs.ba;
  * Dataflow analysis to compute dominator sets for a CFG.
  *
  * @author David Hovemeyer
+ *
  * @see CFG
  * @see AbstractDominatorsAnalysis
  */

@@ -25,10 +25,8 @@ import edu.umd.cs.findbugs.TrainingDetector;
 import edu.umd.cs.findbugs.ba.AnalysisContext;
 
 /**
- * Training pass to find method parameters which are unconditionally
- * dereferenced. We do this by performing a backwards dataflow analysis which
- * sees which params are dereferenced on all non-implicit-exception paths from
- * the CFG entry.
+ * Training pass to find method parameters which are unconditionally dereferenced. We do this by performing a backwards
+ * dataflow analysis which sees which params are dereferenced on all non-implicit-exception paths from the CFG entry.
  *
  * @author David Hovemeyer
  */

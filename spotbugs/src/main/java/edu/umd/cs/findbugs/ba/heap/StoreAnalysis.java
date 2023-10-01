@@ -35,9 +35,8 @@ public class StoreAnalysis extends FieldSetAnalysis {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.heap.FieldSetAnalysis#sawLoad(edu.umd.cs.findbugs
-     * .ba.heap.FieldSet, edu.umd.cs.findbugs.ba.XField)
+     * @see edu.umd.cs.findbugs.ba.heap.FieldSetAnalysis#sawLoad(edu.umd.cs.findbugs .ba.heap.FieldSet,
+     * edu.umd.cs.findbugs.ba.XField)
      */
 
     @Override
@@ -47,9 +46,8 @@ public class StoreAnalysis extends FieldSetAnalysis {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.heap.FieldSetAnalysis#sawStore(edu.umd.cs.findbugs
-     * .ba.heap.FieldSet, edu.umd.cs.findbugs.ba.XField)
+     * @see edu.umd.cs.findbugs.ba.heap.FieldSetAnalysis#sawStore(edu.umd.cs.findbugs .ba.heap.FieldSet,
+     * edu.umd.cs.findbugs.ba.XField)
      */
 
     @Override

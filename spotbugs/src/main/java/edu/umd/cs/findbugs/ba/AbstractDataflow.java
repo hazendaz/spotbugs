@@ -20,17 +20,16 @@
 package edu.umd.cs.findbugs.ba;
 
 /**
- * Convenience class for defining Dataflow classes which use a
- * BasicAbstractDataflowAnalysis subtype. The main functionality is offering
- * getFact{At,After}Location() methods which forward to the actual analysis
- * object.
+ * Convenience class for defining Dataflow classes which use a BasicAbstractDataflowAnalysis subtype. The main
+ * functionality is offering getFact{At,After}Location() methods which forward to the actual analysis object.
  *
  * @see edu.umd.cs.findbugs.ba.Dataflow
  * @see edu.umd.cs.findbugs.ba.BasicAbstractDataflowAnalysis
+ *
  * @author David Hovemeyer
  */
-public class AbstractDataflow<Fact, AnalysisType extends BasicAbstractDataflowAnalysis<Fact>> extends
-        Dataflow<Fact, AnalysisType> {
+public class AbstractDataflow<Fact, AnalysisType extends BasicAbstractDataflowAnalysis<Fact>>
+        extends Dataflow<Fact, AnalysisType> {
 
     /**
      * Constructor.
@@ -49,7 +48,9 @@ public class AbstractDataflow<Fact, AnalysisType extends BasicAbstractDataflowAn
      *
      * @param edge
      *            the edge
+     *
      * @return the fact that is true on the edge
+     *
      * @throws DataflowAnalysisException
      */
     @Override

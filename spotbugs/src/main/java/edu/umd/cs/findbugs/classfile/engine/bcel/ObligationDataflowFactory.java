@@ -56,7 +56,8 @@ public class ObligationDataflowFactory extends AnalysisFactory<ObligationDataflo
         CFG cfg = analysisCache.getMethodAnalysis(CFG.class, methodDescriptor);
         DepthFirstSearch dfs = analysisCache.getMethodAnalysis(DepthFirstSearch.class, methodDescriptor);
         XMethod xmethod = XFactory.createXMethod(methodDescriptor);
-        ConstantPoolGen cpg = analysisCache.getClassAnalysis(ConstantPoolGen.class, methodDescriptor.getClassDescriptor());
+        ConstantPoolGen cpg = analysisCache.getClassAnalysis(ConstantPoolGen.class,
+                methodDescriptor.getClassDescriptor());
 
         ObligationPolicyDatabase database = analysisCache.getDatabase(ObligationPolicyDatabase.class);
 
@@ -65,8 +66,8 @@ public class ObligationDataflowFactory extends AnalysisFactory<ObligationDataflo
 
         ObligationFactory factory = database.getFactory();
 
-        ObligationAnalysis analysis = new ObligationAnalysis(dfs, xmethod, cpg, factory, database, typeDataflow, invDataflow,
-                analysisCache.getErrorLogger());
+        ObligationAnalysis analysis = new ObligationAnalysis(dfs, xmethod, cpg, factory, database, typeDataflow,
+                invDataflow, analysisCache.getErrorLogger());
         ObligationDataflow dataflow = new ObligationDataflow(cfg, analysis);
 
         Profiler profiler = analysisCache.getProfiler();

@@ -25,20 +25,20 @@ import javax.annotation.Nonnull;
 
 import org.apache.bcel.generic.InstructionHandle;
 
-
 /**
- * <p>A class representing a location in the CFG for a method. Essentially, it
- * represents a static instruction, <em>with the important caveat</em> that CFGs
- * have inlined JSR subroutines, meaning that a single InstructionHandle in a
- * CFG may represent several static locations. To this end, a Location is
- * comprised of both an InstructionHandle and the BasicBlock that contains it.
+ * <p>
+ * A class representing a location in the CFG for a method. Essentially, it represents a static instruction, <em>with
+ * the important caveat</em> that CFGs have inlined JSR subroutines, meaning that a single InstructionHandle in a CFG
+ * may represent several static locations. To this end, a Location is comprised of both an InstructionHandle and the
+ * BasicBlock that contains it.
  * </p>
  * <p>
- * Location objects may be compared with each other using the equals() method,
- * and may be used as keys in tree and hash maps and sets. Note that
- * <em>it is only valid to compare Locations produced from the same CFG</em>.</p>
+ * Location objects may be compared with each other using the equals() method, and may be used as keys in tree and hash
+ * maps and sets. Note that <em>it is only valid to compare Locations produced from the same CFG</em>.
+ * </p>
  *
  * @author David Hovemeyer
+ *
  * @see CFG
  */
 public class Location implements Comparable<Location> {
@@ -74,8 +74,7 @@ public class Location implements Comparable<Location> {
     public static Location getLastLocation(@Nonnull BasicBlock basicBlock) {
         InstructionHandle lastInstruction = basicBlock.getLastInstruction();
         /*
-         * if (lastInstruction == null) lastInstruction =
-         * basicBlock.getExceptionThrower(); if (lastInstruction == null)
+         * if (lastInstruction == null) lastInstruction = basicBlock.getExceptionThrower(); if (lastInstruction == null)
          * lastInstruction = basicBlock.getFirstInstruction();
          */
         if (lastInstruction == null) {
@@ -101,16 +100,14 @@ public class Location implements Comparable<Location> {
     }
 
     /**
-     * Return whether or not the Location is positioned at the first instruction
-     * in the basic block.
+     * Return whether or not the Location is positioned at the first instruction in the basic block.
      */
     public boolean isFirstInstructionInBasicBlock() {
         return !basicBlock.isEmpty() && handle == basicBlock.getFirstInstruction();
     }
 
     /**
-     * Return whether or not the Location is positioned at the last instruction
-     * in the basic block.
+     * Return whether or not the Location is positioned at the last instruction in the basic block.
      */
     public boolean isLastInstructionInBasicBlock() {
         return !basicBlock.isEmpty() && handle == basicBlock.getLastInstruction();
@@ -144,8 +141,8 @@ public class Location implements Comparable<Location> {
     }
 
     /**
-     * @return a compact string of the form "bb:xx", where "bb" is the basic
-     *         block number and "xx" is the bytecode offset
+     * @return a compact string of the form "bb:xx", where "bb" is the basic block number and "xx" is the bytecode
+     *         offset
      */
     public String toCompactString() {
         return basicBlock.getLabel() + ":" + handle.getPosition();

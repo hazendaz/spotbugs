@@ -192,8 +192,7 @@ public class PropertyPageAdapterFactory implements IAdapterFactory {
     public static String getReadableName(Method method) {
         String name = method.getName();
         return (name.startsWith("get") || name.startsWith("has")) ? name.substring(3)
-                : name.startsWith("is") ? name.substring(2)
-                        : name;
+                : name.startsWith("is") ? name.substring(2) : name;
     }
 
     static enum PropId {
@@ -288,8 +287,7 @@ public class PropertyPageAdapterFactory implements IAdapterFactory {
         if (adapterType == IPropertySource.class) {
             if (adaptableObject instanceof BugPattern || adaptableObject instanceof BugInstance
                     || adaptableObject instanceof DetectorFactory || adaptableObject instanceof Plugin
-                    || adaptableObject instanceof BugGroup
-                    || adaptableObject instanceof BugAnnotation) {
+                    || adaptableObject instanceof BugGroup || adaptableObject instanceof BugAnnotation) {
                 return new PropertySource(adaptableObject);
             }
             IMarker marker = Util.getAdapter(IMarker.class, adaptableObject);

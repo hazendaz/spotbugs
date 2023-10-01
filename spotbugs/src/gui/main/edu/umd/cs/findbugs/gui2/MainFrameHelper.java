@@ -55,8 +55,8 @@ public class MainFrameHelper {
             return;
         }
 
-        item.setAccelerator(KeyStroke.getKeyStroke(keystroke, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()
-                | additionalMask));
+        item.setAccelerator(KeyStroke.getKeyStroke(keystroke,
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | additionalMask));
     }
 
     public static void attachAcceleratorKeyNoCtrl(JMenuItem item, int keyEvent) {

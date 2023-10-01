@@ -45,7 +45,8 @@ import de.tobject.findbugs.FindbugsPlugin;
 /**
  * @author Andrei Loskutov
  */
-public abstract class AbstractFindbugsView extends ViewPart implements IMarkerSelectionHandler, IContributedContentsView {
+public abstract class AbstractFindbugsView extends ViewPart
+        implements IMarkerSelectionHandler, IContributedContentsView {
     static final String DETAILS_VIEW_IMG = "detailsView.png";
 
     static final String USER_ANNOTATIONS_VIEW_IMG = "annotationsView.png";
@@ -99,9 +100,7 @@ public abstract class AbstractFindbugsView extends ViewPart implements IMarkerSe
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets
-     * .Composite)
+     * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets .Composite)
      */
     @Override
     public final void createPartControl(Composite parent) {
@@ -118,6 +117,7 @@ public abstract class AbstractFindbugsView extends ViewPart implements IMarkerSe
 
     /**
      * @param parent
+     *
      * @return
      */
     protected abstract Composite createRootControl(Composite parent);

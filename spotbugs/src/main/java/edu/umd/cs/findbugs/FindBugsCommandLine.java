@@ -29,8 +29,7 @@ import edu.umd.cs.findbugs.config.AnalysisFeatureSetting;
 import edu.umd.cs.findbugs.config.CommandLine;
 
 /**
- * Base class for FindBugs command line classes. Handles all shared
- * switches/options.
+ * Base class for FindBugs command line classes. Handles all shared switches/options.
  *
  * @author David Hovemeyer
  */
@@ -68,8 +67,7 @@ public abstract class FindBugsCommandLine extends CommandLine {
     }
 
     /**
-     * Additional constructor just as hack for decoupling the core package from
-     * gui2 package
+     * Additional constructor just as hack for decoupling the core package from gui2 package
      *
      * @param modernGui
      *            ignored. In any case, gui2 options are added here.
@@ -146,8 +144,8 @@ public abstract class FindBugsCommandLine extends CommandLine {
                     try {
                         Plugin.loadCustomPlugin(file, getProject());
                     } catch (PluginException e) {
-                        throw new IllegalStateException("Failed to load plugin " +
-                                "specified by the '-pluginList', file: " + file, e);
+                        throw new IllegalStateException(
+                                "Failed to load plugin " + "specified by the '-pluginList', file: " + file, e);
                     }
                 }
             }
@@ -163,6 +161,7 @@ public abstract class FindBugsCommandLine extends CommandLine {
      *
      * @param arg
      *            name of project file
+     *
      * @throws java.io.IOException
      */
     public void loadProject(String arg) throws IOException {

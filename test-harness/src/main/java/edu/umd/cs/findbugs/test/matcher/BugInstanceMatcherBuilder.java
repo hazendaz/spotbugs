@@ -31,9 +31,8 @@ import edu.umd.cs.findbugs.test.service.ClassFileLocator;
 /**
  * Builder for creating a BugInstanceMatcher.
  * <p>
- * This class provides a fluent API to set various properties of the bug instance
- * such as bug type, class name, method name, field name, variable name, line number,
- * confidence level, and JSP file information.
+ * This class provides a fluent API to set various properties of the bug instance such as bug type, class name, method
+ * name, field name, variable name, line number, confidence level, and JSP file information.
  */
 public class BugInstanceMatcherBuilder {
 
@@ -131,7 +130,9 @@ public class BugInstanceMatcherBuilder {
      *
      * @param lineNumberApprox
      *            Line to verify accepting an offset of 1
+     *
      * @return this builder instance
+     *
      * @deprecated Use atJspLine for JSP line mapping
      */
     @Deprecated
@@ -185,11 +186,11 @@ public class BugInstanceMatcherBuilder {
      * @return a new BugInstanceMatcher instance
      */
     public BugInstanceMatcher build() {
-        //JSP line to Java source conversion
+        // JSP line to Java source conversion
         List<Integer> multipleChoicesLine = null;
         if (jspLine != null) {
             if (jspFile != null) {
-                //Map JSP lines to Java base on the smap file if available
+                // Map JSP lines to Java base on the smap file if available
                 multipleChoicesLine = mapJspToJavaLine(jspFile, jspLine);
             } else {
                 throw new RuntimeException("JSP file not set.");
@@ -207,7 +208,7 @@ public class BugInstanceMatcherBuilder {
             throw new RuntimeException("SMAP file is missing. (" + smapFile + ")");
         }
         try {
-            //Convert
+            // Convert
             final String contents = new String(Files.readAllBytes(smapFile.toPath()), StandardCharsets.UTF_8);
             final SmapParser smapParser = new SmapParser(contents);
             final List<Integer> javaLineNumbers = smapParser.getJavaLineNumbers(jspLine);

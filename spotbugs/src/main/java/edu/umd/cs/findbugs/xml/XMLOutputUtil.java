@@ -28,6 +28,7 @@ import java.util.Iterator;
  * Utility routines for writing to XMLOutput.
  *
  * @see XMLOutput
+ *
  * @author David Hovemeyer
  */
 public abstract class XMLOutputUtil {
@@ -41,7 +42,8 @@ public abstract class XMLOutputUtil {
      * @param listValues
      *            Collection of String values to write
      */
-    public static void writeElementList(XMLOutput xmlOutput, String tagName, Iterable<String> listValues) throws IOException {
+    public static void writeElementList(XMLOutput xmlOutput, String tagName, Iterable<String> listValues)
+            throws IOException {
         writeElementList(xmlOutput, tagName, listValues.iterator());
     }
 
@@ -74,7 +76,8 @@ public abstract class XMLOutputUtil {
      * @param listValues
      *            Collection of String values to write
      */
-    public static void writeFileList(XMLOutput xmlOutput, String tagName, Iterable<File> listValues) throws IOException {
+    public static void writeFileList(XMLOutput xmlOutput, String tagName, Iterable<File> listValues)
+            throws IOException {
         if (listValues != null) {
             writeFileList(xmlOutput, tagName, listValues.iterator());
         }
@@ -90,7 +93,8 @@ public abstract class XMLOutputUtil {
      * @param listValueIterator
      *            Iterator over String values to write
      */
-    public static void writeFileList(XMLOutput xmlOutput, String tagName, Iterator<File> listValueIterator) throws IOException {
+    public static void writeFileList(XMLOutput xmlOutput, String tagName, Iterator<File> listValueIterator)
+            throws IOException {
         while (listValueIterator.hasNext()) {
             xmlOutput.openTag(tagName);
             xmlOutput.writeText(listValueIterator.next().getPath());
@@ -106,7 +110,8 @@ public abstract class XMLOutputUtil {
      * @param collection
      *            Collection of XMLWriteable objects
      */
-    public static void writeCollection(XMLOutput xmlOutput, Collection<? extends XMLWriteable> collection) throws IOException {
+    public static void writeCollection(XMLOutput xmlOutput, Collection<? extends XMLWriteable> collection)
+            throws IOException {
         for (XMLWriteable obj : collection) {
             obj.writeXML(xmlOutput);
         }

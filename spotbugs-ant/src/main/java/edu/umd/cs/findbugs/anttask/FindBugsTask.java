@@ -39,10 +39,8 @@ import edu.umd.cs.findbugs.ExitCodes;
  * <ul>
  * <li>adjustExperimental (boolean default false)</li>
  * <li>adjustPriority (passed to -adjustPriority)</li>
- * <li>applySuppression (exclude any warnings that match a suppression filter
- * supplied in a project file)</li>
- * <li>auxAnalyzepath (class, jar, zip files or directories containing classes
- * to analyze)</li>
+ * <li>applySuppression (exclude any warnings that match a suppression filter supplied in a project file)</li>
+ * <li>auxAnalyzepath (class, jar, zip files or directories containing classes to analyze)</li>
  * <li>auxClasspath (classpath or classpathRef)</li>
  * <li>baselineBugs (xml file containing baseline bugs)</li>
  * <li>class (class, jar, zip or directory containing classes to analyze)</li>
@@ -60,8 +58,8 @@ import edu.umd.cs.findbugs.ExitCodes;
  * <li>jvm (Set the command used to start the VM)</li>
  * <li>jvmargs (any additional jvm arguments)</li>
  * <li>omitVisitors (collection - comma separated)</li>
- * <li>onlyAnalyze (restrict analysis to find bugs to given comma-separated list
- * of classes and packages - See the textui argument description for details)</li>
+ * <li>onlyAnalyze (restrict analysis to find bugs to given comma-separated list of classes and packages - See the
+ * textui argument description for details)</li>
  * <li>output (enum text|xml|xml:withMessages|html - default xml)</li>
  * <li>outputFile (name of output file to create)</li>
  * <li>nested (boolean default true)</li>
@@ -74,8 +72,7 @@ import edu.umd.cs.findbugs.ExitCodes;
  * <li>relaxed (boolean - default false)</li>
  * <li>reportLevel (enum experimental|low|medium|high)</li>
  * <li>sort (boolean default true)</li>
- * <li>stylesheet (name of stylesheet to generate HTML: default is
- * "default.xsl")</li>
+ * <li>stylesheet (name of stylesheet to generate HTML: default is "default.xsl")</li>
  * <li>systemProperty (a system property to set)</li>
  * <li>timestampNow (boolean - default false)</li>
  * <li>visitors (collection - comma separated)</li>
@@ -83,9 +80,9 @@ import edu.umd.cs.findbugs.ExitCodes;
  * <li>workHard (boolean default false)</li>
  * <li>setSetExitCode (boolean default true)</li>
  * </ul>
- * <p>Of these arguments, the <b>home</b> is required. <b>projectFile</b> is
- * required if nested &lt;class&gt; or &lt;auxAnalyzepath&gt; elements are not
- * specified. the &lt;class&gt; tag defines the location of either a class, jar
+ * <p>
+ * Of these arguments, the <b>home</b> is required. <b>projectFile</b> is required if nested &lt;class&gt; or
+ * &lt;auxAnalyzepath&gt; elements are not specified. the &lt;class&gt; tag defines the location of either a class, jar
  * file, zip file, or directory containing classes.
  * </p>
  *
@@ -211,8 +208,7 @@ public class FindBugsTask extends AbstractFindBugsTask {
      * Set the exit code flag.
      *
      * @param setExitCode
-     *            If true then the exit code will be returned to
-     *            the main ant job
+     *            If true then the exit code will be returned to the main ant job
      */
     public void setSetExitCode(boolean setExitCode) {
         this.setExitCode = setExitCode;
@@ -222,10 +218,8 @@ public class FindBugsTask extends AbstractFindBugsTask {
      * Set the nested flag.
      *
      * @param nested
-     *            This option enables or disables scanning of
-     *            nested jar and zip files found in the list of files
-     *            and directories to be analyzed. By default, scanning
-     *            of nested jar/zip files is enabled
+     *            This option enables or disables scanning of nested jar and zip files found in the list of files and
+     *            directories to be analyzed. By default, scanning of nested jar/zip files is enabled
      */
     public void setNested(boolean nested) {
         this.nested = nested;
@@ -235,8 +229,7 @@ public class FindBugsTask extends AbstractFindBugsTask {
      * Set the noClassOk flag.
      *
      * @param noClassOk
-     *            true if we should generate no-error output if no classfiles
-     *            are specified
+     *            true if we should generate no-error output if no classfiles are specified
      */
     public void setNoClassOk(boolean noClassOk) {
         this.noClassOk = noClassOk;
@@ -256,8 +249,7 @@ public class FindBugsTask extends AbstractFindBugsTask {
      * Set the adjustExperimental flag
      *
      * @param adjustExperimental
-     *            true if we want experimental bug patterns to have lower
-     *            priority
+     *            true if we want experimental bug patterns to have lower priority
      */
     public void setAdjustExperimental(boolean adjustExperimental) {
         this.adjustExperimental = adjustExperimental;
@@ -752,22 +744,23 @@ public class FindBugsTask extends AbstractFindBugsTask {
     protected void checkParameters() {
         super.checkParameters();
 
-        if (projectFile == null && classLocations.isEmpty() && filesets.isEmpty() && dirsets.isEmpty() && auxAnalyzepath == null) {
+        if (projectFile == null && classLocations.isEmpty() && filesets.isEmpty() && dirsets.isEmpty()
+                && auxAnalyzepath == null) {
             throw new BuildException("either projectfile, <class/>, <fileset/> or <auxAnalyzepath/> child "
                     + "elements must be defined for task <" + getTaskName() + "/>", getLocation());
         }
 
-        if (outputFormat != null
-                && !("xml".equalsIgnoreCase(outputFormat.trim()) || "xml:withMessages".equalsIgnoreCase(outputFormat.trim())
-                        || "html".equalsIgnoreCase(outputFormat.trim()) || "text".equalsIgnoreCase(outputFormat.trim())
-                        || "xdocs".equalsIgnoreCase(outputFormat.trim()) || "emacs".equalsIgnoreCase(outputFormat.trim()))) {
-            throw new BuildException("output attribute must be either " + "'text', 'xml', 'html', 'xdocs' or 'emacs' for task <"
-                    + getTaskName() + "/>", getLocation());
+        if (outputFormat != null && !("xml".equalsIgnoreCase(outputFormat.trim())
+                || "xml:withMessages".equalsIgnoreCase(outputFormat.trim())
+                || "html".equalsIgnoreCase(outputFormat.trim()) || "text".equalsIgnoreCase(outputFormat.trim())
+                || "xdocs".equalsIgnoreCase(outputFormat.trim()) || "emacs".equalsIgnoreCase(outputFormat.trim()))) {
+            throw new BuildException("output attribute must be either "
+                    + "'text', 'xml', 'html', 'xdocs' or 'emacs' for task <" + getTaskName() + "/>", getLocation());
         }
 
-        if (reportLevel != null
-                && !("experimental".equalsIgnoreCase(reportLevel.trim()) || "low".equalsIgnoreCase(reportLevel.trim())
-                        || "medium".equalsIgnoreCase(reportLevel.trim()) || "high".equalsIgnoreCase(reportLevel.trim()))) {
+        if (reportLevel != null && !("experimental".equalsIgnoreCase(reportLevel.trim())
+                || "low".equalsIgnoreCase(reportLevel.trim()) || "medium".equalsIgnoreCase(reportLevel.trim())
+                || "high".equalsIgnoreCase(reportLevel.trim()))) {
             throw new BuildException("reportlevel attribute must be either "
                     + "'experimental' or 'low' or 'medium' or 'high' for task <" + getTaskName() + "/>", getLocation());
         }
@@ -788,9 +781,7 @@ public class FindBugsTask extends AbstractFindBugsTask {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#beforeExecuteJavaProcess
-     * ()
+     * @see edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#beforeExecuteJavaProcess ()
      */
     @Override
     protected void beforeExecuteJavaProcess() {
@@ -800,9 +791,7 @@ public class FindBugsTask extends AbstractFindBugsTask {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#afterExecuteJavaProcess
-     * (int)
+     * @see edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#afterExecuteJavaProcess (int)
      */
     @Override
     protected void afterExecuteJavaProcess(int rc) {

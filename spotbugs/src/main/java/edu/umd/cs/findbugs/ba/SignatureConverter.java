@@ -30,12 +30,10 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 
 /**
- * Convert part or all of a Java type signature into something closer to what
- * types look like in the source code. Both field and method signatures may be
- * processed by this class. For a field signature, just call parseNext() once.
- * For a method signature, parseNext() must be called multiple times, and the
- * parens around the arguments must be skipped manually (by calling the skip()
- * method).
+ * Convert part or all of a Java type signature into something closer to what types look like in the source code. Both
+ * field and method signatures may be processed by this class. For a field signature, just call parseNext() once. For a
+ * method signature, parseNext() must be called multiple times, and the parens around the arguments must be skipped
+ * manually (by calling the skip() method).
  *
  * @author David Hovemeyer
  */
@@ -68,11 +66,9 @@ public class SignatureConverter {
     }
 
     /**
-     * Parse a single type out of the signature, starting at the beginning of
-     * the remaining part of the signature. For example, if the first character
-     * of the remaining part is "I", then this method will return "int", and the
-     * "I" will be consumed. Arrays, reference types, and basic types are all
-     * handled.
+     * Parse a single type out of the signature, starting at the beginning of the remaining part of the signature. For
+     * example, if the first character of the remaining part is "I", then this method will return "int", and the "I"
+     * will be consumed. Arrays, reference types, and basic types are all handled.
      *
      * @return the parsed type string
      */
@@ -136,8 +132,7 @@ public class SignatureConverter {
     }
 
     /**
-     * Convenience method for generating a method signature in human readable
-     * form.
+     * Convenience method for generating a method signature in human readable form.
      *
      * @param javaClass
      *            the class
@@ -149,8 +144,7 @@ public class SignatureConverter {
     }
 
     /**
-     * Convenience method for generating a method signature in human readable
-     * form.
+     * Convenience method for generating a method signature in human readable form.
      *
      * @param methodGen
      *            the method to produce a method signature for
@@ -160,8 +154,7 @@ public class SignatureConverter {
     }
 
     /**
-     * Convenience method for generating a method signature in human readable
-     * form.
+     * Convenience method for generating a method signature in human readable form.
      *
      * @param inv
      *            an InvokeInstruction
@@ -173,8 +166,7 @@ public class SignatureConverter {
     }
 
     /**
-     * Convenience method for generating a method signature in human readable
-     * form.
+     * Convenience method for generating a method signature in human readable form.
      *
      * @param className
      *            name of the class containing the method
@@ -188,11 +180,11 @@ public class SignatureConverter {
     }
 
     /**
-     * Convenience method for generating a method signature in human readable
-     * form.
+     * Convenience method for generating a method signature in human readable form.
      *
      * @param xmethod
      *            an XMethod
+     *
      * @return the formatted version of that signature
      */
     public static String convertMethodSignature(XMethod xmethod) {
@@ -203,21 +195,20 @@ public class SignatureConverter {
     }
 
     /**
-     * Convenience method for generating a method signature in human readable
-     * form.
+     * Convenience method for generating a method signature in human readable form.
      *
      * @param methodDescriptor
      *            a MethodDescriptor
+     *
      * @return the formatted version of that signature
      */
     public static String convertMethodSignature(MethodDescriptor methodDescriptor) {
-        return convertMethodSignature(methodDescriptor.getClassDescriptor().toDottedClassName(), methodDescriptor.getName(),
-                methodDescriptor.getSignature());
+        return convertMethodSignature(methodDescriptor.getClassDescriptor().toDottedClassName(),
+                methodDescriptor.getName(), methodDescriptor.getSignature());
     }
 
     /**
-     * Convenience method for generating a method signature in human readable
-     * form.
+     * Convenience method for generating a method signature in human readable form.
      *
      * @param className
      *            name of the class containing the method
@@ -226,8 +217,7 @@ public class SignatureConverter {
      * @param methodSig
      *            the signature of the method
      * @param pkgName
-     *            the name of the package the method is in (used to shorten
-     *            class names)
+     *            the name of the package the method is in (used to shorten class names)
      */
     public static String convertMethodSignature(String className, String methodName, String methodSig, String pkgName) {
         StringBuilder args = new StringBuilder();
@@ -257,8 +247,7 @@ public class SignatureConverter {
     }
 
     /**
-     * Convenience method for converting a single signature component to
-     * human-readable form.
+     * Convenience method for converting a single signature component to human-readable form.
      *
      * @param signature
      *            the signature

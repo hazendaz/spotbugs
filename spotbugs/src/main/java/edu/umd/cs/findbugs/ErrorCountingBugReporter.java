@@ -24,8 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A delegating bug reporter which counts reported bug instances, missing
- * classes, and serious analysis errors.
+ * A delegating bug reporter which counts reported bug instances, missing classes, and serious analysis errors.
  */
 public class ErrorCountingBugReporter extends DelegatingBugReporter {
     private int bugCount;

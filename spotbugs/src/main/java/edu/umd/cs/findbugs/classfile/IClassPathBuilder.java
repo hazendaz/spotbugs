@@ -39,14 +39,12 @@ public interface IClassPathBuilder {
      * @param locator
      *            locator for project codebase
      * @param isApplication
-     *            true if the codebase is an application codebase, false
-     *            otherwise
+     *            true if the codebase is an application codebase, false otherwise
      */
     public void addCodeBase(ICodeBaseLocator locator, boolean isApplication);
 
     /**
-     * Set whether or not nested archives should be scanned. This should be
-     * called before the build() method is called.
+     * Set whether or not nested archives should be scanned. This should be called before the build() method is called.
      *
      * @param scanNestedArchives
      *            true if nested archives should be scanned, false otherwise
@@ -60,16 +58,16 @@ public interface IClassPathBuilder {
      *            IClassPath object to build
      * @param progress
      *            IClassPathBuilderProgress callback
+     *
      * @throws ResourceNotFoundException
      * @throws IOException
      * @throws InterruptedException
      */
-    public void build(IClassPath classPath, IClassPathBuilderProgress progress) throws CheckedAnalysisException, IOException,
-            InterruptedException;
+    public void build(IClassPath classPath, IClassPathBuilderProgress progress)
+            throws CheckedAnalysisException, IOException, InterruptedException;
 
     /**
-     * Get the list of application classes discovered while scanning the
-     * classpath.
+     * Get the list of application classes discovered while scanning the classpath.
      *
      * @return list of application classes
      */

@@ -107,7 +107,6 @@ public class BugInfoView extends AbstractFindbugsView {
 
     private BugPattern pattern;
 
-
     private String oldText;
 
     private BugInstance bug;
@@ -219,14 +218,12 @@ public class BugInfoView extends AbstractFindbugsView {
 
     private void createAnnotationList(Composite parent) {
         ExpandableComposite exp = new ExpandableComposite(parent, SWT.NONE,
-                ExpandableComposite.TREE_NODE
-                        | ExpandableComposite.COMPACT
-                        | ExpandableComposite.EXPANDED
-        //                | ExpandableComposite.NO_TITLE
-        //                | ExpandableComposite.FOCUS_TITLE
-        //                | ExpandableComposite.TITLE_BAR
-        //                | ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
-        //| ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
+                ExpandableComposite.TREE_NODE | ExpandableComposite.COMPACT | ExpandableComposite.EXPANDED
+        // | ExpandableComposite.NO_TITLE
+        // | ExpandableComposite.FOCUS_TITLE
+        // | ExpandableComposite.TITLE_BAR
+        // | ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
+        // | ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
         );
         exp.addExpansionListener(expansionListener);
         exp.setText("Navigation");
@@ -275,7 +272,6 @@ public class BugInfoView extends AbstractFindbugsView {
         }
         oldText = html;
     }
-
 
     private String getHtml() {
         if (pattern == null) {
@@ -435,7 +431,6 @@ public class BugInfoView extends AbstractFindbugsView {
         return null;
     }
 
-
     private void showAnnotation(IEditorPart activeEditor) {
         if (showingAnnotation) {
             FindbugsPlugin.getDefault().logInfo("Recursive showAnnotation");
@@ -539,7 +534,6 @@ public class BugInfoView extends AbstractFindbugsView {
         String name = mma.getMethodName();
         SignatureParser parser = new SignatureParser(mma.getMethodSignature());
         String[] arguments = parser.getArguments();
-
 
         nextMethod: for (IMethod m : type.getMethods()) {
             if (!m.getElementName().equals(name)) {
@@ -668,8 +662,7 @@ public class BugInfoView extends AbstractFindbugsView {
             return;
         }
         if (file != null) {
-            setContentDescription(file.getName() +
-                    ": " + marker.getAttribute(IMarker.LINE_NUMBER, 0));
+            setContentDescription(file.getName() + ": " + marker.getAttribute(IMarker.LINE_NUMBER, 0));
         } else {
             setContentDescription("");
         }
@@ -706,6 +699,5 @@ public class BugInfoView extends AbstractFindbugsView {
             rootComposite.layout(true, true);
         }
     }
-
 
 }

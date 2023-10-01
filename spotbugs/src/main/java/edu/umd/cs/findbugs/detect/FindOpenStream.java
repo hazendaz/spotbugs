@@ -57,22 +57,21 @@ import edu.umd.cs.findbugs.ba.ResourceValueAnalysis;
 import edu.umd.cs.findbugs.ba.ResourceValueFrame;
 
 /**
- * A Detector to look for streams that are opened in a method, do not escape the
- * method, and are not closed on all paths out of the method. Note that "stream"
- * is a bit misleading, since we also use the detector to look for database
+ * A Detector to look for streams that are opened in a method, do not escape the method, and are not closed on all paths
+ * out of the method. Note that "stream" is a bit misleading, since we also use the detector to look for database
  * resources that aren't closed.
  *
  * @author David Hovemeyer
  * @author Agustin Toribio atomo@arrakis.es
  */
-public final class FindOpenStream extends ResourceTrackingDetector<Stream, StreamResourceTracker> implements StatelessDetector {
+public final class FindOpenStream extends ResourceTrackingDetector<Stream, StreamResourceTracker>
+        implements StatelessDetector {
     static final boolean DEBUG = SystemProperties.getBoolean("fos.debug");
 
     static final boolean IGNORE_WRAPPED_UNINTERESTING_STREAMS = !SystemProperties.getBoolean("fos.allowWUS");
 
     /*
-     * ----------------------------------------------------------------------
-     * Tracked resource types
+     * ---------------------------------------------------------------------- Tracked resource types
      * ----------------------------------------------------------------------
      */
 
@@ -80,14 +79,13 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
      * List of base classes of tracked resources.
      */
     static final ObjectType[] streamBaseList = { ObjectTypeFactory.getInstance("java.io.InputStream"),
-        ObjectTypeFactory.getInstance("java.io.OutputStream"), ObjectTypeFactory.getInstance("java.util.zip.ZipFile"),
-        ObjectTypeFactory.getInstance("java.io.Reader"), ObjectTypeFactory.getInstance("java.io.Writer"),
-        ObjectTypeFactory.getInstance("java.sql.Connection"),
-        ObjectTypeFactory.getInstance("java.sql.Statement"), ObjectTypeFactory.getInstance("java.sql.ResultSet") };
+            ObjectTypeFactory.getInstance("java.io.OutputStream"),
+            ObjectTypeFactory.getInstance("java.util.zip.ZipFile"), ObjectTypeFactory.getInstance("java.io.Reader"),
+            ObjectTypeFactory.getInstance("java.io.Writer"), ObjectTypeFactory.getInstance("java.sql.Connection"),
+            ObjectTypeFactory.getInstance("java.sql.Statement"), ObjectTypeFactory.getInstance("java.sql.ResultSet") };
 
     /**
-     * StreamFactory objects used to detect resources created within analyzed
-     * methods.
+     * StreamFactory objects used to detect resources created within analyzed methods.
      */
     static final StreamFactory[] streamFactoryList;
 
@@ -96,14 +94,17 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
 
         // Examine InputStreams, OutputStreams, Readers, and Writers,
         // ignoring byte array, char array, and String variants.
-        streamFactoryCollection.add(new IOStreamFactory("java.io.InputStream", new String[] { "java.io.ByteArrayInputStream",
-            "java.io.StringBufferInputStream", "java.io.PipedInputStream" }, "OS_OPEN_STREAM"));
-        streamFactoryCollection.add(new IOStreamFactory("java.io.OutputStream", new String[] { "java.io.ByteArrayOutputStream",
-            "java.io.PipedOutputStream" }, "OS_OPEN_STREAM"));
-        streamFactoryCollection.add(new IOStreamFactory("java.io.Reader", new String[] { "java.io.StringReader",
-            "java.io.CharArrayReader", "java.io.PipedReader" }, "OS_OPEN_STREAM"));
-        streamFactoryCollection.add(new IOStreamFactory("java.io.Writer", new String[] { "java.io.StringWriter",
-            "java.io.CharArrayWriter", "java.io.PipedWriter" }, "OS_OPEN_STREAM"));
+        streamFactoryCollection
+                .add(new IOStreamFactory("java.io.InputStream", new String[] { "java.io.ByteArrayInputStream",
+                        "java.io.StringBufferInputStream", "java.io.PipedInputStream" }, "OS_OPEN_STREAM"));
+        streamFactoryCollection.add(new IOStreamFactory("java.io.OutputStream",
+                new String[] { "java.io.ByteArrayOutputStream", "java.io.PipedOutputStream" }, "OS_OPEN_STREAM"));
+        streamFactoryCollection.add(new IOStreamFactory("java.io.Reader",
+                new String[] { "java.io.StringReader", "java.io.CharArrayReader", "java.io.PipedReader" },
+                "OS_OPEN_STREAM"));
+        streamFactoryCollection.add(new IOStreamFactory("java.io.Writer",
+                new String[] { "java.io.StringWriter", "java.io.CharArrayWriter", "java.io.PipedWriter" },
+                "OS_OPEN_STREAM"));
         streamFactoryCollection.add(new IOStreamFactory("java.util.zip.ZipFile", new String[0], "OS_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.lang.Class", "getResourceAsStream",
                 "(Ljava/lang/String;)Ljava/io/InputStream;", "OS_OPEN_STREAM"));
@@ -114,20 +115,23 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.nio.file.Files", "newOutputStream",
                 "(Ljava/nio/file/Path;[Ljava/nio/file/OpenOption;)Ljava/io/OutputStream;", "OS_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.nio.file.Files", "newByteChannel",
-                "(Ljava/nio/file/Path;[Ljava/nio/file/OpenOption;)Ljava/nio/channels/SeekableByteChannel;", "OS_OPEN_STREAM"));
+                "(Ljava/nio/file/Path;[Ljava/nio/file/OpenOption;)Ljava/nio/channels/SeekableByteChannel;",
+                "OS_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.nio.file.Files", "newByteChannel",
                 "(Ljava/nio/file/Path;Ljava/util/Set;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/channels/SeekableByteChannel;",
                 "OS_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.nio.file.Files", "newDirectoryStream",
                 "(Ljava/nio/file/Path;)Ljava/nio/file/DirectoryStream;", "OS_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.nio.file.Files", "newDirectoryStream",
-                "(Ljava/nio/file/Path;Ljava/nio/file/DirectoryStream$Filter;)Ljava/nio/file/DirectoryStream;", "OS_OPEN_STREAM"));
+                "(Ljava/nio/file/Path;Ljava/nio/file/DirectoryStream$Filter;)Ljava/nio/file/DirectoryStream;",
+                "OS_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.nio.file.Files", "newDirectoryStream",
                 "(Ljava/nio/file/Path;Ljava/lang/String;)Ljava/nio/file/DirectoryStream;", "OS_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.nio.file.Files", "newBufferedReader",
                 "(Ljava/nio/file/Path;Ljava/nio/charset/Charset;)Ljava/io/BufferedReader;", "OS_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.nio.file.Files", "newBufferedWriter",
-                "(Ljava/nio/file/Path;Ljava/nio/charset/Charset;[Ljava/nio/file/OpenOption;)Ljava/io/BufferedWriter;", "OS_OPEN_STREAM"));
+                "(Ljava/nio/file/Path;Ljava/nio/charset/Charset;[Ljava/nio/file/OpenOption;)Ljava/io/BufferedWriter;",
+                "OS_OPEN_STREAM"));
 
         // java 8
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.nio.file.Files", "newBufferedReader",
@@ -136,26 +140,26 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
                 "(Ljava/nio/file/Path;[Ljava/nio/file/OpenOption;)Ljava/io/BufferedWriter;", "OS_OPEN_STREAM"));
 
         // Ignore socket input and output streams
-        streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.net.Socket", "getInputStream",
-                "()Ljava/io/InputStream;"));
-        streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.net.Socket", "getOutputStream",
-                "()Ljava/io/OutputStream;"));
+        streamFactoryCollection.add(
+                new MethodReturnValueStreamFactory("java.net.Socket", "getInputStream", "()Ljava/io/InputStream;"));
+        streamFactoryCollection.add(
+                new MethodReturnValueStreamFactory("java.net.Socket", "getOutputStream", "()Ljava/io/OutputStream;"));
 
         // Ignore servlet streams
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("javax.servlet.ServletRequest", "getInputStream",
                 "()Ljavax/servlet/ServletInputStream;"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("javax.servlet.ServletRequest", "getReader",
                 "()Ljava/io/BufferedReader;"));
-        streamFactoryCollection.add(new MethodReturnValueStreamFactory("javax.servlet.ServletResponse", "getOutputStream",
-                "()Ljavax/servlet/ServletOutputStream;"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory("javax.servlet.ServletResponse",
+                "getOutputStream", "()Ljavax/servlet/ServletOutputStream;"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("javax.servlet.ServletResponse", "getWriter",
                 "()Ljava/io/PrintWriter;"));
-        streamFactoryCollection.add(new MethodReturnValueStreamFactory("jakarta.servlet.ServletRequest", "getInputStream",
-                "()Ljakarta/servlet/ServletInputStream;"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory("jakarta.servlet.ServletRequest",
+                "getInputStream", "()Ljakarta/servlet/ServletInputStream;"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("jakarta.servlet.ServletRequest", "getReader",
                 "()Ljava/io/BufferedReader;"));
-        streamFactoryCollection.add(new MethodReturnValueStreamFactory("jakarta.servlet.ServletResponse", "getOutputStream",
-                "()Ljakarta/servlet/ServletOutputStream;"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory("jakarta.servlet.ServletResponse",
+                "getOutputStream", "()Ljakarta/servlet/ServletOutputStream;"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("jakarta.servlet.ServletResponse", "getWriter",
                 "()Ljava/io/PrintWriter;"));
 
@@ -206,7 +210,8 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.sql.DriverManager", "getConnection",
                 "(Ljava/lang/String;Ljava/util/Properties;)Ljava/sql/Connection;", "ODR_OPEN_DATABASE_RESOURCE"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("java.sql.DriverManager", "getConnection",
-                "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;", "ODR_OPEN_DATABASE_RESOURCE"));
+                "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;",
+                "ODR_OPEN_DATABASE_RESOURCE"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("javax.sql.DataSource", "getConnection",
                 "()Ljava/sql/Connection;", "ODR_OPEN_DATABASE_RESOURCE"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory("javax.sql.DataSource", "getConnection",
@@ -235,8 +240,7 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Helper classes
+     * ---------------------------------------------------------------------- Helper classes
      * ----------------------------------------------------------------------
      */
 
@@ -260,16 +264,14 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Fields
+     * ---------------------------------------------------------------------- Fields
      * ----------------------------------------------------------------------
      */
 
     private final List<PotentialOpenStream> potentialOpenStreamList;
 
     /*
-     * ----------------------------------------------------------------------
-     * Implementation
+     * ---------------------------------------------------------------------- Implementation
      * ----------------------------------------------------------------------
      */
 
@@ -291,15 +293,13 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
     // create possible resources to be tracked. If we don't see a
     // class containing one of these words, then we don't run the
     // detector on the class.
-    private static final String[] PRESCREEN_CLASS_LIST = { "Stream", "Reader", "Writer", "ZipFile", "JarFile", "DriverManager",
-        "Connection", "Statement", "Files" };
+    private static final String[] PRESCREEN_CLASS_LIST = { "Stream", "Reader", "Writer", "ZipFile", "JarFile",
+            "DriverManager", "Connection", "Statement", "Files" };
 
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.Detector#visitClassContext(edu.umd.cs.findbugs.ba
-     * .ClassContext)
+     * @see edu.umd.cs.findbugs.Detector#visitClassContext(edu.umd.cs.findbugs.ba .ClassContext)
      */
     @Override
     public void visitClassContext(ClassContext classContext) {
@@ -399,7 +399,8 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
                             // Create a Stream object to represent it.
                             // The Stream will be uninteresting, so it will
                             // inhibit reporting for any stream that wraps it.
-                            Stream paramStream = new Stream(firstLocation, objectType.getClassName(), streamBase.getClassName());
+                            Stream paramStream = new Stream(firstLocation, objectType.getClassName(),
+                                    streamBase.getClassName());
                             paramStream.setIsOpenOnCreation(true);
                             paramStream.setOpenLocation(firstLocation);
                             paramStream.setInstanceParam(local);
@@ -478,14 +479,16 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
 
             String sourceFile = javaClass.getSourceFileName();
             String leakClass = stream.getStreamBase();
-            if (MemberUtils.isMainMethod(method) && (leakClass.contains("InputStream") || leakClass.contains("Reader"))) {
+            if (MemberUtils.isMainMethod(method)
+                    && (leakClass.contains("InputStream") || leakClass.contains("Reader"))) {
                 return;
             }
 
-            bugAccumulator.accumulateBug(new BugInstance(this, pos.bugType, pos.priority)
-                    .addClassAndMethod(methodGen, sourceFile).addTypeOfNamedClass(leakClass)
-                    .describe(TypeAnnotation.CLOSEIT_ROLE), SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen,
-                            sourceFile, stream.getLocation().getHandle()));
+            bugAccumulator.accumulateBug(
+                    new BugInstance(this, pos.bugType, pos.priority).addClassAndMethod(methodGen, sourceFile)
+                            .addTypeOfNamedClass(leakClass).describe(TypeAnnotation.CLOSEIT_ROLE),
+                    SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile,
+                            stream.getLocation().getHandle()));
         }
     }
 
@@ -501,8 +504,8 @@ public final class FindOpenStream extends ResourceTrackingDetector<Stream, Strea
         ResourceValueFrame exitFrame = dataflow.getResultFact(cfg.getExit());
 
         ResourceValueFrame.State exitStatus = exitFrame.getStatus();
-        if (exitStatus == ResourceValueFrame.State.OPEN ||
-                exitStatus == ResourceValueFrame.State.OPEN_ON_EXCEPTION_PATH) {
+        if (exitStatus == ResourceValueFrame.State.OPEN
+                || exitStatus == ResourceValueFrame.State.OPEN_ON_EXCEPTION_PATH) {
 
             // FIXME: Stream object should be queried for the
             // priority.

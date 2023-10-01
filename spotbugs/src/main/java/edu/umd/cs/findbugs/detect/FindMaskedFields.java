@@ -120,15 +120,15 @@ public class FindMaskedFields extends BytecodeScanningDetector {
                     }
                     String superClassName = s.getClassName();
                     if (superClassName.startsWith("java/io")
-                            && (superClassName.endsWith("InputStream") && "in".equals(fieldName) || superClassName
-                                    .endsWith("OutputStream") && "out".equals(fieldName))) {
+                            && (superClassName.endsWith("InputStream") && "in".equals(fieldName)
+                                    || superClassName.endsWith("OutputStream") && "out".equals(fieldName))) {
                         continue;
                     }
                     if (classFields.containsKey(fieldName)) {
                         Field maskingField = classFields.get(fieldName);
                         String mClassName = getDottedClassName();
-                        FieldAnnotation fa = new FieldAnnotation(mClassName, maskingField.getName(), maskingField.getSignature(),
-                                maskingField.isStatic());
+                        FieldAnnotation fa = new FieldAnnotation(mClassName, maskingField.getName(),
+                                maskingField.getSignature(), maskingField.isStatic());
                         int priority = NORMAL_PRIORITY;
                         if (maskingField.isStatic() || maskingField.isFinal()) {
                             priority++;
@@ -145,9 +145,11 @@ public class FindMaskedFields extends BytecodeScanningDetector {
                             priority++;
                         }
 
-                        FieldAnnotation maskedFieldAnnotation = FieldAnnotation.fromFieldDescriptor(fld.getFieldDescriptor());
-                        BugInstance bug = new BugInstance(this, "MF_CLASS_MASKS_FIELD", priority).addClass(this).addField(fa)
-                                .describe("FIELD_MASKING").addField(maskedFieldAnnotation).describe("FIELD_MASKED");
+                        FieldAnnotation maskedFieldAnnotation = FieldAnnotation
+                                .fromFieldDescriptor(fld.getFieldDescriptor());
+                        BugInstance bug = new BugInstance(this, "MF_CLASS_MASKS_FIELD", priority).addClass(this)
+                                .addField(fa).describe("FIELD_MASKING").addField(maskedFieldAnnotation)
+                                .describe("FIELD_MASKED");
                         rememberedBugs.add(new RememberedBug(bug, fa, maskedFieldAnnotation));
 
                     }
@@ -171,8 +173,7 @@ public class FindMaskedFields extends BytecodeScanningDetector {
     }
 
     /**
-     * This property enables production of warnings for locals which obscure
-     * fields.
+     * This property enables production of warnings for locals which obscure fields.
      */
     private static final boolean ENABLE_LOCALS = SystemProperties.getBoolean("findbugs.maskedfields.locals");
 

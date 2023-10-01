@@ -93,7 +93,8 @@ public class FindSelfComparison2 implements Detector {
         return "compareTo".equals(methodName) || "compareToIgnoreCase".equals(methodName);
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         CFG cfg = classContext.getCFG(method);
         ValueNumberDataflow valueNumberDataflow = classContext.getValueNumberDataflow(method);
         ConstantPoolGen cpg = classContext.getConstantPoolGen();
@@ -125,10 +126,10 @@ public class FindSelfComparison2 implements Detector {
                     String sig = iins.getSignature(cpg);
 
                     SignatureParser parser = new SignatureParser(sig);
-                    if (parser.getNumParameters() == 1
-                            && (booleanComparisonMethod(invoking) && sig.endsWith(";)Z") || comparatorMethod(invoking) && sig.endsWith(";)I"))) {
-                        checkForSelfOperation(classContext, location, valueNumberDataflow, "COMPARISON", method, methodGen,
-                                sourceFile);
+                    if (parser.getNumParameters() == 1 && (booleanComparisonMethod(invoking) && sig.endsWith(";)Z")
+                            || comparatorMethod(invoking) && sig.endsWith(";)I"))) {
+                        checkForSelfOperation(classContext, location, valueNumberDataflow, "COMPARISON", method,
+                                methodGen, sourceFile);
                     }
 
                 }
@@ -142,7 +143,8 @@ public class FindSelfComparison2 implements Detector {
             case IAND:
             case IXOR:
             case ISUB:
-                checkForSelfOperation(classContext, location, valueNumberDataflow, "COMPUTATION", method, methodGen, sourceFile);
+                checkForSelfOperation(classContext, location, valueNumberDataflow, "COMPUTATION", method, methodGen,
+                        sourceFile);
                 break;
             case FCMPG:
             case DCMPG:
@@ -158,7 +160,8 @@ public class FindSelfComparison2 implements Detector {
             case IF_ICMPLE:
             case IF_ICMPLT:
             case IF_ICMPGE:
-                checkForSelfOperation(classContext, location, valueNumberDataflow, "COMPARISON", method, methodGen, sourceFile);
+                checkForSelfOperation(classContext, location, valueNumberDataflow, "COMPARISON", method, methodGen,
+                        sourceFile);
                 break;
             default:
                 break;
@@ -173,10 +176,12 @@ public class FindSelfComparison2 implements Detector {
      * @param method
      * @param methodGen
      * @param sourceFile
+     *
      * @throws DataflowAnalysisException
      */
-    private void checkForSelfOperation(ClassContext classContext, Location location, ValueNumberDataflow valueNumberDataflow,
-            String op, Method method, MethodGen methodGen, String sourceFile) throws DataflowAnalysisException {
+    private void checkForSelfOperation(ClassContext classContext, Location location,
+            ValueNumberDataflow valueNumberDataflow, String op, Method method, MethodGen methodGen, String sourceFile)
+            throws DataflowAnalysisException {
         ValueNumberFrame frame = valueNumberDataflow.getFactAtLocation(location);
         if (!frame.isValid()) {
             return;
@@ -215,8 +220,8 @@ public class FindSelfComparison2 implements Detector {
         if (annotation == null) {
             return;
         }
-        SourceLineAnnotation sourceLine = SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile,
-                location.getHandle());
+        SourceLineAnnotation sourceLine = SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen,
+                sourceFile, location.getHandle());
         int line = sourceLine.getStartLine();
         BitSet occursMultipleTimes = classContext.linesMentionedMultipleTimes(method);
         if (line > 0 && occursMultipleTimes.get(line)) {
@@ -227,8 +232,7 @@ public class FindSelfComparison2 implements Detector {
             bug.addCalledMethod(classContext.getConstantPoolGen(), (InvokeInstruction) ins);
         }
 
-        bug.add(annotation)
-                .addSourceLine(classContext, methodGen, sourceFile, location.getHandle());
+        bug.add(annotation).addSourceLine(classContext, methodGen, sourceFile, location.getHandle());
         bugReporter.reportBug(bug);
     }
 

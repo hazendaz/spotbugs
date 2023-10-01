@@ -25,10 +25,8 @@ import java.util.ResourceBundle;
 
 import javax.annotation.Nonnull;
 
-
 /**
- * Singleton responsible for returning localized strings for information
- * returned to the user.
+ * Singleton responsible for returning localized strings for information returned to the user.
  *
  * @author David Hovemeyer
  */
@@ -37,14 +35,14 @@ public class I18N {
 
     public static final Locale defaultLocale = Locale.getDefault();
 
-    private final ResourceBundle annotationDescriptionBundle = ResourceBundle.getBundle("edu.umd.cs.findbugs.FindBugsAnnotationDescriptions",
-            defaultLocale);
+    private final ResourceBundle annotationDescriptionBundle = ResourceBundle
+            .getBundle("edu.umd.cs.findbugs.FindBugsAnnotationDescriptions", defaultLocale);
 
     /**
      * used if local one can't be found
      */
-    private final ResourceBundle englishAnnotationDescriptionBundle = ResourceBundle.getBundle("edu.umd.cs.findbugs.FindBugsAnnotationDescriptions",
-            Locale.ENGLISH);
+    private final ResourceBundle englishAnnotationDescriptionBundle = ResourceBundle
+            .getBundle("edu.umd.cs.findbugs.FindBugsAnnotationDescriptions", Locale.ENGLISH);
 
     I18N() {
         super();
@@ -60,8 +58,7 @@ public class I18N {
     }
 
     /**
-     * Get a message string. This is a format pattern for describing an entire
-     * bug instance in a single line.
+     * Get a message string. This is a format pattern for describing an entire bug instance in a single line.
      *
      * @param key
      *            which message to retrieve
@@ -76,9 +73,8 @@ public class I18N {
     }
 
     /**
-     * Get a short message string. This is a concrete string (not a format
-     * pattern) which briefly describes the type of bug, without mentioning
-     * particular a particular class/method/field.
+     * Get a short message string. This is a concrete string (not a format pattern) which briefly describes the type of
+     * bug, without mentioning particular a particular class/method/field.
      *
      * @param key
      *            which short message to retrieve
@@ -114,9 +110,8 @@ public class I18N {
     }
 
     /**
-     * Get an annotation description string. This is a format pattern which will
-     * describe a BugAnnotation in the context of a particular bug instance. Its
-     * single format argument is the BugAnnotation.
+     * Get an annotation description string. This is a format pattern which will describe a BugAnnotation in the context
+     * of a particular bug instance. Its single format argument is the BugAnnotation.
      *
      * @param key
      *            the annotation description to retrieve
@@ -138,13 +133,13 @@ public class I18N {
     }
 
     /**
-     * Get a description for given "bug type". FIXME: this is referred to
-     * elsewhere as the "bug code" or "bug abbrev". Should make the terminology
-     * consistent everywhere. In this case, the bug type refers to the short
-     * prefix code prepended to the long and short bug messages.
+     * Get a description for given "bug type". FIXME: this is referred to elsewhere as the "bug code" or "bug abbrev".
+     * Should make the terminology consistent everywhere. In this case, the bug type refers to the short prefix code
+     * prepended to the long and short bug messages.
      *
      * @param shortBugType
      *            the short bug type code
+     *
      * @return the description of that short bug type code means
      */
     public @Nonnull String getBugTypeDescription(String shortBugType) {
@@ -156,11 +151,11 @@ public class I18N {
     }
 
     /**
-     * Get the description of a bug category. Returns the category if no
-     * description can be found.
+     * Get the description of a bug category. Returns the category if no description can be found.
      *
      * @param category
      *            the category
+     *
      * @return the description of the category
      */
     public String getBugCategoryDescription(String category) {

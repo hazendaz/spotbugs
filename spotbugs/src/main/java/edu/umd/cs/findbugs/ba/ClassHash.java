@@ -39,8 +39,8 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
 import edu.umd.cs.findbugs.xml.XMLWriteable;
 
 /**
- * Compute a hash of method names and signatures. This allows us to find out
- * when a class has been renamed, but not changed in any other obvious way.
+ * Compute a hash of method names and signatures. This allows us to find out when a class has been renamed, but not
+ * changed in any other obvious way.
  *
  * @author David Hovemeyer
  */
@@ -91,7 +91,8 @@ public class ClassHash implements XMLWriteable, Comparable<ClassHash> {
      *            the method hash
      */
     public void setMethodHash(XMethod method, byte[] methodHash) {
-        methodHashMap.put(method, new MethodHash(method.getName(), method.getSignature(), method.isStatic(), methodHash));
+        methodHashMap.put(method,
+                new MethodHash(method.getName(), method.getSignature(), method.isStatic(), methodHash));
     }
 
     /**
@@ -126,6 +127,7 @@ public class ClassHash implements XMLWriteable, Comparable<ClassHash> {
      *
      * @param method
      *            the method
+     *
      * @return the MethodHash
      */
     public MethodHash getMethodHash(XMethod method) {
@@ -137,6 +139,7 @@ public class ClassHash implements XMLWriteable, Comparable<ClassHash> {
      *
      * @param javaClass
      *            the class
+     *
      * @return this object
      */
     public ClassHash computeHash(JavaClass javaClass) {
@@ -230,13 +233,15 @@ public class ClassHash implements XMLWriteable, Comparable<ClassHash> {
         xmlOutput.closeTag(CLASS_HASH_ELEMENT_NAME);
     }
 
-    private static final char[] HEX_CHARS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', };
+    private static final char[] HEX_CHARS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
+            'f', };
 
     /**
      * Convert a hash to a string of hex digits.
      *
      * @param hash
      *            the hash
+     *
      * @return a String representation of the hash
      */
     public static String hashToString(byte[] hash) {
@@ -265,6 +270,7 @@ public class ClassHash implements XMLWriteable, Comparable<ClassHash> {
      *
      * @param s
      *            string of hex digits
+     *
      * @return the hash value represented by the string
      */
     public static byte[] stringToHash(String s) {
@@ -280,11 +286,11 @@ public class ClassHash implements XMLWriteable, Comparable<ClassHash> {
     }
 
     /**
-     * Return whether or not this class hash has the same hash value as the one
-     * given.
+     * Return whether or not this class hash has the same hash value as the one given.
      *
      * @param other
      *            another ClassHash
+     *
      * @return true if the hash values are the same, false if not
      */
     public boolean isSameHash(ClassHash other) {

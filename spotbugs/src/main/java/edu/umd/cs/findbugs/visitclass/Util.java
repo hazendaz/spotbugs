@@ -38,7 +38,6 @@ import org.apache.bcel.classfile.Method;
 import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
-
 /**
  * @author pugh
  */
@@ -47,7 +46,9 @@ public class Util {
      * Determine the outer class of obj.
      *
      * @param obj
+     *
      * @return JavaClass for outer class, or null if obj is not an outer class
+     *
      * @throws ClassNotFoundException
      */
 
@@ -69,7 +70,8 @@ public class Util {
         return null;
     }
 
-    public static int getSizeOfSurroundingTryBlock(@CheckForNull Method method, Class<? extends Throwable> exceptionClass, int pc) {
+    public static int getSizeOfSurroundingTryBlock(@CheckForNull Method method,
+            Class<? extends Throwable> exceptionClass, int pc) {
         if (method == null) {
             return Integer.MAX_VALUE;
         }
@@ -77,7 +79,8 @@ public class Util {
         return getSizeOfSurroundingTryBlock(method, ClassName.toSlashedClassName(exceptionClass), pc);
     }
 
-    public static int getSizeOfSurroundingTryBlock(@CheckForNull Method method, @CheckForNull String vmNameOfExceptionClass, int pc) {
+    public static int getSizeOfSurroundingTryBlock(@CheckForNull Method method,
+            @CheckForNull String vmNameOfExceptionClass, int pc) {
         if (method == null) {
             return Integer.MAX_VALUE;
         }

@@ -40,8 +40,7 @@ import edu.umd.cs.findbugs.classfile.Global;
 import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 
 /**
- * Factory for Obligation and ObligationSet objects to be used in an instance of
- * ObligationAnalysis.
+ * Factory for Obligation and ObligationSet objects to be used in an instance of ObligationAnalysis.
  */
 public class ObligationFactory {
     private final Map<String, Obligation> classNameToObligationMap;
@@ -72,11 +71,11 @@ public class ObligationFactory {
     }
 
     /**
-     * Determine whether class named by given ClassDescriptor is an Obligation
-     * type.
+     * Determine whether class named by given ClassDescriptor is an Obligation type.
      *
      * @param classDescriptor
      *            a class
+     *
      * @return true if the class is an Obligation type, false otherwise
      */
     public boolean isObligationType(ClassDescriptor classDescriptor) {
@@ -98,14 +97,14 @@ public class ObligationFactory {
     }
 
     /**
-     * Look up an Obligation by type. This returns the first Obligation that is
-     * a supertype of the type given (meaning that the given type could be an
-     * instance of the returned Obligation).
+     * Look up an Obligation by type. This returns the first Obligation that is a supertype of the type given (meaning
+     * that the given type could be an instance of the returned Obligation).
      *
      * @param type
      *            a type
-     * @return an Obligation that is a supertype of the given type, or null if
-     *         there is no such Obligation
+     *
+     * @return an Obligation that is a supertype of the given type, or null if there is no such Obligation
+     *
      * @throws ClassNotFoundException
      */
     public @CheckForNull Obligation getObligationByType(ObjectType type) throws ClassNotFoundException {
@@ -119,14 +118,13 @@ public class ObligationFactory {
     }
 
     /**
-     * Look up an Obligation by type. This returns the first Obligation that is
-     * a supertype of the type given (meaning that the given type could be an
-     * instance of the returned Obligation).
+     * Look up an Obligation by type. This returns the first Obligation that is a supertype of the type given (meaning
+     * that the given type could be an instance of the returned Obligation).
      *
      * @param classDescriptor
      *            a ClassDescriptor naming a class type
-     * @return an Obligation that is a supertype of the given type, or null if
-     *         there is no such Obligation
+     *
+     * @return an Obligation that is a supertype of the given type, or null if there is no such Obligation
      */
     public @CheckForNull Obligation getObligationByType(ClassDescriptor classDescriptor) {
         try {
@@ -138,14 +136,13 @@ public class ObligationFactory {
     }
 
     /**
-     * Get array of Obligation types corresponding to the parameters of the
-     * given method.
+     * Get array of Obligation types corresponding to the parameters of the given method.
      *
      * @param xmethod
      *            a method
-     * @return array of Obligation types for each of the method's parameters; a
-     *         null element means the corresponding parameter is not an
-     *         Obligation type
+     *
+     * @return array of Obligation types for each of the method's parameters; a null element means the corresponding
+     *         parameter is not an Obligation type
      */
     public Obligation[] getParameterObligationTypes(XMethod xmethod) {
         Type[] paramTypes = Type.getArgumentTypes(xmethod.getSignature());

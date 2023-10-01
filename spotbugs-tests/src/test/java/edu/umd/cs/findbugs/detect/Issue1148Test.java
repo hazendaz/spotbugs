@@ -12,8 +12,7 @@ class Issue1148Test extends AbstractIntegrationTest {
     @EnabledForJreRange(max = JRE.JAVA_20)
     void testIssueUnderJava21() {
         // Under JDK 21 there is an additional class in the bytecode generated from the switch
-        performAnalysis("ghIssues/Issue1148.class",
-                "ghIssues/Issue1148$UsageType.class", "ghIssues/Issue1148$1.class");
+        performAnalysis("ghIssues/Issue1148.class", "ghIssues/Issue1148$UsageType.class", "ghIssues/Issue1148$1.class");
 
         assertBugInMethodCount("SF_SWITCH_NO_DEFAULT", "ghIssues.Issue1148", "addData", 0);
     }
@@ -21,8 +20,7 @@ class Issue1148Test extends AbstractIntegrationTest {
     @Test
     @EnabledForJreRange(min = JRE.JAVA_21)
     void testIssueJava21() {
-        performAnalysis("ghIssues/Issue1148.class",
-                "ghIssues/Issue1148$UsageType.class");
+        performAnalysis("ghIssues/Issue1148.class", "ghIssues/Issue1148$UsageType.class");
 
         assertBugInMethodCount("SF_SWITCH_NO_DEFAULT", "ghIssues.Issue1148", "addData", 0);
     }
@@ -30,8 +28,7 @@ class Issue1148Test extends AbstractIntegrationTest {
     @Test
     @Disabled("This test is disabled because the false positive is still detected")
     void testUnresolvedFalsePositive() {
-        performAnalysis("ghIssues/Issue1148.class",
-                "ghIssues/Issue1148$UsageType.class");
+        performAnalysis("ghIssues/Issue1148.class", "ghIssues/Issue1148$UsageType.class");
 
         assertBugInMethodCount("SF_SWITCH_NO_DEFAULT", "ghIssues.Issue1148", "setDamageParam", 0);
     }

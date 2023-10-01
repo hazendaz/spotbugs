@@ -32,6 +32,7 @@ public interface TypeMatcher {
      *
      * @param t
      *            a Type
+     *
      * @return true if the Type matches, false otherwise
      */
     public boolean matches(Type t);

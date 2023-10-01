@@ -26,9 +26,8 @@ import org.apache.bcel.generic.MethodGen;
 import edu.umd.cs.findbugs.classfile.UncheckedAnalysisException;
 
 /**
- * A kind of runtime exception that can be thrown to indicate a fatal error in
- * an analysis. It would be nice to make this a checked exception, but we can't
- * throw those from BCEL visitors.
+ * A kind of runtime exception that can be thrown to indicate a fatal error in an analysis. It would be nice to make
+ * this a checked exception, but we can't throw those from BCEL visitors.
  */
 public class AnalysisException extends UncheckedAnalysisException {
     /**
@@ -47,8 +46,7 @@ public class AnalysisException extends UncheckedAnalysisException {
     }
 
     /**
-     * Constructor from another Throwable object. This is useful for chaining
-     * exceptions.
+     * Constructor from another Throwable object. This is useful for chaining exceptions.
      *
      * @param message
      *            reason for the error
@@ -60,8 +58,7 @@ public class AnalysisException extends UncheckedAnalysisException {
     }
 
     /**
-     * Constructor from MethodGen and another Throwable object. This is useful
-     * for chaining exceptions.
+     * Constructor from MethodGen and another Throwable object. This is useful for chaining exceptions.
      *
      * @param message
      *            reason for the error

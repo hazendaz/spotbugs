@@ -69,20 +69,25 @@ public class SwitchHandler {
 
     public void enterSwitch(DismantleBytecode dbc, @CheckForNull XClass enumType) {
         int[] switchOffsets = dbc.getSwitchOffsets();
-        enterSwitch(dbc.getOpcode(), dbc.getPC(), switchOffsets, dbc.getDefaultSwitchOffset(), switchOffsets.length == numEnumValues(enumType));
+        enterSwitch(dbc.getOpcode(), dbc.getPC(), switchOffsets, dbc.getDefaultSwitchOffset(),
+                switchOffsets.length == numEnumValues(enumType));
     }
 
     /**
-     * @param opCode The op code of the switch, should be <code>TABLESWITCH</code> or <code>LOOKUPSWITCH</code>
-     * @param pc The PC of the switch instruction
-     * @param switchOffsets The PC offsets of the switch cases
-     * @param defaultSwitchOffset The PC of the default case
-     * @param exhaustive <code>true</code> if the switch is exhaustive
+     * @param opCode
+     *            The op code of the switch, should be <code>TABLESWITCH</code> or <code>LOOKUPSWITCH</code>
+     * @param pc
+     *            The PC of the switch instruction
+     * @param switchOffsets
+     *            The PC offsets of the switch cases
+     * @param defaultSwitchOffset
+     *            The PC of the default case
+     * @param exhaustive
+     *            <code>true</code> if the switch is exhaustive
      */
     public void enterSwitch(int opCode, int pc, int[] switchOffsets, int defaultSwitchOffset, boolean exhaustive) {
         assert opCode == Const.TABLESWITCH || opCode == Const.LOOKUPSWITCH;
         SwitchDetails details = new SwitchDetails(pc, switchOffsets, defaultSwitchOffset, exhaustive);
-
 
         int size = switchOffsetStack.size();
         while (--size >= 0) {
@@ -159,8 +164,8 @@ public class SwitchHandler {
             throw new IllegalStateException("No current switch statement");
         }
         SwitchDetails details = switchOffsetStack.get(switchOffsetStack.size() - 1);
-        return SourceLineAnnotation.fromVisitedInstructionRange(
-                detector.getClassContext(), detector, details.switchPC, details.switchPC + details.maxOffset - 1);
+        return SourceLineAnnotation.fromVisitedInstructionRange(detector.getClassContext(), detector, details.switchPC,
+                details.switchPC + details.maxOffset - 1);
     }
 
     /**
@@ -180,8 +185,11 @@ public class SwitchHandler {
      * In type switches a <code>CHECKCAST</code> is inserted by the compiler for each case. This method checks if the
      * instruction is one of these casts and then checks if the corresponding switch is a type switch.
      *
-     * @param opCode The operation code
-     * @param pc The program counter
+     * @param opCode
+     *            The operation code
+     * @param pc
+     *            The program counter
+     *
      * @return <code>true</code>If this instruction is a cast for a type switch
      */
     public boolean isTypeSwitchCaseCheckCast(int opCode, int pc) {
@@ -200,10 +208,12 @@ public class SwitchHandler {
 
     /**
      * In type switches an <code>ASTORE</code> is inserted by the compiler for each case. This method checks if the
-     * instruction is one of these loads and then checks if the corresponding switch is a type switch.
-     * We're looking for: an ASTORE preceded by a CHECKCAST preceded by an instruction at the offset of a switch case
+     * instruction is one of these loads and then checks if the corresponding switch is a type switch. We're looking
+     * for: an ASTORE preceded by a CHECKCAST preceded by an instruction at the offset of a switch case
      *
-     * @param location The Location
+     * @param location
+     *            The Location
+     *
      * @return <code>true</code>If this instruction is a load for a type switch
      */
     public boolean isTypeSwitchCaseLoad(Location location) {
@@ -231,8 +241,11 @@ public class SwitchHandler {
     /**
      * Finds a switch from the first PC of a case
      *
-     * @param possiblePC The possible first PC of a switch case
-     * @return The <code>SwitchDetails</code> of the switch corresponding to the case or null if there was no case at this PC
+     * @param possiblePC
+     *            The possible first PC of a switch case
+     *
+     * @return The <code>SwitchDetails</code> of the switch corresponding to the case or null if there was no case at
+     *         this PC
      */
     private SwitchDetails findSwitchDetailsByPc(int... possiblePC) {
         for (SwitchDetails switchDetails : switchOffsetStack) {

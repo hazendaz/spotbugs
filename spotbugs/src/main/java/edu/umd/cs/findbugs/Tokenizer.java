@@ -25,10 +25,11 @@ import java.io.Reader;
 import java.util.BitSet;
 
 /**
- * A simple tokenizer for Java source text. This is not intended to be a
- * compliant lexer; instead, it is for quick and dirty scanning.
+ * A simple tokenizer for Java source text. This is not intended to be a compliant lexer; instead, it is for quick and
+ * dirty scanning.
  *
  * @author David Hovemeyer
+ *
  * @see Token
  */
 public class Tokenizer {

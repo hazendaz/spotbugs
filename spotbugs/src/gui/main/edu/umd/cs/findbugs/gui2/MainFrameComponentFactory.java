@@ -84,7 +84,7 @@ public class MainFrameComponentFactory implements Serializable {
         mainFrame.setSummaryTopPanel(new JPanel());
         mainFrame.getSummaryTopPanel().setLayout(new GridLayout(0, 1));
         mainFrame.getSummaryTopPanel().setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 4));
-        //        mainFrame.getSummaryTopPanel().setMinimumSize(new Dimension(fontSize * 50, fontSize * 5));
+        // mainFrame.getSummaryTopPanel().setMinimumSize(new Dimension(fontSize * 50, fontSize * 5));
 
         JPanel summaryTopOuter = new JPanel(new BorderLayout());
         summaryTopOuter.add(mainFrame.getSummaryTopPanel(), BorderLayout.NORTH);
@@ -191,8 +191,7 @@ public class MainFrameComponentFactory implements Serializable {
     }
 
     /**
-     * Sets the title of the source tabs for either docking or non-docking
-     * versions.
+     * Sets the title of the source tabs for either docking or non-docking versions.
      */
     void setSourceTab(String title, @CheckForNull BugInstance bug) {
         JComponent label = mainFrame.getGuiLayout().getSourceViewComponent();
@@ -283,11 +282,10 @@ public class MainFrameComponentFactory implements Serializable {
     }
 
     /**
-     * Creates bug summary component. If obj is a string will create a JLabel
-     * with that string as it's text and return it. If obj is an annotation will
-     * return a JLabel with the annotation's toString(). If that annotation is a
-     * SourceLineAnnotation or has a SourceLineAnnotation connected to it and
-     * the source file is available will attach a listener to the label.
+     * Creates bug summary component. If obj is a string will create a JLabel with that string as it's text and return
+     * it. If obj is an annotation will return a JLabel with the annotation's toString(). If that annotation is a
+     * SourceLineAnnotation or has a SourceLineAnnotation connected to it and the source file is available will attach a
+     * listener to the label.
      */
     public Component bugSummaryComponent(String str, BugInstance bug) {
         JLabel label = new JLabel();
@@ -408,10 +406,9 @@ public class MainFrameComponentFactory implements Serializable {
     }
 
     /**
-     * Listens for when cursor is over the label and when it is clicked. When
-     * the cursor is over the label will make the label text blue and the cursor
-     * the hand cursor. When clicked will take the user to the source code tab
-     * and to the lines of code connected to the SourceLineAnnotation.
+     * Listens for when cursor is over the label and when it is clicked. When the cursor is over the label will make the
+     * label text blue and the cursor the hand cursor. When clicked will take the user to the source code tab and to the
+     * lines of code connected to the SourceLineAnnotation.
      *
      * @author Kristin Stephens
      *
@@ -423,7 +420,8 @@ public class MainFrameComponentFactory implements Serializable {
 
         private final SourceLineAnnotation note;
 
-        BugSummaryMouseListener(@Nonnull BugInstance bugInstance, @Nonnull JLabel label, @Nonnull SourceLineAnnotation link) {
+        BugSummaryMouseListener(@Nonnull BugInstance bugInstance, @Nonnull JLabel label,
+                @Nonnull SourceLineAnnotation link) {
             this.bugInstance = bugInstance;
             this.label = label;
             this.note = link;

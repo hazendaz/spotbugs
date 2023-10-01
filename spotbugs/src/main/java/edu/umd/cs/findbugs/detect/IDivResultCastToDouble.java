@@ -15,14 +15,14 @@ import edu.umd.cs.findbugs.util.ClassName;
 public class IDivResultCastToDouble extends BytecodeScanningDetector {
     private static final boolean DEBUG = SystemProperties.getBoolean("idcd.debug");
 
-    //    private final BugReporter bugReporter;
+    // private final BugReporter bugReporter;
 
     private final BugAccumulator bugAccumulator;
 
     private int prevOpCode;
 
     public IDivResultCastToDouble(BugReporter bugReporter) {
-        //        this.bugReporter = bugReporter;
+        // this.bugReporter = bugReporter;
         this.bugAccumulator = new BugAccumulator(bugReporter);
     }
 
@@ -48,17 +48,16 @@ public class IDivResultCastToDouble extends BytecodeScanningDetector {
             System.out.println("Saw opcode " + Const.getOpcodeName(seen) + " " + pendingIdivCastToDivBugLocation);
         }
 
-        if ((prevOpCode == Const.I2D || prevOpCode == Const.L2D) && seen == Const.INVOKESTATIC && ClassName.isMathClass(getClassConstantOperand())
-                && "ceil".equals(getNameConstantOperand())) {
-            bugAccumulator
-                    .accumulateBug(new BugInstance(this, "ICAST_INT_CAST_TO_DOUBLE_PASSED_TO_CEIL", HIGH_PRIORITY)
-                            .addClassAndMethod(this), this);
+        if ((prevOpCode == Const.I2D || prevOpCode == Const.L2D) && seen == Const.INVOKESTATIC
+                && ClassName.isMathClass(getClassConstantOperand()) && "ceil".equals(getNameConstantOperand())) {
+            bugAccumulator.accumulateBug(new BugInstance(this, "ICAST_INT_CAST_TO_DOUBLE_PASSED_TO_CEIL", HIGH_PRIORITY)
+                    .addClassAndMethod(this), this);
             pendingIdivCastToDivBugLocation = null;
         } else if ((prevOpCode == Const.I2F || prevOpCode == Const.L2F) && seen == Const.INVOKESTATIC
                 && ClassName.isMathClass(getClassConstantOperand()) && "round".equals(getNameConstantOperand())) {
-            bugAccumulator.accumulateBug(
-                    new BugInstance(this, "ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND", NORMAL_PRIORITY).addClassAndMethod(this),
-                    this);
+            bugAccumulator
+                    .accumulateBug(new BugInstance(this, "ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND", NORMAL_PRIORITY)
+                            .addClassAndMethod(this), this);
             pendingIdivCastToDivBugLocation = null;
         } else if (pendingIdivCastToDivBugLocation != null) {
             bugAccumulator.accumulateBug(
@@ -67,8 +66,8 @@ public class IDivResultCastToDouble extends BytecodeScanningDetector {
             pendingIdivCastToDivBugLocation = null;
         }
 
-        if (prevOpCode == Const.IDIV && (seen == Const.I2D || seen == Const.I2F) || prevOpCode == Const.LDIV && (seen == Const.L2D
-                || seen == Const.L2F)) {
+        if (prevOpCode == Const.IDIV && (seen == Const.I2D || seen == Const.I2F)
+                || prevOpCode == Const.LDIV && (seen == Const.L2D || seen == Const.L2F)) {
             pendingIdivCastToDivBugLocation = SourceLineAnnotation.fromVisitedInstruction(this);
         }
         prevOpCode = seen;

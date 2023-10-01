@@ -35,11 +35,11 @@ import edu.umd.cs.findbugs.ba.generic.GenericObjectType;
 import edu.umd.cs.findbugs.ba.generic.GenericUtilities;
 
 /**
- * A TypeMerger which applies standard Java semantics when merging Types.
- * Subclasses may override mergeReferenceTypes() in order to implement special
- * typing rules for reference types.
+ * A TypeMerger which applies standard Java semantics when merging Types. Subclasses may override mergeReferenceTypes()
+ * in order to implement special typing rules for reference types.
  *
  * @author David Hovemeyer
+ *
  * @see TypeMerger
  */
 public class StandardTypeMerger implements TypeMerger, ExtendedTypes {
@@ -55,7 +55,8 @@ public class StandardTypeMerger implements TypeMerger, ExtendedTypes {
      * @param exceptionSetFactory
      *            factory for creating ExceptionSet objects
      */
-    public StandardTypeMerger(RepositoryLookupFailureCallback lookupFailureCallback, ExceptionSetFactory exceptionSetFactory) {
+    public StandardTypeMerger(RepositoryLookupFailureCallback lookupFailureCallback,
+            ExceptionSetFactory exceptionSetFactory) {
         this.lookupFailureCallback = lookupFailureCallback;
         this.exceptionSetFactory = exceptionSetFactory;
     }
@@ -111,31 +112,29 @@ public class StandardTypeMerger implements TypeMerger, ExtendedTypes {
     }
 
     /**
-     * Determine if the given typecode refers to a reference type. This
-     * implementation just checks that the type code is T_OBJECT, T_ARRAY,
-     * T_NULL, or T_EXCEPTION. Subclasses should override this if they have
-     * defined new object types with different type codes.
+     * Determine if the given typecode refers to a reference type. This implementation just checks that the type code is
+     * T_OBJECT, T_ARRAY, T_NULL, or T_EXCEPTION. Subclasses should override this if they have defined new object types
+     * with different type codes.
      */
     protected boolean isReferenceType(byte type) {
         return type == Const.T_OBJECT || type == Const.T_ARRAY || type == T_NULL || type == T_EXCEPTION;
     }
 
     /**
-     * Determine if the given typecode refers to an Object type. Subclasses
-     * should override with any new object types.
+     * Determine if the given typecode refers to an Object type. Subclasses should override with any new object types.
      */
     protected boolean isObjectType(byte type) {
         return type == Const.T_OBJECT || type == T_EXCEPTION;
     }
 
     /**
-     * Determine if the given typecode refers to an Integer type (other than
-     * long). This implementation checks that the type code is T_INT, T_BYTE,
-     * T_BOOLEAN, T_CHAR, or T_SHORT. Subclasses should override this if they
-     * have defined new integer types with different type codes.
+     * Determine if the given typecode refers to an Integer type (other than long). This implementation checks that the
+     * type code is T_INT, T_BYTE, T_BOOLEAN, T_CHAR, or T_SHORT. Subclasses should override this if they have defined
+     * new integer types with different type codes.
      */
     protected boolean isIntegerType(byte type) {
-        return type == Const.T_INT || type == Const.T_BYTE || type == Const.T_BOOLEAN || type == Const.T_CHAR || type == Const.T_SHORT;
+        return type == Const.T_INT || type == Const.T_BYTE || type == Const.T_BOOLEAN || type == Const.T_CHAR
+                || type == Const.T_SHORT;
     }
 
     private static void updateExceptionSet(ExceptionSet exceptionSet, ObjectType type) {
@@ -147,17 +146,18 @@ public class StandardTypeMerger implements TypeMerger, ExtendedTypes {
     }
 
     /**
-     * Default implementation of merging reference types. This just returns the
-     * first common superclass, which is compliant with the JVM Spec. Subclasses
-     * may override this method in order to implement extended type rules.
+     * Default implementation of merging reference types. This just returns the first common superclass, which is
+     * compliant with the JVM Spec. Subclasses may override this method in order to implement extended type rules.
      *
      * @param aRef
      *            a ReferenceType
      * @param bRef
      *            a ReferenceType
+     *
      * @return the merged Type
      */
-    protected ReferenceType mergeReferenceTypes(ReferenceType aRef, ReferenceType bRef) throws DataflowAnalysisException {
+    protected ReferenceType mergeReferenceTypes(ReferenceType aRef, ReferenceType bRef)
+            throws DataflowAnalysisException {
         if (aRef.equals(bRef)) {
             return aRef;
         }
@@ -232,9 +232,8 @@ public class StandardTypeMerger implements TypeMerger, ExtendedTypes {
     }
 
     private boolean isThrowable(ReferenceType ref) /*
-                                                   * throws
-                                                   * ClassNotFoundException
-                                                   */ {
+                                                    * throws ClassNotFoundException
+                                                    */ {
         try {
 
             Subtypes2 subtypes2 = AnalysisContext.currentAnalysisContext().getSubtypes2();

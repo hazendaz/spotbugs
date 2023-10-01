@@ -30,10 +30,9 @@ import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * Parse the detail message in a ClassNotFoundException to extract the name of
- * the missing class. Unfortunately, this information is not directly available
- * from the exception object. So, this class parses the detail message in
- * several common formats (such as the format used by BCEL).
+ * Parse the detail message in a ClassNotFoundException to extract the name of the missing class. Unfortunately, this
+ * information is not directly available from the exception object. So, this class parses the detail message in several
+ * common formats (such as the format used by BCEL).
  *
  * @author David Hovemeyer
  */
@@ -43,7 +42,8 @@ public class ClassNotFoundExceptionParser {
 
     // edu.umd.cs.findbugs.ba.type.TypeRepository
     // and edu.umd.cs.findbugs.ba.ch.Subtypes2 uses this format
-    private static final Pattern TYPE_REPOSITORY_MISSING_CLASS_PATTERN = Pattern.compile("^Class ([^ ]*) cannot be resolved.*$");
+    private static final Pattern TYPE_REPOSITORY_MISSING_CLASS_PATTERN = Pattern
+            .compile("^Class ([^ ]*) cannot be resolved.*$");
 
     private static final Pattern[] patternList;
 
@@ -60,8 +60,8 @@ public class ClassNotFoundExceptionParser {
      *
      * @param ex
      *            the ClassNotFoundException
-     * @return the name of the missing class, or null if we couldn't figure out
-     *         the class name
+     *
+     * @return the name of the missing class, or null if we couldn't figure out the class name
      */
     public static @DottedClassName String getMissingClassName(ClassNotFoundException ex) {
         // If the exception has a ResourceNotFoundException as the cause,

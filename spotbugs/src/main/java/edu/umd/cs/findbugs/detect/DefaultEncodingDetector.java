@@ -26,16 +26,14 @@ import edu.umd.cs.findbugs.util.Values;
  * Finds invocations of JDK methods that rely on the default platform encoding.
  * </p>
  * <p>
- * If a Java application assumes that the default platform encoding is
- * acceptable, the app's behaviour will vary from platform to platform. In
- * particular, conversions between byte[] and java.lang.String (in either
- * direction) may yield inconsistent results. To ensure Java code is portable,
- * the desired encoding should be specified explicitly wherever such a
- * conversion takes place.
+ * If a Java application assumes that the default platform encoding is acceptable, the app's behaviour will vary from
+ * platform to platform. In particular, conversions between byte[] and java.lang.String (in either direction) may yield
+ * inconsistent results. To ensure Java code is portable, the desired encoding should be specified explicitly wherever
+ * such a conversion takes place.
  * </p>
  * <p>
- * This FindBugs pattern detects invocations of Java Class Library methods and
- * constructors that are known to use the default platform encoding.
+ * This FindBugs pattern detects invocations of Java Class Library methods and constructors that are known to use the
+ * default platform encoding.
  * </p>
  *
  * @author Robin Fernandes
@@ -47,11 +45,11 @@ public class DefaultEncodingDetector extends OpcodeStackDetector {
     private final DefaultEncodingAnnotationDatabase defaultEncodingAnnotationDatabase;
 
     /**
-     * This annotation is used to denote a method which relies on the default
-     * platform encoding.
+     * This annotation is used to denote a method which relies on the default platform encoding.
      */
     static class DefaultEncodingAnnotation extends AnnotationEnumeration<DefaultEncodingAnnotation> {
-        public static final DefaultEncodingAnnotation DEFAULT_ENCODING = new DefaultEncodingAnnotation("DefaultEncoding", 1);
+        public static final DefaultEncodingAnnotation DEFAULT_ENCODING = new DefaultEncodingAnnotation(
+                "DefaultEncoding", 1);
 
         private static final DefaultEncodingAnnotation[] myValues = { DEFAULT_ENCODING };
 
@@ -86,9 +84,12 @@ public class DefaultEncodingDetector extends OpcodeStackDetector {
 
         @Override
         public void loadAuxiliaryAnnotations() {
-            addMethodAnnotation(Values.DOTTED_JAVA_LANG_STRING, "getBytes", "()[B", false, DefaultEncodingAnnotation.DEFAULT_ENCODING);
-            addMethodAnnotation(Values.DOTTED_JAVA_LANG_STRING, Const.CONSTRUCTOR_NAME, "([B)V", false, DefaultEncodingAnnotation.DEFAULT_ENCODING);
-            addMethodAnnotation(Values.DOTTED_JAVA_LANG_STRING, Const.CONSTRUCTOR_NAME, "([BII)V", false, DefaultEncodingAnnotation.DEFAULT_ENCODING);
+            addMethodAnnotation(Values.DOTTED_JAVA_LANG_STRING, "getBytes", "()[B", false,
+                    DefaultEncodingAnnotation.DEFAULT_ENCODING);
+            addMethodAnnotation(Values.DOTTED_JAVA_LANG_STRING, Const.CONSTRUCTOR_NAME, "([B)V", false,
+                    DefaultEncodingAnnotation.DEFAULT_ENCODING);
+            addMethodAnnotation(Values.DOTTED_JAVA_LANG_STRING, Const.CONSTRUCTOR_NAME, "([BII)V", false,
+                    DefaultEncodingAnnotation.DEFAULT_ENCODING);
             addMethodAnnotation("java.io.ByteArrayOutputStream", "toString", "()Ljava/lang/String;", false,
                     DefaultEncodingAnnotation.DEFAULT_ENCODING);
             addMethodAnnotation("java.io.FileReader", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V", false,
@@ -109,8 +110,8 @@ public class DefaultEncodingDetector extends OpcodeStackDetector {
                     DefaultEncodingAnnotation.DEFAULT_ENCODING);
             addMethodAnnotation("java.io.InputStreamReader", Const.CONSTRUCTOR_NAME, "(Ljava/io/InputStream;)V", false,
                     DefaultEncodingAnnotation.DEFAULT_ENCODING);
-            addMethodAnnotation("java.io.OutputStreamWriter", Const.CONSTRUCTOR_NAME, "(Ljava/io/OutputStream;)V", false,
-                    DefaultEncodingAnnotation.DEFAULT_ENCODING);
+            addMethodAnnotation("java.io.OutputStreamWriter", Const.CONSTRUCTOR_NAME, "(Ljava/io/OutputStream;)V",
+                    false, DefaultEncodingAnnotation.DEFAULT_ENCODING);
             addMethodAnnotation("java.io.PrintStream", Const.CONSTRUCTOR_NAME, "(Ljava/io/File;)V", false,
                     DefaultEncodingAnnotation.DEFAULT_ENCODING);
             addMethodAnnotation("java.io.PrintStream", Const.CONSTRUCTOR_NAME, "(Ljava/io/OutputStream;)V", false,
@@ -131,8 +132,8 @@ public class DefaultEncodingDetector extends OpcodeStackDetector {
                     DefaultEncodingAnnotation.DEFAULT_ENCODING);
             addMethodAnnotation("java.util.Scanner", Const.CONSTRUCTOR_NAME, "(Ljava/io/InputStream;)V", false,
                     DefaultEncodingAnnotation.DEFAULT_ENCODING);
-            addMethodAnnotation("java.util.Scanner", Const.CONSTRUCTOR_NAME, "(Ljava/nio/channels/ReadableByteChannel;)V", false,
-                    DefaultEncodingAnnotation.DEFAULT_ENCODING);
+            addMethodAnnotation("java.util.Scanner", Const.CONSTRUCTOR_NAME,
+                    "(Ljava/nio/channels/ReadableByteChannel;)V", false, DefaultEncodingAnnotation.DEFAULT_ENCODING);
             addMethodAnnotation("java.util.Formatter", Const.CONSTRUCTOR_NAME, "(Ljava/lang/String;)V", false,
                     DefaultEncodingAnnotation.DEFAULT_ENCODING);
             addMethodAnnotation("java.util.Formatter", Const.CONSTRUCTOR_NAME, "(Ljava/io/File;)V", false,
@@ -176,8 +177,8 @@ public class DefaultEncodingDetector extends OpcodeStackDetector {
             XMethod callSeen = XFactory.createXMethod(MethodAnnotation.fromCalledMethod(this));
             DefaultEncodingAnnotation annotation = defaultEncodingAnnotationDatabase.getDirectAnnotation(callSeen);
             if (annotation != null) {
-                bugAccumulator.accumulateBug(new BugInstance(this, "DM_DEFAULT_ENCODING", HIGH_PRIORITY).addClassAndMethod(this)
-                        .addCalledMethod(this), this);
+                bugAccumulator.accumulateBug(new BugInstance(this, "DM_DEFAULT_ENCODING", HIGH_PRIORITY)
+                        .addClassAndMethod(this).addCalledMethod(this), this);
             }
             break;
         default:

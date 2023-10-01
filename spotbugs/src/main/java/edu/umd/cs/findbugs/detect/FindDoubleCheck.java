@@ -91,7 +91,8 @@ public class FindDoubleCheck extends OpcodeStackDetector {
     @Override
     public void sawOpcode(int seen) {
         if (DEBUG) {
-            System.out.println(getPC() + "\t" + Const.getOpcodeName(seen) + "\t" + stage + "\t" + count + "\t" + countSinceGetReference);
+            System.out.println(getPC() + "\t" + Const.getOpcodeName(seen) + "\t" + stage + "\t" + count + "\t"
+                    + countSinceGetReference);
         }
 
         if (seen == Const.MONITORENTER) {
@@ -174,8 +175,9 @@ public class FindDoubleCheck extends OpcodeStackDetector {
                         && !"Ljava/lang/String;".equals(getSigConstantOperand())) {
                     XField declaration = getXFieldOperand();
                     if (declaration == null || !declaration.isVolatile()) {
-                        bugReporter.reportBug(new BugInstance(this, "DC_DOUBLECHECK", NORMAL_PRIORITY).addClassAndMethod(this)
-                                .addField(f).describe("FIELD_ON").addSourceLineRange(this, startPC, endPC));
+                        bugReporter.reportBug(
+                                new BugInstance(this, "DC_DOUBLECHECK", NORMAL_PRIORITY).addClassAndMethod(this)
+                                        .addField(f).describe("FIELD_ON").addSourceLineRange(this, startPC, endPC));
                     } else {
                         if (declaration.isReferenceType()) {
                             currentDoubleCheckField = declaration;
@@ -223,9 +225,9 @@ public class FindDoubleCheck extends OpcodeStackDetector {
     private void checkStackValue(int arg) {
         Item item = getStack().getStackItem(arg);
         if (item.getXField() == currentDoubleCheckField) {
-            bugReporter.reportBug(new BugInstance(this, "DC_PARTIALLY_CONSTRUCTED", NORMAL_PRIORITY).addClassAndMethod(this)
-                    .addField(currentDoubleCheckField).describe("FIELD_ON").addSourceLine(this).addSourceLine(this, assignPC)
-                    .describe("SOURCE_LINE_STORED"));
+            bugReporter.reportBug(new BugInstance(this, "DC_PARTIALLY_CONSTRUCTED", NORMAL_PRIORITY)
+                    .addClassAndMethod(this).addField(currentDoubleCheckField).describe("FIELD_ON").addSourceLine(this)
+                    .addSourceLine(this, assignPC).describe("SOURCE_LINE_STORED"));
             stage++;
         }
     }

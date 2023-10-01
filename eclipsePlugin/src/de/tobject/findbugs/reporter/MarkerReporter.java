@@ -132,7 +132,8 @@ public class MarkerReporter implements IWorkspaceRunnable {
         newMarker.setAttributes(attributes);
     }
 
-    private static @CheckForNull IMarker findSameBug(Map<String, Object> attributes, IMarker[] existingMarkers) throws CoreException {
+    private static @CheckForNull IMarker findSameBug(Map<String, Object> attributes, IMarker[] existingMarkers)
+            throws CoreException {
         Object bugId = attributes.get(UNIQUE_ID);
         if (bugId == null) {
             return null;
@@ -157,8 +158,9 @@ public class MarkerReporter implements IWorkspaceRunnable {
 
     /**
      * @param mp
-     * @return attributes map which should be assigned to the given marker. If the map is empty,
-     * the marker shouldn't be generated
+     *
+     * @return attributes map which should be assigned to the given marker. If the map is empty, the marker shouldn't be
+     *         generated
      */
     @Nonnull
     private Map<String, Object> createMarkerAttributes(MarkerParameter mp) {
@@ -185,7 +187,8 @@ public class MarkerReporter implements IWorkspaceRunnable {
         try {
             attributes.put(IMarker.MESSAGE, getMessage(mp));
         } catch (RuntimeException e) {
-            FindbugsPlugin.getDefault().logException(e, "Error generating msg for " + mp.bug.getType() + ", attributes: " + attributes);
+            FindbugsPlugin.getDefault().logException(e,
+                    "Error generating msg for " + mp.bug.getType() + ", attributes: " + attributes);
             attributes.clear();
             return attributes;
         }
@@ -247,8 +250,8 @@ public class MarkerReporter implements IWorkspaceRunnable {
 
     private static String getMessage(MarkerParameter mp) {
         String message = mp.bug.getMessageWithoutPrefix();
-        message += " [" + mp.bug.getBugRankCategory() + "(" + mp.bug.getBugRank() +
-                "), " + MarkerConfidence.getConfidence(mp.bug.getPriority()) + " confidence]";
+        message += " [" + mp.bug.getBugRankCategory() + "(" + mp.bug.getBugRank() + "), "
+                + MarkerConfidence.getConfidence(mp.bug.getPriority()) + " confidence]";
         return message;
     }
 

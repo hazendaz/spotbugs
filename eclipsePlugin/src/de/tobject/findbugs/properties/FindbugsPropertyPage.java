@@ -76,28 +76,25 @@ import edu.umd.cs.findbugs.config.UserPreferences;
 /**
  * Combined workspace/project properties page for setting FindBugs properties.
  * <p>
- * There are two different preference files: FindBugs core preferences, saved in
- * the "*.fbprefs" file, and Eclipse plugin preferences, saved in the
- * "com.github.spotbugs.plugin.eclipse.prefs" file. The difference is, that FB
- * core prefs are saved/read by the FB core API and there should go all FB
- * engine settings and none of Eclipse related stuff.
+ * There are two different preference files: FindBugs core preferences, saved in the "*.fbprefs" file, and Eclipse
+ * plugin preferences, saved in the "com.github.spotbugs.plugin.eclipse.prefs" file. The difference is, that FB core
+ * prefs are saved/read by the FB core API and there should go all FB engine settings and none of Eclipse related stuff.
  * <p>
- * To retrieve FB core preferences, one should use
- * {@link #getOriginalUserPreferences()} and
+ * To retrieve FB core preferences, one should use {@link #getOriginalUserPreferences()} and
  * {@link #getCurrentUserPreferences()}.
  * <p>
- * To retrieve Eclipse plugin preferences, one should use
- * {@link #getPreferenceStore()}.
+ * To retrieve Eclipse plugin preferences, one should use {@link #getPreferenceStore()}.
  * <p>
- * In both cases project settings are only available in the context of the
- * project properties page if the project settings are enabled, global settings
- * are used otherwise.
+ * In both cases project settings are only available in the context of the project properties page if the project
+ * settings are enabled, global settings are used otherwise.
  *
  * @author Andrei Loskutov
  * @author Peter Friese
  * @author David Hovemeyer
  * @author Phil Crosby
+ *
  * @version 2.0
+ *
  * @since 17.06.2004
  */
 public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPreferencePage {
@@ -134,7 +131,7 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
 
     private boolean projectPropsInitiallyEnabled;
 
-    //  Nonnull if there is a current project
+    // Nonnull if there is a current project
     @Nullable
     private ScopedPreferenceStore projectStore;
 
@@ -212,8 +209,8 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
 
     private void createConfigurationTabFolder(Composite composite) {
         tabFolder = new TabFolder(composite, SWT.TOP);
-        GridData layoutData = new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL | GridData.FILL_VERTICAL
-                | GridData.GRAB_VERTICAL);
+        GridData layoutData = new GridData(
+                GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL | GridData.FILL_VERTICAL | GridData.GRAB_VERTICAL);
         layoutData.verticalIndent = -5;
         tabFolder.setLayoutData(layoutData);
 
@@ -246,11 +243,11 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
 
         Composite globalGroup = new Composite(parent, SWT.TOP);
         GridLayout layout = new GridLayout(3, false);
-        //layout.marginHeight = 0;
-        //layout.marginWidth = 0;
+        // layout.marginHeight = 0;
+        // layout.marginWidth = 0;
         globalGroup.setLayout(layout);
         GridData layoutData = new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL);
-        //layoutData.verticalIndent = -2;
+        // layoutData.verticalIndent = -2;
 
         globalGroup.setLayoutData(layoutData);
 
@@ -290,7 +287,7 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
         prioGroup.setLayout(prioLayout);
         layoutData = new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL);
         layoutData.horizontalIndent = -5;
-        //layoutData.verticalIndent = -5;
+        // layoutData.verticalIndent = -5;
         prioGroup.setLayoutData(layoutData);
 
         // effort
@@ -400,7 +397,7 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
         // chkEnableFindBugs.getSelection());
         if (enableProjectCheck != null) {
             // this link should always be enabled
-            //workspaceSettingsLink.setEnabled(!selection);
+            // workspaceSettingsLink.setEnabled(!selection);
         }
         detectorTab.setEnabled(selection);
         filterFilesTab.setEnabled(selection);
@@ -420,8 +417,8 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
     }
 
     /**
-     * Restore default settings. This just changes the dialog widgets - the user
-     * still needs to confirm by clicking the "OK" button.
+     * Restore default settings. This just changes the dialog widgets - the user still needs to confirm by clicking the
+     * "OK" button.
      */
     private void restoreDefaultSettings() {
         if (getProject() != null) {
@@ -477,9 +474,11 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
             }
         }
 
-        analysisSettingsChanged = pluginsChanged || areAnalysisPrefsChanged(currentUserPreferences, origUserPreferences);
+        analysisSettingsChanged = pluginsChanged
+                || areAnalysisPrefsChanged(currentUserPreferences, origUserPreferences);
 
-        reporterSettingsChanged = !currentUserPreferences.getFilterSettings().equals(origUserPreferences.getFilterSettings());
+        reporterSettingsChanged = !currentUserPreferences.getFilterSettings()
+                .equals(origUserPreferences.getFilterSettings());
 
         boolean markerSeveritiesChanged = reportConfigurationTab.isMarkerSeveritiesChanged();
 
@@ -525,7 +524,8 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
     }
 
     protected void remindAboutFullBuild() {
-        MessageDialogWithToggle dialog = MessageDialogWithToggle.openInformation(getShell(), "Full SpotBugs build required",
+        MessageDialogWithToggle dialog = MessageDialogWithToggle.openInformation(getShell(),
+                "Full SpotBugs build required",
                 "SpotBugs analysis settings have changed. Run SpotBugs analysis again to see updated results.",
                 "Do not show this warning again", false, null, null);
 
@@ -590,7 +590,9 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
 
     /**
      * Triggers FB analysis on given project
-     * @param myProject opened project with FindBugs nature
+     *
+     * @param myProject
+     *            opened project with FindBugs nature
      */
     private static void runBuild(@Nonnull IProject myProject) {
         StructuredSelection selection = new StructuredSelection(myProject);
@@ -600,8 +602,7 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
     }
 
     /**
-     * Add the nature to the current project. The real work is done by the inner
-     * class NatureWorker
+     * Add the nature to the current project. The real work is done by the inner class NatureWorker
      */
     private void addNature() {
         NatureWorker worker = new NatureWorker(true);
@@ -641,6 +642,7 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
      *
      * @param key
      *            a message key
+     *
      * @return requested message
      */
     protected static String getMessage(String key) {
@@ -671,8 +673,9 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
      */
     public enum Effort {
 
-        MIN(UserPreferences.EFFORT_MIN, "property.effortmin"), DEFAULT(UserPreferences.EFFORT_DEFAULT, "property.effortdefault"), MAX(
-                UserPreferences.EFFORT_MAX, "property.effortmax");
+        MIN(UserPreferences.EFFORT_MIN, "property.effortmin"),
+        DEFAULT(UserPreferences.EFFORT_DEFAULT, "property.effortdefault"),
+        MAX(UserPreferences.EFFORT_MAX, "property.effortmax");
 
         private final String effortLevel;
 

@@ -40,17 +40,16 @@ import edu.umd.cs.findbugs.ba.ClassContext;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Find occurrences of collection.toArray( new Foo[0] ); This causes another
- * memory allocation through reflection Much better to do collection.toArray(
- * new Foo[collection.size()] );
+ * Find occurrences of collection.toArray( new Foo[0] ); This causes another memory allocation through reflection Much
+ * better to do collection.toArray( new Foo[collection.size()] );
  *
  * @author Dave Brosius
  */
 public class InefficientToArray extends BytecodeScanningDetector implements StatelessDetector {
     private static final boolean DEBUG = SystemProperties.getBoolean("ita.debug");
 
-    private static final List<MethodDescriptor> methods = Collections.singletonList(new MethodDescriptor("", "toArray",
-            "([Ljava/lang/Object;)[Ljava/lang/Object;"));
+    private static final List<MethodDescriptor> methods = Collections
+            .singletonList(new MethodDescriptor("", "toArray", "([Ljava/lang/Object;)[Ljava/lang/Object;"));
 
     static final int SEEN_NOTHING = 0;
 
@@ -126,14 +125,16 @@ public class InefficientToArray extends BytecodeScanningDetector implements Stat
             break;
 
         case SEEN_ANEWARRAY:
-            if (((seen == Const.INVOKEVIRTUAL) || (seen == Const.INVOKEINTERFACE)) && ("toArray".equals(getNameConstantOperand()))
+            if (((seen == Const.INVOKEVIRTUAL) || (seen == Const.INVOKEINTERFACE))
+                    && ("toArray".equals(getNameConstantOperand()))
                     && ("([Ljava/lang/Object;)[Ljava/lang/Object;".equals(getSigConstantOperand()))) {
                 try {
                     String clsName = getDottedClassConstantOperand();
                     JavaClass cls = Repository.lookupClass(clsName);
                     if (cls.implementationOf(collectionClass)) {
                         bugAccumulator.accumulateBug(
-                                new BugInstance(this, "ITA_INEFFICIENT_TO_ARRAY", LOW_PRIORITY).addClassAndMethod(this), this);
+                                new BugInstance(this, "ITA_INEFFICIENT_TO_ARRAY", LOW_PRIORITY).addClassAndMethod(this),
+                                this);
                     }
 
                 } catch (ClassNotFoundException cnfe) {

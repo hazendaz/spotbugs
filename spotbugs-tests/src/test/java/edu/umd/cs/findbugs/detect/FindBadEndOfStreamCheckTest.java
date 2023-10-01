@@ -7,7 +7,6 @@ import edu.umd.cs.findbugs.AbstractIntegrationTest;
 class FindBadEndOfStreamCheckTest extends AbstractIntegrationTest {
     private static final String EOS_BUG_TYPE = "EOS_BAD_END_OF_STREAM_CHECK";
 
-
     @Test
     void testBadEndOfFileChecks() {
         performAnalysis("endOfStreamCheck/BadEndOfStreamCheck.class");

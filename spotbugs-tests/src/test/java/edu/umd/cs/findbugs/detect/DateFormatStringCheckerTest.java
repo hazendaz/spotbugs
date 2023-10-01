@@ -26,12 +26,9 @@ public class DateFormatStringCheckerTest {
     }
 
     static Stream<Arguments> testCases() {
-        return Arrays.asList(
-                Arguments.of("dd/MM/yyyy", "dd/MM/yyyy"),
-                Arguments.of("ddMMyyyy", "ddMMyyyy"),
+        return Arrays.asList(Arguments.of("dd/MM/yyyy", "dd/MM/yyyy"), Arguments.of("ddMMyyyy", "ddMMyyyy"),
                 Arguments.of("d MMMM yyyy à HHmm", "d MMMM yyyy à HH'h'mm"),
-                Arguments.of("ddMMyyyy ", "ddMMyyyy 'non interpreted text'"),
-                Arguments.of("HH", "HH''"),
+                Arguments.of("ddMMyyyy ", "ddMMyyyy 'non interpreted text'"), Arguments.of("HH", "HH''"),
                 Arguments.of("HH", "HH'o''clock'")).stream();
     }
 }

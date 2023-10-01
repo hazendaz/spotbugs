@@ -23,6 +23,7 @@ package edu.umd.cs.findbugs;
  * An exception to indicate that a plugin could not be loaded.
  *
  * @author David Hovemeyer
+ *
  * @see PluginLoader
  */
 public class PluginException extends Exception {

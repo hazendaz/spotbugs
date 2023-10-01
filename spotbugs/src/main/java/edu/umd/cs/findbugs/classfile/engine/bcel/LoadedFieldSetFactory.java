@@ -39,17 +39,14 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Factory to determine which fields are loaded and stored by the instructions
- * in a method, and the overall method. The main purpose is to support efficient
- * redundant load elimination and forward substitution in ValueNumberAnalysis
- * (there is no need to remember stores of fields that are never read, or loads
- * of fields that are only loaded in one location). However, it might be useful
- * for other kinds of analysis.
+ * Factory to determine which fields are loaded and stored by the instructions in a method, and the overall method. The
+ * main purpose is to support efficient redundant load elimination and forward substitution in ValueNumberAnalysis
+ * (there is no need to remember stores of fields that are never read, or loads of fields that are only loaded in one
+ * location). However, it might be useful for other kinds of analysis.
  *
  * <p>
- * The tricky part is that in addition to fields loaded and stored with
- * get/putfield and get/putstatic, we also try to figure out field accessed
- * through calls to inner-class access methods.
+ * The tricky part is that in addition to fields loaded and stored with get/putfield and get/putstatic, we also try to
+ * figure out field accessed through calls to inner-class access methods.
  */
 public class LoadedFieldSetFactory extends AnalysisFactory<LoadedFieldSet> {
 
@@ -71,12 +68,12 @@ public class LoadedFieldSetFactory extends AnalysisFactory<LoadedFieldSet> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
-    public LoadedFieldSet analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor) throws CheckedAnalysisException {
+    public LoadedFieldSet analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)
+            throws CheckedAnalysisException {
         MethodGen methodGen = getMethodGen(analysisCache, descriptor);
         if (methodGen == null) {
             return null;
@@ -95,10 +92,8 @@ public class LoadedFieldSetFactory extends AnalysisFactory<LoadedFieldSet> {
                     if (Hierarchy.isInnerClassAccess(inv, cpg)) {
                         InnerClassAccess access = Hierarchy.getInnerClassAccess(inv, cpg);
                         /*
-                         * if (access == null) {
-                         * System.out.println("Missing inner class access in " +
-                         * SignatureConverter.convertMethodSignature(methodGen)
-                         * + " at " + inv); }
+                         * if (access == null) { System.out.println("Missing inner class access in " +
+                         * SignatureConverter.convertMethodSignature(methodGen) + " at " + inv); }
                          */
                         if (access != null) {
                             if (access.isLoad()) {

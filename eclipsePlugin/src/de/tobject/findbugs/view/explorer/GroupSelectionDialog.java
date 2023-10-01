@@ -100,8 +100,8 @@ public class GroupSelectionDialog extends SelectionDialog {
 
         composite.setLayoutData(layoutData);
 
-        checkList = CheckboxTableViewer.newCheckList(composite, SWT.SINGLE | SWT.BORDER | SWT.RESIZE | SWT.V_SCROLL
-                | SWT.H_SCROLL);
+        checkList = CheckboxTableViewer.newCheckList(composite,
+                SWT.SINGLE | SWT.BORDER | SWT.RESIZE | SWT.V_SCROLL | SWT.H_SCROLL);
 
         Table table = checkList.getTable();
         table.setHeaderVisible(true);

@@ -28,8 +28,7 @@ import edu.umd.cs.findbugs.OpcodeStack.Item;
 import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 
 /**
- * Find comparisons involving values computed with bitwise operations whose
- * outcomes are fixed at compile time.
+ * Find comparisons involving values computed with bitwise operations whose outcomes are fixed at compile time.
  *
  * @author Tom Truscott &lt;trt@unx.sas.com&gt;
  * @author Tagir Valeev
@@ -126,8 +125,8 @@ public class IncompatMask extends OpcodeStackDetector {
             boolean onlyLowBits = bits >>> 12 == 0;
             BugInstance bug;
             if (highbit) {
-                bug = new BugInstance(this, "BIT_SIGNED_CHECK_HIGH_BIT", (seen == Const.IFLE || seen == Const.IFGT) ? HIGH_PRIORITY
-                        : NORMAL_PRIORITY);
+                bug = new BugInstance(this, "BIT_SIGNED_CHECK_HIGH_BIT",
+                        (seen == Const.IFLE || seen == Const.IFGT) ? HIGH_PRIORITY : NORMAL_PRIORITY);
             } else {
                 bug = new BugInstance(this, "BIT_SIGNED_CHECK", onlyLowBits ? LOW_PRIORITY : NORMAL_PRIORITY);
             }

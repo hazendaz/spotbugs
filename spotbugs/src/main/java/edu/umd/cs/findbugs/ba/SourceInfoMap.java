@@ -36,11 +36,9 @@ import edu.umd.cs.findbugs.SystemProperties;
 import edu.umd.cs.findbugs.util.Util;
 
 /**
- * Global information about the source code for an application. Currently, this
- * object contains a map of source line information for fields and classes
- * (items we don't get line number information for directly in classfiles), and
- * also source line information for methods that don't appear directly in
- * classfiles, such as abstract and native methods.
+ * Global information about the source code for an application. Currently, this object contains a map of source line
+ * information for fields and classes (items we don't get line number information for directly in classfiles), and also
+ * source line information for methods that don't appear directly in classfiles, such as abstract and native methods.
  *
  * @author David Hovemeyer
  */
@@ -286,8 +284,8 @@ public class SourceInfoMap {
      *            name of class containing the field
      * @param fieldName
      *            name of field
-     * @return the line number range, or null if no line number is known for the
-     *         field
+     *
+     * @return the line number range, or null if no line number is known for the field
      */
     public @CheckForNull SourceLineRange getFieldLine(String className, String fieldName) {
         return fieldLineMap.get(new FieldDescriptor(className, fieldName));
@@ -302,8 +300,8 @@ public class SourceInfoMap {
      *            name of method
      * @param methodSignature
      *            signature of method
-     * @return the line number range, or null if no line number is known for the
-     *         method
+     *
+     * @return the line number range, or null if no line number is known for the method
      */
     public @CheckForNull SourceLineRange getMethodLine(String className, String methodName, String methodSignature) {
         return methodLineMap.get(new MethodDescriptor(className, methodName, methodSignature));
@@ -314,8 +312,8 @@ public class SourceInfoMap {
      *
      * @param className
      *            name of the class
-     * @return the line number range, or null if no line number is known for the
-     *         class
+     *
+     * @return the line number range, or null if no line number is known for the class
      */
     public @CheckForNull SourceLineRange getClassLine(String className) {
         return classLineMap.get(className);
@@ -324,11 +322,11 @@ public class SourceInfoMap {
     private static final Pattern DIGITS = Pattern.compile("^[0-9]+$");
 
     /**
-     * Read source info from given InputStream. The stream is guaranteed to be
-     * closed.
+     * Read source info from given InputStream. The stream is guaranteed to be closed.
      *
      * @param inputStream
      *            the InputStream
+     *
      * @throws IOException
      *             if an I/O error occurs, or if the format is invalid
      */
@@ -415,8 +413,8 @@ public class SourceInfoMap {
      *
      * @param line
      *            the first line of the sourceInfo file
-     * @return the version number constant, or null if the line does not appear
-     *         to be a version string
+     *
+     * @return the version number constant, or null if the line does not appear to be a version string
      */
     private static String parseVersionNumber(String line) {
         StringTokenizer tokenizer = new StringTokenizer(line, " \t");
@@ -429,13 +427,13 @@ public class SourceInfoMap {
     }
 
     /**
-     * Expect a particular token string to be returned by the given
-     * StringTokenizer.
+     * Expect a particular token string to be returned by the given StringTokenizer.
      *
      * @param tokenizer
      *            the StringTokenizer
      * @param token
      *            the expectedToken
+     *
      * @return true if the expected token was returned, false if not
      */
     private static boolean expect(StringTokenizer tokenizer, String token) {

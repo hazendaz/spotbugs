@@ -97,7 +97,6 @@ class SharedVariableAtomicityDetectorTest extends AbstractIntegrationTest {
         assertBugTypeCount(OPS_BUG, 0);
     }
 
-
     @Test
     void noBugAtomicField() {
         performAnalysis("multithreaded/primitivewrite/AtomicField.class");
@@ -350,7 +349,8 @@ class SharedVariableAtomicityDetectorTest extends AbstractIntegrationTest {
     // |=
     @Test
     void bugForCompoundIOR() {
-        // considered multithreaded because it has a field (not the problematic) from the java.util.concurrent.atomic package
+        // considered multithreaded because it has a field (not the problematic) from the java.util.concurrent.atomic
+        // package
         performAnalysis("multithreaded/compoundoperation/CompoundIOROperationOnSharedVariable.class");
         assertBugTypeCount(PRIMITIVE_BUG, 0);
         assertBugTypeCount(WRITE_64BIT_BUG, 0);
@@ -431,7 +431,6 @@ class SharedVariableAtomicityDetectorTest extends AbstractIntegrationTest {
         assertBugTypeCount(OPS_BUG, 1);
         assertBugInMethodAtLine(OPS_BUG, "CompoundSubtractionOnSharedVariable", "toggle", 7);
     }
-
 
     // +=
     @Test

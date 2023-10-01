@@ -41,14 +41,14 @@ public class ShowHelp {
             System.out.printf("fb %-12s %-12s %s%n", m.cmd, m.kind, m.description);
         }
 
-        //        System.out.println();
-        //        System.out.println("GUI Options:");
-        //        FindBugsCommandLine guiCmd = new FindBugsCommandLine(true) {
-        //        };
-        //        guiCmd.printUsage(System.out);
-        //        System.out.println();
-        //        System.out.println("TextUI Options:");
-        //        FindBugs.showCommandLineOptions();
+        // System.out.println();
+        // System.out.println("GUI Options:");
+        // FindBugsCommandLine guiCmd = new FindBugsCommandLine(true) {
+        // };
+        // guiCmd.printUsage(System.out);
+        // System.out.println();
+        // System.out.println("TextUI Options:");
+        // FindBugs.showCommandLineOptions();
         System.out.println();
         showGeneralOptions();
 

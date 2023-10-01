@@ -74,11 +74,10 @@ public class ForwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflowA
      * @param cpg
      *            ConstantPoolGen of the analyzed method
      * @param typeQualifierValue
-     *            TypeQualifierValue representing type qualifier the analysis
-     *            should check
+     *            TypeQualifierValue representing type qualifier the analysis should check
      */
-    public ForwardTypeQualifierDataflowAnalysis(DepthFirstSearch dfs, XMethod xmethod, CFG cfg, ValueNumberDataflow vnaDataflow,
-            ConstantPoolGen cpg, TypeQualifierValue<?> typeQualifierValue) {
+    public ForwardTypeQualifierDataflowAnalysis(DepthFirstSearch dfs, XMethod xmethod, CFG cfg,
+            ValueNumberDataflow vnaDataflow, ConstantPoolGen cpg, TypeQualifierValue<?> typeQualifierValue) {
         super(xmethod, cfg, vnaDataflow, cpg, typeQualifierValue);
         this.dfs = dfs;
     }
@@ -150,7 +149,8 @@ public class ForwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflowA
         registerConstantSource(location, null);
     }
 
-    private void registerConstantSource(Location location, @CheckForNull Object constantValue) throws DataflowAnalysisException {
+    private void registerConstantSource(Location location, @CheckForNull Object constantValue)
+            throws DataflowAnalysisException {
 
         When w;
         if (typeQualifierValue.canValidate(constantValue)) {
@@ -223,8 +223,8 @@ public class ForwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflowA
 
     }
 
-    private void registerTopOfStackSource(SourceSinkType sourceSinkType, Location location, When when, boolean interproc,
-            @CheckForNull Object constantValue) throws DataflowAnalysisException {
+    private void registerTopOfStackSource(SourceSinkType sourceSinkType, Location location, When when,
+            boolean interproc, @CheckForNull Object constantValue) throws DataflowAnalysisException {
         if (when == When.UNKNOWN && !typeQualifierValue.isStrictQualifier()) {
             return;
         }

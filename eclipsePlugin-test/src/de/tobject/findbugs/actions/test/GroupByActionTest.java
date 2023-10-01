@@ -52,16 +52,13 @@ class GroupByActionTest extends AbstractFindBugsTest {
         tearDownTestProject();
     }
 
-    private static final String PRIORITY_CATEGORY_PROJECT_PACKAGE_CLASS_PATTERN_TYPE_PATTERN_MARKER_ID =
-            "findBugsEclipsePlugin.toggleGrouping.Confidence.Category.Project.Package.Class.PatternType.Pattern.Marker";
+    private static final String PRIORITY_CATEGORY_PROJECT_PACKAGE_CLASS_PATTERN_TYPE_PATTERN_MARKER_ID = "findBugsEclipsePlugin.toggleGrouping.Confidence.Category.Project.Package.Class.PatternType.Pattern.Marker";
 
-    private static final String PRIORITY_CATEGORY_PROJECT_PATTERN_TYPE_PATTERN_MARKER_ID =
-            "findBugsEclipsePlugin.toggleGrouping.Confidence.Category.Project.PatternType.Pattern.Marker";
+    private static final String PRIORITY_CATEGORY_PROJECT_PATTERN_TYPE_PATTERN_MARKER_ID = "findBugsEclipsePlugin.toggleGrouping.Confidence.Category.Project.PatternType.Pattern.Marker";
 
     private static final String PRIORITY_PROJECT_PATTERN_MARKER_ID = "findBugsEclipsePlugin.toggleGrouping.Confidence.Project.Pattern.Marker";
 
-    private static final String PROJECT_PRIORITY_CATEGORY_PATTERN_TYPE_PATTERN_MARKER_ID =
-            "findBugsEclipsePlugin.toggleGrouping.Project.Confidence.Category.PatternType.Pattern.Marker";
+    private static final String PROJECT_PRIORITY_CATEGORY_PATTERN_TYPE_PATTERN_MARKER_ID = "findBugsEclipsePlugin.toggleGrouping.Project.Confidence.Category.PatternType.Pattern.Marker";
 
     private static final String PROJECT_PRIORITY_PATTERN_MARKER_ID = "findBugsEclipsePlugin.toggleGrouping.Project.Confidence.Pattern.Marker";
 
@@ -88,8 +85,8 @@ class GroupByActionTest extends AbstractFindBugsTest {
     void testAction_Priority_Category_Project_Package_Class_PatternType_Pattern_Marker() throws PartInitException {
         runAction(PRIORITY_CATEGORY_PROJECT_PACKAGE_CLASS_PATTERN_TYPE_PATTERN_MARKER_ID);
 
-        assertExpectedGroupTypes(GroupType.Confidence, GroupType.Category, GroupType.Project, GroupType.Package, GroupType.Class,
-                GroupType.PatternType, GroupType.Pattern, GroupType.Marker);
+        assertExpectedGroupTypes(GroupType.Confidence, GroupType.Category, GroupType.Project, GroupType.Package,
+                GroupType.Class, GroupType.PatternType, GroupType.Pattern, GroupType.Marker);
     }
 
     @Test

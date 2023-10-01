@@ -26,12 +26,11 @@ import org.apache.bcel.generic.CodeExceptionGen;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.ObjectType;
 
-
 /**
- * Dataflow analysis to determine the nesting of catch and finally blocks within
- * a method.
+ * Dataflow analysis to determine the nesting of catch and finally blocks within a method.
  *
  * @see BlockType
+ *
  * @author David Hovemeyer
  */
 public class BlockTypeAnalysis extends BasicAbstractDataflowAnalysis<BlockType> {

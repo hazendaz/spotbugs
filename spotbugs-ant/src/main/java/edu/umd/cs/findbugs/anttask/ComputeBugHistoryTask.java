@@ -84,8 +84,7 @@ public class ComputeBugHistoryTask extends AbstractFindBugsTask {
     }
 
     /**
-     * Called to create DataFile objects in response to nested &lt;DataFile&gt;
-     * elements.
+     * Called to create DataFile objects in response to nested &lt;DataFile&gt; elements.
      *
      * @return new DataFile object specifying the location of an input data file
      */
@@ -112,9 +111,7 @@ public class ComputeBugHistoryTask extends AbstractFindBugsTask {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#configureFindbugsEngine
-     * ()
+     * @see edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#configureFindbugsEngine ()
      */
     @Override
     protected void configureFindbugsEngine() {
@@ -147,9 +144,7 @@ public class ComputeBugHistoryTask extends AbstractFindBugsTask {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#beforeExecuteJavaProcess
-     * ()
+     * @see edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#beforeExecuteJavaProcess ()
      */
     @Override
     protected void beforeExecuteJavaProcess() {
@@ -159,9 +154,7 @@ public class ComputeBugHistoryTask extends AbstractFindBugsTask {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#afterExecuteJavaProcess
-     * (int)
+     * @see edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#afterExecuteJavaProcess (int)
      */
     @Override
     protected void afterExecuteJavaProcess(int rc) {

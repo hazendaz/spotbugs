@@ -20,8 +20,7 @@
 package edu.umd.cs.findbugs.classfile;
 
 /**
- * Common superclass for all checked exceptions that can be thrown while
- * performing some kind of analysis.
+ * Common superclass for all checked exceptions that can be thrown while performing some kind of analysis.
  *
  * @author David Hovemeyer
  */

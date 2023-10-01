@@ -41,8 +41,7 @@ class IsNullValueTest {
         assertFalse(nsp.isException());
     }
 
-    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "NP_NONNULL_PARAM_VIOLATION",
-            justification = "Test is disabled, would need to be fixed anyway")
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "NP_NONNULL_PARAM_VIOLATION", justification = "Test is disabled, would need to be fixed anyway")
     @Disabled
     @Test
     void testMerge4() {
@@ -76,8 +75,8 @@ class IsNullValueTest {
         XMethod method = Mockito.mock(XMethod.class);
 
         IsNullValue checkedNull_e = IsNullValue.checkedNullValue().toExceptionValue();
-        IsNullValue checkForNull = IsNullValue.nullOnSimplePathValue().markInformationAsComingFromReturnValueOfMethod(method,
-                NullnessAnnotation.CHECK_FOR_NULL);
+        IsNullValue checkForNull = IsNullValue.nullOnSimplePathValue()
+                .markInformationAsComingFromReturnValueOfMethod(method, NullnessAnnotation.CHECK_FOR_NULL);
         IsNullValue merged = IsNullValue.merge(checkedNull_e, checkForNull);
 
         assertTrue(merged.isNullOnSomePath());

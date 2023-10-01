@@ -111,14 +111,11 @@ public class MultithreadedInstanceAccess extends OpcodeStackDetector {
             } else {
                 for (JavaClass mtClass : getMtClasses()) {
                     /*
-                     * note: We could just call cls.instanceOf(mtClass) and it
-                     * would work for both classes and interfaces, but if
-                     * mtClass is an interface it is more efficient to call
-                     * cls.implementationOf() and since we're doing this on each
-                     * visit that's what we'll do. also note:
-                     * implementationOf(mtClass) throws an
-                     * IllegalArgumentException when mtClass is not an
-                     * interface. See bug#1428253.
+                     * note: We could just call cls.instanceOf(mtClass) and it would work for both classes and
+                     * interfaces, but if mtClass is an interface it is more efficient to call cls.implementationOf()
+                     * and since we're doing this on each visit that's what we'll do. also note:
+                     * implementationOf(mtClass) throws an IllegalArgumentException when mtClass is not an interface.
+                     * See bug#1428253.
                      */
                     if (mtClass.isClass() ? cls.instanceOf(mtClass) : cls.implementationOf(mtClass)) {
                         mtClassName = mtClass.getClassName();
@@ -138,7 +135,6 @@ public class MultithreadedInstanceAccess extends OpcodeStackDetector {
         alreadyReported = new HashSet<>();
         writingField = false;
     }
-
 
     @Override
     public boolean shouldVisitCode(Code code) {
@@ -178,10 +174,11 @@ public class MultithreadedInstanceAccess extends OpcodeStackDetector {
                             alreadyReported.add(nameCons.getBytes());
                             bugReporter.reportBug(new BugInstance(this,
                                     STRUTS_ACTION_NAME.equals(mtClassName) ? "MTIA_SUSPECT_STRUTS_INSTANCE_FIELD"
-                                            : "MTIA_SUSPECT_SERVLET_INSTANCE_FIELD", LOW_PRIORITY)
-                                    .addField(
-                                            new FieldAnnotation(getDottedClassName(), nameCons.getBytes(), typeCons.getBytes(),
-                                                    false)).addClass(this).addSourceLine(this));
+                                            : "MTIA_SUSPECT_SERVLET_INSTANCE_FIELD",
+                                    LOW_PRIORITY)
+                                            .addField(new FieldAnnotation(getDottedClassName(), nameCons.getBytes(),
+                                                    typeCons.getBytes(), false))
+                                            .addClass(this).addSourceLine(this));
                         }
                         break;
                     }

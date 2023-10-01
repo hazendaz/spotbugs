@@ -70,6 +70,7 @@ public class XMLAttributeList {
      *            the attribute name
      * @param value
      *            the attribute value
+     *
      * @return this object (so calls to addAttribute() can be chained)
      */
     public XMLAttributeList addAttribute(@Nonnull String name, @Nonnull String value) {
@@ -90,6 +91,7 @@ public class XMLAttributeList {
      *            the attribute name
      * @param value
      *            the attribute value
+     *
      * @return this object (so calls to addAttribute() can be chained)
      */
     public XMLAttributeList addOptionalAttribute(@Nonnull String name, @CheckForNull String value) {
@@ -100,8 +102,7 @@ public class XMLAttributeList {
     }
 
     /**
-     * Return the attribute list as a String which can be directly output as
-     * part of an XML tag.
+     * Return the attribute list as a String which can be directly output as part of an XML tag.
      */
     @Override
     public String toString() {
@@ -129,6 +130,7 @@ public class XMLAttributeList {
      *
      * @param rawValue
      *            the raw value of the attribute
+     *
      * @return a properly quoted representation of the value
      */
     public static String getQuotedAttributeValue(@Nonnull String rawValue) {

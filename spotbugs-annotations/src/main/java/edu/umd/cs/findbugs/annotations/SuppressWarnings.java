@@ -28,16 +28,16 @@ import java.lang.annotation.Target;
  *
  *
  * @deprecated - Use {@link SuppressFBWarnings} instead
+ *
  * @author pugh
  */
 @Target({ ElementType.TYPE, ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.CONSTRUCTOR,
-    ElementType.LOCAL_VARIABLE, ElementType.PACKAGE })
+        ElementType.LOCAL_VARIABLE, ElementType.PACKAGE })
 @Retention(RetentionPolicy.CLASS)
 @Deprecated
 public @interface SuppressWarnings {
     /**
-     * The set of FindBugs warnings that are to be suppressed by the compiler in the
-     * annotated element.
+     * The set of FindBugs warnings that are to be suppressed by the compiler in the annotated element.
      *
      */
     String[] value() default {};

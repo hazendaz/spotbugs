@@ -27,7 +27,6 @@ import java.net.URL;
 import javax.annotation.CheckForNull;
 import javax.swing.JOptionPane;
 
-
 /**
  * @author pugh
  */
@@ -54,7 +53,8 @@ public class JavaWebStart {
             showMethod = showObject.getClass().getMethod("showDocument", new Class[] { URL.class });
             getCodeBase = showObject.getClass().getMethod("getCodeBase", new Class[] {});
 
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException
+                | InvocationTargetException e) {
             assert true;
         }
         jnlpShowDocumentMethod = showMethod;
@@ -81,7 +81,8 @@ public class JavaWebStart {
         return new URL(s);
     }
 
-    static Boolean viaWebStart(URL url) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    static Boolean viaWebStart(URL url)
+            throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         if (JavaWebStart.jnlpShowDocumentMethod == null) {
             throw new UnsupportedOperationException("Launch via web start not available");
         }

@@ -7,8 +7,7 @@ class Issue560Test extends AbstractIntegrationTest {
 
     @Test
     void testIssue() {
-        performAnalysis("ghIssues/Issue560.class",
-                "ghIssues/Issue560$NotANestedTest.class",
+        performAnalysis("ghIssues/Issue560.class", "ghIssues/Issue560$NotANestedTest.class",
                 "ghIssues/Issue560$NestedTest.class");
 
         assertBugTypeCount("SIC_INNER_SHOULD_BE_STATIC", 1);

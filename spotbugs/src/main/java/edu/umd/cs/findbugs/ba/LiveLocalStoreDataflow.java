@@ -25,6 +25,7 @@ import java.util.BitSet;
  * Dataflow class for LiveLocalStoreAnalysis.
  *
  * @see LiveLocalStoreAnalysis
+ *
  * @author David Hovemeyer
  */
 public class LiveLocalStoreDataflow extends Dataflow<BitSet, LiveLocalStoreAnalysis> {

@@ -120,25 +120,26 @@ public class FindNullDerefsInvolvingNonShortCircuitEvaluation extends OpcodeStac
                     System.out.println("target: " + branchInstruction.getTarget());
                     System.out.println("next: " + branch.getHandle().getNext());
                 }
-                Location guaranteed = findLocation(cfg, nullGuaranteesBranch ? branchInstruction.getTarget()
-                        : branch.getHandle()
-                                .getNext());
+                Location guaranteed = findLocation(cfg,
+                        nullGuaranteesBranch ? branchInstruction.getTarget() : branch.getHandle().getNext());
                 if (guaranteed == null) {
                     return;
                 }
 
-                UnconditionalValueDerefSet unconditionalDeref = unconditionalValueDerefDataflow.getFactAtLocation(guaranteed);
+                UnconditionalValueDerefSet unconditionalDeref = unconditionalValueDerefDataflow
+                        .getFactAtLocation(guaranteed);
                 if (DEBUG) {
                     System.out.println("Guaranteed on null: " + guaranteed);
                     System.out.println(unconditionalDeref);
                 }
 
                 if (unconditionalDeref.isUnconditionallyDereferenced(value)) {
-                    SourceLineAnnotation tested = SourceLineAnnotation.fromVisitedInstruction(getClassContext(), getMethod(),
-                            produced);
-                    BugAnnotation variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(getMethod(), produced,
-                            value, valueNumberFact, "VALUE_OF");
-                    Set<Location> unconditionalDerefLocationSet = unconditionalDeref.getUnconditionalDerefLocationSet(value);
+                    SourceLineAnnotation tested = SourceLineAnnotation.fromVisitedInstruction(getClassContext(),
+                            getMethod(), produced);
+                    BugAnnotation variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(getMethod(),
+                            produced, value, valueNumberFact, "VALUE_OF");
+                    Set<Location> unconditionalDerefLocationSet = unconditionalDeref
+                            .getUnconditionalDerefLocationSet(value);
 
                     BugInstance bug;
                     if (unconditionalDerefLocationSet.size() > 1) {
@@ -146,14 +147,16 @@ public class FindNullDerefsInvolvingNonShortCircuitEvaluation extends OpcodeStac
                         bug.addOptionalAnnotation(variableAnnotation);
                         bug.addSourceLine(tested).describe("SOURCE_LINE_KNOWN_NULL");
                         for (Location dereferenced : unconditionalDerefLocationSet) {
-                            bug.addSourceLine(getClassContext(), getMethod(), dereferenced).describe("SOURCE_LINE_DEREF");
+                            bug.addSourceLine(getClassContext(), getMethod(), dereferenced)
+                                    .describe("SOURCE_LINE_DEREF");
                         }
 
                     } else {
                         bug = new BugInstance(this, "NP_NULL_ON_SOME_PATH", NORMAL_PRIORITY).addClassAndMethod(this);
                         bug.addOptionalAnnotation(variableAnnotation);
                         for (Location dereferenced : unconditionalDerefLocationSet) {
-                            bug.addSourceLine(getClassContext(), getMethod(), dereferenced).describe("SOURCE_LINE_DEREF");
+                            bug.addSourceLine(getClassContext(), getMethod(), dereferenced)
+                                    .describe("SOURCE_LINE_DEREF");
                         }
 
                         bug.addSourceLine(tested).describe("SOURCE_LINE_KNOWN_NULL");
@@ -198,9 +201,7 @@ public class FindNullDerefsInvolvingNonShortCircuitEvaluation extends OpcodeStac
     }
 
     /*
-    private void emitWarning() {
-        System.out.println("Warn about " + getMethodName());
-    }
+     * private void emitWarning() { System.out.println("Warn about " + getMethodName()); }
      */
 
 }

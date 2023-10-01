@@ -73,18 +73,9 @@ class MethodsCallOrderTest {
             fail("Unable to get ClassContext analysis for MethodsCallOrder: " + e.getMessage(), e);
         }
 
-        List<String> expected = Arrays.asList(new String[] {
-            "method4()V",
-            "method3()V",
-            "method2()V",
-            "method1()V",
-            "<init>(Ljava/lang/Object;)V",
-            "<init>()V",
-            "staticMethod4()V",
-            "staticMethod3()V",
-            "staticMethod2()V",
-            "staticMethod1()V",
-            "<clinit>()V" });
+        List<String> expected = Arrays.asList(new String[] { "method4()V", "method3()V", "method2()V", "method1()V",
+                "<init>(Ljava/lang/Object;)V", "<init>()V", "staticMethod4()V", "staticMethod3()V", "staticMethod2()V",
+                "staticMethod1()V", "<clinit>()V" });
 
         assertEquals(expected, actual);
     }
@@ -110,12 +101,7 @@ class MethodsCallOrderTest {
             fail("Unable to get ClassContext analysis for MethodsCallOrder: " + e.getMessage(), e);
         }
 
-        List<String> expected = Arrays.asList(new String[] {
-            "methodC()V",
-            "methodB()V",
-            "methodA()V",
-            "<init>()V"
-        });
+        List<String> expected = Arrays.asList(new String[] { "methodC()V", "methodB()V", "methodA()V", "<init>()V" });
 
         assertEquals(expected, actual);
     }

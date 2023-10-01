@@ -48,7 +48,8 @@ public class ViewCFG implements Detector {
         }
 
         JavaClass cls = classContext.getJavaClass();
-        String classDirName = (!cls.getPackageName().isEmpty()) ? (cls.getPackageName() + "." + cls.getClassName()) : cls.getClassName();
+        String classDirName = (!cls.getPackageName().isEmpty()) ? (cls.getPackageName() + "." + cls.getClassName())
+                : cls.getClassName();
         Path classDir;
 
         try {
@@ -79,14 +80,14 @@ public class ViewCFG implements Detector {
         for (Iterator<BasicBlock> bi = cfg.blockIterator(); bi.hasNext();) {
             BasicBlock block = bi.next();
             if (block == cfg.getEntry()) {
-                out.println("  Node" + block.getLabel() + " [shape=record label=\"{" + block.getLabel() +
-                        " (ENTRY) }\"];");
+                out.println(
+                        "  Node" + block.getLabel() + " [shape=record label=\"{" + block.getLabel() + " (ENTRY) }\"];");
                 continue;
             }
 
             if (block == cfg.getExit()) {
-                out.println("  Node" + block.getLabel() + " [shape=record label=\"{" + block.getLabel() +
-                        " (EXIT) }\"];");
+                out.println(
+                        "  Node" + block.getLabel() + " [shape=record label=\"{" + block.getLabel() + " (EXIT) }\"];");
                 continue;
             }
 
@@ -96,8 +97,7 @@ public class ViewCFG implements Detector {
             }
             for (Iterator<InstructionHandle> ii = block.instructionIterator(); ii.hasNext();) {
                 InstructionHandle ins = ii.next();
-                String insStr = NUMBER_SUFFIX.matcher(
-                        SPACE_ARROW.matcher(ins.toString(false)).replaceAll(""))
+                String insStr = NUMBER_SUFFIX.matcher(SPACE_ARROW.matcher(ins.toString(false)).replaceAll(""))
                         .replaceAll(" #$1");
                 out.print(insStr + "\\l");
             }
@@ -110,50 +110,50 @@ public class ViewCFG implements Detector {
             BasicBlock tgt = edge.getTarget();
             switch (edge.getType()) {
             case IFCMP_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" True branch\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" True branch\"];");
                 break;
             case HANDLED_EXCEPTION_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" Handled exception for #" +
-                        edge.getSource().getExceptionThrower().getPosition() + "\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" Handled exception for #"
+                        + edge.getSource().getExceptionThrower().getPosition() + "\"];");
                 break;
             case UNHANDLED_EXCEPTION_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" Unhandled exception for #" +
-                        edge.getSource().getExceptionThrower().getPosition() + "\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" Unhandled exception for #"
+                        + edge.getSource().getExceptionThrower().getPosition() + "\"];");
                 break;
             case RETURN_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" Return\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" Return\"];");
                 break;
             case START_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" Start\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" Start\"];");
                 break;
             case EXIT_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Exit" + tgt.getLabel() +
-                        " [shape=plaintext label=\" Exit\"];");
+                out.println("  Node" + src.getLabel() + " -> Exit" + tgt.getLabel()
+                        + " [shape=plaintext label=\" Exit\"];");
                 break;
             case SWITCH_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" Switch case (non-default)\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" Switch case (non-default)\"];");
                 break;
             case SWITCH_DEFAULT_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" Switch case (default)\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" Switch case (default)\"];");
                 break;
             case JSR_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" JSR statement\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" JSR statement\"];");
                 break;
             case RET_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" RET statement\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" RET statement\"];");
                 break;
             case GOTO_EDGE:
-                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() +
-                        " [shape=plaintext label=\" GOTO statement\"];");
+                out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel()
+                        + " [shape=plaintext label=\" GOTO statement\"];");
                 break;
             default:
                 out.println("  Node" + src.getLabel() + " -> Node" + tgt.getLabel() + ";");

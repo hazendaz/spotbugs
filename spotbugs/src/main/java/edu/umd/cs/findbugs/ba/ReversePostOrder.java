@@ -22,9 +22,8 @@ package edu.umd.cs.findbugs.ba;
 import java.util.Comparator;
 
 /**
- * A BlockOrder for visiting the blocks of a CFG in the reverse of the order in
- * which they are finished in a depth first search. This is the most efficient
- * visitation order for forward dataflow analyses.
+ * A BlockOrder for visiting the blocks of a CFG in the reverse of the order in which they are finished in a depth first
+ * search. This is the most efficient visitation order for forward dataflow analyses.
  *
  * @see BlockOrder
  * @see DepthFirstSearch
@@ -33,8 +32,8 @@ import java.util.Comparator;
  */
 public class ReversePostOrder extends AbstractBlockOrder {
     /**
-     * A Comparator to order the blocks in the reverse of the order in which
-     * they would be finished by a depth first search.
+     * A Comparator to order the blocks in the reverse of the order in which they would be finished by a depth first
+     * search.
      */
     private static class ReversePostfixComparator implements Comparator<BasicBlock> {
         private final DepthFirstSearch dfs;

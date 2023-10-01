@@ -41,7 +41,8 @@ public class AppendingToAnObjectOutputStream extends OpcodeStackDetector {
 
     @Override
     public void visitClassContext(ClassContext classContext) {
-        if (hasInterestingClass(classContext.getJavaClass().getConstantPool(), Collections.singleton("java/io/ObjectOutputStream"))) {
+        if (hasInterestingClass(classContext.getJavaClass().getConstantPool(),
+                Collections.singleton("java/io/ObjectOutputStream"))) {
             super.visitClassContext(classContext);
         }
     }
@@ -71,8 +72,9 @@ public class AppendingToAnObjectOutputStream extends OpcodeStackDetector {
             if ("java/io/ObjectOutputStream".equals(calledClassName) && Const.CONSTRUCTOR_NAME.equals(calledMethodName)
                     && "(Ljava/io/OutputStream;)V".equals(calledMethodSig)
                     && stack.getStackItem(0).getSpecialKind() == OpcodeStack.Item.FILE_OPENED_IN_APPEND_MODE) {
-                bugReporter.reportBug(new BugInstance(this, "IO_APPENDING_TO_OBJECT_OUTPUT_STREAM", Priorities.HIGH_PRIORITY)
-                        .addClassAndMethod(this).addSourceLine(this));
+                bugReporter.reportBug(
+                        new BugInstance(this, "IO_APPENDING_TO_OBJECT_OUTPUT_STREAM", Priorities.HIGH_PRIORITY)
+                                .addClassAndMethod(this).addSourceLine(this));
             }
             return;
         }
@@ -81,14 +83,17 @@ public class AppendingToAnObjectOutputStream extends OpcodeStackDetector {
             OpcodeStack.Item item = stack.getStackItem(0);
             Object value = item.getConstant();
             sawOpenInAppendMode = value instanceof Integer && ((Integer) value).intValue() == 1;
-        } else if ("java/io/BufferedOutputStream".equals(calledClassName) && Const.CONSTRUCTOR_NAME.equals(calledMethodName)
+        } else if ("java/io/BufferedOutputStream".equals(calledClassName)
+                && Const.CONSTRUCTOR_NAME.equals(calledMethodName)
                 && "(Ljava/io/OutputStream;)V".equals(calledMethodSig)) {
             // do nothing
 
-        } else if ("java/io/ObjectOutputStream".equals(calledClassName) && Const.CONSTRUCTOR_NAME.equals(calledMethodName)
+        } else if ("java/io/ObjectOutputStream".equals(calledClassName)
+                && Const.CONSTRUCTOR_NAME.equals(calledMethodName)
                 && "(Ljava/io/OutputStream;)V".equals(calledMethodSig)) {
-            bugReporter.reportBug(new BugInstance(this, "IO_APPENDING_TO_OBJECT_OUTPUT_STREAM", Priorities.HIGH_PRIORITY)
-                    .addClassAndMethod(this).addSourceLine(this));
+            bugReporter
+                    .reportBug(new BugInstance(this, "IO_APPENDING_TO_OBJECT_OUTPUT_STREAM", Priorities.HIGH_PRIORITY)
+                            .addClassAndMethod(this).addSourceLine(this));
             sawOpenInAppendMode = false;
         } else {
             sawOpenInAppendMode = false;

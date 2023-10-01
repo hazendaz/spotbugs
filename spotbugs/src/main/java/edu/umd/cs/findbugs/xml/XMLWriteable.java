@@ -25,6 +25,7 @@ import java.io.IOException;
  * Interface indicating that an object can write itself to an XML document.
  *
  * @see XMLOutput
+ *
  * @author David Hovemeyer
  */
 public interface XMLWriteable {

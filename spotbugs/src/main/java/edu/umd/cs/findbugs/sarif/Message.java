@@ -10,7 +10,9 @@ import java.util.Objects;
 
 /**
  * Object which represents {@code message} property.
- * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317459">3.11 message object</a>
+ *
+ * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317459">3.11 message
+ *      object</a>
  */
 final class Message {
     String text;

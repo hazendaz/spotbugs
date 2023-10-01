@@ -214,14 +214,12 @@ public class XDocsBugReporter extends TextUIBugReporter {
         SourceLineAnnotation line = bugInstance.getPrimarySourceLineAnnotation();
         element.addAttribute("line", Integer.toString(line.getStartLine()));
 
-
     }
 
     /*
      * public static void main(String args[]) { String x =
-     * "Less than: < Greater than: > Ampersand: & Quotation mark: \" Apostrophe: '"
-     * ; String y = xmlEscape(x); System.out.println(x); System.out.println(y);
-     * }
+     * "Less than: < Greater than: > Ampersand: & Quotation mark: \" Apostrophe: '" ; String y = xmlEscape(x);
+     * System.out.println(x); System.out.println(y); }
      */
 
     @Override

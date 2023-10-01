@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import edu.umd.cs.findbugs.AbstractIntegrationTest;
 
-
 /**
  * @author gtoison
  *

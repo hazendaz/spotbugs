@@ -131,7 +131,8 @@ public class VarArgsProblems extends BytecodeScanningDetector implements Statele
                 break;
 
             case SEEN_AASTORE:
-                if (seen == Const.INVOKESTATIC || seen == Const.INVOKEINTERFACE || seen == Const.INVOKESPECIAL || seen == Const.INVOKEVIRTUAL) {
+                if (seen == Const.INVOKESTATIC || seen == Const.INVOKEINTERFACE || seen == Const.INVOKESPECIAL
+                        || seen == Const.INVOKEVIRTUAL) {
                     // System.out.println(getClassConstantOperand());
                     // System.out.println(getNameConstantOperand());
                     // System.out.println(getSigConstantOperand());
@@ -139,7 +140,8 @@ public class VarArgsProblems extends BytecodeScanningDetector implements Statele
                         break;
                     }
                     int priority = NORMAL_PRIORITY;
-                    if ("asList".equals(getNameConstantOperand()) && "java/util/Arrays".equals(getClassConstantOperand())) {
+                    if ("asList".equals(getNameConstantOperand())
+                            && "java/util/Arrays".equals(getClassConstantOperand())) {
                         priority = HIGH_PRIORITY;
                     }
                     bugReporter.reportBug(new BugInstance(this, "VA_PRIMITIVE_ARRAY_PASSED_TO_OBJECT_VARARG", priority)

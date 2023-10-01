@@ -177,7 +177,6 @@ public enum GroupType {
 
     }),
 
-
     Category(true, new MarkerMapper<BugCategory>() {
         @Override
         BugCategory getIdentifier(IMarker marker) {
@@ -199,8 +198,7 @@ public enum GroupType {
 
         @Override
         String getDebugDescription(IMarker marker) throws CoreException {
-            return "category of: " + marker.getAttribute(UNIQUE_ID) + "/"
-                    + marker.getAttribute(BUG_TYPE);
+            return "category of: " + marker.getAttribute(UNIQUE_ID) + "/" + marker.getAttribute(BUG_TYPE);
         }
     }),
 
@@ -269,8 +267,7 @@ public enum GroupType {
     }
 
     /**
-     * @return may return {@link MarkerMapper#NO_MAPPING}, if there is no
-     *         mapping possible for current group type
+     * @return may return {@link MarkerMapper#NO_MAPPING}, if there is no mapping possible for current group type
      */
     MarkerMapper<?> getMapper() {
         return mapper;

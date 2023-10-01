@@ -40,26 +40,26 @@ public class InconsistentSyncWarningProperty extends AbstractWarningProperty {
     // new InconsistentSyncWarningProperty("NEVER_UNLOCKED",
     // PriorityAdjustment.FALSE_POSITIVE);
     /**
-     * Field is accessed unlocked most of the time, and therefore is probably
-     * not intended to be safely used from multiple threads.
+     * Field is accessed unlocked most of the time, and therefore is probably not intended to be safely used from
+     * multiple threads.
      */
     public static final InconsistentSyncWarningProperty MANY_BIASED_UNLOCKED = new InconsistentSyncWarningProperty(
             "MANY_BIASED_UNLOCKED", PriorityAdjustment.FALSE_POSITIVE);
 
     /** Field is never written outside constructor. */
-    public static final InconsistentSyncWarningProperty NEVER_WRITTEN = new InconsistentSyncWarningProperty("NEVER_WRITTEN",
-            PriorityAdjustment.FALSE_POSITIVE);
+    public static final InconsistentSyncWarningProperty NEVER_WRITTEN = new InconsistentSyncWarningProperty(
+            "NEVER_WRITTEN", PriorityAdjustment.FALSE_POSITIVE);
 
     /** Field is never read outside constructor. */
     public static final InconsistentSyncWarningProperty NEVER_READ = new InconsistentSyncWarningProperty("NEVER_READ",
             PriorityAdjustment.FALSE_POSITIVE);
 
     /**
-     * Field is never locked in the definition of the class. (I.e., all locked
-     * accesses are in methods of other classes.)
+     * Field is never locked in the definition of the class. (I.e., all locked accesses are in methods of other
+     * classes.)
      */
-    public static final InconsistentSyncWarningProperty NO_LOCAL_LOCKS = new InconsistentSyncWarningProperty("NO_LOCAL_LOCKS",
-            PriorityAdjustment.FALSE_POSITIVE);
+    public static final InconsistentSyncWarningProperty NO_LOCAL_LOCKS = new InconsistentSyncWarningProperty(
+            "NO_LOCAL_LOCKS", PriorityAdjustment.FALSE_POSITIVE);
 
     /** Below minimum percentage synchronized accesses. */
     public static final InconsistentSyncWarningProperty BELOW_MIN_SYNC_PERCENT = new InconsistentSyncWarningProperty(

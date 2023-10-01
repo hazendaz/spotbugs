@@ -77,8 +77,8 @@ class FilterBugsDialogTest extends AbstractFindBugsTest {
     @Test
     void testEmptyFilter() {
         // Open the dialog
-        FilterBugsDialogTestSubclass dialog = openFilterBugsDialog(Collections.<BugPattern>emptySet(),
-                Collections.<BugCode>emptySet());
+        FilterBugsDialogTestSubclass dialog = openFilterBugsDialog(Collections.<BugPattern> emptySet(),
+                Collections.<BugCode> emptySet());
 
         // Close the dialog
         closeDialogAndStoreResult(dialog);
@@ -105,8 +105,8 @@ class FilterBugsDialogTest extends AbstractFindBugsTest {
     @Test
     void testOnePatternSelectsPattern() {
         // Open the dialog
-        FilterBugsDialogTestSubclass dialog = openFilterBugsDialog(Collections.<BugPattern>emptySet(),
-                Collections.<BugCode>emptySet());
+        FilterBugsDialogTestSubclass dialog = openFilterBugsDialog(Collections.<BugPattern> emptySet(),
+                Collections.<BugCode> emptySet());
 
         // Add one BugPattern
         BugPattern pattern = DetectorFactoryCollection.instance().lookupBugPattern("HE_EQUALS_NO_HASHCODE");
@@ -124,8 +124,8 @@ class FilterBugsDialogTest extends AbstractFindBugsTest {
     @Test
     void testOnePatternSelectsType() {
         // Open the dialog
-        FilterBugsDialogTestSubclass dialog = openFilterBugsDialog(Collections.<BugPattern>emptySet(),
-                Collections.<BugCode>emptySet());
+        FilterBugsDialogTestSubclass dialog = openFilterBugsDialog(Collections.<BugPattern> emptySet(),
+                Collections.<BugCode> emptySet());
 
         // Add one BugPattern
         BugPattern pattern = DetectorFactoryCollection.instance().lookupBugPattern("EI_EXPOSE_REP");
@@ -144,8 +144,8 @@ class FilterBugsDialogTest extends AbstractFindBugsTest {
     @Test
     void testOneType() {
         // Open the dialog
-        FilterBugsDialogTestSubclass dialog = openFilterBugsDialog(Collections.<BugPattern>emptySet(),
-                Collections.<BugCode>emptySet());
+        FilterBugsDialogTestSubclass dialog = openFilterBugsDialog(Collections.<BugPattern> emptySet(),
+                Collections.<BugCode> emptySet());
 
         // Add one BugCode
         BugCode bugCode = DetectorFactoryCollection.instance().getBugCode("EI");
@@ -173,8 +173,10 @@ class FilterBugsDialogTest extends AbstractFindBugsTest {
         return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
     }
 
-    private FilterBugsDialogTestSubclass openFilterBugsDialog(Set<BugPattern> filteredPatterns, Set<BugCode> filteredTypes) {
-        FilterBugsDialogTestSubclass dialog = new FilterBugsDialogTestSubclass(getParentShell(), filteredPatterns, filteredTypes);
+    private FilterBugsDialogTestSubclass openFilterBugsDialog(Set<BugPattern> filteredPatterns,
+            Set<BugCode> filteredTypes) {
+        FilterBugsDialogTestSubclass dialog = new FilterBugsDialogTestSubclass(getParentShell(), filteredPatterns,
+                filteredTypes);
         dialog.open();
         return dialog;
     }

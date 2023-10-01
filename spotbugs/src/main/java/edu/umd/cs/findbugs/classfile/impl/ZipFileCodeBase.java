@@ -47,8 +47,8 @@ public class ZipFileCodeBase extends AbstractScannableCodeBase {
      * @param codeBaseLocator
      *            the codebase locator for this codebase
      * @param file
-     *            the File containing the zip file (may be a temp file if the
-     *            codebase was copied from a nested zipfile in another codebase)
+     *            the File containing the zip file (may be a temp file if the codebase was copied from a nested zipfile
+     *            in another codebase)
      */
     public ZipFileCodeBase(ICodeBaseLocator codeBaseLocator, File file) throws IOException {
         super(codeBaseLocator);
@@ -73,7 +73,8 @@ public class ZipFileCodeBase extends AbstractScannableCodeBase {
                 throw new IOException("Zip file is empty: " + file);
             }
             if (!(e instanceof ZipException)) {
-                IOException ioException = new IOException("Error opening zip file " + file + " of " + file.length() + " bytes");
+                IOException ioException = new IOException(
+                        "Error opening zip file " + file + " of " + file.length() + " bytes");
                 ioException.initCause(e);
                 throw ioException;
             }
@@ -81,11 +82,12 @@ public class ZipFileCodeBase extends AbstractScannableCodeBase {
             try (DataInputStream in = new DataInputStream(Files.newInputStream(file.toPath()))) {
                 magicBytes = in.readInt();
             } catch (IOException e3) {
-                throw new IOException(String.format("Unable read first 4 bytes of zip file %s of %d bytes", file, file.length()));
+                throw new IOException(
+                        String.format("Unable read first 4 bytes of zip file %s of %d bytes", file, file.length()));
             }
             if (magicBytes != 0x504b0304) {
-                throw new IOException(String.format("Wrong magic bytes of %x for zip file %s of %d bytes", magicBytes, file,
-                        file.length()));
+                throw new IOException(String.format("Wrong magic bytes of %x for zip file %s of %d bytes", magicBytes,
+                        file, file.length()));
             }
             ZipException e2 = new ZipException("Error opening zip file " + file + " of " + file.length() + " bytes");
             e2.initCause(e);

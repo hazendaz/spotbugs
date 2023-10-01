@@ -27,14 +27,14 @@ import edu.umd.cs.findbugs.BugCode;
 import edu.umd.cs.findbugs.BugPattern;
 
 /**
- * Test subclass of FilterBugsDialog that overrides the opening behaviour for
- * testing purposes.
+ * Test subclass of FilterBugsDialog that overrides the opening behaviour for testing purposes.
  *
  * @author Tomás Pollak
  */
 public class FilterBugsDialogTestSubclass extends FilterBugsDialog {
 
-    public FilterBugsDialogTestSubclass(Shell parentShell, Set<BugPattern> filteredPatterns, Set<BugCode> filteredTypes) {
+    public FilterBugsDialogTestSubclass(Shell parentShell, Set<BugPattern> filteredPatterns,
+            Set<BugCode> filteredTypes) {
         super(parentShell, filteredPatterns, filteredTypes);
     }
 

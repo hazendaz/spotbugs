@@ -82,19 +82,21 @@ public abstract class AbstractQuickfixTest extends AbstractPluginTest {
         super.tearDown();
     }
 
-    protected void doTestQuickfixResolution(String classFileName, Class<? extends IMarkerResolution> resolutionClass, String... expectedPatterns)
-            throws CoreException, IOException {
+    protected void doTestQuickfixResolution(String classFileName, Class<? extends IMarkerResolution> resolutionClass,
+            String... expectedPatterns) throws CoreException, IOException {
         QuickFixTestPackager packager = new QuickFixTestPackager();
         packager.addBugPatterns(expectedPatterns);
 
         doTestQuickfixResolution(classFileName, resolutionClass, packager.asList());
     }
 
-    protected void doTestQuickfixResolution(String classFileName, String... expectedPatterns) throws CoreException, IOException {
+    protected void doTestQuickfixResolution(String classFileName, String... expectedPatterns)
+            throws CoreException, IOException {
         doTestQuickfixResolution(classFileName, null, expectedPatterns);
     }
 
-    protected void doTestQuickfixResolution(String classFileName, List<QuickFixTestPackage> packages) throws CoreException, IOException {
+    protected void doTestQuickfixResolution(String classFileName, List<QuickFixTestPackage> packages)
+            throws CoreException, IOException {
         doTestQuickfixResolution(classFileName, null, packages);
     }
 
@@ -137,14 +139,14 @@ public abstract class AbstractQuickfixTest extends AbstractPluginTest {
                 String pattern2 = MarkerUtil.getBugPatternString(marker2);
                 if (pattern1 != null) {
                     if (pattern1.equals(pattern2)) {
-                        return MarkerUtil.findPrimaryLineForMaker(marker1) -
-                                MarkerUtil.findPrimaryLineForMaker(marker2);
+                        return MarkerUtil.findPrimaryLineForMaker(marker1)
+                                - MarkerUtil.findPrimaryLineForMaker(marker2);
                     }
                     return pattern1.compareTo(pattern2);
                 }
-                //else, perhaps fail because markers don't have bugPatternStrings?
+                // else, perhaps fail because markers don't have bugPatternStrings?
                 else if (pattern2 == null) {
-                    return 0; //neither is a bugPattern?
+                    return 0; // neither is a bugPattern?
                 }
                 return MarkerUtil.findPrimaryLineForMaker(marker1) - MarkerUtil.findPrimaryLineForMaker(marker2);
             }
@@ -168,7 +170,8 @@ public abstract class AbstractQuickfixTest extends AbstractPluginTest {
         }
     }
 
-    private void applySpecificResolutionForAllMarkers(IMarker[] markers, Class<? extends IMarkerResolution> resolutionClass) {
+    private void applySpecificResolutionForAllMarkers(IMarker[] markers,
+            Class<? extends IMarkerResolution> resolutionClass) {
         for (int i = 0; i < markers.length; i++) {
             IMarkerResolution[] resolutions = getResolutionGenerator().getResolutions(markers[i]);
             for (int j = 0; j < resolutions.length; j++) {
@@ -193,7 +196,8 @@ public abstract class AbstractQuickfixTest extends AbstractPluginTest {
         }
     }
 
-    protected void assertEqualFiles(URL expectedFile, ICompilationUnit compilationUnit) throws IOException, JavaModelException {
+    protected void assertEqualFiles(URL expectedFile, ICompilationUnit compilationUnit)
+            throws IOException, JavaModelException {
         String expectedSource = readFileContents(expectedFile);
         assertEquals(expectedSource, compilationUnit.getSource());
     }
@@ -228,13 +232,14 @@ public abstract class AbstractQuickfixTest extends AbstractPluginTest {
     protected void assertPresentLabels(List<QuickFixTestPackage> packages, IMarker[] markers) {
         for (int i = 0; i < packages.size(); i++) {
             if (packages.get(i).expectedLabels == null) {
-                continue; //TODO migrate older tests to specify their labels
+                continue; // TODO migrate older tests to specify their labels
             }
             IMarker marker = markers[i];
             List<String> expectedLabels = new ArrayList<>(packages.get(i).expectedLabels);
             IMarkerResolution[] resolutions = getResolutionGenerator().getResolutions(marker);
 
-            assertEquals(expectedLabels.size(), resolutions.length, "The expected number of resolutions available was wrong");
+            assertEquals(expectedLabels.size(), resolutions.length,
+                    "The expected number of resolutions available was wrong");
 
             for (int j = 0; j < resolutions.length; j++) {
                 BugResolution resolution = (BugResolution) resolutions[j];
@@ -268,8 +273,7 @@ public abstract class AbstractQuickfixTest extends AbstractPluginTest {
     }
 
     private String readFileContents(URL url) throws IOException {
-        try (StringWriter writer = new StringWriter();
-                InputStream input = url.openStream()) {
+        try (StringWriter writer = new StringWriter(); InputStream input = url.openStream()) {
             int nextChar;
             while ((nextChar = input.read()) != -1) {
                 writer.write(nextChar);
@@ -280,7 +284,7 @@ public abstract class AbstractQuickfixTest extends AbstractPluginTest {
 
     public static class QuickFixTestPackage {
 
-        public static final int LINE_NUMBER_NOT_SPECIFIED = -1; //TODO remove this after updating current tests
+        public static final int LINE_NUMBER_NOT_SPECIFIED = -1; // TODO remove this after updating current tests
         public String expectedPattern;
         public List<String> expectedLabels;
         public int lineNumber = LINE_NUMBER_NOT_SPECIFIED;
@@ -297,7 +301,7 @@ public abstract class AbstractQuickfixTest extends AbstractPluginTest {
         private final List<QuickFixTestPackage> packages = new ArrayList<>();
 
         public QuickFixTestPackager() {
-            //made public to be seen by subclasses
+            // made public to be seen by subclasses
         }
 
         public void addBugPatterns(String... expectedPatterns) {

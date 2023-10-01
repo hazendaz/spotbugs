@@ -53,8 +53,8 @@ import edu.umd.cs.findbugs.log.Profiler;
 import edu.umd.cs.findbugs.util.MapCache;
 
 /**
- * Implementation of IAnalysisCache. This object is responsible for registering
- * class and method analysis engines and caching analysis results.
+ * Implementation of IAnalysisCache. This object is responsible for registering class and method analysis engines and
+ * caching analysis results.
  *
  * @author David Hovemeyer
  */
@@ -73,11 +73,12 @@ public class AnalysisCache implements IAnalysisCache {
     private static final int MAX_CLASS_RESULTS_TO_CACHE = 5000;
 
     /**
-     * Maximum number of results to cache. Plugins such as FindSecBugs are using the cache and using an unbounded map can lead to OOM errors on large projects
+     * Maximum number of results to cache. Plugins such as FindSecBugs are using the cache and using an unbounded map
+     * can lead to OOM errors on large projects
      */
     private static final int DEFAULT_RESULTS_TO_CACHE = 10000;
 
-    //    private static final boolean ASSERTIONS_ENABLED = SystemProperties.ASSERTIONS_ENABLED;
+    // private static final boolean ASSERTIONS_ENABLED = SystemProperties.ASSERTIONS_ENABLED;
 
     // Fields
     private final IClassPath classPath;
@@ -216,7 +217,9 @@ public class AnalysisCache implements IAnalysisCache {
     }
 
     /**
-     * @param analysisClass non null analysis type
+     * @param analysisClass
+     *            non null analysis type
+     *
      * @return map with analysis data for given type, can be null
      */
     public @CheckForNull Map<ClassDescriptor, Object> getClassAnalysis(Class<?> analysisClass) {
@@ -225,8 +228,11 @@ public class AnalysisCache implements IAnalysisCache {
 
     /**
      * Adds the data for given analysis type from given map to the cache
-     * @param analysisClass non null analysis type
-     * @param map non null, pre-filled map with analysis data for given type
+     *
+     * @param analysisClass
+     *            non null analysis type
+     * @param map
+     *            non null, pre-filled map with analysis data for given type
      */
     public <E> void reuseClassAnalysis(Class<E> analysisClass, Map<ClassDescriptor, Object> map) {
         Map<ClassDescriptor, Object> myMap = classAnalysisMap.get(analysisClass);
@@ -241,12 +247,12 @@ public class AnalysisCache implements IAnalysisCache {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <E> E getClassAnalysis(Class<E> analysisClass, @Nonnull ClassDescriptor classDescriptor) throws CheckedAnalysisException {
+    public <E> E getClassAnalysis(Class<E> analysisClass, @Nonnull ClassDescriptor classDescriptor)
+            throws CheckedAnalysisException {
         requireNonNull(classDescriptor, "classDescriptor is null");
         // Get the descriptor->result map for this analysis class,
         // creating if necessary
-        Map<ClassDescriptor, Object> descriptorMap = findOrCreateDescriptorMap(classAnalysisMap,
-                classAnalysisEngineMap,
+        Map<ClassDescriptor, Object> descriptorMap = findOrCreateDescriptorMap(classAnalysisMap, classAnalysisEngineMap,
                 analysisClass);
 
         // See if there is a cached result in the descriptor map
@@ -257,7 +263,8 @@ public class AnalysisCache implements IAnalysisCache {
             IAnalysisEngine<ClassDescriptor, E> engine = (IAnalysisEngine<ClassDescriptor, E>) classAnalysisEngineMap
                     .get(analysisClass);
             if (engine == null) {
-                throw new IllegalArgumentException("No analysis engine registered to produce " + analysisClass.getName());
+                throw new IllegalArgumentException(
+                        "No analysis engine registered to produce " + analysisClass.getName());
             }
             Profiler profiler = getProfiler();
             // Perform the analysis
@@ -316,7 +323,8 @@ public class AnalysisCache implements IAnalysisCache {
     }
 
     @Override
-    public <E> E getMethodAnalysis(Class<E> analysisClass, @Nonnull MethodDescriptor methodDescriptor) throws CheckedAnalysisException {
+    public <E> E getMethodAnalysis(Class<E> analysisClass, @Nonnull MethodDescriptor methodDescriptor)
+            throws CheckedAnalysisException {
         requireNonNull(methodDescriptor, "methodDescriptor is null");
         ClassContext classContext = getClassAnalysis(ClassContext.class, methodDescriptor.getClassDescriptor());
         Object object = classContext.getMethodAnalysis(analysisClass, methodDescriptor);
@@ -351,13 +359,14 @@ public class AnalysisCache implements IAnalysisCache {
      * Analyze a method.
      *
      * @param classContext
-     *            ClassContext storing method analysis objects for method's
-     *            class
+     *            ClassContext storing method analysis objects for method's class
      * @param analysisClass
      *            class the method analysis object should belong to
      * @param methodDescriptor
      *            method descriptor identifying the method to analyze
+     *
      * @return the computed analysis object for the method
+     *
      * @throws CheckedAnalysisException
      */
     @SuppressWarnings("unchecked")
@@ -377,13 +386,15 @@ public class AnalysisCache implements IAnalysisCache {
     }
 
     @Override
-    public <E> void eagerlyPutMethodAnalysis(Class<E> analysisClass, @Nonnull MethodDescriptor methodDescriptor, E analysisObject) {
+    public <E> void eagerlyPutMethodAnalysis(Class<E> analysisClass, @Nonnull MethodDescriptor methodDescriptor,
+            E analysisObject) {
         try {
             ClassContext classContext = getClassAnalysis(ClassContext.class, methodDescriptor.getClassDescriptor());
             assert analysisClass.isInstance(analysisObject);
             classContext.putMethodAnalysis(analysisClass, methodDescriptor, analysisObject);
         } catch (CheckedAnalysisException e) {
-            IllegalStateException ise = new IllegalStateException("Unexpected exception adding method analysis to cache");
+            IllegalStateException ise = new IllegalStateException(
+                    "Unexpected exception adding method analysis to cache");
             ise.initCause(e);
             throw ise;
         }
@@ -397,7 +408,8 @@ public class AnalysisCache implements IAnalysisCache {
             ClassContext classContext = getClassAnalysis(ClassContext.class, methodDescriptor.getClassDescriptor());
             classContext.purgeMethodAnalyses(methodDescriptor);
         } catch (CheckedAnalysisException e) {
-            IllegalStateException ise = new IllegalStateException("Unexpected exception purging method analyses from cache");
+            IllegalStateException ise = new IllegalStateException(
+                    "Unexpected exception purging method analyses from cache");
             ise.initCause(e);
             throw ise;
         }
@@ -407,20 +419,19 @@ public class AnalysisCache implements IAnalysisCache {
      * Find or create a descriptor to analysis object map.
      *
      * @param <DescriptorType>
-     *            type of descriptor used as the map's key type (ClassDescriptor
-     *            or MethodDescriptor)
+     *            type of descriptor used as the map's key type (ClassDescriptor or MethodDescriptor)
      * @param analysisClassToDescriptorMapMap
      *            analysis class to descriptor map map
      * @param engineMap
      *            analysis class to analysis engine map
      * @param analysisClass
      *            the analysis map
+     *
      * @return the descriptor to analysis object map
      */
     private static <DescriptorType> Map<DescriptorType, Object> findOrCreateDescriptorMap(
             final Map<Class<?>, Map<DescriptorType, Object>> analysisClassToDescriptorMapMap,
-            final Map<Class<?>, ? extends IAnalysisEngine<DescriptorType, ?>> engineMap,
-            final Class<?> analysisClass) {
+            final Map<Class<?>, ? extends IAnalysisEngine<DescriptorType, ?>> engineMap, final Class<?> analysisClass) {
         Map<DescriptorType, Object> descriptorMap = analysisClassToDescriptorMapMap.get(analysisClass);
         if (descriptorMap == null) {
             descriptorMap = createMap(engineMap, analysisClass);
@@ -430,8 +441,7 @@ public class AnalysisCache implements IAnalysisCache {
     }
 
     private static <DescriptorType> Map<DescriptorType, Object> createMap(
-            final Map<Class<?>, ? extends IAnalysisEngine<DescriptorType, ?>> engineMap,
-            final Class<?> analysisClass) {
+            final Map<Class<?>, ? extends IAnalysisEngine<DescriptorType, ?>> engineMap, final Class<?> analysisClass) {
         Map<DescriptorType, Object> descriptorMap;
         // Create a MapCache that allows the analysis engine to
         // decide that analysis results should be retained indefinitely.
@@ -453,12 +463,14 @@ public class AnalysisCache implements IAnalysisCache {
     }
 
     @Override
-    public <E> void registerClassAnalysisEngine(Class<E> analysisResultType, IClassAnalysisEngine<E> classAnalysisEngine) {
+    public <E> void registerClassAnalysisEngine(Class<E> analysisResultType,
+            IClassAnalysisEngine<E> classAnalysisEngine) {
         classAnalysisEngineMap.put(analysisResultType, classAnalysisEngine);
     }
 
     @Override
-    public <E> void registerMethodAnalysisEngine(Class<E> analysisResultType, IMethodAnalysisEngine<E> methodAnalysisEngine) {
+    public <E> void registerMethodAnalysisEngine(Class<E> analysisResultType,
+            IMethodAnalysisEngine<E> methodAnalysisEngine) {
         methodAnalysisEngineMap.put(analysisResultType, methodAnalysisEngine);
     }
 

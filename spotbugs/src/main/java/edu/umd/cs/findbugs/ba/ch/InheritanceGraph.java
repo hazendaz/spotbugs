@@ -31,9 +31,8 @@ public class InheritanceGraph extends AbstractGraph<InheritanceEdge, ClassVertex
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.graph.AbstractGraph#allocateEdge(edu.umd.cs.findbugs
-     * .graph.AbstractVertex, edu.umd.cs.findbugs.graph.AbstractVertex)
+     * @see edu.umd.cs.findbugs.graph.AbstractGraph#allocateEdge(edu.umd.cs.findbugs .graph.AbstractVertex,
+     * edu.umd.cs.findbugs.graph.AbstractVertex)
      */
     @Override
     protected InheritanceEdge allocateEdge(ClassVertex source, ClassVertex target) {
@@ -43,9 +42,8 @@ public class InheritanceGraph extends AbstractGraph<InheritanceEdge, ClassVertex
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.graph.AbstractGraph#createEdge(edu.umd.cs.findbugs
-     * .graph.AbstractVertex, edu.umd.cs.findbugs.graph.AbstractVertex)
+     * @see edu.umd.cs.findbugs.graph.AbstractGraph#createEdge(edu.umd.cs.findbugs .graph.AbstractVertex,
+     * edu.umd.cs.findbugs.graph.AbstractVertex)
      */
     @Override
     public InheritanceEdge createEdge(ClassVertex source, ClassVertex target) {

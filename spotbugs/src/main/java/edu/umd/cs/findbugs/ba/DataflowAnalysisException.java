@@ -76,8 +76,7 @@ public class DataflowAnalysisException extends CheckedAnalysisException {
     }
 
     /**
-     * Constructor from message, method and instruction, and Throwable object
-     * (cause).
+     * Constructor from message, method and instruction, and Throwable object (cause).
      *
      * @param message
      *            reason for the error

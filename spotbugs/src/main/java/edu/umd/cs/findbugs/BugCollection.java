@@ -135,15 +135,15 @@ public interface BugCollection extends Iterable<BugInstance> {
      *
      * @param sequence
      *            the sequence number
+     *
      * @see BugCollection#getSequenceNumber()
      */
     void setSequenceNumber(long sequence);
 
     /**
-     * Get the sequence number of the BugCollection. This value represents the
-     * number of times the user has analyzed a different version of the
-     * application and updated the historical bug collection using the
-     * UpdateBugCollection class.
+     * Get the sequence number of the BugCollection. This value represents the number of times the user has analyzed a
+     * different version of the application and updated the historical bug collection using the UpdateBugCollection
+     * class.
      *
      * @return the sequence number
      */
@@ -154,8 +154,7 @@ public interface BugCollection extends Iterable<BugInstance> {
     boolean hasDeadBugs();
 
     /**
-     * Clear all AppVersions representing previously-analyzed versions of the
-     * application.
+     * Clear all AppVersions representing previously-analyzed versions of the application.
      */
     abstract void clearAppVersions();
 
@@ -178,13 +177,12 @@ public interface BugCollection extends Iterable<BugInstance> {
     Iterator<AppVersion> appVersionIterator();
 
     /**
-     * Add a BugInstance to this BugCollection. This just calls add(bugInstance,
-     * true).
+     * Add a BugInstance to this BugCollection. This just calls add(bugInstance, true).
      *
      * @param bugInstance
      *            the BugInstance
-     * @return true if the BugInstance was added, or false if a matching
-     *         BugInstance was already in the BugCollection
+     *
+     * @return true if the BugInstance was added, or false if a matching BugInstance was already in the BugCollection
      */
     boolean add(BugInstance bugInstance);
 
@@ -194,10 +192,9 @@ public interface BugCollection extends Iterable<BugInstance> {
      * @param bugInstance
      *            the BugInstance
      * @param updateActiveTime
-     *            true if the warning's active time should be updated to include
-     *            the collection's current time
-     * @return true if the BugInstance was added, or false if a matching
-     *         BugInstance was already in the BugCollection
+     *            true if the warning's active time should be updated to include the collection's current time
+     *
+     * @return true if the BugInstance was added, or false if a matching BugInstance was already in the BugCollection
      */
     boolean add(BugInstance bugInstance, boolean updateActiveTime);
 
@@ -206,8 +203,8 @@ public interface BugCollection extends Iterable<BugInstance> {
      *
      * @param uniqueId
      *            the BugInstance's unique id.
-     * @return the BugInstance with the given unique id, or null if there is no
-     *         such BugInstance
+     *
+     * @return the BugInstance with the given unique id, or null if there is no such BugInstance
      *
      *         This is deprecated; uniqueIDs are not persistent.
      */
@@ -249,8 +246,7 @@ public interface BugCollection extends Iterable<BugInstance> {
     void clearMissingClasses();
 
     /**
-     * Read XML data from given file into this object, populating given Project
-     * as a side effect.
+     * Read XML data from given file into this object, populating given Project as a side effect.
      *
      * @param fileName
      *            name of the file to read
@@ -258,9 +254,8 @@ public interface BugCollection extends Iterable<BugInstance> {
     void readXML(String fileName) throws IOException, DocumentException;
 
     /**
-     * Read XML data from given input stream into this object, populating the
-     * Project as a side effect. An attempt will be made to close the input
-     * stream (even if an exception is thrown).
+     * Read XML data from given input stream into this object, populating the Project as a side effect. An attempt will
+     * be made to close the input stream (even if an exception is thrown).
      *
      * @param in
      *            the InputStream
@@ -268,9 +263,8 @@ public interface BugCollection extends Iterable<BugInstance> {
     void readXML(@WillClose InputStream in) throws IOException, DocumentException;
 
     /**
-     * Read XML data from given reader into this object, populating the Project
-     * as a side effect. An attempt will be made to close the reader (even if an
-     * exception is thrown).
+     * Read XML data from given reader into this object, populating the Project as a side effect. An attempt will be
+     * made to close the reader (even if an exception is thrown).
      *
      * @param reader
      *            the Reader
@@ -286,8 +280,8 @@ public interface BugCollection extends Iterable<BugInstance> {
     void writeXML(String fileName) throws IOException;
 
     /**
-     * Write the BugCollection to given output stream as XML. The output stream
-     * will be closed, even if an exception is thrown.
+     * Write the BugCollection to given output stream as XML. The output stream will be closed, even if an exception is
+     * thrown.
      *
      * @param out
      *            the OutputStream to write to
@@ -295,9 +289,8 @@ public interface BugCollection extends Iterable<BugInstance> {
     void writeXML(@WillClose Writer out) throws IOException;
 
     /**
-     * Write the BugCollection to given output stream as XML using a UTF8 encoding.
-     * The output stream
-     * will be closed, even if an exception is thrown.
+     * Write the BugCollection to given output stream as XML using a UTF8 encoding. The output stream will be closed,
+     * even if an exception is thrown.
      *
      * @param out
      *            the OutputStream to write to
@@ -305,12 +298,11 @@ public interface BugCollection extends Iterable<BugInstance> {
     void writeXML(@WillClose OutputStream out) throws IOException;
 
     /**
-     * Write the BugCollection to an XMLOutput object. The finish() method of
-     * the XMLOutput object is guaranteed to be called.
+     * Write the BugCollection to an XMLOutput object. The finish() method of the XMLOutput object is guaranteed to be
+     * called.
      *
      * <p>
-     * To write the SummaryHTML element, set property
-     * findbugs.report.SummaryHTML to "true".
+     * To write the SummaryHTML element, set property findbugs.report.SummaryHTML to "true".
      * </p>
      *
      * @param xmlOutput

@@ -18,7 +18,9 @@ import edu.umd.cs.findbugs.cwe.WeaknessCatalog;
 
 /**
  * Object which represents reportingDescriptor in {@code run.driver.rules} property. (§3.19.23)
- * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317836">3.49 reportingDescriptor object</a>
+ *
+ * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317836">3.49
+ *      reportingDescriptor object</a>
  */
 final class Rule {
     @NonNull
@@ -36,8 +38,8 @@ final class Rule {
     @NonNull
     final int cweid;
 
-    Rule(@NonNull String id, @NonNull String shortDescription, @NonNull String fullDescription, @NonNull String defaultText, @Nullable URI helpUri,
-            @NonNull List<String> tags, @NonNull int cweid) {
+    Rule(@NonNull String id, @NonNull String shortDescription, @NonNull String fullDescription,
+            @NonNull String defaultText, @Nullable URI helpUri, @NonNull List<String> tags, @NonNull int cweid) {
         this.id = Objects.requireNonNull(id);
         this.shortDescription = Objects.requireNonNull(shortDescription);
         this.fullDescription = Objects.requireNonNull(fullDescription);
@@ -49,7 +51,8 @@ final class Rule {
 
     JsonObject toJsonObject() {
         String textEndsWithPeriod = defaultText.endsWith(".") ? defaultText : defaultText + ".";
-        String shortDescriptionEndsWithPeriod = shortDescription.endsWith(".") ? shortDescription : shortDescription + ".";
+        String shortDescriptionEndsWithPeriod = shortDescription.endsWith(".") ? shortDescription
+                : shortDescription + ".";
         JsonObject textJson = new JsonObject();
         textJson.addProperty("text", textEndsWithPeriod);
         JsonObject shortDescJson = new JsonObject();
@@ -124,7 +127,7 @@ final class Rule {
             tags = Collections.singletonList(category);
         }
 
-        return new Rule(bugPattern.getType(), bugPattern.getShortDescription(), bugPattern.getDetailText(), formattedMessage, helpUri,
-                tags, bugPattern.getCWEid());
+        return new Rule(bugPattern.getType(), bugPattern.getShortDescription(), bugPattern.getDetailText(),
+                formattedMessage, helpUri, tags, bugPattern.getCWEid());
     }
 }

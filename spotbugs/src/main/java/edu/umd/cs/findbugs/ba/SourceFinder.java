@@ -58,9 +58,8 @@ import edu.umd.cs.findbugs.util.ClassName;
 import edu.umd.cs.findbugs.util.Util;
 
 /**
- * Class to open input streams on source files. It maintains a "source path",
- * which is like a classpath, but for finding source files instead of class
- * files.
+ * Class to open input streams on source files. It maintains a "source path", which is like a classpath, but for finding
+ * source files instead of class files.
  */
 public class SourceFinder implements AutoCloseable {
     private static final boolean DEBUG = SystemProperties.getBoolean("srcfinder.debug");
@@ -68,14 +67,12 @@ public class SourceFinder implements AutoCloseable {
     private static final int CACHE_SIZE = 50;
 
     /*
-     * ----------------------------------------------------------------------
-     * Helper classes
+     * ---------------------------------------------------------------------- Helper classes
      * ----------------------------------------------------------------------
      */
 
     /**
-     * Cache of SourceFiles. We use this to avoid repeatedly having to read
-     * frequently accessed source files.
+     * Cache of SourceFiles. We use this to avoid repeatedly having to read frequently accessed source files.
      */
     private static class Cache extends LinkedHashMap<String, SourceFile> {
         /**
@@ -283,7 +280,9 @@ public class SourceFinder implements AutoCloseable {
 
     /**
      * @param url
+     *
      * @return
+     *
      * @throws IOException
      * @throws MalformedURLException
      */
@@ -384,8 +383,7 @@ public class SourceFinder implements AutoCloseable {
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Fields
+     * ---------------------------------------------------------------------- Fields
      * ----------------------------------------------------------------------
      */
 
@@ -396,8 +394,7 @@ public class SourceFinder implements AutoCloseable {
     private Project project;
 
     /*
-     * ----------------------------------------------------------------------
-     * Public methods
+     * ---------------------------------------------------------------------- Public methods
      * ----------------------------------------------------------------------
      */
 
@@ -446,11 +443,12 @@ public class SourceFinder implements AutoCloseable {
      * Open an input stream on a source file in given package.
      *
      * @param packageName
-     *            the name of the package containing the class whose source file
-     *            is given
+     *            the name of the package containing the class whose source file is given
      * @param fileName
      *            the unqualified name of the source file
+     *
      * @return an InputStream on the source file
+     *
      * @throws IOException
      *             if a matching source file cannot be found
      */
@@ -472,11 +470,12 @@ public class SourceFinder implements AutoCloseable {
      * Open a source file in given package.
      *
      * @param packageName
-     *            the name of the package containing the class whose source file
-     *            is given
+     *            the name of the package containing the class whose source file is given
      * @param fileName
      *            the unqualified name of the source file
+     *
      * @return the source file
+     *
      * @throws IOException
      *             if a matching source file cannot be found
      */
@@ -527,16 +526,13 @@ public class SourceFinder implements AutoCloseable {
             }
         }
 
-        String sourceRepositories = repositoryList.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(", "));
-        throw new IOException("Can't find source file " + fileName + " (source repositories="
-                + sourceRepositories + ")");
+        String sourceRepositories = repositoryList.stream().map(Object::toString).collect(Collectors.joining(", "));
+        throw new IOException(
+                "Can't find source file " + fileName + " (source repositories=" + sourceRepositories + ")");
     }
 
     public static String getPlatformName(String packageName, String fileName) {
-        return packageName.replace('.', File.separatorChar) + (packageName.isEmpty() ? "" : File.separator)
-                + fileName;
+        return packageName.replace('.', File.separatorChar) + (packageName.isEmpty() ? "" : File.separator) + fileName;
     }
 
     public static String getPlatformName(SourceLineAnnotation source) {
@@ -637,8 +633,7 @@ public class SourceFinder implements AutoCloseable {
     }
 
     public Optional<URI> getBase(String fileName) {
-        return repositoryList.stream()
-                .filter(SourceRepository::isPlatformDependent)
+        return repositoryList.stream().filter(SourceRepository::isPlatformDependent)
                 .filter(repo -> repo.contains(fileName)).map(repo -> repo.getDataSource("").getFullURI()).findFirst();
     }
 }

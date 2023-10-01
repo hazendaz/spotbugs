@@ -31,8 +31,7 @@ import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * An implementation of org.apache.bcel.util.Repository that uses the
- * AnalysisCache as its backing store.
+ * An implementation of org.apache.bcel.util.Repository that uses the AnalysisCache as its backing store.
  *
  * @author David Hovemeyer
  */
@@ -108,9 +107,7 @@ public class AnalysisCacheToRepositoryAdapter implements Repository {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.util.Repository#removeClass(org.apache.bcel.classfile
-     * .JavaClass)
+     * @see org.apache.bcel.util.Repository#removeClass(org.apache.bcel.classfile .JavaClass)
      */
     @Override
     public void removeClass(JavaClass arg0) {
@@ -120,9 +117,7 @@ public class AnalysisCacheToRepositoryAdapter implements Repository {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.apache.bcel.util.Repository#storeClass(org.apache.bcel.classfile.
-     * JavaClass)
+     * @see org.apache.bcel.util.Repository#storeClass(org.apache.bcel.classfile. JavaClass)
      */
     @Override
     public void storeClass(JavaClass cls) {

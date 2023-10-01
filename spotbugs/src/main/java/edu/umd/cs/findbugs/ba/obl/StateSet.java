@@ -30,17 +30,16 @@ import java.util.Set;
 import edu.umd.cs.findbugs.ba.Path;
 
 /**
- * A dataflow fact used in ObligationAnalysis. It is a set of State objects,
- * plus the additional capability to represent top and bottom elements.
+ * A dataflow fact used in ObligationAnalysis. It is a set of State objects, plus the additional capability to represent
+ * top and bottom elements.
  *
  * <p>
- * Invariant: no StateSet may contain more than one State with the same
- * ObligationSet.
+ * Invariant: no StateSet may contain more than one State with the same ObligationSet.
  * </p>
  *
  * <p>
- * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011"
- * >Finding and preventing run-time error handling mistakes</a>, OOPSLA 2004.
+ * See Weimer and Necula, <a href="http://doi.acm.org/10.1145/1028976.1029011" >Finding and preventing run-time error
+ * handling mistakes</a>, OOPSLA 2004.
  * </p>
  *
  * @author David Hovemeyer
@@ -122,13 +121,12 @@ public class StateSet {
     }
 
     /**
-     * Get the State which has the given ObligationSet. Returns null if there is
-     * no such state.
+     * Get the State which has the given ObligationSet. Returns null if there is no such state.
      *
      * @param obligationSet
      *            we want to get the State with this ObligationSet
-     * @return the State with the given ObligationSet, or null if there is no
-     *         such State
+     *
+     * @return the State with the given ObligationSet, or null if there is no such State
      */
     public State getStateWithObligationSet(ObligationSet obligationSet) {
         return stateMap.get(obligationSet);
@@ -183,10 +181,10 @@ public class StateSet {
      * @param obligation
      *            the obligation to add
      * @param basicBlockId
-     *            the id of the basic block (path component) adding the
-     *            obligation
+     *            the id of the basic block (path component) adding the obligation
      */
-    public void addObligation(final Obligation obligation, int basicBlockId) throws ObligationAcquiredOrReleasedInLoopException {
+    public void addObligation(final Obligation obligation, int basicBlockId)
+            throws ObligationAcquiredOrReleasedInLoopException {
         Map<ObligationSet, State> updatedStateMap = new HashMap<>();
         if (stateMap.isEmpty()) {
             State s = new State(factory);
@@ -209,8 +207,8 @@ public class StateSet {
      * @param obligation
      *            the obligation to remove
      * @param basicBlockId
-     *            the id of the basic block (path component) removing the
-     *            obligation
+     *            the id of the basic block (path component) removing the obligation
+     *
      * @throws ObligationAcquiredOrReleasedInLoopException
      */
     public void deleteObligation(final Obligation obligation, int basicBlockId)
@@ -229,8 +227,7 @@ public class StateSet {
     }
 
     /**
-     * Bail out of the analysis is an obligation is acquired or released in a
-     * loop.
+     * Bail out of the analysis is an obligation is acquired or released in a loop.
      *
      * @param state
      *            a State to which an obligation is being added or removed
@@ -261,8 +258,8 @@ public class StateSet {
      *
      * @param path
      *            a Path
-     * @return Collection of States that have Paths which are prefixes of the
-     *         given Path
+     *
+     * @return Collection of States that have Paths which are prefixes of the given Path
      */
     public List<State> getPrefixStates(Path path) {
         List<State> result = new LinkedList<>();
@@ -307,8 +304,7 @@ public class StateSet {
     }
 
     /**
-     * Return a newly allocated Map of ObligationSet to State that may be passed
-     * to applyToAllStatesAndUpdateMap().
+     * Return a newly allocated Map of ObligationSet to State that may be passed to applyToAllStatesAndUpdateMap().
      */
     public Map<ObligationSet, State> createEmptyMap() {
         return new HashMap<>();

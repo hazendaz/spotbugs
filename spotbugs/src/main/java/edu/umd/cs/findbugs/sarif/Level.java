@@ -9,7 +9,8 @@ import edu.umd.cs.findbugs.cwe.WeaknessSeverity;
 /**
  * An enum representing {@code level} property.
  *
- * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/cs01/sarif-v2.1.0-cs01.html#_Toc16012604">3.27.10 level property</a>
+ * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/cs01/sarif-v2.1.0-cs01.html#_Toc16012604">3.27.10 level
+ *      property</a>
  */
 enum Level {
     /**
@@ -28,7 +29,8 @@ enum Level {
     @SerializedName("note")
     NOTE,
     /**
-     * The concept of “severity” does not apply to this result because the kind property (§3.27.9) has a value other than "fail".
+     * The concept of “severity” does not apply to this result because the kind property (§3.27.9) has a value other
+     * than "fail".
      */
     @SerializedName("none")
     NONE;

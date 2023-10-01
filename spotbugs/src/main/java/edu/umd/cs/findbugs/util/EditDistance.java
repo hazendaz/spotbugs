@@ -78,7 +78,8 @@ public class EditDistance {
 
         for (int i = 1; i <= n1; i++) {
             for (int j = 1; j <= n2; j++) {
-                distance[i][j] = minimum(distance[i - 1][j] + INSERT_OR_DELETE_COST, distance[i][j - 1] + INSERT_OR_DELETE_COST,
+                distance[i][j] = minimum(distance[i - 1][j] + INSERT_OR_DELETE_COST,
+                        distance[i][j - 1] + INSERT_OR_DELETE_COST,
                         distance[i - 1][j - 1] + distance(str1.charAt(i - 1), str2.charAt(j - 1)));
             }
         }

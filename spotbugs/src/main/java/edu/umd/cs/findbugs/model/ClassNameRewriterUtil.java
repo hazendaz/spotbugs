@@ -40,6 +40,7 @@ public abstract class ClassNameRewriterUtil {
      *            a ClassNameRewriter
      * @param methodSignature
      *            a method signature
+     *
      * @return the rewritten method signature
      */
     public static String rewriteMethodSignature(ClassNameRewriter classNameRewriter, String methodSignature) {
@@ -69,6 +70,7 @@ public abstract class ClassNameRewriterUtil {
      *            a ClassNameRewriter
      * @param signature
      *            a signature (parameter, return type, or field)
+     *
      * @return rewritten signature with class name updated if required
      */
     public static String rewriteSignature(ClassNameRewriter classNameRewriter, String signature) {
@@ -84,36 +86,38 @@ public abstract class ClassNameRewriterUtil {
     }
 
     /**
-     * Rewrite a MethodAnnotation to update the class name, and any class names
-     * mentioned in the method signature.
+     * Rewrite a MethodAnnotation to update the class name, and any class names mentioned in the method signature.
      *
      * @param classNameRewriter
      *            a ClassNameRewriter
      * @param annotation
      *            a MethodAnnotation
+     *
      * @return the possibly-rewritten MethodAnnotation
      */
-    public static MethodAnnotation convertMethodAnnotation(ClassNameRewriter classNameRewriter, MethodAnnotation annotation) {
+    public static MethodAnnotation convertMethodAnnotation(ClassNameRewriter classNameRewriter,
+            MethodAnnotation annotation) {
 
         if (classNameRewriter != IdentityClassNameRewriter.instance()) {
             annotation = new MethodAnnotation(classNameRewriter.rewriteClassName(annotation.getClassName()),
-                    annotation.getMethodName(), rewriteMethodSignature(classNameRewriter, annotation.getMethodSignature()),
-                    annotation.isStatic());
+                    annotation.getMethodName(),
+                    rewriteMethodSignature(classNameRewriter, annotation.getMethodSignature()), annotation.isStatic());
         }
         return annotation;
     }
 
     /**
-     * Rewrite a FieldAnnotation to update the class name and field signature,
-     * if needed.
+     * Rewrite a FieldAnnotation to update the class name and field signature, if needed.
      *
      * @param classNameRewriter
      *            a ClassNameRewriter
      * @param annotation
      *            a FieldAnnotation
+     *
      * @return the possibly-rewritten FieldAnnotation
      */
-    public static FieldAnnotation convertFieldAnnotation(ClassNameRewriter classNameRewriter, FieldAnnotation annotation) {
+    public static FieldAnnotation convertFieldAnnotation(ClassNameRewriter classNameRewriter,
+            FieldAnnotation annotation) {
 
         if (classNameRewriter != IdentityClassNameRewriter.instance()) {
             annotation = new FieldAnnotation(classNameRewriter.rewriteClassName(annotation.getClassName()),

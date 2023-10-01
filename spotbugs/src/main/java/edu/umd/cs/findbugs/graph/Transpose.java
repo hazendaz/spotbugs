@@ -40,13 +40,14 @@ public class Transpose<GraphType extends Graph<EdgeType, VertexType>, EdgeType e
     }
 
     /**
-     * Transpose a graph. Note that the original graph is not modified; the new
-     * graph and its vertices and edges are new objects.
+     * Transpose a graph. Note that the original graph is not modified; the new graph and its vertices and edges are new
+     * objects.
      *
      * @param orig
      *            the graph to transpose
      * @param toolkit
      *            a GraphToolkit to be used to create the transposed Graph
+     *
      * @return the transposed Graph
      */
     public GraphType transpose(GraphType orig, GraphToolkit<GraphType, EdgeType, VertexType> toolkit) {
@@ -93,11 +94,11 @@ public class Transpose<GraphType extends Graph<EdgeType, VertexType>, EdgeType e
     }
 
     /**
-     * Get the vertex in the transposed graph which corresponds to the given
-     * vertex in the original graph.
+     * Get the vertex in the transposed graph which corresponds to the given vertex in the original graph.
      *
      * @param v
      *            the vertex in the original graph
+     *
      * @return the equivalent vertex in the transposed graph
      */
     public VertexType getTransposedGraphVertex(VertexType v) {
@@ -105,11 +106,11 @@ public class Transpose<GraphType extends Graph<EdgeType, VertexType>, EdgeType e
     }
 
     /**
-     * Get the vertex in the original graph which corresponds to the given
-     * vertex in the transposed graph.
+     * Get the vertex in the original graph which corresponds to the given vertex in the transposed graph.
      *
      * @param v
      *            the vertex in the transposed graph
+     *
      * @return the equivalent vertex in the original graph
      */
     public VertexType getOriginalGraphVertex(VertexType v) {

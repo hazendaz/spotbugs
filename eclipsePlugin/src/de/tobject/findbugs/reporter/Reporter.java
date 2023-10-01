@@ -52,13 +52,14 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.log.Profiler;
 
 /**
- * The <code>Reporter</code> is a class that is called by the FindBugs engine in
- * order to record and report bugs that have been found. This implementation
- * displays the bugs found as tasks in the task view.
+ * The <code>Reporter</code> is a class that is called by the FindBugs engine in order to record and report bugs that
+ * have been found. This implementation displays the bugs found as tasks in the task view.
  *
  * @author Peter Friese
  * @author David Hovemeyer
+ *
  * @version 1.0
+ *
  * @since 28.07.2003
  */
 public class Reporter extends AbstractBugReporter implements FindBugsProgress {
@@ -156,7 +157,8 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
             FindBugs2Eclipse.cleanClassClache(project.getProject());
             MultiStatus status = new MultiStatus(FindbugsPlugin.PLUGIN_ID, IStatus.WARNING,
                     "The following classes needed for SpotBugs analysis on project " + project.getElementName()
-                            + " were missing:", null);
+                            + " were missing:",
+                    null);
             for (String missingClass : missingClasses) {
                 status.add(new Status(IStatus.WARNING, FindbugsPlugin.PLUGIN_ID, missingClass));
             }
@@ -209,8 +211,8 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
     }
 
     /**
-     * Returns the list of bugs found in this project. If the list has not been
-     * initialized yet, this will be done before returning.
+     * Returns the list of bugs found in this project. If the list has not been initialized yet, this will be done
+     * before returning.
      *
      * @return The collection that hold the bugs found in this project.
      */
@@ -223,9 +225,9 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
     public void observeClass(ClassDescriptor classDescriptor) {
         String className = classDescriptor.getDottedClassName();
 
-        //        if (DEBUG) {
-        //            System.out.println("Observing class: " + className); //$NON-NLS-1$
-        //        }
+        // if (DEBUG) {
+        // System.out.println("Observing class: " + className); //$NON-NLS-1$
+        // }
 
         if (monitor.isCanceled()) {
             // causes break in FindBugs main loop
@@ -234,12 +236,12 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
 
         int work = (pass * 99) + 1;
 
-
         // Update progress monitor
         if (pass <= 0) {
             monitor.setTaskName("Prescanning... (found " + bugCount + ", checking " + className + ")");
         } else {
-            monitor.setTaskName("Checking... (pass #" + pass + ") (found " + bugCount + ", checking " + className + ")");
+            monitor.setTaskName(
+                    "Checking... (pass #" + pass + ") (found " + bugCount + ", checking " + className + ")");
         }
         monitor.worked(work);
         // printToStream("observeClass: " + className);
@@ -309,6 +311,5 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
             printToStream("start archive: " + name);
         }
     }
-
 
 }

@@ -29,15 +29,13 @@ import javax.annotation.CheckForNull;
  *
  * Matching can be done in three modes depending on ctor matchSpec argument.
  *
- * If matchSpec is null, match will succeed for any value (including empty
- * String and null)
+ * If matchSpec is null, match will succeed for any value (including empty String and null)
  *
- * If matchSpec starts with ~ character it will be treated as
- * java.util.regex.Pattern, with the ~ character omitted. The pattern will be
- * matched against whole value (ie Matcher.match(), not Matcher.find())
+ * If matchSpec starts with ~ character it will be treated as java.util.regex.Pattern, with the ~ character omitted. The
+ * pattern will be matched against whole value (ie Matcher.match(), not Matcher.find())
  *
- * If matchSpec is a non-null String with any other initial character, exact
- * matching using String.equals(String) will be performed.
+ * If matchSpec is a non-null String with any other initial character, exact matching using String.equals(String) will
+ * be performed.
  *
  * @author rafal@caltha.pl
  */

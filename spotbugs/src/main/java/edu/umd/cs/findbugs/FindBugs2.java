@@ -88,8 +88,7 @@ import edu.umd.cs.findbugs.util.ClassName;
 import edu.umd.cs.findbugs.util.TopologicalSort.OutEdges;
 
 /**
- * FindBugs driver class. Orchestrates the analysis of a project, collection of
- * results, etc.
+ * FindBugs driver class. Orchestrates the analysis of a project, collection of results, etc.
  *
  * @author David Hovemeyer
  */
@@ -156,6 +155,7 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
      * @param service
      *            The non-null {@link ExecutorService} instance to execute analysis. Caller is responsible for shutting
      *            it down.
+     *
      * @since 4.0
      */
     public FindBugs2(@NonNull ExecutorService service) {
@@ -196,8 +196,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
     }
 
     /**
-     * Set the detector factory collection to be used by this FindBugs2 engine.
-     * This method should be called before the execute() method is called.
+     * Set the detector factory collection to be used by this FindBugs2 engine. This method should be called before the
+     * execute() method is called.
      *
      * @param detectorFactoryCollection
      *            The detectorFactoryCollection to set.
@@ -208,9 +208,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
     }
 
     /**
-     * Execute the analysis. For obscure reasons, CheckedAnalysisExceptions are
-     * re-thrown as IOExceptions. However, these can only happen during the
-     * setup phase where we scan codebases for classes.
+     * Execute the analysis. For obscure reasons, CheckedAnalysisExceptions are re-thrown as IOExceptions. However,
+     * these can only happen during the setup phase where we scan codebases for classes.
      *
      * @throws IOException
      * @throws InterruptedException
@@ -219,7 +218,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
     public void execute() throws IOException, InterruptedException {
 
         if (FindBugs.isNoAnalysis()) {
-            throw new UnsupportedOperationException("This FindBugs invocation was started without analysis capabilities");
+            throw new UnsupportedOperationException(
+                    "This FindBugs invocation was started without analysis capabilities");
         }
 
         Profiler profiler = bugReporter.getProjectStats().getProfiler();
@@ -245,7 +245,6 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
                 // enumerate all classes (application and non-application)
                 buildClassPath();
 
-
                 // Build set of classes referenced by application classes
                 buildReferencedClassSet();
 
@@ -269,7 +268,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
                 createExecutionPlan();
 
                 for (Plugin p : detectorFactoryCollection.plugins()) {
-                    for (ComponentPlugin<BugReporterDecorator> brp : p.getComponentPlugins(BugReporterDecorator.class)) {
+                    for (ComponentPlugin<BugReporterDecorator> brp : p
+                            .getComponentPlugins(BugReporterDecorator.class)) {
                         if (brp.isEnabledByDefault() && !brp.isNamed(explicitlyDisabledBugReporterDecorators)
                                 || brp.isNamed(explicitlyEnabledBugReporterDecorators)) {
                             bugReporter = BugReporterDecorator.construct(brp, bugReporter);
@@ -609,8 +609,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
     /**
      * Create the analysis cache object and register it for current execution thread.
      * <p>
-     * This method is protected to allow clients override it and possibly reuse
-     * some previous analysis data (for Eclipse interactive re-build)
+     * This method is protected to allow clients override it and possibly reuse some previous analysis data (for Eclipse
+     * interactive re-build)
      *
      * @throws IOException
      *             if error occurs registering analysis engines in a plugin
@@ -644,13 +644,14 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
     }
 
     /**
-     * Register all of the analysis engines defined in the plugins contained in
-     * a DetectorFactoryCollection with an IAnalysisCache.
+     * Register all of the analysis engines defined in the plugins contained in a DetectorFactoryCollection with an
+     * IAnalysisCache.
      *
      * @param detectorFactoryCollection
      *            a DetectorFactoryCollection
      * @param analysisCache
      *            an IAnalysisCache
+     *
      * @throws IOException
      */
     public static void registerPluginAnalysisEngines(DetectorFactoryCollection detectorFactoryCollection,
@@ -664,8 +665,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
                     IAnalysisEngineRegistrar engineRegistrar = engineRegistrarClass.newInstance();
                     engineRegistrar.registerAnalysisEngines(analysisCache);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    IOException ioe = new IOException("Could not create analysis engine registrar for plugin "
-                            + plugin.getPluginId());
+                    IOException ioe = new IOException(
+                            "Could not create analysis engine registrar for plugin " + plugin.getPluginId());
                     ioe.initCause(e);
                     throw ioe;
                 }
@@ -744,37 +745,23 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
         Set<ClassDescriptor> appClassSet = new HashSet<>(appClassList);
 
         Set<ClassDescriptor> badAppClassSet = new HashSet<>();
-        HashSet<ClassDescriptor> knownDescriptors = new HashSet<>(DescriptorFactory.instance()
-                .getAllClassDescriptors());
+        HashSet<ClassDescriptor> knownDescriptors = new HashSet<>(
+                DescriptorFactory.instance().getAllClassDescriptors());
         int count = 0;
         Set<ClassDescriptor> addedToWorkList = new HashSet<>(appClassList);
 
         // add fields
-        //noinspection ConstantIfStatement
+        // noinspection ConstantIfStatement
         /*
-        if (false)
-            for (ClassDescriptor classDesc : appClassList) {
-                try {
-                    XClass classNameAndInfo = Global.getAnalysisCache().getClassAnalysis(XClass.class, classDesc);
-                    for (XField f : classNameAndInfo.getXFields()) {
-                        String sig = f.getSignature();
-                        ClassDescriptor d = DescriptorFactory.createClassDescriptorFromFieldSignature(sig);
-                        if (d != null && addedToWorkList.add(d))
-                            workList.addLast(d);
-                    }
-                } catch (RuntimeException e) {
-                    bugReporter.logError("Error scanning " + classDesc + " for referenced classes", e);
-                    if (appClassSet.contains(classDesc)) {
-                        badAppClassSet.add(classDesc);
-                    }
-                } catch (MissingClassException e) {
-                    // Just log it as a missing class
-                    bugReporter.reportMissingClass(e.getClassDescriptor());
-                    if (appClassSet.contains(classDesc)) {
-                        badAppClassSet.add(classDesc);
-                    }
-                }
-            }
+         * if (false) for (ClassDescriptor classDesc : appClassList) { try { XClass classNameAndInfo =
+         * Global.getAnalysisCache().getClassAnalysis(XClass.class, classDesc); for (XField f :
+         * classNameAndInfo.getXFields()) { String sig = f.getSignature(); ClassDescriptor d =
+         * DescriptorFactory.createClassDescriptorFromFieldSignature(sig); if (d != null && addedToWorkList.add(d))
+         * workList.addLast(d); } } catch (RuntimeException e) { bugReporter.logError("Error scanning " + classDesc +
+         * " for referenced classes", e); if (appClassSet.contains(classDesc)) { badAppClassSet.add(classDesc); } }
+         * catch (MissingClassException e) { // Just log it as a missing class
+         * bugReporter.reportMissingClass(e.getClassDescriptor()); if (appClassSet.contains(classDesc)) {
+         * badAppClassSet.add(classDesc); } } }
          */
         while (!workList.isEmpty()) {
             if (Thread.interrupted()) {
@@ -858,8 +845,10 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
         }
     }
 
-    public List<ClassDescriptor> sortByCallGraph(Collection<ClassDescriptor> classList, OutEdges<ClassDescriptor> outEdges) {
-        List<ClassDescriptor> evaluationOrder = edu.umd.cs.findbugs.util.TopologicalSort.sortByCallGraph(classList, outEdges);
+    public List<ClassDescriptor> sortByCallGraph(Collection<ClassDescriptor> classList,
+            OutEdges<ClassDescriptor> outEdges) {
+        List<ClassDescriptor> evaluationOrder = edu.umd.cs.findbugs.util.TopologicalSort.sortByCallGraph(classList,
+                outEdges);
         edu.umd.cs.findbugs.util.TopologicalSort.countBadEdges(evaluationOrder, outEdges);
         return evaluationOrder;
 
@@ -870,8 +859,7 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
     }
 
     /**
-     * Create the AnalysisContext that will serve as the BCEL-compatibility
-     * layer over the AnalysisCache.
+     * Create the AnalysisContext that will serve as the BCEL-compatibility layer over the AnalysisCache.
      *
      * @param project
      *            The project
@@ -899,8 +887,7 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
     }
 
     public static void setAppClassList(List<ClassDescriptor> appClassList) {
-        AnalysisContext analysisContext = AnalysisContext
-                .currentAnalysisContext();
+        AnalysisContext analysisContext = AnalysisContext.currentAnalysisContext();
 
         analysisContext.setAppClassList(appClassList);
     }
@@ -931,7 +918,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
 
             @Override
             public boolean choose(DetectorFactory factory) {
-                boolean result = FindBugs.isDetectorEnabled(FindBugs2.this, factory, rankThreshold) || forcedEnabled.contains(factory);
+                boolean result = FindBugs.isDetectorEnabled(FindBugs2.this, factory, rankThreshold)
+                        || forcedEnabled.contains(factory);
                 if (ExecutionPlan.DEBUG) {
                     System.out.printf("  %6s %s %n", result, factory.getShortName());
                 }
@@ -1021,11 +1009,12 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
                 // application classes.
                 // On subsequent passes, we apply detector only to application
                 // classes.
-                Collection<ClassDescriptor> classCollection = (isNonReportingFirstPass) ? referencedClassSet : appClassList;
+                Collection<ClassDescriptor> classCollection = (isNonReportingFirstPass) ? referencedClassSet
+                        : appClassList;
                 AnalysisContext.currentXFactory().canonicalizeAll();
                 if (PROGRESS || LIST_ORDER) {
-                    System.out.printf("%6d : Pass %d: %d classes%n", (System.currentTimeMillis() - startTime) / 1000, passCount, classCollection
-                            .size());
+                    System.out.printf("%6d : Pass %d: %d classes%n", (System.currentTimeMillis() - startTime) / 1000,
+                            passCount, classCollection.size());
                     if (DEBUG) {
                         XFactory.profile();
                     }
@@ -1062,8 +1051,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
                     if (PROGRESS) {
                         classStartNanoTime = System.nanoTime();
                         System.out.printf("%6d %d/%d  %d/%d %s%n", (System.currentTimeMillis() - startTime) / 1000,
-                                passCount, executionPlan.getNumPasses(), count,
-                                classCollection.size(), classDescriptor);
+                                passCount, executionPlan.getNumPasses(), count, classCollection.size(),
+                                classDescriptor);
                     }
                     count++;
 
@@ -1088,26 +1077,28 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
                     currentAnalysisContext.setClassBeingAnalyzed(classDescriptor);
 
                     try {
-                        Collection<Callable<Void>> tasks = Arrays.stream(detectorList).map(detector -> (Callable<Void>) () -> {
-                            if (Thread.interrupted()) {
-                                throw new InterruptedException();
-                            }
-                            if (isHuge && !FirstPassDetector.class.isAssignableFrom(detector.getClass())) {
-                                return null;
-                            }
-                            LOG.debug("Applying {} to {}", detector.getDetectorClassName(), classDescriptor);
-                            try {
-                                profiler.start(detector.getClass());
-                                detector.visitClass(classDescriptor);
-                            } catch (MissingClassException e) {
-                                Global.getAnalysisCache().getErrorLogger().reportMissingClass(e.getClassDescriptor());
-                            } catch (CheckedAnalysisException | RuntimeException e) {
-                                logRecoverableException(classDescriptor, detector, e);
-                            } finally {
-                                profiler.end(detector.getClass());
-                            }
-                            return null;
-                        }).collect(Collectors.toList());
+                        Collection<Callable<Void>> tasks = Arrays.stream(detectorList)
+                                .map(detector -> (Callable<Void>) () -> {
+                                    if (Thread.interrupted()) {
+                                        throw new InterruptedException();
+                                    }
+                                    if (isHuge && !FirstPassDetector.class.isAssignableFrom(detector.getClass())) {
+                                        return null;
+                                    }
+                                    LOG.debug("Applying {} to {}", detector.getDetectorClassName(), classDescriptor);
+                                    try {
+                                        profiler.start(detector.getClass());
+                                        detector.visitClass(classDescriptor);
+                                    } catch (MissingClassException e) {
+                                        Global.getAnalysisCache().getErrorLogger()
+                                                .reportMissingClass(e.getClassDescriptor());
+                                    } catch (CheckedAnalysisException | RuntimeException e) {
+                                        logRecoverableException(classDescriptor, detector, e);
+                                    } finally {
+                                        profiler.end(detector.getClass());
+                                    }
+                                    return null;
+                                }).collect(Collectors.toList());
                         service.invokeAll(tasks).forEach(future -> {
                             try {
                                 future.get();
@@ -1132,9 +1123,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
                                 int classSize = currentAnalysisContext.getClassSize(classDescriptor);
                                 long speed = usecs / classSize;
                                 if (speed > 15) {
-                                    System.out.printf("  %6d usecs/byte  %6d msec  %6d bytes  %d pass %s%n", speed, usecs / 1000, classSize,
-                                            passCount,
-                                            classDescriptor);
+                                    System.out.printf("  %6d usecs/byte  %6d msec  %6d bytes  %d pass %s%n", speed,
+                                            usecs / 1000, classSize, passCount, classDescriptor);
                                 }
                             }
 
@@ -1151,7 +1141,6 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
 
                 passCount++;
             }
-
 
         } finally {
 
@@ -1178,8 +1167,7 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
     }
 
     /**
-     * Report an exception that occurred while analyzing a class with a
-     * detector.
+     * Report an exception that occurred while analyzing a class with a detector.
      *
      * @param classDescriptor
      *            class being analyzed
@@ -1189,9 +1177,8 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
      *            the exception
      */
     private void logRecoverableException(ClassDescriptor classDescriptor, Detector2 detector, Throwable e) {
-        bugReporter.logError(
-                "Exception analyzing " + classDescriptor.getDottedClassName() + " using detector "
-                        + detector.getDetectorClassName(), e);
+        bugReporter.logError("Exception analyzing " + classDescriptor.getDottedClassName() + " using detector "
+                + detector.getDetectorClassName(), e);
     }
 
     public static void main(String[] args) throws Exception {
@@ -1226,7 +1213,6 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
             service.shutdown();
         }
     }
-
 
     @Override
     public void setAbridgedMessages(boolean xmlWithAbridgedMessages) {

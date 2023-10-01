@@ -47,7 +47,6 @@ public class UserTextFile {
         return new PrintWriter(new BufferedWriter(fileWriter(fileName)));
     }
 
-
     public static Reader reader(@WillCloseWhenClosed InputStream in) {
         return new InputStreamReader(in, Charset.defaultCharset());
     }

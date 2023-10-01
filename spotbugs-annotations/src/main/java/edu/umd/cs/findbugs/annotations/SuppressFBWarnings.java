@@ -21,19 +21,17 @@ package edu.umd.cs.findbugs.annotations;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-
 /**
  * Used to suppress FindBugs warnings.
  *
- * It should be used instead of
- * {@link edu.umd.cs.findbugs.annotations.SuppressWarnings} to avoid conflicts with
+ * It should be used instead of {@link edu.umd.cs.findbugs.annotations.SuppressWarnings} to avoid conflicts with
  * {@link java.lang.SuppressWarnings}.
  */
 @Retention(RetentionPolicy.CLASS)
 public @interface SuppressFBWarnings {
     /**
-     * The set of FindBugs warnings that are to be suppressed in
-     * annotated element. The value can be a bug category, kind or pattern.
+     * The set of FindBugs warnings that are to be suppressed in annotated element. The value can be a bug category,
+     * kind or pattern.
      *
      */
     String[] value() default {};
@@ -44,14 +42,18 @@ public @interface SuppressFBWarnings {
     String justification() default "";
 
     /**
-     * <p>By default <code>SuppressFBWarnings</code> annotations suppress bugs by prefix,
-     * for instance <code> @SuppressFBWarnings(value = "EI_EXPO", justification = "It's OK")</code>
-     * will suppress bugs of type <code>EI_EXPOSE_REP</code> and <code>EI_EXPOSE_REP2</code>.
+     * <p>
+     * By default <code>SuppressFBWarnings</code> annotations suppress bugs by prefix, for instance
+     * <code> @SuppressFBWarnings(value = "EI_EXPO", justification = "It's OK")</code> will suppress bugs of type
+     * <code>EI_EXPOSE_REP</code> and <code>EI_EXPOSE_REP2</code>.
      *
-     * <p>You might use <code>@SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It's OK", matchType=EXACT)</code>
-     * to suppress <code>EI_EXPOSE_REP</code>, but not <code>EI_EXPOSE_REP2</code>.
+     * <p>
+     * You might use
+     * <code>@SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It's OK", matchType=EXACT)</code> to suppress
+     * <code>EI_EXPOSE_REP</code>, but not <code>EI_EXPOSE_REP2</code>.
      *
-     * <p>Regular expressions are also supported with <code>matchType=REGEX</code>.
+     * <p>
+     * Regular expressions are also supported with <code>matchType=REGEX</code>.
      *
      * @see SuppressMatchType
      */

@@ -50,9 +50,8 @@ import de.tobject.findbugs.builder.WorkItem;
 import de.tobject.findbugs.util.Util;
 
 /**
- * A simple decorator which adds (in currently hardcoded way) bug counts to the
- * resources. There are 3 different decorators configured via plugin.xml
- * (project/folder/file), current implementation is the same for all.
+ * A simple decorator which adds (in currently hardcoded way) bug counts to the resources. There are 3 different
+ * decorators configured via plugin.xml (project/folder/file), current implementation is the same for all.
  *
  * @author Andrey
  */

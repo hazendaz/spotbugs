@@ -94,8 +94,9 @@ public class VolatileUsage extends BytecodeScanningDetector {
         case ADD:
             if (seen == Const.PUTFIELD && incrementField.equals(getXFieldOperand())) {
                 bugReporter.reportBug(new BugInstance(this, "VO_VOLATILE_INCREMENT",
-                        "J".equals(incrementField.getSignature()) ? Priorities.HIGH_PRIORITY : Priorities.NORMAL_PRIORITY)
-                        .addClassAndMethod(this).addField(incrementField).addSourceLine(this));
+                        "J".equals(incrementField.getSignature()) ? Priorities.HIGH_PRIORITY
+                                : Priorities.NORMAL_PRIORITY).addClassAndMethod(this).addField(incrementField)
+                                        .addSourceLine(this));
             }
             resetIncrementState();
             break;
@@ -149,8 +150,8 @@ public class VolatileUsage extends BytecodeScanningDetector {
                 if (initializationWrites.contains(f) && !otherWrites.contains(f)) {
                     priority = NORMAL_PRIORITY;
                 }
-                bugReporter.reportBug(new BugInstance(this, "VO_VOLATILE_REFERENCE_TO_ARRAY", priority).addClass(
-                        f.getClassDescriptor()).addField(f));
+                bugReporter.reportBug(new BugInstance(this, "VO_VOLATILE_REFERENCE_TO_ARRAY", priority)
+                        .addClass(f.getClassDescriptor()).addField(f));
             }
         }
     }

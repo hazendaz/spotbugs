@@ -40,11 +40,11 @@ public class CheckReturnValueAnnotation extends AnnotationEnumeration<CheckRetur
     public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_HIGH = new CheckReturnValueAnnotation(
             "CheckReturnValueHigh", 1, Detector.HIGH_PRIORITY);
 
-    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_MEDIUM = new CheckReturnValueAnnotation("CheckReturnValue",
-            2, Detector.NORMAL_PRIORITY);
+    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_MEDIUM = new CheckReturnValueAnnotation(
+            "CheckReturnValue", 2, Detector.NORMAL_PRIORITY);
 
-    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_LOW = new CheckReturnValueAnnotation("CheckReturnValueLow",
-            3, Detector.LOW_PRIORITY);
+    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_LOW = new CheckReturnValueAnnotation(
+            "CheckReturnValueLow", 3, Detector.LOW_PRIORITY);
 
     public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_IGNORE = new CheckReturnValueAnnotation(
             "OkToIgnoreReturnValue", 4, Detector.IGNORE_PRIORITY);
@@ -62,8 +62,8 @@ public class CheckReturnValueAnnotation extends AnnotationEnumeration<CheckRetur
             "CheckReturnValueInferred", 8, "RV_RETURN_VALUE_IGNORED_INFERRED", Detector.NORMAL_PRIORITY);
 
     private static final CheckReturnValueAnnotation[] myValues = { CHECK_RETURN_VALUE_UNKNOWN, CHECK_RETURN_VALUE_HIGH,
-        CHECK_RETURN_VALUE_MEDIUM, CHECK_RETURN_VALUE_LOW, CHECK_RETURN_VALUE_IGNORE, CHECK_RETURN_VALUE_VERY_HIGH,
-        CHECK_RETURN_VALUE_LOW_BAD_PRACTICE, CHECK_RETURN_VALUE_MEDIUM_BAD_PRACTICE, CHECK_RETURN_VALUE_INFERRED };
+            CHECK_RETURN_VALUE_MEDIUM, CHECK_RETURN_VALUE_LOW, CHECK_RETURN_VALUE_IGNORE, CHECK_RETURN_VALUE_VERY_HIGH,
+            CHECK_RETURN_VALUE_LOW_BAD_PRACTICE, CHECK_RETURN_VALUE_MEDIUM_BAD_PRACTICE, CHECK_RETURN_VALUE_INFERRED };
 
     @CheckForNull
     public static CheckReturnValueAnnotation parse(String priority) {

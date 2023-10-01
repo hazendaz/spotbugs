@@ -42,15 +42,14 @@ import edu.umd.cs.findbugs.classfile.Global;
 import edu.umd.cs.findbugs.log.Profiler;
 
 /**
- * Abstract implementation of a Detector to find methods where a particular kind
- * of created resource is not cleaned up or closed properly. Subclasses should
- * override the abstract methods to determine what kinds of resources are
- * tracked by the detector.
+ * Abstract implementation of a Detector to find methods where a particular kind of created resource is not cleaned up
+ * or closed properly. Subclasses should override the abstract methods to determine what kinds of resources are tracked
+ * by the detector.
  *
  * @author David Hovemeyer
  */
-public abstract class ResourceTrackingDetector<Resource, ResourceTrackerType extends ResourceTracker<Resource>> implements
-        Detector {
+public abstract class ResourceTrackingDetector<Resource, ResourceTrackerType extends ResourceTracker<Resource>>
+        implements Detector {
 
     private static final boolean DEBUG = SystemProperties.getBoolean("rtd.debug");
 
@@ -106,7 +105,8 @@ public abstract class ResourceTrackingDetector<Resource, ResourceTrackerType ext
                     continue;
                 }
 
-                ResourceCollection<Resource> resourceCollection = buildResourceCollection(classContext, method, resourceTracker);
+                ResourceCollection<Resource> resourceCollection = buildResourceCollection(classContext, method,
+                        resourceTracker);
                 if (resourceCollection.isEmpty()) {
                     continue;
                 }
@@ -176,8 +176,7 @@ public abstract class ResourceTrackingDetector<Resource, ResourceTrackerType ext
 
                 ResourceValueAnalysis<Resource> analysis = new ResourceValueAnalysis<>(methodGen, cfg, dfs,
                         resourceTracker, resource);
-                Dataflow<ResourceValueFrame, ResourceValueAnalysis<Resource>> dataflow = new Dataflow<>(
-                        cfg, analysis);
+                Dataflow<ResourceValueFrame, ResourceValueAnalysis<Resource>> dataflow = new Dataflow<>(cfg, analysis);
 
                 Profiler profiler = Global.getAnalysisCache().getProfiler();
                 profiler.start(resourceTracker.getClass());
@@ -189,8 +188,8 @@ public abstract class ResourceTrackingDetector<Resource, ResourceTrackerType ext
                 inspectResult(classContext, methodGen, cfg, dataflow, resource);
             }
         } catch (RuntimeException e) {
-            AnalysisContext.logError("Exception while analyzing " + methodGen.getClassName() + "." + methodGen.getName() + ":"
-                    + methodGen.getSignature(), e);
+            AnalysisContext.logError("Exception while analyzing " + methodGen.getClassName() + "." + methodGen.getName()
+                    + ":" + methodGen.getSignature(), e);
         }
     }
 

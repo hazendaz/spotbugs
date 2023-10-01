@@ -24,9 +24,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
- * ClassFileLocator is a utility class that provides methods to locate class files,
- * JSP files, and JAR files based on their paths or names.
- * It retrieves the full path to these files from the class loader's resources.
+ * ClassFileLocator is a utility class that provides methods to locate class files, JSP files, and JAR files based on
+ * their paths or names. It retrieves the full path to these files from the class loader's resources.
  */
 public class ClassFileLocator {
     private static final String PREFIX = "file:";
@@ -36,6 +35,7 @@ public class ClassFileLocator {
      *
      * @param path
      *            class name
+     *
      * @return Full path to the class file base on class name.
      */
     public String getClassFilePath(String path) {
@@ -54,12 +54,13 @@ public class ClassFileLocator {
      *
      * @param path
      *            JSP file path
+     *
      * @return Full path to the JSP file.
      */
     public String getJspFilePath(String path) {
         ClassLoader cl = getClass().getClassLoader();
 
-        //This is subject to change base on the JSP compiler implementation
+        // This is subject to change base on the JSP compiler implementation
         String generatedClassName = path.replace("_", "_005f").replace(".jsp", "_jsp");
         URL url = cl.getResource("jsp/" + generatedClassName + ".class");
         if (url == null) {
@@ -75,6 +76,7 @@ public class ClassFileLocator {
      *
      * @param path
      *            JAR file path
+     *
      * @return Full path to the JAR file.
      */
     public String getJarFilePath(String path) {

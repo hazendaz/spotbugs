@@ -66,29 +66,33 @@ class PlaceholderTest {
 
     @Test
     void testFormatWithKey() throws ClassNotFoundException {
-        BugPattern bugPattern = new BugPattern("BUG_TYPE", "abbrev", "category", false, "describing about this bug type...",
+        BugPattern bugPattern = new BugPattern("BUG_TYPE", "abbrev", "category", false,
+                "describing about this bug type...",
                 "describing about this bug type with value {0.givenClass} and {1.name}", "detailText", null, 0);
         DetectorFactoryCollection.instance().registerBugPattern(bugPattern);
 
         JavaClass clazz = Repository.lookupClass(PlaceholderTest.class);
-        Method method = Arrays.stream(clazz.getMethods()).filter(m -> m.getName().equals("testFormatWithKey")).findFirst().get();
-        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment()).addClassAndMethod(clazz, method));
+        Method method = Arrays.stream(clazz.getMethods()).filter(m -> m.getName().equals("testFormatWithKey"))
+                .findFirst().get();
+        reporter.reportBug(new BugInstance(bugPattern.getType(), bugPattern.getPriorityAdjustment())
+                .addClassAndMethod(clazz, method));
         reporter.finish();
 
         String json = writer.toString();
         JsonObject jsonObject = new Gson().fromJson(json, JsonObject.class);
         JsonObject run = (JsonObject) jsonObject.getAsJsonArray("runs").get(0);
         JsonArray rules = run.getAsJsonObject("tool").getAsJsonObject("driver").getAsJsonArray("rules");
-        String defaultText = ((JsonObject) rules.get(0)).getAsJsonObject("messageStrings").getAsJsonObject("default").get("text").getAsString();
-        assertThat("key in placeholders are removed",
-                defaultText, is("describing about this bug type with value {0} and {1}."));
+        String defaultText = ((JsonObject) rules.get(0)).getAsJsonObject("messageStrings").getAsJsonObject("default")
+                .get("text").getAsString();
+        assertThat("key in placeholders are removed", defaultText,
+                is("describing about this bug type with value {0} and {1}."));
 
         JsonArray results = run.getAsJsonArray("results");
         JsonObject message = ((JsonObject) results.get(0)).getAsJsonObject("message");
         JsonArray arguments = message.getAsJsonArray("arguments");
-        assertThat("BugAnnotation has been formatted by the key in placeholder",
-                arguments.get(0).getAsString(), is("PlaceholderTest"));
-        assertThat("BugAnnotation has been formatted by the key in placeholder",
-                arguments.get(1).getAsString(), is("testFormatWithKey"));
+        assertThat("BugAnnotation has been formatted by the key in placeholder", arguments.get(0).getAsString(),
+                is("PlaceholderTest"));
+        assertThat("BugAnnotation has been formatted by the key in placeholder", arguments.get(1).getAsString(),
+                is("testFormatWithKey"));
     }
 }

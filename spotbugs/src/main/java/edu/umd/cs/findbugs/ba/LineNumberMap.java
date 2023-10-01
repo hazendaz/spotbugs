@@ -38,8 +38,7 @@ public class LineNumberMap {
     private static final boolean DEBUG = SystemProperties.getBoolean("lnm.debug");
 
     /**
-     * When this is true, the workaround for the bug in BCEL 5.0's
-     * LineNumberTable class is disabled.
+     * When this is true, the workaround for the bug in BCEL 5.0's LineNumberTable class is disabled.
      */
     private static final boolean LINE_NUMBER_BUG = SystemProperties.getBoolean("lineNumberBug");
 
@@ -62,8 +61,7 @@ public class LineNumberMap {
     }
 
     /**
-     * Build the line number information. Should be called before any other
-     * methods.
+     * Build the line number information. Should be called before any other methods.
      */
     public void build() {
         int numGood = 0;
@@ -143,8 +141,8 @@ public class LineNumberMap {
      *
      * @param handle
      *            the InstructionHandle
-     * @return the LineNumber object containing bytecode offset and source line
-     *         number
+     *
+     * @return the LineNumber object containing bytecode offset and source line number
      */
     public LineNumber lookupLineNumber(InstructionHandle handle) {
         return lineNumberMap.get(handle);

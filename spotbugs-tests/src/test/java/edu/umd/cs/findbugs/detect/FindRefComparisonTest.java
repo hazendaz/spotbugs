@@ -18,8 +18,8 @@ class FindRefComparisonTest extends AbstractIntegrationTest {
     }
 
     private void performAnalysisForRefComp() {
-        performAnalysis("RefComparisons.class", "RefComparisons$MyClass1.class", "RefComparisons$MyClass2.class", "RefComparisons$MyClass3.class",
-                "RefComparisons$MyEnum.class");
+        performAnalysis("RefComparisons.class", "RefComparisons$MyClass1.class", "RefComparisons$MyClass2.class",
+                "RefComparisons$MyClass3.class", "RefComparisons$MyEnum.class");
     }
 
     @Test
@@ -31,7 +31,8 @@ class FindRefComparisonTest extends AbstractIntegrationTest {
 
         performAnalysisForRefComp();
         assertBugTypeCount("RC_REF_COMPARISON", 1);
-        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "integerBadComparison", 5, Confidence.HIGH);
+        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "integerBadComparison", 5,
+                Confidence.HIGH);
     }
 
     @Test
@@ -42,9 +43,12 @@ class FindRefComparisonTest extends AbstractIntegrationTest {
         SystemProperties.removeProperty("findbugs.refcomp.reportAll");
         performAnalysisForRefComp();
         assertBugTypeCount("RC_REF_COMPARISON", 3);
-        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "integerBadComparison", 5, Confidence.HIGH);
-        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "myClass1BadComparison", 13, Confidence.LOW);
-        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "myClass2BadComparison", 21, Confidence.LOW);
+        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "integerBadComparison", 5,
+                Confidence.HIGH);
+        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "myClass1BadComparison", 13,
+                Confidence.LOW);
+        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "myClass2BadComparison", 21,
+                Confidence.LOW);
     }
 
     @Test
@@ -55,7 +59,8 @@ class FindRefComparisonTest extends AbstractIntegrationTest {
         performAnalysis("RefComparisons.class", "RefComparisons$MyEnum.class", "RefComparisons$MyClass2.class",
                 "RefComparisons$MyClass1.class", "RefComparisons$MyClass3.class");
         assertBugTypeCount("RC_REF_COMPARISON", 1);
-        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "integerBadComparison", 5, Confidence.HIGH);
+        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "integerBadComparison", 5,
+                Confidence.HIGH);
     }
 
     @Test
@@ -65,13 +70,17 @@ class FindRefComparisonTest extends AbstractIntegrationTest {
 
         performAnalysisForRefComp();
         assertBugTypeCount("RC_REF_COMPARISON", 3);
-        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "integerBadComparison", 5, Confidence.HIGH);
-        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "myClass1BadComparison", 13, Confidence.LOW);
-        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "myClass2BadComparison", 21, Confidence.LOW);
+        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "integerBadComparison", 5,
+                Confidence.HIGH);
+        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "myClass1BadComparison", 13,
+                Confidence.LOW);
+        assertBugInMethodAtLineWithConfidence("RC_REF_COMPARISON", "RefComparisons", "myClass2BadComparison", 21,
+                Confidence.LOW);
     }
 
     private static void setPriorityAdjustment(int adjustment) {
-        DetectorFactory detFactory = DetectorFactoryCollection.instance().getFactory(FindRefComparison.class.getSimpleName());
+        DetectorFactory detFactory = DetectorFactoryCollection.instance()
+                .getFactory(FindRefComparison.class.getSimpleName());
         detFactory.setPriorityAdjustment(adjustment);
     }
 

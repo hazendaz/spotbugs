@@ -24,8 +24,7 @@ import java.io.PrintStream;
 import org.apache.bcel.generic.InstructionHandle;
 
 /**
- * CFGPrinter class which prints dataflow values at each basic block and
- * instruction.
+ * CFGPrinter class which prints dataflow values at each basic block and instruction.
  */
 public class DataflowCFGPrinter<Fact, AnalysisType extends DataflowAnalysis<Fact>> extends CFGPrinter {
     private final Dataflow<Fact, AnalysisType> dataflow;
@@ -34,8 +33,7 @@ public class DataflowCFGPrinter<Fact, AnalysisType extends DataflowAnalysis<Fact
      * Constructor.
      *
      * @param dataflow
-     *            the Dataflow object whose values should be used to annotate
-     *            the printed CFG
+     *            the Dataflow object whose values should be used to annotate the printed CFG
      */
     public DataflowCFGPrinter(Dataflow<Fact, AnalysisType> dataflow) {
         super(dataflow.getCFG());
@@ -47,9 +45,7 @@ public class DataflowCFGPrinter<Fact, AnalysisType extends DataflowAnalysis<Fact
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.CFGPrinter#edgeAnnotate(edu.umd.cs.findbugs.ba
-     * .Edge)
+     * @see edu.umd.cs.findbugs.ba.CFGPrinter#edgeAnnotate(edu.umd.cs.findbugs.ba .Edge)
      */
     @Override
     public String edgeAnnotate(Edge edge) {
@@ -85,7 +81,8 @@ public class DataflowCFGPrinter<Fact, AnalysisType extends DataflowAnalysis<Fact
 
             Location loc = new Location(handle, bb);
 
-            Fact fact = flip ? dataflow.getAnalysis().getFactAfterLocation(loc) : dataflow.getAnalysis().getFactAtLocation(loc);
+            Fact fact = flip ? dataflow.getAnalysis().getFactAfterLocation(loc)
+                    : dataflow.getAnalysis().getFactAtLocation(loc);
             return " " + dataflow.getAnalysis().factToString(fact);
         } catch (DataflowAnalysisException e) {
             throw new IllegalStateException("Caught exception: " + e.toString());

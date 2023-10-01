@@ -38,8 +38,10 @@ public class BooleanReturnNull extends TypeReturnNull {
 
     @Override
     protected void accumulateBug() {
-        bugAccumulator.accumulateBug(new BugInstance(this, "NP_BOOLEAN_RETURN_NULL",
-                getMethodName().startsWith("is") ? HIGH_PRIORITY : NORMAL_PRIORITY).addClassAndMethod(this), this);
+        bugAccumulator.accumulateBug(
+                new BugInstance(this, "NP_BOOLEAN_RETURN_NULL",
+                        getMethodName().startsWith("is") ? HIGH_PRIORITY : NORMAL_PRIORITY).addClassAndMethod(this),
+                this);
     }
 
 }

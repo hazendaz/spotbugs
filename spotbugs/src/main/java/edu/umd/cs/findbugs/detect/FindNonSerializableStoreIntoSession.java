@@ -64,7 +64,8 @@ public class FindNonSerializableStoreIntoSession implements Detector {
         }
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         MethodGen methodGen = classContext.getMethodGen(method);
         if (methodGen == null) {
             return;
@@ -132,14 +133,17 @@ public class FindNonSerializableStoreIntoSession implements Detector {
                 double isSerializable = DeepSubtypeAnalysis.isDeepSerializable(refType);
 
                 if (isSerializable < 0.9) {
-                    SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(classContext,
-                            methodGen, sourceFile, handle);
+                    SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation
+                            .fromVisitedInstruction(classContext, methodGen, sourceFile, handle);
                     ReferenceType problem = DeepSubtypeAnalysis.getLeastSerializableTypeComponent(refType);
 
-                    bugAccumulator.accumulateBug(new BugInstance(this, "J2EE_STORE_OF_NON_SERIALIZABLE_OBJECT_INTO_SESSION",
-                            isSerializable < 0.15 ? HIGH_PRIORITY : isSerializable > 0.5 ? LOW_PRIORITY : NORMAL_PRIORITY)
-                            .addClassAndMethod(methodGen, sourceFile).addType(problem).describe(TypeAnnotation.FOUND_ROLE),
-                            sourceLineAnnotation);
+                    bugAccumulator
+                            .accumulateBug(new BugInstance(this, "J2EE_STORE_OF_NON_SERIALIZABLE_OBJECT_INTO_SESSION",
+                                    isSerializable < 0.15 ? HIGH_PRIORITY
+                                            : isSerializable > 0.5 ? LOW_PRIORITY : NORMAL_PRIORITY)
+                                                    .addClassAndMethod(methodGen, sourceFile).addType(problem)
+                                                    .describe(TypeAnnotation.FOUND_ROLE),
+                                    sourceLineAnnotation);
 
                 }
             } catch (ClassNotFoundException e) {

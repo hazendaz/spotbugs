@@ -31,8 +31,7 @@ import edu.umd.cs.findbugs.util.SubtypeTypeMatcher;
 import edu.umd.cs.findbugs.util.TypeMatcher;
 
 /**
- * An ObligationPolicyDatabaseEntry which creates or deletes an obligation based
- * on a call to a specified method.
+ * An ObligationPolicyDatabaseEntry which creates or deletes an obligation based on a call to a specified method.
  *
  * @author David Hovemeyer
  */
@@ -63,8 +62,7 @@ public class MatchMethodEntry implements ObligationPolicyDatabaseEntry {
      * @param xmethod
      *            an XMethod
      * @param action
-     *            ActionType (ADD or DEL, depending on whether obligation is
-     *            added or deleted)
+     *            ActionType (ADD or DEL, depending on whether obligation is added or deleted)
      * @param entryType
      *            entry type
      * @param obligations
@@ -86,8 +84,7 @@ public class MatchMethodEntry implements ObligationPolicyDatabaseEntry {
      * Constructor.
      *
      * @param receiverType
-     *            TypeMatcher to match the receiver type (or class containing
-     *            static method)
+     *            TypeMatcher to match the receiver type (or class containing static method)
      * @param methodName
      *            StringMatcher to match name of called method
      * @param signature
@@ -95,15 +92,15 @@ public class MatchMethodEntry implements ObligationPolicyDatabaseEntry {
      * @param isStatic
      *            true if matched method must be static, false otherwise
      * @param action
-     *            ActionType (ADD or DEL, depending on whether obligation is
-     *            added or deleted)
+     *            ActionType (ADD or DEL, depending on whether obligation is added or deleted)
      * @param entryType
      *            entry type
      * @param obligations
      *            Obligation to be added or deleted
      */
-    public MatchMethodEntry(TypeMatcher receiverType, StringMatcher methodName, StringMatcher signature, boolean isStatic,
-            ObligationPolicyDatabaseActionType action, ObligationPolicyDatabaseEntryType entryType, Obligation... obligations) {
+    public MatchMethodEntry(TypeMatcher receiverType, StringMatcher methodName, StringMatcher signature,
+            boolean isStatic, ObligationPolicyDatabaseActionType action, ObligationPolicyDatabaseEntryType entryType,
+            Obligation... obligations) {
         this.receiverType = receiverType;
         this.methodName = methodName;
         this.signature = signature;

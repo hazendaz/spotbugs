@@ -42,9 +42,8 @@ public class CompactLocationNumberingFactory extends AnalysisFactory<CompactLoca
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public CompactLocationNumbering analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)

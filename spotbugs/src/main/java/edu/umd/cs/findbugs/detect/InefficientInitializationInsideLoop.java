@@ -43,7 +43,8 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
  * @author Tagir Valeev
  */
 public class InefficientInitializationInsideLoop extends OpcodeStackDetector {
-    private static final MethodDescriptor NODELIST_GET_LENGTH = new MethodDescriptor("org/w3c/dom/NodeList", "getLength", "()I");
+    private static final MethodDescriptor NODELIST_GET_LENGTH = new MethodDescriptor("org/w3c/dom/NodeList",
+            "getLength", "()I");
     private static final MethodDescriptor PATTERN_COMPILE = new MethodDescriptor("java/util/regex/Pattern", "compile",
             "(Ljava/lang/String;)Ljava/util/regex/Pattern;", true);
     private static final MethodDescriptor PATTERN_COMPILE_2 = new MethodDescriptor("java/util/regex/Pattern", "compile",
@@ -54,13 +55,15 @@ public class InefficientInitializationInsideLoop extends OpcodeStackDetector {
             "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
     private static final MethodDescriptor STRING_REPLACEFIRST = new MethodDescriptor("java/lang/String", "replaceFirst",
             "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
-    private static final MethodDescriptor STRING_MATCHES = new MethodDescriptor("java/lang/String", "matches", "(Ljava/lang/String;)Z");
-    private static final MethodDescriptor STRING_SPLIT = new MethodDescriptor("java/lang/String", "split", "(Ljava/lang/String;)[Ljava/lang/String;");
+    private static final MethodDescriptor STRING_MATCHES = new MethodDescriptor("java/lang/String", "matches",
+            "(Ljava/lang/String;)Z");
+    private static final MethodDescriptor STRING_SPLIT = new MethodDescriptor("java/lang/String", "split",
+            "(Ljava/lang/String;)[Ljava/lang/String;");
     private static final MethodDescriptor STRING_SPLIT_2 = new MethodDescriptor("java/lang/String", "split",
             "(Ljava/lang/String;I)[Ljava/lang/String;");
 
-    private static final Set<MethodDescriptor> implicitPatternMethods = Set.of(PATTERN_MATCHES,
-            STRING_MATCHES, STRING_REPLACEALL, STRING_REPLACEFIRST, STRING_SPLIT, STRING_SPLIT_2);
+    private static final Set<MethodDescriptor> implicitPatternMethods = Set.of(PATTERN_MATCHES, STRING_MATCHES,
+            STRING_REPLACEALL, STRING_REPLACEFIRST, STRING_SPLIT, STRING_SPLIT_2);
 
     private static final List<MethodDescriptor> methods = new ArrayList<>();
 
@@ -85,9 +88,8 @@ public class InefficientInitializationInsideLoop extends OpcodeStackDetector {
 
     @Override
     public void visitClassContext(ClassContext classContext) {
-        if (hasInterestingMethod(classContext.getJavaClass().getConstantPool(), methods)
-                || hasInterestingClass(classContext.getJavaClass().getConstantPool(),
-                        Collections.singleton("java/sql/Connection"))) {
+        if (hasInterestingMethod(classContext.getJavaClass().getConstantPool(), methods) || hasInterestingClass(
+                classContext.getJavaClass().getConstantPool(), Collections.singleton("java/sql/Connection"))) {
             super.visitClassContext(classContext);
         }
     }
@@ -101,42 +103,47 @@ public class InefficientInitializationInsideLoop extends OpcodeStackDetector {
     }
 
     /**
-     * Since JDK 1.7 there's a special branch in String.split which works very fast for one-character pattern
-     * We do not report a bug if this case takes place
-     * (in fact precompilation will make split much slower since this fast path doesn't use regexp engine at all)
-     * @param regex regex to test whether it's suitable for the fast path
+     * Since JDK 1.7 there's a special branch in String.split which works very fast for one-character pattern We do not
+     * report a bug if this case takes place (in fact precompilation will make split much slower since this fast path
+     * doesn't use regexp engine at all)
+     *
+     * @param regex
+     *            regex to test whether it's suitable for the fast path
+     *
      * @return true if fast path is possible
      */
     private boolean isFastPath(String regex) {
         char ch;
-        return (((regex.length() == 1 && ".$|()[{^?*+\\".indexOf(ch = regex.charAt(0)) == -1) || (regex.length() == 2
-                && regex.charAt(0) == '\\' && (((ch = regex.charAt(1)) - '0') | ('9' - ch)) < 0 && ((ch - 'a') | ('z' - ch)) < 0 && ((ch - 'A') | ('Z'
-                        - ch)) < 0)) && (ch < Character.MIN_HIGH_SURROGATE || ch > Character.MAX_LOW_SURROGATE));
+        return (((regex.length() == 1 && ".$|()[{^?*+\\".indexOf(ch = regex.charAt(0)) == -1)
+                || (regex.length() == 2 && regex.charAt(0) == '\\' && (((ch = regex.charAt(1)) - '0') | ('9' - ch)) < 0
+                        && ((ch - 'a') | ('z' - ch)) < 0 && ((ch - 'A') | ('Z' - ch)) < 0))
+                && (ch < Character.MIN_HIGH_SURROGATE || ch > Character.MAX_LOW_SURROGATE));
     }
 
     @Override
     public void sawOpcode(int seen) {
         if (seen == Const.INVOKEINTERFACE && getClassConstantOperand().equals("java/sql/Connection")
                 && getMethodDescriptorOperand().getName().equals("prepareStatement") && hasConstantArguments()) {
-            matched.put(getPC(), new BugInstance(this, "IIL_PREPARE_STATEMENT_IN_LOOP", NORMAL_PRIORITY).addClassAndMethod(this)
-                    .addSourceLine(this, getPC()).addCalledMethod(this));
+            matched.put(getPC(), new BugInstance(this, "IIL_PREPARE_STATEMENT_IN_LOOP", NORMAL_PRIORITY)
+                    .addClassAndMethod(this).addSourceLine(this, getPC()).addCalledMethod(this));
         } else if (seen == Const.INVOKEINTERFACE && getMethodDescriptorOperand().equals(NODELIST_GET_LENGTH)) {
             Item item = getStack().getStackItem(0);
             XMethod returnValueOf = item.getReturnValueOf();
-            if (returnValueOf != null && returnValueOf.getClassName().startsWith("org.w3c.dom.") && returnValueOf.getName().startsWith(
-                    "getElementsByTagName")) {
-                matched.put(getPC(),
-                        new BugInstance(this, "IIL_ELEMENTS_GET_LENGTH_IN_LOOP", NORMAL_PRIORITY).addClassAndMethod(this)
-                                .addSourceLine(this, getPC()).addCalledMethod(this));
+            if (returnValueOf != null && returnValueOf.getClassName().startsWith("org.w3c.dom.")
+                    && returnValueOf.getName().startsWith("getElementsByTagName")) {
+                matched.put(getPC(), new BugInstance(this, "IIL_ELEMENTS_GET_LENGTH_IN_LOOP", NORMAL_PRIORITY)
+                        .addClassAndMethod(this).addSourceLine(this, getPC()).addCalledMethod(this));
                 sources.put(getPC(), item.getPC());
             }
-        } else if (seen == Const.INVOKESTATIC
-                && (getMethodDescriptorOperand().equals(PATTERN_COMPILE) || getMethodDescriptorOperand()
-                        .equals(PATTERN_COMPILE_2)) && hasConstantArguments()) {
+        } else if (seen == Const.INVOKESTATIC && (getMethodDescriptorOperand().equals(PATTERN_COMPILE)
+                || getMethodDescriptorOperand().equals(PATTERN_COMPILE_2)) && hasConstantArguments()) {
             String regex = getFirstArgument();
-            matched.put(getPC(), new BugInstance(this, "IIL_PATTERN_COMPILE_IN_LOOP", NORMAL_PRIORITY).addClassAndMethod(this)
-                    .addSourceLine(this, getPC()).addCalledMethod(this).addString(regex).describe(StringAnnotation.REGEX_ROLE));
-        } else if ((seen == Const.INVOKESTATIC || seen == Const.INVOKEVIRTUAL) && implicitPatternMethods.contains(getMethodDescriptorOperand())) {
+            matched.put(getPC(),
+                    new BugInstance(this, "IIL_PATTERN_COMPILE_IN_LOOP", NORMAL_PRIORITY).addClassAndMethod(this)
+                            .addSourceLine(this, getPC()).addCalledMethod(this).addString(regex)
+                            .describe(StringAnnotation.REGEX_ROLE));
+        } else if ((seen == Const.INVOKESTATIC || seen == Const.INVOKEVIRTUAL)
+                && implicitPatternMethods.contains(getMethodDescriptorOperand())) {
             String regex = getFirstArgument();
             if (regex != null && !(getNameConstantOperand().equals("split") && isFastPath(regex))) {
                 BugInstance bug = new BugInstance(this, "IIL_PATTERN_COMPILE_IN_LOOP_INDIRECT", LOW_PRIORITY)

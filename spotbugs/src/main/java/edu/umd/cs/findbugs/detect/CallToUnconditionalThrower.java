@@ -73,7 +73,8 @@ public class CallToUnconditionalThrower extends PreorderVisitor implements Detec
         //
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         if (BCELUtil.isSynthetic(method) || (method.getAccessFlags() & Const.ACC_BRIDGE) == Const.ACC_BRIDGE) {
             return;
         }
@@ -173,9 +174,8 @@ public class CallToUnconditionalThrower extends PreorderVisitor implements Detec
 
                 analyzeMethod(classContext, method);
             } catch (CFGBuilderException | DataflowAnalysisException e) {
-                bugReporter.logError(
-                        "Error checking for infinite recursive loop in "
-                                + SignatureConverter.convertMethodSignature(classContext.getJavaClass(), method), e);
+                bugReporter.logError("Error checking for infinite recursive loop in "
+                        + SignatureConverter.convertMethodSignature(classContext.getJavaClass(), method), e);
             }
         }
     }

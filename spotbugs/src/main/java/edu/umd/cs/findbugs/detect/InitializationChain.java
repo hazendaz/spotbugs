@@ -48,8 +48,6 @@ public class InitializationChain extends BytecodeScanningDetector {
 
     Map<String, Set<String>> classRequires = new TreeMap<>();
 
-
-
     private final BugReporter bugReporter;
 
     private final Map<XMethod, Set<XField>> staticFieldsRead = new HashMap<>();
@@ -98,7 +96,6 @@ public class InitializationChain extends BytecodeScanningDetector {
         return visitOrder;
     }
 
-
     @Override
     public void visit(Code obj) {
         fieldsReadInThisConstructor = new HashSet<>();
@@ -144,8 +141,8 @@ public class InitializationChain extends BytecodeScanningDetector {
             return;
         }
 
-        if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand()) && getClassConstantOperand().equals(
-                getClassName())) {
+        if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand())
+                && getClassConstantOperand().equals(getClassName())) {
 
             XMethod m = getXMethodOperand();
             Set<XField> read = staticFieldsRead.get(m);
@@ -166,7 +163,8 @@ public class InitializationChain extends BytecodeScanningDetector {
                     Set<XField> fields = staticFieldsRead.get(i.constructor);
                     if (fields != null && fields.contains(f)) {
                         warningGiven.add(f);
-                        BugInstance bug = new BugInstance(this, "SI_INSTANCE_BEFORE_FINALS_ASSIGNED", NORMAL_PRIORITY).addClassAndMethod(this);
+                        BugInstance bug = new BugInstance(this, "SI_INSTANCE_BEFORE_FINALS_ASSIGNED", NORMAL_PRIORITY)
+                                .addClassAndMethod(this);
                         if (i.field != null) {
                             bug.addField(i.field).describe(FieldAnnotation.STORED_ROLE);
                         }
@@ -179,7 +177,8 @@ public class InitializationChain extends BytecodeScanningDetector {
                 }
             }
 
-        } else if (seen == Const.PUTSTATIC || seen == Const.GETSTATIC || seen == Const.INVOKESTATIC || seen == Const.NEW) {
+        } else if (seen == Const.PUTSTATIC || seen == Const.GETSTATIC || seen == Const.INVOKESTATIC
+                || seen == Const.NEW) {
             if (getPC() + 6 < codeBytes.length) {
                 requires.add(getDottedClassConstantOperand());
             }
@@ -234,8 +233,8 @@ public class InitializationChain extends BytecodeScanningDetector {
                 }
                 Set<String> s = classRequires.get(needs);
                 if (s != null && s.contains(c) && c.compareTo(needs) < 0) {
-                    bugReporter.reportBug(new BugInstance(this, "IC_INIT_CIRCULARITY", NORMAL_PRIORITY).addClass(c).addClass(
-                            needs));
+                    bugReporter.reportBug(
+                            new BugInstance(this, "IC_INIT_CIRCULARITY", NORMAL_PRIORITY).addClass(c).addClass(needs));
                 }
             }
         }

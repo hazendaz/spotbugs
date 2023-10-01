@@ -73,17 +73,15 @@ public class ExportWizardPage extends WizardPage {
     private Text filteredBugIdsText;
 
     protected ExportWizardPage(String pageName, String title, String descr, String imagePath) {
-        super(pageName, title, AbstractUIPlugin.imageDescriptorFromPlugin(FindbugsPlugin.getDefault().getBundle()
-                .getSymbolicName(), imagePath));
+        super(pageName, title, AbstractUIPlugin
+                .imageDescriptorFromPlugin(FindbugsPlugin.getDefault().getBundle().getSymbolicName(), imagePath));
         setDescription(descr);
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets
-     * .Composite)
+     * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets .Composite)
      */
     @Override
     public void createControl(Composite parent) {
@@ -106,7 +104,8 @@ public class ExportWizardPage extends WizardPage {
         final String[] items = new String[] { "Name", "Not filtered bug count", "Overall bug count" };
         sortByCombo.setItems(items);
 
-        String sortOrder = FindbugsPlugin.getDefault().getPreferenceStore().getString(FindBugsConstants.EXPORT_SORT_ORDER);
+        String sortOrder = FindbugsPlugin.getDefault().getPreferenceStore()
+                .getString(FindBugsConstants.EXPORT_SORT_ORDER);
         if (FindBugsConstants.ORDER_BY_NOT_FILTERED_BUGS_COUNT.equals(sortOrder)) {
             sortByCombo.select(1);
         } else if (FindBugsConstants.ORDER_BY_OVERALL_BUGS_COUNT.equals(sortOrder)) {
@@ -152,7 +151,8 @@ public class ExportWizardPage extends WizardPage {
                 }
                 String selectedIds = dialog.getSelectedIds();
 
-                FindbugsPlugin.getDefault().getPreferenceStore().setValue(FindBugsConstants.LAST_USED_EXPORT_FILTER, selectedIds);
+                FindbugsPlugin.getDefault().getPreferenceStore().setValue(FindBugsConstants.LAST_USED_EXPORT_FILTER,
+                        selectedIds);
                 filteredBugIdsText.setText(selectedIds);
             }
         });
@@ -164,8 +164,8 @@ public class ExportWizardPage extends WizardPage {
         layoutData.heightHint = 200;
         layoutData.widthHint = 400;
         filteredBugIdsText.setLayoutData(layoutData);
-        filteredBugIdsText.setText(FindbugsPlugin.getDefault().getPreferenceStore()
-                .getString(FindBugsConstants.LAST_USED_EXPORT_FILTER));
+        filteredBugIdsText.setText(
+                FindbugsPlugin.getDefault().getPreferenceStore().getString(FindBugsConstants.LAST_USED_EXPORT_FILTER));
         filteredBugIdsText.setToolTipText("Bug ids to filter, separated by comma or space");
     }
 
@@ -228,9 +228,7 @@ public class ExportWizardPage extends WizardPage {
     private Record createProjectLine(IProject project) {
         if (ProjectUtilities.isJavaProject(project)) {
             /*
-             * TODO why not working ??
-             * && project.hasNature(
-             * FindbugsPlugin.NATURE_ID)
+             * TODO why not working ?? && project.hasNature( FindbugsPlugin.NATURE_ID)
              */
             IMarker[] markerArr = MarkerUtil.getAllMarkers(project);
             if (markerArr.length == 0) {

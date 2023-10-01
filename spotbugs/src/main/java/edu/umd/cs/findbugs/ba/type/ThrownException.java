@@ -22,17 +22,16 @@ package edu.umd.cs.findbugs.ba.type;
 import org.apache.bcel.generic.ObjectType;
 
 /**
- * An exception thrown from an instruction. These can be implicit (i.e., runtime
- * exceptions and errors), or explicit (athrow, or declared exception from
- * called method). This information is used in TypeAnalysis in order to
- * determine:
+ * An exception thrown from an instruction. These can be implicit (i.e., runtime exceptions and errors), or explicit
+ * (athrow, or declared exception from called method). This information is used in TypeAnalysis in order to determine:
  * <ul>
  * <li>what exceptions can be thrown along exception edges, and
- * <li>which exceptions are explicit (declared or explicitly thrown) and which
- * are implicit (result of failed runtime checks)
+ * <li>which exceptions are explicit (declared or explicitly thrown) and which are implicit (result of failed runtime
+ * checks)
  * </ul>
  *
  * @author David Hovemeyer
+ *
  * @see ExceptionSet
  * @see TypeAnalysis
  */

@@ -22,8 +22,7 @@ import edu.umd.cs.findbugs.props.AbstractWarningProperty;
 import edu.umd.cs.findbugs.props.PriorityAdjustment;
 
 /**
- * Warning properties for null pointer dereference and redundant null comparison
- * warnings.
+ * Warning properties for null pointer dereference and redundant null comparison warnings.
  *
  * @author David Hovemeyer
  */
@@ -56,7 +55,8 @@ public class NullDerefProperty extends AbstractWarningProperty {
     public static final NullDerefProperty DEREFS_ARE_CLONED = new NullDerefProperty("DEREFS_ARE_CLONED",
             PriorityAdjustment.AT_MOST_MEDIUM);
 
-    public static final NullDerefProperty CLOSING_NULL = new NullDerefProperty("CLOSING_NULL", PriorityAdjustment.PEGGED_HIGH);
+    public static final NullDerefProperty CLOSING_NULL = new NullDerefProperty("CLOSING_NULL",
+            PriorityAdjustment.PEGGED_HIGH);
 
     public static final NullDerefProperty DEREFS_ARE_INLINED_FINALLY_BLOCKS = new NullDerefProperty(
             "DEREFS_ARE_INLINED_FINALLY_BLOCKS", PriorityAdjustment.AT_MOST_MEDIUM);

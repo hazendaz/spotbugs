@@ -52,35 +52,30 @@ public class SharedVariableAtomicityDetector extends OpcodeStackDetector {
     private final Set<XField> relevantFields = new HashSet<>();
     private final Map<XMethod, Set<XMethod>> nonSyncedMethodCallsByCallingMethods = new HashMap<>();
 
-    private static final Set<Short> readOpCodes = Set.of(Const.GETFIELD, Const.GETSTATIC,
-            Const.ALOAD, Const.ALOAD_0, Const.ALOAD_1, Const.ALOAD_2, Const.ALOAD_3,
-            Const.DLOAD, Const.DLOAD_0, Const.DLOAD_1, Const.DLOAD_2, Const.DLOAD_3,
-            Const.LLOAD, Const.LLOAD_0, Const.LLOAD_1, Const.LLOAD_2, Const.LLOAD_3,
-            Const.FLOAD, Const.FLOAD_0, Const.FLOAD_1, Const.FLOAD_2, Const.FLOAD_3,
-            Const.ILOAD, Const.ILOAD_0, Const.ILOAD_1, Const.ILOAD_2, Const.ILOAD_3,
-            Const.DALOAD, Const.LALOAD, Const.FALOAD, Const.IALOAD);
+    private static final Set<Short> readOpCodes = Set.of(Const.GETFIELD, Const.GETSTATIC, Const.ALOAD, Const.ALOAD_0,
+            Const.ALOAD_1, Const.ALOAD_2, Const.ALOAD_3, Const.DLOAD, Const.DLOAD_0, Const.DLOAD_1, Const.DLOAD_2,
+            Const.DLOAD_3, Const.LLOAD, Const.LLOAD_0, Const.LLOAD_1, Const.LLOAD_2, Const.LLOAD_3, Const.FLOAD,
+            Const.FLOAD_0, Const.FLOAD_1, Const.FLOAD_2, Const.FLOAD_3, Const.ILOAD, Const.ILOAD_0, Const.ILOAD_1,
+            Const.ILOAD_2, Const.ILOAD_3, Const.DALOAD, Const.LALOAD, Const.FALOAD, Const.IALOAD);
 
-    private static final Set<Short> pushOpCodes = Set.of(Const.DCONST_0, Const.DCONST_1,
-            Const.LCONST_0, Const.LCONST_1,
-            Const.FCONST_0, Const.FCONST_1, Const.FCONST_2,
-            Const.ICONST_0, Const.ICONST_1, Const.ICONST_2, Const.ICONST_3, Const.ICONST_4, Const.ICONST_5,
-            Const.LDC, Const.LDC_W, Const.LDC2_W);
+    private static final Set<Short> pushOpCodes = Set.of(Const.DCONST_0, Const.DCONST_1, Const.LCONST_0, Const.LCONST_1,
+            Const.FCONST_0, Const.FCONST_1, Const.FCONST_2, Const.ICONST_0, Const.ICONST_1, Const.ICONST_2,
+            Const.ICONST_3, Const.ICONST_4, Const.ICONST_5, Const.LDC, Const.LDC_W, Const.LDC2_W);
 
     private static final Set<Short> operationOpCodes = Set.of(
-            // +=,++,       -=,--       *=,         /=,         %=          -
-            Const.DADD, Const.DSUB, Const.DMUL, Const.DDIV, Const.DREM, Const.DNEG,
-            Const.FADD, Const.FSUB, Const.FMUL, Const.FDIV, Const.FREM, Const.FNEG,
-            Const.LADD, Const.LSUB, Const.LMUL, Const.LDIV, Const.LREM, Const.LNEG,
+            // +=,++, -=,-- *=, /=, %= -
+            Const.DADD, Const.DSUB, Const.DMUL, Const.DDIV, Const.DREM, Const.DNEG, Const.FADD, Const.FSUB, Const.FMUL,
+            Const.FDIV, Const.FREM, Const.FNEG, Const.LADD, Const.LSUB, Const.LMUL, Const.LDIV, Const.LREM, Const.LNEG,
             Const.IADD, Const.ISUB, Const.IMUL, Const.IDIV, Const.IREM, Const.INEG,
-            // <<=,         >>=,        >>>=
-            Const.ISHL, Const.ISHR, Const.IUSHR,
-            Const.LSHL, Const.LSHR, Const.LUSHR,
+            // <<=, >>=, >>>=
+            Const.ISHL, Const.ISHR, Const.IUSHR, Const.LSHL, Const.LSHR, Const.LUSHR,
             // &=
             Const.IAND, Const.LAND,
             // |=, ^=
             Const.IOR, Const.IXOR, Const.LOR, Const.LXOR);
 
-    private static final Set<Short> methodCallOpCodes = Set.of(Const.INVOKEVIRTUAL, Const.INVOKESPECIAL, Const.INVOKESTATIC, Const.INVOKEINTERFACE);
+    private static final Set<Short> methodCallOpCodes = Set.of(Const.INVOKEVIRTUAL, Const.INVOKESPECIAL,
+            Const.INVOKESTATIC, Const.INVOKEINTERFACE);
 
     public SharedVariableAtomicityDetector(BugReporter reporter) {
         this.bugAccumulator = new BugAccumulator(reporter);
@@ -115,7 +110,8 @@ public class SharedVariableAtomicityDetector extends OpcodeStackDetector {
             currentLockDataFlow = getClassContext().getLockDataflow(currentMethod);
             currentCFG = getClassContext().getCFG(currentMethod);
         } catch (CFGBuilderException | DataflowAnalysisException e) {
-            AnalysisContext.logError("There was an error while SharedVariableAtomicityDetector analyzed " + getClassName(), e);
+            AnalysisContext
+                    .logError("There was an error while SharedVariableAtomicityDetector analyzed " + getClassName(), e);
         }
     }
 
@@ -146,13 +142,15 @@ public class SharedVariableAtomicityDetector extends OpcodeStackDetector {
         if (seen == Const.GETFIELD || seen == Const.GETSTATIC) {
             addNonFinalFieldsOfClass(getXFieldOperand(), method, readFieldsByMethods);
 
-        } else if (seen == Const.IFGE || seen == Const.IFGT || seen == Const.IFLT || seen == Const.IFLE || seen == Const.IFNE || seen == Const.IFEQ) {
+        } else if (seen == Const.IFGE || seen == Const.IFGT || seen == Const.IFLT || seen == Const.IFLE
+                || seen == Const.IFNE || seen == Const.IFEQ) {
             XField lhs = stack.getStackDepth() > 0 ? stack.getStackItem(0).getXField() : null;
             XField rhs = stack.getStackDepth() > 1 ? stack.getStackItem(1).getXField() : null;
             addNonFinalFieldsOfClass(lhs, method, readFieldsByMethods);
             addNonFinalFieldsOfClass(rhs, method, readFieldsByMethods);
 
-        } else if (seen == Const.INVOKEINTERFACE || seen == Const.INVOKESPECIAL || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKESTATIC) {
+        } else if (seen == Const.INVOKEINTERFACE || seen == Const.INVOKESPECIAL || seen == Const.INVOKEVIRTUAL
+                || seen == Const.INVOKESTATIC) {
             XMethod calledMethod = getXMethodOperand();
             if (!method.equals(calledMethod)) {
                 nonSyncedMethodCallsByCallingMethods.computeIfAbsent(calledMethod, k -> new HashSet<>()).add(method);
@@ -161,7 +159,8 @@ public class SharedVariableAtomicityDetector extends OpcodeStackDetector {
     }
 
     private void addNonFinalFieldsOfClass(XField field, XMethod method, Map<XMethod, Set<XField>> map) {
-        if (field != null && !field.isFinal() && !field.isSynthetic() && field.getClassDescriptor().equals(method.getClassDescriptor())) {
+        if (field != null && !field.isFinal() && !field.isSynthetic()
+                && field.getClassDescriptor().equals(method.getClassDescriptor())) {
             map.computeIfAbsent(method, k -> new HashSet<>()).add(field);
         }
     }
@@ -186,8 +185,7 @@ public class SharedVariableAtomicityDetector extends OpcodeStackDetector {
     }
 
     private boolean mapContainsFieldWithOtherMethod(XField field, XMethod method, Map<XMethod, Set<XField>> map) {
-        return map.entrySet().stream()
-                .filter(entry -> entry.getValue().contains(field) && entry.getKey() != method)
+        return map.entrySet().stream().filter(entry -> entry.getValue().contains(field) && entry.getKey() != method)
                 .map(Map.Entry::getKey) // other methods containing the field
                 .anyMatch(m -> hasNonSyncedNonPrivateCallToMethod(m, new HashSet<>()));
     }
@@ -210,19 +208,13 @@ public class SharedVariableAtomicityDetector extends OpcodeStackDetector {
                             && isPrimitiveOrItsBoxingType(field.getSignature())) {
                         bugAccumulator.accumulateBug(
                                 new BugInstance(this, "AT_NONATOMIC_OPERATIONS_ON_SHARED_VARIABLE", NORMAL_PRIORITY)
-                                        .addClass(this)
-                                        .addMethod(method)
-                                        .addField(field),
+                                        .addClass(this).addMethod(method).addField(field),
                                 this);
                     } else if (!field.isVolatile() && ClassName.isValidBaseTypeFieldDescriptor(field.getSignature())) {
                         String bugType = is64bitPrimitive(field.getSignature()) ? "AT_NONATOMIC_64BIT_PRIMITIVE"
                                 : "AT_STALE_THREAD_WRITE_OF_PRIMITIVE";
-                        bugAccumulator.accumulateBug(
-                                new BugInstance(this, bugType, NORMAL_PRIORITY)
-                                        .addClass(this)
-                                        .addMethod(method)
-                                        .addField(field),
-                                this);
+                        bugAccumulator.accumulateBug(new BugInstance(this, bugType, NORMAL_PRIORITY).addClass(this)
+                                .addMethod(method).addField(field), this);
                     }
                 }
             }
@@ -233,7 +225,8 @@ public class SharedVariableAtomicityDetector extends OpcodeStackDetector {
                 if (!relevantFields.isEmpty()) {
                     hadOperation = true;
                 }
-            } else if (!readOpCodes.contains(opcode) && !pushOpCodes.contains(opcode) && !methodCallOpCodes.contains(opcode)) {
+            } else if (!readOpCodes.contains(opcode) && !pushOpCodes.contains(opcode)
+                    && !methodCallOpCodes.contains(opcode)) {
                 // if the opcode is something different then it is not the calculation of the assigned value
                 relevantFields.clear();
                 hadOperation = false;

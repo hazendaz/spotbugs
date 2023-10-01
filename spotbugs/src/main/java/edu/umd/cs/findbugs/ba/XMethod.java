@@ -32,9 +32,8 @@ import edu.umd.cs.findbugs.classfile.analysis.AnnotationValue;
  * An XMethod represents symbolic information about a particular method.
  *
  * <p>
- * If the resolved() method returns true, then any information queried from this
- * object can be assumed to be accurate. If the resolved() method returns false,
- * then FindBugs can't find the method and any information other than
+ * If the resolved() method returns true, then any information queried from this object can be assumed to be accurate.
+ * If the resolved() method returns false, then FindBugs can't find the method and any information other than
  * name/signature/etc. cannot be trusted.
  * </p>
  *
@@ -67,8 +66,7 @@ public interface XMethod extends ClassMember, AnnotatedObject, ComparableMethod 
     public boolean isUnconditionalThrower();
 
     /**
-     * @return does the method directly make use of
-     *         concurrency/threads/synchronization?
+     * @return does the method directly make use of concurrency/threads/synchronization?
      */
     public boolean usesConcurrency();
 
@@ -80,12 +78,10 @@ public interface XMethod extends ClassMember, AnnotatedObject, ComparableMethod 
     /** Is this an identity method */
     public boolean isIdentity();
 
-
     /**
-     * If nonnull, then this method is a synthetic method that overrides a
-     * method in a superclass. This method simply forwards the call to the
-     * method it bridges to, which is a method with an identical name but possibly co-variant arguments and
-     * return values.
+     * If nonnull, then this method is a synthetic method that overrides a method in a superclass. This method simply
+     * forwards the call to the method it bridges to, which is a method with an identical name but possibly co-variant
+     * arguments and return values.
      */
     public @CheckForNull XMethod bridgeTo();
 
@@ -93,16 +89,12 @@ public interface XMethod extends ClassMember, AnnotatedObject, ComparableMethod 
 
     public @CheckForNull MethodDescriptor getAccessMethodForMethod();
 
-
     public @CheckForNull FieldDescriptor getAccessMethodForField();
-
 
     public XMethod resolveAccessMethodForMethod();
 
-
     /**
-     * @return does this method unconditionally throw an
-     *         UnsupportedOperationException?
+     * @return does this method unconditionally throw an UnsupportedOperationException?
      */
     public boolean isUnsupported();
 
@@ -122,45 +114,42 @@ public interface XMethod extends ClassMember, AnnotatedObject, ComparableMethod 
     public boolean isBridge();
 
     /**
-     * Get ClassDescriptors (annotation classes) of annotations applied directly
-     * to this method's parameters.
+     * Get ClassDescriptors (annotation classes) of annotations applied directly to this method's parameters.
      *
      * @param param
      *            parameter number (0 for first parameter)
-     * @return ClassDescriptors of annotations applied directly to this method's
-     *         parameters
+     *
+     * @return ClassDescriptors of annotations applied directly to this method's parameters
      */
     public Collection<ClassDescriptor> getParameterAnnotationDescriptors(int param);
 
     /**
-     * Get the AnnotationValue of annotation applied directly to given
-     * parameter.
+     * Get the AnnotationValue of annotation applied directly to given parameter.
      *
      * @param param
      *            parameter number (0 for first parameter)
      * @param desc
      *            ClassDescriptor of the annotation class
-     * @return AnnotationValue annotating the parameter, or null if parameter is
-     *         not annotated with this kind of annotation
+     *
+     * @return AnnotationValue annotating the parameter, or null if parameter is not annotated with this kind of
+     *         annotation
      */
     public @CheckForNull AnnotationValue getParameterAnnotation(int param, ClassDescriptor desc);
 
     /**
-     * Get collection of all AnnotationValues applied directly to given
-     * parameter.
+     * Get collection of all AnnotationValues applied directly to given parameter.
      *
      * @param param
      *            parameter number (0 for first parameter)
-     * @return Collection of all AnnotationValues applied directly to given
-     *         parameter
+     *
+     * @return Collection of all AnnotationValues applied directly to given parameter
      */
     public Collection<AnnotationValue> getParameterAnnotations(int param);
 
     public boolean hasParameterAnnotations();
 
     /**
-     * Get ClassDescriptors (annotation classes) of annotations applied directly
-     * to this method.
+     * Get ClassDescriptors (annotation classes) of annotations applied directly to this method.
      *
      * @return ClassDescriptors of annotations applied directly to this method
      */
@@ -172,8 +161,8 @@ public interface XMethod extends ClassMember, AnnotatedObject, ComparableMethod 
      *
      * @param desc
      *            ClassDescriptor of the annotation class
-     * @return AnnotationValue annotating the method, or null if method is not
-     *         annotated with this kind of annotation
+     *
+     * @return AnnotationValue annotating the method, or null if method is not annotated with this kind of annotation
      */
     @Override
     public AnnotationValue getAnnotation(ClassDescriptor desc);
@@ -200,10 +189,9 @@ public interface XMethod extends ClassMember, AnnotatedObject, ComparableMethod 
     public boolean isVariableSynthetic(int param);
 
     /**
-     * Destructively add an annotation. We do this for "built-in" annotations
-     * that might not be directly evident in the code. It's not a great idea in
-     * general, but we can get away with it as long as it's done early enough
-     * (i.e., before anyone asks what annotations this method has.)
+     * Destructively add an annotation. We do this for "built-in" annotations that might not be directly evident in the
+     * code. It's not a great idea in general, but we can get away with it as long as it's done early enough (i.e.,
+     * before anyone asks what annotations this method has.)
      *
      * @param annotationValue
      *            an AnnotationValue representing a method annotation
@@ -214,15 +202,18 @@ public interface XMethod extends ClassMember, AnnotatedObject, ComparableMethod 
 
     /**
      * See <code>java.lang.invoke.MethodHandle.PolymorphicSignature</code>
+     *
      * @return is this method polymorphic as defined in {@link java.lang.invoke.MethodHandle}
      */
     boolean hasPolymorphicSignature();
 
     /**
      * Access methods are generated by the compiler for inner classes accessing the outer class
+     *
      * @return <code>true</code> if the method name starts with "access$"
      */
     default boolean isAccessMethod() {
         return getName().startsWith("access$");
     }
+
 }

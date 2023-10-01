@@ -29,9 +29,8 @@ import edu.umd.cs.findbugs.classfile.InvalidClassFileFormatException;
 import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
 
 /**
- * Implementation of ICodeBaseEntry that delegates to another codebase entry.
- * This is needed for codebase entries in nested zipfiles, which are implemented
- * using a private zipfile codebase.
+ * Implementation of ICodeBaseEntry that delegates to another codebase entry. This is needed for codebase entries in
+ * nested zipfiles, which are implemented using a private zipfile codebase.
  *
  * @author David Hovemeyer
  */
@@ -98,9 +97,7 @@ public class DelegatingCodeBaseEntry implements ICodeBaseEntry {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.ICodeBaseEntry#overrideResourceName(java
-     * .lang.String)
+     * @see edu.umd.cs.findbugs.classfile.ICodeBaseEntry#overrideResourceName(java .lang.String)
      */
     @Override
     public void overrideResourceName(String resourceName) {

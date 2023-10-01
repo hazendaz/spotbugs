@@ -122,17 +122,17 @@ public class Obfuscate {
         String methodName = m.getMethodName();
         String methodSignature = m.getMethodSignature();
 
-        if ("hashCode".equals(methodName) && "()I".equals(methodSignature) || "equals".equals(methodName)
-                && "(Ljava/lang/Object;)Z".equals(methodSignature) || "compareTo".equals(methodName)
-                        && "(Ljava/lang/Object;)I".equals(methodSignature) || "<init>".equals(methodName)
-                || "<clinit>".equals(methodName)) {
+        if ("hashCode".equals(methodName) && "()I".equals(methodSignature)
+                || "equals".equals(methodName) && "(Ljava/lang/Object;)Z".equals(methodSignature)
+                || "compareTo".equals(methodName) && "(Ljava/lang/Object;)I".equals(methodSignature)
+                || "<init>".equals(methodName) || "<clinit>".equals(methodName)) {
             // don't need to obfuscate method name
         } else {
             methodName = hashData(methodName);
         }
 
-        MethodAnnotation result = new MethodAnnotation(hashClass(className), methodName, hashMethodSignature(methodSignature),
-                m.isStatic());
+        MethodAnnotation result = new MethodAnnotation(hashClass(className), methodName,
+                hashMethodSignature(methodSignature), m.isStatic());
         result.setDescription(m.getDescription());
         return result;
     }
@@ -144,7 +144,6 @@ public class Obfuscate {
         return result;
 
     }
-
 
     static ClassAnnotation obfuscate(ClassAnnotation m) {
         ClassAnnotation result = new ClassAnnotation(hashClass(m.getClassName()));
@@ -174,8 +173,9 @@ public class Obfuscate {
     }
 
     static SourceLineAnnotation obfuscate(SourceLineAnnotation m) {
-        SourceLineAnnotation result = new SourceLineAnnotation(hashClass(m.getClassName()), hashFilename(m.getSourceFile()),
-                m.getStartLine(), m.getEndLine(), m.getStartBytecode(), m.getEndBytecode());
+        SourceLineAnnotation result = new SourceLineAnnotation(hashClass(m.getClassName()),
+                hashFilename(m.getSourceFile()), m.getStartLine(), m.getEndLine(), m.getStartBytecode(),
+                m.getEndBytecode());
         result.setDescription(m.getDescription());
         return result;
 

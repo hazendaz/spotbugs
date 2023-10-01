@@ -81,7 +81,8 @@ public class ConfusionBetweenInheritedAndOuterMethod extends OpcodeStackDetector
                 if (lvt != null) {
                     LocalVariable localVariable = lvt.getLocalVariable(getRegisterOperand(), getNextPC());
                     if (localVariable == null || localVariable.getName().endsWith("$")) {
-                        // iterator() result is stored to the synthetic variable which has no name in LVT or name is suffixed with '$'
+                        // iterator() result is stored to the synthetic variable which has no name in LVT or name is
+                        // suffixed with '$'
                         // Looks like it's for-each cycle like for(Object obj : this)
                         // Do not report such case
                         iteratorBug = null;
@@ -137,10 +138,11 @@ public class ConfusionBetweenInheritedAndOuterMethod extends OpcodeStackDetector
                     priority++;
                 }
 
-                BugInstance bug = new BugInstance(this, "IA_AMBIGUOUS_INVOCATION_OF_INHERITED_OR_OUTER_METHOD", priority)
-                        .addClassAndMethod(this).addMethod(invokedMethod).describe("METHOD_INHERITED")
-                        .addMethod(alternativeMethod).describe("METHOD_ALTERNATIVE_TARGET");
-                if (invokedMethod.getName().equals("iterator") && invokedMethod.getSignature().equals("()Ljava/util/Iterator;")
+                BugInstance bug = new BugInstance(this, "IA_AMBIGUOUS_INVOCATION_OF_INHERITED_OR_OUTER_METHOD",
+                        priority).addClassAndMethod(this).addMethod(invokedMethod).describe("METHOD_INHERITED")
+                                .addMethod(alternativeMethod).describe("METHOD_ALTERNATIVE_TARGET");
+                if (invokedMethod.getName().equals("iterator")
+                        && invokedMethod.getSignature().equals("()Ljava/util/Iterator;")
                         && Subtypes2.instanceOf(getDottedClassName(), "java.lang.Iterable")) {
                     iteratorBug = bug;
                 } else {

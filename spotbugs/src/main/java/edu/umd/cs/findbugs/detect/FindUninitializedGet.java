@@ -143,15 +143,15 @@ public class FindUninitializedGet extends BytecodeScanningDetector implements St
             XField xField = XFactory.createReferencedXField(this);
             FieldAnnotation f = FieldAnnotation.fromReferencedField(this);
             int nextOpcode = 0xff & codeBytes[getPC() + 3];
-            if (nextOpcode != Const.POP && !initializedFields.contains(f) && declaredFields.contains(f) && !containerFields.contains(f)
-                    && !unreadFields.isContainerField(xField)) {
+            if (nextOpcode != Const.POP && !initializedFields.contains(f) && declaredFields.contains(f)
+                    && !containerFields.contains(f) && !unreadFields.isContainerField(xField)) {
                 // System.out.println("Next opcode: " +
                 // Const.getOpcodeName(nextOpcode));
-                LocalVariableAnnotation possibleTarget = LocalVariableAnnotation.findMatchingIgnoredParameter(getClassContext(),
-                        getMethod(), getNameConstantOperand(), xField.getSignature());
+                LocalVariableAnnotation possibleTarget = LocalVariableAnnotation.findMatchingIgnoredParameter(
+                        getClassContext(), getMethod(), getNameConstantOperand(), xField.getSignature());
                 if (possibleTarget == null) {
-                    possibleTarget = LocalVariableAnnotation.findUniqueBestMatchingParameter(getClassContext(), getMethod(),
-                            getNameConstantOperand(), getSigConstantOperand());
+                    possibleTarget = LocalVariableAnnotation.findUniqueBestMatchingParameter(getClassContext(),
+                            getMethod(), getNameConstantOperand(), getSigConstantOperand());
                 }
                 int priority = unreadFields.getReadFields().contains(xField) ? NORMAL_PRIORITY : LOW_PRIORITY;
                 boolean priorityLoweredBecauseOfIfNonnullTest = false;
@@ -175,10 +175,10 @@ public class FindUninitializedGet extends BytecodeScanningDetector implements St
                 }
                 initializedFields.add(f);
             }
-        } else if ((seen == Const.INVOKESPECIAL && !(Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand()) && !getClassConstantOperand().equals(
-                getClassName())))
-                || (seen == Const.INVOKESTATIC && "doPrivileged".equals(getNameConstantOperand()) && "java/security/AccessController".equals(
-                        getClassConstantOperand()))
+        } else if ((seen == Const.INVOKESPECIAL && !(Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand())
+                && !getClassConstantOperand().equals(getClassName())))
+                || (seen == Const.INVOKESTATIC && "doPrivileged".equals(getNameConstantOperand())
+                        && "java/security/AccessController".equals(getClassConstantOperand()))
                 || (seen == Const.INVOKEVIRTUAL && getClassConstantOperand().equals(getClassName()))
                 || (seen == Const.INVOKEVIRTUAL && "start".equals(getNameConstantOperand()))) {
 

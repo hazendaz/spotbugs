@@ -31,10 +31,11 @@ import edu.umd.cs.findbugs.ba.AnalysisContext;
 import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 
 /**
- * A DetectorFactory is responsible for creating instances of Detector objects
- * and for maintaining meta-information about the detector class.
+ * A DetectorFactory is responsible for creating instances of Detector objects and for maintaining meta-information
+ * about the detector class.
  *
  * @author David Hovemeyer
+ *
  * @see Detector
  */
 public class DetectorFactory {
@@ -152,19 +153,15 @@ public class DetectorFactory {
      * @param enabled
      *            true if the Detector is enabled by default, false if disabled
      * @param speed
-     *            a string describing roughly how expensive the analysis
-     *            performed by the detector is; suggested values are "fast",
-     *            "moderate", and "slow"
+     *            a string describing roughly how expensive the analysis performed by the detector is; suggested values
+     *            are "fast", "moderate", and "slow"
      * @param reports
-     *            comma separated list of bug pattern codes reported by the
-     *            detector; empty if unknown
+     *            comma separated list of bug pattern codes reported by the detector; empty if unknown
      * @param requireJRE
-     *            string describing JRE version required to run the
-     *            detector: e.g., "1.5"
+     *            string describing JRE version required to run the detector: e.g., "1.5"
      */
-    public DetectorFactory(@Nonnull Plugin plugin, @Nonnull String className,
-            Class<?> detectorClass, boolean enabled, String speed,
-            String reports, String requireJRE) {
+    public DetectorFactory(@Nonnull Plugin plugin, @Nonnull String className, Class<?> detectorClass, boolean enabled,
+            String speed, String reports, String requireJRE) {
         this.plugin = plugin;
         this.className = className;
         this.detectorCreator = FindBugs.isNoAnalysis() ? null : new ReflectionDetectorCreator(detectorClass);
@@ -182,8 +179,7 @@ public class DetectorFactory {
     }
 
     /**
-     * Set the overall position in which this detector was specified in the
-     * plugin descriptor.
+     * Set the overall position in which this detector was specified in the plugin descriptor.
      *
      * @param positionSpecifiedInPluginDescriptor
      *            position in plugin descriptor
@@ -193,8 +189,7 @@ public class DetectorFactory {
     }
 
     /**
-     * Get the overall position in which this detector was specified in the
-     * plugin descriptor.
+     * Get the overall position in which this detector was specified in the plugin descriptor.
      *
      * @return position in plugin descriptor
      */
@@ -212,13 +207,12 @@ public class DetectorFactory {
     }
 
     /**
-     * Determine whether the detector class is a subtype of the given class (or
-     * interface).
+     * Determine whether the detector class is a subtype of the given class (or interface).
      *
      * @param otherClass
      *            a class or interface
-     * @return true if the detector class is a subtype of the given class or
-     *         interface
+     *
+     * @return true if the detector class is a subtype of the given class or interface
      */
     public boolean isDetectorClassSubtypeOf(Class<?> otherClass) {
         checkForNoAnalysis();
@@ -226,8 +220,7 @@ public class DetectorFactory {
     }
 
     /**
-     * Return whether or not this DetectorFactory produces detectors which
-     * report warnings.
+     * Return whether or not this DetectorFactory produces detectors which report warnings.
      *
      * @return true if the created Detectors report warnings, false if not
      */
@@ -235,13 +228,10 @@ public class DetectorFactory {
         return !isDetectorClassSubtypeOf(TrainingDetector.class) && !isDetectorClassSubtypeOf(FirstPassDetector.class);
     }
 
-
     /**
-     * Check to see if we are running on a recent-enough JRE for this detector
-     * to be enabled.
+     * Check to see if we are running on a recent-enough JRE for this detector to be enabled.
      *
-     * @return true if the current JRE is recent enough to run the Detector,
-     *         false if it is too old
+     * @return true if the current JRE is recent enough to run the Detector, false if it is too old
      */
     public boolean isEnabledForCurrentJRE() {
         if ("".equals(requireJRE)) {
@@ -271,9 +261,8 @@ public class DetectorFactory {
     }
 
     /**
-     * Set visibility of the factory (to GUI dialogs to configure detectors).
-     * Invisible detectors are those that are needed behind the scenes, but
-     * shouldn't be explicitly enabled or disabled by the user.
+     * Set visibility of the factory (to GUI dialogs to configure detectors). Invisible detectors are those that are
+     * needed behind the scenes, but shouldn't be explicitly enabled or disabled by the user.
      *
      * @param hidden
      *            true if this factory should be hidden, false if not
@@ -324,6 +313,7 @@ public class DetectorFactory {
 
     /**
      * Get the speed of the Detector produced by this factory.
+     *
      * @deprecated This attribute is not used actively, and could be removed in future release
      */
     @Deprecated
@@ -339,8 +329,8 @@ public class DetectorFactory {
     }
 
     /**
-     * Get set of all BugPatterns this detector reports. An empty set means that
-     * we don't know what kind of bug patterns might be reported.
+     * Get set of all BugPatterns this detector reports. An empty set means that we don't know what kind of bug patterns
+     * might be reported.
      */
     public Set<BugPattern> getReportedBugPatterns() {
         Set<BugPattern> result = new TreeSet<>();
@@ -370,12 +360,14 @@ public class DetectorFactory {
     }
 
     /**
-     * Create a Detector instance. This method is only guaranteed to work for
-     * old-style detectors using the BCEL bytecode framework.
+     * Create a Detector instance. This method is only guaranteed to work for old-style detectors using the BCEL
+     * bytecode framework.
      *
      * @param bugReporter
      *            the BugReporter to be used to report bugs
+     *
      * @return the Detector
+     *
      * @deprecated Use createDetector2 in new code
      */
     @Deprecated
@@ -389,6 +381,7 @@ public class DetectorFactory {
      *
      * @param bugReporter
      *            the BugReporter to be used to report bugs
+     *
      * @return the Detector2
      */
     public Detector2 createDetector2(BugReporter bugReporter) {
@@ -397,8 +390,7 @@ public class DetectorFactory {
     }
 
     /**
-     * Get the short name of the Detector. This is the name of the detector
-     * class without the package qualification.
+     * Get the short name of the Detector. This is the name of the detector class without the package qualification.
      */
     public String getShortName() {
         int endOfPkg = className.lastIndexOf('.');
@@ -415,8 +407,7 @@ public class DetectorFactory {
     }
 
     /**
-     * Get the full name of the detector. This is the name of the detector
-     * class, with package qualification.
+     * Get the full name of the detector. This is the name of the detector class, with package qualification.
      */
     public @Nonnull @DottedClassName String getFullName() {
         return className;

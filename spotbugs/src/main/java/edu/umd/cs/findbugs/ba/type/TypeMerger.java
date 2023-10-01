@@ -24,10 +24,11 @@ import org.apache.bcel.generic.Type;
 import edu.umd.cs.findbugs.ba.DataflowAnalysisException;
 
 /**
- * Interface for object which merges types for TypeAnalysis. By allowing
- * multiple implementations, we allow creation of specialized type systems.
+ * Interface for object which merges types for TypeAnalysis. By allowing multiple implementations, we allow creation of
+ * specialized type systems.
  *
  * @author David Hovemeyer
+ *
  * @see TypeAnalysis
  */
 public interface TypeMerger {
@@ -38,6 +39,7 @@ public interface TypeMerger {
      *            a Type
      * @param b
      *            a Type
+     *
      * @return the result of merging the two Types
      */
     public Type mergeTypes(Type a, Type b) throws DataflowAnalysisException;

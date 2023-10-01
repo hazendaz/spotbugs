@@ -56,8 +56,7 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 
 /**
- * Find places where ordinary (balanced) synchronization is performed on JSR166
- * Lock objects. Suggested by Doug Lea.
+ * Find places where ordinary (balanced) synchronization is performed on JSR166 Lock objects. Suggested by Doug Lea.
  *
  * @author David Hovemeyer
  */
@@ -155,8 +154,8 @@ public final class FindJSR166LockMonitorenter implements Detector, StatelessDete
                             // verification problem.
                             continue;
                         }
-                        ClassDescriptor classDescriptor = DescriptorFactory.createClassDescriptorFromSignature(type
-                                .getSignature());
+                        ClassDescriptor classDescriptor = DescriptorFactory
+                                .createClassDescriptorFromSignature(type.getSignature());
                         if (classDescriptor.equals(classContext.getClassDescriptor())) {
                             continue;
                         }
@@ -184,10 +183,13 @@ public final class FindJSR166LockMonitorenter implements Detector, StatelessDete
                         }
 
                         if (m != null && m.isPublic() && c.isPublic()) {
-                            bugReporter.reportBug(new BugInstance(this, "JML_JSR166_CALLING_WAIT_RATHER_THAN_AWAIT", priority)
-                                    .addClassAndMethod(classContext.getJavaClass(), method).addCalledMethod(cpg, iv).addMethod(m)
-                                    .describe(MethodAnnotation.METHOD_ALTERNATIVE_TARGET).addType(classDescriptor)
-                                    .describe(TypeAnnotation.FOUND_ROLE).addSourceLine(classContext, method, location));
+                            bugReporter.reportBug(
+                                    new BugInstance(this, "JML_JSR166_CALLING_WAIT_RATHER_THAN_AWAIT", priority)
+                                            .addClassAndMethod(classContext.getJavaClass(), method)
+                                            .addCalledMethod(cpg, iv).addMethod(m)
+                                            .describe(MethodAnnotation.METHOD_ALTERNATIVE_TARGET)
+                                            .addType(classDescriptor).describe(TypeAnnotation.FOUND_ROLE)
+                                            .addSourceLine(classContext, method, location));
                         }
 
                     } catch (CheckedAnalysisException e) {
@@ -231,15 +233,19 @@ public final class FindJSR166LockMonitorenter implements Detector, StatelessDete
             boolean isUtilConcurrentSig = sig.startsWith(UTIL_CONCURRRENT_SIG_PREFIX);
 
             if (isSubtype) {
-                bugReporter.reportBug(new BugInstance(this, "JLM_JSR166_LOCK_MONITORENTER", isUtilConcurrentSig ? HIGH_PRIORITY
-                        : NORMAL_PRIORITY).addClassAndMethod(classContext.getJavaClass(), method).addType(sig)
-                        .addSourceForTopStackValue(classContext, method, location).addSourceLine(classContext, method, location));
+                bugReporter.reportBug(new BugInstance(this, "JLM_JSR166_LOCK_MONITORENTER",
+                        isUtilConcurrentSig ? HIGH_PRIORITY : NORMAL_PRIORITY)
+                                .addClassAndMethod(classContext.getJavaClass(), method).addType(sig)
+                                .addSourceForTopStackValue(classContext, method, location)
+                                .addSourceLine(classContext, method, location));
             } else if (isUtilConcurrentSig) {
 
-                int priority = "Ljava/util/concurrent/CopyOnWriteArrayList;".equals(sig) ? HIGH_PRIORITY : NORMAL_PRIORITY;
+                int priority = "Ljava/util/concurrent/CopyOnWriteArrayList;".equals(sig) ? HIGH_PRIORITY
+                        : NORMAL_PRIORITY;
                 bugReporter.reportBug(new BugInstance(this, "JLM_JSR166_UTILCONCURRENT_MONITORENTER", priority)
                         .addClassAndMethod(classContext.getJavaClass(), method).addType(sig)
-                        .addSourceForTopStackValue(classContext, method, location).addSourceLine(classContext, method, location));
+                        .addSourceForTopStackValue(classContext, method, location)
+                        .addSourceLine(classContext, method, location));
 
             }
         }

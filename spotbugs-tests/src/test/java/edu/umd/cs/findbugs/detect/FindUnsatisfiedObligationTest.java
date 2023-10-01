@@ -19,12 +19,12 @@ class FindUnsatisfiedObligationTest {
     public SpotBugsExtension spotbugs = new SpotBugsExtension();
 
     /**
-     * @see <a href="https://github.com/spotbugs/spotbugs/issues/60">GitHub
-     *      issue</a>
+     * @see <a href="https://github.com/spotbugs/spotbugs/issues/60">GitHub issue</a>
      */
     @Test
     void testIssue60(SpotBugsRunner spotbugs) {
-        BugCollection bugCollection = spotbugs.performAnalysis(Path.of("../spotbugsTestCases/build/classes/java/main/lambdas/Issue60.class"));
+        BugCollection bugCollection = spotbugs
+                .performAnalysis(Path.of("../spotbugsTestCases/build/classes/java/main/lambdas/Issue60.class"));
         assertThat(bugCollection, is(emptyIterable()));
     }
 }

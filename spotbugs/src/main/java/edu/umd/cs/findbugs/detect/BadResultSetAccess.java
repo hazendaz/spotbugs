@@ -36,9 +36,9 @@ import edu.umd.cs.findbugs.visitclass.PreorderVisitor;
 public class BadResultSetAccess extends OpcodeStackDetector {
 
     @StaticConstant
-    private static final Set<String> dbFieldTypesSet = Set.of("Array", "AsciiStream", "BigDecimal", "BinaryStream", "Blob", "Boolean", "Byte",
-            "Bytes", "CharacterStream", "Clob", "Date", "Double", "Float", "Int", "Long", "Object", "Ref", "RowId", "Short", "String", "Time",
-            "Timestamp", "UnicodeStream", "URL");
+    private static final Set<String> dbFieldTypesSet = Set.of("Array", "AsciiStream", "BigDecimal", "BinaryStream",
+            "Blob", "Boolean", "Byte", "Bytes", "CharacterStream", "Clob", "Date", "Double", "Float", "Int", "Long",
+            "Object", "Ref", "RowId", "Short", "String", "Time", "Timestamp", "UnicodeStream", "URL");
 
     private final BugReporter bugReporter;
 
@@ -48,7 +48,8 @@ public class BadResultSetAccess extends OpcodeStackDetector {
 
     @Override
     public void visitClassContext(ClassContext classContext) {
-        if (hasInterestingClass(classContext.getJavaClass().getConstantPool(), Collections.singleton("java/sql/ResultSet"))) {
+        if (hasInterestingClass(classContext.getJavaClass().getConstantPool(),
+                Collections.singleton("java/sql/ResultSet"))) {
             super.visitClassContext(classContext);
         }
     }
@@ -59,11 +60,11 @@ public class BadResultSetAccess extends OpcodeStackDetector {
         if (seen == Const.INVOKEINTERFACE) {
             String methodName = getNameConstantOperand();
             String clsConstant = getClassConstantOperand();
-            if (("java/sql/ResultSet".equals(clsConstant) && ((methodName.startsWith("get") && dbFieldTypesSet
-                    .contains(methodName.substring(3))) || (methodName.startsWith("update") && dbFieldTypesSet
-                            .contains(methodName.substring(6)))))
-                    || (("java/sql/PreparedStatement".equals(clsConstant) && ((methodName.startsWith("set") && dbFieldTypesSet
-                            .contains(methodName.substring(3))))))) {
+            if (("java/sql/ResultSet".equals(clsConstant)
+                    && ((methodName.startsWith("get") && dbFieldTypesSet.contains(methodName.substring(3)))
+                            || (methodName.startsWith("update") && dbFieldTypesSet.contains(methodName.substring(6)))))
+                    || (("java/sql/PreparedStatement".equals(clsConstant) && ((methodName.startsWith("set")
+                            && dbFieldTypesSet.contains(methodName.substring(3))))))) {
                 String signature = getSigConstantOperand();
                 int numParms = PreorderVisitor.getNumberArguments(signature);
                 if (stack.getStackDepth() >= numParms) {
@@ -72,8 +73,9 @@ public class BadResultSetAccess extends OpcodeStackDetector {
                     if ("I".equals(item.getSignature()) && item.couldBeZero()) {
                         bugReporter.reportBug(new BugInstance(this,
                                 "java/sql/PreparedStatement".equals(clsConstant) ? "SQL_BAD_PREPARED_STATEMENT_ACCESS"
-                                        : "SQL_BAD_RESULTSET_ACCESS", item.mustBeZero() ? HIGH_PRIORITY : NORMAL_PRIORITY)
-                                .addClassAndMethod(this).addSourceLine(this));
+                                        : "SQL_BAD_RESULTSET_ACCESS",
+                                item.mustBeZero() ? HIGH_PRIORITY : NORMAL_PRIORITY).addClassAndMethod(this)
+                                        .addSourceLine(this));
                     }
                 }
             }

@@ -35,30 +35,28 @@ import org.apache.bcel.generic.StackConsumer;
 import edu.umd.cs.findbugs.SystemProperties;
 
 /**
- * <p>Generic class for representing a Java stack frame as a dataflow value. A
- * frame consists of "slots", which represent the local variables and values on
- * the Java operand stack. Slots 0 .. <code>getNumLocals() - 1</code> represent
- * the local variables. Slots <code>getNumLocals()</code> ..
- * <code>getNumSlots() - 1</code> represent the Java operand stack.
+ * <p>
+ * Generic class for representing a Java stack frame as a dataflow value. A frame consists of "slots", which represent
+ * the local variables and values on the Java operand stack. Slots 0 .. <code>getNumLocals() - 1</code> represent the
+ * local variables. Slots <code>getNumLocals()</code> .. <code>getNumSlots() - 1</code> represent the Java operand
+ * stack.
  * </p>
  * <p>
- * Frame is parametized by "ValueType", which is the type of value to be stored
- * in the Frame's slots. This type must form a lattice, according to the
- * abstract mergeValues() operation in the corresponding analysis class (which
- * should be derived from FrameDataflowAnalysis). When a Frame is constructed,
- * all of its slots will contain null. The analysis is responsible for
- * initializing created Frames with default values at the appropriate time.
- * Typically, only initEntryFact() will need to do this.
+ * Frame is parametized by "ValueType", which is the type of value to be stored in the Frame's slots. This type must
+ * form a lattice, according to the abstract mergeValues() operation in the corresponding analysis class (which should
+ * be derived from FrameDataflowAnalysis). When a Frame is constructed, all of its slots will contain null. The analysis
+ * is responsible for initializing created Frames with default values at the appropriate time. Typically, only
+ * initEntryFact() will need to do this.
  * </p>
  * <p>
- * A Frame may have the special "TOP" value. Such frames serve as the identity
- * element for the meet operation operation.
+ * A Frame may have the special "TOP" value. Such frames serve as the identity element for the meet operation operation.
  * </p>
  * <p>
- * A Frame may have the special "BOTTOM" value. The result of merging any frame
- * with BOTTOM is BOTTOM.</p>
+ * A Frame may have the special "BOTTOM" value. The result of merging any frame with BOTTOM is BOTTOM.
+ * </p>
  *
  * @author David Hovemeyer
+ *
  * @see FrameDataflowAnalysis
  */
 public abstract class Frame<ValueType> {
@@ -80,14 +78,12 @@ public abstract class Frame<ValueType> {
     private ArrayList<ValueType> slotList;
 
     /**
-     * Flag marking this frame as a special "TOP" value. Such Frames serve as
-     * the identity element when merging.
+     * Flag marking this frame as a special "TOP" value. Such Frames serve as the identity element when merging.
      */
     private boolean isTop;
 
     /**
-     * Flag marking this frame as a special "BOTTOM" value. Such Frames arise
-     * when merging two frames of different size.
+     * Flag marking this frame as a special "BOTTOM" value. Such Frames arise when merging two frames of different size.
      */
     private boolean isBottom;
 
@@ -101,9 +97,8 @@ public abstract class Frame<ValueType> {
     // //////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Constructor. This version of the constructor is for subclasses for which
-     * it is always safe to call getDefaultValue(), even when the object is not
-     * fully initialized.
+     * Constructor. This version of the constructor is for subclasses for which it is always safe to call
+     * getDefaultValue(), even when the object is not fully initialized.
      *
      * @param numLocals
      *            number of local variable slots in the method
@@ -117,16 +112,15 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Return whether or not this object the special "TOP" value for Frames.
-     * Such Frames are the identity element of the meet operation.
+     * Return whether or not this object the special "TOP" value for Frames. Such Frames are the identity element of the
+     * meet operation.
      */
     public boolean isTop() {
         return isTop;
     }
 
     /**
-     * Make this frame the special "TOP" value. Such Frames are the identity
-     * element of the meet operation.
+     * Make this frame the special "TOP" value. Such Frames are the identity element of the meet operation.
      */
     public void setTop() {
         isTop = true;
@@ -135,16 +129,15 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Return whether or not this object is the special "BOTTOM" value for
-     * Frames. Such Frames arise when merging two frames of different size.
+     * Return whether or not this object is the special "BOTTOM" value for Frames. Such Frames arise when merging two
+     * frames of different size.
      */
     public boolean isBottom() {
         return isBottom;
     }
 
     /**
-     * Make this Frame the special "BOTTOM" value. Such Frames arise when
-     * merging two frames of different size.
+     * Make this Frame the special "BOTTOM" value. Such Frames arise when merging two frames of different size.
      */
     public void setBottom() {
         isBottom = true;
@@ -185,6 +178,7 @@ public abstract class Frame<ValueType> {
      * Pop a value off of the Java operand stack.
      *
      * @return the value that was popped
+     *
      * @throws DataflowAnalysisException
      *             if the Java operand stack is empty
      */
@@ -216,9 +210,8 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Get the values on the top of the Java operand stack. The top stack item
-     * is placed at the end of the array, so that to restore the values to the
-     * stack, you would push them in the order they appear in the array.
+     * Get the values on the top of the Java operand stack. The top stack item is placed at the end of the array, so
+     * that to restore the values to the stack, you would push them in the order they appear in the array.
      */
     public void getTopStackWords(ValueType[] valueList) throws DataflowAnalysisException {
         int stackDepth = getStackDepth();
@@ -235,8 +228,7 @@ public abstract class Frame<ValueType> {
      * Get a value on the operand stack.
      *
      * @param loc
-     *            the stack location, counting downwards from the top (location
-     *            0)
+     *            the stack location, counting downwards from the top (location 0)
      */
     public ValueType getStackValue(int loc) throws DataflowAnalysisException {
         if (!isValid()) {
@@ -257,8 +249,7 @@ public abstract class Frame<ValueType> {
      * Get a the location in the frame of a value on the operand stack.
      *
      * @param loc
-     *            the stack location, counting downwards from the top (location
-     *            0)
+     *            the stack location, counting downwards from the top (location 0)
      */
     public int getStackLocation(int loc) throws DataflowAnalysisException {
         int stackDepth = getStackDepth();
@@ -269,10 +260,9 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Get the value corresponding to the object instance used in the given
-     * instruction. This relies on the observation that in instructions which
-     * use an object instance (such as getfield, invokevirtual, etc.), the
-     * object instance is the first operand used by the instruction.
+     * Get the value corresponding to the object instance used in the given instruction. This relies on the observation
+     * that in instructions which use an object instance (such as getfield, invokevirtual, etc.), the object instance is
+     * the first operand used by the instruction.
      *
      * @param ins
      *            the instruction
@@ -284,11 +274,9 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Get the stack location (counting down from top of stack, starting at 0)
-     * containing the object instance referred to by given instruction. This
-     * relies on the observation that in instructions which use an object
-     * instance (such as getfield, invokevirtual, etc.), the object instance is
-     * the first operand used by the instruction.
+     * Get the stack location (counting down from top of stack, starting at 0) containing the object instance referred
+     * to by given instruction. This relies on the observation that in instructions which use an object instance (such
+     * as getfield, invokevirtual, etc.), the object instance is the first operand used by the instruction.
      *
      * <p>
      * The value returned may be passed to getStackValue(int).
@@ -298,8 +286,9 @@ public abstract class Frame<ValueType> {
      *            the Instruction
      * @param cpg
      *            the ConstantPoolGen for the method
-     * @return stack location (counting down from top of stack, starting at 0)
-     *         containing the object instance
+     *
+     * @return stack location (counting down from top of stack, starting at 0) containing the object instance
+     *
      * @throws DataflowAnalysisException
      */
     public int getInstanceStackLocation(Instruction ins, ConstantPoolGen cpg) throws DataflowAnalysisException {
@@ -311,14 +300,15 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Get the slot the object instance referred to by given instruction is
-     * located in.
+     * Get the slot the object instance referred to by given instruction is located in.
      *
      * @param ins
      *            the Instruction
      * @param cpg
      *            the ConstantPoolGen for the method
+     *
      * @return stack slot the object instance is in
+     *
      * @throws DataflowAnalysisException
      */
     public int getInstanceSlot(Instruction ins, ConstantPoolGen cpg) throws DataflowAnalysisException {
@@ -342,8 +332,8 @@ public abstract class Frame<ValueType> {
      *            the method invocation instruction
      * @param cpg
      *            the ConstantPoolGen for the class containing the method
-     * @return number of arguments; note that this excludes the object instance
-     *         for instance methods
+     *
+     * @return number of arguments; note that this excludes the object instance for instance methods
      */
     public int getNumArguments(InvokeInstruction ins, ConstantPoolGen cpg) {
         SignatureParser parser = new SignatureParser(ins.getSignature(cpg));
@@ -351,14 +341,16 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Get the number of arguments passed to given method invocation, including
-     * the object instance if the call is to an instance method.
+     * Get the number of arguments passed to given method invocation, including the object instance if the call is to an
+     * instance method.
      *
      * @param ins
      *            the method invocation instruction
      * @param cpg
      *            the ConstantPoolGen for the class containing the method
+     *
      * @return number of arguments, including object instance if appropriate
+     *
      * @throws DataflowAnalysisException
      */
     public int getNumArgumentsIncludingObjectInstance(InvokeInstruction ins, ConstantPoolGen cpg)
@@ -381,7 +373,9 @@ public abstract class Frame<ValueType> {
      *            index of the argument; 0 for the first argument, etc.
      * @param numArguments
      *            total number of arguments to the method
+     *
      * @return the <i>i</i>th argument
+     *
      * @throws DataflowAnalysisException
      */
     @Deprecated
@@ -400,7 +394,9 @@ public abstract class Frame<ValueType> {
      *            the ConstantPoolGen for the class containing the method
      * @param i
      *            index of the argument; 0 for the first argument, etc.
+     *
      * @return the <i>i</i>th argument
+     *
      * @throws DataflowAnalysisException
      */
     public ValueType getArgument(InvokeInstruction ins, ConstantPoolGen cpg, int i, SignatureParser sigParser)
@@ -412,14 +408,14 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Get the stack slot that will contain given method argument. Assumes that
-     * this frame is at the location (just before) a method invocation
-     * instruction.
+     * Get the stack slot that will contain given method argument. Assumes that this frame is at the location (just
+     * before) a method invocation instruction.
      *
      * @param i
      *            the argument index: 0 for first arg, etc.
      * @param numArguments
      *            total number of arguments to the called method
+     *
      * @return slot containing the argument value
      */
     public int getArgumentSlot(int i, int numArguments) {
@@ -439,7 +435,9 @@ public abstract class Frame<ValueType> {
      *            the ConstantPoolGen
      * @param i
      *            index of operand to get: 0 for the first operand, etc.
+     *
      * @return the <i>i</i>th operand used by the given instruction
+     *
      * @throws DataflowAnalysisException
      */
     public ValueType getOperand(StackConsumer ins, ConstantPoolGen cpg, int i) throws DataflowAnalysisException {
@@ -451,22 +449,21 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Get set of arguments passed to a method invocation which match given
-     * predicate.
+     * Get set of arguments passed to a method invocation which match given predicate.
      *
      * @param invokeInstruction
      *            the InvokeInstruction
      * @param cpg
      *            the ConstantPoolGen
      * @param chooser
-     *            predicate to choose which argument values should be in the
-     *            returned set
-     * @return BitSet specifying which arguments match the predicate, indexed by
-     *         argument number (starting from 0)
+     *            predicate to choose which argument values should be in the returned set
+     *
+     * @return BitSet specifying which arguments match the predicate, indexed by argument number (starting from 0)
+     *
      * @throws DataflowAnalysisException
      */
-    public BitSet getArgumentSet(InvokeInstruction invokeInstruction, ConstantPoolGen cpg, DataflowValueChooser<ValueType> chooser)
-            throws DataflowAnalysisException {
+    public BitSet getArgumentSet(InvokeInstruction invokeInstruction, ConstantPoolGen cpg,
+            DataflowValueChooser<ValueType> chooser) throws DataflowAnalysisException {
         BitSet chosenArgSet = new BitSet();
         SignatureParser sigParser = new SignatureParser(invokeInstruction.getSignature(cpg));
 
@@ -481,8 +478,7 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Clear the Java operand stack. Only local variable slots will remain in
-     * the frame.
+     * Clear the Java operand stack. Only local variable slots will remain in the frame.
      */
     public void clearStack() {
         if (!isValid()) {
@@ -532,6 +528,7 @@ public abstract class Frame<ValueType> {
      *
      * @param n
      *            the slot to get the value of
+     *
      * @return the value in the slot
      */
     public ValueType getValue(int n) {
@@ -560,11 +557,11 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Return true if this stack frame is the same as the one given as a
-     * parameter.
+     * Return true if this stack frame is the same as the one given as a parameter.
      *
      * @param other
      *            the other Frame
+     *
      * @return true if the frames are the same, false otherwise
      */
     public boolean sameAs(Frame<ValueType> other) {
@@ -649,9 +646,8 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * Subclasses may override this if they want to do something special to
-     * convert Value objects to Strings. By default, we just call toString() on
-     * the values.
+     * Subclasses may override this if they want to do something special to convert Value objects to Strings. By
+     * default, we just call toString() on the values.
      */
     protected String valueToString(ValueType value) {
         if (value == null) {
@@ -661,14 +657,13 @@ public abstract class Frame<ValueType> {
     }
 
     /**
-     * @return an unmodifiable Collection of the local variable and operand
-     *         stack slots
+     * @return an unmodifiable Collection of the local variable and operand stack slots
      */
     public Collection<ValueType> allSlots() {
         if (slotList == null) {
-            return Collections.<ValueType>emptyList();
+            return Collections.<ValueType> emptyList();
         }
-        return Collections.<ValueType>unmodifiableCollection(slotList);
+        return Collections.<ValueType> unmodifiableCollection(slotList);
     }
 
     /**

@@ -18,8 +18,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 class NullnessAnnotationTest {
 
     private static Stream<Arguments> parameters() {
-        return Stream.of(
-                Arguments.of("android.support.annotation.NonNull", NullnessAnnotation.NONNULL),
+        return Stream.of(Arguments.of("android.support.annotation.NonNull", NullnessAnnotation.NONNULL),
                 Arguments.of("android.support.annotation.Nullable", NullnessAnnotation.CHECK_FOR_NULL),
 
                 // there is no such thing as com.google.common.base.NonNull
@@ -32,10 +31,13 @@ class NullnessAnnotationTest {
                 Arguments.of("org.jetbrains.annotations.Nullable", NullnessAnnotation.CHECK_FOR_NULL),
 
                 Arguments.of("org.checkerframework.checker.nullness.qual.Nullable", NullnessAnnotation.CHECK_FOR_NULL),
-                Arguments.of("org.checkerframework.checker.nullness.compatqual.NullableDecl", NullnessAnnotation.CHECK_FOR_NULL),
+                Arguments.of("org.checkerframework.checker.nullness.compatqual.NullableDecl",
+                        NullnessAnnotation.CHECK_FOR_NULL),
 
-                Arguments.of(edu.umd.cs.findbugs.annotations.CheckForNull.class.getName(), NullnessAnnotation.CHECK_FOR_NULL),
-                Arguments.of(edu.umd.cs.findbugs.annotations.PossiblyNull.class.getName(), NullnessAnnotation.CHECK_FOR_NULL),
+                Arguments.of(edu.umd.cs.findbugs.annotations.CheckForNull.class.getName(),
+                        NullnessAnnotation.CHECK_FOR_NULL),
+                Arguments.of(edu.umd.cs.findbugs.annotations.PossiblyNull.class.getName(),
+                        NullnessAnnotation.CHECK_FOR_NULL),
 
                 Arguments.of(javax.annotation.CheckForNull.class.getName(), NullnessAnnotation.CHECK_FOR_NULL),
                 Arguments.of(jakarta.annotation.Nonnull.class.getName(), NullnessAnnotation.NONNULL),

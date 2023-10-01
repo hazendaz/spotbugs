@@ -25,7 +25,8 @@ class WarningSuppressorTest extends AbstractIntegrationTest {
         assertBugInMethodAtLine("NP_ALWAYS_NULL", "suppress.SuppressedBugs", "nonSuppressedNpeExact", 33);
         assertBugInMethodAtLine("NP_LOAD_OF_KNOWN_NULL_VALUE", "suppress.SuppressedBugs", "nonSuppressedNpeExact", 33);
         assertBugInMethodAtLine("NP_ALWAYS_NULL", "suppress.SuppressedBugs", "nonSuppressedNpeExactDifferentCase", 41);
-        assertBugInMethodAtLine("NP_LOAD_OF_KNOWN_NULL_VALUE", "suppress.SuppressedBugs", "nonSuppressedNpeExactDifferentCase", 41);
+        assertBugInMethodAtLine("NP_LOAD_OF_KNOWN_NULL_VALUE", "suppress.SuppressedBugs",
+                "nonSuppressedNpeExactDifferentCase", 41);
         assertBugInMethod("US_USELESS_SUPPRESSION_ON_METHOD", "suppress.SuppressedBugs", "nonSuppressedNpeExact");
 
         assertMethodBugsCount("suppressedNpeRegex", 0);
@@ -50,18 +51,21 @@ class WarningSuppressorTest extends AbstractIntegrationTest {
         performAnalysis("suppress/custom/ExampleWithUnusedFields.class", "suppress/custom/SuppressFBWarnings.class");
 
         // Field with an useless suppression
-        assertBugAtField("US_USELESS_SUPPRESSION_ON_FIELD", "suppress.custom.ExampleWithUnusedFields", "uselessSuppression");
+        assertBugAtField("US_USELESS_SUPPRESSION_ON_FIELD", "suppress.custom.ExampleWithUnusedFields",
+                "uselessSuppression");
         assertBugAtField("UUF_UNUSED_FIELD", "suppress.custom.ExampleWithUnusedFields", "uselessSuppression");
 
         // Field with an unknown annotation and an useless annotation
-        assertBugAtField("US_USELESS_SUPPRESSION_ON_FIELD", "suppress.custom.ExampleWithUnusedFields", "injectedAndUselessSuppression");
+        assertBugAtField("US_USELESS_SUPPRESSION_ON_FIELD", "suppress.custom.ExampleWithUnusedFields",
+                "injectedAndUselessSuppression");
 
         // unused field
         assertBugAtField("UUF_UNUSED_FIELD", "suppress.custom.ExampleWithUnusedFields", "unused");
 
         // unused field with suppress annotation: no bug expected here
         assertNoBugAtField("UUF_UNUSED_FIELD", "suppress.custom.ExampleWithUnusedFields", "unusedSuppressed");
-        assertNoBugAtField("US_USELESS_SUPPRESSION_ON_FIELD", "suppress.custom.ExampleWithUnusedFields", "unusedSuppressed");
+        assertNoBugAtField("US_USELESS_SUPPRESSION_ON_FIELD", "suppress.custom.ExampleWithUnusedFields",
+                "unusedSuppressed");
 
         // Check the bug counts for this class
         assertBugInClassCount("US_USELESS_SUPPRESSION_ON_FIELD", "suppress.custom.ExampleWithUnusedFields", 2);

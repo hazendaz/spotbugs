@@ -33,11 +33,11 @@ import edu.umd.cs.findbugs.ba.vna.ValueNumberDataflow;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * Analysis to determine where particular values are locked in a method. The
- * dataflow values are maps of value numbers to the number of times those values
- * are locked.
+ * Analysis to determine where particular values are locked in a method. The dataflow values are maps of value numbers
+ * to the number of times those values are locked.
  *
  * @author David Hovemeyer
+ *
  * @see ValueNumberAnalysis
  */
 public class LockAnalysis extends ForwardDataflowAnalysis<LockSet> {

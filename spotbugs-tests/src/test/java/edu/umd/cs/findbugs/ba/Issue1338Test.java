@@ -15,7 +15,8 @@ class Issue1338Test extends AbstractIntegrationTest {
     private static final String[] CLASS_LIST = { "../java11/module-info.class", "../java11/Issue1338.class", };
 
     /**
-     * Test that calling a method call when initializing a try-with-resource variable doesn't result in redundant nullcheck of nonnull value.
+     * Test that calling a method call when initializing a try-with-resource variable doesn't result in redundant
+     * nullcheck of nonnull value.
      */
     @Test
     @DisabledOnJre(JRE.JAVA_8)

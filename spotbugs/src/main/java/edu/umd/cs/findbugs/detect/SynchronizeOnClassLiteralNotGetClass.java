@@ -54,8 +54,7 @@ public class SynchronizeOnClassLiteralNotGetClass extends OpcodeStackDetector {
     }
 
     /*
-     * Looking for ALOAD 0 INVOKEVIRTUAL
-     * java/lang/Object.getClass()Ljava/lang/Class; DUP ASTORE 1 MONITORENTER
+     * Looking for ALOAD 0 INVOKEVIRTUAL java/lang/Object.getClass()Ljava/lang/Class; DUP ASTORE 1 MONITORENTER
      */
     int state = 0;
 

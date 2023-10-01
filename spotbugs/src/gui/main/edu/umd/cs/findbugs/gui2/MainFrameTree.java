@@ -146,7 +146,7 @@ public class MainFrameTree {
             if (mainFrame.getBugCollection() != null) {
                 bs = new BugSet(mainFrame.getBugCollection());
             } else {
-                bs = new BugSet(Collections.<BugLeafNode>emptySet());
+                bs = new BugSet(Collections.<BugLeafNode> emptySet());
             }
             model.getOffListenerList();
             model.changeSet(bs);
@@ -162,13 +162,9 @@ public class MainFrameTree {
     }
 
     private void warnUserOfFilters() {
-        JOptionPane
-                .showMessageDialog(
-                        mainFrame,
-                        edu.umd.cs.findbugs.L10N
-                                .getLocalString("dlg.everything_is_filtered",
-                                        "All bugs in this project appear to be filtered out.  \nYou may wish to check your filter settings in the preferences menu."),
-                        "Warning", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(mainFrame, edu.umd.cs.findbugs.L10N.getLocalString("dlg.everything_is_filtered",
+                "All bugs in this project appear to be filtered out.  \nYou may wish to check your filter settings in the preferences menu."),
+                "Warning", JOptionPane.WARNING_MESSAGE);
     }
 
     /**
@@ -180,10 +176,10 @@ public class MainFrameTree {
         JMenuItem filterMenuItem = MainFrameHelper.newJMenuItem("menu.filterBugsLikeThis", "Filter bugs like this");
 
         filterMenuItem.addActionListener(evt -> {
-            new NewFilterFromBug(new FilterFromBugPicker(currentSelectedBugLeaf.getBug(),
-                    Arrays.asList(mainFrame.getAvailableSortables())),
-                    new ApplyNewFilter(mainFrame.getProject().getSuppressionFilter(),
-                            PreferencesFrame.getInstance(),
+            new NewFilterFromBug(
+                    new FilterFromBugPicker(currentSelectedBugLeaf.getBug(),
+                            Arrays.asList(mainFrame.getAvailableSortables())),
+                    new ApplyNewFilter(mainFrame.getProject().getSuppressionFilter(), PreferencesFrame.getInstance(),
                             new FilterActivityNotifier()));
 
             mainFrame.setProjectChanged(true);
@@ -196,8 +192,7 @@ public class MainFrameTree {
     }
 
     /**
-     * Creates the branch pop up menu that ask if the user wants to hide all the
-     * bugs in that branch.
+     * Creates the branch pop up menu that ask if the user wants to hide all the bugs in that branch.
      */
     JPopupMenu createBranchPopUpMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
@@ -239,16 +234,15 @@ public class MainFrameTree {
                     count = ((BugAspects) (deletePath.getParentPath().getLastPathComponent())).getCount();
                 }
                 /*
-                 * deletePath should now be a path to the highest ancestor
-                 * branch with the same number of elements as the branch to
-                 * be deleted in other words, the branch that we actually
-                 * have to remove in order to correctly remove the selected
-                 * branch.
+                 * deletePath should now be a path to the highest ancestor branch with the same number of elements as
+                 * the branch to be deleted in other words, the branch that we actually have to remove in order to
+                 * correctly remove the selected branch.
                  */
                 BugTreeModel model = MainFrame.getInstance().getBugTreeModel();
                 TreeModelEvent event = new TreeModelEvent(mainFrame, deletePath.getParentPath(),
                         new int[] { model.getIndexOfChild(deletePath.getParentPath().getLastPathComponent(),
-                                deletePath.getLastPathComponent()) }, new Object[] { deletePath.getLastPathComponent() });
+                                deletePath.getLastPathComponent()) },
+                        new Object[] { deletePath.getLastPathComponent() });
                 Matcher m2 = mainFrame.getCurrentSelectedBugAspects().getMatcher();
                 Filter suppressionFilter2 = MainFrame.getInstance().getProject().getSuppressionFilter();
                 suppressionFilter2.addChild(m2);
@@ -386,15 +380,16 @@ public class MainFrameTree {
         });
         sorter = GUISaveState.getInstance().getStarterTable();
         getTableheader().setColumnModel(getSorter());
-        getTableheader().setToolTipText(
-                edu.umd.cs.findbugs.L10N.getLocalString("tooltip.reorder_message", "Drag to reorder tree folder and sort order"));
+        getTableheader().setToolTipText(edu.umd.cs.findbugs.L10N.getLocalString("tooltip.reorder_message",
+                "Drag to reorder tree folder and sort order"));
 
         tree = new JTree();
         getTree().setLargeModel(true);
         getTree().getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         getTree().setCellRenderer(new BugRenderer());
         getTree().setRowHeight((int) (Driver.getFontSize() + 7));
-        getTree().setModel(new BugTreeModel(mainFrame, getTree(), getSorter(), new BugSet(new ArrayList<BugLeafNode>())));
+        getTree().setModel(
+                new BugTreeModel(mainFrame, getTree(), getSorter(), new BugSet(new ArrayList<BugLeafNode>())));
         setupTreeListeners();
         mainFrame.setProject(new Project());
 

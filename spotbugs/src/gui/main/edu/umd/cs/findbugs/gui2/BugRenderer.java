@@ -34,13 +34,14 @@ import edu.umd.cs.findbugs.Priorities;
 
 @SuppressWarnings("serial")
 /**
- *  Sets colors for JTree nodes
- *  @author Dan
+ * Sets colors for JTree nodes
+ *
+ * @author Dan
  */
 public class BugRenderer extends DefaultTreeCellRenderer {
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object node, boolean selected, boolean expanded, boolean leaf,
-            int row, boolean hasFocus) {
+    public Component getTreeCellRendererComponent(JTree tree, Object node, boolean selected, boolean expanded,
+            boolean leaf, int row, boolean hasFocus) {
         Component toReturn = super.getTreeCellRendererComponent(tree, node, selected, expanded, leaf, row, hasFocus);
 
         if (!(node instanceof BugLeafNode)) {

@@ -22,12 +22,10 @@ package edu.umd.cs.findbugs.ba.npe;
 import edu.umd.cs.findbugs.ba.DataflowAnalysisException;
 
 /**
- * A dataflow value that indicates what kind of return path is possible at the
- * current program location. Either:
+ * A dataflow value that indicates what kind of return path is possible at the current program location. Either:
  * <ul>
  * <li>It is possible to return normally</li>
- * <li>It is not possible to return normally (i.e., an exception is guaranteed
- * to be thrown)</li>
+ * <li>It is not possible to return normally (i.e., an exception is guaranteed to be thrown)</li>
  * </ul>
  *
  * @author David Hovemeyer
@@ -49,8 +47,7 @@ public class ReturnPathType {
     }
 
     /**
-     * @return true if the method can return normally at this location, false
-     *         otherwise
+     * @return true if the method can return normally at this location, false otherwise
      */
     public boolean canReturnNormally() throws DataflowAnalysisException {
         if (!isValid()) {
@@ -87,8 +84,7 @@ public class ReturnPathType {
      * Set whether or not it is possible to return normally.
      *
      * @param canReturnNormally
-     *            true if the method can return normally at this location, false
-     *            otherwise
+     *            true if the method can return normally at this location, false otherwise
      */
     public void setCanReturnNormally(boolean canReturnNormally) {
         type = canReturnNormally ? CAN_RETURN_NORMALLY : CANNOT_RETURN_NORMALLY;
@@ -122,16 +118,15 @@ public class ReturnPathType {
      *
      * @param other
      *            another dataflow fact
-     * @return true if the two dataflow facts are identical, false if they are
-     *         different
+     *
+     * @return true if the two dataflow facts are identical, false if they are different
      */
     boolean sameAs(ReturnPathType other) {
         return this.type == other.type;
     }
 
     /**
-     * @return true if this is a valid dataflow fact (not top or bottom), false
-     *         if not a valid dataflow fact
+     * @return true if this is a valid dataflow fact (not top or bottom), false if not a valid dataflow fact
      */
     public boolean isValid() {
         return type != TOP;

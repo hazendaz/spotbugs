@@ -29,8 +29,7 @@ import edu.umd.cs.findbugs.ba.ClassContext;
 import edu.umd.cs.findbugs.ba.XMethod;
 
 /**
- * This detector can find Assertions that try to validate method
- * arguments.
+ * This detector can find Assertions that try to validate method arguments.
  */
 public class FindArgumentAssertions extends AbstractAssertDetector {
 
@@ -72,10 +71,8 @@ public class FindArgumentAssertions extends AbstractAssertDetector {
      * Returns true if the opcode is a method invocation false otherwise
      */
     private boolean isMethodCall(int seen) {
-        return seen == Const.INVOKESTATIC ||
-                seen == Const.INVOKEVIRTUAL ||
-                seen == Const.INVOKEINTERFACE ||
-                seen == Const.INVOKESPECIAL;
+        return seen == Const.INVOKESTATIC || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE
+                || seen == Const.INVOKESPECIAL;
     }
 
     /**
@@ -150,8 +147,7 @@ public class FindArgumentAssertions extends AbstractAssertDetector {
             }
         }
         if (wasArg) {
-            BugInstance bug = new BugInstance(this, "AA_ASSERTION_OF_ARGUMENTS", LOW_PRIORITY)
-                    .addClassAndMethod(this)
+            BugInstance bug = new BugInstance(this, "AA_ASSERTION_OF_ARGUMENTS", LOW_PRIORITY).addClassAndMethod(this)
                     .addSourceLine(this, getPC());
             reportBug(bug);
         }

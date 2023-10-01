@@ -39,9 +39,7 @@ import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 public class Lookup {
 
     /*
-    private static Subtypes2 subtypes2() {
-        return AnalysisContext.currentAnalysisContext().getSubtypes2();
-    }
+     * private static Subtypes2 subtypes2() { return AnalysisContext.currentAnalysisContext().getSubtypes2(); }
      */
 
     public static XClass getXClass(ClassDescriptor c) throws CheckedAnalysisException {
@@ -49,7 +47,8 @@ public class Lookup {
     }
 
     public static XClass getXClass(@SlashedClassName String className) throws CheckedAnalysisException {
-        return Global.getAnalysisCache().getClassAnalysis(XClass.class, DescriptorFactory.createClassDescriptor(className));
+        return Global.getAnalysisCache().getClassAnalysis(XClass.class,
+                DescriptorFactory.createClassDescriptor(className));
     }
 
     public static XClass findSuperImplementor(XClass clazz, String name, String signature, boolean isStatic,
@@ -67,7 +66,8 @@ public class Lookup {
 
     }
 
-    public static XClass findImplementor(XClass clazz, String name, String signature, boolean isStatic, BugReporter bugReporter) {
+    public static XClass findImplementor(XClass clazz, String name, String signature, boolean isStatic,
+            BugReporter bugReporter) {
 
         try {
             return findImplementor(clazz, name, signature, isStatic);
@@ -100,7 +100,8 @@ public class Lookup {
         return findSuperImplementor(clazz, name, signature, isStatic);
     }
 
-    public static @CheckForNull JavaClass findSuperDefiner(JavaClass clazz, String name, String signature, BugReporter bugReporter) {
+    public static @CheckForNull JavaClass findSuperDefiner(JavaClass clazz, String name, String signature,
+            BugReporter bugReporter) {
         try {
             JavaClass c = clazz;
             while (true) {
@@ -119,7 +120,8 @@ public class Lookup {
         }
     }
 
-    public static @CheckForNull JavaClass findSuperImplementor(JavaClass clazz, String name, String signature, BugReporter bugReporter) {
+    public static @CheckForNull JavaClass findSuperImplementor(JavaClass clazz, String name, String signature,
+            BugReporter bugReporter) {
         try {
             JavaClass c = clazz;
             while (true) {
@@ -139,7 +141,8 @@ public class Lookup {
         }
     }
 
-    public static @CheckForNull XMethod findSuperImplementorAsXMethod(JavaClass clazz, String name, String signature, BugReporter bugReporter) {
+    public static @CheckForNull XMethod findSuperImplementorAsXMethod(JavaClass clazz, String name, String signature,
+            BugReporter bugReporter) {
         try {
             JavaClass c = clazz;
             while (true) {
@@ -159,8 +162,8 @@ public class Lookup {
         }
     }
 
-    public static @DottedClassName String findSuperImplementor(@DottedClassName String clazz, String name, String signature,
-            BugReporter bugReporter) {
+    public static @DottedClassName String findSuperImplementor(@DottedClassName String clazz, String name,
+            String signature, BugReporter bugReporter) {
         try {
             JavaClass c = findImplementor(Repository.getSuperClasses(clazz), name, signature);
             return (c != null) ? c.getClassName() : clazz;

@@ -86,7 +86,6 @@ public class FilterFactory {
         return matcher;
     }
 
-
     public static boolean canFilter(Sortables s) {
         switch (s) {
         case BUGCODE:
@@ -103,7 +102,6 @@ public class FilterFactory {
             return false;
         }
     }
-
 
     private static Matcher makeMatcher(Sortables s, BugInstance bug) {
         switch (s) {
@@ -172,6 +170,5 @@ public class FilterFactory {
         }
 
     }
-
 
 }

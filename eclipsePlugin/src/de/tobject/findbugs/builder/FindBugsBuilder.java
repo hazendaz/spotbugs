@@ -40,13 +40,15 @@ import de.tobject.findbugs.reporter.MarkerUtil;
 import edu.umd.cs.findbugs.plugin.eclipse.util.MutexSchedulingRule;
 
 /**
- * The <code>FindBugsBuilder</code> performs a FindBugs run on a subset of the
- * current project. It will either check all classes in a project or just the
- * ones just having been modified.
+ * The <code>FindBugsBuilder</code> performs a FindBugs run on a subset of the current project. It will either check all
+ * classes in a project or just the ones just having been modified.
  *
  * @author Peter Friese
+ *
  * @version 1.0
+ *
  * @since 25.9.2003
+ *
  * @see IncrementalProjectBuilder
  */
 public class FindBugsBuilder extends IncrementalProjectBuilder {
@@ -93,8 +95,7 @@ public class FindBugsBuilder extends IncrementalProjectBuilder {
         }
         default: {
 
-            FindbugsPlugin.getDefault()
-                    .logWarning("UNKNOWN BUILD kind" + kind);
+            FindbugsPlugin.getDefault().logWarning("UNKNOWN BUILD kind" + kind);
             doBuild(args, monitor, kind);
             break;
         }
@@ -109,22 +110,21 @@ public class FindBugsBuilder extends IncrementalProjectBuilder {
 
     @Override
     public ISchedulingRule getRule(int kind, Map<String, String> args) {
-        // lock only the current project during analysis, not the complete workspace. that allows other builders to run in parallel
+        // lock only the current project during analysis, not the complete workspace. that allows other builders to run
+        // in parallel
         return getProject();
     }
 
     /**
-     * Performs the build process. This method gets all files in the current
-     * project and has a <code>FindBugsVisitor</code> run on them.
+     * Performs the build process. This method gets all files in the current project and has a
+     * <code>FindBugsVisitor</code> run on them.
      *
      * @param args
      *            A <code>Map</code> containing additional build parameters.
      * @param monitor
-     *            The <code>IProgressMonitor</code> displaying the build
-     *            progress.
+     *            The <code>IProgressMonitor</code> displaying the build progress.
      * @param kind
-     *            kind the kind of build being requested, see
-     *            IncrementalProjectBuilder
+     *            kind the kind of build being requested, see IncrementalProjectBuilder
      */
     private void doBuild(final Map<?, ?> args, final IProgressMonitor monitor, int kind) {
         boolean incremental = (kind == IncrementalProjectBuilder.INCREMENTAL_BUILD
@@ -156,8 +156,7 @@ public class FindBugsBuilder extends IncrementalProjectBuilder {
     }
 
     /**
-     * Run a FindBugs analysis on the given resource as build job BUT not
-     * delaying the current Java build
+     * Run a FindBugs analysis on the given resource as build job BUT not delaying the current Java build
      *
      * @param resources
      *            The resource to run the analysis on.
@@ -166,7 +165,8 @@ public class FindBugsBuilder extends IncrementalProjectBuilder {
     protected void work(final IResource resource, final List<WorkItem> resources, IProgressMonitor monitor) {
         IPreferenceStore store = FindbugsPlugin.getPluginPreferences(getProject());
         boolean runAsJob = store.getBoolean(FindBugsConstants.KEY_RUN_ANALYSIS_AS_EXTRA_JOB);
-        FindBugsJob fbJob = new StartedFromBuilderJob("Finding bugs in " + resource.getName() + "...", resource, resources);
+        FindBugsJob fbJob = new StartedFromBuilderJob("Finding bugs in " + resource.getName() + "...", resource,
+                resources);
         if (runAsJob) {
             // run asynchronously, so there might be more similar jobs waiting to run
             if (DEBUG) {

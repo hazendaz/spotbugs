@@ -34,11 +34,11 @@ import edu.umd.cs.findbugs.ba.AbstractFrameModelingVisitor;
  * Visitor to model the effect of bytecode instructions on ConstantFrames.
  *
  * <p>
- * For now, only String constants are modeled. In the future we can add other
- * kinds of Constants.
+ * For now, only String constants are modeled. In the future we can add other kinds of Constants.
  * </p>
  *
  * @see edu.umd.cs.findbugs.ba.constant.ConstantAnalysis
+ *
  * @author David Hovemeyer
  */
 public class ConstantFrameModelingVisitor extends AbstractFrameModelingVisitor<Constant, ConstantFrame> {

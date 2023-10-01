@@ -35,9 +35,8 @@ import edu.umd.cs.findbugs.ProjectPackagePrefixes;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * A useful enum for dealing with all the types of filterable and sortable data
- * in BugInstances This is the preferred way for getting the information out of
- * a BugInstance and formatting it for display It also has the comparators for
+ * A useful enum for dealing with all the types of filterable and sortable data in BugInstances This is the preferred
+ * way for getting the information out of a BugInstance and formatting it for display It also has the comparators for
  * the different types of data
  *
  * @author Reuven
@@ -201,8 +200,8 @@ public enum Sortables implements Comparator<String> {
             try {
                 if (one.contains("$") && two.contains("$")
                         && one.substring(0, one.lastIndexOf('$')).equals(two.substring(0, two.lastIndexOf('$')))) {
-                    return Integer.valueOf(one.substring(one.lastIndexOf('$'))).compareTo(
-                            Integer.valueOf(two.substring(two.lastIndexOf('$'))));
+                    return Integer.valueOf(one.substring(one.lastIndexOf('$')))
+                            .compareTo(Integer.valueOf(two.substring(two.lastIndexOf('$'))));
                 }
             } catch (NumberFormatException e) {
             } // Somebody's playing silly buggers with dollar signs, just do it
@@ -372,7 +371,8 @@ public enum Sortables implements Comparator<String> {
 
     Sortables(String prettyName) {
         this.prettyName = prettyName;
-        this.bugLeafNodeComparator = (one, two) -> Sortables.this.compare(Sortables.this.getFrom(one.getBug()), Sortables.this.getFrom(two.getBug()));
+        this.bugLeafNodeComparator = (one, two) -> Sortables.this.compare(Sortables.this.getFrom(one.getBug()),
+                Sortables.this.getFrom(two.getBug()));
     }
 
     @Override

@@ -33,10 +33,11 @@ import edu.umd.cs.findbugs.ba.XMethodParameter;
 import edu.umd.cs.findbugs.classfile.FieldDescriptor;
 
 /**
- * A class to abstractly represent values in stack slots, indicating whether
- * those values can be null, non-null, null on some incoming path, or unknown.
+ * A class to abstractly represent values in stack slots, indicating whether those values can be null, non-null, null on
+ * some incoming path, or unknown.
  *
  * @author David Hovemeyer
+ *
  * @see IsNullValueFrame
  * @see IsNullValueAnalysis
  */
@@ -58,8 +59,7 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     private static final int CHECKED_NN = 3;
 
     /**
-     * Definitely not null an NPE would have occurred and we would not be here
-     * if it were null.
+     * Definitely not null an NPE would have occurred and we would not be here if it were null.
      */
     private static final int NO_KABOOM_NN = 4;
 
@@ -67,8 +67,7 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     private static final int NSP = 5;
 
     /**
-     * Unknown value (method param, value read from heap, etc.), assumed not
-     * null.
+     * Unknown value (method param, value read from heap, etc.), assumed not null.
      */
     private static final int NN_UNKNOWN = 6;
 
@@ -87,8 +86,7 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     private static final int PARAM = 2 << FLAG_SHIFT;
 
     /**
-     * Value is (potentially) null because of a value returned from a called
-     * method.
+     * Value is (potentially) null because of a value returned from a called method.
      */
     private static final int RETURN_VAL = 4 << FLAG_SHIFT;
 
@@ -100,25 +98,20 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     /** Value is (potentially) null because it was returned from a {@link CheckForNull} method . */
     private static final int CHECK_FOR_NULL_VAL = (32 << FLAG_SHIFT) | RETURN_VAL;
 
-    private static final int FLAG_MASK = EXCEPTION
-            | PARAM
-            | RETURN_VAL
-            | FIELD_VAL
-            | READLINE_VAL
-            | CHECK_FOR_NULL_VAL;
+    private static final int FLAG_MASK = EXCEPTION | PARAM | RETURN_VAL | FIELD_VAL | READLINE_VAL | CHECK_FOR_NULL_VAL;
 
     private static final int[][] mergeMatrix = {
-        // NULL, CHECKED_NULL, NN, CHECKED_NN, NO_KABOOM_NN, NSP,
-        // NN_UNKNOWN, NCP2, NCP3
-        { NULL }, // NULL
-        { NULL, CHECKED_NULL, }, // CHECKED_NULL
-        { NSP, NSP, NN }, // NN
-        { NSP, NSP, NN, CHECKED_NN, }, // CHECKED_NN
-        { NSP, NSP, NN, NN, NO_KABOOM_NN }, // NO_KABOOM_NN
-        { NSP, NSP, NSP, NSP, NSP, NSP }, // NSP
-        { NSP, NSP, NN_UNKNOWN, NN_UNKNOWN, NN_UNKNOWN, NSP, NN_UNKNOWN, }, // NN_UNKNOWN
-        { NSP, NSP, NCP2, NCP2, NCP2, NSP, NCP2, NCP2, }, // NCP2
-        { NSP, NSP, NCP3, NCP3, NCP3, NSP, NCP3, NCP3, NCP3 } // NCP3
+            // NULL, CHECKED_NULL, NN, CHECKED_NN, NO_KABOOM_NN, NSP,
+            // NN_UNKNOWN, NCP2, NCP3
+            { NULL }, // NULL
+            { NULL, CHECKED_NULL, }, // CHECKED_NULL
+            { NSP, NSP, NN }, // NN
+            { NSP, NSP, NN, CHECKED_NN, }, // CHECKED_NN
+            { NSP, NSP, NN, NN, NO_KABOOM_NN }, // NO_KABOOM_NN
+            { NSP, NSP, NSP, NSP, NSP, NSP }, // NSP
+            { NSP, NSP, NN_UNKNOWN, NN_UNKNOWN, NN_UNKNOWN, NSP, NN_UNKNOWN, }, // NN_UNKNOWN
+            { NSP, NSP, NCP2, NCP2, NCP2, NSP, NCP2, NCP2, }, // NCP2
+            { NSP, NSP, NCP3, NCP3, NCP3, NSP, NCP3, NCP3, NCP3 } // NCP3
     };
 
     private static final IsNullValue[][] instanceByFlagsList = createInstanceByFlagList();
@@ -129,10 +122,10 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
         for (int i = 0; i <= max; ++i) {
             final int flags = i << FLAG_SHIFT;
             result[i] = new IsNullValue[] { new IsNullValue(NULL | flags), new IsNullValue(CHECKED_NULL | flags),
-                new IsNullValue(NN | flags), new IsNullValue(CHECKED_NN | flags),
-                null, // NO_KABOOM_NN values must be allocated dynamically
-                new IsNullValue(NSP | flags), new IsNullValue(NN_UNKNOWN | flags), new IsNullValue(NCP2 | flags),
-                new IsNullValue(NCP3 | flags), };
+                    new IsNullValue(NN | flags), new IsNullValue(CHECKED_NN | flags), null, // NO_KABOOM_NN values must
+                                                                                            // be allocated dynamically
+                    new IsNullValue(NSP | flags), new IsNullValue(NN_UNKNOWN | flags), new IsNullValue(NCP2 | flags),
+                    new IsNullValue(NCP3 | flags), };
         }
 
         return result;
@@ -248,17 +241,14 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Is this value known to be non null because a NPE would have occurred
-     * otherwise?
+     * Is this value known to be non null because a NPE would have occurred otherwise?
      */
     public boolean wouldHaveBeenAKaboom() {
         return getBaseKind() == NO_KABOOM_NN;
     }
 
     /*
-    private IsNullValue toBaseValue() {
-        return instanceByFlagsList[0][getBaseKind()];
-    }
+     * private IsNullValue toBaseValue() { return instanceByFlagsList[0][getBaseKind()]; }
      */
 
     /**
@@ -272,13 +262,15 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Convert to a value known because it was returned from a method in a
-     * method property database.
+     * Convert to a value known because it was returned from a method in a method property database.
      *
-     * @param methodInvoked The invoked method
-     * @param methodNullnessAnnotation The {@link NullnessAnnotation} of the invoked method
+     * @param methodInvoked
+     *            The invoked method
+     * @param methodNullnessAnnotation
+     *            The {@link NullnessAnnotation} of the invoked method
      */
-    public IsNullValue markInformationAsComingFromReturnValueOfMethod(XMethod methodInvoked, NullnessAnnotation methodNullnessAnnotation) {
+    public IsNullValue markInformationAsComingFromReturnValueOfMethod(XMethod methodInvoked,
+            NullnessAnnotation methodNullnessAnnotation) {
         FieldDescriptor fieldDescriptor = methodInvoked.getAccessMethodForField();
         if (fieldDescriptor != null) {
             XField f = XFactory.getExactXField(fieldDescriptor);
@@ -299,8 +291,7 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Convert to a value known because it was returned from a method in a
-     * method property database.
+     * Convert to a value known because it was returned from a method in a method property database.
      *
      * @param field
      *            TODO
@@ -320,9 +311,8 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Get the instance representing a value known to be null because it was
-     * compared against null value, or because we saw that it was assigned the
-     * null constant.
+     * Get the instance representing a value known to be null because it was compared against null value, or because we
+     * saw that it was assigned the null constant.
      */
     public static IsNullValue checkedNullValue() {
         return instanceByFlagsList[0][CHECKED_NULL];
@@ -336,16 +326,15 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Get the instance representing a value known to be non-null because it was
-     * compared against null value, or because we saw the object creation.
+     * Get the instance representing a value known to be non-null because it was compared against null value, or because
+     * we saw the object creation.
      */
     public static IsNullValue checkedNonNullValue() {
         return instanceByFlagsList[0][CHECKED_NN];
     }
 
     /**
-     * Get the instance representing a value known to be non-null because a NPE
-     * would have occurred if it were null.
+     * Get the instance representing a value known to be non-null because a NPE would have occurred if it were null.
      */
     public static IsNullValue noKaboomNonNullValue(@Nonnull Location ins) {
         if (ins == null) {
@@ -355,8 +344,7 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Get the instance representing values that are definitely null on some
-     * simple (no branches) incoming path.
+     * Get the instance representing values that are definitely null on some simple (no branches) incoming path.
      */
     public static IsNullValue nullOnSimplePathValue() {
         return instanceByFlagsList[0][NSP];
@@ -384,9 +372,8 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Get null on complex path value. This is like null on simple path value,
-     * but there are at least two branches between the explicit null value and
-     * the current location. If the conditions are correlated, then the path on
+     * Get null on complex path value. This is like null on simple path value, but there are at least two branches
+     * between the explicit null value and the current location. If the conditions are correlated, then the path on
      * which the value is null may be infeasible.
      */
     public static IsNullValue nullOnComplexPathValue() {
@@ -394,8 +381,8 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Like "null on complex path" except that there are at least <em>three</em>
-     * branches between the explicit null value and the current location.
+     * Like "null on complex path" except that there are at least <em>three</em> branches between the explicit null
+     * value and the current location.
      */
     public static IsNullValue nullOnComplexPathValue3() {
         return instanceByFlagsList[0][NCP3];
@@ -502,11 +489,9 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Return true if this value is either definitely null, or might be null on
-     * a simple path.
+     * Return true if this value is either definitely null, or might be null on a simple path.
      *
-     * @return true if this value is either definitely null, or might be null on
-     *         a simple path, false otherwise
+     * @return true if this value is either definitely null, or might be null on a simple path, false otherwise
      */
     public boolean mightBeNull() {
         return isDefinitelyNull() || isNullOnSomePath();
@@ -572,8 +557,7 @@ public class IsNullValue implements IsNullValueAnalysisFeatures, Debug {
     }
 
     /**
-     * Control split: move given value down in the lattice if it is a
-     * conditionally-null value.
+     * Control split: move given value down in the lattice if it is a conditionally-null value.
      *
      * @return another value (equal or further down in the lattice)
      */

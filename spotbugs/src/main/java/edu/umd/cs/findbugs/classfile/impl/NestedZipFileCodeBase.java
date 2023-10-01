@@ -34,9 +34,8 @@ import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
 import edu.umd.cs.findbugs.io.IO;
 
 /**
- * A scannable code base class for a zip (or Jar) file nested inside some other
- * codebase. These are handled by extracting the nested zip/jar file to a
- * temporary file, and delegating to an internal ZipFileCodeBase that reads from
+ * A scannable code base class for a zip (or Jar) file nested inside some other codebase. These are handled by
+ * extracting the nested zip/jar file to a temporary file, and delegating to an internal ZipFileCodeBase that reads from
  * the temporary file.
  *
  * @author David Hovemeyer
@@ -56,7 +55,8 @@ public class NestedZipFileCodeBase extends AbstractScannableCodeBase {
      * @param codeBaseLocator
      *            the codebase locator for this codebase
      */
-    public NestedZipFileCodeBase(NestedZipFileCodeBaseLocator codeBaseLocator) throws ResourceNotFoundException, IOException {
+    public NestedZipFileCodeBase(NestedZipFileCodeBaseLocator codeBaseLocator)
+            throws ResourceNotFoundException, IOException {
         super(codeBaseLocator);
         this.parentCodeBase = codeBaseLocator.getParentCodeBase();
         this.resourceName = codeBaseLocator.getResourceName();
@@ -107,8 +107,7 @@ public class NestedZipFileCodeBase extends AbstractScannableCodeBase {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.ICodeBase#lookupResource(java.lang.String)
+     * @see edu.umd.cs.findbugs.classfile.ICodeBase#lookupResource(java.lang.String)
      */
     @Override
     public ICodeBaseEntry lookupResource(String resourceName) {

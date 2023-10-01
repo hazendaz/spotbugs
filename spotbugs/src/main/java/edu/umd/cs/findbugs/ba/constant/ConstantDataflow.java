@@ -26,6 +26,7 @@ import edu.umd.cs.findbugs.ba.Dataflow;
  *
  * @see edu.umd.cs.findbugs.ba.Dataflow
  * @see edu.umd.cs.findbugs.ba.constant.ConstantAnalysis
+ *
  * @author David Hovemeyer
  */
 public class ConstantDataflow extends Dataflow<ConstantFrame, ConstantAnalysis> {

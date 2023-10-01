@@ -38,9 +38,8 @@ import edu.umd.cs.findbugs.charsets.UTF8;
 import edu.umd.cs.findbugs.config.CommandLine;
 
 /**
- * Mine historical information from a BugCollection. The BugCollection should be
- * built using UpdateBugCollection to record the history of analyzing all
- * versions over time.
+ * Mine historical information from a BugCollection. The BugCollection should be built using UpdateBugCollection to
+ * record the history of analyzing all versions over time.
  *
  * @author David Hovemeyer
  * @author William Pugh
@@ -240,7 +239,8 @@ public class MineBugHistory {
             out.print(appVersion != null ? appVersion.getReleaseName() : "");
             out.print('\t');
             if (formatDates) {
-                out.print("\"" + (appVersion != null ? dateFormat.format(new Date(appVersion.getTimestamp())) : "") + "\"");
+                out.print("\"" + (appVersion != null ? dateFormat.format(new Date(appVersion.getTimestamp())) : "")
+                        + "\"");
             } else {
                 out.print(appVersion != null ? appVersion.getTimestamp() / 1000 : 0L);
             }
@@ -294,10 +294,9 @@ public class MineBugHistory {
     }
 
     /**
-     * This implementation of dump() tries to better align columns (when viewed
-     * with a fixed-width font) by padding with spaces instead of using tabs.
-     * Also, timestamps are formatted more tersely (-formatDates option). The
-     * bad news is that it requires a minimum of 112 columns.
+     * This implementation of dump() tries to better align columns (when viewed with a fixed-width font) by padding with
+     * spaces instead of using tabs. Also, timestamps are formatted more tersely (-formatDates option). The bad news is
+     * that it requires a minimum of 112 columns.
      *
      * @see #dumpOriginal(PrintStream)
      */
@@ -403,14 +402,13 @@ public class MineBugHistory {
     }
 
     /**
-     * Get key used to classify the presence and/or absence of a BugInstance in
-     * successive versions in the history.
+     * Get key used to classify the presence and/or absence of a BugInstance in successive versions in the history.
      *
      * @param activePrevious
-     *            true if the bug was active in the previous version, false if
-     *            not
+     *            true if the bug was active in the previous version, false if not
      * @param activeCurrent
      *            true if the bug is active in the current version, false if not
+     *
      * @return the key: one of ADDED, RETAINED, REMOVED, and DEAD
      */
     private int getKey(boolean activePrevious, boolean activeCurrent) {
@@ -459,8 +457,8 @@ public class MineBugHistory {
 
         MineBugHistory mineBugHistory = new MineBugHistory();
         MineBugHistoryCommandLine commandLine = mineBugHistory.new MineBugHistoryCommandLine();
-        int argCount = commandLine.parse(args, 0, 2, "Usage: " + MineBugHistory.class.getName()
-                + " [options] [<xml results> [<history>]] ");
+        int argCount = commandLine.parse(args, 0, 2,
+                "Usage: " + MineBugHistory.class.getName() + " [options] [<xml results> [<history>]] ");
 
         SortedBugCollection bugCollection = new SortedBugCollection();
         if (argCount < args.length) {

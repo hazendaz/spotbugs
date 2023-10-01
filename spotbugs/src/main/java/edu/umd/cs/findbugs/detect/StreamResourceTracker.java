@@ -44,8 +44,7 @@ import edu.umd.cs.findbugs.ba.ResourceValueFrame;
 import edu.umd.cs.findbugs.ba.ResourceValueFrameModelingVisitor;
 
 /**
- * Resource tracker which determines where streams are created, and how they are
- * used within the method.
+ * Resource tracker which determines where streams are created, and how they are used within the method.
  *
  * @author David Hovemeyer
  */
@@ -73,10 +72,9 @@ public class StreamResourceTracker implements ResourceTracker<Stream> {
     private final TreeSet<StreamEscape> streamEscapeSet;
 
     /**
-     * Map of individual streams to equivalence classes. Any time a stream "A"
-     * is wrapped with a stream "B", "A" and "B" belong to the same equivalence
-     * class. If any stream in an equivalence class is closed, then we consider
-     * all of the streams in the equivalence class as having been closed.
+     * Map of individual streams to equivalence classes. Any time a stream "A" is wrapped with a stream "B", "A" and "B"
+     * belong to the same equivalence class. If any stream in an equivalence class is closed, then we consider all of
+     * the streams in the equivalence class as having been closed.
      */
     private final Map<Stream, StreamEquivalenceClass> streamEquivalenceMap;
 
@@ -84,13 +82,13 @@ public class StreamResourceTracker implements ResourceTracker<Stream> {
      * Constructor.
      *
      * @param streamFactoryList
-     *            array of StreamFactory objects which determine where streams
-     *            are created
+     *            array of StreamFactory objects which determine where streams are created
      * @param lookupFailureCallback
      *            used when class hierarchy lookups fail
      */
     // @SuppressWarnings("EI2")
-    public StreamResourceTracker(StreamFactory[] streamFactoryList, RepositoryLookupFailureCallback lookupFailureCallback) {
+    public StreamResourceTracker(StreamFactory[] streamFactoryList,
+            RepositoryLookupFailureCallback lookupFailureCallback) {
 
         this.streamFactoryList = streamFactoryList;
         this.lookupFailureCallback = lookupFailureCallback;
@@ -124,9 +122,8 @@ public class StreamResourceTracker implements ResourceTracker<Stream> {
     }
 
     /**
-     * Transitively mark all streams into which uninteresting streams (such as
-     * System.out) escape. This handles the rule that wrapping an uninteresting
-     * stream makes the wrapper uninteresting as well.
+     * Transitively mark all streams into which uninteresting streams (such as System.out) escape. This handles the rule
+     * that wrapping an uninteresting stream makes the wrapper uninteresting as well.
      */
     public void markTransitiveUninterestingStreamEscapes() {
         // Eliminate all stream escapes where the target isn't really
@@ -186,11 +183,12 @@ public class StreamResourceTracker implements ResourceTracker<Stream> {
     }
 
     /**
-     * Determine if an uninteresting stream escapes at given location.
-     * markTransitiveUninterestingStreamEscapes() should be called first.
+     * Determine if an uninteresting stream escapes at given location. markTransitiveUninterestingStreamEscapes() should
+     * be called first.
      *
      * @param stream
      *            the stream
+     *
      * @return true if an uninteresting stream escapes at the location
      */
     public boolean isUninterestingStreamEscape(Stream stream) {
@@ -216,11 +214,12 @@ public class StreamResourceTracker implements ResourceTracker<Stream> {
     }
 
     /**
-     * Get the equivalence class for given stream. May only be called if
-     * markTransitiveUninterestingStreamEscapes() has been called.
+     * Get the equivalence class for given stream. May only be called if markTransitiveUninterestingStreamEscapes() has
+     * been called.
      *
      * @param stream
      *            the stream
+     *
      * @return the set containing the equivalence class for the given stream
      */
     public StreamEquivalenceClass getStreamEquivalenceClass(Stream stream) {
@@ -277,8 +276,8 @@ public class StreamResourceTracker implements ResourceTracker<Stream> {
     }
 
     @Override
-    public boolean isResourceClose(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg, Stream resource,
-            ResourceValueFrame frame) {
+    public boolean isResourceClose(BasicBlock basicBlock, InstructionHandle handle, ConstantPoolGen cpg,
+            Stream resource, ResourceValueFrame frame) {
         return resource.isStreamClose(basicBlock, handle, cpg, frame, lookupFailureCallback);
     }
 

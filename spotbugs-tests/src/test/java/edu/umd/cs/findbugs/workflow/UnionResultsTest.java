@@ -16,18 +16,20 @@ class UnionResultsTest {
 
     @Test
     void testMain() throws IOException {
-        //Prepare
+        // Prepare
         String fileName = createBugFile();
         File outputFile = new File("build/tmp/test/unionresults/output.xml");
         outputFile.getParentFile().mkdirs();
 
-        //Act
+        // Act
         UnionResults.main(new String[] { "-withMessages", "-output", outputFile.getAbsolutePath(), fileName });
 
-        //Verify
+        // Verify
         List<String> output = readOutPut(outputFile.getAbsolutePath());
-        Assertions.assertTrue(output.stream().anyMatch(line -> line.contains("(Lorg/test/TestClass;Ljava/util/List;)V")));
-        Assertions.assertTrue(output.stream().anyMatch(line -> line.contains("(Lorg/test/TestClass2;Ljava/util/List;)V")));
+        Assertions
+                .assertTrue(output.stream().anyMatch(line -> line.contains("(Lorg/test/TestClass;Ljava/util/List;)V")));
+        Assertions.assertTrue(
+                output.stream().anyMatch(line -> line.contains("(Lorg/test/TestClass2;Ljava/util/List;)V")));
     }
 
     private List<String> readOutPut(String absolutePath) throws IOException {

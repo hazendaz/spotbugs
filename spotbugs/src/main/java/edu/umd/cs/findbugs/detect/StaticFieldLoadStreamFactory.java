@@ -29,8 +29,8 @@ import edu.umd.cs.findbugs.ba.Location;
 import edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback;
 
 /**
- * Stream factory for streams created by loading a value from a static field.
- * This is mainly to handle System.in, System.out, and System.err.
+ * Stream factory for streams created by loading a value from a static field. This is mainly to handle System.in,
+ * System.out, and System.err.
  */
 public class StaticFieldLoadStreamFactory implements StreamFactory {
     public String streamBaseClass;
@@ -75,7 +75,7 @@ public class StaticFieldLoadStreamFactory implements StreamFactory {
             return null;
         }
 
-        return new Stream(location, type.getClassName(), streamBaseClass).setIgnoreImplicitExceptions(true).setIsOpenOnCreation(
-                true);
+        return new Stream(location, type.getClassName(), streamBaseClass).setIgnoreImplicitExceptions(true)
+                .setIsOpenOnCreation(true);
     }
 }

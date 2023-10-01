@@ -142,9 +142,8 @@ public class InvalidJUnitTest extends BytecodeScanningDetector {
     }
 
     /**
-     * Check whether or not this detector should be enabled. The detector is
-     * disabled if the TestCase class cannot be found (meaning we don't have
-     * junit.jar on the aux classpath).
+     * Check whether or not this detector should be enabled. The detector is disabled if the TestCase class cannot be
+     * found (meaning we don't have junit.jar on the aux classpath).
      *
      * @return true if it should be enabled, false if not
      */
@@ -155,14 +154,15 @@ public class InvalidJUnitTest extends BytecodeScanningDetector {
     @Override
     public void visit(Method obj) {
         if (getMethodName().equals("suite") && !obj.isStatic()) {
-            bugReporter.reportBug(new BugInstance(this, "IJU_SUITE_NOT_STATIC", NORMAL_PRIORITY).addClassAndMethod(this));
+            bugReporter
+                    .reportBug(new BugInstance(this, "IJU_SUITE_NOT_STATIC", NORMAL_PRIORITY).addClassAndMethod(this));
         }
 
         if (getMethodName().equals("suite") && obj.getSignature().startsWith("()") && obj.isStatic()) {
-            if ((!obj.getSignature().equals("()Ljunit/framework/Test;") && !obj.getSignature().equals(
-                    "()Ljunit/framework/TestSuite;"))
-                    || !obj.isPublic()) {
-                bugReporter.reportBug(new BugInstance(this, "IJU_BAD_SUITE_METHOD", NORMAL_PRIORITY).addClassAndMethod(this));
+            if ((!obj.getSignature().equals("()Ljunit/framework/Test;")
+                    && !obj.getSignature().equals("()Ljunit/framework/TestSuite;")) || !obj.isPublic()) {
+                bugReporter.reportBug(
+                        new BugInstance(this, "IJU_BAD_SUITE_METHOD", NORMAL_PRIORITY).addClassAndMethod(this));
             }
 
         }
@@ -189,9 +189,14 @@ public class InvalidJUnitTest extends BytecodeScanningDetector {
                 Method superMethod = Lookup.findImplementation(we, getMethodName(), "()V");
                 Code superCode = superMethod.getCode();
                 if (superCode != null && superCode.getCode().length > 3) {
-                    bugReporter.reportBug(new BugInstance(this, getMethodName().equals("setUp") ? "IJU_SETUP_NO_SUPER"
-                            : "IJU_TEARDOWN_NO_SUPER", NORMAL_PRIORITY).addClassAndMethod(this).addMethod(we, superMethod)
-                            .describe(MethodAnnotation.METHOD_OVERRIDDEN).addSourceLine(this, offset));
+                    bugReporter
+                            .reportBug(
+                                    new BugInstance(this,
+                                            getMethodName().equals("setUp") ? "IJU_SETUP_NO_SUPER"
+                                                    : "IJU_TEARDOWN_NO_SUPER",
+                                            NORMAL_PRIORITY).addClassAndMethod(this).addMethod(we, superMethod)
+                                                    .describe(MethodAnnotation.METHOD_OVERRIDDEN)
+                                                    .addSourceLine(this, offset));
                 }
             }
         }

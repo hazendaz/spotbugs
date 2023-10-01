@@ -54,8 +54,8 @@ public class ZipInputStreamCodeBase extends AbstractScannableCodeBase {
      * @param codeBaseLocator
      *            the codebase locator for this codebase
      * @param file
-     *            the File containing the zip file (may be a temp file if the
-     *            codebase was copied from a nested zipfile in another codebase)
+     *            the File containing the zip file (may be a temp file if the codebase was copied from a nested zipfile
+     *            in another codebase)
      */
     public ZipInputStreamCodeBase(ICodeBaseLocator codeBaseLocator, File file) throws IOException {
         super(codeBaseLocator);
@@ -71,9 +71,8 @@ public class ZipInputStreamCodeBase extends AbstractScannableCodeBase {
 
             while ((ze = zis.getNextEntry()) != null) {
                 String name = ze.getName();
-                if (!ze.isDirectory()
-                        && ("META-INF/MANIFEST.MF".equals(name) || name.endsWith(".class") || Archive.isArchiveFileName(
-                                name))) {
+                if (!ze.isDirectory() && ("META-INF/MANIFEST.MF".equals(name) || name.endsWith(".class")
+                        || Archive.isArchiveFileName(name))) {
                     entries.add(name);
                     if ("META-INF/MANIFEST.MF".equals(name)) {
                         map.put(name, build(zis, ze));
@@ -92,8 +91,7 @@ public class ZipInputStreamCodeBase extends AbstractScannableCodeBase {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.ICodeBase#lookupResource(java.lang.String)
+     * @see edu.umd.cs.findbugs.classfile.ICodeBase#lookupResource(java.lang.String)
      */
     @Override
     public ICodeBaseEntry lookupResource(String resourceName) {

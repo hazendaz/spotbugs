@@ -43,6 +43,7 @@ public class RankMatcher implements Matcher {
      *
      * @param rankAsString
      *            the rank, as a String
+     *
      * @throws NumberFormatException
      *             if the rank cannot be parsed
      */

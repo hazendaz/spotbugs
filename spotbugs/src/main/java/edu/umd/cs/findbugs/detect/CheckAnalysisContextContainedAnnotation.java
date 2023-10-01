@@ -54,8 +54,8 @@ public class CheckAnalysisContextContainedAnnotation extends OpcodeStackDetector
     }
 
     static final ClassDescriptor ConstantAnnotation = DescriptorFactory.createClassDescriptor(StaticConstant.class);
-    static final ClassDescriptor AnalysisContextContainedAnnotation = DescriptorFactory.createClassDescriptor(AnalysisContextContained.class);
-
+    static final ClassDescriptor AnalysisContextContainedAnnotation = DescriptorFactory
+            .createClassDescriptor(AnalysisContextContained.class);
 
     private boolean analysisContextContained(XClass xclass) {
         AnnotatedObject ao = xclass;
@@ -78,13 +78,12 @@ public class CheckAnalysisContextContainedAnnotation extends OpcodeStackDetector
         String signature = field.getSignature();
         if (signature.startsWith("Ljava/util/") && !"Ljava/util/regex/Pattern;".equals(signature)
                 && !"Ljava/util/logging/Logger;".equals(signature) && !"Ljava/util/BitSet;".equals(signature)
-                && !"Ljava/util/ResourceBundle;".equals(signature)
-                && !"Ljava/util/Comparator;".equals(signature)
+                && !"Ljava/util/ResourceBundle;".equals(signature) && !"Ljava/util/Comparator;".equals(signature)
                 && getXField().getAnnotation(ConstantAnnotation) == null) {
             boolean flagged = analysisContextContained(getXClass());
 
-            bugReporter.reportBug(new BugInstance(this, "TESTING", flagged ? NORMAL_PRIORITY : LOW_PRIORITY).addClass(this).addField(this).addType(
-                    signature));
+            bugReporter.reportBug(new BugInstance(this, "TESTING", flagged ? NORMAL_PRIORITY : LOW_PRIORITY)
+                    .addClass(this).addField(this).addType(signature));
 
         }
     }
@@ -108,8 +107,9 @@ public class CheckAnalysisContextContainedAnnotation extends OpcodeStackDetector
             OpcodeStack.Item right = stack.getStackItem(0);
             if (bad(left, right) || bad(right, left)) {
                 accumulator.accumulateBug(new BugInstance(this, "TESTING", NORMAL_PRIORITY).addClassAndMethod(this)
-                        .addValueSource(left, this).addValueSource(right, this)
-                        .addString("Just check the sign of the result of compare or compareTo, not specific values such as 1 or -1"), this);
+                        .addValueSource(left, this).addValueSource(right, this).addString(
+                                "Just check the sign of the result of compare or compareTo, not specific values such as 1 or -1"),
+                        this);
             }
             break;
         default:
@@ -125,13 +125,10 @@ public class CheckAnalysisContextContainedAnnotation extends OpcodeStackDetector
             return false;
         }
         Object value = right.getConstant();
-        return value instanceof Integer
-                && ((Integer) value).intValue() != 0
-                && !m.isStatic()
-                && m.isPublic()
+        return value instanceof Integer && ((Integer) value).intValue() != 0 && !m.isStatic() && m.isPublic()
                 && (("compareTo".equals(m.getName()) && "(Ljava/lang/Object;)I".equals(m.getSignature()))
-                        ||
-                        ("compare".equals(m.getName()) && "(Ljava/lang/Object;Ljava/lang/Object;)I".equals(m.getSignature())));
+                        || ("compare".equals(m.getName())
+                                && "(Ljava/lang/Object;Ljava/lang/Object;)I".equals(m.getSignature())));
     }
 
     @Override

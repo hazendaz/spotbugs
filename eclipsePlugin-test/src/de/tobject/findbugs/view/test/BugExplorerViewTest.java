@@ -114,8 +114,8 @@ class BugExplorerViewTest extends AbstractBugExplorerViewTest {
                 setOf(expectedMarker1));
         ExpectedViewElement expectedPattern2 = new ExpectedViewBugGroup(GroupType.Pattern, null, setOf(expectedMarker2),
                 setOf(expectedMarker2));
-        return new ExpectedViewBugGroup(GroupType.Project, getProject(), setOf(expectedPattern1,
-                expectedPattern2), setOf(expectedMarker1, expectedMarker2));
+        return new ExpectedViewBugGroup(GroupType.Project, getProject(), setOf(expectedPattern1, expectedPattern2),
+                setOf(expectedMarker1, expectedMarker2));
     }
 
     private ExpectedViewElement createProjectPatternPackageMarkerExpectedContents() throws JavaModelException {
@@ -133,11 +133,11 @@ class BugExplorerViewTest extends AbstractBugExplorerViewTest {
                 setOf(expectedMarker1), setOf(expectedMarker1));
         ExpectedViewElement expectedPackage2 = new ExpectedViewBugGroup(GroupType.Package, getDefaultPackageInSrc(),
                 setOf(expectedMarker2), setOf(expectedMarker2));
-        ExpectedViewElement expectedPattern1 = new ExpectedViewBugGroup(GroupType.Pattern, null, setOf(expectedPackage1),
-                setOf(expectedMarker1));
-        ExpectedViewElement expectedPattern2 = new ExpectedViewBugGroup(GroupType.Pattern, null, setOf(expectedPackage2),
-                setOf(expectedMarker2));
-        return new ExpectedViewBugGroup(GroupType.Project, getProject(), setOf(expectedPattern1,
-                expectedPattern2), setOf(expectedMarker1, expectedMarker2));
+        ExpectedViewElement expectedPattern1 = new ExpectedViewBugGroup(GroupType.Pattern, null,
+                setOf(expectedPackage1), setOf(expectedMarker1));
+        ExpectedViewElement expectedPattern2 = new ExpectedViewBugGroup(GroupType.Pattern, null,
+                setOf(expectedPackage2), setOf(expectedMarker2));
+        return new ExpectedViewBugGroup(GroupType.Project, getProject(), setOf(expectedPattern1, expectedPattern2),
+                setOf(expectedMarker1, expectedMarker2));
     }
 }

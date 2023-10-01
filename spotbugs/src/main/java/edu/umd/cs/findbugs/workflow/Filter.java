@@ -61,8 +61,7 @@ import edu.umd.cs.findbugs.filter.FilterException;
 import edu.umd.cs.findbugs.filter.Matcher;
 
 /**
- * Java main application to filter/transform an XML bug collection or bug
- * history collection.
+ * Java main application to filter/transform an XML bug collection or bug history collection.
  *
  * @author William Pugh
  */
@@ -212,7 +211,8 @@ public class Filter {
             addSwitchWithOptionalExtraPart("-withSource", "truth", "only warnings for which source is available");
             addSwitchWithOptionalExtraPart("-hashChanged", "truth",
                     "only warnings for which the stored hash is not the same as the calculated hash");
-            addOption("-excludeBugs", "baseline bug collection", "exclude bugs already contained in the baseline bug collection");
+            addOption("-excludeBugs", "baseline bug collection",
+                    "exclude bugs already contained in the baseline bug collection");
             addOption("-exclude", "filter file", "exclude bugs matching given filter");
             addOption("-include", "filter file", "include only bugs matching given filter");
 
@@ -223,32 +223,40 @@ public class Filter {
             addOption("-before", "when", "allow only warnings that first occurred before this version");
             addOption("-first", "when", "allow only warnings that first occurred in this version");
             addOption("-last", "when", "allow only warnings that last occurred in this version");
-            addOption("-trimToVersion", "when", "trim bug collection to exclude information about versions after this one");
-            addOption("-fixed", "when", "allow only warnings that last occurred in the previous version (clobbers last)");
+            addOption("-trimToVersion", "when",
+                    "trim bug collection to exclude information about versions after this one");
+            addOption("-fixed", "when",
+                    "allow only warnings that last occurred in the previous version (clobbers last)");
             addOption("-present", "when", "allow only warnings present in this version");
             addOption("-absent", "when", "allow only warnings absent in this version");
-            addOption("-maybeMutated", "when", "allow only warnings that might have mutated/fixed/born in this version");
+            addOption("-maybeMutated", "when",
+                    "allow only warnings that might have mutated/fixed/born in this version");
             addSwitchWithOptionalExtraPart("-hasField", "truth", "allow only warnings that are annotated with a field");
-            addSwitchWithOptionalExtraPart("-hasLocal", "truth", "allow only warnings that are annotated with a local variable");
+            addSwitchWithOptionalExtraPart("-hasLocal", "truth",
+                    "allow only warnings that are annotated with a local variable");
             addSwitchWithOptionalExtraPart("-active", "truth", "allow only warnings alive in the last sequence number");
             addSwitch("-applySuppression", "exclude warnings that match the suppression filter");
 
             addSwitch("-purgeHistory", "remove all version history");
-            addSwitchWithOptionalExtraPart("-sloppyUnique", "truth", "select only issues thought to be unique by the sloppy bug comparator ");
+            addSwitchWithOptionalExtraPart("-sloppyUnique", "truth",
+                    "select only issues thought to be unique by the sloppy bug comparator ");
             makeOptionUnlisted("-sloppyUnique");
             addSwitchWithOptionalExtraPart("-introducedByChange", "truth",
                     "allow only warnings introduced by a change of an existing class");
             addSwitchWithOptionalExtraPart("-removedByChange", "truth",
                     "allow only warnings removed by a change of a persisting class");
-            addSwitchWithOptionalExtraPart("-newCode", "truth", "allow only warnings introduced by the addition of a new class");
-            addSwitchWithOptionalExtraPart("-removedCode", "truth", "allow only warnings removed by removal of a class");
+            addSwitchWithOptionalExtraPart("-newCode", "truth",
+                    "allow only warnings introduced by the addition of a new class");
+            addSwitchWithOptionalExtraPart("-removedCode", "truth",
+                    "allow only warnings removed by removal of a class");
             addOption("-priority", "level", "allow only warnings with this priority or higher");
             makeOptionUnlisted("-priority");
             addOption("-confidence", "level", "allow only warnings with this confidence or higher");
             addOption("-maxRank", "rank", "allow only warnings with this rank or lower");
             addSwitchWithOptionalExtraPart("-notAProblem", "truth",
                     "Only issues with a consensus view that they are not a problem");
-            addSwitchWithOptionalExtraPart("-shouldFix", "truth", "Only issues with a consensus view that they should be fixed");
+            addSwitchWithOptionalExtraPart("-shouldFix", "truth",
+                    "Only issues with a consensus view that they should be fixed");
 
             addOption("-class", "pattern", "allow only bugs whose primary class name matches this pattern");
             addOption("-calls", "pattern",
@@ -262,8 +270,7 @@ public class Filter {
 
         }
 
-        public static long getVersionNum(BugCollection collection, String val,
-                boolean roundToLaterVersion) {
+        public static long getVersionNum(BugCollection collection, String val, boolean roundToLaterVersion) {
             if (val == null) {
                 return -1;
             }
@@ -280,12 +287,11 @@ public class Filter {
             versions.put(v.getReleaseName(), v);
             timeStamps.put(v.getTimestamp(), v);
 
-            return getVersionNum(versions, timeStamps, val,
-                    roundToLaterVersion, v.getSequenceNumber());
+            return getVersionNum(versions, timeStamps, val, roundToLaterVersion, v.getSequenceNumber());
         }
 
-        public static long getVersionNum(Map<String, AppVersion> versions, SortedMap<Long, AppVersion> timeStamps, String val,
-                boolean roundToLaterVersion, long currentSeqNum) {
+        public static long getVersionNum(Map<String, AppVersion> versions, SortedMap<Long, AppVersion> timeStamps,
+                String val, boolean roundToLaterVersion, long currentSeqNum) {
             if (val == null) {
                 return -1;
             }
@@ -302,8 +308,8 @@ public class Filter {
             try {
                 long time = 0;
                 if (val.endsWith("daysAgo")) {
-                    time = System.currentTimeMillis() - MILLISECONDS_PER_DAY
-                            * Integer.parseInt(val.substring(0, val.length() - 7));
+                    time = System.currentTimeMillis()
+                            - MILLISECONDS_PER_DAY * Integer.parseInt(val.substring(0, val.length() - 7));
                 } else {
                     time = Date.parse(val);
                 }
@@ -326,7 +332,8 @@ public class Filter {
         // 31.. = Long.MAX
         // if roundToLater == false, ..-1 = Long.MIN, 0..9 = 0, 10..19 = 1,
         // 20..29 = 2, 30..39 = 3, 40 .. = 4
-        private static long getAppropriateSeq(SortedMap<Long, AppVersion> timeStamps, long when, boolean roundToLaterVersion) {
+        private static long getAppropriateSeq(SortedMap<Long, AppVersion> timeStamps, long when,
+                boolean roundToLaterVersion) {
             if (roundToLaterVersion) {
                 SortedMap<Long, AppVersion> geq = timeStamps.tailMap(when);
                 if (geq.isEmpty()) {
@@ -343,7 +350,6 @@ public class Filter {
         }
 
         edu.umd.cs.findbugs.filter.Filter suppressionFilter;
-
 
         void adjustFilter(Project project, BugCollection collection) {
             suppressionFilter = project.getSuppressionFilter();
@@ -443,7 +449,8 @@ public class Filter {
             if (introducedByChangeSpecified && bug.isIntroducedByChangeOfExistingClass() != introducedByChange) {
                 return false;
             }
-            if (newCodeSpecified && newCode != (!bug.isIntroducedByChangeOfExistingClass() && bug.getFirstVersion() != 0)) {
+            if (newCodeSpecified
+                    && newCode != (!bug.isIntroducedByChangeOfExistingClass() && bug.getFirstVersion() != 0)) {
                 return false;
             }
             if (removedCodeSpecified && removedCode != (!bug.isRemovedByChangeOfPersistingClass() && bug.isDead())) {
@@ -466,12 +473,14 @@ public class Filter {
                 }
             }
 
-            if (maybeMutatedAsString != null && !(atMutationPoint(bug) && mutationPoints.contains(getBugLocation(bug)))) {
+            if (maybeMutatedAsString != null
+                    && !(atMutationPoint(bug) && mutationPoints.contains(getBugLocation(bug)))) {
                 return false;
             }
 
             BugPattern thisBugPattern = bug.getBugPattern();
-            if (!categoryKey.isEmpty() && thisBugPattern != null && !categoryKey.contains(thisBugPattern.getCategory())) {
+            if (!categoryKey.isEmpty() && thisBugPattern != null
+                    && !categoryKey.contains(thisBugPattern.getCategory())) {
                 return false;
             }
 
@@ -646,6 +655,7 @@ public class Filter {
 
         /**
          * @param b
+         *
          * @return
          */
         private boolean atMutationPoint(BugInstance b) {
@@ -654,6 +664,7 @@ public class Filter {
 
         /**
          * @param b
+         *
          * @return
          */
         private String getBugLocation(BugInstance b) {
@@ -685,15 +696,14 @@ public class Filter {
 
     static SourceSearcher sourceSearcher;
 
-
     public static void main(String[] args) throws Exception {
         FindBugs.setNoAnalysis();
         DetectorFactoryCollection.instance();
 
         final FilterCommandLine commandLine = new FilterCommandLine();
 
-        int argCount = commandLine.parse(args, 0, 2, "Usage: " + Filter.class.getName()
-                + " [options] [<orig results> [<new results>]] ");
+        int argCount = commandLine.parse(args, 0, 2,
+                "Usage: " + Filter.class.getName() + " [options] [<orig results> [<new results>]] ");
         SortedBugCollection origCollection = new SortedBugCollection();
 
         if (argCount == args.length) {
@@ -771,7 +781,6 @@ public class Filter {
                 bug.clearHistory();
             }
 
-
         }
         if (verbose) {
             System.out.println(passed + " warnings passed through, " + dropped + " warnings dropped");
@@ -782,8 +791,9 @@ public class Filter {
                 Iterator<ClassStats> i = stats.getClassStats().iterator();
                 while (i.hasNext()) {
                     String className = i.next().getName();
-                    if (sourceSearcher.sourceNotFound.contains(className) || !sourceSearcher.sourceFound.contains(className)
-                            && !sourceSearcher.findSource(SourceLineAnnotation.createReallyUnknown(className))) {
+                    if (sourceSearcher.sourceNotFound.contains(className)
+                            || !sourceSearcher.sourceFound.contains(className) && !sourceSearcher
+                                    .findSource(SourceLineAnnotation.createReallyUnknown(className))) {
                         i.remove();
                     }
                 }

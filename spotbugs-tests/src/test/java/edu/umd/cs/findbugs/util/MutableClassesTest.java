@@ -110,7 +110,8 @@ class MutableClassesTest {
 
     @Test
     void testImmutable() {
-        Assertions.assertFalse(MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$Immutable;"));
+        Assertions.assertFalse(
+                MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$Immutable;"));
     }
 
     // This tests fails on java 8/11, so disable it and only run on java 17+ unless its determined how to fix
@@ -137,12 +138,12 @@ class MutableClassesTest {
 
     @Test
     void testEnumsAreImmutable() {
-        Assertions.assertFalse(MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ImmutableTestEnum;"));
+        Assertions.assertFalse(
+                MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ImmutableTestEnum;"));
     }
 
     public enum ImmutableTestEnum {
-        ONE,
-        TWO;
+        ONE, TWO;
 
         public void write() {
             // Does not matter
@@ -151,9 +152,9 @@ class MutableClassesTest {
 
     @Test
     void testErrorProneImmutable() {
-        Assertions.assertFalse(MutableClasses.mutableSignature(
-                "Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutable;"));
-        Assertions.assertFalse(MutableClasses.mutableSignature(
-                "Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutableSubclass;"));
+        Assertions.assertFalse(
+                MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutable;"));
+        Assertions.assertFalse(MutableClasses
+                .mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutableSubclass;"));
     }
 }
