@@ -23,8 +23,8 @@ import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.gui2.BugAspects.SortableValue;
 
 /**
- * These are the leaves of the tree, note that coloring is not done here, it is
- * done in BugRenderer This class is basically just a wrapper for BugInstance
+ * These are the leaves of the tree, note that coloring is not done here, it is done in BugRenderer This class is
+ * basically just a wrapper for BugInstance
  */
 
 // only thing of note is the equals method, which purposefully uses == since
@@ -52,19 +52,13 @@ public class BugLeafNode {
 
     public boolean matches(SortableValue keyValuePair) {
         /*
-         * try { Method m = BugInstance.class.getMethod("get" +
-         * keyValuePair.key,new Class[0]); return
-         * (keyValuePair.value.equals(m.invoke(this,new Object[0]))); }
-         * catch(SecurityException e) {
-         * System.err.println("NoOoOOOooOoOo000!!!1!!!1one!"); } catch
-         * (NoSuchMethodException e) { throw new IllegalArgumentException("get"
-         * + keyValuePair.key + " does not exist"); } catch
-         * (IllegalArgumentException e) { e.printStackTrace(); } catch
-         * (IllegalAccessException e) { System.err.println("Make the method get"
-         * + keyValuePair.key +
-         * " public or package or ... something.  ..  Now.");
-         * e.printStackTrace(); } catch (InvocationTargetException e) {
-         * e.printStackTrace(); }
+         * try { Method m = BugInstance.class.getMethod("get" + keyValuePair.key,new Class[0]); return
+         * (keyValuePair.value.equals(m.invoke(this,new Object[0]))); } catch(SecurityException e) {
+         * System.err.println("NoOoOOOooOoOo000!!!1!!!1one!"); } catch (NoSuchMethodException e) { throw new
+         * IllegalArgumentException("get" + keyValuePair.key + " does not exist"); } catch (IllegalArgumentException e)
+         * { e.printStackTrace(); } catch (IllegalAccessException e) { System.err.println("Make the method get" +
+         * keyValuePair.key + " public or package or ... something.  ..  Now."); e.printStackTrace(); } catch
+         * (InvocationTargetException e) { e.printStackTrace(); }
          */
         return keyValuePair.key.getFrom(bug).equals(keyValuePair.value);
     }

@@ -41,9 +41,9 @@ public class ClassData {
      * Constructor.
      *
      * @param classDescriptor
-     *            descriptor for the class
+     *                            descriptor for the class
      * @param data
-     *            the data (bytes) for a class
+     *                            the data (bytes) for a class
      */
     public ClassData(ClassDescriptor classDescriptor, ICodeBaseEntry codeBaseEntry, byte[] data) {
         this.classDescriptor = classDescriptor;
@@ -80,7 +80,6 @@ public class ClassData {
     public InputStream getInputStream() {
         return new ByteArrayInputStream(data);
     }
-
 
     @Override
     public String toString() {

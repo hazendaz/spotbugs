@@ -66,13 +66,13 @@ public class SaveXmlAction extends FindBugsAction {
             }
             validFileName = validateSelectedFileName(fileName);
             if (!validFileName) {
-                MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Warning", fileName
-                        + " is not a file or is not writable!");
+                MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Warning",
+                        fileName + " is not a file or is not writable!");
                 continue;
             }
             if (new File(fileName).exists()) {
-                if (!MessageDialog.openQuestion(Display.getDefault().getActiveShell(), "Warning", fileName
-                        + " already exists. Override?")) {
+                if (!MessageDialog.openQuestion(Display.getDefault().getActiveShell(), "Warning",
+                        fileName + " already exists. Override?")) {
                     continue;
                 }
             }
@@ -115,13 +115,12 @@ public class SaveXmlAction extends FindBugsAction {
     }
 
     /**
-     * Save the XML result of a FindBugs analysis on the given project,
-     * displaying a progress monitor.
+     * Save the XML result of a FindBugs analysis on the given project, displaying a progress monitor.
      *
      * @param project
-     *            The selected project.
+     *                     The selected project.
      * @param fileName
-     *            The file name to store the XML to.
+     *                     The file name to store the XML to.
      */
     private void work(final IProject project, final String fileName) {
         FindBugsJob runFindBugs = new FindBugsJob("Saving SpotBugs XML data to " + fileName + "...", project) {

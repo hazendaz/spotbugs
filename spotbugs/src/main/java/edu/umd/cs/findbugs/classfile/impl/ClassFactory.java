@@ -62,8 +62,7 @@ public class ClassFactory implements IClassFactory {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IClassFactory#createClassPathBuilder(edu
+     * @see edu.umd.cs.findbugs.classfile.IClassFactory#createClassPathBuilder(edu
      * .umd.cs.findbugs.classfile.IErrorLogger)
      */
     @Override
@@ -74,8 +73,7 @@ public class ClassFactory implements IClassFactory {
     /*
      * (non-Javadoc)
      *
-     * @see edu.umd.cs.findbugs.classfile.impl.IClassFactory#
-     * createFilesystemCodeBaseLocator(java.lang.String)
+     * @see edu.umd.cs.findbugs.classfile.impl.IClassFactory# createFilesystemCodeBaseLocator(java.lang.String)
      */
     @Override
     public ICodeBaseLocator createFilesystemCodeBaseLocator(String pathName) {
@@ -85,8 +83,7 @@ public class ClassFactory implements IClassFactory {
     /*
      * (non-Javadoc)
      *
-     * @see edu.umd.cs.findbugs.classfile.IClassFactory#
-     * createNestedArchiveCodeBaseLocator
+     * @see edu.umd.cs.findbugs.classfile.IClassFactory# createNestedArchiveCodeBaseLocator
      * (edu.umd.cs.findbugs.classfile.ICodeBase, java.lang.String)
      */
     @Override
@@ -133,9 +130,7 @@ public class ClassFactory implements IClassFactory {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IClassFactory#createAnalysisCache(edu.umd
-     * .cs.findbugs.classfile.IClassPath)
+     * @see edu.umd.cs.findbugs.classfile.IClassFactory#createAnalysisCache(edu.umd .cs.findbugs.classfile.IClassPath)
      */
     @Override
     public IAnalysisCache createAnalysisCache(IClassPath classPath, BugReporter errorLogger) {

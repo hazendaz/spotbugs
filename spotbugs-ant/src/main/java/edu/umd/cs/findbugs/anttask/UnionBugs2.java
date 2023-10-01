@@ -31,14 +31,10 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.types.FileSet;
 
 /**
- * An ant task that is wraps the behavior of the UnionResults executable into an
- * ant task.
- *
+ * An ant task that is wraps the behavior of the UnionResults executable into an ant task.
  * {@literal <taskdef name="UnionBugs2" classname="edu.umd.cs.findbugs.anttask.UnionBugs2"
- * classpath="...">}
- *
- * {@literal <UnionBugs2 to="${basedir}/findbugs.xml" > <fileset dir="plugins"> <include
- * name="*_findbugs_partial.xml" /> </fileset> </UnionBugs>}
+ * classpath="...">} {@literal <UnionBugs2 to="${basedir}/findbugs.xml" > <fileset dir="plugins">
+ * <include name="*_findbugs_partial.xml" /> </fileset> </UnionBugs>}
  *
  * @ant.task category="utility"
  */
@@ -58,7 +54,7 @@ public class UnionBugs2 extends AbstractFindBugsTask {
      * The fileset containing all the findbugs xml files that need to be merged
      *
      * @param arg
-     *            fileset containing all the findbugs xml files that need to be merged
+     *                fileset containing all the findbugs xml files that need to be merged
      */
     public void addFileset(FileSet arg) {
         fileSets.add(arg);
@@ -68,7 +64,7 @@ public class UnionBugs2 extends AbstractFindBugsTask {
      * The File everything should get merged into
      *
      * @param arg
-     *            file everything should get merged into
+     *                file everything should get merged into
      */
     public void setTo(String arg) {
         to = arg;
@@ -86,7 +82,6 @@ public class UnionBugs2 extends AbstractFindBugsTask {
             throw new BuildException("fileset is required");
         }
     }
-
 
     @Override
     protected void beforeExecuteJavaProcess() {
@@ -115,7 +110,8 @@ public class UnionBugs2 extends AbstractFindBugsTask {
         try (PrintWriter writer = new PrintWriter(tempFile.toFile(), StandardCharsets.UTF_8)) {
             writer.print(builder);
         } catch (IOException e) {
-            throw new BuildException(String.format("unable to write to temporary argument file: '%s'", pathAsString), e);
+            throw new BuildException(String.format("unable to write to temporary argument file: '%s'", pathAsString),
+                    e);
         }
         addArg(pathAsString);
     }

@@ -21,16 +21,13 @@ package edu.umd.cs.findbugs;
 
 import java.util.Set;
 
-
 /**
  * @author pugh
  */
 public class ComponentPlugin<T> {
 
-    public ComponentPlugin(Plugin plugin, String id, ClassLoader classLoader,
-            Class<? extends T> componentClass,
-            PropertyBundle properties, boolean enabledByDefault,
-            String description, String details) {
+    public ComponentPlugin(Plugin plugin, String id, ClassLoader classLoader, Class<? extends T> componentClass,
+            PropertyBundle properties, boolean enabledByDefault, String description, String details) {
         this.plugin = plugin;
         this.id = id;
         int i = id.lastIndexOf('.');

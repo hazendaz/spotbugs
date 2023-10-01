@@ -10,11 +10,8 @@ class Issue2782Test extends AbstractIntegrationTest {
     @Test
     @EnabledForJreRange(min = JRE.JAVA_21)
     void testIssue() {
-        performAnalysis(
-                "../java21/Issue2782.class",
-                "../java21/Issue2782$MyInterface.class",
-                "../java21/Issue2782$Impl1.class",
-                "../java21/Issue2782$Impl2.class");
+        performAnalysis("../java21/Issue2782.class", "../java21/Issue2782$MyInterface.class",
+                "../java21/Issue2782$Impl1.class", "../java21/Issue2782$Impl2.class");
 
         // Checks for issue 2782
         assertBugTypeCount("BC_UNCONFIRMED_CAST", 1);

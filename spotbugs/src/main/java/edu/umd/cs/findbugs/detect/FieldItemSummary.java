@@ -71,8 +71,8 @@ public class FieldItemSummary extends OpcodeStackDetector implements NonReportin
                         Subtypes2 subtypes2 = AnalysisContext.currentAnalysisContext().getSubtypes2();
 
                         for (XMethod called : targets) {
-                            if (!called.isAbstract() && !called.equals(m)
-                                    && subtypes2.isSubtype(called.getClassDescriptor(), getClassDescriptor())) {
+                            if (!called.isAbstract() && !called.equals(m) &&
+                                    subtypes2.isSubtype(called.getClassDescriptor(), getClassDescriptor())) {
                                 fieldSummary.setCalledFromSuperConstructor(new ProgramPoint(this), called);
                             }
                         }
@@ -86,8 +86,8 @@ public class FieldItemSummary extends OpcodeStackDetector implements NonReportin
 
         }
 
-        if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(getMethodName()) && Const.CONSTRUCTOR_NAME.equals(
-                getNameConstantOperand())) {
+        if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(getMethodName()) &&
+                Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand())) {
 
             String classOperand = getClassConstantOperand();
             OpcodeStack.Item invokedOn = stack.getItemMethodInvokedOn(this);

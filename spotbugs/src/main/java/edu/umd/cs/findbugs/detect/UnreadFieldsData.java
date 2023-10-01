@@ -33,7 +33,7 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.util.MultiMap;
 
 /**
- * @author  pugh
+ * @author pugh
  */
 public class UnreadFieldsData {
     final Map<XField, Set<ProgramPoint>> assumedNonNull = new HashMap<>();
@@ -65,7 +65,6 @@ public class UnreadFieldsData {
     final Set<XField> myFields = new TreeSet<>();
 
     final Set<XField> writtenFields = new HashSet<>();
-
 
     final Map<XField, SourceLineAnnotation> fieldAccess = new HashMap<>();
 

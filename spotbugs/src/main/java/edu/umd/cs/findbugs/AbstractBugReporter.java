@@ -47,8 +47,7 @@ import edu.umd.cs.findbugs.util.ClassName;
 import edu.umd.cs.findbugs.util.Values;
 
 /**
- * An abstract class which provides much of the functionality required of all
- * BugReporter objects.
+ * An abstract class which provides much of the functionality required of all BugReporter objects.
  */
 public abstract class AbstractBugReporter implements BugReporter {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractBugReporter.class);
@@ -200,15 +199,15 @@ public abstract class AbstractBugReporter implements BugReporter {
         }
 
         ClassAnnotation primaryClass = bugInstance.getPrimaryClass();
-        if (primaryClass != null && !AnalysisContext.currentAnalysisContext().isApplicationClass(primaryClass.getClassName())) {
+        if (primaryClass != null &&
+                !AnalysisContext.currentAnalysisContext().isApplicationClass(primaryClass.getClassName())) {
             LOG.debug("AbstractBugReporter: Filtering due to non-primary class");
             return;
         }
         int priority = bugInstance.getPriority();
         int bugRank = bugInstance.getBugRank();
         if (priority > priorityThreshold) {
-            LOG.debug("AbstractBugReporter: Filtering due to priorityThreshold {} > {}", priority,
-                    priorityThreshold);
+            LOG.debug("AbstractBugReporter: Filtering due to priorityThreshold {} > {}", priority, priorityThreshold);
         } else if (bugRank > rankThreshold) {
             LOG.debug("AbstractBugReporter: Filtering due to rankThreshold {} > {}", bugRank, rankThreshold);
         } else {
@@ -216,7 +215,8 @@ public abstract class AbstractBugReporter implements BugReporter {
         }
     }
 
-    public final void reportBugsFromXml(@WillClose InputStream in, Project theProject) throws IOException, DocumentException {
+    public final void reportBugsFromXml(@WillClose InputStream in, Project theProject)
+            throws IOException, DocumentException {
         SortedBugCollection theCollection = new SortedBugCollection(theProject);
         theCollection.readXML(in);
         for (BugInstance bug : theCollection.getCollection()) {
@@ -281,8 +281,7 @@ public abstract class AbstractBugReporter implements BugReporter {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IErrorLogger#reportMissingClass(edu.umd
+     * @see edu.umd.cs.findbugs.classfile.IErrorLogger#reportMissingClass(edu.umd
      * .cs.findbugs.classfile.ClassDescriptor)
      */
     @Override
@@ -350,13 +349,15 @@ public abstract class AbstractBugReporter implements BugReporter {
             return;
         }
         if (e instanceof edu.umd.cs.findbugs.classfile.MissingClassException) {
-            edu.umd.cs.findbugs.classfile.MissingClassException e2 = (edu.umd.cs.findbugs.classfile.MissingClassException) e;
+            edu.umd.cs.findbugs.classfile.MissingClassException e2 =
+                    (edu.umd.cs.findbugs.classfile.MissingClassException) e;
             reportMissingClass(e2.getClassDescriptor());
             return;
         }
         if (e instanceof edu.umd.cs.findbugs.ba.MissingClassException) {
             // Record the missing class, in case the exception thrower didn't.
-            edu.umd.cs.findbugs.ba.MissingClassException missingClassEx = (edu.umd.cs.findbugs.ba.MissingClassException) e;
+            edu.umd.cs.findbugs.ba.MissingClassException missingClassEx =
+                    (edu.umd.cs.findbugs.ba.MissingClassException) e;
             ClassNotFoundException cnfe = missingClassEx.getClassNotFoundException();
 
             reportMissingClass(cnfe);
@@ -403,7 +404,7 @@ public abstract class AbstractBugReporter implements BugReporter {
      * This should be called when a bug is reported by a subclass.
      *
      * @param bugInstance
-     *            the bug to inform observers of
+     *                        the bug to inform observers of
      */
     protected void notifyObservers(BugInstance bugInstance) {
         for (BugReporterObserver aObserverList : observerList) {
@@ -412,11 +413,10 @@ public abstract class AbstractBugReporter implements BugReporter {
     }
 
     /**
-     * Subclasses must override this. It will be called only for bugs which meet
-     * the priority threshold.
+     * Subclasses must override this. It will be called only for bugs which meet the priority threshold.
      *
      * @param bugInstance
-     *            the bug to report
+     *                        the bug to report
      */
     protected abstract void doReportBug(BugInstance bugInstance);
 
@@ -424,7 +424,7 @@ public abstract class AbstractBugReporter implements BugReporter {
      * Report a queued error.
      *
      * @param error
-     *            the queued error
+     *                  the queued error
      */
     public abstract void reportAnalysisError(AnalysisError error);
 
@@ -432,7 +432,7 @@ public abstract class AbstractBugReporter implements BugReporter {
      * Report a missing class.
      *
      * @param string
-     *            the name of the class
+     *                   the name of the class
      */
     public abstract void reportMissingClass(String string);
 

@@ -37,9 +37,8 @@ public class BackwardTypeQualifierDataflowFactoryFactory extends AnalysisFactory
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public BackwardTypeQualifierDataflowFactory analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)

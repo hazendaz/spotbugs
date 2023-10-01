@@ -45,8 +45,7 @@ import edu.umd.cs.findbugs.BugProperty;
 import edu.umd.cs.findbugs.config.UserPreferences;
 
 /**
- * Pulldown toolbar action for classifying a FindBugs warning as "bug" or
- * "not a bug".
+ * Pulldown toolbar action for classifying a FindBugs warning as "bug" or "not a bug".
  *
  * @author David Hovemeyer
  */
@@ -67,9 +66,7 @@ public class AccuracyClassificationPulldownAction implements IWorkbenchWindowPul
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.eclipse.ui.IWorkbenchWindowPulldownDelegate2#getMenu(org.eclipse.
-     * swt.widgets.Menu)
+     * @see org.eclipse.ui.IWorkbenchWindowPulldownDelegate2#getMenu(org.eclipse. swt.widgets.Menu)
      */
     @Override
     public Menu getMenu(Menu parent) {
@@ -79,9 +76,7 @@ public class AccuracyClassificationPulldownAction implements IWorkbenchWindowPul
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.eclipse.ui.IWorkbenchWindowPulldownDelegate#getMenu(org.eclipse.swt
-     * .widgets.Control)
+     * @see org.eclipse.ui.IWorkbenchWindowPulldownDelegate#getMenu(org.eclipse.swt .widgets.Control)
      */
     @Override
     public Menu getMenu(Control parent) {
@@ -105,9 +100,7 @@ public class AccuracyClassificationPulldownAction implements IWorkbenchWindowPul
             /*
              * (non-Javadoc)
              *
-             * @see
-             * org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse
-             * .swt.events.SelectionEvent)
+             * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse .swt.events.SelectionEvent)
              */
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -121,9 +114,7 @@ public class AccuracyClassificationPulldownAction implements IWorkbenchWindowPul
             /*
              * (non-Javadoc)
              *
-             * @see
-             * org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse
-             * .swt.events.SelectionEvent)
+             * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse .swt.events.SelectionEvent)
              */
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -149,8 +140,7 @@ public class AccuracyClassificationPulldownAction implements IWorkbenchWindowPul
     private void classifyWarning(BugInstance warning, boolean isBug) {
 
         BugProperty isBugProp = warning.lookupProperty(BugProperty.IS_BUG);
-        if (isBugProp != null
-                && isBugProp.getValueAsBoolean() == isBug) { // Warning was previously classified
+        if (isBugProp != null && isBugProp.getValueAsBoolean() == isBug) { // Warning was previously classified
             // No change
             return;
         }
@@ -200,8 +190,7 @@ public class AccuracyClassificationPulldownAction implements IWorkbenchWindowPul
     /*
      * (non-Javadoc)
      *
-     * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui.
-     * IWorkbenchWindow)
+     * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui. IWorkbenchWindow)
      */
     @Override
     public void init(IWorkbenchWindow window) {
@@ -221,9 +210,8 @@ public class AccuracyClassificationPulldownAction implements IWorkbenchWindowPul
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
-     * .IAction, org.eclipse.jface.viewers.ISelection)
+     * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action .IAction,
+     * org.eclipse.jface.viewers.ISelection)
      */
     @Override
     public void selectionChanged(IAction action, ISelection selection) {

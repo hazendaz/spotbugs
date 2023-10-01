@@ -50,9 +50,8 @@ import de.tobject.findbugs.builder.WorkItem;
 import de.tobject.findbugs.util.Util;
 
 /**
- * A simple decorator which adds (in currently hardcoded way) bug counts to the
- * resources. There are 3 different decorators configured via plugin.xml
- * (project/folder/file), current implementation is the same for all.
+ * A simple decorator which adds (in currently hardcoded way) bug counts to the resources. There are 3 different
+ * decorators configured via plugin.xml (project/folder/file), current implementation is the same for all.
  *
  * @author Andrey
  */
@@ -78,8 +77,8 @@ public class ResourceBugCountDecorator implements ILabelDecorator {
         public IStatus runInUIThread(IProgressMonitor monitor) {
             List<WorkItem> changed = new ArrayList<>(queue);
             queue.removeAll(changed);
-            Set<IResource> set = changed.stream().map(WorkItem::getProject).filter(Objects::nonNull)
-                    .collect(Collectors.toSet());
+            Set<IResource> set =
+                    changed.stream().map(WorkItem::getProject).filter(Objects::nonNull).collect(Collectors.toSet());
             if (!set.isEmpty()) {
                 fireProblemsChanged(set.toArray(new IResource[set.size()]));
             }

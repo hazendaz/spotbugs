@@ -30,11 +30,11 @@ import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * Abstract base class for BugAnnotations describing constructs which are
- * contained in a Java package. Specifically, this includes classes, methods,
- * and fields.
+ * Abstract base class for BugAnnotations describing constructs which are contained in a Java package. Specifically,
+ * this includes classes, methods, and fields.
  *
  * @author David Hovemeyer
+ *
  * @see BugAnnotation
  */
 public abstract class PackageMemberAnnotation extends BugAnnotationWithSourceLines {
@@ -51,7 +51,7 @@ public abstract class PackageMemberAnnotation extends BugAnnotationWithSourceLin
      * Constructor.
      *
      * @param className
-     *            name of the class
+     *                      name of the class
      */
     protected PackageMemberAnnotation(@DottedClassName String className, String description) {
         this(className, description, computeSourceFile(className));
@@ -71,7 +71,7 @@ public abstract class PackageMemberAnnotation extends BugAnnotationWithSourceLin
      * Constructor.
      *
      * @param className
-     *            name of the class
+     *                      name of the class
      */
     protected PackageMemberAnnotation(@DottedClassName String className, String description, String sourceFileName) {
         if (className.isEmpty()) {
@@ -127,12 +127,12 @@ public abstract class PackageMemberAnnotation extends BugAnnotationWithSourceLin
     }
 
     /**
-     * Format the annotation. Note that this version (defined by
-     * PackageMemberAnnotation) only handles the "class" and "package" keys, and
-     * calls formatPackageMember() for all other keys.
+     * Format the annotation. Note that this version (defined by PackageMemberAnnotation) only handles the "class" and
+     * "package" keys, and calls formatPackageMember() for all other keys.
      *
      * @param key
-     *            the key
+     *                the key
+     *
      * @return the formatted annotation
      */
     @Override
@@ -173,16 +173,16 @@ public abstract class PackageMemberAnnotation extends BugAnnotationWithSourceLin
     }
 
     /**
-     * @param aJavaAnnotationNames the javaAnnotationNames to set
+     * @param aJavaAnnotationNames
+     *                                 the javaAnnotationNames to set
      */
     public void setJavaAnnotationNames(List<String> aJavaAnnotationNames) {
         javaAnnotationNames = aJavaAnnotationNames;
     }
 
     /**
-     * Shorten a type name of remove extraneous components. Candidates for
-     * shortening are classes in same package as this annotation and classes in
-     * the <code>java.lang</code> package.
+     * Shorten a type name of remove extraneous components. Candidates for shortening are classes in same package as
+     * this annotation and classes in the <code>java.lang</code> package.
      */
     protected static String shorten(String pkgName, String typeName) {
         int index = typeName.lastIndexOf('.');
@@ -218,17 +218,15 @@ public abstract class PackageMemberAnnotation extends BugAnnotationWithSourceLin
      * Do default and subclass-specific formatting.
      *
      * @param key
-     *            the key specifying how to do the formatting
+     *                         the key specifying how to do the formatting
      * @param primaryClass
-     *            TODO
+     *                         TODO
      */
     protected abstract String formatPackageMember(String key, ClassAnnotation primaryClass);
 
     /**
-     * All PackageMemberAnnotation object share a common toString()
-     * implementation. It uses the annotation description as a pattern for
-     * FindBugsMessageFormat, passing a reference to this object as the single
-     * message parameter.
+     * All PackageMemberAnnotation object share a common toString() implementation. It uses the annotation description
+     * as a pattern for FindBugsMessageFormat, passing a reference to this object as the single message parameter.
      */
     @Override
     public String toString() {

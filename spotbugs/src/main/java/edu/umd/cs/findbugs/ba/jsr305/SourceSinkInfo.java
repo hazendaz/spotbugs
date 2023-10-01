@@ -53,14 +53,13 @@ public class SourceSinkInfo implements Comparable<SourceSinkInfo> {
      * Constructor.
      *
      * @param type
-     *            type of the source or sink
+     *                     type of the source or sink
      * @param location
-     *            Location of the source or sink
+     *                     Location of the source or sink
      * @param vn
-     *            the ValueNumber of the annotated value
+     *                     the ValueNumber of the annotated value
      * @param when
-     *            the When value used (explicitly or implicitly) to annotate
-     *            this source or sink
+     *                     the When value used (explicitly or implicitly) to annotate this source or sink
      */
     public SourceSinkInfo(SourceSinkType type, Location location, ValueNumber vn, When when) {
         this.type = type;
@@ -99,7 +98,7 @@ public class SourceSinkInfo implements Comparable<SourceSinkInfo> {
 
     /**
      * @param parameter
-     *            The parameter to set.
+     *                      The parameter to set.
      */
     public void setParameter(int parameter) {
         this.parameter = parameter;
@@ -107,9 +106,9 @@ public class SourceSinkInfo implements Comparable<SourceSinkInfo> {
 
     /**
      * @param parameter
-     *            The parameter to set.
+     *                      The parameter to set.
      * @param local
-     *            The local to set.
+     *                      The local to set.
      */
     public void setParameterAndLocal(int parameter, int local) {
         this.parameter = parameter;
@@ -131,25 +130,22 @@ public class SourceSinkInfo implements Comparable<SourceSinkInfo> {
     }
 
     /**
-     * Set the SourceSinkInfo as having been created based on the results of
-     * type qualifiers computed for a called method (and not explicitly
-     * annotating the called method).
+     * Set the SourceSinkInfo as having been created based on the results of type qualifiers computed for a called
+     * method (and not explicitly annotating the called method).
      *
      * @param interproc
-     *            true if the SourceSinkInfo results from computed type
-     *            qualifiers for a called method, false otherwise
+     *                      true if the SourceSinkInfo results from computed type qualifiers for a called method, false
+     *                      otherwise
      */
     public void setInterproc(boolean interproc) {
         this.interproc = interproc;
     }
 
     /**
-     * Return whether or not the SourceSinkInfo was created based on the results
-     * of type qualifiers computed for a called method (and not explicitly
-     * annotating the called method).
+     * Return whether or not the SourceSinkInfo was created based on the results of type qualifiers computed for a
+     * called method (and not explicitly annotating the called method).
      *
-     * @return true if the SourceSinkInfo results from computed type qualifiers
-     *         for a called method, false otherwise
+     * @return true if the SourceSinkInfo results from computed type qualifiers for a called method, false otherwise
      */
     public boolean getInterproc() {
         return interproc;
@@ -196,14 +192,9 @@ public class SourceSinkInfo implements Comparable<SourceSinkInfo> {
             return false;
         }
         SourceSinkInfo other = (SourceSinkInfo) obj;
-        return Objects.equals(constantValue, other.constantValue)
-                && interproc == other.interproc
-                && local == other.local
-                && Objects.equals(location, other.location)
-                && parameter == other.parameter
-                && type == other.type
-                && Objects.equals(vn, other.vn)
-                && when == other.when;
+        return Objects.equals(constantValue, other.constantValue) && interproc == other.interproc &&
+                local == other.local && Objects.equals(location, other.location) && parameter == other.parameter &&
+                type == other.type && Objects.equals(vn, other.vn) && when == other.when;
     }
 
     /*

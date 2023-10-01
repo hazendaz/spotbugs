@@ -8,11 +8,9 @@ class Issue2019Test extends AbstractIntegrationTest {
 
     @Test
     void testIssue() {
-        Assertions.assertDoesNotThrow(() -> performAnalysis("ghIssues/Issue2019$ATNSimulator.class",
-                "ghIssues/Issue2019$BaseParser.class",
-                "ghIssues/Issue2019$Parser.class",
-                "ghIssues/Issue2019$ParserATNSimulator.class",
-                "ghIssues/Issue2019$Recognizer.class",
-                "ghIssues/Issue2019.class"));
+        Assertions.assertDoesNotThrow(
+                () -> performAnalysis("ghIssues/Issue2019$ATNSimulator.class", "ghIssues/Issue2019$BaseParser.class",
+                        "ghIssues/Issue2019$Parser.class", "ghIssues/Issue2019$ParserATNSimulator.class",
+                        "ghIssues/Issue2019$Recognizer.class", "ghIssues/Issue2019.class"));
     }
 }

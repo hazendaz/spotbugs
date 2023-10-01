@@ -26,8 +26,7 @@ import de.tobject.findbugs.properties.FindbugsPropertyPage;
 import edu.umd.cs.findbugs.DetectorFactory;
 
 /**
- * Test subclass of DetectorConfigurationTab that provides methods for testing
- * purposes.
+ * Test subclass of DetectorConfigurationTab that provides methods for testing purposes.
  *
  * @author Tomás Pollak
  */

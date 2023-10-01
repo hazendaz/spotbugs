@@ -25,8 +25,7 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Analysis engine to produce ReverseDepthFirstSearch objects for analyzed
- * methods.
+ * Analysis engine to produce ReverseDepthFirstSearch objects for analyzed methods.
  *
  * @author David Hovemeyer
  */
@@ -41,9 +40,8 @@ public class ReverseDepthFirstSearchFactory extends AnalysisFactory<ReverseDepth
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public ReverseDepthFirstSearch analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)

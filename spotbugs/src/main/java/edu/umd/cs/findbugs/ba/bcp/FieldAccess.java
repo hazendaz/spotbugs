@@ -29,10 +29,11 @@ import edu.umd.cs.findbugs.ba.vna.ValueNumber;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * Base class for Load and Store PatternElements. Handles some of the grunt work
- * of representing fields and extracting field values from the stack frame.
+ * Base class for Load and Store PatternElements. Handles some of the grunt work of representing fields and extracting
+ * field values from the stack frame.
  *
  * @author David Hovemeyer
+ *
  * @see Load
  * @see Store
  */
@@ -45,10 +46,9 @@ public abstract class FieldAccess extends SingleInstruction {
      * Constructor.
      *
      * @param fieldVarName
-     *            name of the variable to bind to the field
+     *                         name of the variable to bind to the field
      * @param valueVarName
-     *            name of the variable to bind to the value store in or loaded
-     *            from the field
+     *                         name of the variable to bind to the value store in or loaded from the field
      */
     protected FieldAccess(String fieldVarName, String valueVarName) {
         this.fieldVarName = fieldVarName;
@@ -56,17 +56,17 @@ public abstract class FieldAccess extends SingleInstruction {
     }
 
     /**
-     * Check that the Variables determined for the field and the value
-     * loaded/stored are consistent with previous variable definitions.
+     * Check that the Variables determined for the field and the value loaded/stored are consistent with previous
+     * variable definitions.
      *
      * @param field
-     *            Variable representing the field
+     *                       Variable representing the field
      * @param value
-     *            Variable representing the value loaded/stored
+     *                       Variable representing the value loaded/stored
      * @param bindingSet
-     *            previous definitions
-     * @return a MatchResult containing an updated BindingSet if successful, or
-     *         null if unsuccessful
+     *                       previous definitions
+     *
+     * @return a MatchResult containing an updated BindingSet if successful, or null if unsuccessful
      */
     protected MatchResult checkConsistent(Variable field, Variable value, BindingSet bindingSet) {
         // Ensure that the field and value variables are consistent with
@@ -83,13 +83,12 @@ public abstract class FieldAccess extends SingleInstruction {
     }
 
     /**
-     * Return whether the given FieldInstruction accesses a long or double
-     * field.
+     * Return whether the given FieldInstruction accesses a long or double field.
      *
      * @param fieldIns
-     *            the FieldInstruction
+     *                     the FieldInstruction
      * @param cpg
-     *            the ConstantPoolGen for the method
+     *                     the ConstantPoolGen for the method
      */
     protected static boolean isLongOrDouble(FieldInstruction fieldIns, ConstantPoolGen cpg) {
         Type type = fieldIns.getFieldType(cpg);
@@ -98,16 +97,14 @@ public abstract class FieldAccess extends SingleInstruction {
     }
 
     /**
-     * Get a Variable representing the stack value which will either be stored
-     * into or loaded from a field.
+     * Get a Variable representing the stack value which will either be stored into or loaded from a field.
      *
      * @param fieldIns
-     *            the FieldInstruction accessing the field
+     *                     the FieldInstruction accessing the field
      * @param cpg
-     *            the ConstantPoolGen for the method
+     *                     the ConstantPoolGen for the method
      * @param frame
-     *            the ValueNumberFrame containing the value to be stored or the
-     *            value loaded
+     *                     the ValueNumberFrame containing the value to be stored or the value loaded
      */
     protected static Variable snarfFieldValue(FieldInstruction fieldIns, ConstantPoolGen cpg, ValueNumberFrame frame)
             throws DataflowAnalysisException {

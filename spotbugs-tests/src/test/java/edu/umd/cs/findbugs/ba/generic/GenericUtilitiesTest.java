@@ -63,8 +63,8 @@ class GenericUtilitiesTest {
 
     @Test
     void testMapSignature() {
-        GenericObjectType t = (GenericObjectType) GenericUtilities
-                .getType("Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;");
+        GenericObjectType t =
+                (GenericObjectType) GenericUtilities.getType("Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;");
         assertEquals(2, t.getNumParameters());
     }
 

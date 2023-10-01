@@ -115,9 +115,7 @@ public class CommandLineUiCallback implements IGuiCallback {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.IGuiCallback#showQuestionDialog(java.lang.String,
-     * java.lang.String, java.lang.String)
+     * @see edu.umd.cs.findbugs.IGuiCallback#showQuestionDialog(java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
     public String showQuestionDialog(String message, String title, String defaultValue) {
@@ -188,8 +186,7 @@ public class CommandLineUiCallback implements IGuiCallback {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.IGuiCallback#invokeInGUIThread(java.lang.Runnable)
+     * @see edu.umd.cs.findbugs.IGuiCallback#invokeInGUIThread(java.lang.Runnable)
      */
     @Override
     public void invokeInGUIThread(Runnable r) {

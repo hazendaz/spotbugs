@@ -61,13 +61,12 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 
 /**
- * Visitor to model the effects of bytecode instructions on the types of the
- * values (local and operand stack) in Java stack frames. This visitor does not
- * verify that the types are sensible for the bytecodes executed. In other
- * words, this isn't a bytecode verifier, although it wouldn't be too hard to
- * turn it into something vaguely verifier-like.
+ * Visitor to model the effects of bytecode instructions on the types of the values (local and operand stack) in Java
+ * stack frames. This visitor does not verify that the types are sensible for the bytecodes executed. In other words,
+ * this isn't a bytecode verifier, although it wouldn't be too hard to turn it into something vaguely verifier-like.
  *
  * @author David Hovemeyer
+ *
  * @see TypeFrame
  * @see TypeAnalysis
  */
@@ -90,15 +89,13 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
 
     protected BitSet genericLocalVariables;
 
-
     /**
      * Constructor.
      *
      * @param cpg
-     *            the ConstantPoolGen of the method whose instructions we are
-     *            examining
+     *                       the ConstantPoolGen of the method whose instructions we are examining
      * @param typeMerger
-     *            TODO
+     *                       TODO
      */
     public TypeFrameModelingVisitor(ConstantPoolGen cpg, TypeMerger typeMerger) {
         super(cpg);
@@ -107,12 +104,11 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
     }
 
     /**
-     * Set ValueNumberDataflow for the method being analyzed. This is optional;
-     * if set, we will use the information to more accurately model the effects
-     * of instanceof instructions.
+     * Set ValueNumberDataflow for the method being analyzed. This is optional; if set, we will use the information to
+     * more accurately model the effects of instanceof instructions.
      *
      * @param valueNumberDataflow
-     *            the ValueNumberDataflow
+     *                                the ValueNumberDataflow
      */
     public void setValueNumberDataflow(ValueNumberDataflow valueNumberDataflow) {
         this.valueNumberDataflow = valueNumberDataflow;
@@ -132,25 +128,21 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
             }
         }
 
-
     }
 
     /**
-     * Return whether an instanceof instruction was followed by a branch. The
-     * TypeAnalysis may use this to get more precise types in the resulting
-     * frame.
+     * Return whether an instanceof instruction was followed by a branch. The TypeAnalysis may use this to get more
+     * precise types in the resulting frame.
      *
-     * @return true if an instanceof instruction was followed by a branch, false
-     *         if not
+     * @return true if an instanceof instruction was followed by a branch, false if not
      */
     public boolean isInstanceOfFollowedByBranch() {
         return instanceOfFollowedByBranch;
     }
 
     /**
-     * Get the type of the most recent instanceof instruction modeled. The
-     * TypeAnalysis may use this to get more precise types in the resulting
-     * frame.
+     * Get the type of the most recent instanceof instruction modeled. The TypeAnalysis may use this to get more precise
+     * types in the resulting frame.
      *
      * @return the Type checked by the most recent instanceof instruction
      */
@@ -159,9 +151,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
     }
 
     /**
-     * Get the value number of the most recent instanceof instruction modeled.
-     * The TypeAnalysis may use this to get more precise types in the resulting
-     * frame.
+     * Get the value number of the most recent instanceof instruction modeled. The TypeAnalysis may use this to get more
+     * precise types in the resulting frame.
      *
      * @return the ValueNumber checked by the most recent instanceof instruction
      */
@@ -170,11 +161,10 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
     }
 
     /**
-     * Set the field store type database. We can use this to get more accurate
-     * types for values loaded from fields.
+     * Set the field store type database. We can use this to get more accurate types for values loaded from fields.
      *
      * @param database
-     *            the FieldStoreTypeDatabase
+     *                     the FieldStoreTypeDatabase
      */
     public void setFieldStoreTypeDatabase(FieldStoreTypeDatabase database) {
 
@@ -198,8 +188,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
     }
 
     /**
-     * This method must be called at the beginning of modeling a basic block in
-     * order to clear information cached for instanceof modeling.
+     * This method must be called at the beginning of modeling a basic block in order to clear information cached for
+     * instanceof modeling.
      */
     public void startBasicBlock() {
         instanceOfType = null;
@@ -207,8 +197,7 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
     }
 
     /**
-     * Consume stack. This is a convenience method for instructions where the
-     * types of popped operands can be ignored.
+     * Consume stack. This is a convenience method for instructions where the types of popped operands can be ignored.
      */
     protected void consumeStack(Instruction ins) {
         ConstantPoolGen cpg = getCPG();
@@ -219,8 +208,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
             throw new InvalidBytecodeException("Unpredictable stack consumption for " + ins);
         }
         if (numWordsConsumed > frame.getStackDepth()) {
-            throw new InvalidBytecodeException("Stack underflow for " + ins + ", " + numWordsConsumed + " needed, " + frame.getStackDepth()
-                    + " avail, frame is " + frame);
+            throw new InvalidBytecodeException("Stack underflow for " + ins + ", " + numWordsConsumed + " needed, " +
+                    frame.getStackDepth() + " avail, frame is " + frame);
         }
         try {
             while (numWordsConsumed-- > 0) {
@@ -232,9 +221,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
     }
 
     /**
-     * Work around some weirdness in BCEL (inherited from JVM Spec 1): BCEL
-     * considers long and double types to consume two slots on the stack. This
-     * method ensures that we push two types for each double or long value.
+     * Work around some weirdness in BCEL (inherited from JVM Spec 1): BCEL considers long and double types to consume
+     * two slots on the stack. This method ensures that we push two types for each double or long value.
      */
     protected void pushValue(Type type) {
         if (type.getType() == Const.T_VOID) {
@@ -264,8 +252,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
     }
 
     /**
-     * This is overridden only to ensure that we don't rely on the base class to
-     * handle instructions that produce stack operands.
+     * This is overridden only to ensure that we don't rely on the base class to handle instructions that produce stack
+     * operands.
      */
     @Override
     public void modelNormalInstruction(Instruction ins, int numWordsConsumed, int numWordsProduced) {
@@ -359,7 +347,6 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
             loadType = getType(xfield);
         }
 
-
         pushValue(loadType);
     }
 
@@ -374,19 +361,16 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
         // get a more precise type for this load.
 
         useDatabase: {
-            FieldStoreTypeDatabase database = AnalysisContext
-                    .currentAnalysisContext().getFieldStoreTypeDatabase();
+            FieldStoreTypeDatabase database = AnalysisContext.currentAnalysisContext().getFieldStoreTypeDatabase();
             if (database != null) {
-                FieldStoreType property = database.getProperty(xfield
-                        .getFieldDescriptor());
+                FieldStoreType property = database.getProperty(xfield.getFieldDescriptor());
                 if (property != null) {
                     loadType = property.getLoadType(loadType);
                     break useDatabase;
                 }
             }
 
-            FieldSummary fieldSummary = AnalysisContext
-                    .currentAnalysisContext().getFieldSummary();
+            FieldSummary fieldSummary = AnalysisContext.currentAnalysisContext().getFieldSummary();
             if (fieldSummary != null) {
                 Item summary = fieldSummary.getSummary(xfield);
                 if (summary != null) {
@@ -394,8 +378,7 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
                         return TypeFrame.getNullType();
                     }
                     if (!"Ljava/lang/Object;".equals(summary.getSignature())) {
-                        loadType = (ReferenceType) Type.getType(summary
-                                .getSignature());
+                        loadType = (ReferenceType) Type.getType(summary.getSignature());
                     }
                 }
             }
@@ -403,9 +386,7 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
 
         String sourceSignature = xfield.getSourceSignature();
         if (sourceSignature != null && loadType instanceof ObjectType) {
-            loadType = GenericUtilities.merge(
-                    GenericUtilities.getType(sourceSignature),
-                    (ObjectType) loadType);
+            loadType = GenericUtilities.merge(GenericUtilities.getType(sourceSignature), (ObjectType) loadType);
         }
 
         return loadType;
@@ -416,8 +397,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
         String methodName = obj.getMethodName(cpg);
         String signature = obj.getSignature(cpg);
         String className = obj.getClassName(cpg);
-        if ("asList".equals(methodName) && "java.util.Arrays".equals(className)
-                && "([Ljava/lang/Object;)Ljava/util/List;".equals(signature)) {
+        if ("asList".equals(methodName) && "java.util.Arrays".equals(className) &&
+                "([Ljava/lang/Object;)Ljava/util/List;".equals(signature)) {
             consumeStack(obj);
             Type returnType = Type.getType("Ljava/util/Arrays$ArrayList;");
             pushValue(returnType);
@@ -484,7 +465,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
                     ReferenceType keyType = parameters.get(index);
                     frame.popValue();
                     typesComputedFromGenerics.add(keyType);
-                    GenericObjectType keySetType = GenericUtilities.getType(typeName, Collections.singletonList(keyType));
+                    GenericObjectType keySetType =
+                            GenericUtilities.getType(typeName, Collections.singletonList(keyType));
                     typesComputedFromGenerics.add(keySetType);
                     frame.pushValue(keySetType);
                     return true;
@@ -560,9 +542,9 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
             return;
         }
 
-        mapGetCheck: if ("get".equals(methodName) && "(Ljava/lang/Object;)Ljava/lang/Object;".equals(signature)
-                && className.endsWith("Map") && Subtypes2.instanceOf(className, "java.util.Map")
-                && frame.getStackDepth() >= 2) {
+        mapGetCheck: if ("get".equals(methodName) && "(Ljava/lang/Object;)Ljava/lang/Object;".equals(signature) &&
+                className.endsWith("Map") && Subtypes2.instanceOf(className, "java.util.Map") &&
+                frame.getStackDepth() >= 2) {
             try {
                 Type mapType = frame.getStackValue(1);
                 if (mapType instanceof GenericObjectType) {
@@ -592,14 +574,14 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
 
         }
 
-        if ("java.util.Map$Entry".equals(className)
-                && (("getKey".equals(methodName) && getResultTypeFromGenericType(frame, 0, 2))
-                        || ("getValue".equals(methodName) && getResultTypeFromGenericType(frame, 1, 2)))) {
+        if ("java.util.Map$Entry".equals(className) &&
+                (("getKey".equals(methodName) && getResultTypeFromGenericType(frame, 0, 2)) ||
+                        ("getValue".equals(methodName) && getResultTypeFromGenericType(frame, 1, 2)))) {
             return;
         }
 
-        if ("entrySet".equals(methodName) && "()Ljava/util/Set;".equals(signature) && className.startsWith("java.util")
-                && className.endsWith("Map")) {
+        if ("entrySet".equals(methodName) && "()Ljava/util/Set;".equals(signature) &&
+                className.startsWith("java.util") && className.endsWith("Map")) {
             Type argType;
             try {
                 argType = frame.popValue();
@@ -616,31 +598,31 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
                     mapType = GenericUtilities.getType("java.util.Map$Entry", parameters);
                 }
             }
-            GenericObjectType entrySetType = GenericUtilities.getType("java.util.Set", Collections.singletonList(mapType));
+            GenericObjectType entrySetType =
+                    GenericUtilities.getType("java.util.Set", Collections.singletonList(mapType));
             frame.pushValue(entrySetType);
             return;
 
         }
-        if (className.startsWith("java.util") && className.endsWith("Map")
-                && ("keySet".equals(methodName) && "()Ljava/util/Set;".equals(signature) && handleGetMapView(frame, "java.util.Set", 0, 2)
-                        || ("values".equals(methodName) && "()Ljava/util/Collection;".equals(signature)
-                                && handleGetMapView(frame, "java.util.Collection", 1, 2)))) {
+        if (className.startsWith("java.util") && className.endsWith("Map") &&
+                ("keySet".equals(methodName) && "()Ljava/util/Set;".equals(signature) &&
+                        handleGetMapView(frame, "java.util.Set", 0, 2) ||
+                        ("values".equals(methodName) && "()Ljava/util/Collection;".equals(signature) &&
+                                handleGetMapView(frame, "java.util.Collection", 1, 2)))) {
             return;
         }
 
-
-        if ("iterator".equals(methodName) && "()Ljava/util/Iterator;".equals(signature) && className.startsWith("java.util")
-                && handleGetMapView(frame, "java.util.Iterator", 0, 1)) {
+        if ("iterator".equals(methodName) && "()Ljava/util/Iterator;".equals(signature) &&
+                className.startsWith("java.util") && handleGetMapView(frame, "java.util.Iterator", 0, 1)) {
             return;
         }
-        if ("java.util.Iterator".equals(className) && "next".equals(methodName) && "()Ljava/lang/Object;".equals(signature)
-                && getResultTypeFromGenericType(frame, 0, 1)) {
+        if ("java.util.Iterator".equals(className) && "next".equals(methodName) &&
+                "()Ljava/lang/Object;".equals(signature) && getResultTypeFromGenericType(frame, 0, 1)) {
             return;
         }
 
-        if ("initCause".equals(methodName) && "(Ljava/lang/Throwable;)Ljava/lang/Throwable;".equals(signature)
-                && (className.endsWith("Exception")
-                        || className.endsWith("Error"))) {
+        if ("initCause".equals(methodName) && "(Ljava/lang/Throwable;)Ljava/lang/Throwable;".equals(signature) &&
+                (className.endsWith("Exception") || className.endsWith("Error"))) {
             try {
 
                 frame.popValue();
@@ -685,8 +667,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
                                 foundSomething = true;
                             }
                         } catch (RuntimeException e) {
-                            AnalysisContext.logError("Problem analyzing call to " + m + " with source signature"
-                                    + sourceSignature, e);
+                            AnalysisContext.logError(
+                                    "Problem analyzing call to " + m + " with source signature" + sourceSignature, e);
                             break;
                         }
                     }
@@ -794,8 +776,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
                     frame.pushValue(resultType);
                     frame.setExact(frame.getStackLocation(0), topIsExact);
                     return true;
-                } else if ("()[Ljava/lang/Object;".equals(signature) && Subtypes2.isCollection(target)
-                        && !"Ljava/util/Arrays$ArrayList;".equals(topValue.getSignature())) {
+                } else if ("()[Ljava/lang/Object;".equals(signature) && Subtypes2.isCollection(target) &&
+                        !"Ljava/util/Arrays$ArrayList;".equals(topValue.getSignature())) {
                     consumeStack(obj);
                     pushReturnType(obj);
                     frame.setExact(frame.getStackLocation(0), true);
@@ -817,8 +799,8 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
             return null;
         }
         for (LocalVariable local : localTypeTable.getLocalVariableTypeTable()) {
-            if (local.getIndex() == index && local.getStartPC() <= pos
-                    && pos < +local.getStartPC() + local.getLength()) {
+            if (local.getIndex() == index && local.getStartPC() <= pos &&
+                    pos < +local.getStartPC() + local.getLength()) {
                 String signature = local.getSignature();
                 if (signature.indexOf('<') < 0) {
                     continue;
@@ -830,8 +812,7 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
                         return (GenericObjectType) t;
                     }
                 } catch (RuntimeException e) {
-                    AnalysisContext.logError("Bad signature " + signature
-                            + " for " + local.getName(), e);
+                    AnalysisContext.logError("Bad signature " + signature + " for " + local.getName(), e);
 
                 }
                 return null;
@@ -839,7 +820,6 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
         }
         return null;
     }
-
 
     @Override
     public void handleStoreInstruction(StoreInstruction obj) {
@@ -851,8 +831,7 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
                 Type value = frame.popValue();
                 int index = obj.getIndex();
                 if (value instanceof ReferenceType && !(value instanceof GenericObjectType)) {
-                    GenericObjectType gType = getLocalVariable(index,
-                            getLocation().getHandle().getPosition());
+                    GenericObjectType gType = getLocalVariable(index, getLocation().getHandle().getPosition());
                     value = GenericUtilities.merge(gType, value);
                 }
                 frame.setValue(index, value);
@@ -862,15 +841,13 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
             }
 
         } catch (DataflowAnalysisException e) {
-            throw new InvalidBytecodeException(
-                    "error handling store instruction ", e);
+            throw new InvalidBytecodeException("error handling store instruction ", e);
         }
     }
 
     /**
-     * Handler for all instructions which load values from a local variable and
-     * push them on the stack. Note that two locals are loaded for long and
-     * double loads.
+     * Handler for all instructions which load values from a local variable and push them on the stack. Note that two
+     * locals are loaded for long and double loads.
      */
     @Override
     public void handleLoadInstruction(LoadInstruction obj) {
@@ -887,8 +864,7 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
         TypeFrame frame = getFrame();
         Type value = frame.getValue(index);
         if (value instanceof ReferenceType && !(value instanceof GenericObjectType)) {
-            GenericObjectType gType = getLocalVariable(index,
-                    getLocation().getHandle().getPosition());
+            GenericObjectType gType = getLocalVariable(index, getLocation().getHandle().getPosition());
             value = GenericUtilities.merge(gType, value);
         }
         boolean isExact = frame.isExact(index);

@@ -36,7 +36,6 @@ import edu.umd.cs.findbugs.SystemProperties;
  * All FileChoosers are FBFileChoosers so font size will work
  *
  * @author Kristin
- *
  */
 public class FBFileChooser extends JFileChooser {
 

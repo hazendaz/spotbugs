@@ -40,8 +40,7 @@ import edu.umd.cs.findbugs.config.CommandLine;
 import edu.umd.cs.findbugs.filter.Filter;
 
 /**
- * Java main application to compute update a historical bug collection with
- * results from another build/analysis.
+ * Java main application to compute update a historical bug collection with results from another build/analysis.
  *
  * @author William Pugh
  */
@@ -88,10 +87,13 @@ public class SetBugDatabaseInfo {
             addSwitch("-resetProject", "remove all source search paths, analysis and auxiliary classpath entries");
             addOption("-source", "directory", "Add this directory to the source search path");
             addSwitch("-purgeStats", "purge/delete information about sizes of analyzed class files");
-            addSwitch("-purgeClassStats", "purge/delete information about sizes of analyzed class files, but retain class stats");
+            addSwitch("-purgeClassStats",
+                    "purge/delete information about sizes of analyzed class files, but retain class stats");
             addSwitch("-purgeMissingClasses", "purge list of missing classes");
-            addOption("-findSource", "directory", "Find and add all relevant source directions contained within this directory");
-            addOption("-suppress", "filter file", "Suppress warnings matched by this file (replaces previous suppressions)");
+            addOption("-findSource", "directory",
+                    "Find and add all relevant source directions contained within this directory");
+            addOption("-suppress", "filter file",
+                    "Suppress warnings matched by this file (replaces previous suppressions)");
             addOption("-lastVersion", "version", "Trim the history to just include just the specified version");
             addSwitch("-withMessages", "Add bug descriptions");
 

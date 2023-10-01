@@ -36,7 +36,8 @@ import edu.umd.cs.findbugs.util.ClassName;
 public class ReflectiveClasses extends BytecodeScanningDetector implements NonReportingDetector {
 
     public ReflectiveClasses(BugReporter bugReporter) {
-        AnalysisContext.currentXFactory().addReflectiveClasses(DescriptorFactory.createClassDescriptor(java.lang.System.class));
+        AnalysisContext.currentXFactory()
+                .addReflectiveClasses(DescriptorFactory.createClassDescriptor(java.lang.System.class));
     }
 
     String constantString;
@@ -56,8 +57,8 @@ public class ReflectiveClasses extends BytecodeScanningDetector implements NonRe
 
     @Override
     public void sawOpcode(int seen) {
-        if (seen == Const.INVOKESTATIC && constantString != null && "java/lang/Class".equals(getClassConstantOperand())
-                && "forName".equals(getNameConstantOperand())) {
+        if (seen == Const.INVOKESTATIC && constantString != null &&
+                "java/lang/Class".equals(getClassConstantOperand()) && "forName".equals(getNameConstantOperand())) {
             process(ClassName.toSlashedClassName(constantString));
         }
 

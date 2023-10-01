@@ -34,8 +34,8 @@ import edu.umd.cs.findbugs.ba.type.NullType;
 import edu.umd.cs.findbugs.util.Util;
 
 /**
- * Utilities for adding support for generics. Most of these methods can be
- * applied to generic and non generic type information.
+ * Utilities for adding support for generics. Most of these methods can be applied to generic and non generic type
+ * information.
  *
  * @author Nat Ayewah
  */
@@ -96,8 +96,7 @@ public class GenericUtilities {
         },
 
         /**
-         * A simple type variable e.g. <code>E</code>. Underlying ObjectType is
-         * <code>java.lang.Object</code>
+         * A simple type variable e.g. <code>E</code>. Underlying ObjectType is <code>java.lang.Object</code>
          */
         TYPE_VARIABLE {
             @Override
@@ -112,8 +111,7 @@ public class GenericUtilities {
         },
 
         /**
-         * A simple wildcard i.e. <code>?</code>. Underlying ObjectType is
-         * <code>java.lang.Object</code>
+         * A simple wildcard i.e. <code>?</code>. Underlying ObjectType is <code>java.lang.Object</code>
          */
         WILDCARD {
             @Override
@@ -128,10 +126,8 @@ public class GenericUtilities {
         },
 
         /**
-         * A wildcard that extends another ObjectType e.g.
-         * <code>? extends Comparable</code>. Underlying ObjectType is
-         * <code>java.lang.Object</code>. The extended type can be an ObjectType
-         * or a GenericObjectType
+         * A wildcard that extends another ObjectType e.g. <code>? extends Comparable</code>. Underlying ObjectType is
+         * <code>java.lang.Object</code>. The extended type can be an ObjectType or a GenericObjectType
          */
         WILDCARD_EXTENDS {
             @Override
@@ -148,10 +144,8 @@ public class GenericUtilities {
         },
 
         /**
-         * A wildcard that is extended by another ObjectType e.g.
-         * <code>? super Comparable</code>. Underlying ObjectType is
-         * <code>java.lang.Object</code>. The super type can be an ObjectType or
-         * a GenericObjectType
+         * A wildcard that is extended by another ObjectType e.g. <code>? super Comparable</code>. Underlying ObjectType
+         * is <code>java.lang.Object</code>. The super type can be an ObjectType or a GenericObjectType
          */
         WILDCARD_SUPER {
             @Override
@@ -246,24 +240,22 @@ public class GenericUtilities {
     }
 
     /**
-     * This method is analogous to <code>Type.getType(String)</code>, except
-     * that it also accepts signatures with generic information. e.g.
-     * <code>Ljava/util/ArrayList&lt;TT;&gt;;</code>
+     * This method is analogous to <code>Type.getType(String)</code>, except that it also accepts signatures with
+     * generic information. e.g. <code>Ljava/util/ArrayList&lt;TT;&gt;;</code>
      * <p>
-     *
-     * The signature should only contain one type. Use GenericSignatureParser to
-     * break up a signature with many types or call createTypes(String) to
-     * return a list of types
+     * The signature should only contain one type. Use GenericSignatureParser to break up a signature with many types or
+     * call createTypes(String) to return a list of types
      */
     public static @Nullable Type getType(String signature) {
         try {
             // ensure signature only has one type
-            final Iterator<String> signatureIterator = new GenericSignatureParser("(" + signature + ")V")
-                    .parameterSignatureIterator();
+            final Iterator<String> signatureIterator =
+                    new GenericSignatureParser("(" + signature + ")V").parameterSignatureIterator();
             signature = signatureIterator.next();
 
             if (signatureIterator.hasNext()) {
-                throw new IllegalArgumentException("the following signature does not contain exactly one type: " + signature);
+                throw new IllegalArgumentException(
+                        "the following signature does not contain exactly one type: " + signature);
             }
 
             int index = 0;
@@ -274,7 +266,8 @@ public class GenericUtilities {
                     return Type.getType(stripAngleBrackets(signature));
                 }
 
-                String typeParameters = signature.substring(index + 1, nextUnmatchedRightAngleBracket(signature, index + 1));
+                String typeParameters =
+                        signature.substring(index + 1, nextUnmatchedRightAngleBracket(signature, index + 1));
                 List<ReferenceType> parameters = GenericUtilities.getTypeParameters(typeParameters);
                 if (parameters == null) {
                     return null;
@@ -422,12 +415,11 @@ public class GenericUtilities {
     }
 
     /**
-     * Parse a bytecode signature that has 1 or more (possibly generic) types
-     * and return a list of the Types.
+     * Parse a bytecode signature that has 1 or more (possibly generic) types and return a list of the Types.
      *
      * @param signature
-     *            bytecode signature e.g. e.g.
-     *            <code>Ljava/util/ArrayList&lt;Ljava/lang/String;&gt;;Ljava/util/ArrayList&lt;TT;&gt;;Ljava/util/ArrayList&lt;*&gt;;</code>
+     *                      bytecode signature e.g. e.g.
+     *                      <code>Ljava/util/ArrayList&lt;Ljava/lang/String;&gt;;Ljava/util/ArrayList&lt;TT;&gt;;Ljava/util/ArrayList&lt;*&gt;;</code>
      */
     public static final @Nullable List<ReferenceType> getTypeParameters(String signature) {
         GenericSignatureParser parser = new GenericSignatureParser("(" + signature + ")V");

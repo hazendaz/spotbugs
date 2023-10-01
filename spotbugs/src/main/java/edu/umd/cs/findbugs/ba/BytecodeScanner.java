@@ -24,8 +24,8 @@ import org.apache.bcel.Const;
 import edu.umd.cs.findbugs.SystemProperties;
 
 /**
- * Scan the raw bytecodes of a method. This is useful in order to find out
- * quickly whether or not a method uses particular instructions.
+ * Scan the raw bytecodes of a method. This is useful in order to find out quickly whether or not a method uses
+ * particular instructions.
  *
  * @author David Hovemeyer
  */
@@ -40,9 +40,9 @@ public class BytecodeScanner {
          * Called to indicate that a particular bytecode has been scanned.
          *
          * @param opcode
-         *            the opcode of the instruction
+         *                   the opcode of the instruction
          * @param index
-         *            the bytecode offset of the instruction
+         *                   the bytecode offset of the instruction
          */
         public void handleInstruction(int opcode, int index);
     }
@@ -51,7 +51,8 @@ public class BytecodeScanner {
      * Convert the unsigned value of a byte into a short.
      *
      * @param value
-     *            the byte
+     *                  the byte
+     *
      * @return the byte's unsigned value as a short
      */
     private static short unsignedValueOf(byte value) {
@@ -69,13 +70,13 @@ public class BytecodeScanner {
      * Extract an int from bytes at the given offset in the array.
      *
      * @param arr
-     *            the array
+     *                   the array
      * @param offset
-     *            the offset in the array
+     *                   the offset in the array
      */
     private static int extractInt(byte[] arr, int offset) {
-        return ((arr[offset] & 0xFF) << 24) | ((arr[offset + 1] & 0xFF) << 16) | ((arr[offset + 2] & 0xFF) << 8)
-                | (arr[offset + 3] & 0xFF);
+        return ((arr[offset] & 0xFF) << 24) | ((arr[offset + 1] & 0xFF) << 16) | ((arr[offset + 2] & 0xFF) << 8) |
+                (arr[offset + 3] & 0xFF);
     }
 
     private static final int[] PAD = { 0, 3, 2, 1 };
@@ -84,9 +85,9 @@ public class BytecodeScanner {
      * Scan the raw bytecodes of a method.
      *
      * @param instructionList
-     *            the bytecodes
+     *                            the bytecodes
      * @param callback
-     *            the callback object
+     *                            the callback object
      */
     public void scan(byte[] instructionList, Callback callback) {
 

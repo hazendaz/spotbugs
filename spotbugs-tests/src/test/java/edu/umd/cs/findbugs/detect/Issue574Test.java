@@ -12,8 +12,8 @@ class Issue574Test extends AbstractIntegrationTest {
     private static final String DESIRED_BUG_TYPE = "URF_UNREAD_FIELD";
 
     /**
-     * Expects 0 "URF_UNREAD_FIELD" errors in the "Issue574SerializedName.class" file.
-     * Tests <code>@SerializedName</code> annotation.
+     * Expects 0 "URF_UNREAD_FIELD" errors in the "Issue574SerializedName.class" file. Tests
+     * <code>@SerializedName</code> annotation.
      */
     @Test
     void testSerializedNameAnnotation() {
@@ -22,8 +22,8 @@ class Issue574Test extends AbstractIntegrationTest {
     }
 
     /**
-     * Expects 0 "URF_UNREAD_FIELD" errors in the "Issue574XmlElement.class" file.
-     * Tests <code>@XmlElement</code>, <code>@XmlAttribute</code>, and <code>@XmlValue</code> annotations.
+     * Expects 0 "URF_UNREAD_FIELD" errors in the "Issue574XmlElement.class" file. Tests <code>@XmlElement</code>,
+     * <code>@XmlAttribute</code>, and <code>@XmlValue</code> annotations.
      */
     @Test
     void testXmlElementAnnotation() {
@@ -32,8 +32,8 @@ class Issue574Test extends AbstractIntegrationTest {
     }
 
     /**
-     * Expects 0 "URF_UNREAD_FIELD" errors in the "Issue574RegisterExtension.class" file.
-     * Tests <code>@RegisterExtension</code> annotation.
+     * Expects 0 "URF_UNREAD_FIELD" errors in the "Issue574RegisterExtension.class" file. Tests
+     * <code>@RegisterExtension</code> annotation.
      */
     @Test
     void testRegisterExtensionAnnotation() {

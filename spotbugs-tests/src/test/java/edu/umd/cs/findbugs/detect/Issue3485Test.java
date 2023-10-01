@@ -15,13 +15,12 @@ class Issue3485Test extends AbstractIntegrationTest {
         assertBugTypeCount("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", 2);
         assertBugInMethodAtVariable("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", "ghIssues.Issue3485", "bar", "id");
         assertThat("nullResult method call in foo", getBugCollection().getCollection().stream().anyMatch(bug -> {
-            final BugInstanceMatcher matcher = new BugInstanceMatcherBuilder()
-                    .bugType("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
-                    .inClass("ghIssues.Issue3485")
-                    .inMethod("foo")
-                    .build();
+            final BugInstanceMatcher matcher =
+                    new BugInstanceMatcherBuilder().bugType("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
+                            .inClass("ghIssues.Issue3485").inMethod("foo").build();
             if (matcher.matches(bug)) {
-                MethodAnnotation call = bug.getAnnotationWithRole(MethodAnnotation.class, MethodAnnotation.METHOD_CALLED);
+                MethodAnnotation call =
+                        bug.getAnnotationWithRole(MethodAnnotation.class, MethodAnnotation.METHOD_CALLED);
                 return call != null && call.getMethodName().equals("nullReturn");
             }
             return false;

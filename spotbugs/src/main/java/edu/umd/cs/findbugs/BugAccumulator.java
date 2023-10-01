@@ -39,8 +39,7 @@ import edu.umd.cs.findbugs.classfile.Global;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Accumulate warnings that may occur at multiple source locations,
- * consolidating them into a single warning.
+ * Accumulate warnings that may occur at multiple source locations, consolidating them into a single warning.
  *
  * @author Bill Pugh
  * @author David Hovemeyer
@@ -76,12 +75,12 @@ public class BugAccumulator {
      * Constructor.
      *
      * @param reporter
-     *            the BugReporter to which warnings should eventually be
-     *            reported
+     *                     the BugReporter to which warnings should eventually be reported
      */
     public BugAccumulator(BugReporter reporter) {
         this.reporter = reporter;
-        performAccumulation = AnalysisContext.currentAnalysisContext().getBoolProperty(AnalysisFeatures.MERGE_SIMILAR_WARNINGS);
+        performAccumulation =
+                AnalysisContext.currentAnalysisContext().getBoolProperty(AnalysisFeatures.MERGE_SIMILAR_WARNINGS);
     }
 
     public @Nullable SourceLineAnnotation getLastBugLocation() {
@@ -105,9 +104,9 @@ public class BugAccumulator {
      * Accumulate a warning at given source location.
      *
      * @param bug
-     *            the warning
+     *                       the warning
      * @param sourceLine
-     *            the source location
+     *                       the source location
      */
     public void accumulateBug(BugInstance bug, SourceLineAnnotation sourceLine) {
         if (sourceLine == null) {
@@ -155,13 +154,12 @@ public class BugAccumulator {
     }
 
     /**
-     * Accumulate a warning at source location currently being visited by given
-     * BytecodeScanningDetector.
+     * Accumulate a warning at source location currently being visited by given BytecodeScanningDetector.
      *
      * @param bug
-     *            the warning
+     *                    the warning
      * @param visitor
-     *            the BytecodeScanningDetector
+     *                    the BytecodeScanningDetector
      */
     public void accumulateBug(BugInstance bug, BytecodeScanningDetector visitor) {
         MethodDescriptor methodDescriptor = visitor.getMethodDescriptor();
@@ -188,8 +186,7 @@ public class BugAccumulator {
     }
 
     /**
-     * Report accumulated warnings to the BugReporter. Clears all accumulated
-     * warnings as a side-effect.
+     * Report accumulated warnings to the BugReporter. Clears all accumulated warnings as a side-effect.
      */
     public void reportAccumulatedBugs() {
         for (Map.Entry<BugInstance, Data> e : map.entrySet()) {
@@ -210,9 +207,11 @@ public class BugAccumulator {
             if (lines.add(source.getStartLine())) {
                 bug.addSourceLine(source);
                 bug.describe(SourceLineAnnotation.ROLE_ANOTHER_INSTANCE);
-            } /* else if (false && SystemProperties.ASSERTIONS_ENABLED) {
-                AnalysisContext.logError("Skipping duplicated source warning for " + bug.getInstanceHash() + " " + bug.getMessage());
-              }*/
+            } /*
+               * else if (false && SystemProperties.ASSERTIONS_ENABLED) {
+               * AnalysisContext.logError("Skipping duplicated source warning for " + bug.getInstanceHash() + " " +
+               * bug.getMessage()); }
+               */
         }
         reporter.reportBug(bug);
     }
@@ -234,7 +233,8 @@ public class BugAccumulator {
 
     public void accumulateBug(BugInstance bug, ClassContext classContext, MethodGen methodGen, String sourceFile,
             Location location) {
-        accumulateBug(bug, SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile, location.getHandle()));
+        accumulateBug(bug,
+                SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile, location.getHandle()));
 
     }
 }

@@ -56,8 +56,8 @@ public class NoteJCIPAnnotation extends AnnotationVisitor implements Detector, N
         } else {
             return;
         }
-        JCIPAnnotationDatabase annotationDatabase = AnalysisContext.currentAnalysisContext()
-                .getJCIPAnnotationDatabase();
+        JCIPAnnotationDatabase annotationDatabase =
+                AnalysisContext.currentAnalysisContext().getJCIPAnnotationDatabase();
         ElementValue value = map.get("value");
         ClassMember member;
         if (visitingField()) {

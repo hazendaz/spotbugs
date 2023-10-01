@@ -39,12 +39,12 @@ class Issue600Test {
     private void assertBugCount(String clazz, int count, SpotBugsRunner spotbugs) {
         BugCollection bugCollection = analyse(clazz, spotbugs);
 
-        final BugInstanceMatcher bugTypeMatcher = new BugInstanceMatcherBuilder()
-                .bugType("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE").build();
+        final BugInstanceMatcher bugTypeMatcher =
+                new BugInstanceMatcherBuilder().bugType("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE").build();
         assertThat(bugCollection, containsExactly(count, bugTypeMatcher));
 
-        final BugInstanceMatcher bugTypeMatcher2 = new BugInstanceMatcherBuilder()
-                .bugType("RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE").build();
+        final BugInstanceMatcher bugTypeMatcher2 =
+                new BugInstanceMatcherBuilder().bugType("RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE").build();
         assertThat(bugCollection, containsExactly(0, bugTypeMatcher2));
     }
 

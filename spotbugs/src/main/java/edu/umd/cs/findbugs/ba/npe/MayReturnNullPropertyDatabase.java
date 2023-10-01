@@ -26,6 +26,7 @@ import edu.umd.cs.findbugs.ba.interproc.PropertyDatabaseFormatException;
  * MethodPropertyDatabase for keeping track of which methods may return null.
  *
  * @author David Hovemeyer
+ *
  * @deprecated
  */
 @Deprecated

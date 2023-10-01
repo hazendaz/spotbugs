@@ -22,8 +22,7 @@ package edu.umd.cs.findbugs.plan;
 import edu.umd.cs.findbugs.DetectorFactory;
 
 /**
- * Select one or more DetectorFactories as part of satisfying a Detector
- * ordering constraint.
+ * Select one or more DetectorFactories as part of satisfying a Detector ordering constraint.
  *
  * @author David Hovemeyer
  */
@@ -32,7 +31,8 @@ public interface DetectorFactorySelector {
      * Is given DetectorFactory selected (as part of an ordering constraint)?
      *
      * @param factory
-     *            a DetectorFactory
+     *                    a DetectorFactory
+     *
      * @return true if the factory is selected, false otherwise
      */
     public boolean selectFactory(DetectorFactory factory);

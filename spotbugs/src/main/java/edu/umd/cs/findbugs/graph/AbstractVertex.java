@@ -25,6 +25,7 @@ package edu.umd.cs.findbugs.graph;
  * @see GraphVertex
  * @see AbstractGraph
  * @see AbstractEdge
+ *
  * @author David Hovemeyer
  */
 public class AbstractVertex<EdgeType extends AbstractEdge<EdgeType, ActualVertexType>, ActualVertexType extends AbstractVertex<EdgeType, ActualVertexType>>

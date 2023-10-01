@@ -29,8 +29,7 @@ public interface IErrorLogger {
      * Called to report a class lookup failure.
      *
      * @param ex
-     *            a ClassNotFoundException resulting from the class lookup
-     *            failure
+     *               a ClassNotFoundException resulting from the class lookup failure
      */
     public void reportMissingClass(ClassNotFoundException ex);
 
@@ -38,7 +37,7 @@ public interface IErrorLogger {
      * Called to report a class lookup failure.
      *
      * @param classDescriptor
-     *            ClassDescriptor of a missing class
+     *                            ClassDescriptor of a missing class
      */
     public void reportMissingClass(ClassDescriptor classDescriptor);
 
@@ -46,9 +45,9 @@ public interface IErrorLogger {
      * Called to report a class lookup failure.
      *
      * @param classDescriptor
-     *            ClassDescriptor of a missing class
+     *                            ClassDescriptor of a missing class
      * @param exception
-     *            The exception thrown when trying to get the class
+     *                            The exception thrown when trying to get the class
      */
     public default void reportMissingClass(ClassDescriptor classDescriptor, CheckedAnalysisException exception) {
         if (exception instanceof MissingClassException) {
@@ -62,7 +61,7 @@ public interface IErrorLogger {
      * Log an error that occurs while performing analysis.
      *
      * @param message
-     *            the error message
+     *                    the error message
      */
     public void logError(String message);
 
@@ -70,9 +69,9 @@ public interface IErrorLogger {
      * Log an error that occurs while performing analysis.
      *
      * @param message
-     *            the error message
+     *                    the error message
      * @param e
-     *            the exception which is the underlying cause of the error
+     *                    the exception which is the underlying cause of the error
      */
     public void logError(String message, Throwable e);
 
@@ -80,7 +79,7 @@ public interface IErrorLogger {
      * Report that we skipped some analysis of a method
      *
      * @param method
-     *            the method we skipped
+     *                   the method we skipped
      */
     public void reportSkippedAnalysis(MethodDescriptor method);
 }

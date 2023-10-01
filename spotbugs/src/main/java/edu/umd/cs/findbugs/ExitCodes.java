@@ -23,9 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Flags returned in the process exit code returned when the FindBugs text UI is
- * invoked with the -exitcode command line argument. These are combined in a bit
- * set.
+ * Flags returned in the process exit code returned when the FindBugs text UI is invoked with the -exitcode command line
+ * argument. These are combined in a bit set.
  */
 public interface ExitCodes {
     /**

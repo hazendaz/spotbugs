@@ -90,13 +90,10 @@ import edu.umd.cs.findbugs.visitclass.PreorderVisitor;
  */
 public class FindSqlInjection implements Detector {
     private static final String[] PREPARE_STATEMENT_SIGNATURES = new String[] {
-        "(Ljava/lang/String;)Ljava/sql/PreparedStatement;",
-        "(Ljava/lang/String;I)Ljava/sql/PreparedStatement;",
-        "(Ljava/lang/String;II)Ljava/sql/PreparedStatement;",
-        "(Ljava/lang/String;III)Ljava/sql/PreparedStatement;",
+        "(Ljava/lang/String;)Ljava/sql/PreparedStatement;", "(Ljava/lang/String;I)Ljava/sql/PreparedStatement;",
+        "(Ljava/lang/String;II)Ljava/sql/PreparedStatement;", "(Ljava/lang/String;III)Ljava/sql/PreparedStatement;",
         "(Ljava/lang/String;[I)Ljava/sql/PreparedStatement;",
-        "(Ljava/lang/String;[Ljava/lang/String;)Ljava/sql/PreparedStatement;",
-    };
+        "(Ljava/lang/String;[Ljava/lang/String;)Ljava/sql/PreparedStatement;", };
 
     private static final MethodDescriptor[] EXECUTE_METHODS = new MethodDescriptor[] {
         new MethodDescriptor("java/sql/Statement", "executeQuery", "(Ljava/lang/String;)Ljava/sql/ResultSet;"),
@@ -107,13 +104,13 @@ public class FindSqlInjection implements Detector {
         new MethodDescriptor("java/sql/Statement", "executeLargeUpdate", "(Ljava/lang/String;)J"),
         new MethodDescriptor("java/sql/Statement", "executeLargeUpdate", "(Ljava/lang/String;I)J"),
         new MethodDescriptor("java/sql/Statement", "executeLargeUpdate", "(Ljava/lang/String;[I)J"),
-        new MethodDescriptor("java/sql/Statement", "executeLargeUpdate", "(Ljava/lang/String;[Ljava/lang/String;)J"),
+        new MethodDescriptor("java/sql/Statement", "executeLargeUpdate",
+                "(Ljava/lang/String;[Ljava/lang/String;)J"),
         new MethodDescriptor("java/sql/Statement", "execute", "(Ljava/lang/String;)Z"),
         new MethodDescriptor("java/sql/Statement", "execute", "(Ljava/lang/String;I)Z"),
         new MethodDescriptor("java/sql/Statement", "execute", "(Ljava/lang/String;[I)Z"),
         new MethodDescriptor("java/sql/Statement", "execute", "(Ljava/lang/String;[Ljava/lang/String;)Z"),
-        new MethodDescriptor("java/sql/Statement", "addBatch", "(Ljava/lang/String;)V"),
-    };
+        new MethodDescriptor("java/sql/Statement", "addBatch", "(Ljava/lang/String;)V"), };
 
     private static class StringAppendState {
         // remember the smallest position at which we saw something that
@@ -209,12 +206,15 @@ public class FindSqlInjection implements Detector {
         for (MethodDescriptor executeMethod : EXECUTE_METHODS) {
             baseExecuteMethods.add(new MethodParameter(executeMethod, 0));
         }
-        executeMethods = Global.getAnalysisCache().getDatabase(StringPassthruDatabase.class).findLinkedMethods(baseExecuteMethods);
+        executeMethods = Global.getAnalysisCache().getDatabase(StringPassthruDatabase.class)
+                .findLinkedMethods(baseExecuteMethods);
         Set<MethodParameter> basePrepareMethods = new HashSet<>();
         for (String signature : PREPARE_STATEMENT_SIGNATURES) {
-            basePrepareMethods.add(new MethodParameter(new MethodDescriptor("java/sql/Connection", "prepareStatement", signature), 0));
+            basePrepareMethods.add(
+                    new MethodParameter(new MethodDescriptor("java/sql/Connection", "prepareStatement", signature), 0));
         }
-        preparedStatementMethods = Global.getAnalysisCache().getDatabase(StringPassthruDatabase.class).findLinkedMethods(basePrepareMethods);
+        preparedStatementMethods = Global.getAnalysisCache().getDatabase(StringPassthruDatabase.class)
+                .findLinkedMethods(basePrepareMethods);
         allMethods.addAll(executeMethods.keySet());
         allMethods.addAll(preparedStatementMethods.keySet());
     }
@@ -237,9 +237,8 @@ public class FindSqlInjection implements Detector {
                 analyzeMethod(classContext, m);
 
             } catch (DataflowAnalysisException | CFGBuilderException | RuntimeException e) {
-                bugReporter.logError(
-                        "FindSqlInjection caught exception while analyzing " + classContext.getFullyQualifiedMethodName(m),
-                        e);
+                bugReporter.logError("FindSqlInjection caught exception while analyzing " +
+                        classContext.getFullyQualifiedMethodName(m), e);
             }
         }
     }
@@ -248,7 +247,8 @@ public class FindSqlInjection implements Detector {
         if (ins instanceof INVOKEVIRTUAL) {
             INVOKEVIRTUAL invoke = (INVOKEVIRTUAL) ins;
 
-            if ("append".equals(invoke.getMethodName(cpg)) && invoke.getClassName(cpg).startsWith("java.lang.StringB")) {
+            if ("append".equals(invoke.getMethodName(cpg)) &&
+                    invoke.getClassName(cpg).startsWith("java.lang.StringB")) {
                 String sig = invoke.getSignature(cpg);
                 char firstChar = sig.charAt(1);
                 return firstChar == '[' || firstChar == 'L';
@@ -259,8 +259,8 @@ public class FindSqlInjection implements Detector {
     }
 
     private boolean isJava9AndAboveStringAppend(Instruction ins, ConstantPoolGen cpg) {
-        return ins instanceof INVOKEDYNAMIC
-                && "makeConcatWithConstants".equals(((INVOKEDYNAMIC) ins).getMethodName(cpg));
+        return ins instanceof INVOKEDYNAMIC &&
+                "makeConcatWithConstants".equals(((INVOKEDYNAMIC) ins).getMethodName(cpg));
     }
 
     private boolean isConstantStringLoad(Location location, ConstantPoolGen cpg) {
@@ -288,7 +288,8 @@ public class FindSqlInjection implements Detector {
         return closeQuotePattern.matcher(s).find();
     }
 
-    private StringAppendState updateStringAppendState(Location location, ConstantPoolGen cpg, StringAppendState stringAppendState) {
+    private StringAppendState updateStringAppendState(Location location, ConstantPoolGen cpg,
+            StringAppendState stringAppendState) {
         InstructionHandle handle = location.getHandle();
         Instruction ins = handle.getInstruction();
         if (!isConstantStringLoad(location, cpg)) {
@@ -311,8 +312,8 @@ public class FindSqlInjection implements Detector {
         return stringAppendState;
     }
 
-    private StringAppendState updateJava9AndAboveStringAppendState(ClassContext ctx, Location location, ConstantPoolGen cpg,
-            StringAppendState stringAppendState) {
+    private StringAppendState updateJava9AndAboveStringAppendState(ClassContext ctx, Location location,
+            ConstantPoolGen cpg, StringAppendState stringAppendState) {
         InstructionHandle handle = location.getHandle();
         Instruction ins = handle.getInstruction();
         if (!(ins instanceof INVOKEDYNAMIC)) {
@@ -326,14 +327,15 @@ public class FindSqlInjection implements Detector {
         JavaClass clazz = ctx.getJavaClass();
         for (Attribute attr : clazz.getAttributes()) {
             if (attr instanceof BootstrapMethods) {
-                BootstrapMethod bm = ((BootstrapMethods) attr).getBootstrapMethods()[bmidx.getBootstrapMethodAttrIndex()];
+                BootstrapMethod bm =
+                        ((BootstrapMethods) attr).getBootstrapMethods()[bmidx.getBootstrapMethodAttrIndex()];
                 String concatArg = ((ConstantString) cp.getConstant(bm.getBootstrapArguments()[0])).getBytes(cp);
                 int u0001idx = concatArg.indexOf('\u0001');
                 if (u0001idx >= 0) {
                     String before = concatArg.substring(0, u0001idx).trim();
                     String after = concatArg.substring(u0001idx + 1).trim();
-                    if (before.startsWith(",") || before.endsWith(",") ||
-                            after.startsWith(",") || after.endsWith(",")) {
+                    if (before.startsWith(",") || before.endsWith(",") || after.startsWith(",") ||
+                            after.endsWith(",")) {
                         stringAppendState.setSawComma(handle);
                     }
                     if (isOpenQuote(before)) {
@@ -390,8 +392,8 @@ public class FindSqlInjection implements Detector {
                 if (sig2.indexOf("java/lang/String") >= 0) {
                     String methodName = inv.getMethodName(cpg);
                     String className = inv.getClassName(cpg);
-                    if ("valueOf".equals(methodName) && Values.DOTTED_JAVA_LANG_STRING.equals(className)
-                            && "(Ljava/lang/Object;)Ljava/lang/String;".equals(sig1)) {
+                    if ("valueOf".equals(methodName) && Values.DOTTED_JAVA_LANG_STRING.equals(className) &&
+                            "(Ljava/lang/Object;)Ljava/lang/String;".equals(sig1)) {
                         try {
                             TypeDataflow typeDataflow = classContext.getTypeDataflow(method);
                             TypeFrame frame = typeDataflow.getFactAtLocation(location);
@@ -411,16 +413,19 @@ public class FindSqlInjection implements Detector {
                         } catch (CheckedAnalysisException e) {
                             stringAppendState.setSawTaint(handle);
                         }
-                    } else if (className.startsWith(Values.DOTTED_JAVA_LANG_STRING) || "java.lang.Long".equals(className)
-                            || Values.DOTTED_JAVA_LANG_INTEGER.equals(className) || "java.lang.Float".equals(className)
-                            || "java.lang.Double".equals(className) || "java.lang.Short".equals(className)
-                            || "java.lang.Byte".equals(className) || "java.lang.Character".equals(className)) {
+                    } else if (className.startsWith(Values.DOTTED_JAVA_LANG_STRING) ||
+                            "java.lang.Long".equals(className) || Values.DOTTED_JAVA_LANG_INTEGER.equals(className) ||
+                            "java.lang.Float".equals(className) || "java.lang.Double".equals(className) ||
+                            "java.lang.Short".equals(className) || "java.lang.Byte".equals(className) ||
+                            "java.lang.Character".equals(className)) {
                         // ignore it
                         assert true;
-                    } else if (methodName.startsWith("to") && methodName.endsWith("String") && methodName.length() > 8) {
+                    } else if (methodName.startsWith("to") && methodName.endsWith("String") &&
+                            methodName.length() > 8) {
                         // ignore it
                         assert true;
-                    } else if ((className.startsWith("javax.servlet") || className.startsWith("jakarta.servlet")) && methodName.startsWith("get")) {
+                    } else if ((className.startsWith("javax.servlet") || className.startsWith("jakarta.servlet")) &&
+                            methodName.startsWith("get")) {
                         stringAppendState.setSawTaint(handle);
                         stringAppendState.setSawSeriousTaint(handle);
                     } else {
@@ -539,7 +544,8 @@ public class FindSqlInjection implements Detector {
 
     ClassContext classContext;
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws DataflowAnalysisException, CFGBuilderException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws DataflowAnalysisException, CFGBuilderException {
         JavaClass javaClass = classContext.getJavaClass();
         ValueNumberDataflow vnd = classContext.getValueNumberDataflow(method);
 
@@ -597,10 +603,8 @@ public class FindSqlInjection implements Detector {
                 if (prev == null || !isSafeValue(prev, cpg)) {
                     BugInstance bug = generateBugInstance(javaClass, methodGen, location.getHandle(), stringAppendState,
                             executeMethod);
-                    bugAccumulator.accumulateBug(
-                            bug,
-                            SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen,
-                                    javaClass.getSourceFileName(), location.getHandle()));
+                    bugAccumulator.accumulateBug(bug, SourceLineAnnotation.fromVisitedInstruction(classContext,
+                            methodGen, javaClass.getSourceFileName(), location.getHandle()));
                 }
             }
         }

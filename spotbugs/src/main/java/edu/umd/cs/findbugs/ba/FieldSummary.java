@@ -98,8 +98,8 @@ public class FieldSummary {
     }
 
     public void setCalledFromSuperConstructor(ProgramPoint from, XMethod calledFromConstructor) {
-        Set<ProgramPoint> set = selfMethodsCalledFromConstructor.computeIfAbsent(calledFromConstructor,
-                k -> new HashSet<>());
+        Set<ProgramPoint> set =
+                selfMethodsCalledFromConstructor.computeIfAbsent(calledFromConstructor, k -> new HashSet<>());
         set.add(from);
         callsOverriddenMethodsFromConstructor.add(from.method.getClassDescriptor());
 
@@ -112,8 +112,8 @@ public class FieldSummary {
         }
         for (Map.Entry<XMethod, Set<ProgramPoint>> e : selfMethodsCalledFromConstructor.entrySet()) {
             XMethod m = e.getKey();
-            if (m.getName().equals(calledFromConstructor.getName())
-                    && m.getClassDescriptor().equals(calledFromConstructor.getClassDescriptor())) {
+            if (m.getName().equals(calledFromConstructor.getName()) &&
+                    m.getClassDescriptor().equals(calledFromConstructor.getClassDescriptor())) {
                 String sig1 = m.getSignature();
                 String sig2 = calledFromConstructor.getSignature();
                 sig1 = sig1.substring(0, sig1.indexOf(')'));
@@ -152,8 +152,8 @@ public class FieldSummary {
         if (field.isFinal()) {
             return false;
         }
-        if (writtenOutsideOfConstructor.contains(field)
-                || !AnalysisContext.currentAnalysisContext().unreadFieldsAvailable()) {
+        if (writtenOutsideOfConstructor.contains(field) ||
+                !AnalysisContext.currentAnalysisContext().unreadFieldsAvailable()) {
             return true;
         }
         UnreadFieldsData unreadFields = AnalysisContext.currentAnalysisContext().getUnreadFieldsData();
@@ -194,7 +194,7 @@ public class FieldSummary {
 
     /**
      * @param complete
-     *            The complete to set.
+     *                     The complete to set.
      */
     public void setComplete(boolean complete) {
         this.complete = complete;

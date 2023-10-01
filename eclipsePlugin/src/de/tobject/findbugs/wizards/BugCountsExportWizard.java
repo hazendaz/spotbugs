@@ -30,8 +30,8 @@ public class BugCountsExportWizard extends Wizard implements IExportWizard {
 
     private static final String TITLE = "Export bug counts to clipboard";
 
-    private static final String DESCRIPTION = "All bugs from analyzed Java projects will "
-            + "be exported as CSV table to the clipboard";
+    private static final String DESCRIPTION =
+            "All bugs from analyzed Java projects will " + "be exported as CSV table to the clipboard";
 
     private ExportWizardPage mainPage;
 

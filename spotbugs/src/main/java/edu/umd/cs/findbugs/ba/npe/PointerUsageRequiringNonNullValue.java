@@ -65,17 +65,18 @@ public abstract class PointerUsageRequiringNonNullValue {
         }
     };
 
-    private static final PointerUsageRequiringNonNullValue nonNullReturnInstance = new PointerUsageRequiringNonNullValue() {
-        @Override
-        public boolean isReturnFromNonNullMethod() {
-            return true;
-        }
+    private static final PointerUsageRequiringNonNullValue nonNullReturnInstance =
+            new PointerUsageRequiringNonNullValue() {
+                @Override
+                public boolean isReturnFromNonNullMethod() {
+                    return true;
+                }
 
-        @Override
-        public String getDescription() {
-            return "SOURCE_LINE_RETURNED";
-        }
-    };
+                @Override
+                public String getDescription() {
+                    return "SOURCE_LINE_RETURNED";
+                }
+            };
 
     public static PointerUsageRequiringNonNullValue getPointerDereference() {
         return instance;

@@ -79,14 +79,14 @@ public class ViewCFG implements Detector {
         for (Iterator<BasicBlock> bi = cfg.blockIterator(); bi.hasNext();) {
             BasicBlock block = bi.next();
             if (block == cfg.getEntry()) {
-                out.println("  Node" + block.getLabel() + " [shape=record label=\"{" + block.getLabel() +
-                        " (ENTRY) }\"];");
+                out.println(
+                        "  Node" + block.getLabel() + " [shape=record label=\"{" + block.getLabel() + " (ENTRY) }\"];");
                 continue;
             }
 
             if (block == cfg.getExit()) {
-                out.println("  Node" + block.getLabel() + " [shape=record label=\"{" + block.getLabel() +
-                        " (EXIT) }\"];");
+                out.println(
+                        "  Node" + block.getLabel() + " [shape=record label=\"{" + block.getLabel() + " (EXIT) }\"];");
                 continue;
             }
 
@@ -96,8 +96,7 @@ public class ViewCFG implements Detector {
             }
             for (Iterator<InstructionHandle> ii = block.instructionIterator(); ii.hasNext();) {
                 InstructionHandle ins = ii.next();
-                String insStr = NUMBER_SUFFIX.matcher(
-                        SPACE_ARROW.matcher(ins.toString(false)).replaceAll(""))
+                String insStr = NUMBER_SUFFIX.matcher(SPACE_ARROW.matcher(ins.toString(false)).replaceAll(""))
                         .replaceAll(" #$1");
                 out.print(insStr + "\\l");
             }

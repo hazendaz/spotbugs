@@ -30,9 +30,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Recursively search a directory, its subdirectories, etc. Note that the search
- * algorithm uses a worklist, so its implementation does not use recursive
- * method calls.
+ * Recursively search a directory, its subdirectories, etc. Note that the search algorithm uses a worklist, so its
+ * implementation does not use recursive method calls.
  *
  * @author David Hovemeyer
  */
@@ -53,10 +52,9 @@ public class RecursiveFileSearch {
      * Constructor.
      *
      * @param baseDir
-     *            the base directory for the search
+     *                       the base directory for the search
      * @param fileFilter
-     *            chooses files to add to the results, and subdirectories to
-     *            continue the search in
+     *                       chooses files to add to the results, and subdirectories to continue the search in
      */
     public RecursiveFileSearch(String baseDir, FileFilter fileFilter) {
         this.baseDir = baseDir;
@@ -77,8 +75,9 @@ public class RecursiveFileSearch {
      * Perform the search.
      *
      * @return this object
+     *
      * @throws InterruptedException
-     *             if the thread is interrupted before the search completes
+     *                                  if the thread is interrupted before the search completes
      */
     public RecursiveFileSearch search() throws InterruptedException {
         File baseFile = new File(baseDir);
@@ -124,8 +123,7 @@ public class RecursiveFileSearch {
     }
 
     /**
-     * Get an iterator over the files found by the search. The full path names
-     * of the files are returned.
+     * Get an iterator over the files found by the search. The full path names of the files are returned.
      */
     public Iterator<String> fileNameIterator() {
         return resultList.iterator();

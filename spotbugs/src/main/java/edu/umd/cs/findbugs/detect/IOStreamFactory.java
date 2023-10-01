@@ -30,8 +30,7 @@ import edu.umd.cs.findbugs.ba.ObjectTypeFactory;
 import edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback;
 
 /**
- * A StreamFactory for normal java.io streams that are created using NEW
- * instructions.
+ * A StreamFactory for normal java.io streams that are created using NEW instructions.
  */
 public class IOStreamFactory implements StreamFactory {
     private final ObjectType baseClassType;

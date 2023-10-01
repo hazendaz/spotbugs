@@ -46,9 +46,8 @@ import edu.umd.cs.findbugs.ba.type.TypeDataflow;
 import edu.umd.cs.findbugs.ba.type.TypeFrame;
 
 /**
- * Build a database of reference types stored into fields. This can be used in
- * the future to improve the precision of type analysis when values are loaded
- * from fields.
+ * Build a database of reference types stored into fields. This can be used in the future to improve the precision of
+ * type analysis when values are loaded from fields.
  *
  * @author David Hovemeyer
  */
@@ -78,7 +77,8 @@ public class TrainFieldStoreTypes implements Detector, TrainingDetector {
         }
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         CFG cfg = classContext.getCFG(method);
         TypeDataflow typeDataflow = classContext.getTypeDataflow(method);
         ConstantPoolGen cpg = classContext.getConstantPoolGen();
@@ -139,8 +139,8 @@ public class TrainFieldStoreTypes implements Detector, TrainingDetector {
     @Override
     public void report() {
         database.purgeBoringEntries();
-        AnalysisContext.currentAnalysisContext().storePropertyDatabase(database, FieldStoreTypeDatabase.DEFAULT_FILENAME,
-                "store type database");
+        AnalysisContext.currentAnalysisContext().storePropertyDatabase(database,
+                FieldStoreTypeDatabase.DEFAULT_FILENAME, "store type database");
     }
 
 }

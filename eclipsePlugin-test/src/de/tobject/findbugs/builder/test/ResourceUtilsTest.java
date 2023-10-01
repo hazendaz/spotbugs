@@ -61,8 +61,8 @@ class ResourceUtilsTest extends AbstractFindBugsTest {
     void testGetResourcesPerProject_selectedClasses() throws JavaModelException {
         // Select classes A and B
         List<ICompilationUnit> classes = Arrays.asList(getClassA(), getClassB());
-        Map<IProject, List<WorkItem>> resourcesPerProject = ResourceUtils
-                .getResourcesPerProject(new StructuredSelection(classes));
+        Map<IProject, List<WorkItem>> resourcesPerProject =
+                ResourceUtils.getResourcesPerProject(new StructuredSelection(classes));
 
         // We should have project -> [A.java, B.java]
         assertNotNull(resourcesPerProject);
@@ -75,8 +75,8 @@ class ResourceUtilsTest extends AbstractFindBugsTest {
     @Test
     void testGetResourcesPerProject_selectedProject() {
         // Select the project
-        Map<IProject, List<WorkItem>> resourcesPerProject = ResourceUtils.getResourcesPerProject(new StructuredSelection(
-                getProject()));
+        Map<IProject, List<WorkItem>> resourcesPerProject =
+                ResourceUtils.getResourcesPerProject(new StructuredSelection(getProject()));
 
         // We should have project -> [project]
         assertNotNull(resourcesPerProject);
@@ -89,8 +89,8 @@ class ResourceUtilsTest extends AbstractFindBugsTest {
     void testGetResourcesPerProject_selectedProjectAndClasses() throws JavaModelException {
         // Select project and classes A and B
         List<?> classes = Arrays.asList(getProject(), getClassA(), getClassB());
-        Map<IProject, List<WorkItem>> resourcesPerProject = ResourceUtils
-                .getResourcesPerProject(new StructuredSelection(classes));
+        Map<IProject, List<WorkItem>> resourcesPerProject =
+                ResourceUtils.getResourcesPerProject(new StructuredSelection(classes));
 
         // We should have project -> [project]
         assertNotNull(resourcesPerProject);

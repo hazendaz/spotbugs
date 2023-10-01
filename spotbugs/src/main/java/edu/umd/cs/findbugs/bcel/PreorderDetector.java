@@ -24,8 +24,7 @@ import edu.umd.cs.findbugs.ba.ClassContext;
 import edu.umd.cs.findbugs.visitclass.PreorderVisitor;
 
 /**
- * Base class for Detectors which want to perform a preorder traversal of the
- * classfile.
+ * Base class for Detectors which want to perform a preorder traversal of the classfile.
  *
  * @see PreorderVisitor
  */

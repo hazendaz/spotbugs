@@ -37,11 +37,11 @@ public class ParameterAnnotationAccumulator extends AbstractMethodAnnotationAccu
      * Constructor.
      *
      * @param typeQualifierValue
-     *            TypeQualifierValue specifying kind of application to lookup
+     *                               TypeQualifierValue specifying kind of application to lookup
      * @param xmethod
-     *            method we want to find parameter annotation for
+     *                               method we want to find parameter annotation for
      * @param parameter
-     *            the parameter (0 == first parameter)
+     *                               the parameter (0 == first parameter)
      */
     protected ParameterAnnotationAccumulator(TypeQualifierValue<?> typeQualifierValue, XMethod xmethod, int parameter) {
         super(typeQualifierValue, xmethod);
@@ -55,8 +55,7 @@ public class ParameterAnnotationAccumulator extends AbstractMethodAnnotationAccu
     }
 
     /**
-     * Returns true if the method overrides/implements a method in a superclass
-     * or interface
+     * Returns true if the method overrides/implements a method in a superclass or interface
      */
     @Override
     public boolean overrides() {
@@ -66,8 +65,8 @@ public class ParameterAnnotationAccumulator extends AbstractMethodAnnotationAccu
     @Override
     protected TypeQualifierAnnotation lookupAnnotation(XMethod xm) {
         overrides = true;
-        TypeQualifierAnnotation result1 = TypeQualifierApplications.getEffectiveTypeQualifierAnnotation(xm, parameter,
-                getTypeQualifierValue());
+        TypeQualifierAnnotation result1 =
+                TypeQualifierApplications.getEffectiveTypeQualifierAnnotation(xm, parameter, getTypeQualifierValue());
         if (TypeQualifierApplications.DEBUG && result1 != null) {
             System.out.println("Inherit " + result1.when + " from " + xm);
         }

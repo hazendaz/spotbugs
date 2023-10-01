@@ -17,7 +17,8 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317904">3.59 exception object</a>
+ * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317904">3.59 exception
+ *          object</a>
  */
 class SarifException {
 
@@ -29,7 +30,8 @@ class SarifException {
 
     final @NonNull List<SarifException> innerExceptions;
 
-    SarifException(@NonNull String kind, @Nullable String message, @NonNull Stack stack, @NonNull List<SarifException> innerExceptions) {
+    SarifException(@NonNull String kind, @Nullable String message, @NonNull Stack stack,
+            @NonNull List<SarifException> innerExceptions) {
         this.kind = Objects.requireNonNull(kind);
         this.message = message;
         this.stack = Objects.requireNonNull(stack);
@@ -42,11 +44,10 @@ class SarifException {
         List<Throwable> innerThrowables = new ArrayList<>();
         innerThrowables.add(throwable.getCause());
         innerThrowables.addAll(Arrays.asList(throwable.getSuppressed()));
-        List<SarifException> innerExceptions = innerThrowables.stream()
-                .filter(Objects::nonNull)
-                .map(t -> fromThrowable(t, sourceFinder, baseToId))
-                .collect(Collectors.toList());
-        return new SarifException(throwable.getClass().getName(), message, Stack.fromThrowable(throwable, sourceFinder, baseToId), innerExceptions);
+        List<SarifException> innerExceptions = innerThrowables.stream().filter(Objects::nonNull)
+                .map(t -> fromThrowable(t, sourceFinder, baseToId)).collect(Collectors.toList());
+        return new SarifException(throwable.getClass().getName(), message,
+                Stack.fromThrowable(throwable, sourceFinder, baseToId), innerExceptions);
     }
 
     JsonObject toJsonObject() {

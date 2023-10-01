@@ -44,18 +44,14 @@ import edu.umd.cs.findbugs.PluginException;
 import edu.umd.cs.findbugs.SystemProperties;
 
 /**
- * Saves all the stuff that should be saved for each run, like recent projects,
- * previous comments, the current docking layout and the sort order
- *
- * For project related things, look in ProjectSettings
+ * Saves all the stuff that should be saved for each run, like recent projects, previous comments, the current docking
+ * layout and the sort order For project related things, look in ProjectSettings
  *
  * @author Dan
- *
  */
 /*
- * GUISaveState uses the Preferences API, don't look for a file anywhere, there
- * isn't one, well... there might be, but its all system dependent where it is
- * and how its stored
+ * GUISaveState uses the Preferences API, don't look for a file anywhere, there isn't one, well... there might be, but
+ * its all system dependent where it is and how its stored
  */
 public class GUISaveState {
 
@@ -90,7 +86,6 @@ public class GUISaveState {
     private static final String ENABLED_PLUGINS = "EnabledPlugins";
     private static final String DISABLED_PLUGINS = "DisabledPlugins";
     private static final String CUSTOM_PLUGINS = "CustomPlugins";
-
 
     static {
         for (int x = 0; x < RECENTPROJECTKEYS.length; x++) {
@@ -163,8 +158,8 @@ public class GUISaveState {
 
         newInstance.fontSize = p.getFloat(FONT_SIZE, 12.0f);
 
-        newInstance.starterDirectoryForLoadBugs = new File(p.get(GUISaveState.STARTERDIRECTORY,
-                SystemProperties.getProperty("user.dir")));
+        newInstance.starterDirectoryForLoadBugs =
+                new File(p.get(GUISaveState.STARTERDIRECTORY, SystemProperties.getProperty("user.dir")));
 
         int prevCommentsSize = p.getInt(GUISaveState.PREVCOMMENTSSIZE, 0);
 
@@ -312,8 +307,7 @@ public class GUISaveState {
     }
 
     /**
-     * This should be the method called to add a reused file for the recent
-     * menu.
+     * This should be the method called to add a reused file for the recent menu.
      */
     public void fileReused(File f) {
         if (!recentFiles.contains(f)) {
@@ -369,7 +363,7 @@ public class GUISaveState {
 
     /**
      * @param f
-     *            The starterDirectoryForLoadBugs to set.
+     *              The starterDirectoryForLoadBugs to set.
      */
     public void setStarterDirectoryForLoadBugs(File f) {
         this.starterDirectoryForLoadBugs = f;
@@ -439,7 +433,7 @@ public class GUISaveState {
 
     /**
      * @param previousComments
-     *            The previousComments to set.
+     *                             The previousComments to set.
      */
     public void setPreviousComments(LinkedList<String> previousComments) {
         this.previousComments = previousComments;
@@ -454,7 +448,7 @@ public class GUISaveState {
 
     /**
      * @param frameBounds
-     *            The frame bourds Rectangle to set.
+     *                        The frame bourds Rectangle to set.
      */
     public void setFrameBounds(Rectangle frameBounds) {
         this.frameBounds = frameBounds;
@@ -477,7 +471,7 @@ public class GUISaveState {
 
     /**
      * @param fontSize
-     *            The fontSize to set.
+     *                     The fontSize to set.
      */
     public void setFontSize(float fontSize) {
         this.fontSize = fontSize;
@@ -492,7 +486,7 @@ public class GUISaveState {
 
     /**
      * @param splitMain
-     *            The location of the main divider to set.
+     *                      The location of the main divider to set.
      */
     public void setSplitMain(int splitMain) {
         this.splitMain = splitMain;
@@ -507,7 +501,7 @@ public class GUISaveState {
 
     /**
      * @param splitSummary
-     *            The location of the summary divider to set.
+     *                         The location of the summary divider to set.
      */
     public void setSplitSummary(int splitSummary) {
         this.splitSummary = splitSummary;
@@ -522,7 +516,7 @@ public class GUISaveState {
 
     /**
      * @param splitTop
-     *            The location of the top divider to set.
+     *                     The location of the top divider to set.
      */
     public void setSplitTop(int splitTop) {
         this.splitTop = splitTop;

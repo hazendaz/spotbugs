@@ -10,12 +10,10 @@ import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.Method;
 
 /**
- * A detector that checks for lines in JUnit tests that look like `assertTrue(object instanceof Class)` and discourages them.
- *
- * It may be more useful to observe error messages from bad casts, as this may reveal more information regarding the
- * circumstances of the exception than a "false is not true" assert message.
- *
- * This detector reports bugs of the type `JUA_DONT_ASSERT_INSTANCEOF_IN_TESTS`.
+ * A detector that checks for lines in JUnit tests that look like `assertTrue(object instanceof Class)` and discourages
+ * them. It may be more useful to observe error messages from bad casts, as this may reveal more information regarding
+ * the circumstances of the exception than a "false is not true" assert message. This detector reports bugs of the type
+ * `JUA_DONT_ASSERT_INSTANCEOF_IN_TESTS`.
  */
 public class DontAssertInstanceofInTests extends OpcodeStackDetector {
     private boolean isTest;

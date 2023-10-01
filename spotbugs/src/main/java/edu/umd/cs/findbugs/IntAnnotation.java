@@ -30,6 +30,7 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
  * Bug annotation class for integer values.
  *
  * @author David Hovemeyer
+ *
  * @see BugAnnotation
  */
 public class IntAnnotation implements BugAnnotation {
@@ -62,7 +63,7 @@ public class IntAnnotation implements BugAnnotation {
      * Constructor.
      *
      * @param value
-     *            the integer value
+     *                  the integer value
      */
     public IntAnnotation(int value) {
         this.value = value;
@@ -174,8 +175,7 @@ public class IntAnnotation implements BugAnnotation {
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * XML Conversion support
+     * ---------------------------------------------------------------------- XML Conversion support
      * ----------------------------------------------------------------------
      */
 

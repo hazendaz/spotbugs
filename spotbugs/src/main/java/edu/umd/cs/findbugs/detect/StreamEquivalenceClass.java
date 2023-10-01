@@ -44,7 +44,7 @@ public class StreamEquivalenceClass {
      * Add a single member to the equivalence class.
      *
      * @param member
-     *            the member Stream
+     *                   the member Stream
      */
     public void addMember(Stream member) {
         memberSet.add(member);
@@ -61,7 +61,7 @@ public class StreamEquivalenceClass {
      * Add all members of other StreamEquivalenceClass to this one.
      *
      * @param other
-     *            the other StreamEquivalenceClass
+     *                  the other StreamEquivalenceClass
      */
     public void addAll(StreamEquivalenceClass other) {
         memberSet.addAll(other.memberSet);

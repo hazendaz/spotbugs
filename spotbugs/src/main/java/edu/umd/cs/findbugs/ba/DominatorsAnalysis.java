@@ -23,6 +23,7 @@ package edu.umd.cs.findbugs.ba;
  * Dataflow analysis to compute dominator sets for a CFG.
  *
  * @author David Hovemeyer
+ *
  * @see CFG
  * @see AbstractDominatorsAnalysis
  */
@@ -33,11 +34,11 @@ public class DominatorsAnalysis extends AbstractDominatorsAnalysis {
      * Constructor.
      *
      * @param cfg
-     *            the CFG to compute dominator relationships for
+     *                        the CFG to compute dominator relationships for
      * @param dfs
-     *            the DepthFirstSearch on the CFG
+     *                        the DepthFirstSearch on the CFG
      * @param edgeChooser
-     *            EdgeChooser to choose which Edges to consider significant
+     *                        EdgeChooser to choose which Edges to consider significant
      */
     public DominatorsAnalysis(CFG cfg, DepthFirstSearch dfs, EdgeChooser edgeChooser) {
         super(cfg, edgeChooser);
@@ -48,11 +49,11 @@ public class DominatorsAnalysis extends AbstractDominatorsAnalysis {
      * Constructor.
      *
      * @param cfg
-     *            the CFG to compute dominator relationships for
+     *                                 the CFG to compute dominator relationships for
      * @param dfs
-     *            the DepthFirstSearch on the CFG
+     *                                 the DepthFirstSearch on the CFG
      * @param ignoreExceptionEdges
-     *            true if exception edges should be ignored
+     *                                 true if exception edges should be ignored
      */
     public DominatorsAnalysis(CFG cfg, DepthFirstSearch dfs, boolean ignoreExceptionEdges) {
         super(cfg, ignoreExceptionEdges);

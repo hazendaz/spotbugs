@@ -24,19 +24,18 @@ import edu.umd.cs.findbugs.ba.DominatorsAnalysis;
 import edu.umd.cs.findbugs.ba.EdgeTypes;
 
 /**
- * DominatorsAnalysis variant in which implicit exception edges are ignored.
- * Implicit exception edges represent the control flow due to the emission
- * of unchecked exceptions, so the analysis only considers control flow
- * resulting from normal control structures and checked exceptions.
+ * DominatorsAnalysis variant in which implicit exception edges are ignored. Implicit exception edges represent the
+ * control flow due to the emission of unchecked exceptions, so the analysis only considers control flow resulting from
+ * normal control structures and checked exceptions.
  */
 public class NonImplicitExceptionDominatorsAnalysis extends DominatorsAnalysis {
     /**
      * Constructor.
      *
      * @param cfg
-     *            the CFG to compute dominator relationships for
+     *                the CFG to compute dominator relationships for
      * @param dfs
-     *            the DepthFirstSearch on the CFG
+     *                the DepthFirstSearch on the CFG
      */
     public NonImplicitExceptionDominatorsAnalysis(CFG cfg, DepthFirstSearch dfs) {
         super(cfg, dfs, edge -> !edge.isExceptionEdge() || edge.isFlagSet(EdgeTypes.EXPLICIT_EXCEPTIONS_FLAG));

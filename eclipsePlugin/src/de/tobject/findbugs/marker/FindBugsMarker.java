@@ -30,13 +30,14 @@ import edu.umd.cs.findbugs.annotations.Confidence;
  * Marker ids for the findbugs.
  *
  * @author Peter Friese
+ *
  * @version 1.0
+ *
  * @since 13.08.2003
  */
 public interface FindBugsMarker {
     /**
-     * Marker type for FindBugs warnings. (should be the plugin id concatenated
-     * with ".findbugsMarker")
+     * Marker type for FindBugs warnings. (should be the plugin id concatenated with ".findbugsMarker")
      */
     public static final String NAME = "com.github.spotbugs.plugin.eclipse.findbugsMarker";
 
@@ -46,7 +47,6 @@ public interface FindBugsMarker {
 
     public static final String TYPE_TROUBLING = "com.github.spotbugs.plugin.eclipse.findbugsMarkerTroubling";
     public static final String TYPE_OF_CONCERN = "com.github.spotbugs.plugin.eclipse.findbugsMarkerOfConcern";
-
 
     /**
      * Marker attribute recording the bug type (specific bug pattern).
@@ -58,7 +58,6 @@ public interface FindBugsMarker {
      */
     public static final String PATTERN_TYPE = "PATTERNTYPE";
 
-
     /**
      * Marker attribute recording the bug rank (as integer).
      */
@@ -69,16 +68,13 @@ public interface FindBugsMarker {
      */
     public static final String PRIO_AKA_CONFIDENCE = "CONFIDENCE";
 
-
     /**
-     * Marker attribute recording the unique id of the BugInstance in its
-     * BugCollection.
+     * Marker attribute recording the unique id of the BugInstance in its BugCollection.
      */
     public static final String UNIQUE_ID = "FINDBUGS_UNIQUE_ID";
 
     /**
-     * Marker attribute recording the unique Java handle identifier, see
-     * {@link IJavaElement#getHandleIdentifier()}
+     * Marker attribute recording the unique Java handle identifier, see {@link IJavaElement#getHandleIdentifier()}
      */
     public static final String UNIQUE_JAVA_ID = "UNIQUE_JAVA_ID";
 
@@ -88,8 +84,8 @@ public interface FindBugsMarker {
     public static final String DETECTOR_PLUGIN_ID = "DETECTOR_PLUGIN_ID";
 
     /**
-     * Marker attribute recording the primary (first) line of the BugInstance in
-     * its BugCollection (in case same bug reported on many lines).
+     * Marker attribute recording the primary (first) line of the BugInstance in its BugCollection (in case same bug
+     * reported on many lines).
      */
     public static final String PRIMARY_LINE = "PRIMARY_LINE";
 
@@ -142,7 +138,10 @@ public interface FindBugsMarker {
      * @see Confidence
      */
     enum MarkerConfidence {
-        High(Confidence.HIGH), Normal(Confidence.MEDIUM), Low(Confidence.LOW), Ignore(Confidence.IGNORE);
+        High(Confidence.HIGH),
+        Normal(Confidence.MEDIUM),
+        Low(Confidence.LOW),
+        Ignore(Confidence.IGNORE);
 
         private final Confidence confidence;
 
@@ -159,7 +158,8 @@ public interface FindBugsMarker {
          * XXX replace numeric values and double mapping through simple string id
          *
          * @param bugPrio
-         *            name as defined by {@link #name()}
+         *                    name as defined by {@link #name()}
+         *
          * @return matching confidence, never null
          */
         public static @NonNull MarkerConfidence getConfidence(int bugPrio) {
@@ -174,7 +174,9 @@ public interface FindBugsMarker {
         }
 
         /**
-         * @param confidence name as defined by {@link #name()}
+         * @param confidence
+         *                       name as defined by {@link #name()}
+         *
          * @return matching confidence, never null
          */
         public static @NonNull MarkerConfidence getConfidence(String confidence) {

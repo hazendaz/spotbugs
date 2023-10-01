@@ -24,17 +24,16 @@ public class NonExceptionDominatorsAnalysisFactory extends AnalysisFactory<NonEx
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
-    public NonExceptionDominatorsAnalysis analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor) throws CheckedAnalysisException {
+    public NonExceptionDominatorsAnalysis analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)
+            throws CheckedAnalysisException {
         CFG cfg = getCFG(analysisCache, descriptor);
         DepthFirstSearch dfs = getDepthFirstSearch(analysisCache, descriptor);
         NonExceptionDominatorsAnalysis analysis = new NonExceptionDominatorsAnalysis(cfg, dfs);
-        Dataflow<java.util.BitSet, DominatorsAnalysis> dataflow = new Dataflow<>(cfg,
-                analysis);
+        Dataflow<java.util.BitSet, DominatorsAnalysis> dataflow = new Dataflow<>(cfg, analysis);
         dataflow.execute();
         return analysis;
     }

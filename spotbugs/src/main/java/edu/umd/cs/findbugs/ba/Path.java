@@ -52,7 +52,7 @@ public class Path {
      * Append given BasicBlock id to the path.
      *
      * @param id
-     *            a BasicBlock id (label)
+     *               a BasicBlock id (label)
      */
     public void append(int id) {
         grow(length);
@@ -62,11 +62,11 @@ public class Path {
     }
 
     /**
-     * Determine whether or not the id of the given BasicBlock appears anywhere
-     * in the path.
+     * Determine whether or not the id of the given BasicBlock appears anywhere in the path.
      *
      * @param blockId
-     *            the id (label) of a BasicBlock
+     *                    the id (label) of a BasicBlock
+     *
      * @return true if the BasicBlock's id appears in the path, false if not
      */
     public boolean hasComponent(int blockId) {
@@ -82,7 +82,8 @@ public class Path {
      * Get the BasicBlock id at the given index in the path.
      *
      * @param index
-     *            an index in the Path (0 is the first component)
+     *                  an index in the Path (0 is the first component)
+     *
      * @return the id of the BasicBlock at the given index
      */
     public int getBlockIdAt(int index) {
@@ -114,7 +115,7 @@ public class Path {
      * Make this Path identical to the given one.
      *
      * @param other
-     *            a Path to which this object should be made identical
+     *                  a Path to which this object should be made identical
      */
     public void copyFrom(Path other) {
         grow(other.length - 1);
@@ -127,9 +128,9 @@ public class Path {
      * Accept a PathVisitor.
      *
      * @param cfg
-     *            the control flow graph
+     *                    the control flow graph
      * @param visitor
-     *            a PathVisitor
+     *                    a PathVisitor
      */
     public void acceptVisitor(CFG cfg, PathVisitor visitor) {
         if (getLength() > 0) {
@@ -139,18 +140,16 @@ public class Path {
     }
 
     /**
-     * Accept a PathVisitor, starting from a given BasicBlock and
-     * InstructionHandle.
+     * Accept a PathVisitor, starting from a given BasicBlock and InstructionHandle.
      *
      * @param cfg
-     *            the control flow graph
+     *                        the control flow graph
      * @param visitor
-     *            a PathVisitor
+     *                        a PathVisitor
      * @param startBlock
-     *            BasicBlock where traversal should start
+     *                        BasicBlock where traversal should start
      * @param startHandle
-     *            InstructionHandle within the start block where traversal
-     *            should start
+     *                        InstructionHandle within the start block where traversal should start
      */
     public void acceptVisitorStartingFromLocation(CFG cfg, PathVisitor visitor, BasicBlock startBlock,
             InstructionHandle startHandle) {
@@ -208,7 +207,8 @@ public class Path {
      * Determine whether or not given Path is a prefix of this one.
      *
      * @param path
-     *            another Path
+     *                 another Path
+     *
      * @return true if this Path is a prefix of the other Path, false otherwise
      */
     public boolean isPrefixOf(Path path) {

@@ -288,8 +288,7 @@ public class IsNullValueFrame extends Frame<IsNullValue> {
     }
 
     /**
-     * Downgrade all NSP values in frame. Should be called when a non-exception
-     * control split occurs.
+     * Downgrade all NSP values in frame. Should be called when a non-exception control split occurs.
      */
     public void downgradeOnControlSplit() {
         final int numSlots = getNumSlots();

@@ -31,7 +31,8 @@ public interface MethodChooser {
      * Determine whether or not given method should be chosen.
      *
      * @param method
-     *            the Method
+     *                   the Method
+     *
      * @return true if the method should be chosen, false if not
      */
     public boolean choose(Method method);

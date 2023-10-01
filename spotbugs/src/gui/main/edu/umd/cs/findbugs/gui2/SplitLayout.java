@@ -166,9 +166,7 @@ public class SplitLayout implements FindBugsLayoutManager {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.gui2.FindBugsLayoutManager#setSourceTitle(java.lang
-     * .String)
+     * @see edu.umd.cs.findbugs.gui2.FindBugsLayoutManager#setSourceTitle(java.lang .String)
      */
     @Override
     public void setSourceTitle(String title) {
@@ -179,8 +177,7 @@ public class SplitLayout implements FindBugsLayoutManager {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.gui2.FindBugsLayoutManager#getSourceTitleComponent()
+     * @see edu.umd.cs.findbugs.gui2.FindBugsLayoutManager#getSourceTitleComponent()
      */
     @Override
     public JComponent getSourceViewComponent() {

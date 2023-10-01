@@ -36,9 +36,9 @@ public class LocationWhereValueBecomesNull implements Comparable<LocationWhereVa
      * Constructor.
      *
      * @param location
-     *            the Location where a value becomes null
+     *                        the Location where a value becomes null
      * @param valueNumber
-     *            the value number
+     *                        the value number
      */
     public LocationWhereValueBecomesNull(Location location, ValueNumber valueNumber) {
         this.location = location;

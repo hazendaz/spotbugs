@@ -31,8 +31,7 @@ import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Reference;
 
 /**
- * Abstract base class for Ant tasks that run programs (main() methods) in
- * findbugs.jar or findbugsGUI.jar.
+ * Abstract base class for Ant tasks that run programs (main() methods) in findbugs.jar or findbugsGUI.jar.
  *
  * @author David Hovemeyer
  */
@@ -93,7 +92,8 @@ public abstract class AbstractFindBugsTask extends Task {
 
     private Java findbugsEngine;
 
-    public String execResultProperty = "edu.umd.cs.findbugs.anttask.AbstractFindBugsTask" + "." + RESULT_PROPERTY_SUFFIX;
+    public String execResultProperty =
+            "edu.umd.cs.findbugs.anttask.AbstractFindBugsTask" + "." + RESULT_PROPERTY_SUFFIX;
 
     /**
      * Constructor.
@@ -107,7 +107,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Set the home directory into which spotbugs was installed
      *
      * @param homeDir
-     *            installation directory
+     *                    installation directory
      */
     public void setHome(File homeDir) {
         this.homeDir = homeDir;
@@ -117,7 +117,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Set the debug flag
      *
      * @param flag
-     *            {@code true} to enable debugging
+     *                 {@code true} to enable debugging
      */
     public void setDebug(boolean flag) {
         debug = flag;
@@ -134,7 +134,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Set any specific jvm args
      *
      * @param args
-     *            JVM arguments
+     *                 JVM arguments
      */
     public void setJvmargs(String args) {
         jvmargs = args;
@@ -144,7 +144,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Set the command used to start the VM
      *
      * @param jvm
-     *            command used to start the VM
+     *                command used to start the VM
      */
     public void setJvm(String jvm) {
         this.jvm = jvm;
@@ -154,7 +154,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Set timeout in milliseconds.
      *
      * @param timeout
-     *            the timeout
+     *                    the timeout
      */
     public void setTimeout(long timeout) {
         this.timeout = timeout;
@@ -164,7 +164,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Set the failOnError flag
      *
      * @param flag
-     *            {@code true} to enable
+     *                 {@code true} to enable
      */
     public void setFailOnError(boolean flag) {
         failOnError = flag;
@@ -174,7 +174,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Tells this task to set the property with the given name to "true" when there were errors.
      *
      * @param name
-     *            property to set to "true" on errors
+     *                 property to set to "true" on errors
      */
     public void setErrorProperty(String name) {
         errorProperty = name;
@@ -195,7 +195,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Set the classpath to use.
      *
      * @param src
-     *            classpath to use
+     *                classpath to use
      */
     public void setClasspath(Path src) {
         if (classpath == null) {
@@ -221,7 +221,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Adds a reference to a classpath defined elsewhere.
      *
      * @param r
-     *            reference to a classpath defined elsewhere
+     *              reference to a classpath defined elsewhere
      */
     public void setClasspathRef(Reference r) {
         Path path = createClasspath();
@@ -234,7 +234,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * the plugin list to use.
      *
      * @param src
-     *            plugin list to use
+     *                plugin list to use
      */
     public void setPluginList(Path src) {
         if (pluginList == null) {
@@ -260,7 +260,7 @@ public abstract class AbstractFindBugsTask extends Task {
      * Adds a reference to a plugin list defined elsewhere.
      *
      * @param r
-     *            reference to a plugin list defined elsewhere
+     *              reference to a plugin list defined elsewhere
      */
     public void setPluginListRef(Reference r) {
         createPluginList().setRefid(r);
@@ -287,8 +287,8 @@ public abstract class AbstractFindBugsTask extends Task {
      */
     protected void checkParameters() {
         if (homeDir == null && classpath == null) {
-            throw new BuildException("either home attribute or " + "classpath attributes "
-                    + " must be defined for task <" + getTaskName() + "/>", getLocation());
+            throw new BuildException("either home attribute or " + "classpath attributes " +
+                    " must be defined for task <" + getTaskName() + "/>", getLocation());
         }
 
         if (pluginList != null) {
@@ -296,8 +296,9 @@ public abstract class AbstractFindBugsTask extends Task {
             String[] pluginFileList = pluginList.list();
             for (String pluginFile : pluginFileList) {
                 if (!pluginFile.endsWith(".jar")) {
-                    throw new BuildException("plugin file " + pluginFile + " is not a Jar file " + "in task <" + getTaskName()
-                            + "/>", getLocation());
+                    throw new BuildException(
+                            "plugin file " + pluginFile + " is not a Jar file " + "in task <" + getTaskName() + "/>",
+                            getLocation());
                 }
             }
         }
@@ -310,8 +311,8 @@ public abstract class AbstractFindBugsTask extends Task {
     }
 
     /**
-     * Create the FindBugs engine (the Java process that will run whatever
-     * FindBugs-related program this task is going to execute).
+     * Create the FindBugs engine (the Java process that will run whatever FindBugs-related program this task is going
+     * to execute).
      */
     protected void createFindbugsEngine() {
         findbugsEngine = new Java();
@@ -381,15 +382,14 @@ public abstract class AbstractFindBugsTask extends Task {
      * Add an argument to the JVM used to execute FindBugs.
      *
      * @param arg
-     *            the argument
+     *                the argument
      */
     protected void addArg(String arg) {
         findbugsEngine.createArg().setValue(arg.trim());
     }
 
     /**
-     * Sets the given string to be piped to standard input of the FindBugs JVM
-     * upon launching.
+     * Sets the given string to be piped to standard input of the FindBugs JVM upon launching.
      */
     protected void setInputString(String input) {
         findbugsEngine.setInputString(input);
@@ -413,18 +413,16 @@ public abstract class AbstractFindBugsTask extends Task {
         }
 
         /*
-         * set property containing return code of child process using a task
-         * identifier and a UUID to ensure exit code corresponds to this
-         * execution (the base Ant Task won't overwrite return code once it's
-         * been set, so unique identifiers must be used for each execution if we
-         * want to get the exit code)
+         * set property containing return code of child process using a task identifier and a UUID to ensure exit code
+         * corresponds to this execution (the base Ant Task won't overwrite return code once it's been set, so unique
+         * identifiers must be used for each execution if we want to get the exit code)
          */
         String execReturnCodeIdentifier = execResultProperty + "." + UUID.randomUUID().toString();
         getFindbugsEngine().setResultProperty(execReturnCodeIdentifier);
 
         /*
-         * if the execution fails, we'll report it ourself -- prevent the
-         * underlying Ant Java object from throwing an exception
+         * if the execution fails, we'll report it ourself -- prevent the underlying Ant Java object from throwing an
+         * exception
          */
         getFindbugsEngine().setFailonerror(false);
         try {

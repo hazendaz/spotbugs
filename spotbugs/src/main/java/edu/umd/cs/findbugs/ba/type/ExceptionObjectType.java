@@ -24,9 +24,8 @@ import org.apache.bcel.generic.ObjectType;
 import org.apache.bcel.generic.Type;
 
 /**
- * Special ReferenceType representing the type of a caught exception. Keeps
- * track of the entire set of exceptions that can be caught, and whether they
- * are explicit or implicit.
+ * Special ReferenceType representing the type of a caught exception. Keeps track of the entire set of exceptions that
+ * can be caught, and whether they are explicit or implicit.
  */
 public class ExceptionObjectType extends ObjectType implements ExtendedTypes {
     /**
@@ -40,9 +39,9 @@ public class ExceptionObjectType extends ObjectType implements ExtendedTypes {
      * Constructor.
      *
      * @param className
-     *            the class name
+     *                         the class name
      * @param exceptionSet
-     *            the set of exceptions
+     *                         the set of exceptions
      */
     private ExceptionObjectType(String className, ExceptionSet exceptionSet) {
         super(className);
@@ -53,9 +52,9 @@ public class ExceptionObjectType extends ObjectType implements ExtendedTypes {
      * Initialize object from an exception set.
      *
      * @param exceptionSet
-     *            the exception set
-     * @return a Type that is a supertype of all of the exceptions in the
-     *         exception set
+     *                         the exception set
+     *
+     * @return a Type that is a supertype of all of the exceptions in the exception set
      */
     public static Type fromExceptionSet(ExceptionSet exceptionSet) throws ClassNotFoundException {
         Type commonSupertype = exceptionSet.getCommonSupertype();

@@ -26,17 +26,18 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
  * Visitor interface for simple traversals of the inheritance graph.
  *
  * @see Subtypes2
+ *
  * @author Tobias Baum
  */
 public interface SupertypeTraversalVisitor {
     /**
-     * Visit a class vertex in the inheritance graph.
-     * Only called for classes that could be resolved, not called for java.lang.Object.
+     * Visit a class vertex in the inheritance graph. Only called for classes that could be resolved, not called for
+     * java.lang.Object.
      *
      * @param classDescriptor
-     *            ClassDescriptor of the class vertex
+     *                            ClassDescriptor of the class vertex
      * @param xclass
-     *            XClass object containing information about the class; never null
+     *                            XClass object containing information about the class; never null
      *
      * @return true if traversal should continue, false otherwise
      */

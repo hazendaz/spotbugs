@@ -36,9 +36,8 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 import edu.umd.cs.findbugs.visitclass.DismantleBytecode;
 
 /**
- * Find occurrences of using the String "+" or "+=" operators within a loop.
- * This is much less efficient than creating a dedicated StringBuffer object
- * outside the loop, and then appending to it.
+ * Find occurrences of using the String "+" or "+=" operators within a loop. This is much less efficient than creating a
+ * dedicated StringBuffer object outside the loop, and then appending to it.
  *
  * @author Dave Brosius
  * @author William Pugh
@@ -185,13 +184,13 @@ public class StringConcatenation extends OpcodeStackDetector implements Stateles
 
         case SEEN_NEW:
             int registerOnStack = getRegisterOnStack();
-            if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand())
-                    && "(Ljava/lang/String;)V".equals(getSigConstantOperand())
-                    && getClassConstantOperand().startsWith("java/lang/StringBu") && registerOnStack >= 0) {
+            if (seen == Const.INVOKESPECIAL && Const.CONSTRUCTOR_NAME.equals(getNameConstantOperand()) &&
+                    "(Ljava/lang/String;)V".equals(getSigConstantOperand()) &&
+                    getClassConstantOperand().startsWith("java/lang/StringBu") && registerOnStack >= 0) {
                 state = SEEN_APPEND1;
                 stringSource = registerOnStack;
-            } else if (seen == Const.INVOKEVIRTUAL && "append".equals(getNameConstantOperand())
-                    && getClassConstantOperand().startsWith("java/lang/StringBu")) {
+            } else if (seen == Const.INVOKEVIRTUAL && "append".equals(getNameConstantOperand()) &&
+                    getClassConstantOperand().startsWith("java/lang/StringBu")) {
                 if (DEBUG) {
                     System.out.println("Saw string being appended from register " + registerOnStack);
                 }
@@ -209,8 +208,8 @@ public class StringConcatenation extends OpcodeStackDetector implements Stateles
         case SEEN_APPEND1:
             if (storeIntoRegister(seen, stringSource)) {
                 reset();
-            } else if (seen == Const.INVOKEVIRTUAL && "append".equals(getNameConstantOperand())
-                    && getClassConstantOperand().startsWith("java/lang/StringBu")) {
+            } else if (seen == Const.INVOKEVIRTUAL && "append".equals(getNameConstantOperand()) &&
+                    getClassConstantOperand().startsWith("java/lang/StringBu")) {
                 state = SEEN_APPEND2;
             }
             break;
@@ -218,8 +217,8 @@ public class StringConcatenation extends OpcodeStackDetector implements Stateles
         case SEEN_APPEND2:
             if (storeIntoRegister(seen, stringSource)) {
                 reset();
-            } else if (seen == Const.INVOKEVIRTUAL && "toString".equals(getNameConstantOperand())
-                    && getClassConstantOperand().startsWith("java/lang/StringBu")) {
+            } else if (seen == Const.INVOKEVIRTUAL && "toString".equals(getNameConstantOperand()) &&
+                    getClassConstantOperand().startsWith("java/lang/StringBu")) {
                 state = CONSTRUCTED_STRING_ON_STACK;
             }
             break;
@@ -237,7 +236,8 @@ public class StringConcatenation extends OpcodeStackDetector implements Stateles
             // one sourceforge bug (Bug1811106) pointed out that for
             // do/while loops, it may be a if_icmpge. I generalized
             // it to any branch.
-            if (DismantleBytecode.isBranch(seen) && (getPC() - getBranchTarget()) < 300 && getBranchTarget() <= createPC) {
+            if (DismantleBytecode.isBranch(seen) && (getPC() - getBranchTarget()) < 300 &&
+                    getBranchTarget() <= createPC) {
 
                 // Next check: was the destination register clobbered
                 // elsewhere in this loop?
@@ -280,13 +280,13 @@ public class StringConcatenation extends OpcodeStackDetector implements Stateles
             break;
         }
 
-        if (seen == Const.INVOKESTATIC && "valueOf".equals(getNameConstantOperand())
-                && "java/lang/String".equals(getClassConstantOperand())
-                && "(Ljava/lang/Object;)Ljava/lang/String;".equals(getSigConstantOperand())) {
+        if (seen == Const.INVOKESTATIC && "valueOf".equals(getNameConstantOperand()) &&
+                "java/lang/String".equals(getClassConstantOperand()) &&
+                "(Ljava/lang/Object;)Ljava/lang/String;".equals(getSigConstantOperand())) {
         }
         if (DEBUG && state != oldState) {
-            System.out.println("At PC " + getPC() + " changing from state " + oldState + " to state " + state + ", regOnStack = "
-                    + getRegisterOnStack());
+            System.out.println("At PC " + getPC() + " changing from state " + oldState + " to state " + state +
+                    ", regOnStack = " + getRegisterOnStack());
         }
     }
 }

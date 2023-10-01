@@ -83,11 +83,9 @@ public class IO {
 
     static byte[] copyOf(byte[] original, int newLength) {
         byte[] copy = new byte[newLength];
-        System.arraycopy(original, 0, copy, 0,
-                Math.min(original.length, newLength));
+        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
         return copy;
     }
-
 
     public static byte[] readAll(@WillClose InputStream in, int size) throws IOException {
         try {
@@ -170,7 +168,6 @@ public class IO {
 
     /**
      * Close given AutoCloseable instance, ignoring any resulting exception.
-     *
      */
     public static void close(@Nullable AutoCloseable c) {
         if (c == null) {
@@ -186,7 +183,6 @@ public class IO {
 
     /**
      * Close given Closeable instance, ignoring any resulting exception.
-     *
      */
     public static void close(@Nullable Closeable c) {
         close((AutoCloseable) c);
@@ -217,8 +213,7 @@ public class IO {
      * Close given OutputStream, ignoring any resulting exception.
      *
      * @param outputStream
-     *            the OutputStream to close; may be null (in which case nothing
-     *            happens)
+     *                         the OutputStream to close; may be null (in which case nothing happens)
      */
     public static void close(@Nullable OutputStream outputStream) {
         if (outputStream == null) {
@@ -233,17 +228,17 @@ public class IO {
     }
 
     /**
-     * Provide a skip fully method. Either skips the requested number of bytes
-     * or throws an IOException;
+     * Provide a skip fully method. Either skips the requested number of bytes or throws an IOException;
      *
      * @param in
-     *            The input stream on which to perform the skip
+     *                  The input stream on which to perform the skip
      * @param bytes
-     *            Number of bytes to skip
+     *                  Number of bytes to skip
+     *
      * @throws EOFException
-     *             if we reach EOF and still need to skip more bytes
+     *                          if we reach EOF and still need to skip more bytes
      * @throws IOException
-     *             if in.skip throws an IOException
+     *                          if in.skip throws an IOException
      */
     public static void skipFully(InputStream in, long bytes) throws IOException {
         if (bytes < 0) {
@@ -288,6 +283,7 @@ public class IO {
      * file handler leak.
      *
      * @return opened {@link URLConnection} which does not use cache to load data
+     *
      * @see <a href="https://github.com/spotbugs/spotbugs/issues/589">related GitHub issue</a>
      */
     @CheckReturnValue
@@ -304,6 +300,7 @@ public class IO {
      * file handler leak.
      *
      * @return opened {@link URLConnection} which does not use cache to load data
+     *
      * @see <a href="https://github.com/spotbugs/spotbugs/issues/589">related GitHub issue</a>
      */
     @CheckReturnValue

@@ -52,14 +52,16 @@ import edu.umd.cs.findbugs.ba.vna.ValueNumberDataflow;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * <p>Match a ByteCodePattern against the code of a method, represented by a CFG.
- * Produces some number of ByteCodePatternMatch objects, which indicate how the
- * pattern matched the bytecode instructions in the method.
+ * <p>
+ * Match a ByteCodePattern against the code of a method, represented by a CFG. Produces some number of
+ * ByteCodePatternMatch objects, which indicate how the pattern matched the bytecode instructions in the method.
  * </p>
  * <p>
- * This code is a hack and should probably be rewritten.</p>
+ * This code is a hack and should probably be rewritten.
+ * </p>
  *
  * @author David Hovemeyer
+ *
  * @see ByteCodePattern
  */
 public class PatternMatcher implements DFSEdgeTypes {
@@ -89,14 +91,14 @@ public class PatternMatcher implements DFSEdgeTypes {
      * Constructor.
      *
      * @param pattern
-     *            the ByteCodePattern to look for examples of
+     *                         the ByteCodePattern to look for examples of
      * @param classContext
-     *            ClassContext for the class to analyze
+     *                         ClassContext for the class to analyze
      * @param method
-     *            the Method to analyze
+     *                         the Method to analyze
      */
-    public PatternMatcher(ByteCodePattern pattern, ClassContext classContext, Method method) throws CFGBuilderException,
-            DataflowAnalysisException {
+    public PatternMatcher(ByteCodePattern pattern, ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         this.pattern = pattern;
         this.cfg = classContext.getCFG(method);
         this.cpg = classContext.getConstantPoolGen();
@@ -112,9 +114,9 @@ public class PatternMatcher implements DFSEdgeTypes {
      * Search for examples of the ByteCodePattern.
      *
      * @return this object
+     *
      * @throws DataflowAnalysisException
-     *             if the ValueNumberAnalysis did not produce useful values for
-     *             the method
+     *                                       if the ValueNumberAnalysis did not produce useful values for the method
      */
     public PatternMatcher execute() throws DataflowAnalysisException {
         workList.addLast(cfg.getEntry());
@@ -145,8 +147,7 @@ public class PatternMatcher implements DFSEdgeTypes {
     }
 
     /**
-     * Return an Iterator over the ByteCodePatternMatch objects representing
-     * successful matches of the ByteCodePattern.
+     * Return an Iterator over the ByteCodePatternMatch objects representing successful matches of the ByteCodePattern.
      */
     public Iterator<ByteCodePatternMatch> byteCodePatternMatchIterator() {
         return resultList.iterator();
@@ -156,10 +157,10 @@ public class PatternMatcher implements DFSEdgeTypes {
      * Attempt to begin a match.
      *
      * @param basicBlock
-     *            the basic block
+     *                                the basic block
      * @param instructionIterator
-     *            the instruction iterator positioned just before the first
-     *            instruction to be matched
+     *                                the instruction iterator positioned just before the first instruction to be
+     *                                matched
      */
     private void attemptMatch(BasicBlock basicBlock, BasicBlock.InstructionIterator instructionIterator)
             throws DataflowAnalysisException {
@@ -170,8 +171,8 @@ public class PatternMatcher implements DFSEdgeTypes {
     private int nextPath = 0;
 
     /**
-     * Object representing the current state of the matching algorithm. Provides
-     * convenient methods to implement the various steps of the algorithm.
+     * Object representing the current state of the matching algorithm. Provides convenient methods to implement the
+     * various steps of the algorithm.
      */
     private class State {
         private final BasicBlock basicBlock;
@@ -201,13 +202,14 @@ public class PatternMatcher implements DFSEdgeTypes {
          * Constructor. Builds the start state.
          *
          * @param basicBlock
-         *            the initial basic block
+         *                                the initial basic block
          * @param instructionIterator
-         *            the instructionIterator indicating where to start matching
+         *                                the instructionIterator indicating where to start matching
          * @param patternElement
-         *            the first PatternElement of the pattern
+         *                                the first PatternElement of the pattern
          */
-        public State(BasicBlock basicBlock, BasicBlock.InstructionIterator instructionIterator, PatternElement patternElement) {
+        public State(BasicBlock basicBlock, BasicBlock.InstructionIterator instructionIterator,
+                PatternElement patternElement) {
             this(null, basicBlock, instructionIterator, patternElement, 0, null, null, true);
         }
 
@@ -232,7 +234,8 @@ public class PatternMatcher implements DFSEdgeTypes {
          * Make an exact copy of this object.
          */
         public State duplicate() {
-            return new State(this, basicBlock, instructionIterator, patternElement, matchCount, currentMatch, bindingSet, canFork);
+            return new State(this, basicBlock, instructionIterator, patternElement, matchCount, currentMatch,
+                    bindingSet, canFork);
         }
 
         /**
@@ -276,9 +279,8 @@ public class PatternMatcher implements DFSEdgeTypes {
         }
 
         /**
-         * Try to produce a new state that will finish matching the current
-         * element and start matching the next element. Returns null if the
-         * current element is not complete.
+         * Try to produce a new state that will finish matching the current element and start matching the next element.
+         * Returns null if the current element is not complete.
          */
         public State advanceToNextElement() {
             if (!canFork || matchCount < patternElement.minOccur()) {
@@ -300,8 +302,7 @@ public class PatternMatcher implements DFSEdgeTypes {
         }
 
         /**
-         * Determine if the current pattern element can continue to match
-         * instructions.
+         * Determine if the current pattern element can continue to match instructions.
          */
         public boolean currentElementCanContinue() {
             return matchCount < patternElement.maxOccur();
@@ -315,8 +316,8 @@ public class PatternMatcher implements DFSEdgeTypes {
         }
 
         /**
-         * Match current pattern element with next instruction in basic block.
-         * Returns MatchResult if match succeeds, null otherwise.
+         * Match current pattern element with next instruction in basic block. Returns MatchResult if match succeeds,
+         * null otherwise.
          */
         public MatchResult matchNextInBasicBlock() throws DataflowAnalysisException {
             if (!moreInstructionsInBasicBlock()) {
@@ -329,8 +330,7 @@ public class PatternMatcher implements DFSEdgeTypes {
         }
 
         /**
-         * Determine if it is possible to continue matching in a successor basic
-         * block.
+         * Determine if it is possible to continue matching in a successor basic block.
          */
         public boolean canAdvanceToNextBasicBlock() {
             return currentMatch == null || currentMatch.allowTrailingEdges();
@@ -347,14 +347,13 @@ public class PatternMatcher implements DFSEdgeTypes {
         }
 
         /**
-         * Return a new State for continuing the overall pattern match in a
-         * successor basic block.
+         * Return a new State for continuing the overall pattern match in a successor basic block.
          *
          * @param edge
-         *            the Edge leading to the successor basic block
+         *                        the Edge leading to the successor basic block
          * @param matchResult
-         *            a MatchResult representing the match of the last
-         *            instruction in the predecessor block; null if none
+         *                        a MatchResult representing the match of the last instruction in the predecessor block;
+         *                        null if none
          */
         public State advanceToSuccessor(Edge edge, MatchResult matchResult) {
             // If we have just matched an instruction, then we allow the
@@ -362,7 +361,8 @@ public class PatternMatcher implements DFSEdgeTypes {
             // This allows PatternElements to select particular control edges;
             // for example, only continue the pattern on the true branch
             // of an "if" comparison.
-            if (matchResult != null && !matchResult.getPatternElement().acceptBranch(edge, getLastMatchedInstruction())) {
+            if (matchResult != null &&
+                    !matchResult.getPatternElement().acceptBranch(edge, getLastMatchedInstruction())) {
                 return null;
             }
 
@@ -371,16 +371,14 @@ public class PatternMatcher implements DFSEdgeTypes {
         }
 
         /**
-         * Determine if we need to look for a dominated instruction at this
-         * point in the search.
+         * Determine if we need to look for a dominated instruction at this point in the search.
          */
         public boolean lookForDominatedInstruction() {
             return patternElement.getDominatedBy() != null && matchCount == 0;
         }
 
         /**
-         * Return Iterator over states representing dominated instructions that
-         * continue the match.
+         * Return Iterator over states representing dominated instructions that continue the match.
          */
         public Iterable<State> dominatedInstructionStateIterable() throws DataflowAnalysisException {
             if (!lookForDominatedInstruction()) {
@@ -435,8 +433,8 @@ public class PatternMatcher implements DFSEdgeTypes {
             boolean debug = LOG.isDebugEnabled() && (!(patternElement instanceof Wild) || SHOW_WILD);
             if (debug) {
 
-                debug((parentPath >= 0 ? parentPath + "->" : "") + path + ": Match " + patternElement + " against "
-                        + location.getHandle() + " " + (bindingSet != null ? bindingSet.toString() : "[]") + "...");
+                debug((parentPath >= 0 ? parentPath + "->" : "") + path + ": Match " + patternElement + " against " +
+                        location.getHandle() + " " + (bindingSet != null ? bindingSet.toString() : "[]") + "...");
             }
             MatchResult matchResult = patternElement.match(location.getHandle(), cpg, before, after, bindingSet);
             if (debug) {
@@ -466,11 +464,10 @@ public class PatternMatcher implements DFSEdgeTypes {
     }
 
     /**
-     * Match a sequence of pattern elements, starting at the given one. The
-     * InstructionIterator should generally be positioned just before the next
-     * instruction to be matched. However, it may be positioned at the end of a
-     * basic block, in which case nothing will happen except that we will try to
-     * continue the match in the non-backedge successors of the basic block.
+     * Match a sequence of pattern elements, starting at the given one. The InstructionIterator should generally be
+     * positioned just before the next instruction to be matched. However, it may be positioned at the end of a basic
+     * block, in which case nothing will happen except that we will try to continue the match in the non-backedge
+     * successors of the basic block.
      */
 
     int depth = 0;

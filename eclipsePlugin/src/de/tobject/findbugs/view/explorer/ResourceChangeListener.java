@@ -49,8 +49,8 @@ public final class ResourceChangeListener implements IResourceChangeListener {
         boolean accepted = false;
 
         /*
-         * gather all marker changes from the delta. be sure to do this in the
-         * calling thread, as the delta is destroyed when this method returns
+         * gather all marker changes from the delta. be sure to do this in the calling thread, as the delta is destroyed
+         * when this method returns
          */
         IMarkerDelta[] markerDeltas = event.findMarkerDeltas(FindBugsMarker.NAME, true);
         for (IMarkerDelta mdelta : markerDeltas) {

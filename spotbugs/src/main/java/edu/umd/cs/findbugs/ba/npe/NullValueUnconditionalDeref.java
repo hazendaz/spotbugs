@@ -6,8 +6,8 @@ import java.util.Set;
 import edu.umd.cs.findbugs.ba.Location;
 
 /**
- * Collected information about a single value number observed at one or more
- * locations to be both definitely-null and unconditionally dereferenced.
+ * Collected information about a single value number observed at one or more locations to be both definitely-null and
+ * unconditionally dereferenced.
  */
 public class NullValueUnconditionalDeref {
     private boolean alwaysOnExceptionPath;

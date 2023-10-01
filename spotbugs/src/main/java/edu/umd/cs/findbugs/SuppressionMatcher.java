@@ -44,8 +44,8 @@ public class SuppressionMatcher implements Matcher {
     public void addPackageSuppressor(PackageWarningSuppressor suppressor) {
         String packageName = suppressor.getPackageName();
 
-        Collection<WarningSuppressor> c = suppressedPackageWarnings.computeIfAbsent(packageName,
-                k -> new LinkedList<>());
+        Collection<WarningSuppressor> c =
+                suppressedPackageWarnings.computeIfAbsent(packageName, k -> new LinkedList<>());
         c.add(suppressor);
     }
 
@@ -92,10 +92,8 @@ public class SuppressionMatcher implements Matcher {
 
     public void validateSuppressionUsage(BugReporter bugReporter, UselessSuppressionDetector detector) {
         Stream.concat(suppressedWarnings.values().stream(), suppressedPackageWarnings.values().stream())
-                .flatMap(Collection::stream)
-                .filter(w -> w.isUselessSuppressionReportable() && !matched.contains(w))
-                .map(w -> w.buildUselessSuppressionBugInstance(detector))
-                .forEach(bugReporter::reportBug);
+                .flatMap(Collection::stream).filter(w -> w.isUselessSuppressionReportable() && !matched.contains(w))
+                .map(w -> w.buildUselessSuppressionBugInstance(detector)).forEach(bugReporter::reportBug);
     }
 
     @Override

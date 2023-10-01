@@ -29,7 +29,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * Test class to ensure that {@link SpotBugsExtension} really work as expected.
- *
  */
 @ExtendWith(SpotBugsExtension.class)
 class SpotBugsExtensionTest {

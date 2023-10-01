@@ -31,9 +31,8 @@ import edu.umd.cs.findbugs.test.service.ClassFileLocator;
 /**
  * Builder for creating a BugInstanceMatcher.
  * <p>
- * This class provides a fluent API to set various properties of the bug instance
- * such as bug type, class name, method name, field name, variable name, line number,
- * confidence level, and JSP file information.
+ * This class provides a fluent API to set various properties of the bug instance such as bug type, class name, method
+ * name, field name, variable name, line number, confidence level, and JSP file information.
  */
 public class BugInstanceMatcherBuilder {
 
@@ -52,7 +51,7 @@ public class BugInstanceMatcherBuilder {
      * Sets the bug type for the bug instance.
      *
      * @param bugType
-     *            the type of the bug
+     *                    the type of the bug
      *
      * @return this builder instance
      */
@@ -65,7 +64,7 @@ public class BugInstanceMatcherBuilder {
      * Sets the class name for the bug instance.
      *
      * @param className
-     *            the class name
+     *                      the class name
      *
      * @return this builder instance
      */
@@ -78,7 +77,7 @@ public class BugInstanceMatcherBuilder {
      * Sets the method name for the bug instance.
      *
      * @param methodName
-     *            the method name
+     *                       the method name
      *
      * @return this builder instance
      */
@@ -91,7 +90,7 @@ public class BugInstanceMatcherBuilder {
      * Sets the field name for the bug instance.
      *
      * @param fieldName
-     *            the field name
+     *                      the field name
      *
      * @return this builder instance
      */
@@ -104,7 +103,7 @@ public class BugInstanceMatcherBuilder {
      * Sets the variable name for the bug instance.
      *
      * @param variableName
-     *            the variable name
+     *                         the variable name
      *
      * @return this builder instance
      */
@@ -117,7 +116,7 @@ public class BugInstanceMatcherBuilder {
      * Sets the line number for the bug instance.
      *
      * @param lineNumber
-     *            the line number
+     *                       the line number
      *
      * @return this builder instance
      */
@@ -130,8 +129,10 @@ public class BugInstanceMatcherBuilder {
      * Sets the approximate line number for the bug instance.
      *
      * @param lineNumberApprox
-     *            Line to verify accepting an offset of 1
+     *                             Line to verify accepting an offset of 1
+     *
      * @return this builder instance
+     *
      * @deprecated Use atJspLine for JSP line mapping
      */
     @Deprecated
@@ -144,7 +145,7 @@ public class BugInstanceMatcherBuilder {
      * Sets the confidence level for the bug instance.
      *
      * @param confidence
-     *            the confidence level
+     *                       the confidence level
      *
      * @return this builder instance
      */
@@ -157,7 +158,7 @@ public class BugInstanceMatcherBuilder {
      * Sets the JSP file for the bug instance.
      *
      * @param jspFile
-     *            the name of the JSP file
+     *                    the name of the JSP file
      *
      * @return this builder instance
      */
@@ -170,7 +171,7 @@ public class BugInstanceMatcherBuilder {
      * Sets the JSP line number for the bug instance.
      *
      * @param jspLine
-     *            the line number in the JSP file
+     *                    the line number in the JSP file
      *
      * @return this builder instance
      */
@@ -185,11 +186,11 @@ public class BugInstanceMatcherBuilder {
      * @return a new BugInstanceMatcher instance
      */
     public BugInstanceMatcher build() {
-        //JSP line to Java source conversion
+        // JSP line to Java source conversion
         List<Integer> multipleChoicesLine = null;
         if (jspLine != null) {
             if (jspFile != null) {
-                //Map JSP lines to Java base on the smap file if available
+                // Map JSP lines to Java base on the smap file if available
                 multipleChoicesLine = mapJspToJavaLine(jspFile, jspLine);
             } else {
                 throw new RuntimeException("JSP file not set.");
@@ -207,7 +208,7 @@ public class BugInstanceMatcherBuilder {
             throw new RuntimeException("SMAP file is missing. (" + smapFile + ")");
         }
         try {
-            //Convert
+            // Convert
             final String contents = new String(Files.readAllBytes(smapFile.toPath()), StandardCharsets.UTF_8);
             final SmapParser smapParser = new SmapParser(contents);
             final List<Integer> javaLineNumbers = smapParser.getJavaLineNumbers(jspLine);

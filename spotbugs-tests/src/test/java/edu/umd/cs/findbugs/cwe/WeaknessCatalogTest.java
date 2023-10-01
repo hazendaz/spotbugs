@@ -27,7 +27,8 @@ class WeaknessCatalogTest {
     void testGetWeaknessByCweIdOrNullExistingWeakness() {
         int cweid = 78;
         String name = "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')";
-        String description = "The product constructs all or part of an OS command using externally-influenced input from an upstream component, but";
+        String description =
+                "The product constructs all or part of an OS command using externally-influenced input from an upstream component, but";
 
         WeaknessCatalog weaknessCatalog = WeaknessCatalog.getInstance();
         Weakness weakness = weaknessCatalog.getWeaknessByCweIdOrNull(cweid);

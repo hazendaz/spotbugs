@@ -13,9 +13,7 @@ class Issue2370Test extends AbstractIntegrationTest {
     }
 
     private static Stream<Arguments> classes() {
-        return Stream.of(
-                Arguments.of("Issue2370Doubles"),
-                Arguments.of("Issue2370Ints"),
+        return Stream.of(Arguments.of("Issue2370Doubles"), Arguments.of("Issue2370Ints"),
                 Arguments.of("Issue2370Longs"));
     }
 

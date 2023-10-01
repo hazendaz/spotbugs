@@ -180,8 +180,8 @@ public class PropertyPageAdapterFactory implements IAdapterFactory {
         for (Method method : methods) {
             if (method.getParameterTypes().length == 0) {
                 String name = method.getName();
-                if ((name.startsWith("get") || name.startsWith("is") || name.startsWith("has"))
-                        && (!"getClass".equals(name) && !"hashCode".equals(name))) {
+                if ((name.startsWith("get") || name.startsWith("is") || name.startsWith("has")) &&
+                        (!"getClass".equals(name) && !"hashCode".equals(name))) {
                     methodList.add(method);
                 }
             }
@@ -191,13 +191,15 @@ public class PropertyPageAdapterFactory implements IAdapterFactory {
 
     public static String getReadableName(Method method) {
         String name = method.getName();
-        return (name.startsWith("get") || name.startsWith("has")) ? name.substring(3)
-                : name.startsWith("is") ? name.substring(2)
-                        : name;
+        return (name.startsWith("get") || name.startsWith("has")) ? name.substring(3) : name.startsWith("is") ? name.substring(2) : name;
     }
 
     static enum PropId {
-        Type, Resource, Bug, Id, CreationTime
+        Type,
+        Resource,
+        Bug,
+        Id,
+        CreationTime
     }
 
     public static class MarkerPropertySource implements IPropertySource {
@@ -281,15 +283,14 @@ public class PropertyPageAdapterFactory implements IAdapterFactory {
     @Override
     @SuppressWarnings("rawtypes")
     public Object getAdapter(Object adaptableObject, Class adapterType) {
-        if (adapterType == IPropertySheetPage.class
-                && (adaptableObject instanceof BugExplorerView || adaptableObject instanceof AbstractFindbugsView)) {
+        if (adapterType == IPropertySheetPage.class &&
+                (adaptableObject instanceof BugExplorerView || adaptableObject instanceof AbstractFindbugsView)) {
             return new BugPropertySheetPage();
         }
         if (adapterType == IPropertySource.class) {
-            if (adaptableObject instanceof BugPattern || adaptableObject instanceof BugInstance
-                    || adaptableObject instanceof DetectorFactory || adaptableObject instanceof Plugin
-                    || adaptableObject instanceof BugGroup
-                    || adaptableObject instanceof BugAnnotation) {
+            if (adaptableObject instanceof BugPattern || adaptableObject instanceof BugInstance ||
+                    adaptableObject instanceof DetectorFactory || adaptableObject instanceof Plugin ||
+                    adaptableObject instanceof BugGroup || adaptableObject instanceof BugAnnotation) {
                 return new PropertySource(adaptableObject);
             }
             IMarker marker = Util.getAdapter(IMarker.class, adaptableObject);

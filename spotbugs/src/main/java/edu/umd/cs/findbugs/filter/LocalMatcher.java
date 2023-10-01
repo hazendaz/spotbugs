@@ -45,8 +45,7 @@ public class LocalMatcher implements Matcher {
     @Override
     public boolean match(BugInstance bugInstance) {
         LocalVariableAnnotation localAnnotation = bugInstance.getPrimaryLocalVariableAnnotation();
-        return localAnnotation != null
-                && name.match(localAnnotation.getName());
+        return localAnnotation != null && name.match(localAnnotation.getName());
     }
 
     @Override

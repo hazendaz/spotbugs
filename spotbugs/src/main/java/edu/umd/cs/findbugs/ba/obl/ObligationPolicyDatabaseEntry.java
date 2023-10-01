@@ -24,8 +24,7 @@ import java.util.Collection;
 import org.apache.bcel.generic.ReferenceType;
 
 /**
- * Interface defining an entry in the ObligationPolicyDatabase. Checks called
- * methods to see what actions they apply.
+ * Interface defining an entry in the ObligationPolicyDatabase. Checks called methods to see what actions they apply.
  *
  * @author David Hovemeyer
  */
@@ -36,22 +35,22 @@ public interface ObligationPolicyDatabaseEntry {
     public ObligationPolicyDatabaseEntryType getEntryType();
 
     /**
-     * Get the ObligationPolicyDatabaseActions that should be applied when the
-     * method described by the parameters is called.
+     * Get the ObligationPolicyDatabaseActions that should be applied when the method described by the parameters is
+     * called.
      *
      * @param receiverType
-     *            receiver type of called method
+     *                         receiver type of called method
      * @param methodName
-     *            name of called method
+     *                         name of called method
      * @param signature
-     *            signature of called method
+     *                         signature of called method
      * @param isStatic
-     *            true if called method is static, false otherwise
+     *                         true if called method is static, false otherwise
      * @param actionList
-     *            List of ObligationPolicyDatabaseActions to be applied when a
-     *            called method is matched by this entry
-     * @return true if one or more actions were added, false if no actions were
-     *         added
+     *                         List of ObligationPolicyDatabaseActions to be applied when a called method is matched by
+     *                         this entry
+     *
+     * @return true if one or more actions were added, false if no actions were added
      */
     public boolean getActions(ReferenceType receiverType, String methodName, String signature, boolean isStatic,
             Collection<ObligationPolicyDatabaseAction> actionList);

@@ -67,12 +67,10 @@ import org.jspecify.annotations.Nullable;
 
 @SuppressWarnings("serial")
 /*
- * This is where it all happens... seriously... all of it... All the menus are
- * set up, all the listeners, all the frames, dockable window functionality
- * There is no one style used, no one naming convention, its all just kinda
- * here. This is another one of those classes where no one knows quite why it
- * works. <p> The MainFrame is just that, the main application window where just
- * about everything happens.
+ * This is where it all happens... seriously... all of it... All the menus are set up, all the listeners, all the
+ * frames, dockable window functionality There is no one style used, no one naming convention, its all just kinda here.
+ * This is another one of those classes where no one knows quite why it works. <p> The MainFrame is just that, the main
+ * application window where just about everything happens.
  */
 public class MainFrame extends FBFrame implements LogSync {
     public static final boolean GUI2_DEBUG = SystemProperties.getBoolean("gui2.debug");
@@ -116,9 +114,8 @@ public class MainFrame extends FBFrame implements LogSync {
     private volatile String errorMsg = "";
 
     /*
-     * To change this value must use setProjectChanged(boolean b). This is
-     * because saveProjectItemMenu is dependent on it for when
-     * saveProjectMenuItem should be enabled.
+     * To change this value must use setProjectChanged(boolean b). This is because saveProjectItemMenu is dependent on
+     * it for when saveProjectMenuItem should be enabled.
      */
     private boolean projectChanged = false;
 
@@ -248,9 +245,8 @@ public class MainFrame extends FBFrame implements LogSync {
     }
 
     /**
-     * Called when something in the project is changed and the change needs to
-     * be saved. This method should be called instead of using projectChanged =
-     * b.
+     * Called when something in the project is changed and the change needs to be saved. This method should be called
+     * instead of using projectChanged = b.
      */
     public void setProjectChanged(boolean b) {
         if (curProject == null) {
@@ -325,8 +321,8 @@ public class MainFrame extends FBFrame implements LogSync {
         if (countFilteredBugs == 1) {
             msg = "  1 " + L10N.getLocalString("statusbar.bug_hidden", "bug hidden (see view menu)");
         } else if (countFilteredBugs > 1) {
-            msg = "  " + countFilteredBugs + " "
-                    + L10N.getLocalString("statusbar.bugs_hidden", "bugs hidden (see view menu)");
+            msg = "  " + countFilteredBugs + " " +
+                    L10N.getLocalString("statusbar.bugs_hidden", "bugs hidden (see view menu)");
         }
         if (errorMsg != null && errorMsg.length() > 0) {
             msg = join(msg, errorMsg);
@@ -340,16 +336,14 @@ public class MainFrame extends FBFrame implements LogSync {
     }
 
     /**
-     * This method is called when the application is closing. This is either by
-     * the exit menuItem or by clicking on the window's system menu.
+     * This method is called when the application is closing. This is either by the exit menuItem or by clicking on the
+     * window's system menu.
      */
     void callOnClose() {
         if (projectChanged && !SystemProperties.getBoolean("findbugs.skipSaveChangesWarning")) {
-            Object[] options = {
-                L10N.getLocalString("dlg.save_btn", "Save"),
+            Object[] options = { L10N.getLocalString("dlg.save_btn", "Save"),
                 L10N.getLocalString("dlg.dontsave_btn", "Don't Save"),
-                L10N.getLocalString("dlg.cancel_btn", "Cancel"),
-            };
+                L10N.getLocalString("dlg.cancel_btn", "Cancel"), };
             int value = JOptionPane.showOptionDialog(this, getActionWithoutSavingMsg("closing"),
                     L10N.getLocalString("msg.confirm_save_txt", "Do you want to save?"),
                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -383,11 +377,11 @@ public class MainFrame extends FBFrame implements LogSync {
     }
 
     /**
-     * Opens the analysis. Also clears the source and summary panes. Makes
-     * comments enabled false. Sets the saveType and adds the file to the recent
-     * menu.
+     * Opens the analysis. Also clears the source and summary panes. Makes comments enabled false. Sets the saveType and
+     * adds the file to the recent menu.
      *
      * @param f
+     *
      * @return whether the operation was successful
      */
     public boolean openAnalysis(File f, SaveType saveType) {
@@ -436,7 +430,8 @@ public class MainFrame extends FBFrame implements LogSync {
             if (bugCollection == null) {
                 System.out.println("Setting bug collection to null");
             } else {
-                System.out.println("Setting bug collection; contains " + bugCollection.getCollection().size() + " bugs");
+                System.out
+                        .println("Setting bug collection; contains " + bugCollection.getCollection().size() + " bugs");
             }
 
         }
@@ -464,9 +459,8 @@ public class MainFrame extends FBFrame implements LogSync {
                 clearSummaryTab();
 
                 /*
-                 * This is here due to a threading issue. It can only be
-                 * called after curProject has been changed. Since this
-                 * method is called by both open methods it is put here.
+                 * This is here due to a threading issue. It can only be called after curProject has been changed. Since
+                 * this method is called by both open methods it is put here.
                  */
                 updateTitle();
             };
@@ -496,7 +490,7 @@ public class MainFrame extends FBFrame implements LogSync {
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 
-    //    @SuppressWarnings({ "SimplifiableIfStatement" })
+    // @SuppressWarnings({ "SimplifiableIfStatement" })
     boolean shouldDisplayIssue(BugInstance b) {
         Project project = getProject();
         Filter suppressionFilter = project.getSuppressionFilter();
@@ -546,17 +540,16 @@ public class MainFrame extends FBFrame implements LogSync {
     void redoAnalysis() {
         /// QQQ-TODO: new RuntimeException("Redo analysis called").printStackTrace();
         acquireDisplayWait();
-        edu.umd.cs.findbugs.util.Util.runInDameonThread(
-                () -> {
-                    try {
-                        Project project = getProject();
-                        BugCollection bc = BugLoader.redoAnalysisKeepComments(project);
-                        updateProjectAndBugCollection(bc);
-                        setProjectAndBugCollectionInSwingThread(project, bc);
-                    } finally {
-                        releaseDisplayWait();
-                    }
-                });
+        edu.umd.cs.findbugs.util.Util.runInDameonThread(() -> {
+            try {
+                Project project = getProject();
+                BugCollection bc = BugLoader.redoAnalysisKeepComments(project);
+                updateProjectAndBugCollection(bc);
+                setProjectAndBugCollectionInSwingThread(project, bc);
+            } finally {
+                releaseDisplayWait();
+            }
+        });
     }
 
     // ================================== misc junk 2
@@ -609,8 +602,7 @@ public class MainFrame extends FBFrame implements LogSync {
     }
 
     /**
-     * Sets the title of the source tabs for either docking or non-docking
-     * versions.
+     * Sets the title of the source tabs for either docking or non-docking versions.
      */
     void setSourceTab(String title, @Nullable BugInstance bug) {
         mainFrameComponentFactory.setSourceTab(title, bug);
@@ -625,8 +617,8 @@ public class MainFrame extends FBFrame implements LogSync {
         if (msg != null) {
             return msg;
         }
-        return L10N.getLocalString("msg.you_are_" + action + "_txt", "You are " + action) + " "
-                + L10N.getLocalString("msg.without_saving_txt", "without saving. Do you want to save?");
+        return L10N.getLocalString("msg.you_are_" + action + "_txt", "You are " + action) + " " +
+                L10N.getLocalString("msg.without_saving_txt", "without saving. Do you want to save?");
     }
 
     public void updateBugTree() {
@@ -647,7 +639,7 @@ public class MainFrame extends FBFrame implements LogSync {
             name = saveFile.getAbsolutePath();
         }
         if (name == null) {
-            name = "";//Project.UNNAMED_PROJECT;
+            name = "";// Project.UNNAMED_PROJECT;
         }
         String oldTitle = this.getTitle();
         String newTitle = TITLE_START_TXT + ("".equals(name.trim()) ? "" : " - " + name);
@@ -657,7 +649,7 @@ public class MainFrame extends FBFrame implements LogSync {
         this.setTitle(newTitle);
     }
 
-    //    @SuppressWarnings({ "SimplifiableIfStatement" })
+    // @SuppressWarnings({ "SimplifiableIfStatement" })
     private boolean shouldDisplayIssueIgnoringPackagePrefixes(BugInstance b) {
         Project project = getProject();
         Filter suppressionFilter = project.getSuppressionFilter();
@@ -673,7 +665,8 @@ public class MainFrame extends FBFrame implements LogSync {
         int total = 0;
         for (BugInstance b : getBugCollection().getCollection()) {
             if (shouldDisplayIssueIgnoringPackagePrefixes(b)) {
-                TreeSet<String> projectsForThisBug = projectPackagePrefixes.getProjects(b.getPrimaryClass().getClassName());
+                TreeSet<String> projectsForThisBug =
+                        projectPackagePrefixes.getProjects(b.getPrimaryClass().getClassName());
                 projects.addAll(projectsForThisBug);
                 count.addAll(projectsForThisBug);
                 total++;
@@ -725,20 +718,17 @@ public class MainFrame extends FBFrame implements LogSync {
                 summaryTopPanel.add(mainFrameComponentFactory.bugSummaryComponent(b, bug));
             }
 
-
             BugPattern bugPattern = bug.getBugPattern();
-            String detailText =
-                    bugPattern.getDetailText()
-                            + "<br><p> <b>Bug kind and pattern: " +
-                            bugPattern.getAbbrev() + " - " + bugPattern.getType();
+            String detailText = bugPattern.getDetailText() + "<br><p> <b>Bug kind and pattern: " +
+                    bugPattern.getAbbrev() + " - " + bugPattern.getType();
             String txt = bugPattern.getDetailHTML(detailText);
             summaryHtmlArea.setText(txt);
 
             summaryTopPanel.add(Box.createVerticalGlue());
             summaryTopPanel.revalidate();
 
-            SwingUtilities.invokeLater(() -> summaryHtmlScrollPane.getVerticalScrollBar().setValue(
-                    summaryHtmlScrollPane.getVerticalScrollBar().getMinimum()));
+            SwingUtilities.invokeLater(() -> summaryHtmlScrollPane.getVerticalScrollBar()
+                    .setValue(summaryHtmlScrollPane.getVerticalScrollBar().getMinimum()));
         });
     }
 
@@ -775,10 +765,9 @@ public class MainFrame extends FBFrame implements LogSync {
     }
 
     /*
-     * If the file already existed, its already in the preferences, as well as
-     * the recent projects menu items, only add it if they change the name,
-     * otherwise everything we're storing is still accurate since all we're
-     * storing is the location of the file.
+     * If the file already existed, its already in the preferences, as well as the recent projects menu items, only add
+     * it if they change the name, otherwise everything we're storing is still accurate since all we're storing is the
+     * location of the file.
      */
     public void addFileToRecent(File xmlFile) {
         mainFrameMenu.addFileToRecent(xmlFile);
@@ -927,7 +916,8 @@ public class MainFrame extends FBFrame implements LogSync {
     }
 
     enum BugCard {
-        TREECARD, WAITCARD
+        TREECARD,
+        WAITCARD
     }
 
     private static class ProjectSelector {

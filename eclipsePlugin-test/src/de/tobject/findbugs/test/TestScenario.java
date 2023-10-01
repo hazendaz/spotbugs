@@ -23,8 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Enum for the different test scenarios in FindBugs. Each test scenario has
- * information of the input files, the expected bugs and markers, and so on.
+ * Enum for the different test scenarios in FindBugs. Each test scenario has information of the input files, the
+ * expected bugs and markers, and so on.
  *
  * @author Tomás Pollak
  */
@@ -34,8 +34,8 @@ public enum TestScenario {
     QUICKFIX_WITH_JUNIT(new String[] { "/quickfixScenario" }, true, new String[] {}, 0),
     MULTIQUICKFIX(new String[] { "/multiQuickfixScenario" }, false, new String[] {}, 0),
     JDT(new String[] { "/jdtScenario" }, false, new String[] {}, 0),
-    TWO_SRC_FOLDERS(new String[] { "/defaultScenario", "secondSrcScenario" }, false, new String[] { "URF_UNREAD_FIELD", "DM_STRING_CTOR",
-        "DM_NUMBER_CTOR" }, 2);
+    TWO_SRC_FOLDERS(new String[] { "/defaultScenario", "secondSrcScenario" }, false,
+            new String[] { "URF_UNREAD_FIELD", "DM_STRING_CTOR", "DM_NUMBER_CTOR" }, 2);
 
     private String[] testFilesPaths;
 

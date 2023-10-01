@@ -48,8 +48,8 @@ public class NavigableTextPane extends JTextPane {
     }
 
     /**
-     * return the height of the parent (which is presumably a JViewport). If
-     * there is no parent, return this.getHeight().
+     * return the height of the parent (which is presumably a JViewport). If there is no parent, return
+     * this.getHeight().
      */
     private int parentHeight() {
         Container parent = getParent();
@@ -105,8 +105,7 @@ public class NavigableTextPane extends JTextPane {
     }
 
     /**
-     * scroll the specified line into view, with a margin of 'margin' pixels
-     * above and below
+     * scroll the specified line into view, with a margin of 'margin' pixels above and below
      */
     public void scrollLineToVisible(int line, int margin) {
         int maxMargin = (parentHeight() - 20) / 2;
@@ -123,8 +122,7 @@ public class NavigableTextPane extends JTextPane {
     }
 
     /**
-     * scroll the specified primary lines into view, along with as many of the
-     * other lines as is convenient
+     * scroll the specified primary lines into view, along with as many of the other lines as is convenient
      */
     public void scrollLinesToVisible(int startLine, int endLine, Collection<Integer> otherLines) {
         int startY, endY;
@@ -185,10 +183,9 @@ public class NavigableTextPane extends JTextPane {
         }
 
         /*
-         * Returns a negative integer, zero, or a positive integer as the first
-         * argument is farther from, equadistant, or closer to (respectively)
-         * the origin. This sounds backwards, but this way closer values get a
-         * higher priority in the priority queue.
+         * Returns a negative integer, zero, or a positive integer as the first argument is farther from, equadistant,
+         * or closer to (respectively) the origin. This sounds backwards, but this way closer values get a higher
+         * priority in the priority queue.
          */
         @Override
         public int compare(Integer a, Integer b) {

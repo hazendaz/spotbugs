@@ -23,10 +23,10 @@ import edu.umd.cs.findbugs.classfile.CheckedAnalysisException;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 
 /**
- * A special Detector2 class designed to run some JUnit test code. Only used by
- * FindBugsTestCase.
+ * A special Detector2 class designed to run some JUnit test code. Only used by FindBugsTestCase.
  *
  * @author David Hovemeyer
+ *
  * @see FindBugsTestCase
  */
 public class JUnitDetectorAdapter implements Detector2 {
@@ -49,7 +49,7 @@ public class JUnitDetectorAdapter implements Detector2 {
 
     /**
      * @param runnable
-     *            The runnable to set.
+     *                     The runnable to set.
      */
     public static void setRunnable(RunnableWithExceptions runnable) {
         runnableInstance.set(runnable);
@@ -80,9 +80,7 @@ public class JUnitDetectorAdapter implements Detector2 {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.Detector2#visitClass(edu.umd.cs.findbugs.classfile
-     * .ClassDescriptor)
+     * @see edu.umd.cs.findbugs.Detector2#visitClass(edu.umd.cs.findbugs.classfile .ClassDescriptor)
      */
     @Override
     public void visitClass(ClassDescriptor classDescriptor) throws CheckedAnalysisException {

@@ -33,7 +33,8 @@ public class InvalidClassFileFormatException extends CheckedAnalysisException {
         this.codeBaseEntry = codeBaseEntry;
     }
 
-    public InvalidClassFileFormatException(ClassDescriptor classDescriptor, ICodeBaseEntry codeBaseEntry, Throwable cause) {
+    public InvalidClassFileFormatException(ClassDescriptor classDescriptor, ICodeBaseEntry codeBaseEntry,
+            Throwable cause) {
         super("Invalid classfile format", cause);
         this.classDescriptor = classDescriptor;
         this.codeBaseEntry = codeBaseEntry;
@@ -46,8 +47,7 @@ public class InvalidClassFileFormatException extends CheckedAnalysisException {
     }
 
     /**
-     * @return Returns the ClassDescriptor of the class found to have an invalid
-     *         format (null if unknown)
+     * @return Returns the ClassDescriptor of the class found to have an invalid format (null if unknown)
      */
     public ClassDescriptor getClassDescriptor() {
         return classDescriptor;

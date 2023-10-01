@@ -30,25 +30,22 @@ import edu.umd.cs.findbugs.classfile.analysis.ClassData;
 import edu.umd.cs.findbugs.classfile.analysis.ClassInfo;
 
 /**
- * Analysis engine to produce the ClassInfo for a loaded class. We parse just
- * enough information from the classfile to get the needed information.
+ * Analysis engine to produce the ClassInfo for a loaded class. We parse just enough information from the classfile to
+ * get the needed information.
  *
  * @author David Hovemeyer
  */
 public class ClassInfoAnalysisEngine implements IClassAnalysisEngine<XClass> {
     /*
-     * private static final boolean USE_ASM_CLASS_PARSER =
-     * SystemProperties.getBoolean("findbugs.classparser.asm"); static { if
-     * (USE_ASM_CLASS_PARSER) { System.out.println("Using ClassParserUsingASM");
-     * } }
+     * private static final boolean USE_ASM_CLASS_PARSER = SystemProperties.getBoolean("findbugs.classparser.asm");
+     * static { if (USE_ASM_CLASS_PARSER) { System.out.println("Using ClassParserUsingASM"); } }
      */
 
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public ClassInfo analyze(IAnalysisCache analysisCache, ClassDescriptor descriptor) throws CheckedAnalysisException {
@@ -80,7 +77,8 @@ public class ClassInfoAnalysisEngine implements IClassAnalysisEngine<XClass> {
         ClassInfo classInfo = classInfoBuilder.build();
 
         if (!classInfo.getClassDescriptor().equals(descriptor)) {
-            throw new ClassNameMismatchException(descriptor, classInfo.getClassDescriptor(), classData.getCodeBaseEntry());
+            throw new ClassNameMismatchException(descriptor, classInfo.getClassDescriptor(),
+                    classData.getCodeBaseEntry());
         }
         return classInfo;
     }
@@ -88,9 +86,7 @@ public class ClassInfoAnalysisEngine implements IClassAnalysisEngine<XClass> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs
-     * .findbugs.classfile.IAnalysisCache)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs .findbugs.classfile.IAnalysisCache)
      */
     @Override
     public void registerWith(IAnalysisCache analysisCache) {

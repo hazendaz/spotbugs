@@ -22,8 +22,7 @@ package edu.umd.cs.findbugs.ba.obl;
 import org.jspecify.annotations.Nullable;
 
 /**
- * An action applied by an entry in the ObligationPolicyDatabase. Adds or
- * removes an obligation.
+ * An action applied by an entry in the ObligationPolicyDatabase. Adds or removes an obligation.
  *
  * @author David Hovemeyer
  */
@@ -32,10 +31,11 @@ public class ObligationPolicyDatabaseAction {
 
     private final Obligation obligation;
 
-    public static final ObligationPolicyDatabaseAction CLEAR = new ObligationPolicyDatabaseAction(
-            ObligationPolicyDatabaseActionType.CLEAR, null);
+    public static final ObligationPolicyDatabaseAction CLEAR =
+            new ObligationPolicyDatabaseAction(ObligationPolicyDatabaseActionType.CLEAR, null);
 
-    public ObligationPolicyDatabaseAction(ObligationPolicyDatabaseActionType actionType, @Nullable Obligation obligation) {
+    public ObligationPolicyDatabaseAction(ObligationPolicyDatabaseActionType actionType,
+            @Nullable Obligation obligation) {
         this.actionType = actionType;
         this.obligation = obligation;
     }

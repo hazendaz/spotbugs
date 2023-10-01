@@ -29,10 +29,8 @@ import javax.swing.JPanel;
 
 import edu.umd.cs.findbugs.filter.Matcher;
 
-
 /**
- * Allows you to make a new Filter by right clicking (control clicking) on a bug
- * in the tree
+ * Allows you to make a new Filter by right clicking (control clicking) on a bug in the tree
  */
 @SuppressWarnings("serial")
 public class NewFilterFromBug extends FBDialog {

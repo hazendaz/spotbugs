@@ -34,7 +34,6 @@ import edu.umd.cs.findbugs.charsets.UTF8;
  * Save bugs here, uses SortedBugCollection.writeXML()
  *
  * @author Dan
- *
  */
 public class BugSaver {
 

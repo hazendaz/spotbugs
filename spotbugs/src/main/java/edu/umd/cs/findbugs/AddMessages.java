@@ -35,11 +35,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.xml.XMLUtil;
 
 /**
- * Add human-readable messages to a dom4j tree containing FindBugs XML output.
- * This transformation makes it easier to generate reports (such as HTML) from
- * the XML.
+ * Add human-readable messages to a dom4j tree containing FindBugs XML output. This transformation makes it easier to
+ * generate reports (such as HTML) from the XML.
  *
  * @see BugCollection
+ *
  * @author David Hovemeyer
  */
 public class AddMessages {
@@ -51,9 +51,9 @@ public class AddMessages {
      * Constructor.
      *
      * @param bugCollection
-     *            the BugCollection the dom4j was generated from
+     *                          the BugCollection the dom4j was generated from
      * @param document
-     *            the dom4j tree
+     *                          the dom4j tree
      */
     public AddMessages(BugCollection bugCollection, Document document) {
         this.bugCollection = bugCollection;
@@ -110,7 +110,7 @@ public class AddMessages {
      * Add BugCategory elements.
      *
      * @param bugCategorySet
-     *            all bug categories referenced in the BugCollection
+     *                           all bug categories referenced in the BugCollection
      */
     private void addBugCategories(Set<String> bugCategorySet) {
         Element root = document.getRootElement();
@@ -140,7 +140,7 @@ public class AddMessages {
      * Add BugCode elements.
      *
      * @param bugCodeSet
-     *            all bug codes (abbrevs) referenced in the BugCollection
+     *                       all bug codes (abbrevs) referenced in the BugCollection
      */
     private void addBugCodes(Set<String> bugCodeSet) {
         Element root = document.getRootElement();

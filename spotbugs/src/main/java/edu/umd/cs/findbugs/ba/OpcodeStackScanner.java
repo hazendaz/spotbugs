@@ -37,7 +37,8 @@ public class OpcodeStackScanner {
 
     public static class UnreachableCodeException extends RuntimeException {
 
-        public UnreachableCodeException(@DottedClassName String className, String methodName, String methodSignature, int pc) {
+        public UnreachableCodeException(@DottedClassName String className, String methodName, String methodSignature,
+                int pc) {
             super("Didn't reach pc " + pc + " of " + className + "." + methodName + methodSignature);
             this.className = className;
             this.methodName = methodName;

@@ -135,9 +135,7 @@ public class SetBugDatabaseInfoTask extends AbstractFindBugsTask {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#configureFindbugsEngine
-     * ()
+     * @see edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#configureFindbugsEngine ()
      */
     @Override
     protected void configureFindbugsEngine() {
@@ -159,9 +157,7 @@ public class SetBugDatabaseInfoTask extends AbstractFindBugsTask {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#beforeExecuteJavaProcess
-     * ()
+     * @see edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#beforeExecuteJavaProcess ()
      */
     @Override
     protected void beforeExecuteJavaProcess() {
@@ -171,9 +167,7 @@ public class SetBugDatabaseInfoTask extends AbstractFindBugsTask {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#afterExecuteJavaProcess
-     * (int)
+     * @see edu.umd.cs.findbugs.anttask.AbstractFindBugsTask#afterExecuteJavaProcess (int)
      */
     @Override
     protected void afterExecuteJavaProcess(int rc) {

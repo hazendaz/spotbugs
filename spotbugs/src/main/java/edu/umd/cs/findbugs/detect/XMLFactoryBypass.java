@@ -38,8 +38,9 @@ public class XMLFactoryBypass extends BytecodeScanningDetector {
 
     @StaticConstant
     private static final Set<String> xmlInterfaces = Set.of("javax.xml.parsers.DocumentBuilder", "org.w3c.dom.Document",
-            "javax.xml.parsers.SAXParser", "org.xml.sax.XMLReader", "org.xml.sax.XMLFilter", "javax.xml.transform.Transformer", "org.w3c.dom.Attr",
-            "org.w3c.dom.CDATASection", "org.w3c.dom.Comment", "org.w3c.dom.Element", "org.w3c.dom.Text");
+            "javax.xml.parsers.SAXParser", "org.xml.sax.XMLReader", "org.xml.sax.XMLFilter",
+            "javax.xml.transform.Transformer", "org.w3c.dom.Attr", "org.w3c.dom.CDATASection", "org.w3c.dom.Comment",
+            "org.w3c.dom.Element", "org.w3c.dom.Text");
 
     private final Set<String> rejectedXMLClasses = new HashSet<>();
 
@@ -92,8 +93,8 @@ public class XMLFactoryBypass extends BytecodeScanningDetector {
                 JavaClass[] infs = newCls.getAllInterfaces();
                 for (JavaClass inf : infs) {
                     if (xmlInterfaces.contains(inf.getClassName())) {
-                        bugReporter.reportBug(new BugInstance(this, "XFB_XML_FACTORY_BYPASS", LOW_PRIORITY).addClassAndMethod(
-                                this).addSourceLine(this));
+                        bugReporter.reportBug(new BugInstance(this, "XFB_XML_FACTORY_BYPASS", LOW_PRIORITY)
+                                .addClassAndMethod(this).addSourceLine(this));
                         rejectedXMLClasses.remove(newClsName);
                     }
                 }

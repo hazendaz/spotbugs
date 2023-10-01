@@ -31,12 +31,11 @@ import javax.annotation.meta.When;
 import org.jspecify.annotations.NonNull;
 
 /**
- * Denotes a class name or package name where the / character is used to
- * separate package/class name components.
- *
- * e.g. {@code java/util/Collection}, {@code foo/Bar$Baz}
+ * Denotes a class name or package name where the / character is used to separate package/class name components. e.g.
+ * {@code java/util/Collection}, {@code foo/Bar$Baz}
  *
  * @author pugh
+ *
  * @see edu.umd.cs.findbugs.util.ClassName An utility class provides utility methods to handle this format
  * @see DottedClassName Another format of class name
  */

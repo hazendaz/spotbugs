@@ -35,7 +35,7 @@ public class SplitCamelCaseIdentifier {
      * Constructor.
      *
      * @param ident
-     *            the identifier to split into words
+     *                  the identifier to split into words
      */
     public SplitCamelCaseIdentifier(String ident) {
         this.ident = ident;

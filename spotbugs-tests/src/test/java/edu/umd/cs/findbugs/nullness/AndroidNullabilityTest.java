@@ -75,8 +75,8 @@ class AndroidNullabilityTest {
 
     @Test
     void uncheckedNullableReturn_isDetected(SpotBugsRunner spotbugs) {
-        BugCollection bugCollection = spotbugs.performAnalysis(
-                Path.of("../spotbugsTestCases/build/classes/java/main/androidAnnotations/UncheckedNullableReturn.class"),
+        BugCollection bugCollection = spotbugs.performAnalysis(Path
+                .of("../spotbugsTestCases/build/classes/java/main/androidAnnotations/UncheckedNullableReturn.class"),
                 Path.of("../spotbugsTestCases/build/classes/java/main/android/support/annotation/Nullable.class"));
 
         assertThat(bugCollection, containsExactly(1, bug("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")));
@@ -84,8 +84,8 @@ class AndroidNullabilityTest {
 
     @Test
     void uncheckedNullableReturn2_isDetected(SpotBugsRunner spotbugs) {
-        BugCollection bugCollection = spotbugs.performAnalysis(
-                Path.of("../spotbugsTestCases/build/classes/java/main/androidAnnotations/UncheckedNullableReturn2.class"),
+        BugCollection bugCollection = spotbugs.performAnalysis(Path
+                .of("../spotbugsTestCases/build/classes/java/main/androidAnnotations/UncheckedNullableReturn2.class"),
                 Path.of("../spotbugsTestCases/build/classes/java/main/androidx/annotation/Nullable.class"));
 
         assertThat(bugCollection, containsExactly(1, bug("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")));

@@ -34,8 +34,8 @@ class GenericSignatureParserTest {
 
     @Test
     void testGenerics() {
-        GenericSignatureParser parser = new GenericSignatureParser(
-                "(Lcom/sleepycat/persist/EntityJoin<TPK;TE;>.JoinForwardCursor<TV;>;)V");
+        GenericSignatureParser parser =
+                new GenericSignatureParser("(Lcom/sleepycat/persist/EntityJoin<TPK;TE;>.JoinForwardCursor<TV;>;)V");
         assertEquals(1, parser.getNumParameters());
     }
 

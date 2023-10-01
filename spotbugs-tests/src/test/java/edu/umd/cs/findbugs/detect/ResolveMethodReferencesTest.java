@@ -19,12 +19,12 @@ import edu.umd.cs.findbugs.test.SpotBugsRunner;
 class ResolveMethodReferencesTest {
 
     /**
-     * @see <a href="https://github.com/spotbugs/spotbugs/issues/338">GitHub
-     *      issue</a>
+     * @see <a href="https://github.com/spotbugs/spotbugs/issues/338">GitHub issue</a>
      */
     @Test
     void testIssue338(SpotBugsRunner spotbugs) {
-        BugCollection bugCollection = spotbugs.performAnalysis(Path.of("../spotbugsTestCases/build/classes/java/main/lambdas/Issue338.class"));
+        BugCollection bugCollection = spotbugs
+                .performAnalysis(Path.of("../spotbugsTestCases/build/classes/java/main/lambdas/Issue338.class"));
         assertThat(bugCollection, is(emptyIterable()));
         assertThat(bugCollection, instanceOf(SortedBugCollection.class));
         assertThat(((SortedBugCollection) bugCollection).missingClassIterator().hasNext(), is(false));

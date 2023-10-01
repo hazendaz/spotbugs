@@ -32,8 +32,11 @@ import de.tobject.findbugs.reporter.MarkerUtil;
  * This is the nature for FindBugs-enabled projects.
  *
  * @author Peter Friese
+ *
  * @version 1.0
+ *
  * @since 25.9.2003
+ *
  * @see IProjectNature
  */
 public class FindBugsNature implements IProjectNature {
@@ -106,8 +109,7 @@ public class FindBugsNature implements IProjectNature {
     }
 
     /**
-     * Find the specific FindBugs command amongst the build spec of a given
-     * description
+     * Find the specific FindBugs command amongst the build spec of a given description
      */
     private ICommand getFindBugsCommand(IProjectDescription description) {
         ICommand[] commands = description.getBuildSpec();
@@ -120,8 +122,7 @@ public class FindBugsNature implements IProjectNature {
     }
 
     /**
-     * Update the FindBugs command in the build spec (replace existing one if
-     * present, add one first if none).
+     * Update the FindBugs command in the build spec (replace existing one if present, add one first if none).
      */
     private void setFindBugsCommand(IProjectDescription description, ICommand newCommand) throws CoreException {
         ICommand[] oldCommands = description.getBuildSpec();

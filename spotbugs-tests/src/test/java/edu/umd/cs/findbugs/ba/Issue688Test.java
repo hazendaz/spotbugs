@@ -18,7 +18,6 @@
  */
 package edu.umd.cs.findbugs.ba;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

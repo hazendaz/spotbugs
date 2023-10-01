@@ -38,7 +38,8 @@ import edu.umd.cs.findbugs.ba.AnalysisContext;
 import edu.umd.cs.findbugs.ba.ClassContext;
 import edu.umd.cs.findbugs.visitclass.PreorderVisitor;
 
-public class FindBugsSummaryStats extends PreorderVisitor implements Detector, BugReporterObserver, NonReportingDetector {
+public class FindBugsSummaryStats extends PreorderVisitor
+        implements Detector, BugReporterObserver, NonReportingDetector {
     private final ProjectStats stats;
 
     BitSet lines = new BitSet(500);

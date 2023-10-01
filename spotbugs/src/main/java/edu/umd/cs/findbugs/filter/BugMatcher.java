@@ -45,11 +45,11 @@ public class BugMatcher implements Matcher {
      * Constructor.
      *
      * @param codes
-     *            comma-separated list of bug codes
+     *                       comma-separated list of bug codes
      * @param patterns
-     *            coma-separated list of bug patterns.
+     *                       coma-separated list of bug patterns.
      * @param categories
-     *            coma-separated list of bug categories.
+     *                       coma-separated list of bug categories.
      */
     public BugMatcher(String codes, String patterns, String categories) {
         this.codes = new StringSetMatch(codes);

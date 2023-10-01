@@ -6,8 +6,9 @@ import java.util.function.BiFunction;
 import org.jspecify.annotations.NonNull;
 
 /**
- * Class to parse longDescription to generate formatted test for SARIF.
- * All the logic is copied from {@code FindBugsMessageFormat}.
+ * Class to parse longDescription to generate formatted test for SARIF. All the logic is copied from
+ * {@code FindBugsMessageFormat}.
+ *
  * @see edu.umd.cs.findbugs.FindBugsMessageFormat
  */
 class MessageFormat {

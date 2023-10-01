@@ -19,13 +19,12 @@ import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
 class IncorrectSelfComparisonInstanceOfPatternMatchingTest {
 
     /**
-     * @see <a href="https://github.com/spotbugs/spotbugs/issues/1136">GitHub
-     *      issue</a>
+     * @see <a href="https://github.com/spotbugs/spotbugs/issues/1136">GitHub issue</a>
      */
     @Test
     void testIssue1136(SpotBugsRunner spotbugs) {
-        final BugInstanceMatcher selfComparisonMatcher = new BugInstanceMatcherBuilder()
-                .bugType("SA_LOCAL_SELF_COMPARISON").build();
+        final BugInstanceMatcher selfComparisonMatcher =
+                new BugInstanceMatcherBuilder().bugType("SA_LOCAL_SELF_COMPARISON").build();
 
         BugCollection bugCollection = spotbugs.performAnalysis(Path.of(
                 "../spotbugsTestCases/build/classes/java/java17/IncorrectSelfComparisonInstanceOfPatternMatching.class"));

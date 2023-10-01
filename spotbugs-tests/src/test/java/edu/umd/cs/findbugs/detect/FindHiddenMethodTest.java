@@ -16,12 +16,10 @@ class FindHiddenMethodTest extends AbstractIntegrationTest {
 
     @Test
     void testBadFindHiddenMethodTest2() {
-        performAnalysis("findhiddenmethodtest/BadSuperClass.class",
-                "findhiddenmethodtest/BadHidingVsOverriding.class");
+        performAnalysis("findhiddenmethodtest/BadSuperClass.class", "findhiddenmethodtest/BadHidingVsOverriding.class");
         assertBugTypeCount(BUG_TYPE, 1);
         assertBugInMethodAtLine(BUG_TYPE, "BadHidingVsOverriding", "methodHiding", 19);
     }
-
 
     @Test
     void testBadFindHiddenMethodTest3() {
@@ -42,8 +40,7 @@ class FindHiddenMethodTest extends AbstractIntegrationTest {
 
     @Test
     void testBadFindHiddenMethodTest5() {
-        performAnalysis("findhiddenmethodtest/BadGrandClass.class",
-                "findhiddenmethodtest/BadParentClass.class",
+        performAnalysis("findhiddenmethodtest/BadGrandClass.class", "findhiddenmethodtest/BadParentClass.class",
                 "findhiddenmethodtest/BadMultiLevelInheritance.class");
         assertBugTypeCount(BUG_TYPE, 1);
         assertBugInMethodAtLine(BUG_TYPE, "BadMultiLevelInheritance", "display", 20);
@@ -77,8 +74,7 @@ class FindHiddenMethodTest extends AbstractIntegrationTest {
 
     @Test
     void testBadFindHiddenMethodTest9() {
-        performAnalysis("findhiddenmethodtest/SuperBadProtected.class",
-                "findhiddenmethodtest/BadProtected.class");
+        performAnalysis("findhiddenmethodtest/SuperBadProtected.class", "findhiddenmethodtest/BadProtected.class");
         assertBugTypeCount(BUG_TYPE, 1);
         assertBugInMethodAtLine(BUG_TYPE, "BadProtected", "display", 15);
     }
@@ -157,8 +153,7 @@ class FindHiddenMethodTest extends AbstractIntegrationTest {
 
     @Test
     void testGoodFindHiddenMethodTest11() {
-        performAnalysis("findhiddenmethodtest/SuperGoodProtected.class",
-                "findhiddenmethodtest/GoodProtected.class");
+        performAnalysis("findhiddenmethodtest/SuperGoodProtected.class", "findhiddenmethodtest/GoodProtected.class");
         assertNoBugType(BUG_TYPE);
     }
 }

@@ -29,7 +29,7 @@ public class UncheckedAnalysisException extends RuntimeException {
      * Constructor.
      *
      * @param message
-     *            message describing the exception
+     *                    message describing the exception
      */
     public UncheckedAnalysisException(String message) {
         super(message);
@@ -39,9 +39,9 @@ public class UncheckedAnalysisException extends RuntimeException {
      * Constructor.
      *
      * @param message
-     *            message describing the exception
+     *                    message describing the exception
      * @param cause
-     *            another exception which is the underlying cause of this one
+     *                    another exception which is the underlying cause of this one
      */
     public UncheckedAnalysisException(String message, Throwable cause) {
         super(message, cause);

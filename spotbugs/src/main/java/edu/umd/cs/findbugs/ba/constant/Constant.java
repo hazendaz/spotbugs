@@ -21,10 +21,10 @@ package edu.umd.cs.findbugs.ba.constant;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Abstract dataflow value representing a value which may or may not be a
- * constant.
+ * Abstract dataflow value representing a value which may or may not be a constant.
  *
  * @see edu.umd.cs.findbugs.ba.constant.ConstantAnalysis
+ *
  * @author David Hovemeyer
  */
 public class Constant {
@@ -39,7 +39,7 @@ public class Constant {
      * Constructor for a constant value.
      *
      * @param value
-     *            the constant value; must be a String, Integer, etc.
+     *                  the constant value; must be a String, Integer, etc.
      */
     public Constant(@Nullable Object value) {
         this.value = value;
@@ -98,9 +98,10 @@ public class Constant {
      * Merge two Constnts.
      *
      * @param a
-     *            a StaticConstant
+     *              a StaticConstant
      * @param b
-     *            another StaticConstant
+     *              another StaticConstant
+     *
      * @return the merge (dataflow meet) of the two Constants
      */
     public static Constant merge(Constant a, Constant b) {

@@ -43,10 +43,8 @@ import javax.swing.ListCellRenderer;
 import edu.umd.cs.findbugs.gui2.BugAspects.SortableValue;
 
 /**
- *
- * Lets you choose your new filter, shouldn't let you choose filters that
- * wouldn't filter anything out including filters that you already have
- *
+ * Lets you choose your new filter, shouldn't let you choose filters that wouldn't filter anything out including filters
+ * that you already have
  */
 @SuppressWarnings("serial")
 public class NewFilterFrame extends FBDialog {
@@ -83,7 +81,8 @@ public class NewFilterFrame extends FBDialog {
         JPanel north = new JPanel();
         north.setLayout(new BoxLayout(north, BoxLayout.X_AXIS));
         north.add(Box.createHorizontalStrut(3));
-        north.add(new JLabel(edu.umd.cs.findbugs.L10N.getLocalString("dlg.filter_bugs_lbl", "Filter out all bugs whose") + " "));
+        north.add(new JLabel(
+                edu.umd.cs.findbugs.L10N.getLocalString("dlg.filter_bugs_lbl", "Filter out all bugs whose") + " "));
 
         // Argh divider
         Sortables[] sortables = MainFrame.getInstance().getAvailableSortables();
@@ -102,8 +101,8 @@ public class NewFilterFrame extends FBDialog {
             final Color SELECTED_BACKGROUND = new Color(183, 184, 204);
 
             @Override
-            public Component getListCellRendererComponent(JList<? extends Sortables> list, Sortables value, int index, boolean isSelected,
-                    boolean cellHasFocus) {
+            public Component getListCellRendererComponent(JList<? extends Sortables> list, Sortables value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
                 JLabel result = new JLabel();
                 result.setFont(result.getFont().deriveFont(Driver.getFontSize()));
                 result.setOpaque(true);
@@ -144,7 +143,8 @@ public class NewFilterFrame extends FBDialog {
                 filterMe.add(new BugAspects.SortableValue(key, values[i]));
             }
             try {
-                MainFrame.getInstance().getProject().getSuppressionFilter().addChild(FilterFactory.makeOrMatcher(filterMe));
+                MainFrame.getInstance().getProject().getSuppressionFilter()
+                        .addChild(FilterFactory.makeOrMatcher(filterMe));
             } catch (RuntimeException e) {
                 MainFrame.getInstance().showMessageDialog("Unable to create filter: " + e.getMessage());
                 close();

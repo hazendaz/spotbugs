@@ -109,7 +109,7 @@ public class FindBadEndOfStreamCheck extends OpcodeStackDetector {
 
     private boolean isFileRead(XMethod method) {
         String classSig = method.getClassDescriptor().getSignature();
-        return method != null && "read".equals(method.getName())
-                && ("Ljava/io/FileInputStream;".equals(classSig) || "Ljava/io/FileReader;".equals(classSig));
+        return method != null && "read".equals(method.getName()) &&
+                ("Ljava/io/FileInputStream;".equals(classSig) || "Ljava/io/FileReader;".equals(classSig));
     }
 }

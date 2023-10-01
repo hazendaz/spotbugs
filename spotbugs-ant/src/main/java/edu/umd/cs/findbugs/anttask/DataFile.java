@@ -32,7 +32,7 @@ public class DataFile {
 
     /**
      * @param name
-     *            The name to set.
+     *                 The name to set.
      */
     public void setName(String name) {
         this.name = name;

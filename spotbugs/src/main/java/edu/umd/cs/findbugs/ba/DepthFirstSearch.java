@@ -25,6 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Algorithm to perform a depth first search on a CFG.
  *
  * @see CFG
+ *
  * @author David Hovemeyer
  */
 @SuppressFBWarnings(value = "NM_SAME_SIMPLE_NAME_AS_SUPERCLASS", justification = "Would have to break APIs to fix this properly")
@@ -35,7 +36,7 @@ public class DepthFirstSearch extends edu.umd.cs.findbugs.graph.DepthFirstSearch
      * Constructor.
      *
      * @param cfg
-     *            the CFG to perform the depth first search on
+     *                the CFG to perform the depth first search on
      */
     public DepthFirstSearch(CFG cfg) {
         super(cfg);

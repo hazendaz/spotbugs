@@ -5,10 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import edu.umd.cs.findbugs.AbstractIntegrationTest;
 
-
 /**
  * @author gtoison
- *
  */
 class Issue2759Test extends AbstractIntegrationTest {
     @Test

@@ -33,8 +33,7 @@ import edu.umd.cs.findbugs.classfile.ICodeBaseIterator;
 import edu.umd.cs.findbugs.classfile.ICodeBaseLocator;
 
 /**
- * IScannableCodeBase implementation to read resources from a filesystem
- * directory.
+ * IScannableCodeBase implementation to read resources from a filesystem directory.
  *
  * @author David Hovemeyer
  */
@@ -84,9 +83,9 @@ public class DirectoryCodeBase extends AbstractScannableCodeBase {
      * Constructor.
      *
      * @param codeBaseLocator
-     *            the codebase locator for this codebase
+     *                            the codebase locator for this codebase
      * @param directory
-     *            the filesystem directory
+     *                            the filesystem directory
      */
     public DirectoryCodeBase(ICodeBaseLocator codeBaseLocator, File directory) {
         super(codeBaseLocator);
@@ -136,8 +135,7 @@ public class DirectoryCodeBase extends AbstractScannableCodeBase {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.ICodeBase#lookupResource(java.lang.String)
+     * @see edu.umd.cs.findbugs.classfile.ICodeBase#lookupResource(java.lang.String)
      */
     @Override
     public ICodeBaseEntry lookupResource(String resourceName) {
@@ -169,9 +167,9 @@ public class DirectoryCodeBase extends AbstractScannableCodeBase {
      * Get the resource name given a full filename.
      *
      * @param fileName
-     *            the full filename (which must be inside the directory)
-     * @return the resource name (i.e., the filename with the directory stripped
-     *         off)
+     *                     the full filename (which must be inside the directory)
+     *
+     * @return the resource name (i.e., the filename with the directory stripped off)
      */
     String getResourceName(String fileName) {
         // FIXME: there is probably a more robust way to do this

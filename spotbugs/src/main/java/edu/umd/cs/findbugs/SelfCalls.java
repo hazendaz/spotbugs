@@ -58,7 +58,7 @@ public class SelfCalls {
      * Constructor.
      *
      * @param classContext
-     *            the ClassContext for the class
+     *                         the ClassContext for the class
      */
     public SelfCalls(ClassContext classContext) {
         this.classContext = classContext;
@@ -110,12 +110,12 @@ public class SelfCalls {
     }
 
     /**
-     * Determine whether we are interested in calls for the given method.
-     * Subclasses may override. The default version returns true for every
-     * method.
+     * Determine whether we are interested in calls for the given method. Subclasses may override. The default version
+     * returns true for every method.
      *
      * @param method
-     *            the method
+     *                   the method
+     *
      * @return true if we want call sites for the method, false if not
      */
     public boolean wantCallsFor(Method method) {
@@ -157,7 +157,7 @@ public class SelfCalls {
      * Scan a method for self call sites.
      *
      * @param node
-     *            the CallGraphNode for the method to be scanned
+     *                 the CallGraphNode for the method to be scanned
      */
     private void scan(CallGraphNode node) throws CFGBuilderException {
         Method method = node.getMethod();
@@ -221,7 +221,8 @@ public class SelfCalls {
             String signature = method.getSignature();
             boolean isStatic = method.isStatic();
 
-            if (methodName.equals(calledMethodName) && signature.equals(calledMethodSignature) && isStatic == isStaticCall) {
+            if (methodName.equals(calledMethodName) && signature.equals(calledMethodSignature) &&
+                    isStatic == isStaticCall) {
                 // This method looks like a match.
                 return wantCallsFor(method) ? method : null;
             }

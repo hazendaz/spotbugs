@@ -96,14 +96,13 @@ public class FindRoughConstants extends BytecodeScanningDetector {
         }
     }
 
-    private static final BadConstant[] badConstants = new BadConstant[] {
-        new BadConstant(Math.PI, 1, "Math.PI", HIGH_PRIORITY),
-        new BadConstant(Math.PI, 1 / 2.0, "Math.PI/2", NORMAL_PRIORITY),
-        new BadConstant(Math.PI, 1 / 3.0, "Math.PI/3", LOW_PRIORITY),
-        new BadConstant(Math.PI, 1 / 4.0, "Math.PI/4", LOW_PRIORITY),
-        new BadConstant(Math.PI, 2, "2*Math.PI", NORMAL_PRIORITY),
-        new BadConstant(Math.E, 1, "Math.E", LOW_PRIORITY)
-    };
+    private static final BadConstant[] badConstants =
+            new BadConstant[] { new BadConstant(Math.PI, 1, "Math.PI", HIGH_PRIORITY),
+                new BadConstant(Math.PI, 1 / 2.0, "Math.PI/2", NORMAL_PRIORITY),
+                new BadConstant(Math.PI, 1 / 3.0, "Math.PI/3", LOW_PRIORITY),
+                new BadConstant(Math.PI, 1 / 4.0, "Math.PI/4", LOW_PRIORITY),
+                new BadConstant(Math.PI, 2, "2*Math.PI", NORMAL_PRIORITY),
+                new BadConstant(Math.E, 1, "Math.E", LOW_PRIORITY) };
 
     private final BugAccumulator bugAccumulator;
 
@@ -140,10 +139,9 @@ public class FindRoughConstants extends BytecodeScanningDetector {
         // Lower priority if the constant is put into array immediately or after the boxing:
         // this is likely to be just similar number in some predefined dataset (like lookup table)
         if (seen == Const.INVOKESTATIC && lastBug != null) {
-            if (getNextOpcode() == Const.AASTORE
-                    && getNameConstantOperand().equals("valueOf")
-                    && (getClassConstantOperand().equals("java/lang/Double") || getClassConstantOperand().equals(
-                            "java/lang/Float"))) {
+            if (getNextOpcode() == Const.AASTORE && getNameConstantOperand().equals("valueOf") &&
+                    (getClassConstantOperand().equals("java/lang/Double") ||
+                            getClassConstantOperand().equals("java/lang/Float"))) {
                 lastBug = ((BugInstance) lastBug.clone());
                 lastBug.setPriority(lastPriority + 1);
                 bugAccumulator.forgetLastBug();

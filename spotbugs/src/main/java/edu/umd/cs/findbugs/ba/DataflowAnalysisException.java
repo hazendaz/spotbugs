@@ -43,7 +43,7 @@ public class DataflowAnalysisException extends CheckedAnalysisException {
      * Constructor.
      *
      * @param msg
-     *            message describing the reason for the exception
+     *                message describing the reason for the exception
      */
     public DataflowAnalysisException(String msg) {
         super(msg);
@@ -53,9 +53,9 @@ public class DataflowAnalysisException extends CheckedAnalysisException {
      * Constructor from message and another Throwable object.
      *
      * @param msg
-     *            message describing the reason for the exception
+     *                  message describing the reason for the exception
      * @param cause
-     *            a Throwable which is the cause of the exception
+     *                  a Throwable which is the cause of the exception
      */
     public DataflowAnalysisException(String msg, Throwable cause) {
         super(msg, cause);
@@ -65,28 +65,27 @@ public class DataflowAnalysisException extends CheckedAnalysisException {
      * Constructor from method and instruction.
      *
      * @param message
-     *            reason for the error
+     *                      reason for the error
      * @param methodGen
-     *            the method
+     *                      the method
      * @param handle
-     *            the instruction
+     *                      the instruction
      */
     public DataflowAnalysisException(String message, MethodGen methodGen, InstructionHandle handle) {
         super(message + " in " + SignatureConverter.convertMethodSignature(methodGen) + " at " + handle);
     }
 
     /**
-     * Constructor from message, method and instruction, and Throwable object
-     * (cause).
+     * Constructor from message, method and instruction, and Throwable object (cause).
      *
      * @param message
-     *            reason for the error
+     *                      reason for the error
      * @param methodGen
-     *            the method
+     *                      the method
      * @param handle
-     *            the instruction
+     *                      the instruction
      * @param cause
-     *            a Throwable which is the cause of the exception
+     *                      a Throwable which is the cause of the exception
      */
     public DataflowAnalysisException(String message, MethodGen methodGen, InstructionHandle handle, Throwable cause) {
         this(message, methodGen, handle);

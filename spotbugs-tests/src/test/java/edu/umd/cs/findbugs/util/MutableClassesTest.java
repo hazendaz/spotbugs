@@ -150,7 +150,8 @@ class MutableClassesTest {
 
     @Test
     void testImmutable() {
-        Assertions.assertFalse(MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$Immutable;"));
+        Assertions.assertFalse(
+                MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$Immutable;"));
     }
 
     @Test
@@ -175,7 +176,8 @@ class MutableClassesTest {
 
     @Test
     void testEnumsAreImmutable() {
-        Assertions.assertFalse(MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ImmutableTestEnum;"));
+        Assertions.assertFalse(
+                MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ImmutableTestEnum;"));
     }
 
     public enum ImmutableTestEnum {
@@ -189,10 +191,10 @@ class MutableClassesTest {
 
     @Test
     void testErrorProneImmutable() {
-        Assertions.assertFalse(MutableClasses.mutableSignature(
-                "Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutable;"));
-        Assertions.assertFalse(MutableClasses.mutableSignature(
-                "Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutableSubclass;"));
+        Assertions.assertFalse(
+                MutableClasses.mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutable;"));
+        Assertions.assertFalse(MutableClasses
+                .mutableSignature("Ledu/umd/cs/findbugs/util/MutableClassesTest$ErrorProneImmutableSubclass;"));
     }
 
     public static final class MutableWriteReplace {

@@ -110,7 +110,7 @@ public class Noise extends OpcodeStackDetector {
         }
     }
 
-    //    final BugReporter bugReporter;
+    // final BugReporter bugReporter;
 
     final BugAccumulator accumulator;
 
@@ -119,7 +119,7 @@ public class Noise extends OpcodeStackDetector {
     byte[] primer;
 
     public Noise(BugReporter bugReporter) throws NoSuchAlgorithmException {
-        //        this.bugReporter = bugReporter;
+        // this.bugReporter = bugReporter;
         this.accumulator = new BugAccumulator(bugReporter);
         hq = new HashQueue(24);
     }
@@ -169,8 +169,8 @@ public class Noise extends OpcodeStackDetector {
 
             priority = hq.getPriority();
             if (priority <= Priorities.LOW_PRIORITY) {
-                accumulator.accumulateBug(new BugInstance(this, "NOISE_METHOD_CALL", priority).addClassAndMethod(this)
-                        .addCalledMethod(this), this);
+                accumulator.accumulateBug(new BugInstance(this, "NOISE_METHOD_CALL", priority)
+                        .addClassAndMethod(this).addCalledMethod(this), this);
             }
             break;
         case Const.GETFIELD:
@@ -184,8 +184,8 @@ public class Noise extends OpcodeStackDetector {
             hq.pushHash(getSigConstantOperand());
             priority = hq.getPriority();
             if (priority <= Priorities.LOW_PRIORITY) {
-                accumulator.accumulateBug(new BugInstance(this, "NOISE_FIELD_REFERENCE", priority).addClassAndMethod(this)
-                        .addReferencedField(this), this);
+                accumulator.accumulateBug(new BugInstance(this, "NOISE_FIELD_REFERENCE", priority)
+                        .addClassAndMethod(this).addReferencedField(this), this);
             }
             break;
         case Const.CHECKCAST:
@@ -245,9 +245,8 @@ public class Noise extends OpcodeStackDetector {
             hq.push(seen);
             priority = hq.getPriority();
             if (priority <= Priorities.LOW_PRIORITY) {
-                accumulator.accumulateBug(
-                        new BugInstance(this, "NOISE_OPERATION", priority).addClassAndMethod(this).addString(Const.getOpcodeName(seen)),
-                        this);
+                accumulator.accumulateBug(new BugInstance(this, "NOISE_OPERATION", priority).addClassAndMethod(this)
+                        .addString(Const.getOpcodeName(seen)), this);
             }
             break;
         default:

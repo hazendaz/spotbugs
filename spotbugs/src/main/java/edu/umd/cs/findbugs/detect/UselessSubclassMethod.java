@@ -43,7 +43,12 @@ import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 public class UselessSubclassMethod extends BytecodeScanningDetector implements StatelessDetector {
 
     enum State {
-        SEEN_NOTHING, SEEN_PARM, SEEN_LAST_PARM, SEEN_INVOKE, SEEN_RETURN, SEEN_INVALID
+        SEEN_NOTHING,
+        SEEN_PARM,
+        SEEN_LAST_PARM,
+        SEEN_INVOKE,
+        SEEN_RETURN,
+        SEEN_INVALID
     }
 
     private final BugReporter bugReporter;
@@ -100,8 +105,8 @@ public class UselessSubclassMethod extends BytecodeScanningDetector implements S
             String curDetail = obj.getName() + obj.getSignature();
             for (String infMethodDetail : interfaceMethods) {
                 if (curDetail.equals(infMethodDetail)) {
-                    bugReporter.reportBug(new BugInstance(this, "USM_USELESS_ABSTRACT_METHOD", LOW_PRIORITY).addClassAndMethod(
-                            getClassContext().getJavaClass(), obj));
+                    bugReporter.reportBug(new BugInstance(this, "USM_USELESS_ABSTRACT_METHOD", LOW_PRIORITY)
+                            .addClassAndMethod(getClassContext().getJavaClass(), obj));
                 }
             }
         }
@@ -113,12 +118,11 @@ public class UselessSubclassMethod extends BytecodeScanningDetector implements S
         try {
             String methodName = getMethodName();
 
-            if (!Const.CONSTRUCTOR_NAME.equals(methodName) && !"clone".equals(methodName)
-                    && ((getMethod().getAccessFlags() & (Const.ACC_STATIC | Const.ACC_SYNTHETIC)) == 0)) {
+            if (!Const.CONSTRUCTOR_NAME.equals(methodName) && !"clone".equals(methodName) &&
+                    ((getMethod().getAccessFlags() & (Const.ACC_STATIC | Const.ACC_SYNTHETIC)) == 0)) {
 
                 /*
-                 * for some reason, access flags doesn't return Synthetic, so do
-                 * this hocus pocus
+                 * for some reason, access flags doesn't return Synthetic, so do this hocus pocus
                  */
                 Attribute[] atts = getMethod().getAttributes();
                 for (Attribute att : atts) {
@@ -138,14 +142,13 @@ public class UselessSubclassMethod extends BytecodeScanningDetector implements S
                 if ((state == State.SEEN_RETURN) && (invokePC != 0)) {
                     // Do this check late, as it is potentially expensive
                     Method superMethod = findSuperclassMethod(superclassName, getMethod());
-                    if ((superMethod == null) || differentAttributes(getMethod(), superMethod)
-                            || getMethod().isProtected()
-                                    && !samePackage(getDottedClassName(), superclassName)) {
+                    if ((superMethod == null) || differentAttributes(getMethod(), superMethod) ||
+                            getMethod().isProtected() && !samePackage(getDottedClassName(), superclassName)) {
                         return;
                     }
 
-                    bugReporter.reportBug(new BugInstance(this, "USM_USELESS_SUBCLASS_METHOD", LOW_PRIORITY).addClassAndMethod(
-                            this).addSourceLine(this, invokePC));
+                    bugReporter.reportBug(new BugInstance(this, "USM_USELESS_SUBCLASS_METHOD", LOW_PRIORITY)
+                            .addClassAndMethod(this).addSourceLine(this, invokePC));
                 }
             }
         } catch (ClassNotFoundException cnfe) {
@@ -212,8 +215,8 @@ public class UselessSubclassMethod extends BytecodeScanningDetector implements S
             break;
 
         case SEEN_LAST_PARM:
-            if ((seen == Const.INVOKENONVIRTUAL) && getMethodName().equals(getNameConstantOperand())
-                    && getMethodSig().equals(getSigConstantOperand())) {
+            if ((seen == Const.INVOKENONVIRTUAL) && getMethodName().equals(getNameConstantOperand()) &&
+                    getMethodSig().equals(getSigConstantOperand())) {
                 invokePC = getPC();
                 state = State.SEEN_INVOKE;
             } else {
@@ -232,8 +235,8 @@ public class UselessSubclassMethod extends BytecodeScanningDetector implements S
                 state = State.SEEN_RETURN;
             } else if ((retSigChar0 == 'F') && (seen == Const.FRETURN)) {
                 state = State.SEEN_RETURN;
-            } else if ((retSigChar0 == 'I' || retSigChar0 == 'S' || retSigChar0 == 'C' || retSigChar0 == 'B' || retSigChar0 == 'Z')
-                    && (seen == Const.IRETURN)) {
+            } else if ((retSigChar0 == 'I' || retSigChar0 == 'S' || retSigChar0 == 'C' || retSigChar0 == 'B' ||
+                    retSigChar0 == 'Z') && (seen == Const.IRETURN)) {
                 state = State.SEEN_RETURN;
             } else if ((retSigChar0 == 'J') && (seen == Const.LRETURN)) {
                 state = State.SEEN_RETURN;
@@ -266,7 +269,8 @@ public class UselessSubclassMethod extends BytecodeScanningDetector implements S
         }
     }
 
-    private Method findSuperclassMethod(@DottedClassName String superclassName, Method subclassMethod) throws ClassNotFoundException {
+    private Method findSuperclassMethod(@DottedClassName String superclassName, Method subclassMethod)
+            throws ClassNotFoundException {
 
         String methodName = subclassMethod.getName();
         Type[] subArgs = null;
@@ -316,11 +320,10 @@ public class UselessSubclassMethod extends BytecodeScanningDetector implements S
         if (m1.getAnnotationEntries().length > 0 || m2.getAnnotationEntries().length > 0) {
             return true;
         }
-        int access1 = m1.getAccessFlags()
-                & (Const.ACC_PRIVATE | Const.ACC_PROTECTED | Const.ACC_PUBLIC | Const.ACC_FINAL);
-        int access2 = m2.getAccessFlags()
-                & (Const.ACC_PRIVATE | Const.ACC_PROTECTED | Const.ACC_PUBLIC | Const.ACC_FINAL);
-
+        int access1 =
+                m1.getAccessFlags() & (Const.ACC_PRIVATE | Const.ACC_PROTECTED | Const.ACC_PUBLIC | Const.ACC_FINAL);
+        int access2 =
+                m2.getAccessFlags() & (Const.ACC_PRIVATE | Const.ACC_PROTECTED | Const.ACC_PUBLIC | Const.ACC_FINAL);
 
         m1.getAnnotationEntries();
         if (access1 != access2) {

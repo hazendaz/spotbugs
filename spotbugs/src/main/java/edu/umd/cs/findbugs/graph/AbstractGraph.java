@@ -25,24 +25,22 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * A simple Graph implementation where the vertex objects store a list of
- * incoming and outgoing edges. The edge link fields are stored in the edge
- * objects, which means a fairly low space overhead.
- *
+ * A simple Graph implementation where the vertex objects store a list of incoming and outgoing edges. The edge link
+ * fields are stored in the edge objects, which means a fairly low space overhead.
  * <p>
  * The abstract allocateEdge() method must be implemented.
  *
  * @see Graph
  * @see AbstractEdge
  * @see AbstractVertex
+ *
  * @author David Hovemeyer
  */
 public abstract class AbstractGraph<EdgeType extends AbstractEdge<EdgeType, VertexType>, VertexType extends AbstractVertex<EdgeType, VertexType>>
         implements Graph<EdgeType, VertexType> {
 
     /*
-     * ----------------------------------------------------------------------
-     * Helper classes
+     * ---------------------------------------------------------------------- Helper classes
      * ----------------------------------------------------------------------
      */
 
@@ -113,8 +111,7 @@ public abstract class AbstractGraph<EdgeType extends AbstractEdge<EdgeType, Vert
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Fields
+     * ---------------------------------------------------------------------- Fields
      * ----------------------------------------------------------------------
      */
 
@@ -128,8 +125,7 @@ public abstract class AbstractGraph<EdgeType extends AbstractEdge<EdgeType, Vert
     private int maxEdgeLabel;
 
     /*
-     * ----------------------------------------------------------------------
-     * Public methods
+     * ---------------------------------------------------------------------- Public methods
      * ----------------------------------------------------------------------
      */
 
@@ -323,8 +319,7 @@ public abstract class AbstractGraph<EdgeType extends AbstractEdge<EdgeType, Vert
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Downcall methods
+     * ---------------------------------------------------------------------- Downcall methods
      * ----------------------------------------------------------------------
      */
 

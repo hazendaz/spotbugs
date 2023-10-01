@@ -62,8 +62,7 @@ public class PermissionsSuper extends OpcodeStackDetector {
     @Override
     public void visit(Method met) {
         checkMethod = checkClass &&
-                "(Ljava/security/CodeSource;)Ljava/security/PermissionCollection;"
-                        .equals(met.getSignature());
+                "(Ljava/security/CodeSource;)Ljava/security/PermissionCollection;".equals(met.getSignature());
         super.visit(met);
     }
 
@@ -90,9 +89,9 @@ public class PermissionsSuper extends OpcodeStackDetector {
                     AnalysisContext.reportMissingClass(e);
                 }
             }
-            bugAccumulator.accumulateBug(new BugInstance(this,
-                    "PERM_SUPER_NOT_CALLED_IN_GETPERMISSIONS", NORMAL_PRIORITY)
-                    .addClassAndMethod(this), this);
+            bugAccumulator
+                    .accumulateBug(new BugInstance(this, "PERM_SUPER_NOT_CALLED_IN_GETPERMISSIONS", NORMAL_PRIORITY)
+                            .addClassAndMethod(this), this);
         }
     }
 }

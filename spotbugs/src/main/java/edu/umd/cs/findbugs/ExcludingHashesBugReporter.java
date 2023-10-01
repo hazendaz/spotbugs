@@ -35,6 +35,7 @@ public class ExcludingHashesBugReporter extends DelegatingBugReporter {
 
     /**
      * @param delegate
+     *
      * @throws DocumentException
      * @throws IOException
      */
@@ -45,11 +46,12 @@ public class ExcludingHashesBugReporter extends DelegatingBugReporter {
 
     /**
      * @param baseline
+     *
      * @throws IOException
      * @throws DocumentException
      */
-    public static void addToExcludedInstanceHashes(Set<String> instanceHashesToExclude, String baseline) throws IOException,
-            DocumentException {
+    public static void addToExcludedInstanceHashes(Set<String> instanceHashesToExclude, String baseline)
+            throws IOException, DocumentException {
         Project project = new Project();
         BugCollection origCollection;
         origCollection = new SortedBugCollection(project);

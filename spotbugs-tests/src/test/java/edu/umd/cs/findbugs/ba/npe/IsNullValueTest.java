@@ -76,8 +76,8 @@ class IsNullValueTest {
         XMethod method = Mockito.mock(XMethod.class);
 
         IsNullValue checkedNull_e = IsNullValue.checkedNullValue().toExceptionValue();
-        IsNullValue checkForNull = IsNullValue.nullOnSimplePathValue().markInformationAsComingFromReturnValueOfMethod(method,
-                NullnessAnnotation.CHECK_FOR_NULL);
+        IsNullValue checkForNull = IsNullValue.nullOnSimplePathValue()
+                .markInformationAsComingFromReturnValueOfMethod(method, NullnessAnnotation.CHECK_FOR_NULL);
         IsNullValue merged = IsNullValue.merge(checkedNull_e, checkForNull);
 
         assertTrue(merged.isNullOnSomePath());

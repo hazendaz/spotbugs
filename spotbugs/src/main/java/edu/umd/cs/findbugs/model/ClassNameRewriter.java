@@ -29,7 +29,8 @@ public interface ClassNameRewriter {
      * Rewrite a class name.
      *
      * @param className
-     *            a class name
+     *                      a class name
+     *
      * @return the rewritten class name
      */
     public String rewriteClassName(String className);

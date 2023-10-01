@@ -27,12 +27,12 @@ import org.jspecify.annotations.NonNull;
 import edu.umd.cs.findbugs.util.HTML;
 
 /**
- * A BugPattern object collects all of the metadata for a particular species of
- * BugInstance. Specifically, it stores the human-readable text for displaying a
- * bug instance. BugPatterns derive from the BugPattern elements in the
+ * A BugPattern object collects all of the metadata for a particular species of BugInstance. Specifically, it stores the
+ * human-readable text for displaying a bug instance. BugPatterns derive from the BugPattern elements in the
  * "findbugs.xml" and "messages.xml" found in a FindBugs plugin.
  *
  * @author David Hovemeyer
+ *
  * @see BugInstance
  */
 public class BugPattern implements Comparable<BugPattern> {
@@ -60,24 +60,24 @@ public class BugPattern implements Comparable<BugPattern> {
      * Constructor.
      *
      * @param type
-     *            the type (species) of BugInstance
+     *                             the type (species) of BugInstance
      * @param abbrev
-     *            the abbreviation or "bug code"; see {@link BugCode}
+     *                             the abbreviation or "bug code"; see {@link BugCode}
      * @param category
-     *            the category
+     *                             the category
      * @param experimental
-     *            true if the bug pattern is experimental
+     *                             true if the bug pattern is experimental
      * @param shortDescription
-     *            short one-line description of the bug species
+     *                             short one-line description of the bug species
      * @param longDescription
-     *            longer one-line description; may contain placeholders for use by {@link FindBugsMessageFormat} to
-     *            format BugAnnotations
+     *                             longer one-line description; may contain placeholders for use by
+     *                             {@link FindBugsMessageFormat} to format BugAnnotations
      * @param detailText
-     *            HTML text containing a full description of the bug species
+     *                             HTML text containing a full description of the bug species
      * @param bugsUrl
-     *            URL of web-page containing bug descriptions or null if there's no such page.
+     *                             URL of web-page containing bug descriptions or null if there's no such page.
      * @param cweid
-     *            Common Weakness Enumeration (CWE) ID of the bug pattern
+     *                             Common Weakness Enumeration (CWE) ID of the bug pattern
      */
     public BugPattern(String type, String abbrev, String category, boolean experimental, String shortDescription,
             String longDescription, String detailText, String bugsUrl, int cweid) {
@@ -94,11 +94,13 @@ public class BugPattern implements Comparable<BugPattern> {
     }
 
     static final BugPattern REALLY_UNKNOWN = new BugPattern("REALLY_UNKNOWN", "TEST", "CORRECTNESS", false,
-            "Unknown warning; core bug patterns not found", "Unknown warning BUG_PATTERN in {1}; core bug patterns not found",
-            "<p>A warning was recorded, but SpotBugs can't find the description of this bug pattern "
-                    + "and so can't describe it. This should occur only in cases of a bug in SpotBugs or its configuration, "
-                    + "or perhaps if an analysis was generated using a plugin, but that plugin is not currently loaded. "
-                    + "</p>", null, 0);
+            "Unknown warning; core bug patterns not found",
+            "Unknown warning BUG_PATTERN in {1}; core bug patterns not found",
+            "<p>A warning was recorded, but SpotBugs can't find the description of this bug pattern " +
+                    "and so can't describe it. This should occur only in cases of a bug in SpotBugs or its configuration, " +
+                    "or perhaps if an analysis was generated using a plugin, but that plugin is not currently loaded. " +
+                    "</p>",
+            null, 0);
 
     /**
      * Get the BugPattern
@@ -253,16 +255,14 @@ public class BugPattern implements Comparable<BugPattern> {
      * The method is not public to disallow modification of this attribute
      *
      * @param deprecated
-     *            true if this bug pattern is not used anymore and exists for
-     *            backward compatibility only
+     *                       true if this bug pattern is not used anymore and exists for backward compatibility only
      */
     /* package protected */void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
     }
 
     /**
-     * @return true if this bug pattern is not used anymore and exists for
-     *         backward compatibility only
+     * @return true if this bug pattern is not used anymore and exists for backward compatibility only
      */
     public boolean isDeprecated() {
         return deprecated;

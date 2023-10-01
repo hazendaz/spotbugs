@@ -20,9 +20,8 @@
 package edu.umd.cs.findbugs.classfile;
 
 /**
- * Observer for classes being visited in some manner. If the observe wishes to
- * load the actual class data (or some analysis of the class) it must explicitly
- * load it from the analysis cache.
+ * Observer for classes being visited in some manner. If the observe wishes to load the actual class data (or some
+ * analysis of the class) it must explicitly load it from the analysis cache.
  *
  * @author David Hovemeyer
  */
@@ -31,7 +30,7 @@ public interface IClassObserver {
      * Observe a class being visited.
      *
      * @param classDescriptor
-     *            class being visited
+     *                            class being visited
      */
     public void observeClass(ClassDescriptor classDescriptor);
 }

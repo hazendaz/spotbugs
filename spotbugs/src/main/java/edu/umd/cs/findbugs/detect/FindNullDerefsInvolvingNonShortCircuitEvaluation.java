@@ -101,8 +101,8 @@ public class FindNullDerefsInvolvingNonShortCircuitEvaluation extends OpcodeStac
 
                 IsNullValueDataflow isNullValueDataflow = getClassContext().getIsNullValueDataflow(getMethod());
                 ValueNumberDataflow valueNumberDataflow = getClassContext().getValueNumberDataflow(getMethod());
-                UnconditionalValueDerefDataflow unconditionalValueDerefDataflow = getClassContext()
-                        .getUnconditionalValueDerefDataflow(getMethod());
+                UnconditionalValueDerefDataflow unconditionalValueDerefDataflow =
+                        getClassContext().getUnconditionalValueDerefDataflow(getMethod());
                 ValueNumberFrame valueNumberFact = valueNumberDataflow.getFactAtLocation(produced);
                 IsNullValueFrame isNullFact = isNullValueDataflow.getFactAtLocation(produced);
                 ValueNumber value = valueNumberFact.getTopValue();
@@ -119,25 +119,26 @@ public class FindNullDerefsInvolvingNonShortCircuitEvaluation extends OpcodeStac
                     System.out.println("target: " + branchInstruction.getTarget());
                     System.out.println("next: " + branch.getHandle().getNext());
                 }
-                Location guaranteed = findLocation(cfg, nullGuaranteesBranch ? branchInstruction.getTarget()
-                        : branch.getHandle()
-                                .getNext());
+                Location guaranteed = findLocation(cfg,
+                        nullGuaranteesBranch ? branchInstruction.getTarget() : branch.getHandle().getNext());
                 if (guaranteed == null) {
                     return;
                 }
 
-                UnconditionalValueDerefSet unconditionalDeref = unconditionalValueDerefDataflow.getFactAtLocation(guaranteed);
+                UnconditionalValueDerefSet unconditionalDeref =
+                        unconditionalValueDerefDataflow.getFactAtLocation(guaranteed);
                 if (DEBUG) {
                     System.out.println("Guaranteed on null: " + guaranteed);
                     System.out.println(unconditionalDeref);
                 }
 
                 if (unconditionalDeref.isUnconditionallyDereferenced(value)) {
-                    SourceLineAnnotation tested = SourceLineAnnotation.fromVisitedInstruction(getClassContext(), getMethod(),
-                            produced);
-                    BugAnnotation variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(getMethod(), produced,
-                            value, valueNumberFact, "VALUE_OF");
-                    Set<Location> unconditionalDerefLocationSet = unconditionalDeref.getUnconditionalDerefLocationSet(value);
+                    SourceLineAnnotation tested =
+                            SourceLineAnnotation.fromVisitedInstruction(getClassContext(), getMethod(), produced);
+                    BugAnnotation variableAnnotation = ValueNumberSourceInfo.findAnnotationFromValueNumber(getMethod(),
+                            produced, value, valueNumberFact, "VALUE_OF");
+                    Set<Location> unconditionalDerefLocationSet =
+                            unconditionalDeref.getUnconditionalDerefLocationSet(value);
 
                     BugInstance bug;
                     if (unconditionalDerefLocationSet.size() > 1) {
@@ -145,14 +146,16 @@ public class FindNullDerefsInvolvingNonShortCircuitEvaluation extends OpcodeStac
                         bug.addOptionalAnnotation(variableAnnotation);
                         bug.addSourceLine(tested).describe("SOURCE_LINE_KNOWN_NULL");
                         for (Location dereferenced : unconditionalDerefLocationSet) {
-                            bug.addSourceLine(getClassContext(), getMethod(), dereferenced).describe("SOURCE_LINE_DEREF");
+                            bug.addSourceLine(getClassContext(), getMethod(), dereferenced)
+                                    .describe("SOURCE_LINE_DEREF");
                         }
 
                     } else {
                         bug = new BugInstance(this, "NP_NULL_ON_SOME_PATH", NORMAL_PRIORITY).addClassAndMethod(this);
                         bug.addOptionalAnnotation(variableAnnotation);
                         for (Location dereferenced : unconditionalDerefLocationSet) {
-                            bug.addSourceLine(getClassContext(), getMethod(), dereferenced).describe("SOURCE_LINE_DEREF");
+                            bug.addSourceLine(getClassContext(), getMethod(), dereferenced)
+                                    .describe("SOURCE_LINE_DEREF");
                         }
 
                         bug.addSourceLine(tested).describe("SOURCE_LINE_KNOWN_NULL");
@@ -192,14 +195,12 @@ public class FindNullDerefsInvolvingNonShortCircuitEvaluation extends OpcodeStac
     }
 
     private boolean nullGuaranteesBranch(int seen, OpcodeStack.Item item) {
-        return item.getSpecialKind() == OpcodeStack.Item.ZERO_MEANS_NULL && seen == Const.IAND
-                || item.getSpecialKind() == OpcodeStack.Item.NONZERO_MEANS_NULL && seen == Const.IOR;
+        return item.getSpecialKind() == OpcodeStack.Item.ZERO_MEANS_NULL && seen == Const.IAND ||
+                item.getSpecialKind() == OpcodeStack.Item.NONZERO_MEANS_NULL && seen == Const.IOR;
     }
 
     /*
-    private void emitWarning() {
-        System.out.println("Warn about " + getMethodName());
-    }
+     * private void emitWarning() { System.out.println("Warn about " + getMethodName()); }
      */
 
 }

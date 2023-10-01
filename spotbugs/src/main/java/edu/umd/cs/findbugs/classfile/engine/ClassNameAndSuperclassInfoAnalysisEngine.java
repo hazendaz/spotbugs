@@ -31,8 +31,8 @@ import edu.umd.cs.findbugs.classfile.analysis.ClassData;
 import edu.umd.cs.findbugs.classfile.analysis.ClassNameAndSuperclassInfo;
 
 /**
- * Analysis engine to produce the ClassInfo for a loaded class. We parse just
- * enough information from the classfile to get the needed information.
+ * Analysis engine to produce the ClassInfo for a loaded class. We parse just enough information from the classfile to
+ * get the needed information.
  *
  * @author David Hovemeyer
  */
@@ -41,9 +41,8 @@ public class ClassNameAndSuperclassInfoAnalysisEngine implements IClassAnalysisE
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public ClassNameAndSuperclassInfo analyze(IAnalysisCache analysisCache, ClassDescriptor descriptor)
@@ -59,7 +58,8 @@ public class ClassNameAndSuperclassInfoAnalysisEngine implements IClassAnalysisE
         ClassNameAndSuperclassInfo classInfo = classInfoBuilder.build();
 
         if (!classInfo.getClassDescriptor().equals(descriptor)) {
-            throw new ClassNameMismatchException(descriptor, classInfo.getClassDescriptor(), classData.getCodeBaseEntry());
+            throw new ClassNameMismatchException(descriptor, classInfo.getClassDescriptor(),
+                    classData.getCodeBaseEntry());
         }
         return classInfo;
     }
@@ -67,9 +67,7 @@ public class ClassNameAndSuperclassInfoAnalysisEngine implements IClassAnalysisE
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs
-     * .findbugs.classfile.IAnalysisCache)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs .findbugs.classfile.IAnalysisCache)
      */
     @Override
     public void registerWith(IAnalysisCache analysisCache) {

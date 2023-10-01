@@ -23,6 +23,7 @@ package edu.umd.cs.findbugs.ba;
  * Dataflow analysis to compute postdominator sets for a CFG.
  *
  * @author David Hovemeyer
+ *
  * @see CFG
  * @see AbstractDominatorsAnalysis
  */
@@ -35,15 +36,16 @@ public class PostDominatorsAnalysis extends AbstractDominatorsAnalysis {
      * Constructor.
      *
      * @param cfg
-     *            the CFG to compute dominator relationships for
+     *                        the CFG to compute dominator relationships for
      * @param rdfs
-     *            the ReverseDepthFirstSearch on the CFG
+     *                        the ReverseDepthFirstSearch on the CFG
      * @param dfs
-     *            the DepthFirstSearch on the CFG
+     *                        the DepthFirstSearch on the CFG
      * @param edgeChooser
-     *            EdgeChooser to choose which Edges to consider significant
+     *                        EdgeChooser to choose which Edges to consider significant
      */
-    protected PostDominatorsAnalysis(CFG cfg, ReverseDepthFirstSearch rdfs, DepthFirstSearch dfs, EdgeChooser edgeChooser) {
+    protected PostDominatorsAnalysis(CFG cfg, ReverseDepthFirstSearch rdfs, DepthFirstSearch dfs,
+            EdgeChooser edgeChooser) {
         super(cfg, edgeChooser);
         this.rdfs = rdfs;
         this.dfs = dfs;
@@ -53,15 +55,16 @@ public class PostDominatorsAnalysis extends AbstractDominatorsAnalysis {
      * Constructor.
      *
      * @param cfg
-     *            the CFG to compute dominator relationships for
+     *                                 the CFG to compute dominator relationships for
      * @param rdfs
-     *            the ReverseDepthFirstSearch on the CFG
+     *                                 the ReverseDepthFirstSearch on the CFG
      * @param dfs
-     *            the DepthFirstSearch on the CFG
+     *                                 the DepthFirstSearch on the CFG
      * @param ignoreExceptionEdges
-     *            true if exception edges should be ignored
+     *                                 true if exception edges should be ignored
      */
-    protected PostDominatorsAnalysis(CFG cfg, ReverseDepthFirstSearch rdfs, DepthFirstSearch dfs, boolean ignoreExceptionEdges) {
+    protected PostDominatorsAnalysis(CFG cfg, ReverseDepthFirstSearch rdfs, DepthFirstSearch dfs,
+            boolean ignoreExceptionEdges) {
         super(cfg, ignoreExceptionEdges);
         this.rdfs = rdfs;
         this.dfs = dfs;

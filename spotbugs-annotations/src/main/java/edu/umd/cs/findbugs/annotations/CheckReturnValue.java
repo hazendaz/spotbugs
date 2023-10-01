@@ -25,10 +25,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation is used to denote a method whose return value should always
- * be checked when invoking the method.
- *
- * The checker treats this annotation as inherited by overriding methods.
+ * This annotation is used to denote a method whose return value should always be checked when invoking the method. The
+ * checker treats this annotation as inherited by overriding methods.
  */
 @Documented
 @Target({ ElementType.METHOD, ElementType.CONSTRUCTOR })

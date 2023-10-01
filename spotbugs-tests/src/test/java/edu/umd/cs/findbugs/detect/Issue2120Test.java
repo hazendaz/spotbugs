@@ -8,8 +8,7 @@ class Issue2120Test extends AbstractIntegrationTest {
 
     @Test
     void testIssue() {
-        performAnalysis("../java17/Issue2120.class",
-                "../java17/Issue2120$1MyEnum.class",
+        performAnalysis("../java17/Issue2120.class", "../java17/Issue2120$1MyEnum.class",
                 "../java17/Issue2120$1MyRecord.class");
         assertNoBugType("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS");
     }

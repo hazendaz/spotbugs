@@ -22,10 +22,10 @@ package edu.umd.cs.findbugs.graph;
 import java.util.Iterator;
 
 /**
- * Perform a reverse depth first search of a graph. (I.e., depth first search of
- * reversed graph.)
+ * Perform a reverse depth first search of a graph. (I.e., depth first search of reversed graph.)
  *
  * @author David Hovemeyer
+ *
  * @see Graph
  * @see AbstractDepthFirstSearch
  */
@@ -36,7 +36,7 @@ public class ReverseDepthFirstSearch<GraphType extends Graph<EdgeType, VertexTyp
      * Constructor.
      *
      * @param graph
-     *            the graph to perform a reverse depth first search of
+     *                  the graph to perform a reverse depth first search of
      */
     public ReverseDepthFirstSearch(GraphType graph) {
         super(graph);

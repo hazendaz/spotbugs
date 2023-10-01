@@ -19,9 +19,8 @@ import edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject;
 import edu.umd.cs.findbugs.classfile.analysis.AnnotationValue;
 
 /**
- * XMethod implementation for unresolvable methods. Returns some kind of
- * reasonable default answer to questions that can't be answered (e.g., what are
- * the access flags).
+ * XMethod implementation for unresolvable methods. Returns some kind of reasonable default answer to questions that
+ * can't be answered (e.g., what are the access flags).
  */
 class UnresolvedXMethod extends AbstractMethod {
 
@@ -55,7 +54,8 @@ class UnresolvedXMethod extends AbstractMethod {
         if (o instanceof XMethod) {
             return XFactory.compare((XMethod) this, (XMethod) o);
         }
-        throw new ClassCastException("Don't know how to compare " + this.getClass().getName() + " to " + o.getClass().getName());
+        throw new ClassCastException(
+                "Don't know how to compare " + this.getClass().getName() + " to " + o.getClass().getName());
     }
 
     @Override
@@ -181,10 +181,9 @@ class UnresolvedXMethod extends AbstractMethod {
      */
     @Override
     public void addParameterAnnotation(int param, AnnotationValue annotationValue) {
-        HashMap<Integer, Map<ClassDescriptor, AnnotationValue>> updatedAnnotations = new HashMap<>(
-                methodParameterAnnotations);
-        Map<ClassDescriptor, AnnotationValue> paramMap = updatedAnnotations.computeIfAbsent(param,
-                k -> new HashMap<>());
+        HashMap<Integer, Map<ClassDescriptor, AnnotationValue>> updatedAnnotations =
+                new HashMap<>(methodParameterAnnotations);
+        Map<ClassDescriptor, AnnotationValue> paramMap = updatedAnnotations.computeIfAbsent(param, k -> new HashMap<>());
         paramMap.put(annotationValue.getAnnotationClass(), annotationValue);
 
         methodParameterAnnotations = updatedAnnotations;
@@ -228,14 +227,11 @@ class UnresolvedXMethod extends AbstractMethod {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.XMethod#addAnnotation(edu.umd.cs.findbugs.classfile
-     * .analysis.AnnotationValue)
+     * @see edu.umd.cs.findbugs.ba.XMethod#addAnnotation(edu.umd.cs.findbugs.classfile .analysis.AnnotationValue)
      */
     @Override
     public void addAnnotation(AnnotationValue annotationValue) {
-        HashMap<ClassDescriptor, AnnotationValue> updatedAnnotations = new HashMap<>(
-                methodAnnotations);
+        HashMap<ClassDescriptor, AnnotationValue> updatedAnnotations = new HashMap<>(methodAnnotations);
         updatedAnnotations.put(annotationValue.getAnnotationClass(), annotationValue);
         methodAnnotations = updatedAnnotations;
     }
@@ -275,7 +271,9 @@ class UnresolvedXMethod extends AbstractMethod {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see edu.umd.cs.findbugs.ba.XMethod#getAccessMethodFor()
      */
     @Override
@@ -288,7 +286,9 @@ class UnresolvedXMethod extends AbstractMethod {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see edu.umd.cs.findbugs.ba.XMethod#isVariableSynthetic(int)
      */
     @Override
@@ -305,4 +305,5 @@ class UnresolvedXMethod extends AbstractMethod {
     public boolean hasPolymorphicSignature() {
         return false;
     }
+
 }

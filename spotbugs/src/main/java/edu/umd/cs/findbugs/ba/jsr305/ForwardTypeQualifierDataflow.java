@@ -32,9 +32,9 @@ public class ForwardTypeQualifierDataflow extends TypeQualifierDataflow<ForwardT
      * Constructor.
      *
      * @param cfg
-     *            CFG of analyzed method
+     *                     CFG of analyzed method
      * @param analysis
-     *            ForwardTypeQualifierDataflowAnalysis to perform on method
+     *                     ForwardTypeQualifierDataflowAnalysis to perform on method
      */
     public ForwardTypeQualifierDataflow(CFG cfg, ForwardTypeQualifierDataflowAnalysis analysis) {
         super(cfg, analysis);

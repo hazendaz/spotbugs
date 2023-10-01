@@ -49,8 +49,8 @@ public class WriteOnceProperties extends Properties {
     @Override
     public synchronized Object setProperty(String key, String value) {
         if (propertReadAt.containsKey(key) && !value.equals(super.getProperty(key))) {
-            IllegalStateException e = new IllegalStateException("Changing property '" + key + "' to '" + value
-                    + "' after it has already been read as '" + super.getProperty(key) + "'");
+            IllegalStateException e = new IllegalStateException("Changing property '" + key + "' to '" + value +
+                    "' after it has already been read as '" + super.getProperty(key) + "'");
             e.initCause(propertReadAt.get(key));
             throw e;
         }

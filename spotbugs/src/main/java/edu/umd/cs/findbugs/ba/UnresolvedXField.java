@@ -38,7 +38,8 @@ import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
  */
 public class UnresolvedXField extends AbstractField {
 
-    protected UnresolvedXField(@DottedClassName String className, String methodName, String methodSig, int accessFlags) {
+    protected UnresolvedXField(@DottedClassName String className, String methodName, String methodSig,
+            int accessFlags) {
         super(className, methodName, methodSig, accessFlags);
         if (methodSig.charAt(0) == '(') {
             throw new IllegalArgumentException("Bad signature: " + methodSig);
@@ -49,7 +50,8 @@ public class UnresolvedXField extends AbstractField {
     }
 
     protected UnresolvedXField(FieldDescriptor m) {
-        super(m.getClassDescriptor().getDottedClassName(), m.getName(), m.getSignature(), m.isStatic() ? Const.ACC_STATIC : 0);
+        super(m.getClassDescriptor().getDottedClassName(), m.getName(), m.getSignature(),
+                m.isStatic() ? Const.ACC_STATIC : 0);
         if (m.getSignature().charAt(0) == '(') {
             throw new IllegalArgumentException("Bad signature: " + m.getSignature());
         }
@@ -68,15 +70,15 @@ public class UnresolvedXField extends AbstractField {
         if (o instanceof XField) {
             return XFactory.compare((XField) this, (XField) o);
         }
-        throw new ClassCastException("Don't know how to compare " + this.getClass().getName() + " to " + o.getClass().getName());
+        throw new ClassCastException(
+                "Don't know how to compare " + this.getClass().getName() + " to " + o.getClass().getName());
 
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject#getAnnotation(
+     * @see edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject#getAnnotation(
      * edu.umd.cs.findbugs.classfile.ClassDescriptor)
      */
     @Override
@@ -87,8 +89,7 @@ public class UnresolvedXField extends AbstractField {
     /*
      * (non-Javadoc)
      *
-     * @see edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject#
-     * getAnnotationDescriptors()
+     * @see edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject# getAnnotationDescriptors()
      */
     @Override
     public Collection<ClassDescriptor> getAnnotationDescriptors() {
@@ -98,8 +99,7 @@ public class UnresolvedXField extends AbstractField {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject#getAnnotations()
+     * @see edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject#getAnnotations()
      */
     @Override
     public Collection<AnnotationValue> getAnnotations() {
@@ -109,22 +109,19 @@ public class UnresolvedXField extends AbstractField {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject#getContainingScope
-     * ()
+     * @see edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject#getContainingScope ()
      */
     @Override
     public AnnotatedObject getContainingScope() {
         // TODO Auto-generated method stub
-        return AnalysisContext.currentXFactory().getXClass(
-                DescriptorFactory.createClassDescriptorFromDottedClassName(getClassName()));
+        return AnalysisContext.currentXFactory()
+                .getXClass(DescriptorFactory.createClassDescriptorFromDottedClassName(getClassName()));
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject#getElementType()
+     * @see edu.umd.cs.findbugs.classfile.analysis.AnnotatedObject#getElementType()
      */
     @Override
     public ElementType getElementType() {

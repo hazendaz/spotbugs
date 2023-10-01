@@ -7,17 +7,12 @@ import javax.swing.Spring;
 import javax.swing.SpringLayout;
 
 /**
- * A 1.4 file that provides utility methods for creating form- or grid-style
- * layouts with SpringLayout. These utilities are used by several programs, such
- * as SpringBox and SpringCompactGrid.
- *
- * From the Swing tutorial.
- *
+ * A 1.4 file that provides utility methods for creating form- or grid-style layouts with SpringLayout. These utilities
+ * are used by several programs, such as SpringBox and SpringCompactGrid. From the Swing tutorial.
  */
 public class SpringUtilities {
     /**
-     * A debugging utility that prints to stdout the component's minimum,
-     * preferred, and maximum sizes.
+     * A debugging utility that prints to stdout the component's minimum, preferred, and maximum sizes.
      */
     public static void printSizes(Component c) {
         if (MainFrame.GUI2_DEBUG) {
@@ -28,23 +23,22 @@ public class SpringUtilities {
     }
 
     /**
-     * Aligns the first <code>rows</code> * <code>cols</code> components of
-     * <code>parent</code> in a grid. Each component is as big as the maximum
-     * preferred width and height of the components. The parent is made just big
+     * Aligns the first <code>rows</code> * <code>cols</code> components of <code>parent</code> in a grid. Each
+     * component is as big as the maximum preferred width and height of the components. The parent is made just big
      * enough to fit them all.
      *
      * @param rows
-     *            number of rows
+     *                     number of rows
      * @param cols
-     *            number of columns
+     *                     number of columns
      * @param initialX
-     *            x location to start the grid at
+     *                     x location to start the grid at
      * @param initialY
-     *            y location to start the grid at
+     *                     y location to start the grid at
      * @param xPad
-     *            x padding between cells
+     *                     x padding between cells
      * @param yPad
-     *            y padding between cells
+     *                     y padding between cells
      */
     public static void makeGrid(Container parent, int rows, int cols, int initialX, int initialY, int xPad, int yPad) {
         SpringLayout layout;
@@ -109,8 +103,10 @@ public class SpringUtilities {
         assert lastCons != null;
         // Set the parent's size.
         SpringLayout.Constraints pCons = layout.getConstraints(parent);
-        pCons.setConstraint(SpringLayout.SOUTH, Spring.sum(Spring.constant(yPad), lastCons.getConstraint(SpringLayout.SOUTH)));
-        pCons.setConstraint(SpringLayout.EAST, Spring.sum(Spring.constant(xPad), lastCons.getConstraint(SpringLayout.EAST)));
+        pCons.setConstraint(SpringLayout.SOUTH,
+                Spring.sum(Spring.constant(yPad), lastCons.getConstraint(SpringLayout.SOUTH)));
+        pCons.setConstraint(SpringLayout.EAST,
+                Spring.sum(Spring.constant(xPad), lastCons.getConstraint(SpringLayout.EAST)));
     }
 
     /* Used by makeCompactGrid. */
@@ -121,26 +117,25 @@ public class SpringUtilities {
     }
 
     /**
-     * Aligns the first <code>rows</code> * <code>cols</code> components of
-     * <code>parent</code> in a grid. Each component in a column is as wide as
-     * the maximum preferred width of the components in that column; height is
-     * similarly determined for each row. The parent is made just big enough to
-     * fit them all.
+     * Aligns the first <code>rows</code> * <code>cols</code> components of <code>parent</code> in a grid. Each
+     * component in a column is as wide as the maximum preferred width of the components in that column; height is
+     * similarly determined for each row. The parent is made just big enough to fit them all.
      *
      * @param rows
-     *            number of rows
+     *                     number of rows
      * @param cols
-     *            number of columns
+     *                     number of columns
      * @param initialX
-     *            x location to start the grid at
+     *                     x location to start the grid at
      * @param initialY
-     *            y location to start the grid at
+     *                     y location to start the grid at
      * @param xPad
-     *            x padding between cells
+     *                     x padding between cells
      * @param yPad
-     *            y padding between cells
+     *                     y padding between cells
      */
-    public static void makeCompactGrid(Container parent, int rows, int cols, int initialX, int initialY, int xPad, int yPad) {
+    public static void makeCompactGrid(Container parent, int rows, int cols, int initialX, int initialY, int xPad,
+            int yPad) {
         SpringLayout layout;
         try {
             layout = (SpringLayout) parent.getLayout();

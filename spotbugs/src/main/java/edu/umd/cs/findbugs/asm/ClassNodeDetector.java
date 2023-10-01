@@ -33,8 +33,7 @@ import edu.umd.cs.findbugs.classfile.Global;
 import edu.umd.cs.findbugs.classfile.engine.asm.FindBugsASM;
 
 /**
- * Abstract base class to to reduce boilerplate needed for writing ASM-based
- * Detectors implemented as ClassNode visitors
+ * Abstract base class to to reduce boilerplate needed for writing ASM-based Detectors implemented as ClassNode visitors
  *
  * @author pugh
  */
@@ -45,11 +44,11 @@ public abstract class ClassNodeDetector extends ClassNode implements Detector2 {
     protected XClass xclass;
 
     /**
-     * Construct a ClassNodeDetector. The bugReporter is passed to the
-     * constructor and stored in a protected final field.
+     * Construct a ClassNodeDetector. The bugReporter is passed to the constructor and stored in a protected final
+     * field.
      *
      * @param bugReporter
-     *            the BugReporter that bug should be reporter to.
+     *                        the BugReporter that bug should be reporter to.
      */
     protected ClassNodeDetector(BugReporter bugReporter) {
         super(FindBugsASM.ASM_VERSION);

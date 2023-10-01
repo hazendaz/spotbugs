@@ -47,10 +47,10 @@ import edu.umd.cs.findbugs.util.Util;
  * Property database for interprocedural analysis.
  *
  * @param <KeyType>
- *            key type: either MethodDescriptor or FieldDescriptor
+ *                        key type: either MethodDescriptor or FieldDescriptor
  * @param <ValueType>
- *            value type: a value that summarizes some property of the
- *            associated key
+ *                        value type: a value that summarizes some property of the associated key
+ *
  * @author David Hovemeyer
  */
 public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, ValueType> {
@@ -67,9 +67,9 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
      * Set a property.
      *
      * @param key
-     *            the key
+     *                     the key
      * @param property
-     *            the property
+     *                     the property
      */
     public void setProperty(KeyType key, ValueType property) {
         propertyMap.put(key, property);
@@ -79,7 +79,8 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
      * Get a property.
      *
      * @param key
-     *            the key
+     *                the key
+     *
      * @return the property, or null if no property is set for this key
      */
     public @Nullable ValueType getProperty(KeyType key) {
@@ -107,9 +108,9 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
      * Remove a property.
      *
      * @param key
-     *            the key
-     * @return the old property, or null if there was no property defined for
-     *         this key
+     *                the key
+     *
+     * @return the old property, or null if there was no property defined for this key
      */
     public ValueType removeProperty(KeyType key) {
         return propertyMap.remove(key);
@@ -119,7 +120,8 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
      * Read property database from given file.
      *
      * @param fileName
-     *            name of the database file
+     *                     name of the database file
+     *
      * @throws IOException
      * @throws PropertyDatabaseFormatException
      */
@@ -128,11 +130,12 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
     }
 
     /**
-     * Read property database from an input stream. The InputStream is
-     * guaranteed to be closed, even if an exception is thrown.
+     * Read property database from an input stream. The InputStream is guaranteed to be closed, even if an exception is
+     * thrown.
      *
      * @param in
-     *            the InputStream
+     *               the InputStream
+     *
      * @throws IOException
      * @throws PropertyDatabaseFormatException
      */
@@ -161,7 +164,8 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
      * Write property database to given file.
      *
      * @param fileName
-     *            name of the database file
+     *                     name of the database file
+     *
      * @throws IOException
      */
     public void writeToFile(String fileName) throws IOException {
@@ -183,16 +187,18 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
     // }
 
     /**
-     * Write property database to an OutputStream. The OutputStream is
-     * guaranteed to be closed, even if an exception is thrown.
+     * Write property database to an OutputStream. The OutputStream is guaranteed to be closed, even if an exception is
+     * thrown.
      *
      * @param out
-     *            the OutputStream
+     *                the OutputStream
+     *
      * @throws IOException
      */
     public void write(@WillClose OutputStream out) throws IOException {
 
-        boolean missingClassWarningsSuppressed = AnalysisContext.currentAnalysisContext().setMissingClassWarningsSuppressed(true);
+        boolean missingClassWarningsSuppressed =
+                AnalysisContext.currentAnalysisContext().setMissingClassWarningsSuppressed(true);
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8))) {
 
             TreeSet<KeyType> sortedMethodSet = new TreeSet<>(propertyMap.keySet());
@@ -216,8 +222,10 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
      * Parse a key from a String.
      *
      * @param s
-     *            a String
+     *              a String
+     *
      * @return the decoded key
+     *
      * @throws PropertyDatabaseFormatException
      */
     protected abstract KeyType parseKey(String s) throws PropertyDatabaseFormatException;
@@ -226,29 +234,30 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
      * Write an encoded key to given Writer.
      *
      * @param writer
-     *            the Writer
+     *                   the Writer
      * @param key
-     *            the key
+     *                   the key
      */
     protected abstract void writeKey(Writer writer, KeyType key) throws IOException;
 
     /**
-     * Subclasses must define this to instantiate the actual property value from
-     * its string encoding.
+     * Subclasses must define this to instantiate the actual property value from its string encoding.
      *
      * @param propStr
-     *            String containing the encoded property
+     *                    String containing the encoded property
+     *
      * @return the property
+     *
      * @throws PropertyDatabaseFormatException
      */
     protected abstract ValueType decodeProperty(String propStr) throws PropertyDatabaseFormatException;
 
     /**
-     * Subclasses must define this to encode a property as a string for output
-     * to a file.
+     * Subclasses must define this to encode a property as a string for output to a file.
      *
      * @param property
-     *            the property
+     *                     the property
+     *
      * @return a String which encodes the property
      */
     protected abstract String encodeProperty(ValueType property);

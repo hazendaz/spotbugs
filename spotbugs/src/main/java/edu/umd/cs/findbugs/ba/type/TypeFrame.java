@@ -27,10 +27,11 @@ import edu.umd.cs.findbugs.ba.DataflowAnalysisException;
 import edu.umd.cs.findbugs.ba.Frame;
 
 /**
- * A specialization of {@link Frame} for determining the types of values in the
- * Java stack frame (locals and operand stack).
+ * A specialization of {@link Frame} for determining the types of values in the Java stack frame (locals and operand
+ * stack).
  *
  * @author David Hovemeyer
+ *
  * @see Frame
  * @see TypeAnalysis
  */
@@ -49,10 +50,9 @@ public class TypeFrame extends Frame<Type> {
      * Set whether or not a type in a given slot is exact.
      *
      * @param slot
-     *            the slot
+     *                    the slot
      * @param isExact
-     *            true if the slot contains an exact type, false if just an
-     *            upper bound
+     *                    true if the slot contains an exact type, false if just an upper bound
      */
     public void setExact(int slot, boolean isExact) {
         exactTypeSet.set(slot, isExact);
@@ -62,17 +62,16 @@ public class TypeFrame extends Frame<Type> {
      * Get whether or not a type in a given slot is exact.
      *
      * @param slot
-     *            the slot
-     * @return true if the slot contains an exact type, false if just an upper
-     *         bound
+     *                 the slot
+     *
+     * @return true if the slot contains an exact type, false if just an upper bound
      */
     public boolean isExact(int slot) {
         return exactTypeSet.get(slot);
     }
 
     /**
-     * Clear the exact type set. The result is that all slots will be assumed
-     * <em>not</em> to contain an exact type.
+     * Clear the exact type set. The result is that all slots will be assumed <em>not</em> to contain an exact type.
      */
     public void clearExactSet() {
         exactTypeSet.clear();
@@ -152,8 +151,9 @@ public class TypeFrame extends Frame<Type> {
      * Pop a value off of the Java operand stack.
      *
      * @return the value that was popped
+     *
      * @throws DataflowAnalysisException
-     *             if the Java operand stack is empty
+     *                                       if the Java operand stack is empty
      */
     @Override
     public Type popValue() throws DataflowAnalysisException {

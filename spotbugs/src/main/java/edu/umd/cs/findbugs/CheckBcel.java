@@ -25,13 +25,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Check that the BCEL classes present seem to be the right ones. Specifically,
- * we check whether the ones extended in FindBugs code are non-final. The
- * following BCEL classes are extended in FindBugs code:
- *
- * org.apache.bcel.generic.ObjectType; org.apache.bcel.generic.Type;
- * org.apache.bcel.Constants; org.apache.bcel.classfile.EmptyVisitor
- * org.apache.bcel.Repository;
+ * Check that the BCEL classes present seem to be the right ones. Specifically, we check whether the ones extended in
+ * FindBugs code are non-final. The following BCEL classes are extended in FindBugs code:
+ * org.apache.bcel.generic.ObjectType; org.apache.bcel.generic.Type; org.apache.bcel.Constants;
+ * org.apache.bcel.classfile.EmptyVisitor org.apache.bcel.Repository;
  *
  * @author langmead
  */
@@ -53,7 +50,8 @@ public class CheckBcel {
      * Check whether given Class is declared final
      *
      * @param c
-     *            the class to check
+     *              the class to check
+     *
      * @return true iff Class is declared final
      */
     private static boolean isFinal(Class<?> c) {
@@ -64,20 +62,19 @@ public class CheckBcel {
      * Output an appropriate error when a BCEL class looks wrong.
      *
      * @param cname
-     *            name of the BCEL class
+     *                  name of the BCEL class
      */
     private static void error(String cname) {
         LOG.error("BCEL class compatibility error.");
-        LOG.error("The version of class {} found was not compatible with\n"
-                + "SpotBugs.  Please remove any BCEL libraries that may be interfering.  This may happen\n"
-                + "if you have an old version of BCEL or a library that includes an old version of BCEL\n"
-                + "in an \"endorsed\" directory.", cname);
+        LOG.error("The version of class {} found was not compatible with\n" +
+                "SpotBugs.  Please remove any BCEL libraries that may be interfering.  This may happen\n" +
+                "if you have an old version of BCEL or a library that includes an old version of BCEL\n" +
+                "in an \"endorsed\" directory.", cname);
     }
 
     /**
-     * Check that the BCEL classes present seem to be the right ones.
-     * Specifically, we check whether the ones extended in FindBugs code are
-     * non-final.
+     * Check that the BCEL classes present seem to be the right ones. Specifically, we check whether the ones extended
+     * in FindBugs code are non-final.
      *
      * @return true iff all checks passed
      */
@@ -95,8 +92,8 @@ public class CheckBcel {
             repository = Class.forName(ORG_APACHE_BCEL_REPOSITORY);
 
         } catch (ClassNotFoundException e) {
-            LOG.error("One or more required BCEL classes were missing."
-                    + " Ensure that bcel.jar is placed at the same directory with spotbugs.jar");
+            LOG.error("One or more required BCEL classes were missing." +
+                    " Ensure that bcel.jar is placed at the same directory with spotbugs.jar");
             return false;
         }
         if (isFinal(objectType)) {
