@@ -33,15 +33,16 @@ public abstract class BugAnnotationUtil {
      * Write a BugAnnotation as XML.
      *
      * @param xmlOutput
-     *            the XMLOutput
+     *                          the XMLOutput
      * @param elementName
-     *            name of element for BugAnnotation
+     *                          name of element for BugAnnotation
      * @param annotation
-     *            the BugAnnotation
+     *                          the BugAnnotation
      * @param attributeList
-     *            the XML attribute list
+     *                          the XML attribute list
      * @param addMessages
-     *            true if descriptive messages should be added
+     *                          true if descriptive messages should be added
+     *
      * @throws IOException
      */
     public static void writeXML(XMLOutput xmlOutput, String elementName, BugAnnotation annotation,

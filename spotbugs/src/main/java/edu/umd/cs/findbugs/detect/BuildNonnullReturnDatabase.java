@@ -43,7 +43,6 @@ import edu.umd.cs.findbugs.ba.npe.IsNullValueFrame;
 
 /**
  * Build database of methods that return values guaranteed to be nonnull
- *
  */
 public class BuildNonnullReturnDatabase {
     public static final boolean VERBOSE_DEBUG = SystemProperties.getBoolean("fnd.debug.nullarg.verbose");
@@ -51,12 +50,12 @@ public class BuildNonnullReturnDatabase {
     private static final boolean DEBUG = SystemProperties.getBoolean("fnd.debug.nullarg") || VERBOSE_DEBUG;
 
     public void visitClassContext(ClassContext classContext) {
-        boolean fullAnalysis = AnalysisContext.currentAnalysisContext().getBoolProperty(
-                FindBugsAnalysisFeatures.INTERPROCEDURAL_ANALYSIS_OF_REFERENCED_CLASSES);
-        if (!fullAnalysis && !AnalysisContext.currentAnalysisContext()./*
-                                                                       * getSubtypes
-                                                                       * ().
-                                                                       */isApplicationClass(classContext.getJavaClass())) {
+        boolean fullAnalysis = AnalysisContext.currentAnalysisContext()
+                .getBoolProperty(FindBugsAnalysisFeatures.INTERPROCEDURAL_ANALYSIS_OF_REFERENCED_CLASSES);
+        if (!fullAnalysis &&
+                !AnalysisContext.currentAnalysisContext()./*
+                                                           * getSubtypes ().
+                                                           */isApplicationClass(classContext.getJavaClass())) {
             return;
         }
         if (VERBOSE_DEBUG) {

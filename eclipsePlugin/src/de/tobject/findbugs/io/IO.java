@@ -47,11 +47,12 @@ public abstract class IO {
      * Write the contents of a file in the Eclipse workspace.
      *
      * @param file
-     *            the file to write to
+     *                    the file to write to
      * @param output
-     *            the FileOutput object responsible for generating the data
+     *                    the FileOutput object responsible for generating the data
      * @param monitor
-     *            a progress monitor (or null if none)
+     *                    a progress monitor (or null if none)
+     *
      * @throws CoreException
      */
     public static void writeFile(IFile file, final FileOutput output, IProgressMonitor monitor) throws CoreException {
@@ -73,13 +74,13 @@ public abstract class IO {
     }
 
     /**
-     * Recursively creates all folders needed, up to the project. Project must
-     * already exist.
+     * Recursively creates all folders needed, up to the project. Project must already exist.
      *
      * @param resource
-     *            non null
+     *                     non null
      * @param monitor
-     *            non null
+     *                     non null
+     *
      * @throws CoreException
      */
     private static void mkdirs(@NonNull IResource resource, IProgressMonitor monitor) throws CoreException {
@@ -96,11 +97,12 @@ public abstract class IO {
      * Write the contents of a java.io.File
      *
      * @param file
-     *            the file to write to
+     *                   the file to write to
      * @param output
-     *            the FileOutput object responsible for generating the data
+     *                   the FileOutput object responsible for generating the data
      */
-    public static void writeFile(final File file, final FileOutput output, final IProgressMonitor monitor) throws CoreException {
+    public static void writeFile(final File file, final FileOutput output, final IProgressMonitor monitor)
+            throws CoreException {
         try (OutputStream fout = Files.newOutputStream(file.toPath());
                 BufferedOutputStream bout = new BufferedOutputStream(fout)) {
             if (monitor != null) {

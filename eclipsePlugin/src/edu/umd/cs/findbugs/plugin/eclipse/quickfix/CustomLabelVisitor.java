@@ -20,12 +20,9 @@ package edu.umd.cs.findbugs.plugin.eclipse.quickfix;
 import org.jspecify.annotations.Nullable;
 
 /**
- * This visitor should traverse the AST as much as needed to determine if a proposed resolution
- * works for the given code, and then return it through <code>getLabelReplacement()</code>.
- *
- *
- * This typically is the visitor that would be used anyway to perform the resolution, but
- * could be a more efficient variation.
+ * This visitor should traverse the AST as much as needed to determine if a proposed resolution works for the given
+ * code, and then return it through <code>getLabelReplacement()</code>. This typically is the visitor that would be used
+ * anyway to perform the resolution, but could be a more efficient variation.
  *
  * @author <a href="mailto:kjlubick@ncsu.edu">Kevin Lubick</a>
  */

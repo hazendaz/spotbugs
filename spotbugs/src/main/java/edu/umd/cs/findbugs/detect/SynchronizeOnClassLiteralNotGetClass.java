@@ -54,8 +54,7 @@ public class SynchronizeOnClassLiteralNotGetClass extends OpcodeStackDetector {
     }
 
     /*
-     * Looking for ALOAD 0 INVOKEVIRTUAL
-     * java/lang/Object.getClass()Ljava/lang/Class; DUP ASTORE 1 MONITORENTER
+     * Looking for ALOAD 0 INVOKEVIRTUAL java/lang/Object.getClass()Ljava/lang/Class; DUP ASTORE 1 MONITORENTER
      */
     int state = 0;
 
@@ -110,8 +109,8 @@ public class SynchronizeOnClassLiteralNotGetClass extends OpcodeStackDetector {
             }
             break;
         case 1:
-            if (seen == Const.INVOKEVIRTUAL && "getClass".equals(getNameConstantOperand())
-                    && "()Ljava/lang/Class;".equals(getSigConstantOperand())) {
+            if (seen == Const.INVOKEVIRTUAL && "getClass".equals(getNameConstantOperand()) &&
+                    "()Ljava/lang/Class;".equals(getSigConstantOperand())) {
                 state = 2;
             } else {
                 state = 0;

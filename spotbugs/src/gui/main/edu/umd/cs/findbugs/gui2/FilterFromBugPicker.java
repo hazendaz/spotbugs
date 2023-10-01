@@ -37,9 +37,8 @@ import edu.umd.cs.findbugs.filter.Matcher;
 import edu.umd.cs.findbugs.filter.NotMatcher;
 
 /**
- * Creates a list of options on for filtering bugs based on the current bug selected.
- *
- * Gives the option to invert the created filter by wrapping it in a {@link NotMatcher}.
+ * Creates a list of options on for filtering bugs based on the current bug selected. Gives the option to invert the
+ * created filter by wrapping it in a {@link NotMatcher}.
  *
  * @author Graham Allan (grundlefleck@gmail.com)
  */
@@ -49,7 +48,8 @@ final class FilterFromBugPicker {
     private final BugInstance bug;
     private final List<Sortables> availableSortables;
     private final JPanel pickerPanel;
-    private final JCheckBox notFilterCheck = new JCheckBox("Invert (i.e. filter bugs which do not match selected criteria).");
+    private final JCheckBox notFilterCheck =
+            new JCheckBox("Invert (i.e. filter bugs which do not match selected criteria).");
 
     public FilterFromBugPicker(BugInstance bug, List<Sortables> availableSortables) {
         this.bug = bug;
@@ -74,7 +74,8 @@ final class FilterFromBugPicker {
                 continue;
             }
 
-            JCheckBox checkBox = new JCheckBox(sortable.toString() + " is " + sortable.formatValue(sortable.getFrom(bug)));
+            JCheckBox checkBox =
+                    new JCheckBox(sortable.toString() + " is " + sortable.formatValue(sortable.getFrom(bug)));
 
             map.put(checkBox, sortable);
             center.add(checkBox);

@@ -1,7 +1,6 @@
 /**
- * Support for analyzing code containing JSR-305 type qualifier annotations.
- *
- * See the JSR-305 home page at <a href="http://code.google.com/p/jsr-305/">http://code.google.com/p/jsr-305/</a>.
+ * Support for analyzing code containing JSR-305 type qualifier annotations. See the JSR-305 home page at
+ * <a href="http://code.google.com/p/jsr-305/">http://code.google.com/p/jsr-305/</a>.
  */
 
 @org.jspecify.annotations.NullMarked

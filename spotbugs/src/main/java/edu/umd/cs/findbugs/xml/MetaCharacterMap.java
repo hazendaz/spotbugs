@@ -27,6 +27,7 @@ import java.util.Map;
  * Map of metacharacters that need to be escaped, and what to replace them with.
  *
  * @see QuoteMetaCharacters
+ *
  * @author David Hovemeyer
  */
 public class MetaCharacterMap {
@@ -46,9 +47,9 @@ public class MetaCharacterMap {
      * Add a metacharacter and its replacement.
      *
      * @param meta
-     *            the metacharacter
+     *                        the metacharacter
      * @param replacement
-     *            the String to replace the metacharacter with
+     *                        the String to replace the metacharacter with
      */
     public void addMeta(char meta, String replacement) {
         metaCharacterSet.set(meta);
@@ -66,7 +67,7 @@ public class MetaCharacterMap {
      * Get the replacement for a metacharacter.
      *
      * @param c
-     *            a String containing the metacharacter
+     *              a String containing the metacharacter
      */
     String getReplacement(String c) {
         return replacementMap.get(c);

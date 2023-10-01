@@ -23,7 +23,7 @@ public class SingleFileCodeBaseEntry implements ICodeBaseEntry {
      * Constructor.
      *
      * @param codeBase
-     *            parent codebase
+     *                     parent codebase
      */
     public SingleFileCodeBaseEntry(SingleFileCodeBase codeBase) {
         this.codeBase = codeBase;
@@ -85,9 +85,7 @@ public class SingleFileCodeBaseEntry implements ICodeBaseEntry {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.ICodeBaseEntry#overrideResourceName(java
-     * .lang.String)
+     * @see edu.umd.cs.findbugs.classfile.ICodeBaseEntry#overrideResourceName(java .lang.String)
      */
     @Override
     public void overrideResourceName(String resourceName) {

@@ -28,20 +28,18 @@ import java.util.List;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Perform a depth first search on a graph. Algorithm based on Cormen, et. al,
- * <cite>Introduction to Algorithms</cite>, p. 478. Currently, this class
+ * Perform a depth first search on a graph. Algorithm based on Cormen, et. al, <cite>Introduction to Algorithms</cite>,
+ * p. 478. Currently, this class
  * <ul>
  * <li>assigns DFS edge types (see {@link DFSEdgeTypes})
  * <li>assigns discovery and finish times for each vertex
- * <li>produces a topological sort of the vertices,
- * <em>if and only if the graph is acyclic</em>
+ * <li>produces a topological sort of the vertices, <em>if and only if the graph is acyclic</em>
  * </ul>
- *
  * <p>
- * Concrete subclasses implement forward and reverse versions of depth first
- * search.
+ * Concrete subclasses implement forward and reverse versions of depth first search.
  *
  * @author David Hovemeyer
+ *
  * @see Graph
  * @see DepthFirstSearch
  * @see ReverseDepthFirstSearch
@@ -75,8 +73,7 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
     protected static final int WHITE = 0;
 
     /**
-     * Color of a vertex which has been visited, but not all of whose
-     * descendents have been visited.
+     * Color of a vertex which has been visited, but not all of whose descendents have been visited.
      */
     protected static final int GRAY = 1;
 
@@ -89,9 +86,10 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
      * Constructor.
      *
      * @param graph
-     *            the graph to be searched
+     *                  the graph to be searched
+     *
      * @throws IllegalArgumentException
-     *             if the graph has not had edge ids assigned yet
+     *                                      if the graph has not had edge ids assigned yet
      */
     protected AbstractDepthFirstSearch(GraphType graph) {
         this.graph = graph;
@@ -129,9 +127,8 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
     protected abstract VertexType getSource(EdgeType edge);
 
     /**
-     * Choose the next search tree root. By default, this method just scans for
-     * a WHITE vertex. Subclasses may override this method in order to choose
-     * which vertices are used as search tree roots.
+     * Choose the next search tree root. By default, this method just scans for a WHITE vertex. Subclasses may override
+     * this method in order to choose which vertices are used as search tree roots.
      *
      * @return the next search tree root
      */
@@ -159,12 +156,11 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
     }
 
     /**
-     * Specify a VertexChooser object to be used to selected which vertices are
-     * visited by the search. This is useful if you only want to search a subset
-     * of the vertices in the graph.
+     * Specify a VertexChooser object to be used to selected which vertices are visited by the search. This is useful if
+     * you only want to search a subset of the vertices in the graph.
      *
      * @param vertexChooser
-     *            the VertexChooser to use
+     *                          the VertexChooser to use
      */
     public void setVertexChooser(VertexChooser<VertexType> vertexChooser) {
         this.vertexChooser = vertexChooser;
@@ -174,7 +170,7 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
      * Set a search tree callback.
      *
      * @param searchTreeCallback
-     *            the search tree callback
+     *                               the search tree callback
      */
     public void setSearchTreeCallback(SearchTreeCallback<VertexType> searchTreeCallback) {
         this.searchTreeCallback = searchTreeCallback;
@@ -193,9 +189,8 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
     }
 
     /**
-     * Return whether or not the graph contains a cycle: i.e., whether it
-     * contains any back edges. This should only be called after search() has
-     * been called (since that method actually executes the search).
+     * Return whether or not the graph contains a cycle: i.e., whether it contains any back edges. This should only be
+     * called after search() has been called (since that method actually executes the search).
      *
      * @return true if the graph contains a cycle, false otherwise
      */
@@ -213,9 +208,10 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
      * Get the type of edge in the depth first search.
      *
      * @param edge
-     *            the edge
-     * @return the DFS type of edge: TREE_EDGE, FORWARD_EDGE, CROSS_EDGE, or
-     *         BACK_EDGE
+     *                 the edge
+     *
+     * @return the DFS type of edge: TREE_EDGE, FORWARD_EDGE, CROSS_EDGE, or BACK_EDGE
+     *
      * @see DFSEdgeTypes
      */
     public int getDFSEdgeType(EdgeType edge) {
@@ -226,18 +222,18 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
      * Return the timestamp indicating when the given vertex was discovered.
      *
      * @param vertex
-     *            the vertex
+     *                   the vertex
      */
     public int getDiscoveryTime(VertexType vertex) {
         return discoveryTimeList[vertex.getLabel()];
     }
 
     /**
-     * Return the timestamp indicating when the given vertex was finished
-     * (meaning that all of its descendents were visited recursively).
+     * Return the timestamp indicating when the given vertex was finished (meaning that all of its descendents were
+     * visited recursively).
      *
      * @param vertex
-     *            the vertex
+     *                   the vertex
      */
     public int getFinishTime(VertexType vertex) {
         return finishTimeList[vertex.getLabel()];
@@ -254,8 +250,8 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
     }
 
     /**
-     * Get an iterator over the vertexs in topological sort order.
-     * <em>This works if and only if the graph is acyclic.</em>
+     * Get an iterator over the vertexs in topological sort order. <em>This works if and only if the graph is
+     * acyclic.</em>
      */
     public Iterator<VertexType> topologicalSortIterator() {
         return topologicalSortList.iterator();
@@ -394,7 +390,8 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
      * Get the current color of given vertex.
      *
      * @param vertex
-     *            the vertex
+     *                   the vertex
+     *
      * @return the color (WHITE, BLACK, or GRAY)
      */
     protected int getColor(VertexType vertex) {
@@ -402,12 +399,12 @@ public abstract class AbstractDepthFirstSearch<GraphType extends Graph<EdgeType,
     }
 
     /**
-     * Predicate to determine which vertices should be visited as the search
-     * progresses. Takes both vertex color and the vertex chooser (if any) into
-     * account.
+     * Predicate to determine which vertices should be visited as the search progresses. Takes both vertex color and the
+     * vertex chooser (if any) into account.
      *
      * @param vertex
-     *            the vertex to possibly be visited
+     *                   the vertex to possibly be visited
+     *
      * @return true if the vertex should be visited, false if not
      */
     protected boolean visitMe(VertexType vertex) {

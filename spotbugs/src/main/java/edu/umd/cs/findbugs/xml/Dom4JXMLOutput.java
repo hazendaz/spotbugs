@@ -30,6 +30,7 @@ import org.dom4j.Element;
  * XMLOutput class to build all or part of a dom4j tree.
  *
  * @see XMLOutput
+ *
  * @author David Hovemeyer
  */
 public class Dom4JXMLOutput implements XMLOutput {
@@ -39,8 +40,7 @@ public class Dom4JXMLOutput implements XMLOutput {
      * Constructor.
      *
      * @param topLevel
-     *            the Document or Element that is the root of the tree to be
-     *            built
+     *                     the Document or Element that is the root of the tree to be built
      */
     public Dom4JXMLOutput(Branch topLevel) {
         this.stack = new LinkedList<>();
@@ -120,13 +120,12 @@ public class Dom4JXMLOutput implements XMLOutput {
     }
 
     /**
-     * Add a list of Strings to document as elements with given tag name to the
-     * tree.
+     * Add a list of Strings to document as elements with given tag name to the tree.
      *
      * @param tagName
-     *            the tag name
+     *                       the tag name
      * @param listValues
-     *            Collection of String values to add
+     *                       Collection of String values to add
      */
     public void writeElementList(String tagName, Collection<String> listValues) {
         for (String listValue : listValues) {
@@ -140,7 +139,7 @@ public class Dom4JXMLOutput implements XMLOutput {
      * Add given object to the tree.
      *
      * @param obj
-     *            the object
+     *                the object
      */
     public void write(XMLWriteable obj) {
         try {
@@ -154,7 +153,7 @@ public class Dom4JXMLOutput implements XMLOutput {
      * Add a Collection of XMLWriteable objects to the tree.
      *
      * @param collection
-     *            Collection of XMLWriteable objects
+     *                       Collection of XMLWriteable objects
      */
     public void writeCollection(Collection<? extends XMLWriteable> collection) {
         for (XMLWriteable obj : collection) {

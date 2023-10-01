@@ -31,7 +31,7 @@ public class StackDepth {
      * Constructor.
      *
      * @param depth
-     *            the stack depth
+     *                  the stack depth
      */
     public StackDepth(int depth) {
         this.depth = depth;

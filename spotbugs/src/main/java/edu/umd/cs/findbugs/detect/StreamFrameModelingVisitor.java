@@ -33,8 +33,7 @@ import edu.umd.cs.findbugs.ba.ResourceValueFrame;
 import edu.umd.cs.findbugs.ba.ResourceValueFrameModelingVisitor;
 
 /**
- * A visitor to model the effect of instructions on the status of the resource
- * (in this case, Streams).
+ * A visitor to model the effect of instructions on the status of the resource (in this case, Streams).
  */
 public class StreamFrameModelingVisitor extends ResourceValueFrameModelingVisitor {
     private final StreamResourceTracker resourceTracker;
@@ -131,22 +130,22 @@ public class StreamFrameModelingVisitor extends ResourceValueFrameModelingVisito
         boolean escapes = (inv.getOpcode() == Const.INVOKESTATIC || instanceArgNum != 0);
         String methodName = inv.getMethodName(cpg);
         String methodSig = inv.getSignature(cpg);
-        if (inv.getOpcode() == Const.INVOKEVIRTUAL
-                && ("load".equals(methodName) || "loadFromXml".equals(methodName) || "store".equals(methodName) || "save".equals(methodName))
-                && "java.util.Properties".equals(className)) {
+        if (inv.getOpcode() == Const.INVOKEVIRTUAL && ("load".equals(methodName) || "loadFromXml".equals(methodName) ||
+                "store".equals(methodName) || "save".equals(methodName)) && "java.util.Properties".equals(className)) {
             escapes = false;
         }
-        if (inv.getOpcode() == Const.INVOKEVIRTUAL && ("load".equals(methodName) || "store".equals(methodName))
-                && "java.security.KeyStore".equals(className)) {
+        if (inv.getOpcode() == Const.INVOKEVIRTUAL && ("load".equals(methodName) || "store".equals(methodName)) &&
+                "java.security.KeyStore".equals(className)) {
             escapes = false;
         }
-        if (inv.getOpcode() == Const.INVOKEVIRTUAL && "getChannel".equals(methodName)
-                && "()Ljava/nio/channels/FileChannel;".equals(methodSig)) {
+        if (inv.getOpcode() == Const.INVOKEVIRTUAL && "getChannel".equals(methodName) &&
+                "()Ljava/nio/channels/FileChannel;".equals(methodSig)) {
             escapes = true;
         }
 
         if (FindOpenStream.DEBUG && escapes) {
-            System.out.println("ESCAPE at " + location + " at call to " + className + "." + methodName + ":" + methodSig);
+            System.out
+                    .println("ESCAPE at " + location + " at call to " + className + "." + methodName + ":" + methodSig);
         }
 
         // Record the fact that this might be a stream escape

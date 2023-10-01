@@ -71,13 +71,13 @@ public class WaitInLoop extends BytecodeScanningDetector implements StatelessDet
     @Override
     public void sawOpcode(int seen) {
 
-        if ((seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE) && "notify".equals(getNameConstantOperand())
-                && "()V".equals(getSigConstantOperand())) {
+        if ((seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE) &&
+                "notify".equals(getNameConstantOperand()) && "()V".equals(getSigConstantOperand())) {
             sawNotify = true;
             notifyPC = getPC();
         }
-        if (!(sawWait || sawAwait) && (seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE)
-                && (isMonitorWait() || isConditionAwait())) {
+        if (!(sawWait || sawAwait) && (seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE) &&
+                (isMonitorWait() || isConditionAwait())) {
 
             if ("wait".equals(getNameConstantOperand())) {
                 sawWait = true;
@@ -103,10 +103,10 @@ public class WaitInLoop extends BytecodeScanningDetector implements StatelessDet
         }
 
         String sig = getSigConstantOperand();
-        return ("await".equals(name) && ("()V".equals(sig) || "(JLjava/util/concurrent/TimeUnit;)V".equals(sig)))
-                || ("awaitNanos".equals(name) && "(J)V".equals(sig))
-                || ("awaitUninterruptibly".equals(name) && "()V".equals(sig))
-                || ("awaitUntil".equals(name) && "(Ljava/util/Date;)V".equals(sig));
+        return ("await".equals(name) && ("()V".equals(sig) || "(JLjava/util/concurrent/TimeUnit;)V".equals(sig))) ||
+                ("awaitNanos".equals(name) && "(J)V".equals(sig)) ||
+                ("awaitUninterruptibly".equals(name) && "()V".equals(sig)) ||
+                ("awaitUntil".equals(name) && "(Ljava/util/Date;)V".equals(sig));
     }
 
     private boolean isMonitorWait() {

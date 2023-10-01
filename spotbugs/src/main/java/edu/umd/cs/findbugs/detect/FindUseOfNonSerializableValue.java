@@ -62,12 +62,14 @@ public class FindUseOfNonSerializableValue implements Detector {
                 ConstantCP m = (ConstantCP) c;
                 @DottedClassName
                 String clazz = m.getClass(constantPool);
-                ConstantNameAndType nt = (ConstantNameAndType) constantPool.getConstant(m.getNameAndTypeIndex(), Const.CONSTANT_NameAndType);
+                ConstantNameAndType nt = (ConstantNameAndType) constantPool.getConstant(m.getNameAndTypeIndex(),
+                        Const.CONSTANT_NameAndType);
                 String name = nt.getName(constantPool);
-                if ("setAttribute".equals(name) && ("javax.servlet.http.HttpSession".equals(clazz) || "jakarta.servlet.http.HttpSession".equals(
-                        clazz))
-                        || ("writeObject".equals(name) && ("java.io.ObjectOutput".equals(clazz)
-                                || "java.io.ObjectOutputStream".equals(clazz)))) {
+                if ("setAttribute".equals(name) &&
+                        ("javax.servlet.http.HttpSession".equals(clazz) ||
+                                "jakarta.servlet.http.HttpSession".equals(clazz)) ||
+                        ("writeObject".equals(name) &&
+                                ("java.io.ObjectOutput".equals(clazz) || "java.io.ObjectOutputStream".equals(clazz)))) {
                     if (DEBUG) {
                         System.out.println("Found call to " + clazz + "." + name);
                     }
@@ -104,7 +106,9 @@ public class FindUseOfNonSerializableValue implements Detector {
     }
 
     enum Use {
-        STORE_INTO_HTTP_SESSION, PASSED_TO_WRITE_OBJECT, STORED_IN_SERIALZIED_FIELD
+        STORE_INTO_HTTP_SESSION,
+        PASSED_TO_WRITE_OBJECT,
+        STORED_IN_SERIALZIED_FIELD
     }
 
     @Nullable
@@ -115,20 +119,20 @@ public class FindUseOfNonSerializableValue implements Detector {
             String mName = invoke.getMethodName(cpg);
             String cName = invoke.getClassName(cpg);
 
-            if ("setAttribute".equals(mName) && ("javax.servlet.http.HttpSession".equals(cName) || "jakarta.servlet.http.HttpSession".equals(
-                    cName))) {
+            if ("setAttribute".equals(mName) && ("javax.servlet.http.HttpSession".equals(cName) ||
+                    "jakarta.servlet.http.HttpSession".equals(cName))) {
                 return Use.STORE_INTO_HTTP_SESSION;
             }
-            if ("writeObject".equals(mName)
-                    && ("java.io.ObjectOutput".equals(cName)
-                            || "java.io.ObjectOutputStream".equals(cName))) {
+            if ("writeObject".equals(mName) &&
+                    ("java.io.ObjectOutput".equals(cName) || "java.io.ObjectOutputStream".equals(cName))) {
                 return Use.PASSED_TO_WRITE_OBJECT;
             }
         }
         return null;
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         MethodGen methodGen = classContext.getMethodGen(method);
         if (methodGen == null) {
             return;
@@ -187,8 +191,8 @@ public class FindUseOfNonSerializableValue implements Detector {
                 double isSerializable = DeepSubtypeAnalysis.isDeepSerializable(refType);
 
                 if (isSerializable < 0.9) {
-                    SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(classContext,
-                            methodGen, sourceFile, handle);
+                    SourceLineAnnotation sourceLineAnnotation =
+                            SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile, handle);
                     ReferenceType problem = DeepSubtypeAnalysis.getLeastSerializableTypeComponent(refType);
 
                     String pattern;
@@ -212,8 +216,8 @@ public class FindUseOfNonSerializableValue implements Detector {
 
                     bugAccumulator.accumulateBug(new BugInstance(this, pattern,
                             isSerializable < 0.15 ? HIGH_PRIORITY : isSerializable > 0.5 ? LOW_PRIORITY : NORMAL_PRIORITY)
-                            .addClassAndMethod(methodGen, sourceFile).addType(problem).describe(TypeAnnotation.FOUND_ROLE),
-                            sourceLineAnnotation);
+                            .addClassAndMethod(methodGen, sourceFile).addType(problem)
+                            .describe(TypeAnnotation.FOUND_ROLE), sourceLineAnnotation);
 
                 }
             } catch (ClassNotFoundException e) {

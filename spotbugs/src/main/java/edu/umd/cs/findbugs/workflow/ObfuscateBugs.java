@@ -64,9 +64,7 @@ public class ObfuscateBugs {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * edu.umd.cs.findbugs.config.CommandLine#handleOptionWithArgument(java
-         * .lang.String, java.lang.String)
+         * @see edu.umd.cs.findbugs.config.CommandLine#handleOptionWithArgument(java .lang.String, java.lang.String)
          */
         @Override
         protected void handleOptionWithArgument(String option, String argument) throws IOException {
@@ -79,7 +77,8 @@ public class ObfuscateBugs {
         FindBugs.setNoAnalysis();
         CommandLine commandLine = new CommandLine();
 
-        int argCount = commandLine.parse(args, 0, 2, "Usage: " + ObfuscateBugs.class.getName() + " [options] [<xml results>] ");
+        int argCount = commandLine.parse(args, 0, 2,
+                "Usage: " + ObfuscateBugs.class.getName() + " [options] [<xml results>] ");
 
         SortedBugCollection bugCollection = new SortedBugCollection();
         if (argCount < args.length) {

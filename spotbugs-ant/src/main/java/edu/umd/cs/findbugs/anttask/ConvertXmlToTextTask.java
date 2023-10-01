@@ -25,8 +25,7 @@ import org.apache.tools.ant.Project;
 import edu.umd.cs.findbugs.ExitCodes;
 
 /**
- * Ant task to generate HTML or plain text from a saved XML analysis results
- * file.
+ * Ant task to generate HTML or plain text from a saved XML analysis results file.
  *
  * @author David Hovemeyer
  */
@@ -52,7 +51,7 @@ public class ConvertXmlToTextTask extends AbstractFindBugsTask {
 
     /**
      * @param longBugCodes
-     *            The longBugCodes to set.
+     *                         The longBugCodes to set.
      */
     public void setLongBugCodes(boolean longBugCodes) {
         this.longBugCodes = longBugCodes;
@@ -60,7 +59,7 @@ public class ConvertXmlToTextTask extends AbstractFindBugsTask {
 
     /**
      * @param applySuppression
-     *            The applySuppression to set.
+     *                             The applySuppression to set.
      */
     public void setApplySuppression(boolean applySuppression) {
         this.applySuppression = applySuppression;
@@ -68,7 +67,7 @@ public class ConvertXmlToTextTask extends AbstractFindBugsTask {
 
     /**
      * @param input
-     *            The input to set.
+     *                  The input to set.
      */
     public void setInput(String input) {
         this.input = input;
@@ -76,7 +75,7 @@ public class ConvertXmlToTextTask extends AbstractFindBugsTask {
 
     /**
      * @param output
-     *            The output to set.
+     *                   The output to set.
      */
     public void setOutput(String output) {
         this.output = output;
@@ -84,7 +83,7 @@ public class ConvertXmlToTextTask extends AbstractFindBugsTask {
 
     /**
      * @param input
-     *            The input to set.
+     *                  The input to set.
      */
     public void setInputFile(String input) {
         this.input = input;
@@ -92,7 +91,7 @@ public class ConvertXmlToTextTask extends AbstractFindBugsTask {
 
     /**
      * @param output
-     *            The output to set.
+     *                   The output to set.
      */
     public void setOutputFile(String output) {
         this.output = output;
@@ -100,14 +99,15 @@ public class ConvertXmlToTextTask extends AbstractFindBugsTask {
 
     /**
      * @param format
-     *            The format to set.
+     *                   The format to set.
      */
     public void setFormat(String format) {
         this.format = format;
     }
 
     /**
-     * @param failIfBugFound true to 'fail' at the end if at least one bug is reported
+     * @param failIfBugFound
+     *                           true to 'fail' at the end if at least one bug is reported
      */
     public void setFailIfBugFound(boolean failIfBugFound) {
         this.failIfBugFound = failIfBugFound;

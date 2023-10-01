@@ -5,5 +5,7 @@ package edu.umd.cs.findbugs.ba.obl;
  */
 public enum ObligationPolicyDatabaseActionType {
 
-    ADD, DEL, CLEAR
+    ADD,
+    DEL,
+    CLEAR
 }

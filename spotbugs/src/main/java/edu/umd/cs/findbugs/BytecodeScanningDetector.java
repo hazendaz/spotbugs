@@ -51,7 +51,8 @@ public class BytecodeScanningDetector extends DismantleBytecode implements Detec
      * Check see if the Code for this method should be visited.
      *
      * @param obj
-     *            Code attribute
+     *                Code attribute
+     *
      * @return true if the Code should be visited
      */
     public boolean shouldVisitCode(Code obj) {

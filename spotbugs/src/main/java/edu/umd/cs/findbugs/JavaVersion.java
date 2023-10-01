@@ -49,8 +49,8 @@ public class JavaVersion {
      * Constructor.
      *
      * @param versionString
-     *            a version string, as returned from the
-     *            <code>java.version</code> system property: e.g., "1.4.2_04"
+     *                          a version string, as returned from the <code>java.version</code> system property: e.g.,
+     *                          "1.4.2_04"
      */
     public JavaVersion(String versionString) throws JavaVersionException {
         // See https://bugs.openjdk.java.net/browse/JDK-8061493 for http://openjdk.java.net/jeps/223
@@ -88,9 +88,9 @@ public class JavaVersion {
      * Constructor.
      *
      * @param major
-     *            major version
+     *                  major version
      * @param minor
-     *            minor version
+     *                  minor version
      */
     public JavaVersion(int major, int minor) {
         this.major = major;
@@ -140,11 +140,11 @@ public class JavaVersion {
     }
 
     /**
-     * Return whether the Java version represented by this object is at least as
-     * recent as the one given.
+     * Return whether the Java version represented by this object is at least as recent as the one given.
      *
      * @param other
-     *            another JavaVersion
+     *                  another JavaVersion
+     *
      * @return true if this Java version is at least as recent as the one given
      */
     public boolean isSameOrNewerThan(JavaVersion other) {

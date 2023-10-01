@@ -111,7 +111,7 @@ public class SplashFrame extends JWindow {
 
         int ypos = 0;
 
-        //        int farRight;
+        // int farRight;
 
         public Viewer(Image i1, Image i2, Image i1r, Image i2r) {
             image = i1;

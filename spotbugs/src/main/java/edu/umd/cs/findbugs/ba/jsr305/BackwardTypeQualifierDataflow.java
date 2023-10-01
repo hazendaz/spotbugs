@@ -32,9 +32,9 @@ public class BackwardTypeQualifierDataflow extends TypeQualifierDataflow<Backwar
      * Constructor.
      *
      * @param cfg
-     *            CFG for analyzed method
+     *                     CFG for analyzed method
      * @param analysis
-     *            the BackwardTypeQualifierDataflowAnalysis
+     *                     the BackwardTypeQualifierDataflowAnalysis
      */
     public BackwardTypeQualifierDataflow(CFG cfg, BackwardTypeQualifierDataflowAnalysis analysis) {
         super(cfg, analysis);

@@ -60,8 +60,8 @@ public class OpenXMLResultsAction extends FindBugsAction {
         }
         IPath filePath = FindbugsPlugin.getBugCollectionFile(project);
         if (!filePath.toFile().exists()) {
-            MessageDialog.openInformation(null, "Open XML results", "No SpotBugs analysis results available for project '"
-                    + project.getName() + "'!");
+            MessageDialog.openInformation(null, "Open XML results",
+                    "No SpotBugs analysis results available for project '" + project.getName() + "'!");
             return;
         }
         openEditor(filePath.toFile());

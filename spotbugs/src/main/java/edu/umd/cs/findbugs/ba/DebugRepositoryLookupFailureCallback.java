@@ -25,8 +25,8 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * DebugRepositoryLookupFailureCallback implementation for debugging. (Test
- * drivers, etc.) It just prints a message and exits.
+ * DebugRepositoryLookupFailureCallback implementation for debugging. (Test drivers, etc.) It just prints a message and
+ * exits.
  *
  * @author David Hovemeyer
  */
@@ -35,9 +35,7 @@ public class DebugRepositoryLookupFailureCallback implements RepositoryLookupFai
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback#reportMissingClass
-     * (java.lang.ClassNotFoundException)
+     * @see edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback#reportMissingClass (java.lang.ClassNotFoundException)
      */
     @Override
     @SuppressFBWarnings("DM_EXIT")
@@ -55,8 +53,7 @@ public class DebugRepositoryLookupFailureCallback implements RepositoryLookupFai
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IErrorLogger#reportMissingClass(edu.umd
+     * @see edu.umd.cs.findbugs.classfile.IErrorLogger#reportMissingClass(edu.umd
      * .cs.findbugs.classfile.ClassDescriptor)
      */
     @Override
@@ -69,9 +66,7 @@ public class DebugRepositoryLookupFailureCallback implements RepositoryLookupFai
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback#logError(java.
-     * lang.String)
+     * @see edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback#logError(java. lang.String)
      */
     @Override
     @SuppressFBWarnings("DM_EXIT")
@@ -83,9 +78,7 @@ public class DebugRepositoryLookupFailureCallback implements RepositoryLookupFai
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback#logError(java.
-     * lang.String, java.lang.Throwable)
+     * @see edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback#logError(java. lang.String, java.lang.Throwable)
      */
     @Override
     @SuppressFBWarnings("DM_EXIT")

@@ -35,7 +35,6 @@ import edu.umd.cs.findbugs.ba.AnalysisContext;
 
 /**
  * Provides checks to support JEP 181, improved nested member access.
- *
  * <p>
  * In short, JEP 181 defines "nest mates", "nest host" and "nest members" attributes in compiled files. Access rules are
  * relaxed to allow private member access between nest mates. This removes the need for the compiler to generate
@@ -63,7 +62,8 @@ public class NestedAccessUtil {
      * Checks if the specified class is a nested class or defines nested classes.
      *
      * @param javaClass
-     *            The class for which to check.
+     *                      The class for which to check.
+     *
      * @return {@code true} if the specified class is a nested class or defines nested class, {@code false} otherwise.
      */
     public static boolean hasNest(JavaClass javaClass) {
@@ -82,7 +82,8 @@ public class NestedAccessUtil {
      * Checks whether the specified class supports nested access as per JEP 181.
      *
      * @param javaClass
-     *            The class for which to check.
+     *                      The class for which to check.
+     *
      * @return {@code true} if the specified class supports nested access as per JEP 181.
      *
      * @see NestedAccessUtil
@@ -95,13 +96,15 @@ public class NestedAccessUtil {
      * Retrieves the qualified class names of all nest mates of the specified class.
      *
      * @param javaClass
-     *            The class for which qualified class names of nest mates are retrieved.
+     *                            The class for which qualified class names of nest mates are retrieved.
      * @param analysisContext
-     *            The analysis context, used to look-up a nest host class if required.
+     *                            The analysis context, used to look-up a nest host class if required.
+     *
      * @return The qualified class name of all nest mates. If the specified class is not a nested class or does not have
-     *         nested classes, an empty list is returned.
+     *             nested classes, an empty list is returned.
+     *
      * @throws ClassNotFoundException
-     *             If a nest host class was looked-up but could not be found.
+     *                                    If a nest host class was looked-up but could not be found.
      *
      * @see NestedAccessUtil
      */

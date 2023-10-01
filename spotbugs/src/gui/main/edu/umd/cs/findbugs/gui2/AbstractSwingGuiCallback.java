@@ -69,8 +69,8 @@ public abstract class AbstractSwingGuiCallback implements IGuiCallback {
 
     @Override
     public int showConfirmDialog(String message, String title, String ok, String cancel) {
-        return JOptionPane.showOptionDialog(parent, message, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
-                null, new Object[] { ok, cancel }, ok);
+        return JOptionPane.showOptionDialog(parent, message, title, JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, new Object[] { ok, cancel }, ok);
     }
 
     @Override
@@ -123,7 +123,6 @@ public abstract class AbstractSwingGuiCallback implements IGuiCallback {
     public void invokeInGUIThread(Runnable r) {
         SwingUtilities.invokeLater(r);
     }
-
 
     private void updateFormItemsFromGui(List<FormItem> items) {
         for (FormItem item : items) {

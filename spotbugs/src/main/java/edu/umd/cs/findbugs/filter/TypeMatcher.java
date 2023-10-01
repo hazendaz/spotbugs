@@ -63,8 +63,8 @@ public class TypeMatcher implements Matcher {
             return false;
         }
         String typeDescriptor = typeAnnotation.getTypeDescriptor();
-        return descriptor.match(typeDescriptor)
-                && (typeParameters == null || typeParameters.equals(typeAnnotation.getTypeParameters()));
+        return descriptor.match(typeDescriptor) &&
+                (typeParameters == null || typeParameters.equals(typeAnnotation.getTypeParameters()));
     }
 
     @Override

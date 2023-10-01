@@ -31,7 +31,7 @@ public class ExactStringMatcher implements StringMatcher {
      * Constructor.
      *
      * @param expected
-     *            the expected string value
+     *                     the expected string value
      */
     public ExactStringMatcher(String expected) {
         this.expected = expected;

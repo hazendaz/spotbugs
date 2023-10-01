@@ -70,17 +70,13 @@ public class ReportConfigurationTab extends Composite {
 
     private Combo minPriorityCombo;
 
-
-
     private Combo scariestRankCombo;
 
     private MarkerSeverity initialScariestRank;
 
-
     private Combo scaryRankCombo;
 
     private MarkerSeverity initialScaryRank;
-
 
     private Combo troublingRankCombo;
 
@@ -200,17 +196,15 @@ public class ReportConfigurationTab extends Composite {
             }
         });
 
-
     }
-
 
     private void createRankGroup(Composite parent) {
         Composite prioGroup = new Composite(parent, SWT.NONE);
         prioGroup.setLayout(new GridLayout(2, false));
 
         Label minRankLabel = new Label(prioGroup, SWT.NONE);
-        minRankLabel.setText(getMessage("property.minRank") + System.getProperty("line.separator")
-                + getMessage("property.minRank.line2"));
+        minRankLabel.setText(getMessage("property.minRank") + System.getProperty("line.separator") +
+                getMessage("property.minRank.line2"));
         minRankLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
 
         minRankSlider = new Scale(prioGroup, SWT.DROP_DOWN | SWT.READ_ONLY);
@@ -295,7 +289,8 @@ public class ReportConfigurationTab extends Composite {
      * Helper method to shorten message access
      *
      * @param key
-     *            a message key
+     *                a message key
+     *
      * @return requested message
      */
     protected String getMessage(String key) {
@@ -303,13 +298,13 @@ public class ReportConfigurationTab extends Composite {
     }
 
     /**
-     * Build list of bug categories to be enabled or disabled. Populates
-     * chkEnableBugCategoryList and bugCategoryList fields.
+     * Build list of bug categories to be enabled or disabled. Populates chkEnableBugCategoryList and bugCategoryList
+     * fields.
      *
      * @param parent
-     *            control checkboxes should be added to
+     *                    control checkboxes should be added to
      * @param project
-     *            the project being configured
+     *                    the project being configured
      */
     private void createBugCategoriesGroup(Composite parent, final IProject project) {
         Group checkBoxGroup = new Group(parent, SWT.SHADOW_ETCHED_OUT);
@@ -338,8 +333,7 @@ public class ReportConfigurationTab extends Composite {
     }
 
     /**
-     * Synchronize selected bug category checkboxes with the current user
-     * preferences.
+     * Synchronize selected bug category checkboxes with the current user preferences.
      */
     protected void syncSelectedCategories() {
         ProjectFilterSettings filterSettings = getCurrentProps().getFilterSettings();
@@ -405,10 +399,14 @@ public class ReportConfigurationTab extends Composite {
 
     void refreshUI(UserPreferences prefs) {
         IPreferenceStore store = propertyPage.getPreferenceStore();
-        scariestRankCombo.setText(MarkerSeverity.get(store.getString(FindBugsConstants.RANK_SCARIEST_MARKER_SEVERITY)).name());
-        scaryRankCombo.setText(MarkerSeverity.get(store.getString(FindBugsConstants.RANK_SCARY_MARKER_SEVERITY)).name());
-        troublingRankCombo.setText(MarkerSeverity.get(store.getString(FindBugsConstants.RANK_TROUBLING_MARKER_SEVERITY)).name());
-        ofConcernRankCombo.setText(MarkerSeverity.get(store.getString(FindBugsConstants.RANK_OFCONCERN_MARKER_SEVERITY)).name());
+        scariestRankCombo
+                .setText(MarkerSeverity.get(store.getString(FindBugsConstants.RANK_SCARIEST_MARKER_SEVERITY)).name());
+        scaryRankCombo
+                .setText(MarkerSeverity.get(store.getString(FindBugsConstants.RANK_SCARY_MARKER_SEVERITY)).name());
+        troublingRankCombo
+                .setText(MarkerSeverity.get(store.getString(FindBugsConstants.RANK_TROUBLING_MARKER_SEVERITY)).name());
+        ofConcernRankCombo
+                .setText(MarkerSeverity.get(store.getString(FindBugsConstants.RANK_OFCONCERN_MARKER_SEVERITY)).name());
 
         ProjectFilterSettings filterSettings = prefs.getFilterSettings();
         minRankSlider.setSelection(filterSettings.getMinRank());

@@ -26,7 +26,6 @@ import org.eclipse.team.internal.ui.synchronize.ChangeSetDiffNode;
  * Adapter factory to allow enablement of findbugs on change sets
  *
  * @author Alex
- *
  */
 public class ChangeSetAdapterFactory implements IAdapterFactory {
 

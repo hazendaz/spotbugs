@@ -26,12 +26,9 @@ import java.util.Iterator;
 import edu.umd.cs.findbugs.charsets.UTF8;
 
 /**
- * Base class for BugReporters which provides convenient formatting and
- * reporting of warnings and analysis errors.
- *
+ * Base class for BugReporters which provides convenient formatting and reporting of warnings and analysis errors.
  * <p>
- * "TextUIBugReporter" is a bit of a misnomer, since this class is useful in
- * GUIs, too.
+ * "TextUIBugReporter" is a bit of a misnomer, since this class is useful in GUIs, too.
  * </p>
  *
  * @author David Hovemeyer
@@ -61,7 +58,7 @@ public abstract class TextUIBugReporter extends AbstractBugReporter implements C
      * Set the PrintStream to write bug output to.
      *
      * @param outputStream
-     *            the PrintStream to write bug output to
+     *                         the PrintStream to write bug output to
      */
     public void setOutputStream(PrintStream outputStream) {
         this.outputStream = UTF8.printWriter(outputStream, true);
@@ -75,7 +72,7 @@ public abstract class TextUIBugReporter extends AbstractBugReporter implements C
      * Set whether or not stack traces should be reported in error output.
      *
      * @param reportStackTrace
-     *            true if stack traces should be reported, false if not
+     *                             true if stack traces should be reported, false if not
      */
     public void setReportStackTrace(boolean reportStackTrace) {
         this.reportStackTrace = reportStackTrace;
@@ -85,7 +82,7 @@ public abstract class TextUIBugReporter extends AbstractBugReporter implements C
      * Print bug in one-line format.
      *
      * @param bugInstance
-     *            the bug to print
+     *                        the bug to print
      */
     protected void printBug(BugInstance bugInstance) {
         if (showRank) {
@@ -184,11 +181,11 @@ public abstract class TextUIBugReporter extends AbstractBugReporter implements C
     }
 
     /**
-     * Emit one line of the error message report. By default, error messages are
-     * printed to System.err. Subclasses may override.
+     * Emit one line of the error message report. By default, error messages are printed to System.err. Subclasses may
+     * override.
      *
      * @param line
-     *            one line of the error report
+     *                 one line of the error report
      */
     protected void emitLine(String line) {
         line = line.replace("\t", "  ");
@@ -228,7 +225,7 @@ public abstract class TextUIBugReporter extends AbstractBugReporter implements C
      * For debugging: check a BugInstance to make sure it is valid.
      *
      * @param bugInstance
-     *            the BugInstance to check
+     *                        the BugInstance to check
      */
     protected void checkBugInstance(BugInstance bugInstance) {
         for (Iterator<BugAnnotation> i = bugInstance.annotationIterator(); i.hasNext();) {
@@ -253,7 +250,6 @@ public abstract class TextUIBugReporter extends AbstractBugReporter implements C
     public boolean isDuplicateOf(TextUIBugReporter other) {
         return outputTarget != null && outputTarget.equals(other.outputTarget);
     }
-
 
     public boolean isApplySuppressions() {
         return applySuppressions;

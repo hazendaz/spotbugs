@@ -106,9 +106,12 @@ class DontReusePublicIdentifiersTest extends AbstractIntegrationTest {
         performAnalysis("publicIdentifiers/ShadowedPublicIdentifiersVariableNames.class");
         assertBugTypeCount(PI_VARIABLE_BUG, 3);
 
-        assertBugInMethodAtVariable(PI_VARIABLE_BUG, "ShadowedPublicIdentifiersVariableNames", "containsShadowedLocalVariable1", "ArrayList");
-        assertBugInMethodAtVariable(PI_VARIABLE_BUG, "ShadowedPublicIdentifiersVariableNames", "containsShadowedLocalVariable2", "Integer");
-        assertBugInMethodAtVariable(PI_VARIABLE_BUG, "ShadowedPublicIdentifiersVariableNames", "containsShadowedLocalVariable3", "File");
+        assertBugInMethodAtVariable(PI_VARIABLE_BUG, "ShadowedPublicIdentifiersVariableNames",
+                "containsShadowedLocalVariable1", "ArrayList");
+        assertBugInMethodAtVariable(PI_VARIABLE_BUG, "ShadowedPublicIdentifiersVariableNames",
+                "containsShadowedLocalVariable2", "Integer");
+        assertBugInMethodAtVariable(PI_VARIABLE_BUG, "ShadowedPublicIdentifiersVariableNames",
+                "containsShadowedLocalVariable3", "File");
     }
 
     @Test

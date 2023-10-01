@@ -6,7 +6,6 @@ import edu.umd.cs.findbugs.AbstractIntegrationTest;
 
 /**
  * @author gtoison
- *
  */
 class Issue2864Test extends AbstractIntegrationTest {
 

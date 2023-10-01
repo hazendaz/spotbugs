@@ -28,11 +28,8 @@ class Issue374Test extends AbstractIntegrationTest {
 
     @Test
     void testIssue() {
-        performAnalysis(
-                "ghIssues/issue374/package-info.class",
-                "ghIssues/issue374/ClassLevel.class",
-                "ghIssues/issue374/MethodLevel.class",
-                "ghIssues/issue374/PackageLevel.class");
+        performAnalysis("ghIssues/issue374/package-info.class", "ghIssues/issue374/ClassLevel.class",
+                "ghIssues/issue374/MethodLevel.class", "ghIssues/issue374/PackageLevel.class");
         assertBugTypeCount("NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE", 3);
     }
 }

@@ -40,8 +40,8 @@ public class LaunchBrowser {
 
     public static final String execCommand = SystemProperties.getProperty("findbugs.execCommand");
 
-    public static final boolean launchViaExec = execCommand != null && validExec.matcher(execCommand).matches()
-            && "Linux".equals(SystemProperties.getProperty("os.name"));
+    public static final boolean launchViaExec = execCommand != null && validExec.matcher(execCommand).matches() &&
+            "Linux".equals(SystemProperties.getProperty("os.name"));
 
     private static Object desktopObject;
 
@@ -143,17 +143,15 @@ public class LaunchBrowser {
     }
 
     /**
-     * attempt to show the given URL. will first attempt via the JNLP api, then
-     * will try showViaExec().
+     * attempt to show the given URL. will first attempt via the JNLP api, then will try showViaExec().
      *
      * @param url
-     *            the URL
+     *                the URL
+     *
      * @return true on success
      */
     public static boolean showDocument(URL url) {
-        return showDocumentViaDesktop(url)
-                || showDocumentViaExec(url)
-                || JavaWebStart.showViaWebStart(url);
+        return showDocumentViaDesktop(url) || showDocumentViaExec(url) || JavaWebStart.showViaWebStart(url);
     }
 
 }

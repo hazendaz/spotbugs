@@ -33,8 +33,8 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
  * <li>US_USELESS_SUPPRESSION_ON_METHOD_PARAMETER</li>
  * <li>US_USELESS_SUPPRESSION_ON_PACKAGE</li>
  * </ul>
- *
- * This is needed so the bug instances are not from {@link NoteSuppressedWarnings} which is a {@link NonReportingDetector}
+ * This is needed so the bug instances are not from {@link NoteSuppressedWarnings} which is a
+ * {@link NonReportingDetector}
  */
 public class UselessSuppressionDetector implements Detector2 {
     public UselessSuppressionDetector() {

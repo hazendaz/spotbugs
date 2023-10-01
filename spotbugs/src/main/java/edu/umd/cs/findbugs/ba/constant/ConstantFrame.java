@@ -25,6 +25,7 @@ import edu.umd.cs.findbugs.ba.Frame;
  *
  * @see edu.umd.cs.findbugs.ba.constant.Constant
  * @see edu.umd.cs.findbugs.ba.constant.ConstantAnalysis
+ *
  * @author David Hovemeyer
  */
 public class ConstantFrame extends Frame<Constant> {

@@ -22,18 +22,20 @@ class TestCheckerFrameworkTypeAnnotations extends AbstractIntegrationTest {
 
     @Test
     void returningNullOnNonNullMethod() {
-        assertBugInMethodAtLine("NP_NONNULL_RETURN_VIOLATION", "CheckerFrameworkTypeAnnotations", "returningNullOnNonNullMethod", 13);
+        assertBugInMethodAtLine("NP_NONNULL_RETURN_VIOLATION", "CheckerFrameworkTypeAnnotations",
+                "returningNullOnNonNullMethod", 13);
     }
 
     @Test
     void returningNullWithNonNullOnGenerics() {
-        assertNoBugInMethod("NP_NONNULL_RETURN_VIOLATION", "CheckerFrameworkTypeAnnotations", "returningNullWithNonNullOnGenerics");
+        assertNoBugInMethod("NP_NONNULL_RETURN_VIOLATION", "CheckerFrameworkTypeAnnotations",
+                "returningNullWithNonNullOnGenerics");
     }
 
     @Test
     void returningNullOnNonNullMethodWithNonNullOnGenerics() {
-        assertBugInMethodAtLine("NP_NONNULL_RETURN_VIOLATION", "CheckerFrameworkTypeAnnotations", "returningNullOnNonNullMethodWithNonNullOnGenerics",
-                25);
+        assertBugInMethodAtLine("NP_NONNULL_RETURN_VIOLATION", "CheckerFrameworkTypeAnnotations",
+                "returningNullOnNonNullMethodWithNonNullOnGenerics", 25);
     }
 
     @Test
@@ -43,23 +45,26 @@ class TestCheckerFrameworkTypeAnnotations extends AbstractIntegrationTest {
 
     @Test
     void usingNullForNonNullParameter() {
-        assertBugInMethodAtLine("NP_NONNULL_PARAM_VIOLATION", "CheckerFrameworkTypeAnnotations", "usingNullForNonNullParameter", 30);
+        assertBugInMethodAtLine("NP_NONNULL_PARAM_VIOLATION", "CheckerFrameworkTypeAnnotations",
+                "usingNullForNonNullParameter", 30);
     }
 
     @Test
     void usingNullParameterWithNonNullOnGenerics() {
-        assertNoBugInMethod("NP_NONNULL_PARAM_VIOLATION", "CheckerFrameworkTypeAnnotations", "usingNullParameterWithNonNullOnGenerics");
+        assertNoBugInMethod("NP_NONNULL_PARAM_VIOLATION", "CheckerFrameworkTypeAnnotations",
+                "usingNullParameterWithNonNullOnGenerics");
     }
 
     @Test
     void usingNullOnNonNullParameterWithNonNullOnGenerics() {
-        assertBugInMethodAtLine("NP_NONNULL_PARAM_VIOLATION", "CheckerFrameworkTypeAnnotations", "usingNullOnNonNullParameterWithNonNullOnGenerics",
-                47);
+        assertBugInMethodAtLine("NP_NONNULL_PARAM_VIOLATION", "CheckerFrameworkTypeAnnotations",
+                "usingNullOnNonNullParameterWithNonNullOnGenerics", 47);
     }
 
     @Test
     void usingNonNullArrayOfNullable() {
-        assertNoBugInMethod("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", "CheckerFrameworkTypeAnnotations", "usingNonNullArrayOfNullable");
+        assertNoBugInMethod("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", "CheckerFrameworkTypeAnnotations",
+                "usingNonNullArrayOfNullable");
 
     }
 }

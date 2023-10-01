@@ -27,7 +27,7 @@ public interface SearchTreeCallback<VertexType extends GraphVertex<VertexType>> 
      * Start a search tree.
      *
      * @param vertex
-     *            the root of the search tree
+     *                   the root of the search tree
      */
     public void startSearchTree(VertexType vertex);
 
@@ -35,9 +35,9 @@ public interface SearchTreeCallback<VertexType extends GraphVertex<VertexType>> 
      * Add an edge to the current search tree.
      *
      * @param parent
-     *            the parent vertex
+     *                   the parent vertex
      * @param child
-     *            the child vertex
+     *                   the child vertex
      */
     public void addToSearchTree(VertexType parent, VertexType child);
 }

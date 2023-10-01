@@ -34,15 +34,14 @@ public class OptionalReturnNull extends TypeReturnNull {
 
     @Override
     protected boolean matchesReturnSignature(String returnSignature) {
-        return "Ljava/util/Optional;".equals(returnSignature)
-                || "Lcom/google/common/base/Optional;".equals(returnSignature);
+        return "Ljava/util/Optional;".equals(returnSignature) ||
+                "Lcom/google/common/base/Optional;".equals(returnSignature);
     }
 
     @Override
     protected void accumulateBug() {
-        bugAccumulator.accumulateBug(new BugInstance(this, "NP_OPTIONAL_RETURN_NULL",
-                HIGH_PRIORITY).addClassAndMethod(this), this);
+        bugAccumulator.accumulateBug(
+                new BugInstance(this, "NP_OPTIONAL_RETURN_NULL", HIGH_PRIORITY).addClassAndMethod(this), this);
     }
-
 
 }

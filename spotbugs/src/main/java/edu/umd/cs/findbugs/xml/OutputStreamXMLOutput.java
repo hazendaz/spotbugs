@@ -58,7 +58,7 @@ public class OutputStreamXMLOutput implements XMLOutput {
      * Constructor.
      *
      * @param os
-     *            OutputStream to write XML output to
+     *               OutputStream to write XML output to
      */
     @SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
     public OutputStreamXMLOutput(@WillCloseWhenClosed OutputStream os) {
@@ -69,7 +69,7 @@ public class OutputStreamXMLOutput implements XMLOutput {
      * Constructor.
      *
      * @param writer
-     *            Writer to write XML output to
+     *                   Writer to write XML output to
      */
     @SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
     public OutputStreamXMLOutput(@WillCloseWhenClosed Writer writer) {
@@ -80,9 +80,9 @@ public class OutputStreamXMLOutput implements XMLOutput {
      * Constructor.
      *
      * @param os
-     *            OutputStream to write XML output to
+     *                       OutputStream to write XML output to
      * @param stylesheet
-     *            name of stylesheet
+     *                       name of stylesheet
      */
     public OutputStreamXMLOutput(@WillCloseWhenClosed OutputStream os, String stylesheet) {
         this.out = new OutputStreamWriter(os, StandardCharsets.UTF_8);
@@ -92,10 +92,9 @@ public class OutputStreamXMLOutput implements XMLOutput {
     }
 
     /*
-     * @param os
-     *            Writer to write XML output to
-     * @param stylesheet
-     *            name of stylesheet
+     * @param os Writer to write XML output to
+     *
+     * @param stylesheet name of stylesheet
      */
     public OutputStreamXMLOutput(@WillCloseWhenClosed Writer writer, String stylesheet) {
         this.out = writer;

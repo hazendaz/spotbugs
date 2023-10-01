@@ -34,9 +34,8 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 /**
- * This is the properties dialog of the GUI. It allows the user to set the size
- * of the tabs and font size. If the user changes the font size they will be
- * told to restart the computer before the new size takes affect.
+ * This is the properties dialog of the GUI. It allows the user to set the size of the tabs and font size. If the user
+ * changes the font size they will be told to restart the computer before the new size takes affect.
  *
  * @author Kristin Stephens
  */

@@ -28,8 +28,7 @@ import java.util.Map.Entry;
 import edu.umd.cs.findbugs.SystemProperties;
 
 /**
- * Data structure to keep track of which input ValueNumbers were combined to
- * produce which other output ValueNumbers.
+ * Data structure to keep track of which input ValueNumbers were combined to produce which other output ValueNumbers.
  *
  * @author David Hovemeyer
  */
@@ -44,7 +43,7 @@ public class MergeTree {
      * Constructor.
      *
      * @param factory
-     *            the ValueNumberFactory
+     *                    the ValueNumberFactory
      */
     public MergeTree(ValueNumberFactory factory) {
         this.factory = factory;
@@ -55,9 +54,9 @@ public class MergeTree {
      * Map an input ValueNumber to an output ValueNumber.
      *
      * @param input
-     *            the input ValueNumber
+     *                   the input ValueNumber
      * @param output
-     *            the output ValueNumber
+     *                   the output ValueNumber
      */
     public void mapInputToOutput(ValueNumber input, ValueNumber output) {
         BitSet inputSet = getInputSet(output);
@@ -69,11 +68,11 @@ public class MergeTree {
     }
 
     /**
-     * Get the set of input ValueNumbers which directly contributed to the given
-     * output ValueNumber.
+     * Get the set of input ValueNumbers which directly contributed to the given output ValueNumber.
      *
      * @param output
-     *            the output ValueNumber
+     *                   the output ValueNumber
+     *
      * @return the set of direct input ValueNumbers
      */
     public BitSet getInputSet(ValueNumber output) {
@@ -89,11 +88,12 @@ public class MergeTree {
     }
 
     /**
-     * Get the transitive set of input ValueNumbers which contributed (directly
-     * or indirectly) to the given output ValueNumber.
+     * Get the transitive set of input ValueNumbers which contributed (directly or indirectly) to the given output
+     * ValueNumber.
      *
      * @param output
-     *            the output ValueNumber
+     *                   the output ValueNumber
+     *
      * @return the transitive set of input ValueNumbers
      */
     public BitSet getTransitiveInputSet(ValueNumber output) {

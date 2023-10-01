@@ -53,7 +53,7 @@ public abstract class AbstractField extends AbstractClassMember implements XFiel
      */
     @Override
     public FieldDescriptor getFieldDescriptor() {
-        return DescriptorFactory.instance().getFieldDescriptor(getClassDescriptor().getClassName(), getName(), getSignature(),
-                isStatic());
+        return DescriptorFactory.instance().getFieldDescriptor(getClassDescriptor().getClassName(), getName(),
+                getSignature(), isStatic());
     }
 }

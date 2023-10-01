@@ -49,15 +49,12 @@ public class DetectorProvider extends PathsProvider {
     }
 
     /**
-     * The complexity of the code below is partly caused by the fact that we
-     * might have multiple ways to install and/or enable custom plugins. There
-     * are plugins discovered by FB itself, plugins contributed to Eclipse and
-     * plugins added by user manually via properties. Plugins can be disabled
-     * via code or properties. The code below is still work in progress, see
-     * also {@link FindbugsPlugin#applyCustomDetectors(boolean)}.
+     * The complexity of the code below is partly caused by the fact that we might have multiple ways to install and/or
+     * enable custom plugins. There are plugins discovered by FB itself, plugins contributed to Eclipse and plugins
+     * added by user manually via properties. Plugins can be disabled via code or properties. The code below is still
+     * work in progress, see also {@link FindbugsPlugin#applyCustomDetectors(boolean)}.
      *
-     * @return a list with all known plugin paths known by FindBugs (they must
-     *         neither be valid nor exists).
+     * @return a list with all known plugin paths known by FindBugs (they must neither be valid nor exists).
      */
     public static List<IPathElement> getPluginElements(UserPreferences userPreferences) {
         DetectorValidator validator = new DetectorValidator();
@@ -129,8 +126,7 @@ public class DetectorProvider extends PathsProvider {
     }
 
     /**
-     * Eclipse plugin can be disabled ONLY by user, so it must NOT be in the
-     * list of loaded plugins
+     * Eclipse plugin can be disabled ONLY by user, so it must NOT be in the list of loaded plugins
      */
     static boolean isEclipsePluginDisabled(String pluginId, Map<URI, Plugin> allPlugins) {
         for (Plugin plugin : allPlugins.values()) {

@@ -66,8 +66,8 @@ public class SuppressionDecorator extends BugReporterDecorator {
             if (adjustmentSource != null) {
                 URL u;
 
-                if (adjustmentSource.startsWith("file:") || adjustmentSource.startsWith("http:")
-                        || adjustmentSource.startsWith("https:")) {
+                if (adjustmentSource.startsWith("file:") || adjustmentSource.startsWith("http:") ||
+                        adjustmentSource.startsWith("https:")) {
                     u = new URL(adjustmentSource);
                 } else {
                     u = plugin.getPlugin().getResource(adjustmentSource);
@@ -89,6 +89,7 @@ public class SuppressionDecorator extends BugReporterDecorator {
 
     /**
      * @param rawIn
+     *
      * @throws IOException
      */
     private void processPackageList(@WillClose Reader rawIn) throws IOException {

@@ -24,11 +24,12 @@ package edu.umd.cs.findbugs.plugin.eclipse.quickfix.exception;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
 /**
- * Thrown when no <CODE>Statement</CODE> was found in the specified
- * <CODE>CompilationUnit</CODE> between the specified start- and end-line.
+ * Thrown when no <CODE>Statement</CODE> was found in the specified <CODE>CompilationUnit</CODE> between the specified
+ * start- and end-line.
  *
  * @author <a href="mailto:twyss@hsr.ch">Thierry Wyss</a>
  * @author <a href="mailto:mbusarel@hsr.ch">Marco Busarello</a>
+ *
  * @version 1.0
  */
 public class StatementNotFoundException extends ASTNodeNotFoundException {

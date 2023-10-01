@@ -28,9 +28,7 @@ import javax.annotation.meta.TypeQualifierNickname;
 import javax.annotation.meta.When;
 
 /**
- * The annotated element must not be null.
- *
- * Annotated Fields must only not be null after construction has completed.
+ * The annotated element must not be null. Annotated Fields must only not be null after construction has completed.
  * Annotated methods must have non-null return values.
  **/
 @Documented

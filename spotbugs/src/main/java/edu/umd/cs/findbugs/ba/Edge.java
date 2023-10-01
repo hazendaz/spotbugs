@@ -36,6 +36,7 @@ import edu.umd.cs.findbugs.graph.AbstractEdge;
  * An edge of a control flow graph.
  *
  * @author David Hovemeyer
+ *
  * @see BasicBlock
  * @see CFG
  */
@@ -48,8 +49,7 @@ public class Edge extends AbstractEdge<Edge, BasicBlock> implements EdgeTypes, D
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Fields
+     * ---------------------------------------------------------------------- Fields
      * ----------------------------------------------------------------------
      */
 
@@ -59,8 +59,7 @@ public class Edge extends AbstractEdge<Edge, BasicBlock> implements EdgeTypes, D
     private int flags;
 
     /*
-     * ----------------------------------------------------------------------
-     * Public methods
+     * ---------------------------------------------------------------------- Public methods
      * ----------------------------------------------------------------------
      */
 
@@ -68,9 +67,9 @@ public class Edge extends AbstractEdge<Edge, BasicBlock> implements EdgeTypes, D
      * Constructor.
      *
      * @param source
-     *            source basic block
+     *                   source basic block
      * @param dest
-     *            destination basic block
+     *                   destination basic block
      */
     public Edge(BasicBlock source, BasicBlock dest) {
         super(source, dest);
@@ -112,7 +111,8 @@ public class Edge extends AbstractEdge<Edge, BasicBlock> implements EdgeTypes, D
      * Return if given edge flag is set.
      *
      * @param flag
-     *            the edge flag
+     *                 the edge flag
+     *
      * @return true if the flag is set, false otherwise
      */
     public boolean isFlagSet(int flag) {
@@ -132,8 +132,8 @@ public class Edge extends AbstractEdge<Edge, BasicBlock> implements EdgeTypes, D
             return false;
         }
         Edge other = (Edge) o;
-        return this.getSource() == other.getSource() && this.getTarget() == other.getTarget()
-                && this.getType() == other.getType();
+        return this.getSource() == other.getSource() && this.getTarget() == other.getTarget() &&
+                this.getType() == other.getType();
     }
 
     @Override

@@ -9,12 +9,16 @@ import org.jspecify.annotations.NonNull;
 import net.jcip.annotations.NotThreadSafe;
 
 /**
- * <p>SpotBugs Eclipse Plugin uses {@link IProgressMonitor#setTaskName(String)} to tell what it is working for.
- * It also updates progress quite frequently, which costs much time to update progress bar.</p>
- *
- * <p>Both of them make performance slow, so this class introduces throttling for better performance.</p>
+ * <p>
+ * SpotBugs Eclipse Plugin uses {@link IProgressMonitor#setTaskName(String)} to tell what it is working for. It also
+ * updates progress quite frequently, which costs much time to update progress bar.
+ * </p>
+ * <p>
+ * Both of them make performance slow, so this class introduces throttling for better performance.
+ * </p>
  *
  * @author Kengo TODA
+ *
  * @version 3.1
  */
 @NotThreadSafe

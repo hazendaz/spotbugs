@@ -23,8 +23,7 @@ import edu.umd.cs.findbugs.ba.XMethod;
 import edu.umd.cs.findbugs.ba.ch.OverriddenMethodsVisitor;
 
 /**
- * Accumulate type qualifier annotations on method, taking supertype methods
- * into account.
+ * Accumulate type qualifier annotations on method, taking supertype methods into account.
  *
  * @author David Hovemeyer
  */

@@ -20,8 +20,7 @@
 package edu.umd.cs.findbugs.classfile;
 
 /**
- * CheckedAnalysisException subtype to indicate that a required class was
- * missing.
+ * CheckedAnalysisException subtype to indicate that a required class was missing.
  *
  * @author David Hovemeyer
  */
@@ -32,7 +31,7 @@ public class MissingClassException extends ResourceNotFoundException {
      * Constructor.
      *
      * @param classDescriptor
-     *            missing class
+     *                            missing class
      */
     public MissingClassException(ClassDescriptor classDescriptor) {
         super(classDescriptor.toResourceName());
@@ -43,9 +42,9 @@ public class MissingClassException extends ResourceNotFoundException {
      * Constructor.
      *
      * @param classDescriptor
-     *            missing class
+     *                            missing class
      * @param cause
-     *            underlying cause
+     *                            underlying cause
      */
     public MissingClassException(ClassDescriptor classDescriptor, Throwable cause) {
         super(classDescriptor.toResourceName(), cause);

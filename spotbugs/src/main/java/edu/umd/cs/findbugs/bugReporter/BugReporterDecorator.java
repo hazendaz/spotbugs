@@ -37,8 +37,8 @@ public abstract class BugReporterDecorator extends DelegatingBugReporter {
         Class<? extends BugReporterDecorator> pluginClass = plugin.getComponentClass();
 
         try {
-            Constructor<? extends BugReporterDecorator> constructor = pluginClass.getConstructor(ComponentPlugin.class,
-                    BugReporter.class);
+            Constructor<? extends BugReporterDecorator> constructor =
+                    pluginClass.getConstructor(ComponentPlugin.class, BugReporter.class);
             return constructor.newInstance(plugin, delegate);
         } catch (InstantiationException e) {
             throw new RuntimeException(e.getCause());

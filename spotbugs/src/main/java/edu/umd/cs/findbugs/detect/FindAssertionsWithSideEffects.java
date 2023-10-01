@@ -36,25 +36,16 @@ public class FindAssertionsWithSideEffects extends AbstractAssertDetector {
      * Returns true if the opcode is a method invocation false otherwise
      */
     private boolean isMethodCall(int seen) {
-        return seen == Const.INVOKESTATIC ||
-                seen == Const.INVOKEVIRTUAL ||
-                seen == Const.INVOKEINTERFACE ||
-                seen == Const.INVOKESPECIAL ||
-                seen == Const.INVOKEDYNAMIC;
+        return seen == Const.INVOKESTATIC || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE ||
+                seen == Const.INVOKESPECIAL || seen == Const.INVOKEDYNAMIC;
     }
 
     /**
      * Returns true if the opcode is a side effect producing instruction
      */
     private boolean checkSeen(int seen) {
-        return seen == Const.IINC ||
-                seen == Const.ISTORE ||
-                seen == Const.ISTORE_0 ||
-                seen == Const.ISTORE_1 ||
-                seen == Const.ISTORE_2 ||
-                seen == Const.ISTORE_3 ||
-                seen == Const.PUTFIELD ||
-                seen == Const.PUTSTATIC;
+        return seen == Const.IINC || seen == Const.ISTORE || seen == Const.ISTORE_0 || seen == Const.ISTORE_1 ||
+                seen == Const.ISTORE_2 || seen == Const.ISTORE_3 || seen == Const.PUTFIELD || seen == Const.PUTSTATIC;
     }
 
     /**
@@ -66,14 +57,12 @@ public class FindAssertionsWithSideEffects extends AbstractAssertDetector {
             if (MutableClasses.mutableSignature("L" + getClassConstantOperand() + ";") &&
                     MutableClasses.looksLikeASetter(getXClassOperand(), getXMethodOperand())) {
                 BugInstance bug = new BugInstance(this, "ASE_ASSERTION_WITH_SIDE_EFFECT_METHOD", LOW_PRIORITY)
-                        .addClassAndMethod(this)
-                        .addSourceLine(this, getPC());
+                        .addClassAndMethod(this).addSourceLine(this, getPC());
                 reportBug(bug);
             }
         } else if (checkSeen(seen)) {
             BugInstance bug = new BugInstance(this, "ASE_ASSERTION_WITH_SIDE_EFFECT", LOW_PRIORITY)
-                    .addClassAndMethod(this)
-                    .addSourceLine(this, getPC());
+                    .addClassAndMethod(this).addSourceLine(this, getPC());
             reportBug(bug);
         }
     }

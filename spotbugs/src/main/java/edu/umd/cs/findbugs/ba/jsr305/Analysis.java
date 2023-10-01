@@ -55,27 +55,26 @@ public class Analysis {
     private static final boolean DEBUG = SystemProperties.getBoolean("ctq.debug.analysis");
 
     /**
-     * This system property enables additional work to try to detect all
-     * *effective* type qualifiers (direct, inherited, and default) applied to
-     * methods and called methods.
-     *
-     * This step uses an interprocedural call graph.
+     * This system property enables additional work to try to detect all *effective* type qualifiers (direct, inherited,
+     * and default) applied to methods and called methods. This step uses an interprocedural call graph.
      */
     public static final boolean FIND_EFFECTIVE_RELEVANT_QUALIFIERS = true; // SystemProperties.getBoolean("ctq.findeffective");
 
-    public static final boolean DEBUG_FIND_EFFECTIVE_RELEVANT_QUALIFIERS = FIND_EFFECTIVE_RELEVANT_QUALIFIERS
-            && SystemProperties.getBoolean("ctq.findeffective.debug");
+    public static final boolean DEBUG_FIND_EFFECTIVE_RELEVANT_QUALIFIERS =
+            FIND_EFFECTIVE_RELEVANT_QUALIFIERS && SystemProperties.getBoolean("ctq.findeffective.debug");
 
     /**
      * Find relevant type qualifiers needing to be checked for a given method.
      *
      * @param methodDescriptor
-     *            a method
+     *                             a method
+     *
      * @return Collection of relevant type qualifiers needing to be checked
+     *
      * @throws CheckedAnalysisException
      */
-    public static Collection<TypeQualifierValue<?>> getRelevantTypeQualifiers(MethodDescriptor methodDescriptor, CFG cfg)
-            throws CheckedAnalysisException {
+    public static Collection<TypeQualifierValue<?>> getRelevantTypeQualifiers(MethodDescriptor methodDescriptor,
+            CFG cfg) throws CheckedAnalysisException {
 
         final HashSet<TypeQualifierValue<?>> result = new HashSet<>();
 
@@ -101,7 +100,8 @@ public class Analysis {
             addEffectiveRelevantQualifiers(result, xmethod);
 
             IAnalysisCache analysisCache = Global.getAnalysisCache();
-            ConstantPoolGen cpg = analysisCache.getClassAnalysis(ConstantPoolGen.class, methodDescriptor.getClassDescriptor());
+            ConstantPoolGen cpg =
+                    analysisCache.getClassAnalysis(ConstantPoolGen.class, methodDescriptor.getClassDescriptor());
             for (Iterator<Location> i = cfg.locationIterator(); i.hasNext();) {
                 Location location = i.next();
                 Instruction ins = location.getHandle().getInstruction();

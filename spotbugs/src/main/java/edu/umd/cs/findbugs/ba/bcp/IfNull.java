@@ -43,8 +43,8 @@ public class IfNull extends OneVariableInstruction implements EdgeTypes {
     }
 
     @Override
-    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before, ValueNumberFrame after,
-            BindingSet bindingSet) throws DataflowAnalysisException {
+    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before,
+            ValueNumberFrame after, BindingSet bindingSet) throws DataflowAnalysisException {
 
         // Instruction must be IFNULL/IFNONNULL, or a reference comparison
         // (IF_ACMPEQ/IF_ACMPNE) against the null constant. The latter is how

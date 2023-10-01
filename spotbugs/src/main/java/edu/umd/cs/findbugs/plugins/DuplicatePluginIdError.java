@@ -26,7 +26,6 @@ import java.net.URL;
  */
 public class DuplicatePluginIdError extends Error {
 
-
     final String pluginId;
     final URL loadedFrom;
     final URL previouslyLoadedFrom;

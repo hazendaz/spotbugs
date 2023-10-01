@@ -35,29 +35,30 @@ public class CheckReturnValueAnnotation extends AnnotationEnumeration<CheckRetur
 
     final String pattern;
 
-    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_UNKNOWN = new CheckReturnValueAnnotation(
-            "UnknownCheckReturnValue", 0, Detector.EXP_PRIORITY);
+    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_UNKNOWN =
+            new CheckReturnValueAnnotation("UnknownCheckReturnValue", 0, Detector.EXP_PRIORITY);
 
-    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_HIGH = new CheckReturnValueAnnotation(
-            "CheckReturnValueHigh", 1, Detector.HIGH_PRIORITY);
+    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_HIGH =
+            new CheckReturnValueAnnotation("CheckReturnValueHigh", 1, Detector.HIGH_PRIORITY);
 
-    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_MEDIUM = new CheckReturnValueAnnotation("CheckReturnValue",
-            2, Detector.NORMAL_PRIORITY);
+    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_MEDIUM =
+            new CheckReturnValueAnnotation("CheckReturnValue", 2, Detector.NORMAL_PRIORITY);
 
-    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_LOW = new CheckReturnValueAnnotation("CheckReturnValueLow",
-            3, Detector.LOW_PRIORITY);
+    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_LOW =
+            new CheckReturnValueAnnotation("CheckReturnValueLow", 3, Detector.LOW_PRIORITY);
 
-    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_IGNORE = new CheckReturnValueAnnotation(
-            "OkToIgnoreReturnValue", 4, Detector.IGNORE_PRIORITY);
+    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_IGNORE =
+            new CheckReturnValueAnnotation("OkToIgnoreReturnValue", 4, Detector.IGNORE_PRIORITY);
 
-    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_VERY_HIGH = new CheckReturnValueAnnotation(
-            "CheckReturnValueVeryHigh", 5, Detector.HIGH_PRIORITY - 1);
+    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_VERY_HIGH =
+            new CheckReturnValueAnnotation("CheckReturnValueVeryHigh", 5, Detector.HIGH_PRIORITY - 1);
 
     public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_LOW_BAD_PRACTICE = new CheckReturnValueAnnotation(
             "CheckReturnValueLowBadPractice", 6, "RV_RETURN_VALUE_IGNORED_BAD_PRACTICE", Detector.LOW_PRIORITY);
 
-    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_MEDIUM_BAD_PRACTICE = new CheckReturnValueAnnotation(
-            "CheckReturnValueMediumBadPractice", 7, "RV_RETURN_VALUE_IGNORED_BAD_PRACTICE", Detector.NORMAL_PRIORITY);
+    public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_MEDIUM_BAD_PRACTICE =
+            new CheckReturnValueAnnotation("CheckReturnValueMediumBadPractice", 7,
+                    "RV_RETURN_VALUE_IGNORED_BAD_PRACTICE", Detector.NORMAL_PRIORITY);
 
     public static final CheckReturnValueAnnotation CHECK_RETURN_VALUE_INFERRED = new CheckReturnValueAnnotation(
             "CheckReturnValueInferred", 8, "RV_RETURN_VALUE_IGNORED_INFERRED", Detector.NORMAL_PRIORITY);

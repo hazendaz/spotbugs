@@ -57,9 +57,7 @@ public class NestedZipFileCodeBaseLocator implements ICodeBaseLocator {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.ICodeBaseLocator#createRelativeCodeBaseLocator
-     * (java.lang.String)
+     * @see edu.umd.cs.findbugs.classfile.ICodeBaseLocator#createRelativeCodeBaseLocator (java.lang.String)
      */
     @Override
     public ICodeBaseLocator createRelativeCodeBaseLocator(String relativePath) {

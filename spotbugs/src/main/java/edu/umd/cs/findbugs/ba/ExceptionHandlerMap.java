@@ -33,11 +33,9 @@ import org.jspecify.annotations.Nullable;
 import edu.umd.cs.findbugs.ba.type.TypeMerger;
 
 /**
- * This class provides a convenient way of determining the exception handlers
- * for instructions in a method. Essentially, it's a a map of InstructionHandles
- * to lists of CodeExceptionGen objects. This class also maps instructions which
- * are the start of exception handlers to the CodeExceptionGen object
- * representing the handler.
+ * This class provides a convenient way of determining the exception handlers for instructions in a method. Essentially,
+ * it's a a map of InstructionHandles to lists of CodeExceptionGen objects. This class also maps instructions which are
+ * the start of exception handlers to the CodeExceptionGen object representing the handler.
  *
  * @author David Hovemeyer
  */
@@ -52,7 +50,7 @@ public class ExceptionHandlerMap {
      * Constructor.
      *
      * @param methodGen
-     *            the method to build the map for
+     *                      the method to build the map for
      */
     public ExceptionHandlerMap(MethodGen methodGen, TypeMerger merger) {
         codeToHandlerMap = new IdentityHashMap<>();
@@ -62,29 +60,27 @@ public class ExceptionHandlerMap {
     }
 
     /**
-     * Get the list of exception handlers (CodeExceptionGen objects) which are
-     * specified to handle exceptions for the instruction whose handle is given.
-     * Note that the handlers in the returned list are <b>in order of
-     * priority</b>, as defined in the method's exception handler table.
+     * Get the list of exception handlers (CodeExceptionGen objects) which are specified to handle exceptions for the
+     * instruction whose handle is given. Note that the handlers in the returned list are <b>in order of priority</b>,
+     * as defined in the method's exception handler table.
      *
      * @param handle
-     *            the handle of the instruction we want the exception handlers
-     *            for
-     * @return the list of exception handlers, or null if there are no handlers
-     *         registered for the instruction
+     *                   the handle of the instruction we want the exception handlers for
+     *
+     * @return the list of exception handlers, or null if there are no handlers registered for the instruction
      */
     public List<CodeExceptionGen> getHandlerList(InstructionHandle handle) {
         return codeToHandlerMap.get(handle);
     }
 
     /**
-     * If the given instruction is the start of an exception handler, get the
-     * CodeExceptionGen object representing the handler.
+     * If the given instruction is the start of an exception handler, get the CodeExceptionGen object representing the
+     * handler.
      *
      * @param start
-     *            the instruction
-     * @return the CodeExceptionGen object, or null if the instruction is not
-     *         the start of an exception handler
+     *                  the instruction
+     *
+     * @return the CodeExceptionGen object, or null if the instruction is not the start of an exception handler
      */
     public CodeExceptionGen getHandlerForStartInstruction(InstructionHandle start) {
         return startInstructionToHandlerMap.get(start);
@@ -148,7 +144,6 @@ public class ExceptionHandlerMap {
             return e1;
         }
     }
-
 
     private void addExceptionHandler(CodeExceptionGen exceptionHandler) {
         InstructionHandle handlerPC = exceptionHandler.getHandlerPC();

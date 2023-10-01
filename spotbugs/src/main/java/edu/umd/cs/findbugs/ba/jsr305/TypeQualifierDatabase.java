@@ -27,8 +27,8 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 import edu.umd.cs.findbugs.util.DualKeyHashMap;
 
 /**
- * Store computed type qualifiers for method parameters and return values. This
- * allows interprocedural checking of type qualifiers.
+ * Store computed type qualifiers for method parameters and return values. This allows interprocedural checking of type
+ * qualifiers.
  *
  * @author David Hovemeyer
  */
@@ -56,15 +56,15 @@ public class TypeQualifierDatabase {
      * Set a TypeQualifierAnnotation on a method return value.
      *
      * @param methodDesc
-     *            the method
+     *                       the method
      * @param tqv
-     *            the type qualifier
+     *                       the type qualifier
      * @param tqa
-     *            the type qualifier annotation
+     *                       the type qualifier annotation
      */
     public void setReturnValue(MethodDescriptor methodDesc, TypeQualifierValue<?> tqv, TypeQualifierAnnotation tqa) {
-        Map<TypeQualifierValue<?>, TypeQualifierAnnotation> map = returnValueMap.computeIfAbsent(methodDesc,
-                k -> new HashMap<>());
+        Map<TypeQualifierValue<?>, TypeQualifierAnnotation> map =
+                returnValueMap.computeIfAbsent(methodDesc, k -> new HashMap<>());
         map.put(tqv, tqa);
 
         if (DEBUG) {
@@ -76,12 +76,12 @@ public class TypeQualifierDatabase {
      * Get the TypeQualifierAnnotation on a method return value.
      *
      * @param methodDesc
-     *            the method
+     *                       the method
      * @param tqv
-     *            the type qualifier
-     * @return the type qualifier annotation on the method return value, or null
-     *         if no (interesting) type qualifier annotation was computed for
-     *         this method
+     *                       the type qualifier
+     *
+     * @return the type qualifier annotation on the method return value, or null if no (interesting) type qualifier
+     *             annotation was computed for this method
      */
     public TypeQualifierAnnotation getReturnValue(MethodDescriptor methodDesc, TypeQualifierValue<?> tqv) {
         //
@@ -98,15 +98,16 @@ public class TypeQualifierDatabase {
      * Set a TypeQualifierAnnotation on a method parameter.
      *
      * @param methodDesc
-     *            the method
+     *                       the method
      * @param param
-     *            the parameter (0 == first parameter)
+     *                       the parameter (0 == first parameter)
      * @param tqv
-     *            the type qualifier
+     *                       the type qualifier
      * @param tqa
-     *            the type qualifier annotation
+     *                       the type qualifier annotation
      */
-    public void setParameter(MethodDescriptor methodDesc, int param, TypeQualifierValue<?> tqv, TypeQualifierAnnotation tqa) {
+    public void setParameter(MethodDescriptor methodDesc, int param, TypeQualifierValue<?> tqv,
+            TypeQualifierAnnotation tqa) {
         Map<TypeQualifierValue<?>, TypeQualifierAnnotation> map = parameterMap.get(methodDesc, param);
         if (map == null) {
             map = new HashMap<>();
@@ -123,14 +124,14 @@ public class TypeQualifierDatabase {
      * Get the TypeQualifierAnnotation on a parameter.
      *
      * @param methodDesc
-     *            the method
+     *                       the method
      * @param param
-     *            the parameter (0 == first parameter)
+     *                       the parameter (0 == first parameter)
      * @param tqv
-     *            the type qualifier
-     * @return the type qualifier annotation on the method return value, or null
-     *         if no (interesting) type qualifier annotation was computed for
-     *         this method
+     *                       the type qualifier
+     *
+     * @return the type qualifier annotation on the method return value, or null if no (interesting) type qualifier
+     *             annotation was computed for this method
      */
     public TypeQualifierAnnotation getParameter(MethodDescriptor methodDesc, int param, TypeQualifierValue<?> tqv) {
         //

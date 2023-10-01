@@ -29,9 +29,8 @@ import java.util.regex.Pattern;
  * Lexical scanner for external annotation files.
  *
  * @author David Hovemeyer
- * @see <a
- *      href="http://groups.csail.mit.edu/pag/jsr308/annotation-file-utilities/">Annotation
- *      File Utilities/</a>
+ *
+ * @see <a href="http://groups.csail.mit.edu/pag/jsr308/annotation-file-utilities/">Annotation File Utilities/</a>
  */
 public class JAIFScanner {
 
@@ -102,10 +101,8 @@ public class JAIFScanner {
 
     private static final TokenPattern[] TOKEN_PATTERNS = {
         // Misc. syntax
-        new TokenPattern(":", JAIFTokenKind.COLON),
-        new TokenPattern("\\(", JAIFTokenKind.LPAREN),
-        new TokenPattern("\\)", JAIFTokenKind.RPAREN),
-        new TokenPattern(",", JAIFTokenKind.COMMA),
+        new TokenPattern(":", JAIFTokenKind.COLON), new TokenPattern("\\(", JAIFTokenKind.LPAREN),
+        new TokenPattern("\\)", JAIFTokenKind.RPAREN), new TokenPattern(",", JAIFTokenKind.COMMA),
         new TokenPattern("=", JAIFTokenKind.EQUALS),
 
         // Identifiers and keywords

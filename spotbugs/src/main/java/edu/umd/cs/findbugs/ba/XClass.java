@@ -40,8 +40,7 @@ public interface XClass extends Comparable<ClassDescriptor>, AccessibleEntity, A
     /**
      * Get ClassDescriptor of this class's immediate superclass.
      *
-     * @return ClassDescriptor of this class's immediate superclass, or null if
-     *         this class has no immediate superclass
+     * @return ClassDescriptor of this class's immediate superclass, or null if this class has no immediate superclass
      */
     public @Nullable ClassDescriptor getSuperclassDescriptor();
 
@@ -53,11 +52,10 @@ public interface XClass extends Comparable<ClassDescriptor>, AccessibleEntity, A
     public ClassDescriptor[] getInterfaceDescriptorList();
 
     /**
-     * Get the ClassDescriptor of the immediate enclosing class, or null if this
-     * XClass is not a nested or inner class.
+     * Get the ClassDescriptor of the immediate enclosing class, or null if this XClass is not a nested or inner class.
      *
-     * @return the ClassDescriptor of the immediate enclosing class, or null if
-     *         this XClass is not a nested or inner class
+     * @return the ClassDescriptor of the immediate enclosing class, or null if this XClass is not a nested or inner
+     *             class
      */
     public ClassDescriptor getImmediateEnclosingClass();
 
@@ -72,7 +70,6 @@ public interface XClass extends Comparable<ClassDescriptor>, AccessibleEntity, A
     public boolean isAbstract();
 
     /**
-     *
      * @return the Source attribute
      */
     public @Nullable String getSource();
@@ -87,11 +84,12 @@ public interface XClass extends Comparable<ClassDescriptor>, AccessibleEntity, A
      * Find an XMethod matching given parameters.
      *
      * @param methodName
-     *            name of the method
+     *                       name of the method
      * @param methodSig
-     *            signature of the method
+     *                       signature of the method
      * @param isStatic
-     *            true if the method is static, false if not
+     *                       true if the method is static, false if not
+     *
      * @return matching XMethod, or null if there is no matching XMethod
      */
     public XMethod findMethod(String methodName, String methodSig, boolean isStatic);
@@ -100,17 +98,19 @@ public interface XClass extends Comparable<ClassDescriptor>, AccessibleEntity, A
      * Find XMethod matching given MethodDescriptor.
      *
      * @param descriptor
-     *            a MethodDescriptor
+     *                       a MethodDescriptor
+     *
      * @return matching XMethod, or null if there is no matching method
      */
     public XMethod findMethod(MethodDescriptor descriptor);
 
     /**
-     * Find XMethod matching the name and signature of the supplied method
-     * MethodDescriptor. The class descriptor of the argument is ignored.
+     * Find XMethod matching the name and signature of the supplied method MethodDescriptor. The class descriptor of the
+     * argument is ignored.
      *
      * @param descriptor
-     *            a MethodDescriptor
+     *                       a MethodDescriptor
+     *
      * @return matching XMethod, or null if there is no matching method
      */
     public XMethod findMatchingMethod(MethodDescriptor descriptor);
@@ -119,11 +119,12 @@ public interface XClass extends Comparable<ClassDescriptor>, AccessibleEntity, A
      * Find an XField matching given parameters.
      *
      * @param name
-     *            name of the field
+     *                      name of the field
      * @param signature
-     *            signature of the field
+     *                      signature of the field
      * @param isStatic
-     *            true if field is static, false if not
+     *                      true if field is static, false if not
+     *
      * @return XField, or null if there is no matching XField
      */
     public XField findField(String name, String signature, boolean isStatic);

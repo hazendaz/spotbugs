@@ -33,11 +33,11 @@ import edu.umd.cs.findbugs.ba.vna.ValueNumberDataflow;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * Analysis to determine where particular values are locked in a method. The
- * dataflow values are maps of value numbers to the number of times those values
- * are locked.
+ * Analysis to determine where particular values are locked in a method. The dataflow values are maps of value numbers
+ * to the number of times those values are locked.
  *
  * @author David Hovemeyer
+ *
  * @see ValueNumberAnalysis
  */
 public class LockAnalysis extends ForwardDataflowAnalysis<LockSet> {
@@ -157,8 +157,8 @@ public class LockAnalysis extends ForwardDataflowAnalysis<LockSet> {
             value = LockSet.BOTTOM;
         }
         if (DEBUG) {
-            System.out.println("Setting " + lockNumber + " to " + value + " in " + methodGen.getClassName() + "."
-                    + methodGen.getName());
+            System.out.println("Setting " + lockNumber + " to " + value + " in " + methodGen.getClassName() + "." +
+                    methodGen.getName());
         }
         fact.setLockCount(lockNumber, value);
     }

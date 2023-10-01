@@ -24,8 +24,7 @@ import edu.umd.cs.findbugs.ba.interproc.ParameterProperty;
 import edu.umd.cs.findbugs.ba.interproc.PropertyDatabaseFormatException;
 
 /**
- * Method property database storing which method parameters might be
- * unconditionally dereferenced.
+ * Method property database storing which method parameters might be unconditionally dereferenced.
  *
  * @author David Hovemeyer
  */
@@ -34,9 +33,7 @@ public class ParameterNullnessPropertyDatabase extends MethodPropertyDatabase<Pa
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.interproc.MethodPropertyDatabase#decodeProperty
-     * (java.lang.String)
+     * @see edu.umd.cs.findbugs.ba.interproc.MethodPropertyDatabase#decodeProperty (java.lang.String)
      */
 
     @Override
@@ -52,9 +49,7 @@ public class ParameterNullnessPropertyDatabase extends MethodPropertyDatabase<Pa
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.interproc.MethodPropertyDatabase#encodeProperty
-     * (Property)
+     * @see edu.umd.cs.findbugs.ba.interproc.MethodPropertyDatabase#encodeProperty (Property)
      */
 
     @Override

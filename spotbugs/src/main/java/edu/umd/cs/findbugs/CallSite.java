@@ -37,11 +37,11 @@ public class CallSite {
      * Constructor.
      *
      * @param method
-     *            the method containing the call site
+     *                       the method containing the call site
      * @param basicBlock
-     *            the basic block where the call site is located
+     *                       the basic block where the call site is located
      * @param handle
-     *            the instruction which performs the call
+     *                       the instruction which performs the call
      */
     public CallSite(Method method, BasicBlock basicBlock, InstructionHandle handle) {
         this.method = method;
@@ -56,8 +56,7 @@ public class CallSite {
     }
 
     /**
-     * Get the Location (basic block and instruction) where the call site is
-     * located.
+     * Get the Location (basic block and instruction) where the call site is located.
      */
     public Location getLocation() {
         return location;
@@ -79,7 +78,8 @@ public class CallSite {
 
     @Override
     public int hashCode() {
-        return System.identityHashCode(method) ^ getBasicBlock().getLabel() ^ System.identityHashCode(location.getHandle());
+        return System.identityHashCode(method) ^ getBasicBlock().getLabel() ^
+                System.identityHashCode(location.getHandle());
     }
 
     @Override

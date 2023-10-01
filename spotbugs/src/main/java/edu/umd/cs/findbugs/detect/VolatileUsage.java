@@ -36,7 +36,10 @@ import edu.umd.cs.findbugs.ba.ch.Subtypes2;
 
 public class VolatileUsage extends BytecodeScanningDetector {
     enum IncrementState {
-        START, GETFIELD, LOADCONSTANT, ADD
+        START,
+        GETFIELD,
+        LOADCONSTANT,
+        ADD
     }
 
     private final BugReporter bugReporter;
@@ -149,8 +152,8 @@ public class VolatileUsage extends BytecodeScanningDetector {
                 if (initializationWrites.contains(f) && !otherWrites.contains(f)) {
                     priority = NORMAL_PRIORITY;
                 }
-                bugReporter.reportBug(new BugInstance(this, "VO_VOLATILE_REFERENCE_TO_ARRAY", priority).addClass(
-                        f.getClassDescriptor()).addField(f));
+                bugReporter.reportBug(new BugInstance(this, "VO_VOLATILE_REFERENCE_TO_ARRAY", priority)
+                        .addClass(f.getClassDescriptor()).addField(f));
             }
         }
     }

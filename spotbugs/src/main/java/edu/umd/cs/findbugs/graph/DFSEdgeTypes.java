@@ -41,14 +41,13 @@ public interface DFSEdgeTypes {
     public static final int BACK_EDGE = 1;
 
     /**
-     * Forward edge. An edge to a descendant in the same depth-first search
-     * tree.
+     * Forward edge. An edge to a descendant in the same depth-first search tree.
      */
     public static final int FORWARD_EDGE = 2;
 
     /**
-     * Cross edge. Edge between unrelated nodes in the same depth-first search
-     * tree, or an edge between nodes in different depth-first search trees.
+     * Cross edge. Edge between unrelated nodes in the same depth-first search tree, or an edge between nodes in
+     * different depth-first search trees.
      */
     public static final int CROSS_EDGE = 3;
 }

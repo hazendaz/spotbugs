@@ -22,15 +22,14 @@ import java.util.BitSet;
 import java.util.Iterator;
 
 /**
- * Method property recording which parameters are have some property
- * (originally, which were required to be nonnull, now made more generic)
+ * Method property recording which parameters are have some property (originally, which were required to be nonnull, now
+ * made more generic)
  *
  * @author David Hovemeyer
  */
 public class ParameterProperty {
     /**
-     * Maximum number of parameters that can be represented by a
-     * ParameterProperty.
+     * Maximum number of parameters that can be represented by a ParameterProperty.
      */
     public static final int MAX_PARAMS = 32;
 
@@ -100,7 +99,7 @@ public class ParameterProperty {
      * Set the non-null param bitset.
      *
      * @param nonNullParamSet
-     *            the non-null param bitset
+     *                            the non-null param bitset
      */
     public void setParamsWithProperty(int nonNullParamSet) {
         this.bits = nonNullParamSet;
@@ -110,7 +109,7 @@ public class ParameterProperty {
      * Set the non-null param set from given BitSet.
      *
      * @param nonNullSet
-     *            BitSet indicating which parameters are non-null
+     *                       BitSet indicating which parameters are non-null
      */
     public void setParamsWithProperty(BitSet nonNullSet) {
         for (int i = 0; i < 32; ++i) {
@@ -122,9 +121,9 @@ public class ParameterProperty {
      * Set whether or not a parameter might be non-null.
      *
      * @param param
-     *            the parameter index
+     *                        the parameter index
      * @param hasProperty
-     *            true if the parameter might be non-null, false otherwise
+     *                        true if the parameter might be non-null, false otherwise
      */
     public void setParamWithProperty(int param, boolean hasProperty) {
         if (param < 0 || param > 31) {
@@ -141,7 +140,8 @@ public class ParameterProperty {
      * Return whether or not a parameter might be non-null.
      *
      * @param param
-     *            the parameter index
+     *                  the parameter index
+     *
      * @return true if the parameter might be non-null, false otherwise
      */
     public boolean hasProperty(int param) {
@@ -153,12 +153,12 @@ public class ParameterProperty {
     }
 
     /**
-     * Given a bitset of null arguments passed to the method represented by this
-     * property, return a bitset indicating which null arguments correspond to
-     * an non-null param.
+     * Given a bitset of null arguments passed to the method represented by this property, return a bitset indicating
+     * which null arguments correspond to an non-null param.
      *
      * @param nullArgSet
-     *            bitset of null arguments
+     *                       bitset of null arguments
+     *
      * @return bitset intersecting null arguments and non-null params
      */
     public BitSet getMatchingParameters(BitSet nullArgSet) {
@@ -183,8 +183,7 @@ public class ParameterProperty {
     /**
      * Return whether or not the set of non-null parameters is empty.
      *
-     * @return true if the set is empty, false if it contains at least one
-     *         parameter
+     * @return true if the set is empty, false if it contains at least one parameter
      */
     public boolean isEmpty() {
         return bits == 0;
@@ -209,11 +208,10 @@ public class ParameterProperty {
     }
 
     /**
-     * Intersect this set with the given set. Useful for summarizing the
-     * properties of multiple methods.
+     * Intersect this set with the given set. Useful for summarizing the properties of multiple methods.
      *
      * @param targetDerefParamSet
-     *            another set
+     *                                another set
      */
     public void intersectWith(ParameterProperty targetDerefParamSet) {
         bits &= targetDerefParamSet.bits;
@@ -223,7 +221,7 @@ public class ParameterProperty {
      * Make this object the same as the given one.
      *
      * @param other
-     *            another ParameterNullnessProperty
+     *                  another ParameterNullnessProperty
      */
     public void copyFrom(ParameterProperty other) {
         this.bits = other.bits;

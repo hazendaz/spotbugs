@@ -32,9 +32,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 /**
- * A list of JCheckBoxes! How convenient!
- *
- * Adapted from: http://www.devx.com/tips/Tip/5342
+ * A list of JCheckBoxes! How convenient! Adapted from: http://www.devx.com/tips/Tip/5342
  *
  * @author Trevor Harmon
  */
@@ -89,8 +87,6 @@ public class CheckBoxList<E> extends JList<E> {
             checkbox.setBorder(isSelected ? UIManager.getBorder("List.focusCellHighlightBorder") : noFocusBorder);
             return checkbox;
         }
-
-
 
     }
 }

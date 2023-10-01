@@ -38,8 +38,7 @@ public class LineNumberMap {
     private static final boolean DEBUG = SystemProperties.getBoolean("lnm.debug");
 
     /**
-     * When this is true, the workaround for the bug in BCEL 5.0's
-     * LineNumberTable class is disabled.
+     * When this is true, the workaround for the bug in BCEL 5.0's LineNumberTable class is disabled.
      */
     private static final boolean LINE_NUMBER_BUG = SystemProperties.getBoolean("lineNumberBug");
 
@@ -53,7 +52,7 @@ public class LineNumberMap {
      * Constructor.
      *
      * @param methodGen
-     *            the method to summarize line numbers for
+     *                      the method to summarize line numbers for
      */
     public LineNumberMap(MethodGen methodGen) {
         this.methodGen = methodGen;
@@ -62,16 +61,15 @@ public class LineNumberMap {
     }
 
     /**
-     * Build the line number information. Should be called before any other
-     * methods.
+     * Build the line number information. Should be called before any other methods.
      */
     public void build() {
         int numGood = 0;
         int numBytecodes = 0;
 
         if (DEBUG) {
-            System.out.println("Method: " + methodGen.getName() + " - " + methodGen.getSignature() + "in class "
-                    + methodGen.getClassName());
+            System.out.println("Method: " + methodGen.getName() + " - " + methodGen.getSignature() + "in class " +
+                    methodGen.getClassName());
         }
 
         // Associate line number information with each InstructionHandle
@@ -142,9 +140,9 @@ public class LineNumberMap {
      * Find the line number information for instruction whose handle is given.
      *
      * @param handle
-     *            the InstructionHandle
-     * @return the LineNumber object containing bytecode offset and source line
-     *         number
+     *                   the InstructionHandle
+     *
+     * @return the LineNumber object containing bytecode offset and source line number
      */
     public LineNumber lookupLineNumber(InstructionHandle handle) {
         return lineNumberMap.get(handle);

@@ -23,6 +23,7 @@ package edu.umd.cs.findbugs.ba.bcp;
  * A Binding binds a name to a Variable.
  *
  * @author David Hovemeyer
+ *
  * @see Variable
  */
 public class Binding {
@@ -34,9 +35,9 @@ public class Binding {
      * Constructor.
      *
      * @param varName
-     *            the name of the variable
+     *                     the name of the variable
      * @param variable
-     *            the variable
+     *                     the variable
      */
     public Binding(String varName, Variable variable) {
         if (variable == null) {

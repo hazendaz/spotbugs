@@ -42,9 +42,10 @@ public class RankMatcher implements Matcher {
      * Constructor.
      *
      * @param rankAsString
-     *            the rank, as a String
+     *                         the rank, as a String
+     *
      * @throws NumberFormatException
-     *             if the rank cannot be parsed
+     *                                   if the rank cannot be parsed
      */
     public RankMatcher(String rankAsString) {
         this.rank = Integer.parseInt(rankAsString);

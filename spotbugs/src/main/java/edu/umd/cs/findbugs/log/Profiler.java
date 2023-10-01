@@ -144,7 +144,7 @@ public class Profiler implements IProfiler, XMLWriteable {
 
         /**
          * @param className
-         *            non null full qualified class name
+         *                      non null full qualified class name
          */
         public Profile(String className) {
             this.className = className;
@@ -170,6 +170,7 @@ public class Profiler implements IProfiler, XMLWriteable {
 
         /**
          * @param xmlOutput
+         *
          * @throws IOException
          */
 
@@ -197,7 +198,8 @@ public class Profiler implements IProfiler, XMLWriteable {
                 if (maxContext != null) {
                     xmlOutput.addAttribute("maxContext", String.valueOf(maxContext));
                 }
-                xmlOutput.addAttribute("standardDeviationMicrosecondsPerInvocation", String.valueOf(timeStandardDeviation));
+                xmlOutput.addAttribute("standardDeviationMicrosecondsPerInvocation",
+                        String.valueOf(timeStandardDeviation));
                 xmlOutput.stopTag(true);
             }
         }
@@ -247,7 +249,7 @@ public class Profiler implements IProfiler, XMLWriteable {
 
     /**
      * @param c
-     *            The class of detector, analyzer or others that is NOT shared among worker threads.
+     *              The class of detector, analyzer or others that is NOT shared among worker threads.
      */
     public void start(Class<?> c) {
         long currentNanoTime = System.nanoTime();
@@ -263,7 +265,7 @@ public class Profiler implements IProfiler, XMLWriteable {
 
     /**
      * @param c
-     *            The class of detector, analyzer or others that is NOT shared among worker threads.
+     *              The class of detector, analyzer or others that is NOT shared among worker threads.
      */
     public void end(Class<?> c) {
         // System.err.println("pop " + c.getSimpleName());
@@ -272,8 +274,8 @@ public class Profiler implements IProfiler, XMLWriteable {
         Stack<Clock> stack = startTimes;
         Clock ending = stack.pop();
         if (ending.clazz != c) {
-            throw new AssertionError("Asked to end timing for " + c + " but top of stack is " + ending.clazz
-                    + ", remaining stack is " + stack);
+            throw new AssertionError("Asked to end timing for " + c + " but top of stack is " + ending.clazz +
+                    ", remaining stack is " + stack);
         }
         ending.accumulateTime(currentNanoTime);
         if (!stack.isEmpty()) {
@@ -377,8 +379,9 @@ public class Profiler implements IProfiler, XMLWriteable {
     }
 
     /**
-     * Default implementation uses {@link TotalTimeComparator} and prints out
-     * class statistics based on total time spent for a class
+     * Default implementation uses {@link TotalTimeComparator} and prints out class statistics based on total time spent
+     * for a class
+     *
      * @deprecated use {@link ProfileSummary#report} instead.
      */
     @Deprecated
@@ -391,7 +394,8 @@ public class Profiler implements IProfiler, XMLWriteable {
 
     /**
      * @param reportComparator
-     *            non null comparator instance which will be used to sort the report statistics
+     *                             non null comparator instance which will be used to sort the report statistics
+     *
      * @deprecated use {@link ProfileSummary#report} instead.
      */
     @Deprecated
@@ -409,7 +413,8 @@ public class Profiler implements IProfiler, XMLWriteable {
                 long time = p.totalTime.get();
                 int callCount = p.totalCalls.get();
                 if (filter.accepts(p)) {
-                    stream.printf("%8d  %8d  %8d %s%n", Long.valueOf(TimeUnit.MILLISECONDS.convert(time, TimeUnit.NANOSECONDS)),
+                    stream.printf("%8d  %8d  %8d %s%n",
+                            Long.valueOf(TimeUnit.MILLISECONDS.convert(time, TimeUnit.NANOSECONDS)),
                             Integer.valueOf(callCount),
                             Long.valueOf(TimeUnit.MICROSECONDS.convert(time / callCount, TimeUnit.NANOSECONDS)),
                             c.getSimpleName());
@@ -423,12 +428,11 @@ public class Profiler implements IProfiler, XMLWriteable {
     }
 
     /**
-     * Clears the previously accumulated data. This method is public because it
-     * can be accessed explicitly from clients (like Eclipse).
+     * Clears the previously accumulated data. This method is public because it can be accessed explicitly from clients
+     * (like Eclipse).
      * <p>
-     * There is no need to clear profiler data after each run, because a new
-     * profiler instance is used for each analysis run (see
-     * {@link FindBugs2#execute()}).
+     * There is no need to clear profiler data after each run, because a new profiler instance is used for each analysis
+     * run (see {@link FindBugs2#execute()}).
      */
     public void clear() {
         profile.clear();

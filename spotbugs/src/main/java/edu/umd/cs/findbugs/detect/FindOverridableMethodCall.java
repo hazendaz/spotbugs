@@ -112,21 +112,23 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
             if (ctor == null && clone == null && readObject == null && (callers == null || callers.isEmpty())) {
                 continue;
             }
-            Optional<Method> method = BootstrapMethodsUtil.getMethodFromBootstrap(obj, i, getConstantPool(), getThisClass());
+            Optional<Method> method =
+                    BootstrapMethodsUtil.getMethodFromBootstrap(obj, i, getConstantPool(), getThisClass());
             if (method.isEmpty()) {
                 continue;
             }
-            XMethod xMethod = getXClass().findMethod(method.get().getName(), method.get().getSignature(), method.get().isStatic());
-            if (ctor != null
-                    && checkAndRecordDirectCase(ctor.method, xMethod, CONSTRUCTOR_BUG, LOW_PRIORITY, ctor.sourceLine)) {
+            XMethod xMethod = getXClass().findMethod(method.get().getName(), method.get().getSignature(),
+                    method.get().isStatic());
+            if (ctor != null &&
+                    checkAndRecordDirectCase(ctor.method, xMethod, CONSTRUCTOR_BUG, LOW_PRIORITY, ctor.sourceLine)) {
                 checkAndRecordCallFromConstructor(ctor.method, xMethod, ctor.sourceLine);
             }
-            if (clone != null
-                    && checkAndRecordDirectCase(clone.method, xMethod, CLONE_BUG, NORMAL_PRIORITY, clone.sourceLine)) {
+            if (clone != null &&
+                    checkAndRecordDirectCase(clone.method, xMethod, CLONE_BUG, NORMAL_PRIORITY, clone.sourceLine)) {
                 checkAndRecordCallFromClone(clone.method, xMethod, clone.sourceLine);
             }
-            if (readObject != null
-                    && checkAndRecordDirectCase(readObject.method, xMethod, READ_OBJECT_BUG, NORMAL_PRIORITY, readObject.sourceLine)) {
+            if (readObject != null && checkAndRecordDirectCase(readObject.method, xMethod, READ_OBJECT_BUG,
+                    NORMAL_PRIORITY, readObject.sourceLine)) {
                 checkAndRecordCallFromReadObject(readObject.method, xMethod, readObject.sourceLine);
             }
             if (callers != null) {
@@ -168,11 +170,10 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
             if (item.getRegisterNumber() == 0 && Const.CONSTRUCTOR_NAME.equals(getMethodName())) {
                 refCallerConstructors.put(constDyn.getBootstrapMethodAttrIndex(),
                         new CallerInfo(caller, SourceLineAnnotation.fromVisitedInstruction(this)));
-            } else if ("clone".equals(getMethodName())
-                    && (("()" + getClassDescriptor().getSignature()).equals(getMethodSig())
-                            || "()Ljava/lang/Object;".equals(getMethodSig()))
-                    && item.getReturnValueOf() != null
-                    && item.getReturnValueOf().equals(superClone(getXClass()))) {
+            } else if ("clone".equals(getMethodName()) &&
+                    (("()" + getClassDescriptor().getSignature()).equals(getMethodSig()) ||
+                            "()Ljava/lang/Object;".equals(getMethodSig())) &&
+                    item.getReturnValueOf() != null && item.getReturnValueOf().equals(superClone(getXClass()))) {
                 refCallerClones.put(constDyn.getBootstrapMethodAttrIndex(),
                         new CallerInfo(caller, SourceLineAnnotation.fromVisitedInstruction(this)));
             } else if (isCurrentMethodReadObject()) {
@@ -192,25 +193,26 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
             OpcodeStack.Item item = stack.getStackItem(argumentCount);
 
             if (item.getRegisterNumber() == 0 && Const.CONSTRUCTOR_NAME.equals(getMethodName())) {
-                if (checkAndRecordDirectCase(caller, method, CONSTRUCTOR_BUG, LOW_PRIORITY, SourceLineAnnotation.fromVisitedInstruction(
-                        this))) {
-                    checkAndRecordCallFromConstructor(caller, method, SourceLineAnnotation.fromVisitedInstruction(this));
+                if (checkAndRecordDirectCase(caller, method, CONSTRUCTOR_BUG, LOW_PRIORITY,
+                        SourceLineAnnotation.fromVisitedInstruction(this))) {
+                    checkAndRecordCallFromConstructor(caller, method,
+                            SourceLineAnnotation.fromVisitedInstruction(this));
                 }
 
-            } else if ("clone".equals(getMethodName())
-                    && (("()" + getClassDescriptor().getSignature()).equals(getMethodSig())
-                            || "()Ljava/lang/Object;".equals(getMethodSig()))
-                    && item.getReturnValueOf() != null
-                    && item.getReturnValueOf().equals(superClone(getXClass()))) {
-                if (checkAndRecordDirectCase(caller, method, CLONE_BUG, NORMAL_PRIORITY, SourceLineAnnotation.fromVisitedInstruction(this))) {
+            } else if ("clone".equals(getMethodName()) &&
+                    (("()" + getClassDescriptor().getSignature()).equals(getMethodSig()) ||
+                            "()Ljava/lang/Object;".equals(getMethodSig())) &&
+                    item.getReturnValueOf() != null && item.getReturnValueOf().equals(superClone(getXClass()))) {
+                if (checkAndRecordDirectCase(caller, method, CLONE_BUG, NORMAL_PRIORITY,
+                        SourceLineAnnotation.fromVisitedInstruction(this))) {
                     checkAndRecordCallFromClone(caller, method, SourceLineAnnotation.fromVisitedInstruction(this));
                 }
             } else if (isCurrentMethodReadObject()) {
-                if (checkAndRecordDirectCase(caller, method, READ_OBJECT_BUG, NORMAL_PRIORITY, SourceLineAnnotation.fromVisitedInstruction(this))) {
+                if (checkAndRecordDirectCase(caller, method, READ_OBJECT_BUG, NORMAL_PRIORITY,
+                        SourceLineAnnotation.fromVisitedInstruction(this))) {
                     checkAndRecordCallFromReadObject(caller, method, SourceLineAnnotation.fromVisitedInstruction(this));
                 }
-            } else if (item.getRegisterNumber() == 0
-                    && (caller.isPrivate() || caller.isFinal())) {
+            } else if (item.getRegisterNumber() == 0 && (caller.isPrivate() || caller.isFinal())) {
                 if (method.isPrivate() || method.isFinal()) {
                     checkAndRecordCallBetweenNonOverridableMethods(caller, method);
                 } else {
@@ -240,12 +242,12 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
         }
     }
 
-    boolean checkAndRecordDirectCase(XMethod caller, XMethod method, String bugType, int priority, SourceLineAnnotation sourceLine) {
+    boolean checkAndRecordDirectCase(XMethod caller, XMethod method, String bugType, int priority,
+            SourceLineAnnotation sourceLine) {
         if (!method.isPrivate() && !method.isFinal() && isSelfCall(method)) {
-            bugAccumulator.accumulateBug(new BugInstance(this, bugType, priority)
-                    .addClass(this)
-                    .addMethod(caller)
-                    .addCalledMethod(method), sourceLine);
+            bugAccumulator.accumulateBug(
+                    new BugInstance(this, bugType, priority).addClass(this).addMethod(caller).addCalledMethod(method),
+                    sourceLine);
             return false;
         }
         return true;
@@ -253,8 +255,10 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
 
     private boolean isSelfCall(XMethod method) {
         // We're only interested in method calls on the object itself
-        // Calling ObjectInputStream.readInt() is not considered risky here because we assume that the object stream is not under the control of the attacker.
-        // Checking for vulnerabilities when the object stream IS under control of the attacker is beyond the scope of this detector.
+        // Calling ObjectInputStream.readInt() is not considered risky here because we assume that the object stream is
+        // not under the control of the attacker.
+        // Checking for vulnerabilities when the object stream IS under control of the attacker is beyond the scope of
+        // this detector.
         @DottedClassName
         String className = getClassContext().getClassDescriptor().getDottedClassName();
         @DottedClassName
@@ -269,13 +273,12 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
         }
     }
 
-    private void checkAndRecordCallFromConstructor(XMethod constructor, XMethod callee, SourceLineAnnotation sourceLine) {
+    private void checkAndRecordCallFromConstructor(XMethod constructor, XMethod callee,
+            SourceLineAnnotation sourceLine) {
         XMethod overridable = getIndirectlyCalledOverridable(callee);
         if (overridable != null && isSelfCall(overridable)) {
-            bugAccumulator.accumulateBug(new BugInstance(this, CONSTRUCTOR_BUG, LOW_PRIORITY)
-                    .addClass(this)
-                    .addMethod(constructor)
-                    .addCalledMethod(overridable), sourceLine);
+            bugAccumulator.accumulateBug(new BugInstance(this, CONSTRUCTOR_BUG, LOW_PRIORITY).addClass(this)
+                    .addMethod(constructor).addCalledMethod(overridable), sourceLine);
             return;
         }
         callerConstructors.put(callee, new CallerInfo(constructor, sourceLine));
@@ -284,10 +287,8 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
     private void checkAndRecordCallFromClone(XMethod clone, XMethod callee, SourceLineAnnotation sourceLine) {
         XMethod overridable = getIndirectlyCalledOverridable(callee);
         if (overridable != null && isSelfCall(overridable)) {
-            bugAccumulator.accumulateBug(new BugInstance(this, CLONE_BUG, NORMAL_PRIORITY)
-                    .addClass(this)
-                    .addMethod(clone)
-                    .addCalledMethod(overridable), sourceLine);
+            bugAccumulator.accumulateBug(new BugInstance(this, CLONE_BUG, NORMAL_PRIORITY).addClass(this)
+                    .addMethod(clone).addCalledMethod(overridable), sourceLine);
             return;
         }
         callerClones.put(callee, new CallerInfo(clone, sourceLine));
@@ -296,10 +297,8 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
     private void checkAndRecordCallFromReadObject(XMethod readObject, XMethod callee, SourceLineAnnotation sourceLine) {
         XMethod overridable = getIndirectlyCalledOverridable(callee);
         if (overridable != null && isSelfCall(overridable)) {
-            bugAccumulator.accumulateBug(new BugInstance(this, READ_OBJECT_BUG, NORMAL_PRIORITY)
-                    .addClass(this)
-                    .addMethod(readObject)
-                    .addCalledMethod(overridable), sourceLine);
+            bugAccumulator.accumulateBug(new BugInstance(this, READ_OBJECT_BUG, NORMAL_PRIORITY).addClass(this)
+                    .addMethod(readObject).addCalledMethod(overridable), sourceLine);
             return;
         }
         callerReadObjects.put(callee, new CallerInfo(readObject, sourceLine));
@@ -309,22 +308,19 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
         CallerInfo constructor = getIndirectCallerConstructor(caller);
         if (constructor != null && isSelfCall(overridable)) {
             bugAccumulator.accumulateBug(new BugInstance(this, CONSTRUCTOR_BUG, LOW_PRIORITY)
-                    .addClassAndMethod(constructor.method)
-                    .addCalledMethod(overridable), constructor.sourceLine);
+                    .addClassAndMethod(constructor.method).addCalledMethod(overridable), constructor.sourceLine);
         }
 
         CallerInfo clone = getIndirectCallerClone(caller);
         if (clone != null && isSelfCall(overridable)) {
             bugAccumulator.accumulateBug(new BugInstance(this, CLONE_BUG, NORMAL_PRIORITY)
-                    .addClassAndMethod(clone.method)
-                    .addCalledMethod(overridable), clone.sourceLine);
+                    .addClassAndMethod(clone.method).addCalledMethod(overridable), clone.sourceLine);
         }
 
         CallerInfo readObject = getIndirectCallerReadObject(caller);
         if (readObject != null && isSelfCall(overridable)) {
             bugAccumulator.accumulateBug(new BugInstance(this, READ_OBJECT_BUG, NORMAL_PRIORITY)
-                    .addClassAndMethod(readObject.method)
-                    .addCalledMethod(overridable), readObject.sourceLine);
+                    .addClassAndMethod(readObject.method).addCalledMethod(overridable), readObject.sourceLine);
         }
 
         if ((constructor != null || clone != null || readObject != null) && isSelfCall(overridable)) {
@@ -343,25 +339,22 @@ public class FindOverridableMethodCall extends OpcodeStackDetector {
             XMethod overridable = getIndirectlyCalledOverridable(callee);
             if (overridable != null) {
                 if (constructor != null && isSelfCall(overridable)) {
-                    bugAccumulator.accumulateBug(new BugInstance(this, CONSTRUCTOR_BUG, LOW_PRIORITY)
-                            .addClassAndMethod(constructor.method)
-                            .addCalledMethod(overridable),
-                            constructor.sourceLine);
+                    bugAccumulator
+                            .accumulateBug(
+                                    new BugInstance(this, CONSTRUCTOR_BUG, LOW_PRIORITY)
+                                            .addClassAndMethod(constructor.method).addCalledMethod(overridable),
+                                    constructor.sourceLine);
 
                 }
 
                 if (clone != null && isSelfCall(overridable)) {
                     bugAccumulator.accumulateBug(new BugInstance(this, CLONE_BUG, NORMAL_PRIORITY)
-                            .addClassAndMethod(clone.method)
-                            .addCalledMethod(overridable),
-                            clone.sourceLine);
+                            .addClassAndMethod(clone.method).addCalledMethod(overridable), clone.sourceLine);
                 }
 
                 if (readObject != null && isSelfCall(overridable)) {
                     bugAccumulator.accumulateBug(new BugInstance(this, READ_OBJECT_BUG, NORMAL_PRIORITY)
-                            .addClassAndMethod(readObject.method)
-                            .addCalledMethod(overridable),
-                            readObject.sourceLine);
+                            .addClassAndMethod(readObject.method).addCalledMethod(overridable), readObject.sourceLine);
                 }
 
                 return;

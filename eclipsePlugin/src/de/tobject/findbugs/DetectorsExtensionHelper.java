@@ -94,18 +94,18 @@ public class DetectorsExtensionHelper {
             set.put(pluginId, libPathAsString);
         } catch (Throwable e) {
             String cName = contributor != null ? contributor.getName() : "unknown contributor";
-            String message = "Failed to read contribution for '" + EXTENSION_POINT_ID
-                    + "' extension point from " + cName;
+            String message =
+                    "Failed to read contribution for '" + EXTENSION_POINT_ID + "' extension point from " + cName;
             FindbugsPlugin.getDefault().logException(e, message);
         }
     }
 
     /**
-     *
      * @param contributor
-     *            non null
+     *                            non null
      * @param libPathAsString
-     *            non null
+     *                            non null
+     *
      * @return resolved absolute path for the detector package
      */
     private static @Nullable String resolveRelativePath(IContributor contributor, String libPathAsString) {
@@ -134,19 +134,18 @@ public class DetectorsExtensionHelper {
         }
 
         // it's a directory, and we are in the production environment.
-        IllegalArgumentException e = new IllegalArgumentException("Failed to resolve detector library for "
-                + bundle.getSymbolicName());
-        String message = "Failed to resolve detector library. '" + bundleFile
-                + "' is a directory and can't be used as SpotBugs detector package." + " Please specify '" + LIBRARY_PATH
-                + "' argument as a relative path to the detectors jar file.";
+        IllegalArgumentException e =
+                new IllegalArgumentException("Failed to resolve detector library for " + bundle.getSymbolicName());
+        String message = "Failed to resolve detector library. '" + bundleFile +
+                "' is a directory and can't be used as SpotBugs detector package." + " Please specify '" +
+                LIBRARY_PATH + "' argument as a relative path to the detectors jar file.";
         FindbugsPlugin.getDefault().logException(e, message);
         return null;
     }
 
     /**
-     * Used for Eclipse instances running inside debugger. During development Eclipse plugins
-     * are just directories. The code below tries to locate plugin's
-     * "bin" directory. It doesn't work if the plugin build.properties are not
+     * Used for Eclipse instances running inside debugger. During development Eclipse plugins are just directories. The
+     * code below tries to locate plugin's "bin" directory. It doesn't work if the plugin build.properties are not
      * existing or contain invalid content
      */
     private static @Nullable String resolvePluginClassesDir(String bundleName, File sourceDir) {
@@ -158,7 +157,8 @@ public class DetectorsExtensionHelper {
 
         String outputDir = getBuildDirectory(bundleName, sourceDir);
         if (outputDir.isEmpty()) {
-            FindbugsPlugin.getDefault().logException(new IllegalStateException("No output directory in build.properties"),
+            FindbugsPlugin.getDefault().logException(
+                    new IllegalStateException("No output directory in build.properties"),
                     "No output directory in build.properties " + sourceDir);
             return null;
         }

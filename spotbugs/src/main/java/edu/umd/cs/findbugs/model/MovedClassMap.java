@@ -32,8 +32,8 @@ import edu.umd.cs.findbugs.ClassAnnotation;
 import edu.umd.cs.findbugs.SystemProperties;
 
 /**
- * Build a map of added class names to removed class names. Serves as a
- * ClassNameRewriter that can match up renamed classes in two BugCollections.
+ * Build a map of added class names to removed class names. Serves as a ClassNameRewriter that can match up renamed
+ * classes in two BugCollections.
  *
  * @author David Hovemeyer
  */
@@ -103,6 +103,7 @@ public class MovedClassMap implements ClassNameRewriter {
      * Find set of classes referenced in given BugCollection.
      *
      * @param bugCollection
+     *
      * @return set of classes referenced in the BugCollection
      */
     private Set<String> buildClassSet(BugCollection bugCollection) {
@@ -124,7 +125,8 @@ public class MovedClassMap implements ClassNameRewriter {
      * Build a map of short class names (without package) to full class names.
      *
      * @param classSet
-     *            set of fully-qualified class names
+     *                     set of fully-qualified class names
+     *
      * @return map of short class names to fully-qualified class names
      */
     private Map<String, String> buildShortNameToFullNameMap(Set<String> classSet) {
@@ -140,7 +142,8 @@ public class MovedClassMap implements ClassNameRewriter {
      * Get a short class name (no package part).
      *
      * @param className
-     *            a class name
+     *                      a class name
+     *
      * @return short class name
      */
     private String getShortClassName(String className) {

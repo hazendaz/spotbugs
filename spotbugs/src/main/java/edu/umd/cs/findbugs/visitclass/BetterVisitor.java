@@ -62,15 +62,14 @@ import org.apache.bcel.classfile.Visitor;
  * Fixedup of from org.apache.bcel.classfile.Visitor
  *
  * @author <A HREF="http://www.cs.umd.edu/~pugh">William Pugh</A>
+ *
  * @version 980818
  */
 public abstract class BetterVisitor implements Visitor {
 
     /**
-     * clone() is overridden to change access control from protected to public.
-     * Originally we compelled subclasses not to throw
-     * CloneNotSupportedException, but that was unfriendly to some third-parties
-     * with existing code.
+     * clone() is overridden to change access control from protected to public. Originally we compelled subclasses not
+     * to throw CloneNotSupportedException, but that was unfriendly to some third-parties with existing code.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

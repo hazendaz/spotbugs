@@ -33,9 +33,10 @@ public interface Detector2 extends Priorities {
      * Visit a class.
      *
      * @param classDescriptor
-     *            descriptor naming the class to visit
+     *                            descriptor naming the class to visit
+     *
      * @throws CheckedAnalysisException
-     *             if an exception occurs during analysis
+     *                                      if an exception occurs during analysis
      */
     void visitClass(ClassDescriptor classDescriptor) throws CheckedAnalysisException;
 

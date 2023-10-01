@@ -22,12 +22,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This class contains all the public identifiers that are part of the
- * Java Standard Library. It is used to detect any shadowing or obscuring
- * of these identifiers.
- * Since there are so many identifiers, they are loaded from separate
- * functions to avoid compiler limits. The functions load roughly the same number
- * of identifiers.
+ * This class contains all the public identifiers that are part of the Java Standard Library. It is used to detect any
+ * shadowing or obscuring of these identifiers. Since there are so many identifiers, they are loaded from separate
+ * functions to avoid compiler limits. The functions load roughly the same number of identifiers.
  */
 public class PublicIdentifiers {
     private static final Set<String> STANDARD_LIBRARY_PACKAGES = new HashSet<>();

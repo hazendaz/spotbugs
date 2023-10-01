@@ -27,9 +27,8 @@ import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.JavaClass;
 
 /**
- * A special version of ClassParser that automatically enters parsed classes
- * into the Repository. This allows us to use the Repository to inspect the
- * class hierarchy, based on the current class path.
+ * A special version of ClassParser that automatically enters parsed classes into the Repository. This allows us to use
+ * the Repository to inspect the class hierarchy, based on the current class path.
  */
 public class RepositoryClassParser {
     private final ClassParser classParser;
@@ -38,9 +37,9 @@ public class RepositoryClassParser {
      * Constructor.
      *
      * @param inputStream
-     *            the input stream from which to read the class file
+     *                        the input stream from which to read the class file
      * @param fileName
-     *            filename of the class file
+     *                        filename of the class file
      */
     public RepositoryClassParser(InputStream inputStream, String fileName) {
         classParser = new ClassParser(inputStream, fileName);
@@ -50,7 +49,7 @@ public class RepositoryClassParser {
      * Constructor.
      *
      * @param fileName
-     *            name of the class file
+     *                     name of the class file
      */
     public RepositoryClassParser(String fileName) {
         classParser = new ClassParser(fileName);
@@ -60,21 +59,21 @@ public class RepositoryClassParser {
      * Constructor.
      *
      * @param zipFile
-     *            name of a zip file containing the class
+     *                     name of a zip file containing the class
      * @param fileName
-     *            name of the zip entry within the class
+     *                     name of the zip entry within the class
      */
     public RepositoryClassParser(String zipFile, String fileName) {
         classParser = new ClassParser(zipFile, fileName);
     }
 
     /**
-     * Parse the class file into a JavaClass object. If successful, the new
-     * JavaClass is entered into the Repository.
+     * Parse the class file into a JavaClass object. If successful, the new JavaClass is entered into the Repository.
      *
      * @return the parsed JavaClass
+     *
      * @throws IOException
-     *             if the class cannot be parsed
+     *                         if the class cannot be parsed
      */
     public JavaClass parse() throws IOException {
         JavaClass jclass = classParser.parse();

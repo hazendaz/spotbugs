@@ -28,11 +28,10 @@ import edu.umd.cs.findbugs.FieldAnnotation;
 import edu.umd.cs.findbugs.plugin.eclipse.quickfix.exception.BugResolutionException;
 
 /**
- * Returning a reference to a mutable object is not recommended. The class
- * <CODE>CreateMutableCloneResolution</CODE> returns a new copy of the object.
+ * Returning a reference to a mutable object is not recommended. The class <CODE>CreateMutableCloneResolution</CODE>
+ * returns a new copy of the object.
  *
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a>
+ * @see <a href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a>
  */
 public class CreateMutableCloneResolution extends BugResolution {
 
@@ -42,14 +41,14 @@ public class CreateMutableCloneResolution extends BugResolution {
     }
 
     @Override
-    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug) throws BugResolutionException {
+    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug)
+            throws BugResolutionException {
         Assert.isNotNull(rewrite);
         Assert.isNotNull(workingUnit);
         Assert.isNotNull(bug);
 
         TypeDeclaration type = getTypeDeclaration(workingUnit, bug.getPrimaryClass());
         MethodDeclaration method = getMethodDeclaration(type, bug.getPrimaryMethod());
-
 
         FieldAnnotation primaryField = bug.getPrimaryField();
         if (primaryField == null) {
@@ -79,14 +78,11 @@ public class CreateMutableCloneResolution extends BugResolution {
         // set up the clone part
         MethodInvocation cloneInvoke = invokeClone(workingUnit, original);
 
-
-
         // cast the result to the right type
         CastExpression castRet = workingUnit.getAST().newCastExpression();
         castRet.setExpression(cloneInvoke);
         Type retType = (Type) ASTNode.copySubtree(castRet.getAST(), method.getReturnType2());
         castRet.setType(retType);
-
 
         ConditionalExpression conditionalExpression = workingUnit.getAST().newConditionalExpression();
         conditionalExpression.setElseExpression(castRet);
@@ -107,6 +103,7 @@ public class CreateMutableCloneResolution extends BugResolution {
     /**
      * @param workingUnit
      * @param original
+     *
      * @return
      */
     private MethodInvocation invokeClone(CompilationUnit workingUnit, SimpleName original) {

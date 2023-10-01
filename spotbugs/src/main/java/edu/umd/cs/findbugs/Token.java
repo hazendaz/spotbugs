@@ -23,6 +23,7 @@ package edu.umd.cs.findbugs;
  * Simple token class.
  *
  * @author David Hovemeyer
+ *
  * @see Tokenizer
  */
 public class Token {
@@ -64,9 +65,9 @@ public class Token {
      * Constructor.
      *
      * @param kind
-     *            the kind of token
+     *                   the kind of token
      * @param lexeme
-     *            the text value of the token
+     *                   the text value of the token
      */
     public Token(int kind, String lexeme) {
         this.kind = kind;
@@ -77,7 +78,7 @@ public class Token {
      * Constructor when there is no text. E.g., EOF and EOL.
      *
      * @param kind
-     *            the kind of token
+     *                 the kind of token
      */
     public Token(int kind) {
         this.kind = kind;

@@ -31,7 +31,8 @@ public interface TypeMatcher {
      * Determine whether given type matches this predicate.
      *
      * @param t
-     *            a Type
+     *              a Type
+     *
      * @return true if the Type matches, false otherwise
      */
     public boolean matches(Type t);

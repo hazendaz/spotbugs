@@ -339,7 +339,8 @@ class Subtypes2Test extends FindBugsTestCase {
                 Assertions.assertEquals(typeObject, test.getFirstCommonSuperclass(typeObject, typeSerializable));
                 Assertions.assertEquals(typeObject, test.getFirstCommonSuperclass(typeSerializable, typeClonable));
 
-                Assertions.assertEquals(typeSerializable, test.getFirstCommonSuperclass(typeSerializable, typeSerializable));
+                Assertions.assertEquals(typeSerializable,
+                        test.getFirstCommonSuperclass(typeSerializable, typeSerializable));
             }
         });
     }
@@ -359,14 +360,16 @@ class Subtypes2Test extends FindBugsTestCase {
                 Assertions.assertEquals(typeObject, test.getFirstCommonSuperclass(typeArrayInteger, typeObject));
                 Assertions.assertEquals(typeObject, test.getFirstCommonSuperclass(typeSerializable, typeArrayClonable));
 
-                Assertions.assertEquals(typeArrayComparable, test.getFirstCommonSuperclass(typeArrayString, typeArrayInteger));
+                Assertions.assertEquals(typeArrayComparable,
+                        test.getFirstCommonSuperclass(typeArrayString, typeArrayInteger));
 
                 Assertions.assertEquals(typeArrayInt, test.getFirstCommonSuperclass(typeArrayInt, typeArrayInt));
                 Assertions.assertEquals(typeObject, test.getFirstCommonSuperclass(typeArrayChar, typeArrayInt));
 
                 Assertions.assertEquals(typeObject, test.getFirstCommonSuperclass(typeArrayString, typeArrayInt));
 
-                Assertions.assertEquals(typeArrayObject, test.getFirstCommonSuperclass(typeArrayArraySerializable, typeArrayString));
+                Assertions.assertEquals(typeArrayObject,
+                        test.getFirstCommonSuperclass(typeArrayArraySerializable, typeArrayString));
 
                 Assertions.assertEquals(typeObject, test.getFirstCommonSuperclass(typeArrayArrayString, typeArrayInt));
             }
@@ -381,9 +384,12 @@ class Subtypes2Test extends FindBugsTestCase {
             public void run() throws Throwable {
                 Subtypes2 test = getSubtypes2();
 
-                Assertions.assertEquals(typeArrayObject, test.getFirstCommonSuperclass(typeArrayArrayInt, typeArrayArrayChar));
-                Assertions.assertEquals(typeArrayObject, test.getFirstCommonSuperclass(typeArrayArrayInt, typeArrayArrayArrayChar));
-                Assertions.assertEquals(typeArrayArrayObject, test.getFirstCommonSuperclass(typeArrayArrayArrayChar, typeArrayArrayArrayInt));
+                Assertions.assertEquals(typeArrayObject,
+                        test.getFirstCommonSuperclass(typeArrayArrayInt, typeArrayArrayChar));
+                Assertions.assertEquals(typeArrayObject,
+                        test.getFirstCommonSuperclass(typeArrayArrayInt, typeArrayArrayArrayChar));
+                Assertions.assertEquals(typeArrayArrayObject,
+                        test.getFirstCommonSuperclass(typeArrayArrayArrayChar, typeArrayArrayArrayInt));
 
                 // Sanity check
                 Assertions.assertEquals(typeArrayArrayArrayChar,
@@ -406,8 +412,7 @@ class Subtypes2Test extends FindBugsTestCase {
             }
         });
         /*
-         * ObjectType typeList; ObjectType typeMap; ObjectType typeCollection;
-         * ObjectType typeHashSet;
+         * ObjectType typeList; ObjectType typeMap; ObjectType typeCollection; ObjectType typeHashSet;
          */
 
     }

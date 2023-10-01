@@ -73,11 +73,11 @@ public class ClassPathBuilder implements IClassPathBuilder {
 
     private static final boolean DEBUG = VERBOSE || SystemProperties.getBoolean("findbugs2.builder.debug");
 
-    private static final boolean NO_PARSE_CLASS_NAMES = SystemProperties.getBoolean("findbugs2.builder.noparseclassnames");
+    private static final boolean NO_PARSE_CLASS_NAMES =
+            SystemProperties.getBoolean("findbugs2.builder.noparseclassnames");
 
     /**
-     * Worklist item. Represents one codebase to be processed during the
-     * classpath construction algorithm.
+     * Worklist item. Represents one codebase to be processed during the classpath construction algorithm.
      */
     static class WorkListItem {
         private final ICodeBaseLocator codeBaseLocator;
@@ -91,7 +91,8 @@ public class ClassPathBuilder implements IClassPathBuilder {
             return "WorkListItem(" + codeBaseLocator + ", " + isAppCodeBase + ", " + howDiscovered + ")";
         }
 
-        public WorkListItem(ICodeBaseLocator codeBaseLocator, boolean isApplication, ICodeBase.Discovered howDiscovered) {
+        public WorkListItem(ICodeBaseLocator codeBaseLocator, boolean isApplication,
+                ICodeBase.Discovered howDiscovered) {
             this.codeBaseLocator = codeBaseLocator;
             this.isAppCodeBase = isApplication;
             this.howDiscovered = howDiscovered;
@@ -176,9 +177,9 @@ public class ClassPathBuilder implements IClassPathBuilder {
      * Constructor.
      *
      * @param classFactory
-     *            the class factory
+     *                         the class factory
      * @param errorLogger
-     *            the error logger
+     *                         the error logger
      */
     ClassPathBuilder(IClassFactory classFactory, IErrorLogger errorLogger) {
         this.classFactory = classFactory;
@@ -192,9 +193,8 @@ public class ClassPathBuilder implements IClassPathBuilder {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IClassPathBuilder#addCodeBase(edu.umd.cs
-     * .findbugs.classfile.ICodeBaseLocator, boolean)
+     * @see edu.umd.cs.findbugs.classfile.IClassPathBuilder#addCodeBase(edu.umd.cs .findbugs.classfile.ICodeBaseLocator,
+     * boolean)
      */
     @Override
     public void addCodeBase(ICodeBaseLocator locator, boolean isApplication) {
@@ -204,9 +204,7 @@ public class ClassPathBuilder implements IClassPathBuilder {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IClassPathBuilder#scanNestedArchives(boolean
-     * )
+     * @see edu.umd.cs.findbugs.classfile.IClassPathBuilder#scanNestedArchives(boolean )
      */
     @Override
     public void scanNestedArchives(boolean scanNestedArchives) {
@@ -216,14 +214,12 @@ public class ClassPathBuilder implements IClassPathBuilder {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IClassPathBuilder#build(edu.umd.cs.findbugs
-     * .classfile.IClassPath,
+     * @see edu.umd.cs.findbugs.classfile.IClassPathBuilder#build(edu.umd.cs.findbugs .classfile.IClassPath,
      * edu.umd.cs.findbugs.classfile.IClassPathBuilderProgress)
      */
     @Override
-    public void build(IClassPath classPath, IClassPathBuilderProgress progress) throws CheckedAnalysisException, IOException,
-            InterruptedException {
+    public void build(IClassPath classPath, IClassPathBuilderProgress progress)
+            throws CheckedAnalysisException, IOException, InterruptedException {
         // Discover all directly and indirectly referenced codebases
         processWorkList(classPath, projectWorkList, progress);
 
@@ -284,8 +280,7 @@ public class ClassPathBuilder implements IClassPathBuilder {
     }
 
     /**
-     * Make an effort to find the codebases containing any files required for
-     * analysis.
+     * Make an effort to find the codebases containing any files required for analysis.
      */
     private void locateCodebasesRequiredForAnalysis(IClassPath classPath, IClassPathBuilderProgress progress)
             throws InterruptedException, IOException, ResourceNotFoundException {
@@ -298,11 +293,12 @@ public class ClassPathBuilder implements IClassPathBuilder {
                 foundJavaLangObject = probeCodeBaseForResource(discoveredCodeBase, "java/lang/Object.class");
             }
             if (!foundFindBugsAnnotations) {
-                foundFindBugsAnnotations = probeCodeBaseForResource(discoveredCodeBase,
-                        "edu/umd/cs/findbugs/annotations/Nonnull.class");
+                foundFindBugsAnnotations =
+                        probeCodeBaseForResource(discoveredCodeBase, "edu/umd/cs/findbugs/annotations/Nonnull.class");
             }
             if (!foundJSR305Annotations) {
-                foundJSR305Annotations = probeCodeBaseForResource(discoveredCodeBase, "javax/annotation/meta/TypeQualifier.class");
+                foundJSR305Annotations =
+                        probeCodeBaseForResource(discoveredCodeBase, "javax/annotation/meta/TypeQualifier.class");
                 if (DEBUG) {
                     System.out.println("foundJSR305Annotations: " + foundJSR305Annotations);
                 }
@@ -358,7 +354,8 @@ public class ClassPathBuilder implements IClassPathBuilder {
      * Probe a codebase to see if a given source exists in that code base.
      *
      * @param resourceName
-     *            name of a resource
+     *                         name of a resource
+     *
      * @return true if the resource exists in the codebase, false if not
      */
     private boolean probeCodeBaseForResource(DiscoveredCodeBase discoveredCodeBase, String resourceName) {
@@ -413,16 +410,14 @@ public class ClassPathBuilder implements IClassPathBuilder {
     }
 
     /**
-     * Create a worklist that will add the FindBugs lib/annotations.jar to the
-     * classpath.
+     * Create a worklist that will add the FindBugs lib/annotations.jar to the classpath.
      */
     private LinkedList<WorkListItem> buildFindBugsAnnotationCodebaseList() {
         return createFindBugsLibWorkList("annotations.jar");
     }
 
     /**
-     * Create a worklist that will add the FindBugs lib/jsr305.jar to the
-     * classpath.
+     * Create a worklist that will add the FindBugs lib/jsr305.jar to the classpath.
      */
     private LinkedList<WorkListItem> buildJSR305AnnotationsCodebaseList() {
         return createFindBugsLibWorkList("jsr305.jar");
@@ -503,16 +498,17 @@ public class ClassPathBuilder implements IClassPathBuilder {
     }
 
     private boolean matchesJarFile(String entry, String jarFileName) {
-        return entry.equals(jarFileName) || entry.endsWith(File.separator + jarFileName) || entry.endsWith("/" + jarFileName);
+        return entry.equals(jarFileName) || entry.endsWith(File.separator + jarFileName) ||
+                entry.endsWith("/" + jarFileName);
     }
 
     /**
      * Add worklist items from given system classpath.
      *
      * @param workList
-     *            the worklist
+     *                     the worklist
      * @param path
-     *            a system classpath
+     *                     a system classpath
      */
     private void addWorkListItemsForClasspath(LinkedList<WorkListItem> workList, String path) {
         if (path == null) {
@@ -534,9 +530,9 @@ public class ClassPathBuilder implements IClassPathBuilder {
      * Add worklist items from given extensions directory.
      *
      * @param workList
-     *            the worklist
+     *                     the worklist
      * @param extDir
-     *            an extensions directory
+     *                     an extensions directory
      */
     private void addWorkListItemsForExtDir(LinkedList<WorkListItem> workList, String extDir) {
         File dir = new File(extDir);
@@ -549,27 +545,27 @@ public class ClassPathBuilder implements IClassPathBuilder {
         }
 
         for (File archive : fileList) {
-            addToWorkList(workList, new WorkListItem(classFactory.createFilesystemCodeBaseLocator(archive.getPath()), false,
-                    ICodeBase.Discovered.IN_SYSTEM_CLASSPATH));
+            addToWorkList(workList, new WorkListItem(classFactory.createFilesystemCodeBaseLocator(archive.getPath()),
+                    false, ICodeBase.Discovered.IN_SYSTEM_CLASSPATH));
         }
     }
 
     /**
-     * Process classpath worklist items. We will attempt to find all nested
-     * archives and Class-Path entries specified in Jar manifests. This should
-     * give us as good an idea as possible of all of the classes available (and
-     * which are part of the application).
+     * Process classpath worklist items. We will attempt to find all nested archives and Class-Path entries specified in
+     * Jar manifests. This should give us as good an idea as possible of all of the classes available (and which are
+     * part of the application).
      *
      * @param workList
-     *            the worklist to process
+     *                     the worklist to process
      * @param progress
-     *            IClassPathBuilderProgress callback
+     *                     IClassPathBuilderProgress callback
+     *
      * @throws InterruptedException
      * @throws IOException
      * @throws ResourceNotFoundException
      */
-    private void processWorkList(IClassPath classPath, LinkedList<WorkListItem> workList, IClassPathBuilderProgress progress)
-            throws InterruptedException, IOException, ResourceNotFoundException {
+    private void processWorkList(IClassPath classPath, LinkedList<WorkListItem> workList,
+            IClassPathBuilderProgress progress) throws InterruptedException, IOException, ResourceNotFoundException {
         // Build the classpath, scanning codebases for nested archives
         // and referenced codebases.
         while (!workList.isEmpty()) {
@@ -601,7 +597,8 @@ public class ClassPathBuilder implements IClassPathBuilder {
                 FilesystemCodeBaseLocator l = (FilesystemCodeBaseLocator) item.getCodeBaseLocator();
                 if (l.getPathName().endsWith(".java")) {
                     if (DEBUG) {
-                        System.err.println("Ignoring .java file \"" + l.getPathName() + "\" specified in classpath or auxclasspath");
+                        System.err.println("Ignoring .java file \"" + l.getPathName() +
+                                "\" specified in classpath or auxclasspath");
                     }
                     continue;
                 }
@@ -625,9 +622,9 @@ public class ClassPathBuilder implements IClassPathBuilder {
                 // If it is a scannable codebase, check it for nested archives.
                 // In addition, if it is an application codebase then
                 // make a list of application classes.
-                if (discoveredCodeBase.getCodeBase() instanceof IScannableCodeBase
-                        && (discoveredCodeBase.codeBase.isApplicationCodeBase()
-                                || item.getHowDiscovered() == ICodeBase.Discovered.SPECIFIED)) {
+                if (discoveredCodeBase.getCodeBase() instanceof IScannableCodeBase &&
+                        (discoveredCodeBase.codeBase.isApplicationCodeBase() ||
+                                item.getHowDiscovered() == ICodeBase.Discovered.SPECIFIED)) {
                     scanCodebase(classPath, workList, discoveredCodeBase);
                 }
 
@@ -653,19 +650,19 @@ public class ClassPathBuilder implements IClassPathBuilder {
     /**
      * Scan given codebase in order to
      * <ul>
-     * <li>check the codebase for nested archives (adding any found to the
-     * worklist)
+     * <li>check the codebase for nested archives (adding any found to the worklist)
      * <li>build a list of class resources found in the codebase
      * </ul>
      *
      * @param workList
-     *            the worklist
+     *                               the worklist
      * @param discoveredCodeBase
-     *            the codebase to scan
+     *                               the codebase to scan
+     *
      * @throws InterruptedException
      */
-    private void scanCodebase(IClassPath classPath, LinkedList<WorkListItem> workList, DiscoveredCodeBase discoveredCodeBase)
-            throws InterruptedException {
+    private void scanCodebase(IClassPath classPath, LinkedList<WorkListItem> workList,
+            DiscoveredCodeBase discoveredCodeBase) throws InterruptedException {
         if (DEBUG) {
             System.out.println("Scanning " + discoveredCodeBase.getCodeBase().getCodeBaseLocator());
         }
@@ -679,8 +676,9 @@ public class ClassPathBuilder implements IClassPathBuilder {
                 System.out.println("Entry: " + entry.getResourceName());
             }
 
-            if (!NO_PARSE_CLASS_NAMES && codeBase.isApplicationCodeBase()
-                    && DescriptorFactory.isClassResource(entry.getResourceName()) && !(entry instanceof SingleFileCodeBaseEntry)) {
+            if (!NO_PARSE_CLASS_NAMES && codeBase.isApplicationCodeBase() &&
+                    DescriptorFactory.isClassResource(entry.getResourceName()) &&
+                    !(entry instanceof SingleFileCodeBaseEntry)) {
                 parseClassName(entry);
             }
 
@@ -688,25 +686,24 @@ public class ClassPathBuilder implements IClassPathBuilder {
             discoveredCodeBase.addCodeBaseEntry(entry);
 
             // If resource is a nested archive, add it to the worklist
-            if (scanNestedArchives && (codeBase.isApplicationCodeBase() || codeBase instanceof DirectoryCodeBase)
-                    && Archive.isArchiveFileName(entry.getResourceName())) {
+            if (scanNestedArchives && (codeBase.isApplicationCodeBase() || codeBase instanceof DirectoryCodeBase) &&
+                    Archive.isArchiveFileName(entry.getResourceName())) {
                 if (VERBOSE) {
                     System.out.println("Entry is a library!");
                 }
-                ICodeBaseLocator nestedArchiveLocator = classFactory.createNestedArchiveCodeBaseLocator(codeBase,
-                        entry.getResourceName());
-                addToWorkList(workList,
-                        new WorkListItem(nestedArchiveLocator, codeBase.isApplicationCodeBase(), ICodeBase.Discovered.NESTED));
+                ICodeBaseLocator nestedArchiveLocator =
+                        classFactory.createNestedArchiveCodeBaseLocator(codeBase, entry.getResourceName());
+                addToWorkList(workList, new WorkListItem(nestedArchiveLocator, codeBase.isApplicationCodeBase(),
+                        ICodeBase.Discovered.NESTED));
             }
         }
     }
 
     /**
-     * Attempt to parse data of given resource in order to divine the real name
-     * of the class contained in the resource.
+     * Attempt to parse data of given resource in order to divine the real name of the class contained in the resource.
      *
      * @param entry
-     *            the resource
+     *                  the resource
      */
     private void parseClassName(ICodeBaseEntry entry) {
         try (InputStream resourceIn = entry.openResource();
@@ -728,12 +725,14 @@ public class ClassPathBuilder implements IClassPathBuilder {
      * Check a codebase for a Jar manifest to examine for Class-Path entries.
      *
      * @param workList
-     *            the worklist
+     *                     the worklist
      * @param codeBase
-     *            the codebase for examine for a Jar manifest
+     *                     the codebase for examine for a Jar manifest
+     *
      * @throws IOException
      */
-    private void scanJarManifestForClassPathEntries(LinkedList<WorkListItem> workList, ICodeBase codeBase) throws IOException {
+    private void scanJarManifestForClassPathEntries(LinkedList<WorkListItem> workList, ICodeBase codeBase)
+            throws IOException {
         // See if this codebase has a jar manifest
         ICodeBaseEntry manifestEntry = codeBase.lookupResource("META-INF/MANIFEST.MF");
         if (manifestEntry == null) {
@@ -754,26 +753,27 @@ public class ClassPathBuilder implements IClassPathBuilder {
                     // Create a codebase locator for the classpath entry
                     // relative to the codebase in which we discovered the Jar
                     // manifest
-                    ICodeBaseLocator relativeCodeBaseLocator = codeBase.getCodeBaseLocator().createRelativeCodeBaseLocator(path);
+                    ICodeBaseLocator relativeCodeBaseLocator =
+                            codeBase.getCodeBaseLocator().createRelativeCodeBaseLocator(path);
 
                     // Codebases found in Class-Path entries are always
                     // added to the aux classpath, not the application.
-                    addToWorkList(workList, new WorkListItem(relativeCodeBaseLocator, false, ICodeBase.Discovered.IN_JAR_MANIFEST));
+                    addToWorkList(workList,
+                            new WorkListItem(relativeCodeBaseLocator, false, ICodeBase.Discovered.IN_JAR_MANIFEST));
                 }
             }
         }
     }
 
     /**
-     * Add a worklist item to the worklist. This method maintains the invariant
-     * that all of the worklist items representing application codebases appear
-     * <em>before</em> all of the worklist items representing auxiliary
+     * Add a worklist item to the worklist. This method maintains the invariant that all of the worklist items
+     * representing application codebases appear <em>before</em> all of the worklist items representing auxiliary
      * codebases.
      *
      * @param workList
-     *            the worklist
+     *                      the worklist
      * @param itemToAdd
-     *            the worklist item to add
+     *                      the worklist item to add
      */
     private void addToWorkList(LinkedList<WorkListItem> workList, WorkListItem itemToAdd) {
         if (DEBUG) {

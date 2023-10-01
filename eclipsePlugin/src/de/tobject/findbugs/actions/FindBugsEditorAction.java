@@ -36,7 +36,9 @@ import de.tobject.findbugs.builder.WorkItem;
  * @author Peter Friese
  * @author Phil Crosby
  * @author Andrei Loskutov
+ *
  * @version 1.1
+ *
  * @since 25.09.2003
  */
 public class FindBugsEditorAction extends FindBugsAction implements IEditorActionDelegate {

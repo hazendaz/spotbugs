@@ -72,13 +72,14 @@ public class ClassNameAndSuperclassInfo extends ClassDescriptor {
         Set<ClassDescriptor> calledClassDescriptors = Collections.<ClassDescriptor>emptySet();
 
         public ClassNameAndSuperclassInfo build() {
-            return new ClassNameAndSuperclassInfo(classDescriptor, superclassDescriptor, interfaceDescriptorList, codeBaseEntry,
-                    accessFlags, referencedClassDescriptorList, calledClassDescriptors, majorVersion, minorVersion);
+            return new ClassNameAndSuperclassInfo(classDescriptor, superclassDescriptor, interfaceDescriptorList,
+                    codeBaseEntry, accessFlags, referencedClassDescriptorList, calledClassDescriptors, majorVersion,
+                    minorVersion);
         }
 
         /**
          * @param accessFlags
-         *            The accessFlags to set.
+         *                        The accessFlags to set.
          */
         public void setAccessFlags(int accessFlags) {
             this.accessFlags = accessFlags;
@@ -86,7 +87,7 @@ public class ClassNameAndSuperclassInfo extends ClassDescriptor {
 
         /**
          * @param classDescriptor
-         *            The classDescriptor to set.
+         *                            The classDescriptor to set.
          */
         public void setClassDescriptor(ClassDescriptor classDescriptor) {
             this.classDescriptor = classDescriptor;
@@ -94,7 +95,7 @@ public class ClassNameAndSuperclassInfo extends ClassDescriptor {
 
         /**
          * @param codeBaseEntry
-         *            The codeBaseEntry to set.
+         *                          The codeBaseEntry to set.
          */
         public void setCodeBaseEntry(ICodeBaseEntry codeBaseEntry) {
             this.codeBaseEntry = codeBaseEntry;
@@ -102,7 +103,7 @@ public class ClassNameAndSuperclassInfo extends ClassDescriptor {
 
         /**
          * @param interfaceDescriptorList
-         *            The interfaceDescriptorList to set.
+         *                                    The interfaceDescriptorList to set.
          */
         public void setInterfaceDescriptorList(ClassDescriptor[] interfaceDescriptorList) {
             this.interfaceDescriptorList = interfaceDescriptorList;
@@ -110,7 +111,7 @@ public class ClassNameAndSuperclassInfo extends ClassDescriptor {
 
         /**
          * @param superclassDescriptor
-         *            The superclassDescriptor to set.
+         *                                 The superclassDescriptor to set.
          */
         public void setSuperclassDescriptor(ClassDescriptor superclassDescriptor) {
             this.superclassDescriptor = superclassDescriptor;
@@ -123,7 +124,7 @@ public class ClassNameAndSuperclassInfo extends ClassDescriptor {
 
         /**
          * @param referencedClassDescriptorList
-         *            The referencedClassDescriptorList to set.
+         *                                          The referencedClassDescriptorList to set.
          */
         public void setReferencedClassDescriptors(Collection<ClassDescriptor> referencedClassDescriptorList) {
             if (referencedClassDescriptorList.isEmpty()) {
@@ -141,7 +142,6 @@ public class ClassNameAndSuperclassInfo extends ClassDescriptor {
             }
         }
     }
-
 
     ClassNameAndSuperclassInfo(ClassDescriptor classDescriptor, ClassDescriptor superclassDescriptor,
             ClassDescriptor[] interfaceDescriptorList, ICodeBaseEntry codeBaseEntry, int accessFlags,

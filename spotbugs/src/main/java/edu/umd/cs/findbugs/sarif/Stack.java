@@ -17,7 +17,9 @@ import org.jspecify.annotations.NonNull;
 
 /**
  * A class representing {@code stack} object (§3.44)
- * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/cs01/sarif-v2.1.0-cs01.html#_Toc16012754">3.44 stack object</a>
+ *
+ * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/cs01/sarif-v2.1.0-cs01.html#_Toc16012754">3.44 stack
+ *          object</a>
  */
 class Stack {
     final String message;
@@ -28,10 +30,11 @@ class Stack {
         this.frames = Collections.unmodifiableList(Objects.requireNonNull(frames));
     }
 
-    static Stack fromThrowable(Throwable throwable, @NonNull SourceFinder sourceFinder, @NonNull Map<URI, String> baseToId) {
-        List<StackFrame> frames = Arrays.stream(Objects.requireNonNull(throwable).getStackTrace()).map(element -> StackFrame.fromStackTraceElement(
-                element, sourceFinder, baseToId)).collect(
-                        Collectors.toList());
+    static Stack fromThrowable(Throwable throwable, @NonNull SourceFinder sourceFinder,
+            @NonNull Map<URI, String> baseToId) {
+        List<StackFrame> frames = Arrays.stream(Objects.requireNonNull(throwable).getStackTrace())
+                .map(element -> StackFrame.fromStackTraceElement(element, sourceFinder, baseToId))
+                .collect(Collectors.toList());
         String message = throwable.getMessage();
         if (message == null) {
             message = "no message given";
@@ -56,7 +59,9 @@ class Stack {
 
     /**
      * A class representing {@code stackFrame} object (§3.45)
-     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/cs01/sarif-v2.1.0-cs01.html#_Toc16012758">3.45 stackFrame object</a>
+     *
+     * @see <a href="https://docs.oasis-open.org/sarif/sarif/v2.1.0/cs01/sarif-v2.1.0-cs01.html#_Toc16012758">3.45
+     *          stackFrame object</a>
      */
     static class StackFrame {
 

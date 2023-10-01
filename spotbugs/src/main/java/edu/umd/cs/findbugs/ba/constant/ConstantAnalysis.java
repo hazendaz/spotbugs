@@ -32,6 +32,7 @@ import edu.umd.cs.findbugs.ba.Location;
  * Dataflow analysis to find constant values.
  *
  * @see edu.umd.cs.findbugs.ba.constant.Constant
+ *
  * @author David Hovemeyer
  */
 public class ConstantAnalysis extends FrameDataflowAnalysis<Constant, ConstantFrame> {
@@ -88,7 +89,8 @@ public class ConstantAnalysis extends FrameDataflowAnalysis<Constant, ConstantFr
     }
 
     @Override
-    protected void mergeValues(ConstantFrame otherFrame, ConstantFrame resultFrame, int slot) throws DataflowAnalysisException {
+    protected void mergeValues(ConstantFrame otherFrame, ConstantFrame resultFrame, int slot)
+            throws DataflowAnalysisException {
         Constant value = Constant.merge(resultFrame.getValue(slot), otherFrame.getValue(slot));
         resultFrame.setValue(slot, value);
     }

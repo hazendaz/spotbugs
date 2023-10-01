@@ -72,9 +72,7 @@ public class DirectoryCodeBaseEntry extends AbstractScannableCodeBaseEntry {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.impl.AbstractScannableCodeBaseEntry#getCodeBase
-     * ()
+     * @see edu.umd.cs.findbugs.classfile.impl.AbstractScannableCodeBaseEntry#getCodeBase ()
      */
     @Override
     public AbstractScannableCodeBase getCodeBase() {
@@ -84,8 +82,7 @@ public class DirectoryCodeBaseEntry extends AbstractScannableCodeBaseEntry {
     /*
      * (non-Javadoc)
      *
-     * @see edu.umd.cs.findbugs.classfile.impl.AbstractScannableCodeBaseEntry#
-     * getRealResourceName()
+     * @see edu.umd.cs.findbugs.classfile.impl.AbstractScannableCodeBaseEntry# getRealResourceName()
      */
     @Override
     public String getRealResourceName() {

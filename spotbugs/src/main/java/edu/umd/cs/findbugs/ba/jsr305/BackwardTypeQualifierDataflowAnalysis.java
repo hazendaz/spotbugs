@@ -70,23 +70,22 @@ public class BackwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflow
      * Constructor.
      *
      * @param dfs
-     *            DepthFirstSearch on the analyzed method
+     *                               DepthFirstSearch on the analyzed method
      * @param rdfs
-     *            ReverseDepthFirstSearch on the analyzed method
+     *                               ReverseDepthFirstSearch on the analyzed method
      * @param xmethod
-     *            XMethod for the analyzed method
+     *                               XMethod for the analyzed method
      * @param cfg
-     *            CFG of the analyzed method
+     *                               CFG of the analyzed method
      * @param vnaDataflow
-     *            ValueNumberDataflow on the analyzed method
+     *                               ValueNumberDataflow on the analyzed method
      * @param cpg
-     *            ConstantPoolGen of the analyzed method
+     *                               ConstantPoolGen of the analyzed method
      * @param typeQualifierValue
-     *            TypeQualifierValue representing type qualifier the analysis
-     *            should check
+     *                               TypeQualifierValue representing type qualifier the analysis should check
      */
-    public BackwardTypeQualifierDataflowAnalysis(DepthFirstSearch dfs, ReverseDepthFirstSearch rdfs, XMethod xmethod, CFG cfg,
-            ValueNumberDataflow vnaDataflow, ConstantPoolGen cpg, TypeQualifierValue<?> typeQualifierValue) {
+    public BackwardTypeQualifierDataflowAnalysis(DepthFirstSearch dfs, ReverseDepthFirstSearch rdfs, XMethod xmethod,
+            CFG cfg, ValueNumberDataflow vnaDataflow, ConstantPoolGen cpg, TypeQualifierValue<?> typeQualifierValue) {
         super(xmethod, cfg, vnaDataflow, cpg, typeQualifierValue);
         this.dfs = dfs;
         this.rdfs = rdfs;
@@ -94,7 +93,7 @@ public class BackwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflow
 
     /**
      * @param forwardTypeQualifierDataflow
-     *            The forwardTypeQualifierDataflow to set.
+     *                                         The forwardTypeQualifierDataflow to set.
      */
     public void setForwardTypeQualifierDataflow(ForwardTypeQualifierDataflow forwardTypeQualifierDataflow) {
         this.forwardTypeQualifierDataflow = forwardTypeQualifierDataflow;
@@ -157,7 +156,8 @@ public class BackwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflow
     private void registerInstructionSinks() throws DataflowAnalysisException {
         TypeQualifierAnnotation returnValueAnnotation = null;
         if (!xmethod.getSignature().endsWith(")V")) {
-            returnValueAnnotation = TypeQualifierApplications.getEffectiveTypeQualifierAnnotation(xmethod, typeQualifierValue);
+            returnValueAnnotation =
+                    TypeQualifierApplications.getEffectiveTypeQualifierAnnotation(xmethod, typeQualifierValue);
         }
 
         for (Iterator<Location> i = cfg.locationIterator(); i.hasNext();) {
@@ -180,7 +180,8 @@ public class BackwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflow
         }
     }
 
-    private void modelReturn(TypeQualifierAnnotation returnValueAnnotation, Location location) throws DataflowAnalysisException {
+    private void modelReturn(TypeQualifierAnnotation returnValueAnnotation, Location location)
+            throws DataflowAnalysisException {
         When when = (returnValueAnnotation != null) ? returnValueAnnotation.when : When.UNKNOWN;
 
         // Model return statement
@@ -195,8 +196,8 @@ public class BackwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflow
     private void modelFieldStore(Location location) throws DataflowAnalysisException {
         // Model field stores
         XField writtenField = XFactory.createXField((FieldInstruction) location.getHandle().getInstruction(), cpg);
-        TypeQualifierAnnotation tqa = TypeQualifierApplications.getEffectiveTypeQualifierAnnotation(writtenField,
-                typeQualifierValue);
+        TypeQualifierAnnotation tqa =
+                TypeQualifierApplications.getEffectiveTypeQualifierAnnotation(writtenField, typeQualifierValue);
         When when = (tqa != null) ? tqa.when : When.UNKNOWN;
 
         // The ValueNumberFrame *before* the FieldInstruction should
@@ -224,7 +225,7 @@ public class BackwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflow
         ValueNumberFrame vnaFrame = vnaDataflow.getFactAtLocation(location);
 
         if (!vnaFrame.isValid()) {
-            // AnalysisContext.logError("bad vna frame  in " + xmethod +
+            // AnalysisContext.logError("bad vna frame in " + xmethod +
             // " at location " + location.getHandle().getPosition() +
             // " calling " + calledMethod);
             return;
@@ -235,8 +236,8 @@ public class BackwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflow
         }
 
         for (int param = 0; param < calledMethod.getNumParams(); param++) {
-            TypeQualifierAnnotation tqa = TypeQualifierApplications.getEffectiveTypeQualifierAnnotation(calledMethod, param,
-                    typeQualifierValue);
+            TypeQualifierAnnotation tqa = TypeQualifierApplications.getEffectiveTypeQualifierAnnotation(calledMethod,
+                    param, typeQualifierValue);
 
             boolean interproc = false;
             if (TypeQualifierDatabase.USE_DATABASE && tqa == null) {
@@ -265,10 +266,8 @@ public class BackwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflow
     /*
      * (non-Javadoc)
      *
-     * @see edu.umd.cs.findbugs.ba.jsr305.TypeQualifierDataflowAnalysis#
-     * propagateAcrossPhiNode
-     * (edu.umd.cs.findbugs.ba.jsr305.TypeQualifierValueSet,
-     * edu.umd.cs.findbugs.ba.vna.ValueNumber,
+     * @see edu.umd.cs.findbugs.ba.jsr305.TypeQualifierDataflowAnalysis# propagateAcrossPhiNode
+     * (edu.umd.cs.findbugs.ba.jsr305.TypeQualifierValueSet, edu.umd.cs.findbugs.ba.vna.ValueNumber,
      * edu.umd.cs.findbugs.ba.vna.ValueNumber)
      */
     @Override

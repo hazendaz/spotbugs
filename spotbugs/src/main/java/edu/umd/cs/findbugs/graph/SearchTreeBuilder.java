@@ -24,10 +24,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
- * A search tree callback implementation that builds a list of SearchTrees
- * recording a graph search.
+ * A search tree callback implementation that builds a list of SearchTrees recording a graph search.
  *
  * @see SearchTreeCallback
+ *
  * @author David Hovemeyer
  */
 public class SearchTreeBuilder<VertexType extends GraphVertex<VertexType>> implements SearchTreeCallback<VertexType> {

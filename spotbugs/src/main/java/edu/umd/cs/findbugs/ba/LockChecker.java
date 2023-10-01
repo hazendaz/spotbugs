@@ -32,19 +32,17 @@ import edu.umd.cs.findbugs.classfile.Global;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Front-end for LockDataflow that can avoid doing unnecessary work (e.g.,
- * actually performing the lock dataflow) if the method analyzed does not
- * contain explicit monitorenter/monitorexit instructions.
- *
+ * Front-end for LockDataflow that can avoid doing unnecessary work (e.g., actually performing the lock dataflow) if the
+ * method analyzed does not contain explicit monitorenter/monitorexit instructions.
  * <p>
- * Note that because LockSets use value numbers, ValueNumberAnalysis must be
- * performed for all methods that are synchronized or contain explicit
- * monitorenter/monitorexit instructions.
+ * Note that because LockSets use value numbers, ValueNumberAnalysis must be performed for all methods that are
+ * synchronized or contain explicit monitorenter/monitorexit instructions.
  * </p>
  *
  * @see LockSet
  * @see LockDataflow
  * @see LockAnalysis
+ *
  * @author David Hovemeyer
  */
 public class LockChecker {
@@ -73,8 +71,8 @@ public class LockChecker {
      */
     public void execute() throws CheckedAnalysisException {
         method = Global.getAnalysisCache().getMethodAnalysis(Method.class, methodDescriptor);
-        ClassContext classContext = Global.getAnalysisCache().getClassAnalysis(ClassContext.class,
-                methodDescriptor.getClassDescriptor());
+        ClassContext classContext =
+                Global.getAnalysisCache().getClassAnalysis(ClassContext.class, methodDescriptor.getClassDescriptor());
 
         BitSet bytecodeSet = classContext.getBytecodeSet(method);
         if (bytecodeSet == null) {
@@ -94,8 +92,10 @@ public class LockChecker {
      * Get LockSet at given Location.
      *
      * @param location
-     *            the Location
+     *                     the Location
+     *
      * @return the LockSet at that Location
+     *
      * @throws DataflowAnalysisException
      */
     public LockSet getFactAtLocation(Location location) throws DataflowAnalysisException {

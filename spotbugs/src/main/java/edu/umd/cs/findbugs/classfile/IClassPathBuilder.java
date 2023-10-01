@@ -37,19 +37,17 @@ public interface IClassPathBuilder {
      * Add a project codebase.
      *
      * @param locator
-     *            locator for project codebase
+     *                          locator for project codebase
      * @param isApplication
-     *            true if the codebase is an application codebase, false
-     *            otherwise
+     *                          true if the codebase is an application codebase, false otherwise
      */
     public void addCodeBase(ICodeBaseLocator locator, boolean isApplication);
 
     /**
-     * Set whether or not nested archives should be scanned. This should be
-     * called before the build() method is called.
+     * Set whether or not nested archives should be scanned. This should be called before the build() method is called.
      *
      * @param scanNestedArchives
-     *            true if nested archives should be scanned, false otherwise
+     *                               true if nested archives should be scanned, false otherwise
      */
     public void scanNestedArchives(boolean scanNestedArchives);
 
@@ -57,19 +55,19 @@ public interface IClassPathBuilder {
      * Build the classpath.
      *
      * @param classPath
-     *            IClassPath object to build
+     *                      IClassPath object to build
      * @param progress
-     *            IClassPathBuilderProgress callback
+     *                      IClassPathBuilderProgress callback
+     *
      * @throws ResourceNotFoundException
      * @throws IOException
      * @throws InterruptedException
      */
-    public void build(IClassPath classPath, IClassPathBuilderProgress progress) throws CheckedAnalysisException, IOException,
-            InterruptedException;
+    public void build(IClassPath classPath, IClassPathBuilderProgress progress)
+            throws CheckedAnalysisException, IOException, InterruptedException;
 
     /**
-     * Get the list of application classes discovered while scanning the
-     * classpath.
+     * Get the list of application classes discovered while scanning the classpath.
      *
      * @return list of application classes
      */

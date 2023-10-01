@@ -37,14 +37,15 @@ import de.tobject.findbugs.builder.WorkItem;
  * @author Peter Friese
  * @author Phil Crosby
  * @author Andrei Loskutov
+ *
  * @version 2.0
+ *
  * @since 25.09.2003
  */
 public class ClearMarkersAction extends FindBugsAction {
 
     /**
-     * Clear the FindBugs markers on each project in the given selection,
-     * displaying a progress monitor.
+     * Clear the FindBugs markers on each project in the given selection, displaying a progress monitor.
      */
     @Override
     protected void work(final IWorkbenchPart part, IResource resource, final List<WorkItem> resources) {

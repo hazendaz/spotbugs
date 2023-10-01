@@ -38,7 +38,7 @@ public class MethodUnprofitableException extends CFGBuilderException {
      * Constructor.
      *
      * @param method
-     *            the method that is unprofitable to analyze
+     *                   the method that is unprofitable to analyze
      */
     public MethodUnprofitableException(JavaClassAndMethod method) {
         super("Appears unprofitable to analyze " + method);
@@ -49,10 +49,9 @@ public class MethodUnprofitableException extends CFGBuilderException {
      * Constructor.
      *
      * @param jClass
-     *            the class containing the method that is unprofitable to
-     *            analyze
+     *                   the class containing the method that is unprofitable to analyze
      * @param method
-     *            the method that is unprofitable to analyze
+     *                   the method that is unprofitable to analyze
      */
     public MethodUnprofitableException(JavaClass jClass, Method method) {
         super("Appears unprofitable to analyze " + method);
@@ -63,8 +62,7 @@ public class MethodUnprofitableException extends CFGBuilderException {
      * Constructor.
      *
      * @param methodDescriptor
-     *            the MethodDescriptor indicating the method it is unprofitable
-     *            to analyze
+     *                             the MethodDescriptor indicating the method it is unprofitable to analyze
      */
     public MethodUnprofitableException(MethodDescriptor methodDescriptor) {
         super("Appears unprofitable to analyze " + methodDescriptor.toString());

@@ -30,9 +30,9 @@ public class NonExceptionDominatorsAnalysis extends DominatorsAnalysis {
      * Constructor.
      *
      * @param cfg
-     *            the CFG to compute dominator relationships for
+     *                the CFG to compute dominator relationships for
      * @param dfs
-     *            the DepthFirstSearch on the CFG
+     *                the DepthFirstSearch on the CFG
      */
     public NonExceptionDominatorsAnalysis(CFG cfg, DepthFirstSearch dfs) {
         super(cfg, dfs, true);

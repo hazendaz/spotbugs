@@ -29,7 +29,10 @@ import org.jspecify.annotations.NonNull;
  */
 public enum BugRankCategory {
 
-    SCARIEST(4), SCARY(9), TROUBLING(14), OF_CONCERN(BugRanker.VISIBLE_RANK_MAX);
+    SCARIEST(4),
+    SCARY(9),
+    TROUBLING(14),
+    OF_CONCERN(BugRanker.VISIBLE_RANK_MAX);
 
     public final int maxRank;
 

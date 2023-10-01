@@ -82,13 +82,11 @@ class BugCounts {
     }
 
     /**
-     * Add priority attributes to a started tag. Each priority at offset n,
-     * where n &gt; 0, is output using attribute priority_n if the value at
-     * offset n is greater than zero.
+     * Add priority attributes to a started tag. Each priority at offset n, where n &gt; 0, is output using attribute
+     * priority_n if the value at offset n is greater than zero.
      *
      * @param xmlOutput
-     *            an output stream for which startTag has been called but
-     *            stopTag has not.
+     *                      an output stream for which startTag has been called but stopTag has not.
      */
     public void writeBugPriorities(XMLOutput xmlOutput) throws IOException {
         if (nBugs == null) {
@@ -108,7 +106,6 @@ class BugCounts {
 }
 
 public class PackageStats extends BugCounts implements XMLWriteable {
-
 
     public static class ClassStats extends BugCounts implements XMLWriteable, Cloneable {
         private final String name;
@@ -222,7 +219,6 @@ public class PackageStats extends BugCounts implements XMLWriteable {
         this.size = size;
     }
 
-
     private ClassStats getClassStats(String name, String sourceFile) {
         ClassStats result = packageMembers.computeIfAbsent(name, k -> new ClassStats(k, sourceFile));
         numClasses = packageMembers.size();
@@ -312,8 +308,6 @@ public class PackageStats extends BugCounts implements XMLWriteable {
         return sorted.values();
 
     }
-
-
 
     public void recomputeFromClassStats() {
         super.clearBugCounts();

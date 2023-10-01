@@ -50,8 +50,7 @@ public abstract class AbstractAssertDetector extends OpcodeStackDetector {
     }
 
     /**
-     * Searches for assertion opening, and closing points.
-     * When in assert, will call the detect method.
+     * Searches for assertion opening, and closing points. When in assert, will call the detect method.
      */
     @Override
     public void sawOpcode(int seen) {

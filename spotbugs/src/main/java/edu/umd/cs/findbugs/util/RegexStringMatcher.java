@@ -35,7 +35,7 @@ public class RegexStringMatcher implements StringMatcher {
      * Constructor.
      *
      * @param patStr
-     *            a String defining the regular expression pattern to match
+     *                   a String defining the regular expression pattern to match
      */
     public RegexStringMatcher(String patStr) {
         pattern = Pattern.compile(patStr);

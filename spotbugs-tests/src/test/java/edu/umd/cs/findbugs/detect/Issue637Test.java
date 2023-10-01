@@ -12,11 +12,8 @@ class Issue637Test extends AbstractIntegrationTest {
     private static final String DESIRED_BUG_TYPE = "FS_BAD_DATE_FORMAT_FLAG_COMBO";
 
     /**
-     * Expects total of 80 errors that are:
-     *  - of type defined in DESIRED_BUG_TYPE
-     *  - inside the Issue637Errors class (as className)
-     *  - was called in a specified function (parameter)
-     *  - and caught on a proper line (parameter)
+     * Expects total of 80 errors that are: - of type defined in DESIRED_BUG_TYPE - inside the Issue637Errors class (as
+     * className) - was called in a specified function (parameter) - and caught on a proper line (parameter)
      */
     @Test
     void testClassWithErrors() {

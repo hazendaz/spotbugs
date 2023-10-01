@@ -6,17 +6,23 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
 /**
- * <p>A JUnit extension for SpotBugs plugin.
- * It provides {@link SpotBugsRunner} instance as parameter of test method.</p>
- * <p>Sample code:</p>
- * <pre><code>&#064;ExtendWith(SpotBugsExtension.class)
+ * <p>
+ * A JUnit extension for SpotBugs plugin. It provides {@link SpotBugsRunner} instance as parameter of test method.
+ * </p>
+ * <p>
+ * Sample code:
+ * </p>
+ *
+ * <pre>
+ * <code>&#064;ExtendWith(SpotBugsExtension.class)
 public class SampleTest {
   &#064;Test
   public void test(SpotBugsRunner spotbugs) {
     BugCollection bugs = spotbugs.performAnalysis(Path.of("target/test-classes/pkg/GoodCase.class"));
     ...
   }
-}</code></pre>
+}</code>
+ * </pre>
  */
 public class SpotBugsExtension implements ParameterResolver {
     @Override

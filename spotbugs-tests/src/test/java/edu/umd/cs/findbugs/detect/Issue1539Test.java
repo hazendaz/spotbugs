@@ -17,11 +17,8 @@ class Issue1539Test extends AbstractIntegrationTest {
     }
 
     private static Stream<Arguments> classes() {
-        return Stream.of(
-                Arguments.of("Issue1539Instance"),
-                Arguments.of("Issue1539Static"),
-                Arguments.of("Issue1539ThreadLocal"),
-                Arguments.of("Issue1539Argument"));
+        return Stream.of(Arguments.of("Issue1539Instance"), Arguments.of("Issue1539Static"),
+                Arguments.of("Issue1539ThreadLocal"), Arguments.of("Issue1539Argument"));
     }
 
     @ParameterizedTest

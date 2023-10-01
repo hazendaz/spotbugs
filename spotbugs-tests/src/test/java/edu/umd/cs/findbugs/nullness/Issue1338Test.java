@@ -20,8 +20,8 @@ class Issue1338Test {
 
     @Test
     void testIssue(SpotBugsRunner spotbugs) {
-        BugCollection bugCollection = spotbugs.performAnalysis(
-                Path.of("../spotbugsTestCases/build/classes/java/main/ghIssues/Issue1338.class"));
+        BugCollection bugCollection = spotbugs
+                .performAnalysis(Path.of("../spotbugsTestCases/build/classes/java/main/ghIssues/Issue1338.class"));
         assertThat(bugCollection, emptyIterable());
     }
 }

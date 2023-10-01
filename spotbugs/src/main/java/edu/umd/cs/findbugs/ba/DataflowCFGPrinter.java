@@ -24,8 +24,7 @@ import java.io.PrintStream;
 import org.apache.bcel.generic.InstructionHandle;
 
 /**
- * CFGPrinter class which prints dataflow values at each basic block and
- * instruction.
+ * CFGPrinter class which prints dataflow values at each basic block and instruction.
  */
 public class DataflowCFGPrinter<Fact, AnalysisType extends DataflowAnalysis<Fact>> extends CFGPrinter {
     private final Dataflow<Fact, AnalysisType> dataflow;
@@ -34,8 +33,7 @@ public class DataflowCFGPrinter<Fact, AnalysisType extends DataflowAnalysis<Fact
      * Constructor.
      *
      * @param dataflow
-     *            the Dataflow object whose values should be used to annotate
-     *            the printed CFG
+     *                     the Dataflow object whose values should be used to annotate the printed CFG
      */
     public DataflowCFGPrinter(Dataflow<Fact, AnalysisType> dataflow) {
         super(dataflow.getCFG());
@@ -47,9 +45,7 @@ public class DataflowCFGPrinter<Fact, AnalysisType extends DataflowAnalysis<Fact
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.ba.CFGPrinter#edgeAnnotate(edu.umd.cs.findbugs.ba
-     * .Edge)
+     * @see edu.umd.cs.findbugs.ba.CFGPrinter#edgeAnnotate(edu.umd.cs.findbugs.ba .Edge)
      */
     @Override
     public String edgeAnnotate(Edge edge) {
@@ -96,13 +92,13 @@ public class DataflowCFGPrinter<Fact, AnalysisType extends DataflowAnalysis<Fact
      * Print CFG annotated with results from given dataflow analysis.
      *
      * @param <Fact>
-     *            Dataflow fact type
+     *                           Dataflow fact type
      * @param <AnalysisType>
-     *            Dataflow analysis type
+     *                           Dataflow analysis type
      * @param dataflow
-     *            dataflow driver
+     *                           dataflow driver
      * @param out
-     *            PrintStream to use
+     *                           PrintStream to use
      */
     public static <Fact, AnalysisType extends BasicAbstractDataflowAnalysis<Fact>> void printCFG(
             Dataflow<Fact, AnalysisType> dataflow, PrintStream out) {

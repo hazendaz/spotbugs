@@ -22,10 +22,8 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 
 /**
- *
  * @param <Identifier>
- *            the specific identifier of given marker inside the given group
- *            type
+ *                         the specific identifier of given marker inside the given group type
  */
 abstract class MarkerMapper<Identifier> {
 
@@ -79,16 +77,19 @@ abstract class MarkerMapper<Identifier> {
 
     /**
      * @param marker
-     *            non null marker
-     * @return the specific identifier for given marker for the current mapping
-     *         type, or null if the mapping cannot be created
+     *                   non null marker
+     *
+     * @return the specific identifier for given marker for the current mapping type, or null if the mapping cannot be
+     *             created
      */
     abstract Identifier getIdentifier(IMarker marker);
 
     abstract String getShortDescription(Identifier id);
 
     /**
-     * @param marker non null
+     * @param marker
+     *                   non null
+     *
      * @return the raw data from current marker for debug purposes
      */
     abstract String getDebugDescription(IMarker marker) throws CoreException;

@@ -70,18 +70,17 @@ import edu.umd.cs.findbugs.plugin.eclipse.quickfix.exception.BugResolutionExcept
 import edu.umd.cs.findbugs.plugin.eclipse.quickfix.util.ImportDeclarationComparator;
 
 /**
- * A <CODE>ClassLoader</CODE>, which requires a security manager, might be
- * invoked by code that does not have security permissions.In this case the
- * <CODE>ClassLoader</CODE> creation needs to occur inside a
- * <CODE>doPrivileged()</CODE>-Block. The class
- * <CODE>CreateDoPrivilegedBlockResolution</CODE> creates a new
- * <CODE>doPrivileged()</CODE>-Block around the <CODE>ClassLoader</CODE>
- * creation.
+ * A <CODE>ClassLoader</CODE>, which requires a security manager, might be invoked by code that does not have security
+ * permissions.In this case the <CODE>ClassLoader</CODE> creation needs to occur inside a
+ * <CODE>doPrivileged()</CODE>-Block. The class <CODE>CreateDoPrivilegedBlockResolution</CODE> creates a new
+ * <CODE>doPrivileged()</CODE>-Block around the <CODE>ClassLoader</CODE> creation.
  *
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED">DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED</a>
+ * @see <a href=
+ *          "http://findbugs.sourceforge.net/bugDescriptions.html#DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED">DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED</a>
+ *
  * @author <a href="mailto:twyss@hsr.ch">Thierry Wyss</a>
  * @author <a href="mailto:mbusarel@hsr.ch">Marco Busarello</a>
+ *
  * @version 1.0
  */
 public class CreateDoPrivilegedBlockResolution extends BugResolution {
@@ -109,11 +108,9 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
     }
 
     /**
-     * Returns <CODE>true</CODE> if the imports were updated, otherwise
-     * <CODE>false</CODE>.
+     * Returns <CODE>true</CODE> if the imports were updated, otherwise <CODE>false</CODE>.
      *
-     * @return <CODE>true</CODE> or <CODE>false</CODE>. Default is
-     *         <CODE>true</CODE>.
+     * @return <CODE>true</CODE> or <CODE>false</CODE>. Default is <CODE>true</CODE>.
      */
     public boolean isUpdateImports() {
         return updateImports;
@@ -123,31 +120,28 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
      * Enables or disables the update on the imports.
      *
      * @param updateImports
-     *            the flag.
+     *                          the flag.
      */
     public void setUpdateImports(boolean updateImports) {
         this.updateImports = updateImports;
     }
 
     /**
-     * Returns <CODE>true</CODE> if the <CODE>doPrivileged()</CODE>-invocation
-     * is imported statically. This feature should only be used under
-     * source-level 1.5 or higher.
+     * Returns <CODE>true</CODE> if the <CODE>doPrivileged()</CODE>-invocation is imported statically. This feature
+     * should only be used under source-level 1.5 or higher.
      *
-     * @return <CODE>true</CODE> or <CODE>false</CODE>. Default is
-     *         <CODE>false</CODE>.
+     * @return <CODE>true</CODE> or <CODE>false</CODE>. Default is <CODE>false</CODE>.
      */
     public boolean isStaticImport() {
         return staticImport;
     }
 
     /**
-     * Enables or disables static import for the <CODE>doPrivileged()</CODE>
-     * -invocation. This feature should only be used under source-level 1.5 or
-     * higher.
+     * Enables or disables static import for the <CODE>doPrivileged()</CODE> -invocation. This feature should only be
+     * used under source-level 1.5 or higher.
      *
      * @param staticImport
-     *            the flag.
+     *                         the flag.
      */
     public void setStaticImport(boolean staticImport) {
         this.staticImport = staticImport;
@@ -168,13 +162,14 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
     }
 
     @Override
-    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug) throws BugResolutionException {
+    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug)
+            throws BugResolutionException {
         Assert.isNotNull(rewrite);
         Assert.isNotNull(workingUnit);
         Assert.isNotNull(bug);
 
-        ClassInstanceCreation classLoaderCreation = findClassLoaderCreation(getASTNode(workingUnit,
-                bug.getPrimarySourceLineAnnotation()));
+        ClassInstanceCreation classLoaderCreation =
+                findClassLoaderCreation(getASTNode(workingUnit, bug.getPrimarySourceLineAnnotation()));
         if (classLoaderCreation == null) {
             throw new BugResolutionException("No matching class loader creation found at the specified source line.");
         }
@@ -224,8 +219,8 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
                 if (variables.contains(fragment.getName().getFullyQualifiedName())) {
                     ASTNode parent = fragment.getParent();
                     if (parent instanceof VariableDeclarationStatement) {
-                        ListRewrite listRewrite = rewrite
-                                .getListRewrite(parent, VariableDeclarationStatement.MODIFIERS2_PROPERTY);
+                        ListRewrite listRewrite =
+                                rewrite.getListRewrite(parent, VariableDeclarationStatement.MODIFIERS2_PROPERTY);
                         listRewrite.insertLast(ast.newModifier(ModifierKeyword.FINAL_KEYWORD), null);
                     }
                 }
@@ -273,7 +268,8 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
         return importDeclaration;
     }
 
-    protected MethodInvocation createDoPrivilegedInvocation(ASTRewrite rewrite, ClassInstanceCreation classLoaderCreation) {
+    protected MethodInvocation createDoPrivilegedInvocation(ASTRewrite rewrite,
+            ClassInstanceCreation classLoaderCreation) {
         AST ast = rewrite.getAST();
 
         MethodInvocation doPrivilegedInvocation = ast.newMethodInvocation();
@@ -295,12 +291,14 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
         return doPrivilegedInvocation;
     }
 
-    private ClassInstanceCreation createPrivilegedActionCreation(ASTRewrite rewrite, ClassInstanceCreation classLoaderCreation) {
+    private ClassInstanceCreation createPrivilegedActionCreation(ASTRewrite rewrite,
+            ClassInstanceCreation classLoaderCreation) {
         AST ast = rewrite.getAST();
 
         ClassInstanceCreation privilegedActionCreation = ast.newClassInstanceCreation();
         ParameterizedType privilegedActionType = createPrivilegedActionType(rewrite, classLoaderCreation);
-        AnonymousClassDeclaration anonymousClassDeclaration = createAnonymousClassDeclaration(rewrite, classLoaderCreation);
+        AnonymousClassDeclaration anonymousClassDeclaration =
+                createAnonymousClassDeclaration(rewrite, classLoaderCreation);
 
         privilegedActionCreation.setType(privilegedActionType);
         privilegedActionCreation.setAnonymousClassDeclaration(anonymousClassDeclaration);
@@ -308,7 +306,8 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
         return privilegedActionCreation;
     }
 
-    private ParameterizedType createPrivilegedActionType(ASTRewrite rewrite, ClassInstanceCreation classLoaderCreation) {
+    private ParameterizedType createPrivilegedActionType(ASTRewrite rewrite,
+            ClassInstanceCreation classLoaderCreation) {
         AST ast = rewrite.getAST();
 
         Name privilegedActionName;
@@ -345,7 +344,8 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
         return anonymousClassDeclaration;
     }
 
-    private MethodDeclaration createRunMethodDeclaration(ASTRewrite rewrite, ClassInstanceCreation classLoaderCreation) {
+    private MethodDeclaration createRunMethodDeclaration(ASTRewrite rewrite,
+            ClassInstanceCreation classLoaderCreation) {
         AST ast = rewrite.getAST();
 
         MethodDeclaration methodDeclaration = ast.newMethodDeclaration();

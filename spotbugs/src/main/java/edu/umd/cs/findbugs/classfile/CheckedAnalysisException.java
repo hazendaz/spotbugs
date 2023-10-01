@@ -20,8 +20,7 @@
 package edu.umd.cs.findbugs.classfile;
 
 /**
- * Common superclass for all checked exceptions that can be thrown while
- * performing some kind of analysis.
+ * Common superclass for all checked exceptions that can be thrown while performing some kind of analysis.
  *
  * @author David Hovemeyer
  */
@@ -40,7 +39,7 @@ public class CheckedAnalysisException extends Exception {
      * Constructor.
      *
      * @param msg
-     *            message
+     *                message
      */
     public CheckedAnalysisException(String msg) {
         super(msg);
@@ -50,9 +49,9 @@ public class CheckedAnalysisException extends Exception {
      * Constructor.
      *
      * @param msg
-     *            message
+     *                  message
      * @param cause
-     *            root cause of this exception
+     *                  root cause of this exception
      */
     public CheckedAnalysisException(String msg, Throwable cause) {
         super(msg, cause);

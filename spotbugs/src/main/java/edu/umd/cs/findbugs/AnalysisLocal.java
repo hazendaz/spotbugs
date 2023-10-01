@@ -24,9 +24,8 @@ import edu.umd.cs.findbugs.classfile.Global;
 
 /**
  * @deprecated This class is not necessary to realize multi-thread model in SpotBugs 4.0. Each detector instance will
- *             not run on multiple threads, then only database (or other classes shared by detectors) needs
- *             synchronization and they can use normal Java synchronization instead.
- *
+ *                 not run on multiple threads, then only database (or other classes shared by detectors) needs
+ *                 synchronization and they can use normal Java synchronization instead.
  */
 @Deprecated
 public class AnalysisLocal<T> {

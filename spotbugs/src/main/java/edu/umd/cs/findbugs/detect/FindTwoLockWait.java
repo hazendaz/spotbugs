@@ -101,7 +101,8 @@ public final class FindTwoLockWait implements Detector, StatelessDetector {
         }
     }
 
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException, DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
 
         MethodGen methodGen = classContext.getMethodGen(method);
         CFG cfg = classContext.getCFG(method);
@@ -147,8 +148,9 @@ public final class FindTwoLockWait implements Detector, StatelessDetector {
             if (count > 1) {
                 // A wait with multiple locks held?
                 String sourceFile = javaClass.getSourceFileName();
-                possibleWaitBugs.add(new BugInstance(this, "TLW_TWO_LOCK_WAIT", HIGH_PRIORITY).addClassAndMethod(methodGen,
-                        sourceFile).addSourceLine(classContext, methodGen, sourceFile, location.getHandle()));
+                possibleWaitBugs.add(new BugInstance(this, "TLW_TWO_LOCK_WAIT", HIGH_PRIORITY)
+                        .addClassAndMethod(methodGen, sourceFile)
+                        .addSourceLine(classContext, methodGen, sourceFile, location.getHandle()));
             }
         }
         if (Hierarchy.isMonitorNotify(location.getHandle().getInstruction(), cpg)) {
@@ -156,8 +158,8 @@ public final class FindTwoLockWait implements Detector, StatelessDetector {
             if (count > 1) {
                 // A notify with multiple locks held?
                 String sourceFile = javaClass.getSourceFileName();
-                possibleNotifyLocations.add(SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen, sourceFile,
-                        location.getHandle()));
+                possibleNotifyLocations.add(SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen,
+                        sourceFile, location.getHandle()));
             }
         }
     }

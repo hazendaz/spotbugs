@@ -29,7 +29,8 @@ public interface StringMatcher {
      * Return whether or not the given String matches.
      *
      * @param s
-     *            a String
+     *              a String
+     *
      * @return true if the String matches, false if it does not match
      */
     public boolean matches(String s);

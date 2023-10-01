@@ -133,10 +133,10 @@ public class FindFloatEquality extends OpcodeStackDetector implements StatelessD
                     state = SAW_NOTHING;
                     break;
                 }
-                if (first.getSpecialKind() == OpcodeStack.Item.NASTY_FLOAT_MATH && !isZero(n2)
-                        || second.getSpecialKind() == OpcodeStack.Item.NASTY_FLOAT_MATH && !isZero(n1)
-                        || first.getSpecialKind() == OpcodeStack.Item.FLOAT_MATH && !okValueToCompareAgainst(n2)
-                        || second.getSpecialKind() == OpcodeStack.Item.FLOAT_MATH && !okValueToCompareAgainst(n1)) {
+                if (first.getSpecialKind() == OpcodeStack.Item.NASTY_FLOAT_MATH && !isZero(n2) ||
+                        second.getSpecialKind() == OpcodeStack.Item.NASTY_FLOAT_MATH && !isZero(n1) ||
+                        first.getSpecialKind() == OpcodeStack.Item.FLOAT_MATH && !okValueToCompareAgainst(n2) ||
+                        second.getSpecialKind() == OpcodeStack.Item.FLOAT_MATH && !okValueToCompareAgainst(n1)) {
                     if (priority != HIGH_PRIORITY) {
                         found.clear();
                     }
@@ -172,8 +172,8 @@ public class FindFloatEquality extends OpcodeStackDetector implements StatelessD
         case Const.IFEQ:
         case Const.IFNE:
             if (state == SAW_COMP) {
-                SourceLineAnnotation sourceLineAnnotation = SourceLineAnnotation.fromVisitedInstruction(getClassContext(), this,
-                        getPC());
+                SourceLineAnnotation sourceLineAnnotation =
+                        SourceLineAnnotation.fromVisitedInstruction(getClassContext(), this, getPC());
                 if (sourceLineAnnotation != null) {
                     found.add(sourceLineAnnotation);
                 }

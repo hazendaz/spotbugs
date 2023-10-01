@@ -6,18 +6,16 @@ import org.junit.jupiter.api.Test;
 class Issue2040Test extends AbstractIntegrationTest {
     @Test
     void test() {
-        performAnalysis("ghIssues/issue2040/Base.class",
-                "ghIssues/issue2040/Derived.class",
-                "ghIssues/issue2040/GenericBase.class",
-                "ghIssues/issue2040/GenericDerived.class",
-                "ghIssues/issue2040/Interface.class",
-                "ghIssues/issue2040/Generic.class",
+        performAnalysis("ghIssues/issue2040/Base.class", "ghIssues/issue2040/Derived.class",
+                "ghIssues/issue2040/GenericBase.class", "ghIssues/issue2040/GenericDerived.class",
+                "ghIssues/issue2040/Interface.class", "ghIssues/issue2040/Generic.class",
                 "ghIssues/issue2040/Caller.class");
 
         assertBugTypeCount("THROWS_METHOD_THROWS_RUNTIMEEXCEPTION", 3);
         String runtimeExceptionLambdaName;
         if (Runtime.version().feature() >= 24) {
-            // The enumeration of lambdas changed slightly in Java 24, it appears to now count per-method rather than per-class.
+            // The enumeration of lambdas changed slightly in Java 24, it appears to now count per-method rather than
+            // per-class.
             // The pre-24 enumeration was
             // lambda$lambda$0
             // lambda$lambda2$1
@@ -32,7 +30,8 @@ class Issue2040Test extends AbstractIntegrationTest {
         }
         assertBugInMethodAtLine("THROWS_METHOD_THROWS_RUNTIMEEXCEPTION", "Derived", runtimeExceptionLambdaName, 36);
         assertBugInMethodAtLine("THROWS_METHOD_THROWS_RUNTIMEEXCEPTION", "Derived", "runtimeExThrownFromCatch", 97);
-        assertBugInMethodAtLine("THROWS_METHOD_THROWS_RUNTIMEEXCEPTION", "Derived", "runtimeExceptionThrowingMethod", 45);
+        assertBugInMethodAtLine("THROWS_METHOD_THROWS_RUNTIMEEXCEPTION", "Derived", "runtimeExceptionThrowingMethod",
+                45);
 
         assertBugTypeCount("THROWS_METHOD_THROWS_CLAUSE_THROWABLE", 4);
         assertBugInMethod("THROWS_METHOD_THROWS_CLAUSE_THROWABLE", "Base", "method");

@@ -429,7 +429,8 @@ class PropertiesPageTest extends AbstractFindBugsTest {
     }
 
     private void assertAllVisibleDetectorsEnabled(boolean enabled) {
-        for (Iterator<DetectorFactory> factories = DetectorFactoryCollection.instance().factoryIterator(); factories.hasNext();) {
+        for (Iterator<DetectorFactory> factories = DetectorFactoryCollection.instance().factoryIterator(); factories
+                .hasNext();) {
             DetectorFactory detectorFactory = factories.next();
             if (!detectorFactory.isHidden()) {
                 assertEquals(enabled, getProjectPreferences().isDetectorEnabled(detectorFactory));
@@ -450,12 +451,14 @@ class PropertiesPageTest extends AbstractFindBugsTest {
     private void assertOnlySelectedBugCategory(String categoryName) {
         for (String currentCategory : DetectorFactoryCollection.instance().getBugCategories()) {
             boolean expectedEnablement = currentCategory.equals(categoryName);
-            assertEquals(expectedEnablement, getProjectPreferences().getFilterSettings().containsCategory(currentCategory));
+            assertEquals(expectedEnablement,
+                    getProjectPreferences().getFilterSettings().containsCategory(currentCategory));
         }
     }
 
     private void assertOnlyVisibleDetectorEnabled(String detectorShortName) {
-        for (Iterator<DetectorFactory> factories = DetectorFactoryCollection.instance().factoryIterator(); factories.hasNext();) {
+        for (Iterator<DetectorFactory> factories = DetectorFactoryCollection.instance().factoryIterator(); factories
+                .hasNext();) {
             DetectorFactory detectorFactory = factories.next();
             if (!detectorFactory.isHidden()) {
                 boolean expectedEnablement = detectorFactory.getShortName().equals(detectorShortName);

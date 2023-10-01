@@ -3,7 +3,6 @@ package edu.umd.cs.findbugs.detect;
 import edu.umd.cs.findbugs.AbstractIntegrationTest;
 import org.junit.jupiter.api.Test;
 
-
 class RegressionIdeas20130429Test extends AbstractIntegrationTest {
     @Test
     void test() {

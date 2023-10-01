@@ -50,8 +50,8 @@ public class FindBugsConsole extends MessageConsole implements IPropertyChangeLi
 
     private static class RemoveAction extends Action {
         public RemoveAction() {
-            super("Close SpotBugs console", PlatformUI.getWorkbench().getSharedImages()
-                    .getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
+            super("Close SpotBugs console",
+                    PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
         }
 
         @Override

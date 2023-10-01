@@ -61,7 +61,8 @@ public class FilterBugsDialogAction implements IViewActionDelegate {
         }
         String selectedIds = dialog.getSelectedIds();
 
-        FindbugsPlugin.getDefault().getPreferenceStore().setValue(FindBugsConstants.LAST_USED_EXPORT_FILTER, selectedIds);
+        FindbugsPlugin.getDefault().getPreferenceStore().setValue(FindBugsConstants.LAST_USED_EXPORT_FILTER,
+                selectedIds);
 
         BugContentProvider provider = BugContentProvider.getProvider(navigator.getNavigatorContentService());
         provider.refreshFilters();

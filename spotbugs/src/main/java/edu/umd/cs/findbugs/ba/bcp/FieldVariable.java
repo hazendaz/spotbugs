@@ -36,11 +36,11 @@ public class FieldVariable implements Variable {
      * Constructor for static fields.
      *
      * @param className
-     *            the class name
+     *                      the class name
      * @param fieldName
-     *            the field name
+     *                      the field name
      * @param fieldSig
-     *            the field signature
+     *                      the field signature
      */
     public FieldVariable(String className, String fieldName, String fieldSig) {
         this(null, className, fieldName, fieldSig);
@@ -50,13 +50,13 @@ public class FieldVariable implements Variable {
      * Constructor for instance fields.
      *
      * @param ref
-     *            ValueNumber of the object reference
+     *                      ValueNumber of the object reference
      * @param className
-     *            the class name
+     *                      the class name
      * @param fieldName
-     *            the field name
+     *                      the field name
      * @param fieldSig
-     *            the field signature
+     *                      the field signature
      */
     public FieldVariable(@Nullable ValueNumber ref, String className, String fieldName, String fieldSig) {
         this.ref = ref;
@@ -102,8 +102,8 @@ public class FieldVariable implements Variable {
         if (isStatic() != otherField.isStatic()) {
             return false;
         }
-        return (ref == null || ref.equals(otherField.ref)) && className.equals(otherField.className)
-                && fieldName.equals(otherField.fieldName) && fieldSig.equals(otherField.fieldSig);
+        return (ref == null || ref.equals(otherField.ref)) && className.equals(otherField.className) &&
+                fieldName.equals(otherField.fieldName) && fieldSig.equals(otherField.fieldSig);
     }
 
     @Override

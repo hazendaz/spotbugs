@@ -65,8 +65,7 @@ public interface IGuiCallback {
     boolean showDocument(URL u);
 
     /**
-     * Use this executor to queue bug collection updates without interfering
-     * with the GUI. Runs on the AWT event thread.
+     * Use this executor to queue bug collection updates without interfering with the GUI. Runs on the AWT event thread.
      */
     ExecutorService getBugUpdateExecutor();
 

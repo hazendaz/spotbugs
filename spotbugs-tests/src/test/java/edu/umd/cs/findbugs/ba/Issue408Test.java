@@ -13,13 +13,15 @@ import edu.umd.cs.findbugs.AbstractIntegrationTest;
 
 /**
  * @see <a href="https://github.com/spotbugs/spotbugs/issues/408">#408</a>
+ *
  * @since 3.1
  */
 class Issue408Test extends AbstractIntegrationTest {
 
     @Test
     void testSingleClass() {
-        Throwable throwable = Assertions.assertThrows(AssertionError.class, () -> performAnalysis("../java11/module-info.class"));
+        Throwable throwable =
+                Assertions.assertThrows(AssertionError.class, () -> performAnalysis("../java11/module-info.class"));
         Assertions.assertEquals("Analysis failed with exception", throwable.getMessage());
         assertThat(throwable.getCause(), is(instanceOf(IOException.class)));
     }

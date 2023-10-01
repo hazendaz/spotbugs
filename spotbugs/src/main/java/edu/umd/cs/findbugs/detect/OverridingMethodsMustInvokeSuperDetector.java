@@ -37,7 +37,8 @@ public class OverridingMethodsMustInvokeSuperDetector extends OpcodeStackDetecto
 
     private final BugReporter bugReporter;
 
-    ClassDescriptor mustOverrideAnnotation = DescriptorFactory.createClassDescriptor(OverridingMethodsMustInvokeSuper.class);
+    ClassDescriptor mustOverrideAnnotation =
+            DescriptorFactory.createClassDescriptor(OverridingMethodsMustInvokeSuper.class);
 
     public OverridingMethodsMustInvokeSuperDetector(BugReporter bugReporter) {
         this.bugReporter = bugReporter;
@@ -51,7 +52,8 @@ public class OverridingMethodsMustInvokeSuperDetector extends OpcodeStackDetecto
             return;
         }
 
-        XMethod overrides = Lookup.findSuperImplementorAsXMethod(getThisClass(), getMethodName(), getEffectiveMethodSig(), bugReporter);
+        XMethod overrides = Lookup.findSuperImplementorAsXMethod(getThisClass(), getMethodName(),
+                getEffectiveMethodSig(), bugReporter);
 
         if (overrides == null) {
             return;
@@ -100,8 +102,8 @@ public class OverridingMethodsMustInvokeSuperDetector extends OpcodeStackDetecto
         String calledMethodName = getNameConstantOperand();
         String calledMethodSig = getSigConstantOperand();
 
-        if (calledClassName.equals(getSuperclassName()) && calledMethodName.equals(getMethodName())
-                && calledMethodSig.equals(getEffectiveMethodSig())) {
+        if (calledClassName.equals(getSuperclassName()) && calledMethodName.equals(getMethodName()) &&
+                calledMethodSig.equals(getEffectiveMethodSig())) {
             sawCallToSuper = true;
         }
     }

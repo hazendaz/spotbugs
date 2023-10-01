@@ -30,7 +30,6 @@ import javax.swing.JDialog;
  * All Dialogs are FBDialogs so font size will work.
  *
  * @author Kristin
- *
  */
 @SuppressWarnings("serial")
 public class FBDialog extends JDialog {

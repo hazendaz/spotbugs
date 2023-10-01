@@ -27,16 +27,16 @@ import edu.umd.cs.findbugs.ba.CFG;
  *
  * @author David Hovemeyer
  */
-public class UnconditionalValueDerefDataflow extends
-        AbstractDataflow<UnconditionalValueDerefSet, UnconditionalValueDerefAnalysis> {
+public class UnconditionalValueDerefDataflow
+        extends AbstractDataflow<UnconditionalValueDerefSet, UnconditionalValueDerefAnalysis> {
 
     /**
      * Constructor.
      *
      * @param cfg
-     *            the control flow graph
+     *                     the control flow graph
      * @param analysis
-     *            the analysis
+     *                     the analysis
      */
     public UnconditionalValueDerefDataflow(CFG cfg, UnconditionalValueDerefAnalysis analysis) {
         super(cfg, analysis);

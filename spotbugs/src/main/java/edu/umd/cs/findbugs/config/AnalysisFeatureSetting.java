@@ -36,9 +36,9 @@ public class AnalysisFeatureSetting {
      * Constructor.
      *
      * @param property
-     *            the analysis property to configure
+     *                     the analysis property to configure
      * @param enabled
-     *            true if the property is enabled, false if not
+     *                     true if the property is enabled, false if not
      */
     public AnalysisFeatureSetting(@AnalysisFeature int property, boolean enabled) {
         this.property = property;
@@ -46,11 +46,10 @@ public class AnalysisFeatureSetting {
     }
 
     /**
-     * Set the configured value of the analysis property in the given
-     * AnalysisContext.
+     * Set the configured value of the analysis property in the given AnalysisContext.
      *
      * @param analysisContext
-     *            the AnalysisContext
+     *                            the AnalysisContext
      */
     public void configure(AnalysisContext analysisContext) {
         analysisContext.setBoolProperty(property, enabled);

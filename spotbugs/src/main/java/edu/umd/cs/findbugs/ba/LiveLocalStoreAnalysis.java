@@ -32,13 +32,11 @@ import org.apache.bcel.generic.RET;
 import org.apache.bcel.generic.StoreInstruction;
 
 /**
- * Dataflow analysis to find live stores of locals. This is just a backward
- * analysis to see which loads reach stores of the same local.
- *
+ * Dataflow analysis to find live stores of locals. This is just a backward analysis to see which loads reach stores of
+ * the same local.
  * <p>
- * This analysis also computes which stores that were killed by a subsequent
- * store on any subsequent reachable path. (The FindDeadLocalStores detector
- * uses this information to reduce false positives.)
+ * This analysis also computes which stores that were killed by a subsequent store on any subsequent reachable path.
+ * (The FindDeadLocalStores detector uses this information to reduce false positives.)
  *
  * @author David Hovemeyer
  */
@@ -188,17 +186,16 @@ public class LiveLocalStoreAnalysis extends BackwardDataflowAnalysis<BitSet> imp
      * Return whether or not a store of given local is alive.
      *
      * @param fact
-     *            a dataflow fact created by this analysis
+     *                  a dataflow fact created by this analysis
      * @param local
-     *            the local
+     *                  the local
      */
     public boolean isStoreAlive(BitSet fact, int local) {
         return fact.get(local);
     }
 
     /**
-     * Return whether or not a store of given local was killed by a subsequent
-     * (dominated) store.
+     * Return whether or not a store of given local was killed by a subsequent (dominated) store.
      */
     public boolean killedByStore(BitSet fact, int local) {
         return fact.get(local + killedByStoreOffset);

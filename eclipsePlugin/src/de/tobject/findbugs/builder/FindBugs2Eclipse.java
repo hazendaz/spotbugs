@@ -60,8 +60,7 @@ import edu.umd.cs.findbugs.log.Profiler.Profile;
 
 public class FindBugs2Eclipse extends FindBugs2 {
 
-    private static WeakHashMap<IProject, SoftReference<List<String>>> auxClassPaths =
-            new WeakHashMap<>();
+    private static WeakHashMap<IProject, SoftReference<List<String>>> auxClassPaths = new WeakHashMap<>();
 
     private static WeakHashMap<IProject, SoftReference<Map<ClassDescriptor, Object>>> classAnalysisCache =
             new WeakHashMap<>();

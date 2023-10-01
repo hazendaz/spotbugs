@@ -33,9 +33,9 @@ public class Target {
      * Constructor.
      *
      * @param targetInstruction
-     *            the handle of the target instruction
+     *                              the handle of the target instruction
      * @param edgeType
-     *            type of CFG edge; see EdgeTypes interface
+     *                              type of CFG edge; see EdgeTypes interface
      */
     public Target(InstructionHandle targetInstruction, @Edge.Type int edgeType) {
         this.targetInstruction = targetInstruction;

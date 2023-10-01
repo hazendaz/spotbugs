@@ -74,8 +74,8 @@ public class CallToUnsupportedMethod implements Detector {
             } catch (MethodUnprofitableException e) {
                 assert true; // move along; nothing to see
             } catch (CFGBuilderException | DataflowAnalysisException e) {
-                String msg = "Detector " + this.getClass().getName() + " caught exception while analyzing "
-                        + javaClass.getClassName() + "." + method.getName() + " : " + method.getSignature();
+                String msg = "Detector " + this.getClass().getName() + " caught exception while analyzing " +
+                        javaClass.getClassName() + "." + method.getName() + " : " + method.getSignature();
                 bugReporter.logError(msg, e);
             }
         }
@@ -85,8 +85,8 @@ public class CallToUnsupportedMethod implements Detector {
      * @param classContext
      * @param method
      */
-    private void analyzeMethod(ClassContext classContext, Method method) throws CFGBuilderException,
-            DataflowAnalysisException {
+    private void analyzeMethod(ClassContext classContext, Method method)
+            throws CFGBuilderException, DataflowAnalysisException {
         if (BCELUtil.isSynthetic(method) || (method.getAccessFlags() & Const.ACC_BRIDGE) == Const.ACC_BRIDGE) {
             return;
         }
@@ -141,7 +141,8 @@ public class CallToUnsupportedMethod implements Detector {
                 }
                 if (xc == null || xc.isAbstract()) {
                     try {
-                        if (!AnalysisContext.currentAnalysisContext().getSubtypes2().hasSubtypes(m.getClassDescriptor())) {
+                        if (!AnalysisContext.currentAnalysisContext().getSubtypes2()
+                                .hasSubtypes(m.getClassDescriptor())) {
                             continue locationLoop;
                         }
                     } catch (ClassNotFoundException e) {

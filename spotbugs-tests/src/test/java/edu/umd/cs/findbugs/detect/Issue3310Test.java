@@ -7,8 +7,7 @@ class Issue3310Test extends AbstractIntegrationTest {
 
     @Test
     void testIssue() {
-        performAnalysis("ghIssues/Issue3310.class",
-                "ghIssues/Issue3310$Result.class");
+        performAnalysis("ghIssues/Issue3310.class", "ghIssues/Issue3310$Result.class");
 
         assertNoBugType("AT_STALE_THREAD_WRITE_OF_PRIMITIVE");
     }
