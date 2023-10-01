@@ -138,7 +138,6 @@ public class PrintClass {
         }
     }
 
-
     private static void printClass(ClassParser parser) throws IOException {
         JavaClass java_class;
         java_class = parser.parse();

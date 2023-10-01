@@ -44,8 +44,7 @@ public class NullnessAnnotation extends AnnotationEnumeration<NullnessAnnotation
                     || "org.jetbrains.annotations.Nullable".equals(className)
                     || "org.checkerframework.checker.nullness.qual.Nullable".equals(className)
                     || "org.checkerframework.checker.nullness.compatqual.NullableDecl".equals(className)
-                    || className.endsWith("PossiblyNull")
-                    || super.match(className);
+                    || className.endsWith("PossiblyNull") || super.match(className);
         }
     };
 
@@ -53,8 +52,7 @@ public class NullnessAnnotation extends AnnotationEnumeration<NullnessAnnotation
         @Override
         boolean match(@DottedClassName String className) {
             // Unfortunately there are mixed case Nonnull and NonNull annotations (JSR305, FB and JDT)
-            return "org.jetbrains.annotations.NotNull".equals(className)
-                    || className.endsWith("Nonnull")
+            return "org.jetbrains.annotations.NotNull".equals(className) || className.endsWith("Nonnull")
                     || super.match(className);
         }
     };

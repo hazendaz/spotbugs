@@ -22,10 +22,10 @@ package edu.umd.cs.findbugs;
 import edu.umd.cs.findbugs.ba.Location;
 
 /**
- * A resource creation point. This serves as an embodiment of the resource for
- * use with ResourceValueAnalysis.
+ * A resource creation point. This serves as an embodiment of the resource for use with ResourceValueAnalysis.
  *
  * @author David Hovemeyer
+ *
  * @see edu.umd.cs.findbugs.ba.ResourceValueAnalysis
  * @see ResourceTrackingDetector
  */

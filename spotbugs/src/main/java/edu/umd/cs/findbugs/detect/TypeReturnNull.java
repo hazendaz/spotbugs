@@ -32,8 +32,7 @@ import edu.umd.cs.findbugs.ba.XMethod;
 import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 
 /**
- * Base class for simple type checking detectors which tests if the method
- * returns null references for specific types.
+ * Base class for simple type checking detectors which tests if the method returns null references for specific types.
  *
  * @author alison
  * @author Andrey Loskutov

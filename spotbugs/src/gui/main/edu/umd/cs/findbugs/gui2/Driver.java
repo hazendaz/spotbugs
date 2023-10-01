@@ -31,9 +31,8 @@ import edu.umd.cs.findbugs.config.AnalysisFeatureSetting;
 import edu.umd.cs.findbugs.util.JavaWebStart;
 
 /**
- * This is where it all begins run with -f int to set font size run with -clear
- * to clear recent projects menu, or any other issues with program not starting
- * properly due to something being corrupted (or just faulty) in backend store
+ * This is where it all begins run with -f int to set font size run with -clear to clear recent projects menu, or any
+ * other issues with program not starting properly due to something being corrupted (or just faulty) in backend store
  * for GUISaveState.
  *
  */
@@ -73,7 +72,8 @@ public class Driver {
                 if (argLowerCase.endsWith(".fbp") || argLowerCase.endsWith(".fb")) {
                     // Project file specified
                     commandLine.loadProject(arg);
-                } else if (argLowerCase.endsWith(".xml") || argLowerCase.endsWith(".xml.gz") || argLowerCase.endsWith(".fba")) {
+                } else if (argLowerCase.endsWith(".xml") || argLowerCase.endsWith(".xml.gz")
+                        || argLowerCase.endsWith(".fba")) {
                     // Saved analysis results specified
                     commandLine.setSaveFile(new File(arg));
                 } else {
@@ -110,11 +110,11 @@ public class Driver {
             FindBugsLayoutManagerFactory factory = new FindBugsLayoutManagerFactory(SplitLayout.class.getName());
             MainFrame.makeInstance(factory);
 
-
             splash.setVisible(false);
             splash.dispose();
         } catch (Throwable t) {
-            JOptionPane.showMessageDialog(null, t.toString(), "Fatal Error during SpotBugs startup", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, t.toString(), "Fatal Error during SpotBugs startup",
+                    JOptionPane.ERROR_MESSAGE);
             t.printStackTrace(System.err);
             System.exit(1);
         }

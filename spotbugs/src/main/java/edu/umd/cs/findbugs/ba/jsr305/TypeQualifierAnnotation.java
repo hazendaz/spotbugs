@@ -58,13 +58,12 @@ public class TypeQualifierAnnotation {
     // TypeQualifierAnnotation> map = new DualKeyHashMap <TypeQualifierValue,
     // When, TypeQualifierAnnotation> ();
 
-    private static ThreadLocal<DualKeyHashMap<TypeQualifierValue<?>, When, TypeQualifierAnnotation>> instance =
-            new ThreadLocal<DualKeyHashMap<TypeQualifierValue<?>, When, TypeQualifierAnnotation>>() {
-                @Override
-                protected DualKeyHashMap<TypeQualifierValue<?>, When, TypeQualifierAnnotation> initialValue() {
-                    return new DualKeyHashMap<>();
-                }
-            };
+    private static ThreadLocal<DualKeyHashMap<TypeQualifierValue<?>, When, TypeQualifierAnnotation>> instance = new ThreadLocal<DualKeyHashMap<TypeQualifierValue<?>, When, TypeQualifierAnnotation>>() {
+        @Override
+        protected DualKeyHashMap<TypeQualifierValue<?>, When, TypeQualifierAnnotation> initialValue() {
+            return new DualKeyHashMap<>();
+        }
+    };
 
     public static void clearInstance() {
         instance.remove();
@@ -95,18 +94,15 @@ public class TypeQualifierAnnotation {
     private static final When TOP = null;
 
     private static final When[][] combineReturnValueMatrix = {
-        // ALWAYS UNKNOWN MAYBE NEVER
-        /* ALWAYS */{ When.ALWAYS, },
-        /* UNKNOWN */{ When.ALWAYS, When.UNKNOWN, },
-        /* MAYBE */{ When.ALWAYS, When.UNKNOWN, When.MAYBE, },
-        /* NEVER */{ TOP, TOP, When.NEVER, When.NEVER }, };
+            // ALWAYS UNKNOWN MAYBE NEVER
+            /* ALWAYS */{ When.ALWAYS, }, /* UNKNOWN */{ When.ALWAYS, When.UNKNOWN, },
+            /* MAYBE */{ When.ALWAYS, When.UNKNOWN, When.MAYBE, }, /* NEVER */{ TOP, TOP, When.NEVER, When.NEVER }, };
 
     private static final When[][] combineParameterMatrix = {
-        // ALWAYS UNKNOWN MAYBE NEVER
-        /* ALWAYS */{ When.ALWAYS, },
-        /* UNKNOWN */{ When.UNKNOWN, When.UNKNOWN, },
-        /* MAYBE */{ When.MAYBE, When.MAYBE, When.MAYBE, },
-        /* NEVER */{ When.MAYBE, When.UNKNOWN, When.MAYBE, When.NEVER }, };
+            // ALWAYS UNKNOWN MAYBE NEVER
+            /* ALWAYS */{ When.ALWAYS, }, /* UNKNOWN */{ When.UNKNOWN, When.UNKNOWN, },
+            /* MAYBE */{ When.MAYBE, When.MAYBE, When.MAYBE, },
+            /* NEVER */{ When.MAYBE, When.UNKNOWN, When.MAYBE, When.NEVER }, };
 
     /**
      * Combine return type annotations.
@@ -115,11 +111,12 @@ public class TypeQualifierAnnotation {
      *            a TypeQualifierAnnotation used on a return value
      * @param b
      *            another TypeQualifierAnnotation used on a return value
-     * @return combined return type annotation that is at least as narrow as
-     *         both <code>a</code> or <code>b</code>, or null if no such
-     *         TypeQualifierAnnotation exists
+     *
+     * @return combined return type annotation that is at least as narrow as both <code>a</code> or <code>b</code>, or
+     *         null if no such TypeQualifierAnnotation exists
      */
-    public static @CheckForNull TypeQualifierAnnotation combineReturnTypeAnnotations(TypeQualifierAnnotation a, TypeQualifierAnnotation b) {
+    public static @CheckForNull TypeQualifierAnnotation combineReturnTypeAnnotations(TypeQualifierAnnotation a,
+            TypeQualifierAnnotation b) {
         return combineAnnotations(a, b, combineReturnValueMatrix);
     }
 
@@ -129,10 +126,11 @@ public class TypeQualifierAnnotation {
      *            a TypeQualifierAnnotation used on a method parameter
      * @param b
      *            another TypeQualifierAnnotation used on a method parameter
-     * @return combined parameter annotation that is at least as wide as both a
-     *         and b
+     *
+     * @return combined parameter annotation that is at least as wide as both a and b
      */
-    public static @Nonnull TypeQualifierAnnotation combineParameterAnnotations(TypeQualifierAnnotation a, TypeQualifierAnnotation b) {
+    public static @Nonnull TypeQualifierAnnotation combineParameterAnnotations(TypeQualifierAnnotation a,
+            TypeQualifierAnnotation b) {
         return combineAnnotations(a, b, combineParameterMatrix);
     }
 

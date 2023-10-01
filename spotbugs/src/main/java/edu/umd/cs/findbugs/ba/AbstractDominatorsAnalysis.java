@@ -26,22 +26,22 @@ import javax.annotation.CheckForNull;
 
 import org.apache.bcel.generic.InstructionHandle;
 
-
 /**
- * <p>A dataflow analysis to compute dominator relationships between basic blocks.
- * Use the {@link #getResultFact} method to get the dominator set for a given
- * basic block. The dominator sets are represented using the
- * {@link java.util.BitSet} class, with the individual bits corresponding to the
- * IDs of basic blocks.</p>
+ * <p>
+ * A dataflow analysis to compute dominator relationships between basic blocks. Use the {@link #getResultFact} method to
+ * get the dominator set for a given basic block. The dominator sets are represented using the {@link java.util.BitSet}
+ * class, with the individual bits corresponding to the IDs of basic blocks.
+ * </p>
  * <p>
  * Subclasses extend this class to compute either dominators or postdominators.
  * </p>
  * <p>
- * An EdgeChooser may be specified to select which edges to take into account.
- * For example, exception edges could be ignored.
+ * An EdgeChooser may be specified to select which edges to take into account. For example, exception edges could be
+ * ignored.
  * </p>
  *
  * @author David Hovemeyer
+ *
  * @see DataflowAnalysis
  * @see CFG
  * @see BasicBlock
@@ -141,25 +141,24 @@ public abstract class AbstractDominatorsAnalysis extends BasicAbstractDataflowAn
     }
 
     /**
-     * Get a bitset containing the unique IDs of all blocks which dominate (or
-     * postdominate) the given block.
+     * Get a bitset containing the unique IDs of all blocks which dominate (or postdominate) the given block.
      *
      * @param block
      *            a BasicBlock
-     * @return BitSet of the unique IDs of all blocks that dominate (or
-     *         postdominate) the BasicBlock
+     *
+     * @return BitSet of the unique IDs of all blocks that dominate (or postdominate) the BasicBlock
      */
     public BitSet getAllDominatorsOf(BasicBlock block) {
         return getResultFact(block);
     }
 
     /**
-     * Get a bitset containing the unique IDs of all blocks in CFG dominated (or
-     * postdominated, depending on how the analysis was done) by given block.
+     * Get a bitset containing the unique IDs of all blocks in CFG dominated (or postdominated, depending on how the
+     * analysis was done) by given block.
      *
      * @param dominator
-     *            we want to get all blocks dominated (or postdominated) by this
-     *            block
+     *            we want to get all blocks dominated (or postdominated) by this block
+     *
      * @return BitSet of the ids of all blocks dominated by the given block
      */
     public BitSet getAllDominatedBy(BasicBlock dominator) {

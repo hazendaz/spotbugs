@@ -75,7 +75,8 @@ public class SynchronizeAndNullCheckField extends BytecodeScanningDetector {
             }
             break;
         case 2:
-            if (seen == Const.ASTORE || seen == Const.ASTORE_0 || seen == Const.ASTORE_1 || seen == Const.ASTORE_2 || seen == Const.ASTORE_3) {
+            if (seen == Const.ASTORE || seen == Const.ASTORE_0 || seen == Const.ASTORE_1 || seen == Const.ASTORE_2
+                    || seen == Const.ASTORE_3) {
                 currState = 3;
             } else {
                 currState = 0;

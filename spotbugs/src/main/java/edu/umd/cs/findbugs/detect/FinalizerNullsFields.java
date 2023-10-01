@@ -64,7 +64,8 @@ public class FinalizerNullsFields extends BytecodeScanningDetector {
             super.visit(obj);
             bugAccumulator.reportAccumulatedBugs();
             if (!sawAnythingElse && sawFieldNulling) {
-                BugInstance bug = new BugInstance(this, "FI_FINALIZER_ONLY_NULLS_FIELDS", HIGH_PRIORITY).addClassAndMethod(this);
+                BugInstance bug = new BugInstance(this, "FI_FINALIZER_ONLY_NULLS_FIELDS", HIGH_PRIORITY)
+                        .addClassAndMethod(this);
                 bugReporter.reportBug(bug);
             }
         }
@@ -77,9 +78,8 @@ public class FinalizerNullsFields extends BytecodeScanningDetector {
         } else if (state == 1 && seen == Const.ACONST_NULL) {
             state++;
         } else if (state == 2 && seen == Const.PUTFIELD) {
-            bugAccumulator.accumulateBug(
-                    new BugInstance(this, "FI_FINALIZER_NULLS_FIELDS", NORMAL_PRIORITY).addClassAndMethod(this)
-                            .addReferencedField(this), this);
+            bugAccumulator.accumulateBug(new BugInstance(this, "FI_FINALIZER_NULLS_FIELDS", NORMAL_PRIORITY)
+                    .addClassAndMethod(this).addReferencedField(this), this);
             sawFieldNulling = true;
             state = 0;
         } else if (seen == Const.RETURN) {

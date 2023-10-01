@@ -116,13 +116,8 @@ class AnnotationMatcherTest {
         AnnotationMatcher sm = new AnnotationMatcher(annotationName);
 
         String matcherXml = writeXMLAndGetStringOutput(sm, false);
-        String filterXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                + "\n<FindBugsFilter>"
-                + "\n<Match>"
-                + "\n"
-                + matcherXml
-                + "\n</Match>"
-                + "\n</FindBugsFilter>\n";
+        String filterXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n<FindBugsFilter>" + "\n<Match>" + "\n"
+                + matcherXml + "\n</Match>" + "\n</FindBugsFilter>\n";
 
         return new Filter(new StringInputStream(filterXml));
     }
@@ -141,9 +136,7 @@ class AnnotationMatcherTest {
                         "../spotbugsTestCases/build/classes/java/main/ghIssues/issue543/ImmutableFoobarValue$Builder.class"));
 
         AnnotationMatcher bugInstanceMatcher = new AnnotationMatcher(annotationName);
-        long numberOfMatchedBugs = bugCollection.getCollection().stream()
-                .filter(bugInstanceMatcher::match)
-                .count();
+        long numberOfMatchedBugs = bugCollection.getCollection().stream().filter(bugInstanceMatcher::match).count();
 
         assertEquals(4, numberOfMatchedBugs);
     }

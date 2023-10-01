@@ -60,8 +60,7 @@ public class MethodMatcher extends MemberMatcher implements Matcher {
                 }
             }
         }
-        return methodAnnotation != null
-                && name.match(methodAnnotation.getMethodName())
+        return methodAnnotation != null && name.match(methodAnnotation.getMethodName())
                 && (signature == null || signature.match(methodAnnotation.getMethodSignature()));
     }
 

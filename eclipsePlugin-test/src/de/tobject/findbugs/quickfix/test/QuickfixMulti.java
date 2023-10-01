@@ -44,7 +44,7 @@ import de.tobject.findbugs.test.TestScenario;
 import edu.umd.cs.findbugs.config.ProjectFilterSettings;
 
 /**
- *  Tests the ability to fix multiple bugs at once from the Problems view
+ * Tests the ability to fix multiple bugs at once from the Problems view
  *
  * @author Kevin Lubick
  *
@@ -70,15 +70,14 @@ class QuickfixMulti extends AbstractQuickfixTest {
         settings.setMinRank(20);
     }
 
-
     @Test
     void testMultiUseValueOf() throws Exception {
         QuickFixTestPackager packager = new QuickFixTestPackager();
-        packager.addBugPatterns("DM_FP_NUMBER_CTOR", "DM_FP_NUMBER_CTOR", "DM_FP_NUMBER_CTOR", "DM_FP_NUMBER_CTOR", "DM_FP_NUMBER_CTOR",
-                "DM_FP_NUMBER_CTOR");
-        packager.addExpectedLines(6, //OneProblemHere.java
-                11, 24, //TwoProblemsHere.java
-                7, 9, 16 //ThreeProblemsHere.java
+        packager.addBugPatterns("DM_FP_NUMBER_CTOR", "DM_FP_NUMBER_CTOR", "DM_FP_NUMBER_CTOR", "DM_FP_NUMBER_CTOR",
+                "DM_FP_NUMBER_CTOR", "DM_FP_NUMBER_CTOR");
+        packager.addExpectedLines(6, // OneProblemHere.java
+                11, 24, // TwoProblemsHere.java
+                7, 9, 16 // ThreeProblemsHere.java
         );
         packager.setExpectedLabels(0, "Use Double.valueOf(6.1) instead");
         packager.setExpectedLabels(1, "Use Double.valueOf(7.1) instead");
@@ -90,8 +89,8 @@ class QuickfixMulti extends AbstractQuickfixTest {
 
     }
 
-
-    protected void doTestMultiQuickfixResolution(IProject project, List<QuickFixTestPackage> packages) throws CoreException, IOException {
+    protected void doTestMultiQuickfixResolution(IProject project, List<QuickFixTestPackage> packages)
+            throws CoreException, IOException {
         // Run FindBugs on the entire project
         work(createFindBugsWorker(), project);
 
@@ -113,7 +112,7 @@ class QuickfixMulti extends AbstractQuickfixTest {
         // Apply resolution to each marker
         applyMultiResolutionToAllMarkers(markers);
 
-        //check project inputs and outputs
+        // check project inputs and outputs
         checkJavaFiles(project.members());
     }
 
@@ -130,15 +129,14 @@ class QuickfixMulti extends AbstractQuickfixTest {
         }
     }
 
-
     private void applyMultiResolutionToAllMarkers(IMarker[] markers) {
         IMarkerResolution[] resolutions = getResolutionGenerator().getResolutions(markers[0]);
         if (resolutions[0] instanceof WorkbenchMarkerResolution) {
-            //this represents one of the bugs a user would click on in the problems menu
+            // this represents one of the bugs a user would click on in the problems menu
             WorkbenchMarkerResolution resolutionFromProblemsMenu = ((WorkbenchMarkerResolution) resolutions[0]);
 
-            //in theory, we should have filtered all the bugs of the passed in type
-            //So, findOtherMarkers should return them all
+            // in theory, we should have filtered all the bugs of the passed in type
+            // So, findOtherMarkers should return them all
             assertEquals(markers.length - 1, resolutionFromProblemsMenu.findOtherMarkers(markers).length);
 
             resolutionFromProblemsMenu.run(markers, null);
@@ -148,7 +146,7 @@ class QuickfixMulti extends AbstractQuickfixTest {
 
     }
 
-    //Filters out markers so that only markers with the expected pattern are in the array
+    // Filters out markers so that only markers with the expected pattern are in the array
     private IMarker[] filterMarkers(IMarker[] markers, List<QuickFixTestPackage> list) {
         ArrayList<IMarker> filteredMarkers = new ArrayList<>();
 

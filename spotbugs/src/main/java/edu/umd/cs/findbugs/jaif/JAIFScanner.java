@@ -29,9 +29,8 @@ import java.util.regex.Pattern;
  * Lexical scanner for external annotation files.
  *
  * @author David Hovemeyer
- * @see <a
- *      href="http://groups.csail.mit.edu/pag/jsr308/annotation-file-utilities/">Annotation
- *      File Utilities/</a>
+ *
+ * @see <a href="http://groups.csail.mit.edu/pag/jsr308/annotation-file-utilities/">Annotation File Utilities/</a>
  */
 public class JAIFScanner {
 
@@ -101,33 +100,31 @@ public class JAIFScanner {
     private static final String STRING_CHARS_OPT = "(" + INPUT_CHAR + "|" + ESCAPE_SEQ + ")*";
 
     private static final TokenPattern[] TOKEN_PATTERNS = {
-        // Misc. syntax
-        new TokenPattern(":", JAIFTokenKind.COLON),
-        new TokenPattern("\\(", JAIFTokenKind.LPAREN),
-        new TokenPattern("\\)", JAIFTokenKind.RPAREN),
-        new TokenPattern(",", JAIFTokenKind.COMMA),
-        new TokenPattern("=", JAIFTokenKind.EQUALS),
+            // Misc. syntax
+            new TokenPattern(":", JAIFTokenKind.COLON), new TokenPattern("\\(", JAIFTokenKind.LPAREN),
+            new TokenPattern("\\)", JAIFTokenKind.RPAREN), new TokenPattern(",", JAIFTokenKind.COMMA),
+            new TokenPattern("=", JAIFTokenKind.EQUALS),
 
-        // Identifiers and keywords
-        new TokenPattern(ID_START + "(" + ID_REST + ")*", JAIFTokenKind.IDENTIFIER_OR_KEYWORD),
+            // Identifiers and keywords
+            new TokenPattern(ID_START + "(" + ID_REST + ")*", JAIFTokenKind.IDENTIFIER_OR_KEYWORD),
 
-        // FP literals
-        new TokenPattern(DIGITS + DOT + DIGITS_OPT + EXP_PART_OPT + FLOAT_TYPE_SUFFIX_OPT,
-                JAIFTokenKind.FLOATING_POINT_LITERAL),
-        new TokenPattern(DOT + DIGITS + EXP_PART_OPT + FLOAT_TYPE_SUFFIX_OPT, JAIFTokenKind.FLOATING_POINT_LITERAL),
-        new TokenPattern(DIGITS + EXP_PART + FLOAT_TYPE_SUFFIX_OPT, JAIFTokenKind.FLOATING_POINT_LITERAL),
-        new TokenPattern(DIGITS + EXP_PART_OPT + FLOAT_TYPE_SUFFIX, JAIFTokenKind.FLOATING_POINT_LITERAL),
+            // FP literals
+            new TokenPattern(DIGITS + DOT + DIGITS_OPT + EXP_PART_OPT + FLOAT_TYPE_SUFFIX_OPT,
+                    JAIFTokenKind.FLOATING_POINT_LITERAL),
+            new TokenPattern(DOT + DIGITS + EXP_PART_OPT + FLOAT_TYPE_SUFFIX_OPT, JAIFTokenKind.FLOATING_POINT_LITERAL),
+            new TokenPattern(DIGITS + EXP_PART + FLOAT_TYPE_SUFFIX_OPT, JAIFTokenKind.FLOATING_POINT_LITERAL),
+            new TokenPattern(DIGITS + EXP_PART_OPT + FLOAT_TYPE_SUFFIX, JAIFTokenKind.FLOATING_POINT_LITERAL),
 
-        // This must come after the FP literal patterns
-        new TokenPattern(DOT, JAIFTokenKind.DOT),
+            // This must come after the FP literal patterns
+            new TokenPattern(DOT, JAIFTokenKind.DOT),
 
-        // Integer literals
-        new TokenPattern("0" + OCTAL_DIGITS + INT_TYPE_SUFFIX_OPT, JAIFTokenKind.OCTAL_LITERAL),
-        new TokenPattern(HEX_SIGNIFIER + HEX_DIGITS + INT_TYPE_SUFFIX_OPT, JAIFTokenKind.HEX_LITERAL),
-        new TokenPattern(DIGITS + INT_TYPE_SUFFIX_OPT, JAIFTokenKind.DECIMAL_LITERAL),
+            // Integer literals
+            new TokenPattern("0" + OCTAL_DIGITS + INT_TYPE_SUFFIX_OPT, JAIFTokenKind.OCTAL_LITERAL),
+            new TokenPattern(HEX_SIGNIFIER + HEX_DIGITS + INT_TYPE_SUFFIX_OPT, JAIFTokenKind.HEX_LITERAL),
+            new TokenPattern(DIGITS + INT_TYPE_SUFFIX_OPT, JAIFTokenKind.DECIMAL_LITERAL),
 
-        // String literals
-        new TokenPattern("\"" + STRING_CHARS_OPT + "\"", JAIFTokenKind.STRING_LITERAL), };
+            // String literals
+            new TokenPattern("\"" + STRING_CHARS_OPT + "\"", JAIFTokenKind.STRING_LITERAL), };
 
     private final BufferedReader reader;
 

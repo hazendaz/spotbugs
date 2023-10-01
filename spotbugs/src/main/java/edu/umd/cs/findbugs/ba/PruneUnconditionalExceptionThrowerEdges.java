@@ -46,10 +46,11 @@ import edu.umd.cs.findbugs.classfile.Global;
 public class PruneUnconditionalExceptionThrowerEdges implements EdgeTypes {
     private static final boolean DEBUG = SystemProperties.getBoolean("cfg.prune.throwers.debug");
 
-    private static final boolean DEBUG_DIFFERENCES = SystemProperties.getBoolean("cfg.prune.throwers.differences.debug");
+    private static final boolean DEBUG_DIFFERENCES = SystemProperties
+            .getBoolean("cfg.prune.throwers.differences.debug");
 
-    private static final String UNCONDITIONAL_THROWER_METHOD_NAMES = SystemProperties.getProperty(
-            "findbugs.unconditionalThrower", " ").replace(',', '|');
+    private static final String UNCONDITIONAL_THROWER_METHOD_NAMES = SystemProperties
+            .getProperty("findbugs.unconditionalThrower", " ").replace(',', '|');
 
     private final MethodGen methodGen;
 
@@ -81,14 +82,16 @@ public class PruneUnconditionalExceptionThrowerEdges implements EdgeTypes {
                 System.out.println(p.matcher("showInvalidPage").matches());
             }
         } catch (RuntimeException e) {
-            AnalysisContext.logError("Error compiling unconditional thrower pattern " + UNCONDITIONAL_THROWER_METHOD_NAMES, e);
+            AnalysisContext
+                    .logError("Error compiling unconditional thrower pattern " + UNCONDITIONAL_THROWER_METHOD_NAMES, e);
             p = Pattern.compile(" ");
         }
         unconditionalThrowerPattern = p;
     }
 
     public PruneUnconditionalExceptionThrowerEdges(/* ClassContext classContext, */JavaClass javaClass, Method method,
-            MethodGen methodGen, CFG cfg, ConstantPoolGen cpg, TypeDataflow typeDataflow, AnalysisContext analysisContext) {
+            MethodGen methodGen, CFG cfg, ConstantPoolGen cpg, TypeDataflow typeDataflow,
+            AnalysisContext analysisContext) {
         // this.classContext = classContext;
         this.methodGen = methodGen;
         this.cfg = cfg;
@@ -163,8 +166,8 @@ public class PruneUnconditionalExceptionThrowerEdges implements EdgeTypes {
                         continue;
                     }
                     String methodSig = inv.getSignature(cpg);
-                    if (!methodSig.endsWith("V") && !methodSig.endsWith("Exception;")
-                            && !methodSig.endsWith("Error;") && !methodSig.endsWith(")Ljava/lang/Object;")) {
+                    if (!methodSig.endsWith("V") && !methodSig.endsWith("Exception;") && !methodSig.endsWith("Error;")
+                            && !methodSig.endsWith(")Ljava/lang/Object;")) {
                         continue;
                     }
 
@@ -245,9 +248,10 @@ public class PruneUnconditionalExceptionThrowerEdges implements EdgeTypes {
      * @param xMethod
      * @param javaClass
      * @param method
+     *
      * @return true if method unconditionally throws
-     * @deprecated Use {@link #doesMethodUnconditionallyThrowException(XMethod)}
-     *             instead
+     *
+     * @deprecated Use {@link #doesMethodUnconditionallyThrowException(XMethod)} instead
      */
     @Deprecated
     public static Boolean doesMethodUnconditionallyThrowException(XMethod xMethod, JavaClass javaClass, Method method) {
@@ -256,6 +260,7 @@ public class PruneUnconditionalExceptionThrowerEdges implements EdgeTypes {
 
     /**
      * @param xMethod
+     *
      * @return true if method unconditionally throws
      */
     public static boolean doesMethodUnconditionallyThrowException(XMethod xMethod) {

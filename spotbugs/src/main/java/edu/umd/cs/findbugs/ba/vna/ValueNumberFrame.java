@@ -41,10 +41,10 @@ import edu.umd.cs.findbugs.ba.XField;
 import edu.umd.cs.findbugs.util.Util;
 
 /**
- * A dataflow value representing a Java stack frame with value number
- * information.
+ * A dataflow value representing a Java stack frame with value number information.
  *
  * @author David Hovemeyer
+ *
  * @see ValueNumber
  * @see ValueNumberAnalysis
  */
@@ -90,8 +90,8 @@ public class ValueNumberFrame extends Frame<ValueNumber> implements ValueNumberA
         super(numLocals);
         if (REDUNDANT_LOAD_ELIMINATION) {
             setAvailableLoadMap(AvailableLoadBiMap.emptyMap());
-            setMergedLoads(Collections.<AvailableLoad, ValueNumber>emptyMap());
-            setPreviouslyKnownAs(Collections.<ValueNumber, AvailableLoad>emptyMap());
+            setMergedLoads(Collections.<AvailableLoad, ValueNumber> emptyMap());
+            setPreviouslyKnownAs(Collections.<ValueNumber, AvailableLoad> emptyMap());
         }
     }
 
@@ -123,6 +123,7 @@ public class ValueNumberFrame extends Frame<ValueNumber> implements ValueNumberA
      *
      * @param availableLoad
      *            the AvailableLoad (reference and field)
+     *
      * @return the value(s) available, or null if no matching entry is found
      */
     public ValueNumber[] getAvailableLoad(AvailableLoad availableLoad) {
@@ -179,8 +180,8 @@ public class ValueNumberFrame extends Frame<ValueNumber> implements ValueNumberA
     }
 
     /**
-     * Kill all loads. This conservatively handles method calls where we don't
-     * really know what fields might be assigned.
+     * Kill all loads. This conservatively handles method calls where we don't really know what fields might be
+     * assigned.
      */
     public void killAllLoads() {
         killAllLoads(false);
@@ -224,8 +225,8 @@ public class ValueNumberFrame extends Frame<ValueNumber> implements ValueNumberA
     }
 
     /**
-     * Kill all loads. This conservatively handles method calls where we don't
-     * really know what fields might be assigned.
+     * Kill all loads. This conservatively handles method calls where we don't really know what fields might be
+     * assigned.
      */
     public void killAllLoadsOf(@CheckForNull ValueNumber v) {
         if (!REDUNDANT_LOAD_ELIMINATION) {
@@ -239,7 +240,8 @@ public class ValueNumberFrame extends Frame<ValueNumber> implements ValueNumberA
                 continue;
             }
             XField field = availableLoad.getField();
-            if (!field.isFinal() && (!USE_WRITTEN_OUTSIDE_OF_CONSTRUCTOR || fieldSummary.isWrittenOutsideOfConstructor(field))) {
+            if (!field.isFinal()
+                    && (!USE_WRITTEN_OUTSIDE_OF_CONSTRUCTOR || fieldSummary.isWrittenOutsideOfConstructor(field))) {
                 if (RLE_DEBUG) {
                     System.out.println("Killing load of " + availableLoad + " in " + this);
                 }
@@ -315,10 +317,8 @@ public class ValueNumberFrame extends Frame<ValueNumber> implements ValueNumberA
                     ValueNumber[] myVN = e.getValue();
                     ValueNumber[] otherVN = other.getAvailableLoadMap().get(load);
                     /*
-                    if (false && this.phiNodeForLoads && myVN != null && myVN.length == 1
-                            && myVN[0].hasFlag(ValueNumber.PHI_NODE)) {
-                        continue;
-                    }
+                     * if (false && this.phiNodeForLoads && myVN != null && myVN.length == 1 &&
+                     * myVN[0].hasFlag(ValueNumber.PHI_NODE)) { continue; }
                      */
                     if (!Arrays.equals(myVN, otherVN)) {
 
@@ -352,8 +352,9 @@ public class ValueNumberFrame extends Frame<ValueNumber> implements ValueNumberA
                             }
 
                             if (RLE_DEBUG) {
-                                System.out.println("Creating phi node " + phi + " for " + load + " from " + Arrays.toString(myVN)
-                                        + " x " + Arrays.toString(otherVN) + " in " + System.identityHashCode(this));
+                                System.out.println("Creating phi node " + phi + " for " + load + " from "
+                                        + Arrays.toString(myVN) + " x " + Arrays.toString(otherVN) + " in "
+                                        + System.identityHashCode(this));
                             }
                             changed = true;
                             updateableAvailableLoadMap.updateEntryValue(e, phi);
@@ -439,7 +440,7 @@ public class ValueNumberFrame extends Frame<ValueNumber> implements ValueNumberA
     private void assignPreviouslyKnownAs(ValueNumberFrame other) {
         Map<ValueNumber, AvailableLoad> previouslyKnownAsOther = other.getPreviouslyKnownAs();
         if (previouslyKnownAsOther instanceof HashMap) {
-            previouslyKnownAsOther = Collections.<ValueNumber, AvailableLoad>unmodifiableMap(previouslyKnownAsOther);
+            previouslyKnownAsOther = Collections.<ValueNumber, AvailableLoad> unmodifiableMap(previouslyKnownAsOther);
             other.setPreviouslyKnownAs(previouslyKnownAsOther);
             setPreviouslyKnownAs(previouslyKnownAsOther);
             constructedUnmodifiableMap++;
@@ -702,6 +703,7 @@ public class ValueNumberFrame extends Frame<ValueNumber> implements ValueNumberA
         /**
          * @param other
          *            The map we want to copy
+         *
          * @return an unmodifiable copy backed by the <code>other</code> {@link AvailableLoadBiMap}
          */
         public static AvailableLoadBiMap unmodifiableMap(AvailableLoadBiMap other) {

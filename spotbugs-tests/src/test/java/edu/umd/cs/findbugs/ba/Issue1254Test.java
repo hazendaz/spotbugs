@@ -13,7 +13,7 @@ class Issue1254Test extends AbstractIntegrationTest {
 
     // These tests require java 11 or better to run
     private static final String[] CLASS_LIST = { "../java11/module-info.class", "../java11/Issue1254.class",
-        "../java11/Issue1254$Inner.class", "../java11/Issue1254$1.class", };
+            "../java11/Issue1254$Inner.class", "../java11/Issue1254$1.class", };
 
     /**
      * Test that accessing private members of a nested class doesn't result in unresolvable reference problems.

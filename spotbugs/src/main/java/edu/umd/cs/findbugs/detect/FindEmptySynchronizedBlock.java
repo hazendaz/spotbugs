@@ -35,7 +35,8 @@ public class FindEmptySynchronizedBlock extends BytecodeScanningDetector {
 
     @Override
     public void sawOpcode(int seen) {
-        if (seen == Const.MONITOREXIT && (getPrevOpcode(2) == Const.MONITORENTER || getPrevOpcode(1) == Const.MONITORENTER)) {
+        if (seen == Const.MONITOREXIT
+                && (getPrevOpcode(2) == Const.MONITORENTER || getPrevOpcode(1) == Const.MONITORENTER)) {
             bugReporter.reportBug(new BugInstance(this, "ESync_EMPTY_SYNC", NORMAL_PRIORITY).addClassAndMethod(this)
                     .addSourceLine(this));
         }

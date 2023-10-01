@@ -57,16 +57,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Helper class to parse the command line and configure the IFindBugsEngine
- * object. As a side-effect it also configures a DetectorFactoryCollection (to
- * enable and disable detectors as requested).
+ * Helper class to parse the command line and configure the IFindBugsEngine object. As a side-effect it also configures
+ * a DetectorFactoryCollection (to enable and disable detectors as requested).
  */
 public class TextUICommandLine extends FindBugsCommandLine {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
-     * Handling callback for choose() method, used to implement the
-     * -chooseVisitors and -choosePlugins options.
+     * Handling callback for choose() method, used to implement the -chooseVisitors and -choosePlugins options.
      */
     private interface Chooser {
         /**
@@ -163,7 +161,6 @@ public class TextUICommandLine extends FindBugsCommandLine {
         addSwitch("-justListOptions", "throw an exception that lists the provided options");
         makeOptionUnlisted("-justListOptions");
 
-
         addSwitch("-timestampNow", "set timestamp of results to be current time");
         addSwitch("-quiet", "suppress error messages");
         addSwitch("-longBugCodes", "report long bug codes");
@@ -180,11 +177,14 @@ public class TextUICommandLine extends FindBugsCommandLine {
         addSwitchWithOptionalExtraPart("-xml", "withMessages", "XML output (optionally with messages)");
         addSwitch("-xdocs", "xdoc XML output to use with Apache Maven");
         addSwitch("-sarif", "SARIF 2.1.0 output");
-        addSwitchWithOptionalExtraPart("-html", "stylesheet", "Generate HTML output (default stylesheet is default.xsl)");
+        addSwitchWithOptionalExtraPart("-html", "stylesheet",
+                "Generate HTML output (default stylesheet is default.xsl)");
         addSwitch("-emacs", "Use emacs reporting format");
         addSwitch("-relaxed", "Relaxed reporting mode (more false positives!)");
-        addSwitchWithOptionalExtraPart("-train", "outputDir", "Save training data (experimental); output dir defaults to '.'");
-        addSwitchWithOptionalExtraPart("-useTraining", "inputDir", "Use training data (experimental); input dir defaults to '.'");
+        addSwitchWithOptionalExtraPart("-train", "outputDir",
+                "Save training data (experimental); output dir defaults to '.'");
+        addSwitchWithOptionalExtraPart("-useTraining", "inputDir",
+                "Use training data (experimental); input dir defaults to '.'");
         addOption("-redoAnalysis", "filename", "Redo analysis using configuration from previous analysis");
         addOption("-sourceInfo", "filename", "Specify source info file (line numbers for fields/classes)");
         addOption("-projectName", "project name", "Descriptive name of project");
@@ -265,11 +265,14 @@ public class TextUICommandLine extends FindBugsCommandLine {
     private List<TextUIBugReporter> reporters = new ArrayList<>();
 
     /**
-     * Parse {@code optionExtraPart} and configure {@Link TextUIBugReporter} if it contains the
-     * output file path such as {@code ":withMessages=path/to/file.extension"} and {@code "=/absolute/path/to/file.extension"}.
+     * Parse {@code optionExtraPart} and configure {@Link TextUIBugReporter} if it contains the output file path such as
+     * {@code ":withMessages=path/to/file.extension"} and {@code "=/absolute/path/to/file.extension"}.
      *
-     * @param reporter the reporter to set a {@link PrintStream} based on the given file path
-     * @param optionExtraPart extra part of the specified commandline option
+     * @param reporter
+     *            the reporter to set a {@link PrintStream} based on the given file path
+     * @param optionExtraPart
+     *            extra part of the specified commandline option
+     *
      * @return Remaining part of {@code optionExtraPart}
      */
     /* visible for testing */ String handleOutputFilePath(TextUIBugReporter reporter, String optionExtraPart) {
@@ -308,8 +311,8 @@ public class TextUICommandLine extends FindBugsCommandLine {
             int count = 0;
             for (Iterator<Plugin> i = DetectorFactoryCollection.instance().pluginIterator(); i.hasNext();) {
                 Plugin plugin = i.next();
-                System.out.println("  " + plugin.getPluginId() + " (default: " + (plugin.isEnabledByDefault() ? "enabled" : "disabled")
-                        + ")");
+                System.out.println("  " + plugin.getPluginId() + " (default: "
+                        + (plugin.isEnabledByDefault() ? "enabled" : "disabled") + ")");
                 if (plugin.getShortDescription() != null) {
                     System.out.println("    Description: " + plugin.getShortDescription());
                 }
@@ -661,7 +664,6 @@ public class TextUICommandLine extends FindBugsCommandLine {
         // by command line parsing)
         findBugs.setDetectorFactoryCollection(DetectorFactoryCollection.instance());
 
-
         if (redoAnalysisFile != null) {
             SortedBugCollection bugs = new SortedBugCollection();
             try {
@@ -692,7 +694,8 @@ public class TextUICommandLine extends FindBugsCommandLine {
         if (reporters.isEmpty()) {
             throw new IllegalStateException("No bug reporter configured");
         }
-        ConfigurableBugReporter textuiBugReporter = reporters.size() == 1 ? reporters.get(0) : new BugReportDispatcher(reporters);
+        ConfigurableBugReporter textuiBugReporter = reporters.size() == 1 ? reporters.get(0)
+                : new BugReportDispatcher(reporters);
         if (quiet) {
             textuiBugReporter.setErrorVerbosity(BugReporter.SILENT);
         }
@@ -703,7 +706,8 @@ public class TextUICommandLine extends FindBugsCommandLine {
 
         findBugs.setRankThreshold(rankThreshold);
         if (outputStream != null) {
-            logger.warn("-output option and -outputFile option are deprecated. Set file path to each option for reporter.");
+            logger.warn(
+                    "-output option and -outputFile option are deprecated. Set file path to each option for reporter.");
             textuiBugReporter.setOutputStream(outputStream);
         }
 
@@ -755,8 +759,7 @@ public class TextUICommandLine extends FindBugsCommandLine {
     }
 
     /**
-     * Handle -xargs command line option by reading jar file names from standard
-     * input and adding them to the project.
+     * Handle -xargs command line option by reading jar file names from standard input and adding them to the project.
      *
      * @throws IOException
      */
@@ -775,8 +778,8 @@ public class TextUICommandLine extends FindBugsCommandLine {
     }
 
     /**
-     * Handle -readAuxFromFile command line option by reading classpath entries
-     * from a file and adding them to the project.
+     * Handle -readAuxFromFile command line option by reading classpath entries from a file and adding them to the
+     * project.
      *
      * @throws IOException
      */
@@ -793,8 +796,7 @@ public class TextUICommandLine extends FindBugsCommandLine {
     }
 
     /**
-     * Handle -analyzeFromFile command line option by reading jar file names
-     * from a file and adding them to the project.
+     * Handle -analyzeFromFile command line option by reading jar file names from a file and adding them to the project.
      *
      * @throws IOException
      */

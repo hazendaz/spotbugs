@@ -72,7 +72,8 @@ public class QuickFixesExtensionHelper {
         return contributedQuickFixes;
     }
 
-    private static void addContribution(Map<String, List<QuickFixContribution>> set, final IConfigurationElement configElt) {
+    private static void addContribution(Map<String, List<QuickFixContribution>> set,
+            final IConfigurationElement configElt) {
         IContributor contributor = null;
         try {
             contributor = configElt.getContributor();
@@ -108,20 +109,20 @@ public class QuickFixesExtensionHelper {
                 set.put(pattern, list);
             }
             if (list.contains(qf)) {
-                throw new IllegalArgumentException("Duplicated quick fix contribution for pattern '"
-                        + pattern + "': " + qf + ".");
+                throw new IllegalArgumentException(
+                        "Duplicated quick fix contribution for pattern '" + pattern + "': " + qf + ".");
             }
             list.add(qf);
         } catch (Throwable e) {
             String cName = contributor != null ? contributor.getName() : "unknown contributor";
-            String message = "Failed to read contribution for '" + EXTENSION_POINT_ID
-                    + "' extension point from " + cName;
+            String message = "Failed to read contribution for '" + EXTENSION_POINT_ID + "' extension point from "
+                    + cName;
             FindbugsPlugin.getDefault().logException(e, message);
         }
     }
 
-    private static QuickFixContribution createQuickFix(final IConfigurationElement configElt, String clazzFqn, String label,
-            String pattern, Set<String> args) {
+    private static QuickFixContribution createQuickFix(final IConfigurationElement configElt, String clazzFqn,
+            String label, String pattern, Set<String> args) {
         return new QuickFixContribution(clazzFqn, label, pattern, args, new Callable<BugResolution>() {
             @Override
             public BugResolution call() throws Exception {

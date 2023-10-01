@@ -66,8 +66,8 @@ public class BugLoader {
     private static UserPreferences preferencesSingleton = UserPreferences.createDefaultUserPreferences();
 
     /**
-     * Get UserPreferences singleton. This should only be used if there is a
-     * single set of user preferences to be used for all projects.
+     * Get UserPreferences singleton. This should only be used if there is a single set of user preferences to be used
+     * for all projects.
      *
      * @return the UserPreferences
      */
@@ -81,15 +81,16 @@ public class BugLoader {
      * @param p
      *            The Project to run the analysis on
      * @param progressCallback
-     *            the progressCallBack is supposed to be supplied by analyzing
-     *            dialog, FindBugs supplies progress information while it runs
-     *            the analysis
+     *            the progressCallBack is supposed to be supplied by analyzing dialog, FindBugs supplies progress
+     *            information while it runs the analysis
+     *
      * @return the bugs found
+     *
      * @throws InterruptedException
      * @throws IOException
      */
-    public static BugCollection doAnalysis(@Nonnull Project p, FindBugsProgress progressCallback) throws IOException,
-            InterruptedException {
+    public static BugCollection doAnalysis(@Nonnull Project p, FindBugsProgress progressCallback)
+            throws IOException, InterruptedException {
         StringWriter stringWriter = new StringWriter();
         BugCollectionBugReporter pcb = new BugCollectionBugReporter(p, new PrintWriter(stringWriter, true));
         pcb.setPriorityThreshold(Priorities.LOW_PRIORITY);
@@ -105,8 +106,7 @@ public class BugLoader {
             tp.setEditable(false);
             JScrollPane pane = new JScrollPane(tp);
             pane.setPreferredSize(new Dimension(600, 400));
-            JOptionPane.showMessageDialog(MainFrame.getInstance(),
-                    pane, "Analysis errors",
+            JOptionPane.showMessageDialog(MainFrame.getInstance(), pane, "Analysis errors",
                     JOptionPane.WARNING_MESSAGE);
         }
 
@@ -120,6 +120,7 @@ public class BugLoader {
      *            the Project
      * @param pcb
      *            the PrintCallBack
+     *
      * @return the IFindBugsEngine
      */
     private static IFindBugsEngine createEngine(@Nonnull Project p, BugReporter pcb) {
@@ -219,14 +220,12 @@ public class BugLoader {
     }
 
     /**
-     * TODO: This really needs to be rewritten such that they don't have to
-     * choose ALL xmls in one fel swoop. I'm thinking something more like new
-     * project wizard's functionality. -Dan
+     * TODO: This really needs to be rewritten such that they don't have to choose ALL xmls in one fel swoop. I'm
+     * thinking something more like new project wizard's functionality. -Dan
      *
-     * Merges bug collection histories from xmls selected by the user. Right now
-     * all xmls must be in the same folder and he must select all of them at
-     * once Makes use of FindBugs's mergeCollection method in the Update class
-     * of the workflow package
+     * Merges bug collection histories from xmls selected by the user. Right now all xmls must be in the same folder and
+     * he must select all of them at once Makes use of FindBugs's mergeCollection method in the Update class of the
+     * workflow package
      *
      * @return the merged collecction of bugs
      */
@@ -237,7 +236,8 @@ public class BugLoader {
             // chooser.setCurrentDirectory(GUISaveState.getInstance().getStarterDirectoryForLoadBugs());
             // This is done by FBFileChooser.
             chooser.setMultiSelectionEnabled(true);
-            chooser.setDialogTitle(edu.umd.cs.findbugs.L10N.getLocalString("dlg.choose_xmls_ttl", "Choose All XML's To Combine"));
+            chooser.setDialogTitle(
+                    edu.umd.cs.findbugs.L10N.getLocalString("dlg.choose_xmls_ttl", "Choose All XML's To Combine"));
             if (chooser.showOpenDialog(MainFrame.getInstance()) == JFileChooser.CANCEL_OPTION) {
                 return null;
             }
@@ -269,10 +269,10 @@ public class BugLoader {
     }
 
     /**
-     * Does what it says it does, hit apple r (control r on pc) and the analysis
-     * is redone using the current project
+     * Does what it says it does, hit apple r (control r on pc) and the analysis is redone using the current project
      *
      * @param p
+     *
      * @return the bugs from the reanalysis, or null if cancelled
      */
     public static @CheckForNull BugCollection doAnalysis(@Nonnull Project p) {
@@ -291,10 +291,10 @@ public class BugLoader {
     }
 
     /**
-     * Does what it says it does, hit apple r (control r on pc) and the analysis
-     * is redone using the current project
+     * Does what it says it does, hit apple r (control r on pc) and the analysis is redone using the current project
      *
      * @param p
+     *
      * @return the bugs from the reanalysis, or null if canceled
      */
     public static @CheckForNull BugCollection redoAnalysisKeepComments(@Nonnull Project p) {
@@ -320,7 +320,6 @@ public class BugLoader {
             }
         }
         return current;
-
 
     }
 

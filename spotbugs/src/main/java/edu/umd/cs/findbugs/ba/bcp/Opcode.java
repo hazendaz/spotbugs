@@ -30,6 +30,7 @@ import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
  * PatternElement to match instructions with a particular opcode.
  *
  * @author David Hovemeyer
+ *
  * @see PatternElement
  */
 public class Opcode extends PatternElement {
@@ -46,8 +47,8 @@ public class Opcode extends PatternElement {
     }
 
     @Override
-    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before, ValueNumberFrame after,
-            BindingSet bindingSet) throws DataflowAnalysisException {
+    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before,
+            ValueNumberFrame after, BindingSet bindingSet) throws DataflowAnalysisException {
 
         if (handle.getInstruction().getOpcode() == opcode) {
             return new MatchResult(this, bindingSet);

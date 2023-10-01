@@ -57,8 +57,7 @@ import edu.umd.cs.findbugs.classfile.IAnalysisCache;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
 /**
- * Analysis engine to produce CFG (control flow graph) objects for an analyzed
- * method.
+ * Analysis engine to produce CFG (control flow graph) objects for an analyzed method.
  *
  * @author David Hovemeyer
  */
@@ -75,9 +74,8 @@ public class CFGFactory extends AnalysisFactory<CFG> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
     public CFG analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor) throws CheckedAnalysisException {
@@ -152,8 +150,8 @@ public class CFGFactory extends AnalysisFactory<CFG> {
         }
         cfg.setFlag(CFG.PRUNED_FAILED_ASSERTION_EDGES);
 
-        final boolean PRUNE_INFEASIBLE_EXCEPTION_EDGES = AnalysisContext.currentAnalysisContext().getBoolProperty(
-                AnalysisFeatures.ACCURATE_EXCEPTIONS);
+        final boolean PRUNE_INFEASIBLE_EXCEPTION_EDGES = AnalysisContext.currentAnalysisContext()
+                .getBoolProperty(AnalysisFeatures.ACCURATE_EXCEPTIONS);
 
         if (PRUNE_INFEASIBLE_EXCEPTION_EDGES && !cfg.isFlagSet(CFG.PRUNED_INFEASIBLE_EXCEPTIONS)) {
             try {
@@ -175,26 +173,27 @@ public class CFGFactory extends AnalysisFactory<CFG> {
         }
         cfg.setFlag(CFG.PRUNED_INFEASIBLE_EXCEPTIONS);
 
-        final boolean PRUNE_UNCONDITIONAL_EXCEPTION_THROWER_EDGES = !AnalysisContext.currentAnalysisContext().getBoolProperty(
-                AnalysisFeatures.CONSERVE_SPACE);
+        final boolean PRUNE_UNCONDITIONAL_EXCEPTION_THROWER_EDGES = !AnalysisContext.currentAnalysisContext()
+                .getBoolProperty(AnalysisFeatures.CONSERVE_SPACE);
 
         if (PRUNE_UNCONDITIONAL_EXCEPTION_THROWER_EDGES && !cfg.isFlagSet(CFG.PRUNED_UNCONDITIONAL_THROWERS)) {
             try {
                 JavaClass jclass = analysisCache.getClassAnalysis(JavaClass.class, descriptor.getClassDescriptor());
                 Method method = analysisCache.getMethodAnalysis(Method.class, descriptor);
-                ConstantPoolGen cpg = analysisCache.getClassAnalysis(ConstantPoolGen.class, descriptor.getClassDescriptor());
+                ConstantPoolGen cpg = analysisCache.getClassAnalysis(ConstantPoolGen.class,
+                        descriptor.getClassDescriptor());
                 TypeDataflow typeDataflow = analysisCache.getMethodAnalysis(TypeDataflow.class, descriptor);
 
-                PruneUnconditionalExceptionThrowerEdges pruner = new PruneUnconditionalExceptionThrowerEdges(jclass, method,
-                        methodGen, cfg, cpg, typeDataflow, AnalysisContext.currentAnalysisContext());
+                PruneUnconditionalExceptionThrowerEdges pruner = new PruneUnconditionalExceptionThrowerEdges(jclass,
+                        method, methodGen, cfg, cpg, typeDataflow, AnalysisContext.currentAnalysisContext());
                 pruner.execute();
                 if (pruner.wasCFGModified()) {
                     changed = true;
 
                 }
             } catch (DataflowAnalysisException e) {
-                AnalysisContext.logError("Error pruning normal return edges for unconditionally throwing methods for "
-                        + descriptor, e);
+                AnalysisContext.logError(
+                        "Error pruning normal return edges for unconditionally throwing methods for " + descriptor, e);
             }
         }
         cfg.setFlag(CFG.PRUNED_UNCONDITIONAL_THROWERS);
@@ -230,9 +229,7 @@ public class CFGFactory extends AnalysisFactory<CFG> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs
-     * .findbugs.classfile.IAnalysisCache)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#registerWith(edu.umd.cs .findbugs.classfile.IAnalysisCache)
      */
     @Override
     public void registerWith(IAnalysisCache analysisCache) {

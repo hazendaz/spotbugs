@@ -43,5 +43,4 @@ public class PathElementLabelProvider extends LabelProvider implements IColorPro
         return status.getMessage();
     }
 
-
 }

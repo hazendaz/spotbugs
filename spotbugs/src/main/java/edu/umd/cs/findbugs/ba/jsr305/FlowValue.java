@@ -65,11 +65,9 @@ public enum FlowValue {
     // Unknown
     //
     private static final FlowValue[][] mergeMatrix = {
-        // TOP ALWAYS NEVER UNKNOWN
-        /* TOP */{ TOP, },
-        /* ALWAYS */{ ALWAYS, ALWAYS, },
-        /* NEVER */{ NEVER, UNKNOWN, NEVER, },
-        /* UNKNOWN */{ UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN }, };
+            // TOP ALWAYS NEVER UNKNOWN
+            /* TOP */{ TOP, }, /* ALWAYS */{ ALWAYS, ALWAYS, }, /* NEVER */{ NEVER, UNKNOWN, NEVER, },
+            /* UNKNOWN */{ UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN }, };
 
     public static final FlowValue meet(FlowValue a, FlowValue b) {
         int aIndex = a.ordinal();
@@ -86,6 +84,7 @@ public enum FlowValue {
 
     /**
      * Determine whether given flow values conflict.
+     *
      * @param forward
      *            a forwards flow value
      * @param backward
@@ -110,6 +109,7 @@ public enum FlowValue {
      *
      * @param when
      *            a When value
+     *
      * @return the corresponding FlowValue
      */
     public static FlowValue flowValueFromWhen(When when) {
@@ -133,18 +133,18 @@ public enum FlowValue {
      * @param backwardsFlowValue
      *            a backwards FlowValue
      * @param source
-     *            SourceSinkInfo object representing a source reached by the
-     *            backwards flow value
+     *            SourceSinkInfo object representing a source reached by the backwards flow value
      * @param typeQualifierValue
      *            TypeQualifierValue being checked
-     * @param isIdentity TODO
+     * @param isIdentity
+     *            TODO
+     *
      * @return true if backwards value conflicts with source, false if not
      */
     public static boolean backwardsValueConflictsWithSource(FlowValue backwardsFlowValue, SourceSinkInfo source,
             TypeQualifierValue typeQualifierValue, boolean isIdentity) {
 
         When sourceWhen = source.getWhen();
-
 
         if (typeQualifierValue.isStrictQualifier() && !isIdentity) {
             // strict checking

@@ -36,8 +36,7 @@ public enum MarkerSeverity {
     }
 
     /**
-     * @return never return null. In case given argument is unknown or null,
-     *         returns {@link #Warning} severity.
+     * @return never return null. In case given argument is unknown or null, returns {@link #Warning} severity.
      */
     public static MarkerSeverity get(String markerSeverity) {
         if (markerSeverity == null || markerSeverity.isEmpty()) {

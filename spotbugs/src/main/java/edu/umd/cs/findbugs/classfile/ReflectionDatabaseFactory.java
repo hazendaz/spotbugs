@@ -25,8 +25,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 /**
- * A generic database factory that tries to create the database by (in order of
- * preference)
+ * A generic database factory that tries to create the database by (in order of preference)
  *
  * <ol>
  * <li>Invoking a static <b>create</b> method</li>
@@ -68,6 +67,7 @@ public class ReflectionDatabaseFactory<E> implements IDatabaseFactory<E> {
      * Try to create the database using a static create() method.
      *
      * @return the database, or null if there is no static create() method
+     *
      * @throws CheckedAnalysisException
      */
     private E createUsingStaticCreateMethod() throws CheckedAnalysisException {
@@ -97,6 +97,7 @@ public class ReflectionDatabaseFactory<E> implements IDatabaseFactory<E> {
      * Try to create the database using a no-arg constructor.
      *
      * @return the database, or null if there is no no-arg constructor
+     *
      * @throws CheckedAnalysisException
      */
     private E createUsingConstructor() throws CheckedAnalysisException {
@@ -117,9 +118,7 @@ public class ReflectionDatabaseFactory<E> implements IDatabaseFactory<E> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IDatabaseFactory#registerWith(edu.umd.cs
-     * .findbugs.classfile.IAnalysisCache)
+     * @see edu.umd.cs.findbugs.classfile.IDatabaseFactory#registerWith(edu.umd.cs .findbugs.classfile.IAnalysisCache)
      */
     @Override
     public void registerWith(IAnalysisCache analysisCache) {

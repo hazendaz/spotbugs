@@ -27,13 +27,13 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
 
 public class TestingGround extends OpcodeStackDetector {
 
-    //    final BugReporter bugReporter;
+    // final BugReporter bugReporter;
 
-    //    final BugAccumulator accumulator;
+    // final BugAccumulator accumulator;
 
     public TestingGround(BugReporter bugReporter) {
-        //        this.bugReporter = bugReporter;
-        //        this.accumulator = new BugAccumulator(bugReporter);
+        // this.bugReporter = bugReporter;
+        // this.accumulator = new BugAccumulator(bugReporter);
     }
 
     @Override

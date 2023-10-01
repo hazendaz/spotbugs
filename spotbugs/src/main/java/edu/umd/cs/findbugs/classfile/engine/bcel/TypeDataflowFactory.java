@@ -51,12 +51,12 @@ public class TypeDataflowFactory extends AnalysisFactory<TypeDataflow> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs
-     * .classfile.IAnalysisCache, java.lang.Object)
+     * @see edu.umd.cs.findbugs.classfile.IAnalysisEngine#analyze(edu.umd.cs.findbugs .classfile.IAnalysisCache,
+     * java.lang.Object)
      */
     @Override
-    public TypeDataflow analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor) throws CheckedAnalysisException {
+    public TypeDataflow analyze(IAnalysisCache analysisCache, MethodDescriptor descriptor)
+            throws CheckedAnalysisException {
         MethodGen methodGen = getMethodGen(analysisCache, descriptor);
         if (methodGen == null) {
             throw new MethodUnprofitableException(descriptor);
@@ -66,8 +66,8 @@ public class TypeDataflowFactory extends AnalysisFactory<TypeDataflow> {
         ExceptionSetFactory exceptionSetFactory = getExceptionSetFactory(analysisCache, descriptor);
         Method method = getMethod(analysisCache, descriptor);
 
-        TypeAnalysis typeAnalysis = new TypeAnalysis(method, methodGen, cfg, dfs, AnalysisContext.currentAnalysisContext()
-                .getLookupFailureCallback(), exceptionSetFactory);
+        TypeAnalysis typeAnalysis = new TypeAnalysis(method, methodGen, cfg, dfs,
+                AnalysisContext.currentAnalysisContext().getLookupFailureCallback(), exceptionSetFactory);
 
         if (AnalysisContext.currentAnalysisContext().getBoolProperty(AnalysisFeatures.MODEL_INSTANCEOF)) {
             typeAnalysis.setValueNumberDataflow(getValueNumberDataflow(analysisCache, descriptor));

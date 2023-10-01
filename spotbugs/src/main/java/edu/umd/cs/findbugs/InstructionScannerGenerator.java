@@ -22,15 +22,13 @@ package edu.umd.cs.findbugs;
 import org.apache.bcel.generic.InstructionHandle;
 
 /**
- * Class for generating InstructionScanners at particular instructions of a
- * path. Because we don't know a priori where we might want to start scanning in
- * order to find a pattern in a path, we use this interface to tell us which
+ * Class for generating InstructionScanners at particular instructions of a path. Because we don't know a priori where
+ * we might want to start scanning in order to find a pattern in a path, we use this interface to tell us which
  * locations are candidates for starting a pattern.
  */
 public interface InstructionScannerGenerator {
     /**
-     * Return true if a new scanner should be created starting at this
-     * instruction, false otherwise.
+     * Return true if a new scanner should be created starting at this instruction, false otherwise.
      */
     boolean start(InstructionHandle handle);
 

@@ -72,8 +72,7 @@ public class JCIPAnnotationDatabase {
         return memberAnnotations.get(member);
     }
 
-    public void addEntryForClassMember(ClassMember member,
-            String annotationClass, ElementValue value) {
+    public void addEntryForClassMember(ClassMember member, String annotationClass, ElementValue value) {
         Map<String, ElementValue> map = memberAnnotations.computeIfAbsent(member, k -> new HashMap<>());
         map.put(annotationClass, value);
     }
@@ -84,8 +83,7 @@ public class JCIPAnnotationDatabase {
         return classAnnotations.get(dottedClassName);
     }
 
-    public void addEntryForClass(@DottedClassName String dottedClassName,
-            String annotationClass, ElementValue value) {
+    public void addEntryForClass(@DottedClassName String dottedClassName, String annotationClass, ElementValue value) {
         Map<String, ElementValue> map = getEntryForClass(dottedClassName);
         if (map == null) {
             map = new HashMap<>(3);

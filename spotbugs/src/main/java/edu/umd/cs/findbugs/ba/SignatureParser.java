@@ -161,7 +161,6 @@ public class SignatureParser {
         }
         this.signature = signature;
 
-
     }
 
     public String[] getArguments() {
@@ -235,6 +234,7 @@ public class SignatureParser {
      *
      * @param signature
      *            a signature
+     *
      * @return true if signature denotes a reference type, false otherwise
      */
     public static boolean isReferenceType(String signature) {
@@ -246,6 +246,7 @@ public class SignatureParser {
      *
      * @param inv
      * @param cpg
+     *
      * @return int number of parameters
      */
     public static int getNumParametersForInvocation(InvokeInstruction inv, ConstantPoolGen cpg) {
@@ -254,12 +255,12 @@ public class SignatureParser {
     }
 
     /**
-     * Return how many stack frame slots a type whose signature is given will
-     * occupy. long and double values take 2 slots, while all other kinds of
-     * values take 1 slot.
+     * Return how many stack frame slots a type whose signature is given will occupy. long and double values take 2
+     * slots, while all other kinds of values take 1 slot.
      *
      * @param sig
      *            a type signature
+     *
      * @return number of stack frame slots a value of the given type will occupy
      */
     public static int getNumSlotsForType(String sig) {

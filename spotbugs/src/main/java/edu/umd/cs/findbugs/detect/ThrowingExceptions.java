@@ -23,7 +23,6 @@ import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
 import org.apache.commons.lang3.StringUtils;
 
-
 public class ThrowingExceptions extends OpcodeStackDetector {
     private final BugReporter bugReporter;
 

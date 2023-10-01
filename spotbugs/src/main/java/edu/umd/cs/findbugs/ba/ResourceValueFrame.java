@@ -26,14 +26,12 @@ public class ResourceValueFrame extends Frame<ResourceValue> {
     public static final int ESCAPED = 0;
 
     /**
-     * The resource is open (or locked, etc) on paths that include only normal
-     * control flow.
+     * The resource is open (or locked, etc) on paths that include only normal control flow.
      */
     public static final int OPEN = 1;
 
     /**
-     * The resource is open (or locked, etc) on paths that include exception
-     * control flow.
+     * The resource is open (or locked, etc) on paths that include exception control flow.
      */
     public static final int OPEN_ON_EXCEPTION_PATH = 2;
 
@@ -85,7 +83,7 @@ public class ResourceValueFrame extends Frame<ResourceValue> {
     }
 
     private static final String[] statusList = { "(escaped)", "(open)", "(open_exception)", "(closed)", "(created)",
-        "(nonexistent)" };
+            "(nonexistent)" };
 
     @Override
     public String toString() {

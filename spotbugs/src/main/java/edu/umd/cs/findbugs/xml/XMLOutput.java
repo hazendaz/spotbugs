@@ -25,8 +25,7 @@ import edu.umd.cs.findbugs.annotations.CleanupObligation;
 import edu.umd.cs.findbugs.annotations.DischargesObligation;
 
 /**
- * Interface to generate an XML document in some form. E.g., writing it to a
- * stream, generating SAX events, etc.
+ * Interface to generate an XML document in some form. E.g., writing it to a stream, generating SAX events, etc.
  *
  * @author David Hovemeyer
  */
@@ -56,8 +55,8 @@ public interface XMLOutput {
     void openTag(String tagName, XMLAttributeList attributeList) throws IOException;
 
     /**
-     * Start a tag, with the intention of adding attributes. Must be followed by
-     * stopTag after zero or more addAttribute calls.
+     * Start a tag, with the intention of adding attributes. Must be followed by stopTag after zero or more addAttribute
+     * calls.
      *
      * @param tagName
      *            the tag name
@@ -109,8 +108,7 @@ public interface XMLOutput {
     void closeTag(String tagName) throws IOException;
 
     /**
-     * Write text to the XML document. XML metacharacters are automatically
-     * escaped.
+     * Write text to the XML document. XML metacharacters are automatically escaped.
      *
      * @param text
      *            the text to write
@@ -118,8 +116,7 @@ public interface XMLOutput {
     void writeText(String text) throws IOException;
 
     /**
-     * Write a CDATA section to the XML document. The characters are not escaped
-     * in any way.
+     * Write a CDATA section to the XML document. The characters are not escaped in any way.
      *
      * @param cdata
      *            the character data to write
@@ -127,10 +124,9 @@ public interface XMLOutput {
     void writeCDATA(String cdata) throws IOException;
 
     /**
-     * Finish writing XML output, closing any underlying resources (such as
-     * output streams). A call to this method should always be made, even if one
-     * of the XML-generation methods throws an exception. Therefore, a call to
-     * this method should be performed in a finally block.
+     * Finish writing XML output, closing any underlying resources (such as output streams). A call to this method
+     * should always be made, even if one of the XML-generation methods throws an exception. Therefore, a call to this
+     * method should be performed in a finally block.
      */
     @DischargesObligation
     void finish() throws IOException;

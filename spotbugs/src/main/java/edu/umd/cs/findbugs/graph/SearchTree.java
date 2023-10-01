@@ -26,8 +26,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * SearchTree represents a search tree produced by a graph search algorithm,
- * such as BreadthFirstSearch or DepthFirstSearch.
+ * SearchTree represents a search tree produced by a graph search algorithm, such as BreadthFirstSearch or
+ * DepthFirstSearch.
  */
 public class SearchTree<VertexType extends GraphVertex<VertexType>> {
 
@@ -58,8 +58,7 @@ public class SearchTree<VertexType extends GraphVertex<VertexType>> {
     }
 
     /**
-     * Return collection of children of this search tree. (Elements returned are
-     * also SearchTree objects).
+     * Return collection of children of this search tree. (Elements returned are also SearchTree objects).
      */
     public Iterator<SearchTree<VertexType>> childIterator() {
         return m_childList.iterator();

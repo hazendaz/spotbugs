@@ -13,11 +13,10 @@ import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.plugin.eclipse.quickfix.exception.BugResolutionException;
 
 /**
- * The <CODE>MakeInnerTypeStaticResolution</CODE> adds a <CODE>static</CODE>
- * modifier to an inner class.
+ * The <CODE>MakeInnerTypeStaticResolution</CODE> adds a <CODE>static</CODE> modifier to an inner class.
  *
- * @see <a
- *      href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a>
+ * @see <a href=
+ *      "http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC">SIC_INNER_SHOULD_BE_STATIC</a>
  */
 public class MakeInnerTypeStaticResolution extends BugResolution {
 
@@ -27,7 +26,8 @@ public class MakeInnerTypeStaticResolution extends BugResolution {
     }
 
     @Override
-    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug) throws BugResolutionException {
+    protected void repairBug(ASTRewrite rewrite, CompilationUnit workingUnit, BugInstance bug)
+            throws BugResolutionException {
         Assert.isNotNull(rewrite);
         Assert.isNotNull(workingUnit);
         Assert.isNotNull(bug);

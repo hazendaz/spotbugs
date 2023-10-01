@@ -46,8 +46,7 @@ public class AnalysisFeatureSetting {
     }
 
     /**
-     * Set the configured value of the analysis property in the given
-     * AnalysisContext.
+     * Set the configured value of the analysis property in the given AnalysisContext.
      *
      * @param analysisContext
      *            the AnalysisContext

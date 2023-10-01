@@ -230,12 +230,10 @@ public class FilterBugsDialog extends SelectionDialog {
     private Text selectedIds;
 
     /**
-     * Contains logically consistent set of filtered elements. This set is NOT
-     * the same as shown in the tree. The difference is: if parent is checked in
-     * the tree, all the children are checked too. If child is checked in the
-     * tree, the parent is checked too (grayed). However, we don't want to have
-     * each child pattern if it's parent type is checked, and we don't want to
-     * have parent type if only a subset of children is checked.
+     * Contains logically consistent set of filtered elements. This set is NOT the same as shown in the tree. The
+     * difference is: if parent is checked in the tree, all the children are checked too. If child is checked in the
+     * tree, the parent is checked too (grayed). However, we don't want to have each child pattern if it's parent type
+     * is checked, and we don't want to have parent type if only a subset of children is checked.
      */
     private Object[] checkedElements;
 
@@ -387,8 +385,8 @@ public class FilterBugsDialog extends SelectionDialog {
         treeAndButtons.setLayout(new GridLayout());
         treeAndButtons.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        final PatternFilteredTree tree = new PatternFilteredTree(treeAndButtons, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL
-                | SWT.H_SCROLL | SWT.RESIZE, new PatternFilter());
+        final PatternFilteredTree tree = new PatternFilteredTree(treeAndButtons,
+                SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.RESIZE, new PatternFilter());
         tree.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         Composite buttons = new Composite(treeAndButtons, SWT.NONE);
@@ -485,8 +483,8 @@ public class FilterBugsDialog extends SelectionDialog {
     }
 
     private ContainerCheckedTreeViewer createTree(Composite parent, int style) {
-        final ContainerCheckedTreeViewer viewer = new ContainerCheckedTreeViewer(parent, style | SWT.SINGLE | SWT.BORDER
-                | SWT.V_SCROLL | SWT.H_SCROLL | SWT.RESIZE) {
+        final ContainerCheckedTreeViewer viewer = new ContainerCheckedTreeViewer(parent,
+                style | SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.RESIZE) {
             /**
              * Overridden to re-set checked state of elements after filter change
              */
@@ -548,8 +546,9 @@ public class FilterBugsDialog extends SelectionDialog {
                 selTypes--;
             }
         }
-        selectedIds.setToolTipText("Available types: " + allowedTypes.size() + ", available patterns: " + allowedPatterns.size()
-                + ", selected types: " + selTypes + ", patterns: " + (checkedElements.length - selTypes));
+        selectedIds.setToolTipText(
+                "Available types: " + allowedTypes.size() + ", available patterns: " + allowedPatterns.size()
+                        + ", selected types: " + selTypes + ", patterns: " + (checkedElements.length - selTypes));
     }
 
     private void toggleElement(boolean on, Object element, Set<Object> set) {
@@ -618,7 +617,8 @@ public class FilterBugsDialog extends SelectionDialog {
 
     private void updateDescription(IStructuredSelection selection) {
         Object element = selection.getFirstElement();
-        // HTMLTextPresenter uses LineBreakingReader/BufferedReader in Eclipse 4.4 which expects non-empty strings (while parsing html line breaks).
+        // HTMLTextPresenter uses LineBreakingReader/BufferedReader in Eclipse 4.4 which expects non-empty strings
+        // (while parsing html line breaks).
         String txt = " ";
         if (element instanceof BugPattern) {
             BugPattern pattern = (BugPattern) element;

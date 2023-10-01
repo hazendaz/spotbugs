@@ -64,7 +64,8 @@ public class PutfieldScanner {
                 return;
             }
             XField xFieldOperand = getXFieldOperand();
-            if (xFieldOperand != null && xFieldOperand.equals(targetField) && stack.getStackItem(1).getRegisterNumber() == 0) {
+            if (xFieldOperand != null && xFieldOperand.equals(targetField)
+                    && stack.getStackItem(1).getRegisterNumber() == 0) {
                 putfields.put(getPC(), new OpcodeStack.Item(stack.getStackItem(0)));
             }
 

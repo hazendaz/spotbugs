@@ -25,15 +25,15 @@ public final class SortedProperties extends Properties {
     }
 
     /**
-     * To be compatible with version control systems, we need to sort properties
-     * before storing them to disk. Otherwise each change may lead to problems
-     * by diff against previous version - because Property entries are randomly
+     * To be compatible with version control systems, we need to sort properties before storing them to disk. Otherwise
+     * each change may lead to problems by diff against previous version - because Property entries are randomly
      * distributed (it's a map).
      *
      * @param keySet
      *            non null set instance to sort
-     * @return non null list which contains all given keys, sorted
-     *         lexicographically. The list may be empty if given set was empty
+     *
+     * @return non null list which contains all given keys, sorted lexicographically. The list may be empty if given set
+     *         was empty
      */
     public static Enumeration<?> sortKeys(Set<String> keySet) {
         List<String> sortedList = new ArrayList<>(keySet);

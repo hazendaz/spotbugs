@@ -64,59 +64,52 @@ public class AboutDialog extends javax.swing.JDialog {
             l.logMessage(Logger.ERROR, e.toString());
         }
 
-        setTitle(MessageFormat.format(edu.umd.cs.findbugs.L10N.getLocalString("dlg.aboutfindbugs_ttl", "About SpotBugs {0}"),
+        setTitle(MessageFormat.format(
+                edu.umd.cs.findbugs.L10N.getLocalString("dlg.aboutfindbugs_ttl", "About SpotBugs {0}"),
                 new Object[] { Version.VERSION_STRING }));
     }
 
     static Pattern pattern = Pattern.compile("@VERSION@");
 
     /**
-     * Process an HTML page to replace certain substitution patterns. Right now,
-     * we just expand @VERSION@.
+     * Process an HTML page to replace certain substitution patterns. Right now, we just expand @VERSION@.
      *
-    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("OS_OPEN_STREAM")
-    private void processPage(javax.swing.JEditorPane pane, String fileName) throws IOException {
-        InputStream in = null;
-        BufferedReader reader = null;
-        try {
-            StringBuilder buf = new StringBuilder();
-    
-            // Open the file as a stream
-            in = getClass().getClassLoader().getResourceAsStream(fileName);
-            if (in == null)
-                throw new IOException(MessageFormat.format(
-                        edu.umd.cs.findbugs.L10N.getLocalString("msg.couldntload_txt", "Couldn't load {0}"),
-                        new Object[] { fileName }));
-            reader = UTF8.bufferedReader(in);
-    
-            // Replace instances of @VERSION@ with actual version number
-    
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = pattern.matcher(line).replaceAll(Version.RELEASE);
-                buf.append(line);
-                buf.append('\n');
-            }
-    
-            // Load the page into the editor pane
-            String text = buf.toString();
-            pane.setContentType("text/html");
-            pane.setText(text);
-        } finally {
-            try {
-                if (reader != null)
-                    reader.close();
-                else if (in != null)
-                    in.close();
-            } catch (IOException e) {
-            }
-        }
-    }*/
+     * @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("OS_OPEN_STREAM") private void
+     *                                                                       processPage(javax.swing.JEditorPane pane,
+     *                                                                       String fileName) throws IOException {
+     *                                                                       InputStream in = null; BufferedReader
+     *                                                                       reader = null; try { StringBuilder buf =
+     *                                                                       new StringBuilder();
+     *
+     *                                                                       // Open the file as a stream in =
+     *                                                                       getClass().getClassLoader().getResourceAsStream(fileName);
+     *                                                                       if (in == null) throw new
+     *                                                                       IOException(MessageFormat.format(
+     *                                                                       edu.umd.cs.findbugs.L10N.getLocalString("msg.couldntload_txt",
+     *                                                                       "Couldn't load {0}"), new Object[] {
+     *                                                                       fileName })); reader =
+     *                                                                       UTF8.bufferedReader(in);
+     *
+     *                                                                       // Replace instances of @VERSION@ with
+     *                                                                       actual version number
+     *
+     *                                                                       String line; while ((line =
+     *                                                                       reader.readLine()) != null) { line =
+     *                                                                       pattern.matcher(line).replaceAll(Version.RELEASE);
+     *                                                                       buf.append(line); buf.append('\n'); }
+     *
+     *                                                                       // Load the page into the editor pane
+     *                                                                       String text = buf.toString();
+     *                                                                       pane.setContentType("text/html");
+     *                                                                       pane.setText(text); } finally { try { if
+     *                                                                       (reader != null) reader.close(); else if
+     *                                                                       (in != null) in.close(); } catch
+     *                                                                       (IOException e) { } } }
+     */
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
     private void initComponents() {// GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
@@ -170,7 +163,8 @@ public class AboutDialog extends javax.swing.JDialog {
         {
             aboutTabPane.setTitleAt(0, edu.umd.cs.findbugs.L10N.getLocalString("dlg.about_tab", "About"));
             aboutTabPane.setTitleAt(1, edu.umd.cs.findbugs.L10N.getLocalString("dlg.license_tab", "License"));
-            aboutTabPane.setTitleAt(2, edu.umd.cs.findbugs.L10N.getLocalString("dlg.acknowledgements_tab", "Acknowledgements"));
+            aboutTabPane.setTitleAt(2,
+                    edu.umd.cs.findbugs.L10N.getLocalString("dlg.acknowledgements_tab", "Acknowledgements"));
         }
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

@@ -35,17 +35,15 @@ import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * Extension to ObjectType that includes additional information about the
- * generic signature.
+ * Extension to ObjectType that includes additional information about the generic signature.
  * <p>
  *
- * A GenericObjectType is either a parameterized type e.g.
- * <code>List&lt;String&gt;</code>, or a type variable e.g. <code>T</code>.
+ * A GenericObjectType is either a parameterized type e.g. <code>List&lt;String&gt;</code>, or a type variable e.g.
+ * <code>T</code>.
  * <p>
  *
- * This class cannot be initialized directly. Instead, create a
- * GenericObjectType by calling GenericUtilities.getType(String) and passing in
- * the bytecode signature for the type.
+ * This class cannot be initialized directly. Instead, create a GenericObjectType by calling
+ * GenericUtilities.getType(String) and passing in the bytecode signature for the type.
  *
  * @author Nat Ayewah
  */
@@ -130,17 +128,15 @@ public class GenericObjectType extends ObjectType {
     }
 
     /**
-     * @return true if this GenericObjectType represents a parameterized type
-     *         e.g. <code>List&lt;String&gt;</code>. This implies that
-     *         isVariable() is falses
+     * @return true if this GenericObjectType represents a parameterized type e.g. <code>List&lt;String&gt;</code>. This
+     *         implies that isVariable() is falses
      */
     public boolean hasParameters() {
         return parameters != null && !parameters.isEmpty();
     }
 
     /**
-     * @return the number of parameters if this is a parameterized class, 0
-     *         otherwise
+     * @return the number of parameters if this is a parameterized class, 0 otherwise
      */
     public int getNumParameters() {
         return parameters != null ? parameters.size() : 0;
@@ -149,6 +145,7 @@ public class GenericObjectType extends ObjectType {
     /**
      * @param index
      *            should be less than getNumParameters()
+     *
      * @return the type parameter at index
      */
     public ReferenceType getParameterAt(int index) {
@@ -169,8 +166,7 @@ public class GenericObjectType extends ObjectType {
     // Package Level constructors
 
     /**
-     * Create a GenericObjectType that represents a Simple Type Variable or a
-     * simple wildcard with no extensions
+     * Create a GenericObjectType that represents a Simple Type Variable or a simple wildcard with no extensions
      *
      * @param variable
      *            the type variable e.g. <code>T</code>
@@ -194,8 +190,7 @@ public class GenericObjectType extends ObjectType {
      * Create a GenericObjectType that represents a parameterized class
      *
      * @param class_name
-     *            the class that is parameterized. e.g.
-     *            <code>java.util.List</code>
+     *            the class that is parameterized. e.g. <code>java.util.List</code>
      * @param parameters
      *            the parameters of this class, must be at least 1 parameter
      */
@@ -222,15 +217,13 @@ public class GenericObjectType extends ObjectType {
     }
 
     /**
-     * Return a string representation of this object. (I do not override
-     * <code>toString()</code> in case any existing code assumes that this
-     * object is an ObjectType and expects similar string representation. i.e.
+     * Return a string representation of this object. (I do not override <code>toString()</code> in case any existing
+     * code assumes that this object is an ObjectType and expects similar string representation. i.e.
      * <code>toString()</code> is equivalent to <code>toString(false)</code>)
      *
      * @param includeGenerics
-     *            if true then the string includes generic information in this
-     *            object. Otherwise this returns the same value as
-     *            ObjectType.toString()
+     *            if true then the string includes generic information in this object. Otherwise this returns the same
+     *            value as ObjectType.toString()
      */
     public String toString(boolean includeGenerics) {
         // if (!includeGenerics) return super.toString();

@@ -37,40 +37,41 @@ import edu.umd.cs.findbugs.ba.RepositoryLookupFailureCallback;
 import edu.umd.cs.findbugs.ba.vna.ValueNumberFrame;
 
 /**
- * <p>A PatternElement to match a method invocation. Currently, we don't allow
- * variables in this element (for arguments and return value). This would be a
- * good thing to add. We also don't distinguish between invokevirtual,
- * invokeinterface, and invokespecial.
+ * <p>
+ * A PatternElement to match a method invocation. Currently, we don't allow variables in this element (for arguments and
+ * return value). This would be a good thing to add. We also don't distinguish between invokevirtual, invokeinterface,
+ * and invokespecial.
  * </p>
  * <p>
- * Invoke objects match by class name, method name, method signature, and
- * <em>mode</em>.
+ * Invoke objects match by class name, method name, method signature, and <em>mode</em>.
  * </p>
  * <p>
- * Names and signatures may be matched in several ways:</p>
+ * Names and signatures may be matched in several ways:
+ * </p>
  * <ol>
  * <li>By an exact match. This is the default behavior.</li>
- * <li>By a regular expression. If the string provided to the Invoke constructor
- * begins with a "/" character, the rest of the string is treated as a regular
- * expression.</li>
- * <li>As a subclass match. This only applies to class name matches. If the
- * first character of a class name string is "+", then the rest of the string is
- * treated as the name of a base class. Any subclass or subinterface of the
- * named type will be accepted.</li>
+ * <li>By a regular expression. If the string provided to the Invoke constructor begins with a "/" character, the rest
+ * of the string is treated as a regular expression.</li>
+ * <li>As a subclass match. This only applies to class name matches. If the first character of a class name string is
+ * "+", then the rest of the string is treated as the name of a base class. Any subclass or subinterface of the named
+ * type will be accepted.</li>
  * </ol>
  * <p>
- * The <em>mode</em> specifies what kind of invocations in the Invoke element
- * matches. It is specified as the bitwise combination of the following values:</p>
+ * The <em>mode</em> specifies what kind of invocations in the Invoke element matches. It is specified as the bitwise
+ * combination of the following values:
+ * </p>
  * <ol>
- * <li> <code>INSTANCE</code>, which matches ordinary instance method invocations</li>
- * <li> <code>STATIC</code>, which matches static method invocations</li>
- * <li> <code>CONSTRUCTOR</code>, which matches object constructor invocations</li>
+ * <li><code>INSTANCE</code>, which matches ordinary instance method invocations</li>
+ * <li><code>STATIC</code>, which matches static method invocations</li>
+ * <li><code>CONSTRUCTOR</code>, which matches object constructor invocations</li>
  * </ol>
- * <p>The special mode <code>ORDINARY_METHOD</code> is equivalent to
- * <code>INSTANCE|STATIC</code>. The special mode <code>ANY</code> is equivalent
- * to <code>INSTANCE|STATIC|CONSTRUCTOR</code>.</p>
+ * <p>
+ * The special mode <code>ORDINARY_METHOD</code> is equivalent to <code>INSTANCE|STATIC</code>. The special mode
+ * <code>ANY</code> is equivalent to <code>INSTANCE|STATIC|CONSTRUCTOR</code>.
+ * </p>
  *
  * @author David Hovemeyer
+ *
  * @see PatternElement
  */
 public class Invoke extends PatternElement {
@@ -160,14 +161,11 @@ public class Invoke extends PatternElement {
      * Constructor.
      *
      * @param className
-     *            the class name of the method; may be specified exactly, as a
-     *            regexp, or as a subtype match
+     *            the class name of the method; may be specified exactly, as a regexp, or as a subtype match
      * @param methodName
-     *            the name of the method; may be specified exactly or as a
-     *            regexp
+     *            the name of the method; may be specified exactly or as a regexp
      * @param methodSig
-     *            the signature of the method; may be specified exactly or as a
-     *            regexp
+     *            the signature of the method; may be specified exactly or as a regexp
      * @param mode
      *            the mode of invocation
      */
@@ -189,8 +187,8 @@ public class Invoke extends PatternElement {
     }
 
     @Override
-    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before, ValueNumberFrame after,
-            BindingSet bindingSet) throws DataflowAnalysisException {
+    public MatchResult match(InstructionHandle handle, ConstantPoolGen cpg, ValueNumberFrame before,
+            ValueNumberFrame after, BindingSet bindingSet) throws DataflowAnalysisException {
 
         // See if the instruction is an InvokeInstruction
         Instruction ins = handle.getInstruction();

@@ -30,8 +30,8 @@ import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * A MethodPropertyDatabase keeps track of properties of methods. This is useful
- * for implementing interprocedural analyses.
+ * A MethodPropertyDatabase keeps track of properties of methods. This is useful for implementing interprocedural
+ * analyses.
  *
  * @author David Hovemeyer
  */

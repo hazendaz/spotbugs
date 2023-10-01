@@ -26,27 +26,24 @@ import edu.umd.cs.findbugs.bcel.generic.NONNULL2Z;
 import edu.umd.cs.findbugs.bcel.generic.NULL2Z;
 
 /**
- * <p>A common base class for frame modeling visitors. This class provides a
- * default implementation which copies values between frame slots whenever
- * appropriate. For example, its handler for the ALOAD bytecode will get the
- * value from the referenced local in the frame and push it onto the stack.
- * Bytecodes which do something other than copying values are modeled by popping
- * values as appropriate, and pushing the "default" value onto the stack for
- * each stack slot produced, where the default value is the one returned by the
- * getDefaultValue() method.
+ * <p>
+ * A common base class for frame modeling visitors. This class provides a default implementation which copies values
+ * between frame slots whenever appropriate. For example, its handler for the ALOAD bytecode will get the value from the
+ * referenced local in the frame and push it onto the stack. Bytecodes which do something other than copying values are
+ * modeled by popping values as appropriate, and pushing the "default" value onto the stack for each stack slot
+ * produced, where the default value is the one returned by the getDefaultValue() method.
  * </p>
  * <p>
- * Subclasses should override the visit methods for any bytecode instructions
- * which require special handling.
+ * Subclasses should override the visit methods for any bytecode instructions which require special handling.
  * </p>
  * <p>
- * Users of AbstractFrameModelingVisitors should call the analyzeInstruction()
- * method instead of directly using the accept() method of the instruction. This
- * allows a checked DataflowAnalysisException to be thrown when invalid bytecode
- * is detected. E.g., stack underflows.
+ * Users of AbstractFrameModelingVisitors should call the analyzeInstruction() method instead of directly using the
+ * accept() method of the instruction. This allows a checked DataflowAnalysisException to be thrown when invalid
+ * bytecode is detected. E.g., stack underflows.
  * </p>
  *
  * @author David Hovemeyer
+ *
  * @see Frame
  * @see DataflowAnalysis
  */
@@ -73,10 +70,10 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
      *
      * @param ins
      *            the Instruction
+     *
      * @throws DataflowAnalysisException
-     *             if an error occurs analyzing the instruction; in most cases,
-     *             this indicates that the bytecode for the method being
-     *             analyzed is invalid
+     *             if an error occurs analyzing the instruction; in most cases, this indicates that the bytecode for the
+     *             method being analyzed is invalid
      */
     public void analyzeInstruction(Instruction ins) throws DataflowAnalysisException {
         if (frame.isValid()) {
@@ -128,9 +125,8 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /**
-     * Produce a "default" value. This is what is pushed onto the stack by the
-     * handleNormalInstruction() method for instructions which produce stack
-     * values.
+     * Produce a "default" value. This is what is pushed onto the stack by the handleNormalInstruction() method for
+     * instructions which produce stack values.
      */
     public abstract Value getDefaultValue();
 
@@ -167,8 +163,7 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Empty visit methods
+     * ---------------------------------------------------------------------- Empty visit methods
      * ----------------------------------------------------------------------
      */
 
@@ -196,8 +191,9 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     public void visitIfInstruction(IfInstruction obj) {
     }
 
-    /** To allow for calls to visitNULL2Z and visitNONNULL2Z, this method is made final.
-     * If you want to override it, override visitConversionInstruction2 instead.
+    /**
+     * To allow for calls to visitNULL2Z and visitNONNULL2Z, this method is made final. If you want to override it,
+     * override visitConversionInstruction2 instead.
      */
     @Override
     public final void visitConversionInstruction(ConversionInstruction obj) {
@@ -298,15 +294,13 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * General instruction handlers
+     * ---------------------------------------------------------------------- General instruction handlers
      * ----------------------------------------------------------------------
      */
 
     /**
-     * Handler for all instructions which pop values from the stack and store
-     * them in a local variable. Note that two locals are stored into for long
-     * and double stores.
+     * Handler for all instructions which pop values from the stack and store them in a local variable. Note that two
+     * locals are stored into for long and double stores.
      */
     public void handleStoreInstruction(StoreInstruction obj) {
         try {
@@ -329,9 +323,8 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /**
-     * Handler for all instructions which load values from a local variable and
-     * push them on the stack. Note that two locals are loaded for long and
-     * double loads.
+     * Handler for all instructions which load values from a local variable and push them on the stack. Note that two
+     * locals are loaded for long and double loads.
      */
     public void handleLoadInstruction(LoadInstruction obj) {
         int numProduced = obj.produceStack(cpg);
@@ -351,17 +344,16 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /**
-     * This is called to handle any instruction which does not simply copy
-     * values between stack slots. The default value is pushed (if the
-     * instruction is a stack producer).
+     * This is called to handle any instruction which does not simply copy values between stack slots. The default value
+     * is pushed (if the instruction is a stack producer).
      */
     public void handleNormalInstruction(Instruction ins) {
         modelNormalInstruction(ins, getNumWordsConsumed(ins), getNumWordsProduced(ins));
     }
 
     /**
-     * Model the stack for instructions handled by handleNormalInstruction().
-     * Subclasses may override to provide analysis-specific behavior.
+     * Model the stack for instructions handled by handleNormalInstruction(). Subclasses may override to provide
+     * analysis-specific behavior.
      *
      * @param ins
      *            the Instruction to model
@@ -375,8 +367,8 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /**
-     * Primitive to model the stack effect of a single instruction, explicitly
-     * specifying the value to be pushed on the stack.
+     * Primitive to model the stack effect of a single instruction, explicitly specifying the value to be pushed on the
+     * stack.
      *
      * @param ins
      *            the Instruction to model
@@ -411,9 +403,8 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Visit methods for scalar STORE instructions
-     * ----------------------------------------------------------------------
+     * ---------------------------------------------------------------------- Visit methods for scalar STORE
+     * instructions ----------------------------------------------------------------------
      */
 
     @Override
@@ -442,8 +433,7 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Visit methods for scalar LOAD instructions
+     * ---------------------------------------------------------------------- Visit methods for scalar LOAD instructions
      * ----------------------------------------------------------------------
      */
 
@@ -473,9 +463,8 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Visit methods for POP, DUP, and SWAP instructions
-     * ----------------------------------------------------------------------
+     * ---------------------------------------------------------------------- Visit methods for POP, DUP, and SWAP
+     * instructions ----------------------------------------------------------------------
      */
 
     @Override
@@ -588,8 +577,7 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Illegal bytecodes
+     * ---------------------------------------------------------------------- Illegal bytecodes
      * ----------------------------------------------------------------------
      */
 
@@ -609,8 +597,7 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Bytecodes that have "default" semantics
+     * ---------------------------------------------------------------------- Bytecodes that have "default" semantics
      * ----------------------------------------------------------------------
      */
 
@@ -898,7 +885,6 @@ public abstract class AbstractFrameModelingVisitor<Value, FrameType extends Fram
     public void visitIF_ACMPNE(IF_ACMPNE obj) {
         handleNormalInstruction(obj);
     }
-
 
     public void visitNULL2Z(NULL2Z obj) {
         handleNormalInstruction(obj);

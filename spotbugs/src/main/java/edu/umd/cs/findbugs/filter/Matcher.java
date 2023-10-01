@@ -31,11 +31,11 @@ import edu.umd.cs.findbugs.xml.XMLOutput;
  */
 public interface Matcher {
     /**
-     * Determine whether or not the given BugInstance has the feature this
-     * Matcher tests for.
+     * Determine whether or not the given BugInstance has the feature this Matcher tests for.
      *
      * @param bugInstance
      *            the BugInstance
+     *
      * @return true if the BugInstance matches, false if not
      */
     public boolean match(BugInstance bugInstance);

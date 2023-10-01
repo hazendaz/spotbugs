@@ -21,8 +21,7 @@ import edu.umd.cs.findbugs.test.matcher.BugInstanceMatcherBuilder;
 class IncorrectSelfComparisonInstanceOfPatternMatchingTest {
 
     /**
-     * @see <a href="https://github.com/spotbugs/spotbugs/issues/1136">GitHub
-     *      issue</a>
+     * @see <a href="https://github.com/spotbugs/spotbugs/issues/1136">GitHub issue</a>
      */
     @Test
     @DisabledOnJre({ JRE.JAVA_8, JRE.JAVA_11 })

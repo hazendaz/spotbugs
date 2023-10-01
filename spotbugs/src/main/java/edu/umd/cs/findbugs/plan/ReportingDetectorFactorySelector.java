@@ -34,8 +34,8 @@ public class ReportingDetectorFactorySelector implements DetectorFactorySelector
      * Constructor.
      *
      * @param plugin
-     *            Plugin containing detector factories to be selected; if null,
-     *            factories from any Plugin may be selected
+     *            Plugin containing detector factories to be selected; if null, factories from any Plugin may be
+     *            selected
      */
     public ReportingDetectorFactorySelector(Plugin plugin) {
         this.plugin = plugin;
@@ -44,9 +44,7 @@ public class ReportingDetectorFactorySelector implements DetectorFactorySelector
     /*
      * (non-Javadoc)
      *
-     * @see
-     * edu.umd.cs.findbugs.plan.DetectorFactorySelector#selectFactory(edu.umd
-     * .cs.findbugs.DetectorFactory)
+     * @see edu.umd.cs.findbugs.plan.DetectorFactorySelector#selectFactory(edu.umd .cs.findbugs.DetectorFactory)
      */
     @Override
     public boolean selectFactory(DetectorFactory factory) {

@@ -95,7 +95,6 @@ public class FindSelfComparison extends OpcodeStackDetector {
             System.out.printf("%3d %-15s %s%n", getPC(), Const.getOpcodeName(seen), stack);
         }
 
-
         if (stack.hasIncomingBranches(getPC())) {
             resetDoubleAssignmentState();
         }
@@ -108,7 +107,6 @@ public class FindSelfComparison extends OpcodeStackDetector {
 
             checkPUTFIELD: if (putFieldPC + 10 > getPC() && f != null && obj != null && f.equals(putFieldXField)
                     && !f.isSynthetic() && obj.sameValue(putFieldObj) && x != null) {
-
 
                 LineNumberTable table = getCode().getLineNumberTable();
                 if (table != null) {
@@ -179,7 +177,7 @@ public class FindSelfComparison extends OpcodeStackDetector {
         switch (seen) {
         case Const.INVOKEVIRTUAL:
         case Const.INVOKEINTERFACE:
-            //        case INVOKESTATIC:
+            // case INVOKESTATIC:
             if (getClassName().toLowerCase().indexOf("test") >= 0) {
                 break;
             }
@@ -261,7 +259,6 @@ public class FindSelfComparison extends OpcodeStackDetector {
     private void checkForSelfOperation(int opCode, String op) {
         {
 
-
             OpcodeStack.Item item0 = stack.getStackItem(0);
             OpcodeStack.Item item1 = stack.getStackItem(1);
 
@@ -313,8 +310,8 @@ public class FindSelfComparison extends OpcodeStackDetector {
                     priority++;
                 }
 
-                BugInstance bug = new BugInstance(this, "SA_FIELD_SELF_" + op, priority)
-                        .addClassAndMethod(this).addField(field0);
+                BugInstance bug = new BugInstance(this, "SA_FIELD_SELF_" + op, priority).addClassAndMethod(this)
+                        .addField(field0);
 
                 if (this.isMethodCall()) {
                     bug.addCalledMethod(this);
@@ -323,12 +320,13 @@ public class FindSelfComparison extends OpcodeStackDetector {
             }
 
             else if (item0.sameValue(item1)) {
-                LocalVariableAnnotation localVariableAnnotation = LocalVariableAnnotation.getLocalVariableAnnotation(this, item0);
+                LocalVariableAnnotation localVariableAnnotation = LocalVariableAnnotation
+                        .getLocalVariableAnnotation(this, item0);
                 if (localVariableAnnotation != null) {
-                    bugAccumulator.accumulateBug(
-                            new BugInstance(this, "SA_LOCAL_SELF_" + op, linesDifference > 1 ? NORMAL_PRIORITY : HIGH_PRIORITY).addClassAndMethod(
-                                    this).add(
-                                            localVariableAnnotation), this);
+                    bugAccumulator.accumulateBug(new BugInstance(this, "SA_LOCAL_SELF_" + op,
+                            linesDifference > 1 ? NORMAL_PRIORITY : HIGH_PRIORITY).addClassAndMethod(this)
+                                    .add(localVariableAnnotation),
+                            this);
                 }
             }
         }

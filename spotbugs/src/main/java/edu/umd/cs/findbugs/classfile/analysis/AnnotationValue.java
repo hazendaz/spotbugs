@@ -70,15 +70,14 @@ public class AnnotationValue {
     }
 
     /**
-     * Get the value of given annotation element. See <a href=
-     * "http://asm.objectweb.org/current/doc/javadoc/user/org/objectweb/asm/AnnotationVisitor.html"
-     * >AnnotationVisitor Javadoc</a> for information on what the object
-     * returned could be.
+     * Get the value of given annotation element. See
+     * <a href= "http://asm.objectweb.org/current/doc/javadoc/user/org/objectweb/asm/AnnotationVisitor.html"
+     * >AnnotationVisitor Javadoc</a> for information on what the object returned could be.
      *
      * @param name
      *            name of annotation element
-     * @return the element value (primitive value, String value, enum value,
-     *         Type, or array of one of the previous)
+     *
+     * @return the element value (primitive value, String value, enum value, Type, or array of one of the previous)
      */
     public Object getValue(String name) {
         return valueMap.get(name);
@@ -89,6 +88,7 @@ public class AnnotationValue {
      *
      * @param name
      *            name of annotation element
+     *
      * @return descriptor specifying the type of the annotation element
      */
     public Object getDesc(String name) {
@@ -121,9 +121,7 @@ public class AnnotationValue {
             /*
              * (non-Javadoc)
              *
-             * @see
-             * org.objectweb.asm.AnnotationVisitor#visitAnnotation(java.lang
-             * .String, java.lang.String)
+             * @see org.objectweb.asm.AnnotationVisitor#visitAnnotation(java.lang .String, java.lang.String)
              */
             @Override
             public AnnotationVisitor visitAnnotation(String name, String desc) {
@@ -137,8 +135,7 @@ public class AnnotationValue {
             /*
              * (non-Javadoc)
              *
-             * @see
-             * org.objectweb.asm.AnnotationVisitor#visitArray(java.lang.String)
+             * @see org.objectweb.asm.AnnotationVisitor#visitArray(java.lang.String)
              */
             @Override
             public AnnotationVisitor visitArray(String name) {
@@ -159,9 +156,7 @@ public class AnnotationValue {
             /*
              * (non-Javadoc)
              *
-             * @see
-             * org.objectweb.asm.AnnotationVisitor#visitEnum(java.lang.String,
-             * java.lang.String, java.lang.String)
+             * @see org.objectweb.asm.AnnotationVisitor#visitEnum(java.lang.String, java.lang.String, java.lang.String)
              */
             @Override
             public void visitEnum(String name, String desc, String value) {

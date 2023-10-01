@@ -66,11 +66,12 @@ public class ClassNameAndSuperclassInfo extends ClassDescriptor {
 
         Collection<ClassDescriptor> referencedClassDescriptorList;
 
-        Set<ClassDescriptor> calledClassDescriptors = Collections.<ClassDescriptor>emptySet();
+        Set<ClassDescriptor> calledClassDescriptors = Collections.<ClassDescriptor> emptySet();
 
         public ClassNameAndSuperclassInfo build() {
-            return new ClassNameAndSuperclassInfo(classDescriptor, superclassDescriptor, interfaceDescriptorList, codeBaseEntry,
-                    accessFlags, referencedClassDescriptorList, calledClassDescriptors, majorVersion, minorVersion);
+            return new ClassNameAndSuperclassInfo(classDescriptor, superclassDescriptor, interfaceDescriptorList,
+                    codeBaseEntry, accessFlags, referencedClassDescriptorList, calledClassDescriptors, majorVersion,
+                    minorVersion);
         }
 
         /**
@@ -138,7 +139,6 @@ public class ClassNameAndSuperclassInfo extends ClassDescriptor {
             }
         }
     }
-
 
     ClassNameAndSuperclassInfo(ClassDescriptor classDescriptor, ClassDescriptor superclassDescriptor,
             ClassDescriptor[] interfaceDescriptorList, ICodeBaseEntry codeBaseEntry, int accessFlags,

@@ -38,7 +38,9 @@ import de.tobject.findbugs.builder.WorkItem;
  * @author Peter Friese
  * @author Phil Crosby
  * @author Andrei Loskutov
+ *
  * @version 2.0
+ *
  * @since 25.09.2003
  */
 public class ClearMarkersEditorAction implements IEditorActionDelegate {
@@ -62,8 +64,8 @@ public class ClearMarkersEditorAction implements IEditorActionDelegate {
             Job job = new ClearMarkersJob(file, Arrays.asList(new WorkItem[] { new WorkItem(file) }));
             job.setUser(true);
             job.setPriority(Job.INTERACTIVE);
-            IWorkbenchSiteProgressService service = (IWorkbenchSiteProgressService) currentEditor.getEditorSite().getService(
-                    IWorkbenchSiteProgressService.class);
+            IWorkbenchSiteProgressService service = (IWorkbenchSiteProgressService) currentEditor.getEditorSite()
+                    .getService(IWorkbenchSiteProgressService.class);
             service.schedule(job);
         }
     }

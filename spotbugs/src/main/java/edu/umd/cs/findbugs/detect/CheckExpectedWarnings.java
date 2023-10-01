@@ -64,11 +64,13 @@ import edu.umd.cs.findbugs.classfile.analysis.AnnotationValue;
 import edu.umd.cs.findbugs.classfile.analysis.EnumValue;
 
 /**
- * Check uses of the ExpectWarning and NoWarning annotations. This is for
- * internal testing of FindBugs (against spotbugsTestCases).
+ * Check uses of the ExpectWarning and NoWarning annotations. This is for internal testing of FindBugs (against
+ * spotbugsTestCases).
  *
  * @author David Hovemeyer
- * @deprecated The annotation based approach is useless for lambdas. Write expectations using {@code edu.umd.cs.findbugs.test.matcher.BugInstanceMatcher} matchers in test source directory
+ *
+ * @deprecated The annotation based approach is useless for lambdas. Write expectations using
+ *             {@code edu.umd.cs.findbugs.test.matcher.BugInstanceMatcher} matchers in test source directory
  */
 @Deprecated
 public class CheckExpectedWarnings implements Detector2, NonReportingDetector {
@@ -108,8 +110,8 @@ public class CheckExpectedWarnings implements Detector2, NonReportingDetector {
     public void visitClass(ClassDescriptor classDescriptor) throws CheckedAnalysisException {
         if (reporter == null) {
             if (!warned) {
-                System.err
-                        .println("*** NOTE ***: CheckExpectedWarnings disabled because bug reporter doesn't use a BugCollection");
+                System.err.println(
+                        "*** NOTE ***: CheckExpectedWarnings disabled because bug reporter doesn't use a BugCollection");
                 warned = true;
             }
             return;
@@ -255,8 +257,8 @@ public class CheckExpectedWarnings implements Detector2, NonReportingDetector {
         check(expect, descriptor, warnings, expectWarnings, priority, descriptor.getClassDescriptor());
     }
 
-    private void check(AnnotationValue expect, Object descriptor,
-            Collection<BugInstance> warnings, boolean expectWarnings, int priority, ClassDescriptor cd) {
+    private void check(AnnotationValue expect, Object descriptor, Collection<BugInstance> warnings,
+            boolean expectWarnings, int priority, ClassDescriptor cd) {
 
         if (expect != null) {
 
@@ -295,30 +297,32 @@ public class CheckExpectedWarnings implements Detector2, NonReportingDetector {
                 StringTokenizer tok = new StringTokenizer(expectedBugCodes, ",");
                 while (tok.hasMoreTokens()) {
                     String bugCode = tok.nextToken().trim();
-                    checkAnnotation(bugCode, warnings, expectWarnings, priority, rank, num, descriptor, minPriority, cd);
+                    checkAnnotation(bugCode, warnings, expectWarnings, priority, rank, num, descriptor, minPriority,
+                            cd);
                 }
             }
         }
     }
 
-    public void checkAnnotation(@CheckForNull String bugCode, Collection<BugInstance> warnings, boolean expectWarnings, int priority,
-            Integer rank, Integer num, Object methodDescriptor, int minPriority, ClassDescriptor cd) {
+    public void checkAnnotation(@CheckForNull String bugCode, Collection<BugInstance> warnings, boolean expectWarnings,
+            int priority, Integer rank, Integer num, Object methodDescriptor, int minPriority, ClassDescriptor cd) {
 
         String bugCodeMessage = bugCode != null ? bugCode : "any bug";
-        Collection<SourceLineAnnotation> bugs = countWarnings(warnings, bugCode, minPriority,
-                rank);
+        Collection<SourceLineAnnotation> bugs = countWarnings(warnings, bugCode, minPriority, rank);
         if (expectWarnings && bugs.size() < num) {
             if (DetectorFactoryCollection.instance().isDisabledByDefault(bugCode)) {
                 return;
             }
-            BugInstance bug = makeWarning("FB_MISSING_EXPECTED_WARNING", methodDescriptor, priority, cd).addString(bugCodeMessage);
+            BugInstance bug = makeWarning("FB_MISSING_EXPECTED_WARNING", methodDescriptor, priority, cd)
+                    .addString(bugCodeMessage);
             if (!bugs.isEmpty()) {
                 bug.addString(String.format("Expected %d bugs, saw %d", num, bugs.size()));
             }
             reporter.reportBug(bug);
         } else if (bugs.size() > num) {
             // More bugs than expected
-            BugInstance bug = makeWarning("FB_UNEXPECTED_WARNING", methodDescriptor, priority, cd).addString(bugCodeMessage);
+            BugInstance bug = makeWarning("FB_UNEXPECTED_WARNING", methodDescriptor, priority, cd)
+                    .addString(bugCodeMessage);
             if (!expectWarnings) {
                 // Wanted no more than this many warnings
                 for (SourceLineAnnotation s : bugs) {
@@ -351,8 +355,7 @@ public class CheckExpectedWarnings implements Detector2, NonReportingDetector {
     }
 
     private static Collection<SourceLineAnnotation> countWarnings(Collection<BugInstance> warnings,
-            @CheckForNull String bugCode,
-            int desiredPriority, int rank) {
+            @CheckForNull String bugCode, int desiredPriority, int rank) {
 
         Collection<SourceLineAnnotation> matching = new HashSet<>();
         DetectorFactoryCollection i18n = DetectorFactoryCollection.instance();

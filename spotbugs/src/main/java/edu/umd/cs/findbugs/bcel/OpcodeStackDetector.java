@@ -28,8 +28,7 @@ import edu.umd.cs.findbugs.OpcodeStack;
 import edu.umd.cs.findbugs.OpcodeStack.JumpInfo;
 
 /**
- * Base class for Detectors that want to scan the bytecode of a method and use
- * an opcode stack.
+ * Base class for Detectors that want to scan the bytecode of a method and use an opcode stack.
  *
  * @see BytecodeScanningDetector
  */
@@ -74,7 +73,10 @@ public abstract class OpcodeStackDetector extends BytecodeScanningDetector {
     }
 
     /**
-     * <p>Note that stack might be TOP when this method is called.</p>
+     * <p>
+     * Note that stack might be TOP when this method is called.
+     * </p>
+     *
      * @see #sawOpcode(int)
      */
     @Override
@@ -84,20 +86,25 @@ public abstract class OpcodeStackDetector extends BytecodeScanningDetector {
     }
 
     /**
-     * <p>By default, this method will not be called when
-     * stack is TOP. To change this behavior, override {@code #beforeOpcode(int)}
-     * and change to return true even if stack is TOP.</p>
-     * <p>see <a href="http://findbugs-tutorials.googlecode.com/files/uffr-talk.pdf">Using FindBugs for Research</a> to learn lattice and what TOP means.</p>
+     * <p>
+     * By default, this method will not be called when stack is TOP. To change this behavior, override
+     * {@code #beforeOpcode(int)} and change to return true even if stack is TOP.
+     * </p>
+     * <p>
+     * see <a href="http://findbugs-tutorials.googlecode.com/files/uffr-talk.pdf">Using FindBugs for Research</a> to
+     * learn lattice and what TOP means.
+     * </p>
+     *
      * @see #beforeOpcode(int)
      */
     @Override
     public abstract void sawOpcode(int seen);
 
     /**
-     * @return true if this detector is annotated with  {@link edu.umd.cs.findbugs.OpcodeStack.CustomUserValue}
-     * and thus should not reuse generic OpcodeStack information
-     * from an iterative evaluation of the opcode stack. Such detectors
-     * will not use iterative opcode stack evaluation.
+     * @return true if this detector is annotated with {@link edu.umd.cs.findbugs.OpcodeStack.CustomUserValue} and thus
+     *         should not reuse generic OpcodeStack information from an iterative evaluation of the opcode stack. Such
+     *         detectors will not use iterative opcode stack evaluation.
+     *
      * @see OpcodeStack#resetForMethodEntry(edu.umd.cs.findbugs.visitclass.DismantleBytecode)
      */
     public final boolean isUsingCustomUserValue() {

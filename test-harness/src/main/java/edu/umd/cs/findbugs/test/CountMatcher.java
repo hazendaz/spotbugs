@@ -32,6 +32,7 @@ public final class CountMatcher<T> extends TypeSafeMatcher<Iterable<T>> {
      *            matcher item type
      * @param count
      *            How many times the {@code matcher} must match.
+     *
      * @return new matcher instance
      */
     public static <T> Matcher<Iterable<T>> containsExactly(final int count, final Matcher<T> matcher) {

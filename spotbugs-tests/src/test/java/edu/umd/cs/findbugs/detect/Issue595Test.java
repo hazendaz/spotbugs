@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import edu.umd.cs.findbugs.AbstractIntegrationTest;
 
 /**
- * @see <a href="https://github.com/spotbugs/spotbugs/issues/595">GitHub
- *      issue</a>
+ * @see <a href="https://github.com/spotbugs/spotbugs/issues/595">GitHub issue</a>
  */
 class Issue595Test extends AbstractIntegrationTest {
 

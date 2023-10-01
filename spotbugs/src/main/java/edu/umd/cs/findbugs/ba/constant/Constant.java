@@ -21,10 +21,10 @@ package edu.umd.cs.findbugs.ba.constant;
 import javax.annotation.Nullable;
 
 /**
- * Abstract dataflow value representing a value which may or may not be a
- * constant.
+ * Abstract dataflow value representing a value which may or may not be a constant.
  *
  * @see edu.umd.cs.findbugs.ba.constant.ConstantAnalysis
+ *
  * @author David Hovemeyer
  */
 public class Constant {
@@ -101,6 +101,7 @@ public class Constant {
      *            a StaticConstant
      * @param b
      *            another StaticConstant
+     *
      * @return the merge (dataflow meet) of the two Constants
      */
     public static Constant merge(Constant a, Constant b) {

@@ -42,9 +42,8 @@ import edu.umd.cs.findbugs.ba.bcp.PatternElementMatch;
 import edu.umd.cs.findbugs.ba.bcp.PatternMatcher;
 
 /**
- * A base class for bug detectors that are based on a ByteCodePattern.
- * ByteCodePatterns provide an easy way to detect patterns of bytecode
- * instructions, taking into account control flow and uses of fields and values.
+ * A base class for bug detectors that are based on a ByteCodePattern. ByteCodePatterns provide an easy way to detect
+ * patterns of bytecode instructions, taking into account control flow and uses of fields and values.
  *
  * @see ByteCodePattern
  */
@@ -129,26 +128,24 @@ public abstract class ByteCodePatternDetector implements Detector {
     public abstract ByteCodePattern getPattern();
 
     /**
-     * <p>Prescreen a method. It is a valid, but dumb, implementation simply to
-     * return true unconditionally. A better implementation is to call
-     * ClassContext.getBytecodeSet() to check whether the method actually
-     * contains the bytecode instructions that the pattern will look for. The
-     * theory is that checking the bytecode set is very fast, while building the
-     * MethodGen, CFG, ValueNumberAnalysis, etc. objects required to match
-     * ByteCodePatterns is slow, and the bytecode pattern matching algorithm is
-     * also not particularly fast.
+     * <p>
+     * Prescreen a method. It is a valid, but dumb, implementation simply to return true unconditionally. A better
+     * implementation is to call ClassContext.getBytecodeSet() to check whether the method actually contains the
+     * bytecode instructions that the pattern will look for. The theory is that checking the bytecode set is very fast,
+     * while building the MethodGen, CFG, ValueNumberAnalysis, etc. objects required to match ByteCodePatterns is slow,
+     * and the bytecode pattern matching algorithm is also not particularly fast.
      * </p>
      * <p>
-     * As a datapoint, prescreening speeds up the BCPDoubleCheck detector <b>by
-     * a factor of 5</b> with no loss of generality and only a dozen or so extra
-     * lines of code.</p>
+     * As a datapoint, prescreening speeds up the BCPDoubleCheck detector <b>by a factor of 5</b> with no loss of
+     * generality and only a dozen or so extra lines of code.
+     * </p>
      *
      * @param method
      *            the method
      * @param classContext
      *            the ClassContext for the method
-     * @return true if the method should be analyzed for instances of the
-     *         ByteCodePattern
+     *
+     * @return true if the method should be analyzed for instances of the ByteCodePattern
      */
     public abstract boolean prescreen(Method method, ClassContext classContext);
 
@@ -160,8 +157,8 @@ public abstract class ByteCodePatternDetector implements Detector {
      * @param method
      *            the method to instance appears in
      * @param match
-     *            the ByteCodePatternMatch object representing the match of the
-     *            ByteCodePattern against actual instructions in the method
+     *            the ByteCodePatternMatch object representing the match of the ByteCodePattern against actual
+     *            instructions in the method
      */
     public abstract void reportMatch(ClassContext classContext, Method method, ByteCodePatternMatch match)
             throws CFGBuilderException, DataflowAnalysisException;

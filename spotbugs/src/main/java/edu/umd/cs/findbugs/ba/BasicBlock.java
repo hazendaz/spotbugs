@@ -37,13 +37,13 @@ import edu.umd.cs.findbugs.graph.AbstractVertex;
  * Simple basic block abstraction for BCEL.
  *
  * @author David Hovemeyer
+ *
  * @see CFG
  */
 public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debug {
 
     /*
-     * ----------------------------------------------------------------------
-     * Static data
+     * ---------------------------------------------------------------------- Static data
      * ----------------------------------------------------------------------
      */
 
@@ -83,8 +83,7 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Fields
+     * ---------------------------------------------------------------------- Fields
      * ----------------------------------------------------------------------
      */
 
@@ -103,8 +102,7 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
     private int numNonExceptionSuccessors;
 
     /*
-     * ----------------------------------------------------------------------
-     * Public methods
+     * ---------------------------------------------------------------------- Public methods
      * ----------------------------------------------------------------------
      */
 
@@ -132,6 +130,7 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
      * Get the basic block's integer label.
      *
      * @deprecated call getLabel() instead
+     *
      * @return the BasicBlock's integer label
      */
     @Deprecated
@@ -164,8 +163,7 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
     /**
      * Get the instruction for which this block is an exception thrower.
      *
-     * @return the instruction, or null if this block is not an exception
-     *         thrower
+     * @return the instruction, or null if this block is not an exception thrower
      */
     public InstructionHandle getExceptionThrower() {
         return exceptionThrower;
@@ -204,8 +202,8 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
      *
      * @param handle
      *            the instruction
-     * @return the instruction's successor, or null if the instruction is the
-     *         last in the basic block
+     *
+     * @return the instruction's successor, or null if the instruction is the last in the basic block
      */
     public @CheckForNull InstructionHandle getSuccessorOf(InstructionHandle handle) {
         if (VERIFY_INTEGRITY && !containsInstruction(handle)) {
@@ -219,8 +217,8 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
      *
      * @param handle
      *            the instruction
-     * @return the instruction's predecessor, or null if the instruction is the
-     *         first in the basic block
+     *
+     * @return the instruction's predecessor, or null if the instruction is the first in the basic block
      */
     public InstructionHandle getPredecessorOf(InstructionHandle handle) {
         if (VERIFY_INTEGRITY && !containsInstruction(handle)) {
@@ -247,10 +245,8 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
     }
 
     /**
-     * A forward Iterator over the instructions of a basic block. The
-     * duplicate() method can be used to make an exact copy of this iterator.
-     * Calling next() on the duplicate will not affect the original, and vice
-     * versa.
+     * A forward Iterator over the instructions of a basic block. The duplicate() method can be used to make an exact
+     * copy of this iterator. Calling next() on the duplicate will not affect the original, and vice versa.
      */
     public class InstructionIterator implements Iterator<InstructionHandle> {
         private InstructionHandle next;
@@ -365,8 +361,8 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
     }
 
     /**
-     * Get an Iterator over the instructions in the basic block in reverse
-     * order. This is useful for backwards dataflow analyses.
+     * Get an Iterator over the instructions in the basic block in reverse order. This is useful for backwards dataflow
+     * analyses.
      */
     public Iterator<InstructionHandle> instructionReverseIterator() {
         return new InstructionReverseIterator(lastInstruction, firstInstruction);
@@ -395,8 +391,7 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
     }
 
     /**
-     * Get CodeExceptionGen object; returns null if this basic block is not the
-     * entry point of an exception handler.
+     * Get CodeExceptionGen object; returns null if this basic block is not the entry point of an exception handler.
      *
      * @return the CodeExceptionGen object, or null
      */
@@ -405,8 +400,7 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
     }
 
     /**
-     * Set the CodeExceptionGen object. Marks this basic block as the entry
-     * point of an exception handler.
+     * Set the CodeExceptionGen object. Marks this basic block as the entry point of an exception handler.
      *
      * @param exceptionGen
      *            the CodeExceptionGen object for the block
@@ -424,6 +418,7 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
      *
      * @param handle
      *            the instruction
+     *
      * @return true if the block contains the instruction, false otherwise
      */
     public boolean containsInstruction(InstructionHandle handle) {
@@ -437,13 +432,12 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
     }
 
     /**
-     * Return whether or not the basic block contains the instruction with the
-     * given bytecode offset.
+     * Return whether or not the basic block contains the instruction with the given bytecode offset.
      *
      * @param offset
      *            the bytecode offset
-     * @return true if the block contains an instruction with the given offset,
-     *         false if it does not
+     *
+     * @return true if the block contains an instruction with the given offset, false if it does not
      */
     public boolean containsInstructionWithOffset(int offset) {
         Iterator<InstructionHandle> i = instructionIterator();

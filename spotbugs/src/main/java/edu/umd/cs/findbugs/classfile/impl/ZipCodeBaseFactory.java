@@ -32,7 +32,8 @@ import edu.umd.cs.findbugs.log.Profiler;
  */
 public class ZipCodeBaseFactory {
 
-    public static AbstractScannableCodeBase makeZipCodeBase(ICodeBaseLocator codeBaseLocator, File file) throws IOException {
+    public static AbstractScannableCodeBase makeZipCodeBase(ICodeBaseLocator codeBaseLocator, File file)
+            throws IOException {
         Profiler profiler = Global.getAnalysisCache().getProfiler();
         profiler.start(ZipCodeBaseFactory.class);
         try {
@@ -44,7 +45,5 @@ public class ZipCodeBaseFactory {
             profiler.end(ZipCodeBaseFactory.class);
         }
     }
-
-
 
 }

@@ -35,7 +35,9 @@ class JavaVersionTest {
 
     /**
      * Test method for {@link edu.umd.cs.findbugs.JavaVersion#JavaVersion(java.lang.String)}.
-     * @throws JavaVersionException if version string cannot be parsed
+     *
+     * @throws JavaVersionException
+     *             if version string cannot be parsed
      */
     @Test
     void testJavaVersionString() throws JavaVersionException {

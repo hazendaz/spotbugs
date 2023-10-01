@@ -63,8 +63,8 @@ public class LoadXmlAction extends FindBugsAction {
             }
             validFileName = validateSelectedFileName(fileName);
             if (!validFileName) {
-                MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Warning", fileName
-                        + " is not a file or is not readable!");
+                MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Warning",
+                        fileName + " is not a file or is not readable!");
                 continue;
             }
             getDialogSettings().put(LOAD_XML_PATH_KEY, fileName);
@@ -106,8 +106,7 @@ public class LoadXmlAction extends FindBugsAction {
     }
 
     /**
-     * Run a FindBugs import on the given project, displaying a progress
-     * monitor.
+     * Run a FindBugs import on the given project, displaying a progress monitor.
      *
      * @param project
      *            The resource to load XMl to.

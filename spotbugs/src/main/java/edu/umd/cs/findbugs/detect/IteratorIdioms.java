@@ -35,7 +35,8 @@ import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 
 public class IteratorIdioms extends BytecodeScanningDetector implements StatelessDetector {
 
-    private final ClassDescriptor iteratorDescriptor = DescriptorFactory.createClassDescriptor(java.util.Iterator.class);
+    private final ClassDescriptor iteratorDescriptor = DescriptorFactory
+            .createClassDescriptor(java.util.Iterator.class);
 
     private final BugReporter bugReporter;
 
@@ -60,7 +61,6 @@ public class IteratorIdioms extends BytecodeScanningDetector implements Stateles
             bugReporter.reportMissingClass(e);
         }
     }
-
 
     @Override
     public void visit(Method method) {
@@ -94,8 +94,7 @@ public class IteratorIdioms extends BytecodeScanningDetector implements Stateles
         } else if (seen == Const.INVOKESPECIAL || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE) {
             sawCall = true;
             String name = getNameConstantOperand().toLowerCase();
-            if (name.indexOf("next") >= 0
-                    || name.indexOf("previous") >= 0) {
+            if (name.indexOf("next") >= 0 || name.indexOf("previous") >= 0) {
                 sawNoSuchElement = true;
             }
         }

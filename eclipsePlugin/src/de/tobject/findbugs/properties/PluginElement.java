@@ -75,7 +75,8 @@ public class PluginElement implements IPathElement {
     }
 
     /**
-     * @param enabled the enabled to set
+     * @param enabled
+     *            the enabled to set
      */
     @Override
     public void setEnabled(boolean enabled) {

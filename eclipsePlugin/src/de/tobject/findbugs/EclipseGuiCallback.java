@@ -53,8 +53,8 @@ public class EclipseGuiCallback implements IGuiCallback {
     @Override
     public String showQuestionDialog(String message, String title, final String defaultValue) {
         final AtomicReference<Text> textBoxRef = new AtomicReference<>();
-        MessageDialog dlg = new MessageDialog(FindbugsPlugin.getShell(), getDialogTitle(title), null, message, MessageDialog.QUESTION,
-                new String[] { "OK", "Cancel" }, 1) {
+        MessageDialog dlg = new MessageDialog(FindbugsPlugin.getShell(), getDialogTitle(title), null, message,
+                MessageDialog.QUESTION, new String[] { "OK", "Cancel" }, 1) {
             @Override
             protected Control createCustomArea(Composite parent) {
                 Text text = new Text(parent, SWT.SINGLE);
@@ -100,14 +100,12 @@ public class EclipseGuiCallback implements IGuiCallback {
         FindbugsPlugin.getShell().getDisplay().syncExec(new Runnable() {
             @Override
             public void run() {
-                MessageDialog dialog = new MessageDialog(FindbugsPlugin.getShell(), getDialogTitle(title), null, message, MessageDialog.NONE,
-                        new String[] { ok, cancel }, 0) /*
-                                                         * { { // the code below
-                                                         * requires Eclipse 3.5
-                                                         * setShellStyle
-                                                         * (getShellStyle() |
-                                                         * SWT.SHEET); } }
-                                                         */;
+                MessageDialog dialog = new MessageDialog(FindbugsPlugin.getShell(), getDialogTitle(title), null,
+                        message, MessageDialog.NONE, new String[] { ok, cancel },
+                        0) /*
+                            * { { // the code below requires Eclipse 3.5 setShellStyle (getShellStyle() | SWT.SHEET); }
+                            * }
+                            */;
                 result.set(dialog.open());
             }
         });

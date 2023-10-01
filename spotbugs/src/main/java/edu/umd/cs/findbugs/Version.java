@@ -46,7 +46,7 @@ public class Version {
 
     /**
      * @deprecated Use {@link #VERSION_STRING} instead.
-    */
+     */
     @Deprecated
     public static final String RELEASE;
 
@@ -60,8 +60,7 @@ public class Version {
         String version = "(Unknown)";
         if (!fromFile) {
             try {
-                final Enumeration<URL> resources = Version.class.getClassLoader()
-                        .getResources("META-INF/MANIFEST.MF");
+                final Enumeration<URL> resources = Version.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
                 while (resources.hasMoreElements()) {
                     try (final InputStream is = resources.nextElement().openStream()) {
                         final Manifest manifest = new Manifest(is);
@@ -144,8 +143,8 @@ public class Version {
             return;
         }
         for (Plugin plugin : Plugin.getAllPlugins()) {
-            LOG.info("Plugin {}, version {}, loaded from {}",
-                    plugin.getPluginId(), plugin.getVersion(), plugin.getPluginLoader().getURL());
+            LOG.info("Plugin {}, version {}, loaded from {}", plugin.getPluginId(), plugin.getVersion(),
+                    plugin.getPluginLoader().getURL());
             if (plugin.isCorePlugin()) {
                 LOG.info("  is core plugin");
             }

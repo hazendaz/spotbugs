@@ -50,7 +50,8 @@ public class IntCast2LongAsInstant extends OpcodeStackDetector {
         if (seen == Const.SIPUSH) {
             lastConstantForSIPUSH = getIntConstant();
         }
-        if (seen == Const.INVOKEINTERFACE || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKESPECIAL || seen == Const.INVOKESTATIC) {
+        if (seen == Const.INVOKEINTERFACE || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKESPECIAL
+                || seen == Const.INVOKESTATIC) {
             String signature = getSigConstantOperand();
 
             int numberArguments = PreorderVisitor.getNumberArguments(signature);
@@ -62,16 +63,17 @@ public class IntCast2LongAsInstant extends OpcodeStackDetector {
                     if (property != null && property.hasProperty(i)) {
                         int priority = NORMAL_PRIORITY;
 
-                        if (getPrevOpcode(1) == Const.I2L && getPrevOpcode(2) == Const.IMUL && getPrevOpcode(3) == Const.SIPUSH
-                                && lastConstantForSIPUSH == 1000) {
+                        if (getPrevOpcode(1) == Const.I2L && getPrevOpcode(2) == Const.IMUL
+                                && getPrevOpcode(3) == Const.SIPUSH && lastConstantForSIPUSH == 1000) {
                             priority = HIGH_PRIORITY;
 
-                        } else if (getPrevOpcode(1) == Const.I2L && getPrevOpcode(2) == Const.IMUL && getPrevOpcode(4) == Const.SIPUSH
-                                && lastConstantForSIPUSH == 1000) {
+                        } else if (getPrevOpcode(1) == Const.I2L && getPrevOpcode(2) == Const.IMUL
+                                && getPrevOpcode(4) == Const.SIPUSH && lastConstantForSIPUSH == 1000) {
                             priority = HIGH_PRIORITY;
                         }
-                        BugInstance bug = new BugInstance(this, "ICAST_INT_2_LONG_AS_INSTANT", priority).addClassAndMethod(this)
-                                .addCalledMethod(this).addValueSource(item, this).addSourceLine(this);
+                        BugInstance bug = new BugInstance(this, "ICAST_INT_2_LONG_AS_INSTANT", priority)
+                                .addClassAndMethod(this).addCalledMethod(this).addValueSource(item, this)
+                                .addSourceLine(this);
                         bugReporter.reportBug(bug);
                     }
 

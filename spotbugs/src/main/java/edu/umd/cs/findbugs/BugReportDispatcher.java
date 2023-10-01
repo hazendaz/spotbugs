@@ -14,8 +14,8 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
- * Bug reporter delegate actual operation to each bug reporter in the list.
- * It is designed to output multiple reports in batch.
+ * Bug reporter delegate actual operation to each bug reporter in the list. It is designed to output multiple reports in
+ * batch.
  */
 public class BugReportDispatcher implements ConfigurableBugReporter {
     @NonNull
@@ -116,7 +116,9 @@ public class BugReportDispatcher implements ConfigurableBugReporter {
 
     /**
      * Consume each reporter one by one, and throw an exception if some of them.
-     * @param consumer Operation to handle each reporter.
+     *
+     * @param consumer
+     *            Operation to handle each reporter.
      */
     private void forEach(Consumer<TextUIBugReporter> consumer) {
         List<RuntimeException> exceptions = reporters.stream().map(reporter -> {

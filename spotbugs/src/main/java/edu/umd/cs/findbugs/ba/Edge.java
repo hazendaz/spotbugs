@@ -36,6 +36,7 @@ import edu.umd.cs.findbugs.graph.AbstractEdge;
  * An edge of a control flow graph.
  *
  * @author David Hovemeyer
+ *
  * @see BasicBlock
  * @see CFG
  */
@@ -48,8 +49,7 @@ public class Edge extends AbstractEdge<Edge, BasicBlock> implements EdgeTypes, D
     }
 
     /*
-     * ----------------------------------------------------------------------
-     * Fields
+     * ---------------------------------------------------------------------- Fields
      * ----------------------------------------------------------------------
      */
 
@@ -59,8 +59,7 @@ public class Edge extends AbstractEdge<Edge, BasicBlock> implements EdgeTypes, D
     private int flags;
 
     /*
-     * ----------------------------------------------------------------------
-     * Public methods
+     * ---------------------------------------------------------------------- Public methods
      * ----------------------------------------------------------------------
      */
 
@@ -113,6 +112,7 @@ public class Edge extends AbstractEdge<Edge, BasicBlock> implements EdgeTypes, D
      *
      * @param flag
      *            the edge flag
+     *
      * @return true if the flag is set, false otherwise
      */
     public boolean isFlagSet(int flag) {

@@ -45,16 +45,15 @@ import edu.umd.cs.findbugs.visitclass.AnnotationVisitor;
  * @author David Hovemeyer
  * @author William Pugh
  *
- * @deprecated AnnotationDatabases are being phased out, since annotations are
- *             now stored directly in the XClass/XMethod/XField objects.
- *             Resolving nullness annotations will be handled through the
- *             JSR-305 type qualifier code.
+ * @deprecated AnnotationDatabases are being phased out, since annotations are now stored directly in the
+ *             XClass/XMethod/XField objects. Resolving nullness annotations will be handled through the JSR-305 type
+ *             qualifier code.
  */
 @Deprecated
 public class BuildNonNullAnnotationDatabase extends AnnotationVisitor {
     private static final boolean DEBUG = SystemProperties.getBoolean("fnd.debug.annotation");
 
-    //    private static final String DEFAULT_ANNOTATION_ANNOTATION_CLASS = "DefaultAnnotation";
+    // private static final String DEFAULT_ANNOTATION_ANNOTATION_CLASS = "DefaultAnnotation";
 
     @StaticConstant
     private static final Map<String, AnnotationDatabase.Target> defaultKind = new HashMap<>();
@@ -143,7 +142,8 @@ public class BuildNonNullAnnotationDatabase extends AnnotationVisitor {
     }
 
     @Override
-    public void visitParameterAnnotation(int p, String annotationClass, Map<String, ElementValue> map, boolean runtimeVisible) {
+    public void visitParameterAnnotation(int p, String annotationClass, Map<String, ElementValue> map,
+            boolean runtimeVisible) {
         if (database == null) {
             return;
         }
@@ -156,8 +156,8 @@ public class BuildNonNullAnnotationDatabase extends AnnotationVisitor {
 
         XMethod xmethod = XFactory.createXMethod(this);
         if (DEBUG) {
-            System.out.println("Parameter " + p + " @" + annotationClass.substring(annotationClass.lastIndexOf('/') + 1) + " in "
-                    + xmethod.toString());
+            System.out.println("Parameter " + p + " @" + annotationClass.substring(annotationClass.lastIndexOf('/') + 1)
+                    + " in " + xmethod.toString());
         }
         XMethodParameter xparameter = new XMethodParameter(xmethod, p);
 

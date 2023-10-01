@@ -32,8 +32,8 @@ import edu.umd.cs.findbugs.ba.ReverseDFSOrder;
 import edu.umd.cs.findbugs.ba.ReverseDepthFirstSearch;
 
 /**
- * A dataflow analysis to determine, at each location in a method's CFG, whether
- * or not it is possible to return normally at that location.
+ * A dataflow analysis to determine, at each location in a method's CFG, whether or not it is possible to return
+ * normally at that location.
  *
  * @author David Hovemeyer
  */
@@ -100,23 +100,17 @@ public class ReturnPathTypeAnalysis extends BasicAbstractDataflowAnalysis<Return
     }
 
     /*
-     * Look up a dataflow value in given map, creating a new (top) fact if no
-     * fact currently exists.
+     * Look up a dataflow value in given map, creating a new (top) fact if no fact currently exists.
      *
-     * @param map
-     *            the map
-     * @param block
-     *            BasicBlock used as key in map
+     * @param map the map
+     *
+     * @param block BasicBlock used as key in map
+     *
      * @return the dataflow fact for the block
      *
-    private ReturnPathType getOrCreateFact(HashMap<BasicBlock, ReturnPathType> map, BasicBlock block) {
-        ReturnPathType returnPathType = map.get(block);
-        if (returnPathType == null) {
-            returnPathType = createFact();
-            map.put(block, returnPathType);
-        }
-        return returnPathType;
-    }
+     * private ReturnPathType getOrCreateFact(HashMap<BasicBlock, ReturnPathType> map, BasicBlock block) {
+     * ReturnPathType returnPathType = map.get(block); if (returnPathType == null) { returnPathType = createFact();
+     * map.put(block, returnPathType); } return returnPathType; }
      */
 
     @Override

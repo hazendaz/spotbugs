@@ -32,9 +32,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /***
- * This detector finds all the vulnerable methods which uses Security Manager to perform
- * some security check but are declared non-final and non-private in a non-final class.
- * Please see @see <a href="https://wiki.sei.cmu.edu/confluence/display/java/MET03-J.+Methods+that+perform+a+security+check+must+be+declared+private+or+final">SEI CERT MET03-J</a>
+ * This detector finds all the vulnerable methods which uses Security Manager to perform some security check but are
+ * declared non-final and non-private in a non-final class. Please see @see <a href=
+ * "https://wiki.sei.cmu.edu/confluence/display/java/MET03-J.+Methods+that+perform+a+security+check+must+be+declared+private+or+final">SEI
+ * CERT MET03-J</a>
+ *
  * @author Nazir, Muhammad Zafar Iqbal
  */
 public class FindVulnerableSecurityCheckMethods extends OpcodeStackDetector {
@@ -73,7 +75,7 @@ public class FindVulnerableSecurityCheckMethods extends OpcodeStackDetector {
                 add("checkTopLevelWindow");
                 add("checkWrite");
 
-                //Deprecated Method Call Support
+                // Deprecated Method Call Support
                 add("classDepth");
                 add("classLoaderDepth");
                 add("currentClassLoader");
@@ -103,38 +105,36 @@ public class FindVulnerableSecurityCheckMethods extends OpcodeStackDetector {
      * Returns true if the opcode is a method invocation false otherwise
      */
     private boolean isMethodCall(int seen) {
-        return seen == Const.INVOKESTATIC ||
-                seen == Const.INVOKEVIRTUAL ||
-                seen == Const.INVOKEINTERFACE ||
-                seen == Const.INVOKESPECIAL;
+        return seen == Const.INVOKESTATIC || seen == Const.INVOKEVIRTUAL || seen == Const.INVOKEINTERFACE
+                || seen == Const.INVOKESPECIAL;
     }
 
     @Override
     public void sawOpcode(int seen) {
-        //I first check if there is any method invocation.
+        // I first check if there is any method invocation.
         if (isMethodCall(seen)) {
-            //If yes then I get the method in which this invocation happened
+            // If yes then I get the method in which this invocation happened
             XMethod method = getXMethod();
             if (method == null) {
                 return;
             }
-            //We examine only non-final and non-private methods
+            // We examine only non-final and non-private methods
             if (!method.isFinal() && !method.isPrivate()) {
-                //Then we get the method which was invoked
+                // Then we get the method which was invoked
                 XMethod calledMethod = this.getXMethodOperand();
                 if (calledMethod == null) {
                     return;
                 }
-                //I used the documentation of SecurityManager class and compiled the "badMethodNames"
+                // I used the documentation of SecurityManager class and compiled the "badMethodNames"
                 // list of method names which can really perform security check.
-                //If security check is really performed, I report the bug.
+                // If security check is really performed, I report the bug.
                 if ("java.lang.SecurityManager".equals(calledMethod.getClassName())
                         && badMethodNames.contains(calledMethod.getName())) {
-                    bugReporter.reportBug(new BugInstance(this, "VSC_VULNERABLE_SECURITY_CHECK_METHODS", NORMAL_PRIORITY)
-                            .addClass(this.getClassContext().getJavaClass())
-                            .addMethod(method)
-                            .addMethod(calledMethod)
-                            .addSourceLine(SourceLineAnnotation.fromVisitedInstruction(this, getPC())));
+                    bugReporter
+                            .reportBug(new BugInstance(this, "VSC_VULNERABLE_SECURITY_CHECK_METHODS", NORMAL_PRIORITY)
+                                    .addClass(this.getClassContext().getJavaClass()).addMethod(method)
+                                    .addMethod(calledMethod)
+                                    .addSourceLine(SourceLineAnnotation.fromVisitedInstruction(this, getPC())));
                 }
             }
         }

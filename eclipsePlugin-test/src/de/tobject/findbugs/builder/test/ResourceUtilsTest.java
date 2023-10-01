@@ -75,8 +75,8 @@ class ResourceUtilsTest extends AbstractFindBugsTest {
     @Test
     void testGetResourcesPerProject_selectedProject() {
         // Select the project
-        Map<IProject, List<WorkItem>> resourcesPerProject = ResourceUtils.getResourcesPerProject(new StructuredSelection(
-                getProject()));
+        Map<IProject, List<WorkItem>> resourcesPerProject = ResourceUtils
+                .getResourcesPerProject(new StructuredSelection(getProject()));
 
         // We should have project -> [project]
         assertNotNull(resourcesPerProject);

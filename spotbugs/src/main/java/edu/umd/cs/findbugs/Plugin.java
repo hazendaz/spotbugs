@@ -48,11 +48,11 @@ import edu.umd.cs.findbugs.plan.DetectorOrderingConstraint;
 import edu.umd.cs.findbugs.util.DualKeyHashMap;
 
 /**
- * A FindBugs plugin. A plugin contains executable Detector classes, as well as
- * meta information describing those detectors (such as human-readable detector
- * and bug descriptions).
+ * A FindBugs plugin. A plugin contains executable Detector classes, as well as meta information describing those
+ * detectors (such as human-readable detector and bug descriptions).
  *
  * @see PluginLoader
+ *
  * @author David Hovemeyer
  */
 public class Plugin implements AutoCloseable {
@@ -114,7 +114,8 @@ public class Plugin implements AutoCloseable {
      * @param pluginId
      *            the plugin's unique identifier
      */
-    public Plugin(String pluginId, String version, Date releaseDate, @Nonnull PluginLoader pluginLoader, boolean enabled, boolean cannotDisable) {
+    public Plugin(String pluginId, String version, Date releaseDate, @Nonnull PluginLoader pluginLoader,
+            boolean enabled, boolean cannotDisable) {
         this.pluginId = pluginId;
         if (version == null) {
             version = "";
@@ -193,6 +194,7 @@ public class Plugin implements AutoCloseable {
      *
      * @param website
      *            the plugin website
+     *
      * @throws URISyntaxException
      */
     public void setWebsite(String website) throws URISyntaxException {
@@ -315,6 +317,7 @@ public class Plugin implements AutoCloseable {
      *
      * @param shortName
      *            the short name
+     *
      * @return the DetectorFactory
      */
     public DetectorFactory getFactoryByShortName(final String shortName) {
@@ -326,6 +329,7 @@ public class Plugin implements AutoCloseable {
      *
      * @param fullName
      *            the full name
+     *
      * @return the DetectorFactory
      */
     public DetectorFactory getFactoryByFullName(final String fullName) {
@@ -368,7 +372,9 @@ public class Plugin implements AutoCloseable {
     }
 
     /**
-     * @param id may be null
+     * @param id
+     *            may be null
+     *
      * @return return bug category with given id, may return null if the bug category is unknown
      */
     @CheckForNull
@@ -400,8 +406,8 @@ public class Plugin implements AutoCloseable {
     }
 
     /**
-     * Set the analysis engine registrar class that, when instantiated, can be
-     * used to register the plugin's analysis engines with the analysis cache.
+     * Set the analysis engine registrar class that, when instantiated, can be used to register the plugin's analysis
+     * engines with the analysis cache.
      *
      * @param engineRegistrarClass
      *            The engine registrar class to set.
@@ -411,8 +417,8 @@ public class Plugin implements AutoCloseable {
     }
 
     /**
-     * Get the analysis engine registrar class that, when instantiated, can be
-     * used to register the plugin's analysis engines with the analysis cache.
+     * Get the analysis engine registrar class that, when instantiated, can be used to register the plugin's analysis
+     * engines with the analysis cache.
      *
      * @return Returns the engine registrar class.
      */
@@ -487,7 +493,7 @@ public class Plugin implements AutoCloseable {
         }
         for (Plugin plugin : allPlugins.values()) {
             // the second part is questionable, as this may lead to id collisions
-            if (name.equals(plugin.getPluginId()) /*|| name.equals(plugin.getShortPluginId())*/) {
+            if (name.equals(plugin.getPluginId()) /* || name.equals(plugin.getShortPluginId()) */) {
                 return plugin;
             }
         }
@@ -589,7 +595,7 @@ public class Plugin implements AutoCloseable {
             }
             throw new IllegalArgumentException("Cannot disable " + pluginId);
         }
-        //        EnabledState oldState = this.enabled;
+        // EnabledState oldState = this.enabled;
 
         if (enabled) {
             if (isEnabledByDefault()) {
@@ -604,9 +610,9 @@ public class Plugin implements AutoCloseable {
                 this.enabled = EnabledState.PLUGIN_DEFAULT;
             }
         }
-        //        if(oldState != this.enabled) {
+        // if(oldState != this.enabled) {
         // TODO update detector factory collection?
-        //        }
+        // }
     }
 
     public boolean isInitialPlugin() {
@@ -632,12 +638,11 @@ public class Plugin implements AutoCloseable {
      * Loads the given plugin and enables it for the given project.
      *
      * @param f
-     *      A non-null jar file of custom plugin.
+     *            A non-null jar file of custom plugin.
      * @param project
-     *      A nullable target project
+     *            A nullable target project
      */
-    public static Plugin loadCustomPlugin(File f, @CheckForNull Project project)
-            throws PluginException {
+    public static Plugin loadCustomPlugin(File f, @CheckForNull Project project) throws PluginException {
         URL urlString;
         try {
             urlString = f.toURI().toURL();
@@ -698,8 +703,8 @@ public class Plugin implements AutoCloseable {
     }
 
     /**
-     * Closes the underlying {@link PluginLoader}, in turn this closes the {@link URLClassLoader}.
-     * When loading a custom plugin from a .jar file this method needs to be called to release the reference on that file.
+     * Closes the underlying {@link PluginLoader}, in turn this closes the {@link URLClassLoader}. When loading a custom
+     * plugin from a .jar file this method needs to be called to release the reference on that file.
      */
     @Override
     public void close() throws IOException {

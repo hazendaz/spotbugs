@@ -32,13 +32,12 @@ import edu.umd.cs.findbugs.ba.Hierarchy;
 import edu.umd.cs.findbugs.ba.ch.Subtypes2;
 
 /**
- * Class for keeping track of exceptions that can be thrown by an instruction.
- * We distinguish <em>explicit</em> and <em>implicit</em> exceptions. Explicit
- * exceptions are explicitly declared, thrown, or caught. Implicit exceptions
- * are runtime faults (NPE, array out of bounds) not explicitly handled by the
- * user code.
+ * Class for keeping track of exceptions that can be thrown by an instruction. We distinguish <em>explicit</em> and
+ * <em>implicit</em> exceptions. Explicit exceptions are explicitly declared, thrown, or caught. Implicit exceptions are
+ * runtime faults (NPE, array out of bounds) not explicitly handled by the user code.
  *
  * @author David Hovemeyer
+ *
  * @see TypeAnalysis
  */
 public class ExceptionSet {
@@ -153,8 +152,8 @@ public class ExceptionSet {
     }
 
     /**
-     * Get the least (lowest in the lattice) common supertype of the exceptions
-     * in the set. Returns the special TOP type if the set is empty.
+     * Get the least (lowest in the lattice) common supertype of the exceptions in the set. Returns the special TOP type
+     * if the set is empty.
      */
     public Type getCommonSupertype() throws ClassNotFoundException {
         if (commonSupertype != null) {
@@ -172,7 +171,8 @@ public class ExceptionSet {
         ReferenceType result = i.next();
         while (i.hasNext()) {
             if (Subtypes2.ENABLE_SUBTYPES2_FOR_COMMON_SUPERCLASS_QUERIES) {
-                result = AnalysisContext.currentAnalysisContext().getSubtypes2().getFirstCommonSuperclass(result, i.next());
+                result = AnalysisContext.currentAnalysisContext().getSubtypes2().getFirstCommonSuperclass(result,
+                        i.next());
             } else {
                 result = result.getFirstCommonSuperclass(i.next());
             }
@@ -204,11 +204,11 @@ public class ExceptionSet {
     }
 
     /**
-     * Checks to see if the exception set is a singleton set containing just the
-     * named exception
+     * Checks to see if the exception set is a singleton set containing just the named exception
      *
      * @param exceptionName
      *            (in dotted format)
+     *
      * @return true if it is
      */
     public boolean isSingleton(String exceptionName) {
@@ -246,8 +246,7 @@ public class ExceptionSet {
      * @param type
      *            the exception type
      * @param explicit
-     *            true if the exception is explicitly declared or thrown, false
-     *            if implicit
+     *            true if the exception is explicitly declared or thrown, false if implicit
      */
     public void add(ObjectType type, boolean explicit) {
         int index = factory.getIndexOfType(type);
@@ -298,8 +297,7 @@ public class ExceptionSet {
     }
 
     /**
-     * Return whether or not a universal exception handler was reached by the
-     * set.
+     * Return whether or not a universal exception handler was reached by the set.
      */
     public void sawUniversal() {
         clear();

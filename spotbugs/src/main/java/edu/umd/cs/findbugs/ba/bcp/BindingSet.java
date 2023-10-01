@@ -20,11 +20,11 @@
 package edu.umd.cs.findbugs.ba.bcp;
 
 /**
- * A set of Bindings, which are definitions of variables occurring in a
- * ByteCodePattern. BindingSets are immutable; to add a binding, a new cell is
- * allocated. (Are we CONSING yet?)
+ * A set of Bindings, which are definitions of variables occurring in a ByteCodePattern. BindingSets are immutable; to
+ * add a binding, a new cell is allocated. (Are we CONSING yet?)
  *
  * @author David Hovemeyer
+ *
  * @see Binding
  */
 public class BindingSet {
@@ -50,6 +50,7 @@ public class BindingSet {
      *
      * @param varName
      *            name of the variable
+     *
      * @return the Binding, or null if no such Binding is present in the set
      */
     public Binding lookup(String varName) {

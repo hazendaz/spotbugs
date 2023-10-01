@@ -37,11 +37,11 @@ public class ValueNumberDataflow extends AbstractDataflow<ValueNumberFrame, Valu
     }
 
     /**
-     * Build map of value numbers to param indices. The first parameter has
-     * index 0, the second has index 1, etc.
+     * Build map of value numbers to param indices. The first parameter has index 0, the second has index 1, etc.
      *
      * @param method
      *            the method analyzed by the ValueNumberAnalysis
+     *
      * @return the value number to parameter index map
      */
     public Map<ValueNumber, Integer> getValueNumberToParamMap(Method method) {
@@ -49,13 +49,13 @@ public class ValueNumberDataflow extends AbstractDataflow<ValueNumberFrame, Valu
     }
 
     /**
-     * Build map of value numbers to param indices. The first parameter has
-     * index 0, the second has index 1, etc.
+     * Build map of value numbers to param indices. The first parameter has index 0, the second has index 1, etc.
      *
      * @param methodSignature
      *            signature of the method analyzed by the ValueNumberAnalysis
      * @param isStatic
      *            true if the method is static, false if not
+     *
      * @return the value number to parameter index map
      */
     public Map<ValueNumber, Integer> getValueNumberToParamMap(String methodSignature, boolean isStatic) {
