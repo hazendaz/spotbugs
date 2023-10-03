@@ -10,9 +10,11 @@ sonar {
     property 'sonar.coverage.jacoco.xmlReportPaths', layout.buildDirectory.map { Directory dir ->
       "${dir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
     }
+    property 'sonar.skipCompile', 'true'
+    }
   }
 }
 
-tasks.named('sonar').configure {
-  dependsOn jacocoRootReport
+tasks.named('sonarqube').configure {
+  mustRunAfter jacocoRootReport
 }
