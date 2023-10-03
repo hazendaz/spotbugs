@@ -13,6 +13,7 @@ sonar {
     property 'sonar.skipCompile', 'true'
     }
   }
+  skipCompile = true
 }
 
 tasks.named('sonarqube').configure {

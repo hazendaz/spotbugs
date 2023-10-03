@@ -140,6 +140,7 @@ sonar {
   properties {
     property 'sonar.skipCompile', 'true'
   }
+  skipCompile = true
 }
 
 spotbugs {
