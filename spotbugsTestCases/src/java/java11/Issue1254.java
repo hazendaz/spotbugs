@@ -1,3 +1,5 @@
+package java11;
+
 /**
  * Class to check the issue 1254.
  */
