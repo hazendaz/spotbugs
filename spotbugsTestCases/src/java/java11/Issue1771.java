@@ -1,4 +1,4 @@
-package ghIssues;
+package java11;
 
 import java.util.ArrayList;
 import java.util.Collections;

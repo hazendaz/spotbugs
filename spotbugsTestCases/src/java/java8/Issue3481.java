@@ -1,3 +1,5 @@
+package java8;
+
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 public class Issue3481 {
