@@ -1,3 +1,5 @@
+package java8;
+
 /**
  * Issues from http://www.cigital.com/securitypack/view/index.html
  *

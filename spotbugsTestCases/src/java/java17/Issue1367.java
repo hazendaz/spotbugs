@@ -1,3 +1,5 @@
+package java17;
+
 /**
  * A record class to reproduce {@code EQ_UNUSUAL} false positive.
  *

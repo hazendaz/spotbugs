@@ -1,3 +1,5 @@
+package java17;
+
 /**
  * False positive SA_LOCAL_SELF_COMPARISON reported on number when using instanceof pattern matching in Java 14.
  * 

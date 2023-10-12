@@ -1,3 +1,5 @@
+package java17;
+
 /**
  * @see <a href="https://github.com/spotbugs/spotbugs/issues/2981">#2981</a>
  */
