@@ -1,3 +1,5 @@
+package java17;
+
 public class Issue2120 {
     static void method() {
         record MyRecord(int from, int to) { /**/ }

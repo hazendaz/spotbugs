@@ -1,4 +1,4 @@
-package ghIssues;
+package java17;
 
 import java.io.Externalizable;
 import java.io.IOException;

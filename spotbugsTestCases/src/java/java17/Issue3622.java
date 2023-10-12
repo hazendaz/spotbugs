@@ -1,3 +1,5 @@
+package java17;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public record Issue3622(int x) {
