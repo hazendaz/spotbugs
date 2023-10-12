@@ -1,3 +1,5 @@
+package java8;
+
 import org.jspecify.annotations.Nullable;
 
 public class Issue3481 {

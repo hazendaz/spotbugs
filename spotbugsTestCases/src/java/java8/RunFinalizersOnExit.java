@@ -1,3 +1,5 @@
+package java8;
+
 class RunFinalizersOnExit {
 
     int f() {
