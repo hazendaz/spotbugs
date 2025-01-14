@@ -63,8 +63,6 @@ public class JavaProjectHelper {
 
     public static final IPath RT_STUBS_15 = new Path("testresources/rtstubs15.jar");
 
-    private static final int MAX_RETRY = 5;
-
     /**
      * Creates a IJavaProject.
      *
@@ -619,6 +617,7 @@ public class JavaProjectHelper {
             op.run(monitor);
         } catch (InterruptedException e) {
             // should not happen
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -643,7 +642,7 @@ public class JavaProjectHelper {
             String path = (String) entryPaths.nextElement();
             IPath name = new Path(path.substring(bundleSourcePath.length()));
             if (path.endsWith("/.svn/")) {
-                continue; // Ignore SVN folders
+                // Ignore SVN folders
             } else if (path.endsWith("/")) {
                 IFolder folder = importTarget.getFolder(name);
                 if (folder.exists()) {

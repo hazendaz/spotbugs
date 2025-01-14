@@ -89,7 +89,7 @@ public class DetectorFactory {
             if (SUPPORT_OLD_DETECTOR_INTERFACE) {
                 try {
                     setAnalysisContext = detectorClass.getDeclaredMethod("setAnalysisContext",
-                            new Class[] { AnalysisContext.class });
+                            AnalysisContext.class);
                 } catch (NoSuchMethodException e) {
                     // Ignore
                 }
@@ -104,9 +104,9 @@ public class DetectorFactory {
         public Detector createDetector(BugReporter bugReporter) {
             try {
                 Constructor<?> constructor = detectorClass.getConstructor(constructorArgTypes);
-                Detector detector = (Detector) constructor.newInstance(new Object[] { bugReporter });
+                Detector detector = (Detector) constructor.newInstance(bugReporter);
                 if (setAnalysisContext != null) {
-                    setAnalysisContext.invoke(detector, new Object[] { AnalysisContext.currentAnalysisContext() });
+                    setAnalysisContext.invoke(detector, AnalysisContext.currentAnalysisContext());
                 }
                 return detector;
             } catch (Exception e) {
@@ -118,7 +118,7 @@ public class DetectorFactory {
             if (Detector2.class.isAssignableFrom(detectorClass)) {
                 try {
                     Constructor<?> constructor = detectorClass.getConstructor(constructorArgTypes);
-                    return (Detector2) constructor.newInstance(new Object[] { bugReporter });
+                    return (Detector2) constructor.newInstance(bugReporter);
                 } catch (Exception e) {
                     throw new RuntimeException("Could not instantiate " + detectorClass.getName() + " as Detector2", e);
                 }
@@ -146,7 +146,7 @@ public class DetectorFactory {
      * @param plugin
      *            the Plugin the Detector is part of
      * @param className
-     *            TODO
+     *            the classname
      * @param detectorClass
      *            the Class object of the Detector
      * @param enabled

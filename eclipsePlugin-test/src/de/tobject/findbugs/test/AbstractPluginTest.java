@@ -106,7 +106,7 @@ public abstract class AbstractPluginTest {
     }
 
     protected static void addJUnitToProjectClasspath() throws JavaModelException {
-        IClasspathEntry cpe = BuildPathSupport.getJUnit4ClasspathEntry();
+        IClasspathEntry cpe = BuildPathSupport.getJUnit5ClasspathEntry();
         JavaProjectHelper.addToClasspath(getJavaProject(), cpe);
     }
 
@@ -194,7 +194,7 @@ public abstract class AbstractPluginTest {
 
     protected static void processUiEvents() {
         while (Display.getDefault().readAndDispatch()) {
-            ;
+            // Keep reading and dispatching
         }
     }
 
@@ -206,16 +206,13 @@ public abstract class AbstractPluginTest {
                 Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
             processUiEvents();
             if (System.currentTimeMillis() - start > delayInMilliseconds) {
                 break;
             }
         }
-    }
-
-    protected AbstractPluginTest() {
-        super();
     }
 
     @BeforeEach
@@ -398,6 +395,7 @@ public abstract class AbstractPluginTest {
                 finished = true;
             } catch (InterruptedException e) {
                 // continue waiting
+                Thread.currentThread().interrupt();
             }
         }
     }

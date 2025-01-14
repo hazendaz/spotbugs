@@ -138,7 +138,8 @@ public class PropertyBundle {
                 return defaultValue;
             }
             result = toBoolean(value);
-        } catch (IllegalArgumentException | NullPointerException ignored) {
+        } catch (IllegalArgumentException | NullPointerException e) {
+            // Ignored
         }
         return result;
     }
