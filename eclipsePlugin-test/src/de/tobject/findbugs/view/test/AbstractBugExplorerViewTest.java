@@ -46,6 +46,7 @@ import de.tobject.findbugs.view.explorer.Grouping;
  */
 public abstract class AbstractBugExplorerViewTest extends AbstractFindBugsTest {
 
+    @SafeVarargs
     protected static <T> Set<T> setOf(T... a) {
         return new HashSet<>(Arrays.asList(a));
     }

@@ -163,6 +163,7 @@ Currently the versioning policy of this project follows [Semantic Versioning v2.
 - Merge conditions of nested ifs ([#3231](https://github.com/spotbugs/spotbugs/pull/3231))
 - Use non deprecated 'getDottedClassName' instead of 'toDottedClassName'([#3251](https://github.com/spotbugs/spotbugs/pull/3251))
 - Use try with resources where possible ([#3253](https://github.com/spotbugs/spotbugs/pull/3253))
+- Rough pass through code cleaning up sonarlint, initialization issues, and others including one deprecation and regex changes ([#3135](https://github.com/spotbugs/spotbugs/issues/3135))
 
 ### Changed
 - Bump up Java version to 11
