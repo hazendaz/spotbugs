@@ -281,6 +281,7 @@ public class ClassDescriptor implements Comparable<ClassDescriptor>, Serializabl
      * @param classDescriptor
      *            ClassDescriptor naming a class that cannot be found
      * @throws ClassNotFoundException
+     *            Cannot find a class that your code is trying to use
      * @see edu.umd.cs.findbugs.ba.ClassNotFoundExceptionParser
      */
     public static void throwClassNotFoundException(ClassDescriptor classDescriptor) throws ClassNotFoundException {
