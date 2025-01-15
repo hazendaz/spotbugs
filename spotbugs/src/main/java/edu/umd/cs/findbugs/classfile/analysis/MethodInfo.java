@@ -206,6 +206,7 @@ public class MethodInfo extends MethodDescriptor implements XMethod {
 
         /**
          * @param methodCallCount
+         *             number of method calls
          */
         public void setNumberMethodCalls(int methodCallCount) {
             this.methodCallCount = methodCallCount;
