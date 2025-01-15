@@ -498,6 +498,7 @@ public class Dataflow<Fact, AnalysisType extends DataflowAnalysis<Fact>> {
      *            the Location
      * @return the dataflow value at given Location
      * @throws DataflowAnalysisException
+     *              unable to analyze the data flow within code
      */
     public/* final */Fact getFactAtLocation(Location location) throws DataflowAnalysisException {
         return analysis.getFactAtLocation(location);
