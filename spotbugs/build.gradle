@@ -38,8 +38,12 @@ sourceSets {
       /*
        * Because why put everything in a single folder when you can split it
        * and mix it with other files you don't actually need together
-      */
-      srcDirs = ['src/xsl', 'etc', 'src/main/java']
+       */
+      srcDirs = [
+        'src/xsl',
+        'etc',
+        'src/main/java'
+      ]
       include '*.xsd'
       include 'bugrank.txt'
       include 'findbugs.xml'
@@ -117,8 +121,8 @@ project(':spotbugs-annotations') {
     dependsOn(jarTask)
 
     inputs.file(jarTask.flatMap { Jar jar -> jar.archiveFile })
-          .withPathSensitivity(PathSensitivity.RELATIVE)
-          .withPropertyName('spotbugsJarInput')
+    .withPathSensitivity(PathSensitivity.RELATIVE)
+    .withPropertyName('spotbugsJarInput')
   }
 }
 
@@ -134,7 +138,11 @@ tasks.withType(Jar).configureEach {
 
 eclipse.classpath.file {
   whenMerged { Classpath classpath ->
-    List<String> removeLibPaths = ['build/classes/', 'build/resources/', 'xml-apis']
+    List<String> removeLibPaths = [
+      'build/classes/',
+      'build/resources/',
+      'xml-apis'
+    ]
     classpath.entries.removeAll { ClasspathEntry entry ->
       entry.kind == 'lib' && removeLibPaths.any { String pathPart -> entry.path.contains(pathPart) }
     }
@@ -180,8 +188,8 @@ TaskProvider<Task> updateManifest = tasks.register('updateManifest') {
     Manifest manifestSpec = java.manifest {
       from "${projectDir}/META-INF/MANIFEST-TEMPLATE.MF"
       attributes 'Main-Class': 'edu.umd.cs.findbugs.LaunchAppropriateUI',
-               'Bundle-Version': version.replace('-', '.'),
-               'Bundle-ClassPath': 'spotbugs.jar,' +  fileTree(dir: '.libs').collect { File file -> projectDir.toPath().relativize(file.toPath()).toString() }.join(',')
+      'Bundle-Version': version.replace('-', '.'),
+      'Bundle-ClassPath': 'spotbugs.jar,' +  fileTree(dir: '.libs').collect { File file -> projectDir.toPath().relativize(file.toPath()).toString() }.join(',')
     }
     // write manifests
     manifestSpec.writeTo("${projectDir}/META-INF/MANIFEST.MF")
@@ -199,8 +207,8 @@ TaskProvider<Jar> jar = tasks.named('jar', Jar) {
   Set<File> jarInClasspath = project.configurations.runtimeClasspath + project.configurations.logBinding
   manifest {
     attributes 'Main-Class': 'edu.umd.cs.findbugs.LaunchAppropriateUI',
-               'Bundle-Version': project.version,
-               'Class-Path': project.providers.provider { jarInClasspath.collect { File file -> file.getName() }.join(' ') + ' config/' }
+    'Bundle-Version': project.version,
+    'Class-Path': project.providers.provider { jarInClasspath.collect { File file -> file.getName() }.join(' ') + ' config/' }
   }
   dependsOn tasks.named('updateManifest')
 }
@@ -287,12 +295,18 @@ distributions {
         into 'plugin'
         include 'README'
       }
-      from('licenses')
-      from([configurations.runtimeClasspath, configurations.logBinding]) {
+      from 'licenses'
+      from([
+        configurations.runtimeClasspath,
+        configurations.logBinding
+      ]) {
         into 'lib'
         include '**/*.jar'
       }
-      from([jar, project(':spotbugs-ant').jar]) {
+      from([
+        jar,
+        project(':spotbugs-ant').jar
+      ]) {
         into 'lib'
       }
       from('log4j2.xml') {
@@ -326,7 +340,7 @@ TaskProvider<Exec> distSrcZip = tasks.register('distSrcZip', Exec) {
   String out = "${resolvedBuildDir}/distributions/spotbugs-${project.version}-source.zip"
   outputs.file out
   commandLine 'git', 'archive', '-o', out,
-    '--prefix', "spotbugs-${project.version}/", 'HEAD'
+      '--prefix', "spotbugs-${project.version}/", 'HEAD'
 
   onlyIf {
     file("${rootDir}/.git").isDirectory()
@@ -361,27 +375,27 @@ smokeTest.configure {
     TaskProvider<JavaCompile> compileJava = tasks.named('compileJava', JavaCompile)
 
     ant.taskdef(
-      name: 'spotbugs',
-      classname: 'edu.umd.cs.findbugs.anttask.FindBugsTask',
-      classpath: jarTask.get().outputs.files.asPath
-    )
+        name: 'spotbugs',
+        classname: 'edu.umd.cs.findbugs.anttask.FindBugsTask',
+        classpath: jarTask.get().outputs.files.asPath
+        )
 
     ant.spotbugs(
-      home: "${resolvedBuildDir}/smoketest/",
-      output: 'xml:withMessages',
-      jvmargs: '-ea -Xmx1200m',
-      excludeFilter: 'findbugsExclude.xml',
-      projectName: 'spotbugs',
-      maxRank: '20',
-      timeout: '1800000',
-      outputFile: "${resolvedBuildDir}/smoketest/findbugscheckAll.xml"
-    ) {
-      sourcePath(path: 'src/main/java:src/gui/main:src/tools')
-      'class'(location: compileJava.get().destinationDirectory.get().asFile)
-      configurations.compileClasspath.each { File file ->
-        auxClasspath(path: file.path)
-      }
-    }
+        home: "${resolvedBuildDir}/smoketest/",
+        output: 'xml:withMessages',
+        jvmargs: '-ea -Xmx1200m',
+        excludeFilter: 'findbugsExclude.xml',
+        projectName: 'spotbugs',
+        maxRank: '20',
+        timeout: '1800000',
+        outputFile: "${resolvedBuildDir}/smoketest/findbugscheckAll.xml"
+        ) {
+          sourcePath(path: 'src/main/java:src/gui/main:src/tools')
+          'class'(location: compileJava.get().destinationDirectory.get().asFile)
+          configurations.compileClasspath.each { File file ->
+            auxClasspath(path: file.path)
+          }
+        }
   }
 }
 
