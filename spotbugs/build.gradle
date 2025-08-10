@@ -310,6 +310,49 @@ java {
   withSourcesJar()
 }
 
+def normalizeUnixLineEndings = { FileCopyDetails details ->
+    if (!details.isDirectory() && details.name != null) {
+        List<String> textExtensions = ['.css', '.html', '.java', '.js', '.json', '.md', '.properties', '.txt', '.xml', '.xsd', '.xsl']
+        boolean isTextFile = textExtensions.any { String ext -> details.name.endsWith(ext) }
+        if (!isTextFile) {
+            try {
+                File file = details.file
+                if (file != null && file.exists() && file.length() > 0) {
+                    byte[] bytes = file.bytes.take(800) as byte[] // Read up to 800 bytes
+                    String asString = new String(bytes, 'UTF-8')
+                    int printable = asString.count { char ch -> (ch >= ' ' && ch <= '\u007E') || ch == '\n' || ch == '\r' || ch == '\t' }
+                    if (printable > 0 && printable > asString.length() * 0.9) {
+                        isTextFile = true
+                    }
+                }
+            } catch (Exception ignored) {}
+        }
+        // Add debug logging
+        if (isTextFile) {
+            // println "[normalizeUnixLineEndings] Normalizing: ${details.path}"
+            details.filter { String line -> line.replaceAll(/\r\n|\r/, '\n') }
+        } else {
+            textExtensions = ['.class', '.db', '.jar', '.png']
+            boolean isBinaryFile = textExtensions.any { String ext -> details.name.endsWith(ext) }
+            if (!isBinaryFile) {
+                println "[normalizeUnixLineEndings] Skipped (not text): ${details.path}"
+            }
+        }
+    }
+  }
+
+tasks.withType(Copy).configureEach {
+    eachFile(normalizeUnixLineEndings)
+}
+
+tasks.withType(Tar).configureEach {
+    eachFile(normalizeUnixLineEndings)
+}
+
+tasks.withType(Zip).configureEach {
+    eachFile(normalizeUnixLineEndings)
+}
+
 apply plugin: 'distribution'
 distributions {
   main {
@@ -354,6 +397,7 @@ tasks.named('distTar', Tar) {
   compression = Compression.GZIP
   duplicatesStrategy = DuplicatesStrategy.FAIL
 }
+
 TaskProvider<Zip> distZip = tasks.named('distZip', Zip) {
   duplicatesStrategy = DuplicatesStrategy.FAIL
   filePermissions {
