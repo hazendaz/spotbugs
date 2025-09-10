@@ -18,6 +18,10 @@
  */
 package de.tobject.findbugs.view.explorer;
 
+import de.tobject.findbugs.FindbugsPlugin;
+import de.tobject.findbugs.reporter.MarkerUtil;
+import de.tobject.findbugs.util.EditorUtil;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -32,13 +36,10 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PartInitException;
@@ -49,10 +50,6 @@ import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.texteditor.ITextEditor;
-
-import de.tobject.findbugs.FindbugsPlugin;
-import de.tobject.findbugs.reporter.MarkerUtil;
-import de.tobject.findbugs.util.EditorUtil;
 
 public class BugActionProvider extends CommonActionProvider {
 
@@ -69,7 +66,6 @@ public class BugActionProvider extends CommonActionProvider {
     private boolean initDone;
 
     public BugActionProvider() {
-        super();
     }
 
     static class MyAction extends Action implements ISelectionChangedListener {
@@ -86,7 +82,7 @@ public class BugActionProvider extends CommonActionProvider {
             }
             try {
                 if (javaElement != null) {
-                    IEditorPart editor = JavaUI.openInEditor(javaElement, true, true);
+                    var editor = JavaUI.openInEditor(javaElement, true, true);
 
                     // if we have both java element AND line info, go to the
                     // line
@@ -113,22 +109,22 @@ public class BugActionProvider extends CommonActionProvider {
         @Override
         public void selectionChanged(SelectionChangedEvent event) {
             resetSelection();
-            ISelection selection = event.getSelection();
+            var selection = event.getSelection();
             if (selection instanceof IStructuredSelection) {
-                IStructuredSelection ss = (IStructuredSelection) selection;
+                var ss = (IStructuredSelection) selection;
                 if (ss.size() == 1) {
-                    Object firstElement = ss.getFirstElement();
+                    var firstElement = ss.getFirstElement();
                     if (firstElement instanceof IMarker) {
                         // forward doubleClick to doubleClickAction
                         setSelection((IMarker) firstElement);
                     } else if (firstElement instanceof BugGroup) {
-                        BugGroup group = (BugGroup) firstElement;
-                        Object data = group.getData();
+                        var group = (BugGroup) firstElement;
+                        var data = group.getData();
                         if (data instanceof IJavaElement) {
                             javaElement = (IJavaElement) data;
                         }
                         if (data instanceof IAdaptable) {
-                            IAdaptable adaptable = (IAdaptable) data;
+                            var adaptable = (IAdaptable) data;
                             Object adapter = adaptable.getAdapter(IResource.class);
                             if (adapter instanceof IFile) {
                                 file = (IFile) adapter;
@@ -151,16 +147,16 @@ public class BugActionProvider extends CommonActionProvider {
     public void init(ICommonActionExtensionSite aSite) {
         site = aSite;
         super.init(aSite);
-        final StructuredViewer viewer = aSite.getStructuredViewer();
-        final BugContentProvider provider = BugContentProvider.getProvider(site.getContentService());
+        final var viewer = aSite.getStructuredViewer();
+        final var provider = BugContentProvider.getProvider(site.getContentService());
 
         filterChangeListener = event -> {
             if (!initDone) {
                 return;
             }
-            IWorkingSet oldWorkingSet = provider.getCurrentWorkingSet();
-            IWorkingSet oldWorkingSet1 = (IWorkingSet) event.getOldValue();
-            IWorkingSet newWorkingSet = (IWorkingSet) event.getNewValue();
+            var oldWorkingSet = provider.getCurrentWorkingSet();
+            var oldWorkingSet1 = (IWorkingSet) event.getOldValue();
+            var newWorkingSet = (IWorkingSet) event.getNewValue();
             if (newWorkingSet != null && (oldWorkingSet == newWorkingSet || oldWorkingSet1 == newWorkingSet)) {
                 return;
             }
@@ -176,8 +172,9 @@ public class BugActionProvider extends CommonActionProvider {
 
 
         workingSetActionGroup = new WorkingSetFilterActionGroup(aSite.getViewSite().getShell(), filterChangeListener);
-        if (provider == null)
+        if (provider == null) {
             throw new NullPointerException("no provider");
+        }
         workingSetActionGroup.setWorkingSet(provider.getCurrentWorkingSet());
         doubleClickAction = new MyAction();
         // only if doubleClickAction must know tree selection:
@@ -196,26 +193,26 @@ public class BugActionProvider extends CommonActionProvider {
         super.fillActionBars(actionBars);
 
         if (!hasContributedToViewMenu) {
-            IMenuManager menuManager = actionBars.getMenuManager();
+            var menuManager = actionBars.getMenuManager();
 
             // XXX dirty hack to rename silly "Customize View..." menu
-            IContributionItem[] items = menuManager.getItems();
+            var items = menuManager.getItems();
             for (IContributionItem item : items) {
                 if (item instanceof ActionContributionItem) {
-                    ActionContributionItem item2 = (ActionContributionItem) item;
-                    String text = item2.getAction().getText();
+                    var item2 = (ActionContributionItem) item;
+                    var text = item2.getAction().getText();
                     if ("Customize View...".equals(text) || "&Customize View...".equals(text)) {
                         item2.getAction().setText("Toggle Filters...");
                         break;
                     }
                 }
             }
-            IContributionItem item = menuManager.find("findBugsEclipsePlugin.toggleGrouping.groupDialog");
+            var item = menuManager.find("findBugsEclipsePlugin.toggleGrouping.groupDialog");
             if (item != null) {
                 menuManager.remove(item);
                 menuManager.insertBefore(IWorkbenchActionConstants.MB_ADDITIONS, item);
             }
-            IMenuManager mm = menuManager.findMenuUsingPath("bugExplorer.menu.group");
+            var mm = menuManager.findMenuUsingPath("bugExplorer.menu.group");
             if (mm != null) {
                 menuManager.remove(mm);
                 menuManager.insertBefore(IWorkbenchActionConstants.MB_ADDITIONS, mm);

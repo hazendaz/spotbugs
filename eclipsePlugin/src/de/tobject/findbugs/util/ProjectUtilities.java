@@ -122,7 +122,7 @@ public class ProjectUtilities {
         }
         IProjectDescription description = project.getDescription();
         String[] prevNatures = description.getNatureIds();
-        ArrayList<String> newNaturesList = new ArrayList<>();
+        List<String> newNaturesList = new ArrayList<>();
         for (int i = 0; i < prevNatures.length; i++) {
             if (!FindbugsPlugin.NATURE_ID.equals(prevNatures[i])) {
                 newNaturesList.add(prevNatures[i]);

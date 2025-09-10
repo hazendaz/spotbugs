@@ -215,10 +215,8 @@ public final class MarkerUtil {
             IType iType = (IType) type;
             try {
                 startLine = getLineStart(iType);
-                if (startLine > 0) {
-                    if (Reporter.DEBUG) {
-                        System.out.println("4. Fixed start line to: " + startLine + " on " + type.getElementName());
-                    }
+                if (startLine > 0 && Reporter.DEBUG) {
+                    System.out.println("4. Fixed start line to: " + startLine + " on " + type.getElementName());
                 }
             } catch (JavaModelException e1) {
                 FindbugsPlugin.getDefault().logException(e1, "Could not find source line for Java type " + type
@@ -886,7 +884,7 @@ public final class MarkerUtil {
      * @return may return null
      */
     public static IMarker getMarkerFromEditor(ITextSelection selection, IEditorPart editor) {
-        IResource resource = (IResource) editor.getEditorInput().getAdapter(IFile.class);
+        IResource resource = editor.getEditorInput().getAdapter(IFile.class);
         IMarker[] allMarkers;
         if (resource != null) {
             allMarkers = getMarkers(resource, IResource.DEPTH_ZERO);

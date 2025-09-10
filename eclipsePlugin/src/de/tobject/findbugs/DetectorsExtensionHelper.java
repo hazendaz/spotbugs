@@ -92,7 +92,7 @@ public class DetectorsExtensionHelper {
                 throw new IllegalArgumentException("Duplicated '" + pluginId + "' contribution.");
             }
             set.put(pluginId, libPathAsString);
-        } catch (Throwable e) {
+        } catch (IllegalArgumentException e) {
             String cName = contributor != null ? contributor.getName() : "unknown contributor";
             String message = "Failed to read contribution for '" + EXTENSION_POINT_ID
                     + "' extension point from " + cName;
@@ -184,9 +184,9 @@ public class DetectorsExtensionHelper {
      */
     private static @NonNull String getBuildDirectory(String bundleName, File sourceDir) {
         Properties props = new Properties();
-        File buildProps = new File(sourceDir, "build.properties");
-        if (buildProps.isFile()) {
-            try (InputStream inStream = Files.newInputStream(buildProps.toPath())) {
+        java.nio.file.Path buildProps = sourceDir.toPath().resolve("build.properties");
+        if (buildProps.toFile().isFile()) {
+            try (InputStream inStream = Files.newInputStream(buildProps)) {
                 props.load(inStream);
             } catch (IOException e) {
                 FindbugsPlugin.getDefault().logException(e, "Failed to read build.properties for bundle " + bundleName);

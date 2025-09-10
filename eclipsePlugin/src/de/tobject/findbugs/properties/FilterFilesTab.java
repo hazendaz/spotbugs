@@ -18,17 +18,17 @@
  */
 package de.tobject.findbugs.properties;
 
+import de.tobject.findbugs.FindbugsPlugin;
+import de.tobject.findbugs.builder.FindBugsWorker;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -42,8 +42,6 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
-import de.tobject.findbugs.FindbugsPlugin;
-import de.tobject.findbugs.builder.FindBugsWorker;
 import edu.umd.cs.findbugs.config.UserPreferences;
 
 /**
@@ -88,13 +86,13 @@ public class FilterFilesTab extends Composite {
         }
 
         List<IPathElement> getFilterFiles(UserPreferences prefs) {
-            IProject project = propertyPage.getProject();
+            var project = propertyPage.getProject();
             final List<IPathElement> newPaths = new ArrayList<>();
-            Map<String, Boolean> filterPaths = kind.selectedPaths(prefs);
+            var filterPaths = kind.selectedPaths(prefs);
             if (filterPaths != null) {
                 for (Entry<String, Boolean> entry : filterPaths.entrySet()) {
-                    IPath filterPath = FindBugsWorker.getFilterPath(entry.getKey(), project);
-                    PathElement element = new PathElement(filterPath, Status.OK_STATUS);
+                    var filterPath = FindBugsWorker.getFilterPath(entry.getKey(), project);
+                    var element = new PathElement(filterPath, Status.OK_STATUS);
                     element.setEnabled(entry.getValue().booleanValue());
                     newPaths.add(element);
                 }
@@ -114,12 +112,12 @@ public class FilterFilesTab extends Composite {
 
         @Override
         protected IStatus validate() {
-            SelectionValidator validator = new SelectionValidator(kind, propertyPage);
+            var validator = new SelectionValidator(kind, propertyPage);
             IStatus bad = null;
-            IProject project = propertyPage.getProject();
+            var project = propertyPage.getProject();
             for (IPathElement path : paths) {
-                String filterPath = FindBugsWorker.toFilterPath(path.getPath(), project).toOSString();
-                IStatus status = validator.validate(filterPath);
+                var filterPath = FindBugsWorker.toFilterPath(path.getPath(), project).toOSString();
+                var status = validator.validate(filterPath);
                 path.setStatus(status);
                 if (!status.isOK()) {
                     bad = status;
@@ -137,10 +135,10 @@ public class FilterFilesTab extends Composite {
 
     public FilterFilesTab(TabFolder parent, FindbugsPropertyPage page, int style) {
         super(parent, style);
-        this.propertyPage = page;
+        propertyPage = page;
         setLayout(new GridLayout(2, true));
 
-        Link label = new Link(this, SWT.NONE);
+        var label = new Link(this, SWT.NONE);
         label.setText("Filter files may be used to include or exclude bug detection for particular classes and methods.\n"
                 + "<a href=\"http://spotbugs.readthedocs.io/en/latest/filter.html\">Details...</a>\n");
 
@@ -157,23 +155,23 @@ public class FilterFilesTab extends Composite {
         });
         label.setLayoutData(new GridData(GridData.BEGINNING, GridData.BEGINNING, true, false, 2, 1));
 
-        TabItem tabDetector = new TabItem(parent, SWT.NONE);
-        tabDetector.setText(getMessage("property.filterFilesTab"));
+        var tabDetector = new TabItem(parent, SWT.NONE);
+        tabDetector.setText(FilterFilesTab.getMessage("property.filterFilesTab"));
         tabDetector.setControl(this);
         tabDetector.setToolTipText("Configure external bug reporting filters");
 
-        ManagePathsWidget incl = new ManagePathsWidget(this);
-        CheckboxTableViewer viewer = incl.createViewer(getMessage(FilterKind.INCLUDE.propertyName), null, true);
+        var incl = new ManagePathsWidget(this);
+        var viewer = incl.createViewer(FilterFilesTab.getMessage(FilterKind.INCLUDE.propertyName), null, true);
         filterIncl = createFilterProvider(viewer, FilterKind.INCLUDE, page);
         incl.createButtonsArea(filterIncl);
 
-        ManagePathsWidget excl = new ManagePathsWidget(this);
-        viewer = excl.createViewer(getMessage(FilterKind.EXCLUDE.propertyName), null, true);
+        var excl = new ManagePathsWidget(this);
+        viewer = excl.createViewer(FilterFilesTab.getMessage(FilterKind.EXCLUDE.propertyName), null, true);
         filterExcl = createFilterProvider(viewer, FilterKind.EXCLUDE, page);
         excl.createButtonsArea(filterExcl);
 
-        ManagePathsWidget excl2 = new ManagePathsWidget(this);
-        viewer = excl2.createViewer(getMessage(FilterKind.EXCLUDE_BUGS.propertyName),
+        var excl2 = new ManagePathsWidget(this);
+        viewer = excl2.createViewer(FilterFilesTab.getMessage(FilterKind.EXCLUDE_BUGS.propertyName),
                 "You can include past SpotBugs result XML files here to exclude those bugs from analysis. "
                         + "<a href=\"http://spotbugs.readthedocs.io/en/latest/filter.html\">Details...</a>", true);
         filterExclBugs = createFilterProvider(viewer, FilterKind.EXCLUDE_BUGS, page);
@@ -215,8 +213,7 @@ public class FilterFilesTab extends Composite {
 
             @Override
             Map<String, Boolean> excludedPaths(UserPreferences u) {
-                Map<String, Boolean> excl = new TreeMap<>();
-                excl.putAll(u.getExcludeFilterFiles());
+                Map<String, Boolean> excl = new TreeMap<>(u.getExcludeFilterFiles());
                 excl.putAll(u.getExcludeBugsFiles());
                 return excl;
             }
@@ -234,8 +231,7 @@ public class FilterFilesTab extends Composite {
 
             @Override
             Map<String, Boolean> excludedPaths(UserPreferences u) {
-                Map<String, Boolean> excl = new TreeMap<>();
-                excl.putAll(u.getIncludeFilterFiles());
+                Map<String, Boolean> excl = new TreeMap<>(u.getIncludeFilterFiles());
                 excl.putAll(u.getExcludeBugsFiles());
                 return excl;
             }
@@ -253,8 +249,7 @@ public class FilterFilesTab extends Composite {
 
             @Override
             Map<String, Boolean> excludedPaths(UserPreferences u) {
-                Map<String, Boolean> excl = new TreeMap<>();
-                excl.putAll(u.getIncludeFilterFiles());
+                Map<String, Boolean> excl = new TreeMap<>(u.getIncludeFilterFiles());
                 excl.putAll(u.getExcludeFilterFiles());
                 return excl;
             }

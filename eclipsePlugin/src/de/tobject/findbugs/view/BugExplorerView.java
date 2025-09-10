@@ -111,7 +111,7 @@ public class BugExplorerView extends CommonNavigator implements IMarkerSelection
             if (persistedMemento == null) {
                 // See bug 2504068. First time user opens a view, no settings
                 // are defined
-                // but we still need to enforce initialisation of content
+                // but we still need to enforce initialization of content
                 // provider
                 // which can only happen if memento is not null
                 memento = XMLMemento.createWriteRoot("bugExplorer");

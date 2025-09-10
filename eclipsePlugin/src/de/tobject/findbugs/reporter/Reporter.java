@@ -20,13 +20,16 @@
 
 package de.tobject.findbugs.reporter;
 
+import de.tobject.findbugs.FindbugsPlugin;
+import de.tobject.findbugs.builder.FindBugs2Eclipse;
+import de.tobject.findbugs.util.ConfigurableXmlOutputStream;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -36,9 +39,6 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.ui.console.IOConsoleOutputStream;
 
-import de.tobject.findbugs.FindbugsPlugin;
-import de.tobject.findbugs.builder.FindBugs2Eclipse;
-import de.tobject.findbugs.util.ConfigurableXmlOutputStream;
 import edu.umd.cs.findbugs.AbstractBugReporter;
 import edu.umd.cs.findbugs.AnalysisError;
 import edu.umd.cs.findbugs.BugInstance;
@@ -46,7 +46,6 @@ import edu.umd.cs.findbugs.BugReporter;
 import edu.umd.cs.findbugs.FindBugsProgress;
 import edu.umd.cs.findbugs.Footprint;
 import edu.umd.cs.findbugs.Project;
-import edu.umd.cs.findbugs.ProjectStats;
 import edu.umd.cs.findbugs.SortedBugCollection;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.log.Profiler;
@@ -88,15 +87,14 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
      *            progress monitor
      */
     public Reporter(IJavaProject project, Project findBugsProject, IProgressMonitor monitor) {
-        super();
-        if (DEBUG) {
+        if (Reporter.DEBUG) {
             printToStream("Eclipse FindBugs plugin REPORTER debugging enabled");
         }
         this.monitor = new ThrottledProgressMonitor(monitor, System::currentTimeMillis);
         this.project = project;
         // TODO we do not need to sort bugs, so we can optimize performance and
         // use just a list here
-        this.bugCollection = new SortedBugCollection(getProjectStats(), findBugsProject);
+        bugCollection = new SortedBugCollection(getProjectStats(), findBugsProject);
     }
 
     public void setReportingStream(IOConsoleOutputStream stream) {
@@ -108,7 +106,7 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
     }
 
     void printToStream(String message) {
-        if (DEBUG) {
+        if (Reporter.DEBUG) {
             FindbugsPlugin.log(message);
             System.out.println(message);
         }
@@ -128,11 +126,11 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
             if (bugCollection.add(bug)) {
                 notifyObservers(bug);
                 bugCount++;
-                if (DEBUG) {
+                if (Reporter.DEBUG) {
                     System.out.println(
                             "Bug added: " + bug + ", Priority: " + bug.getPriority() + ", Rank: " + bug.getBugRank());
                 }
-            } else if (DEBUG) {
+            } else if (Reporter.DEBUG) {
                 System.out.println("Duplicated bug added: " + bug);
             }
         }
@@ -146,7 +144,7 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
         if (!errorList.isEmpty()) {
             Collections.sort(errorList, (o1, o2) -> o1.getSequence() - o2.getSequence());
 
-            MultiStatus status = new MultiStatus(FindbugsPlugin.PLUGIN_ID, IStatus.ERROR,
+            var status = new MultiStatus(FindbugsPlugin.PLUGIN_ID, IStatus.ERROR,
                     "The following errors occurred during SpotBugs analysis:", null);
 
             for (Error error : errorList) {
@@ -155,12 +153,12 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
             FindbugsPlugin.getDefault().getLog().log(status);
         }
 
-        Set<String> missingClasses = getMissingClasses();
+        var missingClasses = getMissingClasses();
         if (!missingClasses.isEmpty()) {
             FindBugs2Eclipse.cleanClassClache(project.getProject());
-            MultiStatus status = new MultiStatus(FindbugsPlugin.PLUGIN_ID, IStatus.WARNING,
+            var status = new MultiStatus(FindbugsPlugin.PLUGIN_ID, IStatus.WARNING,
                     "The following classes needed for SpotBugs analysis on project " + project.getElementName()
-                            + " were missing:", null);
+                    + " were missing:", null);
             for (String missingClass : missingClasses) {
                 status.add(new Status(IStatus.WARNING, FindbugsPlugin.PLUGIN_ID, missingClass));
             }
@@ -170,7 +168,7 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
 
     @Override
     public void finish() {
-        if (DEBUG) {
+        if (Reporter.DEBUG) {
             System.out.println("Finish: Found " + bugCount + " bugs."); //$NON-NLS-1$//$NON-NLS-2$
         }
         reportResultsToConsole();
@@ -184,8 +182,8 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
             return;
         }
         printToStream("Finished, found: " + bugCount + " bugs");
-        ConfigurableXmlOutputStream xmlStream = new ConfigurableXmlOutputStream(stream, true);
-        ProjectStats stats = bugCollection.getProjectStats();
+        var xmlStream = new ConfigurableXmlOutputStream(stream, true);
+        var stats = bugCollection.getProjectStats();
 
         printToStream("\nFootprint: " + new Footprint(stats.getBaseFootprint()).toString());
 
@@ -196,7 +194,7 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
         profiler.report(new Profiler.TotalTimeComparator(profiler), new Profiler.FilterByTime(10000000), printStream);
 
         printToStream("\nTotal calls:");
-        int numClasses = stats.getNumClasses();
+        var numClasses = stats.getNumClasses();
         if (numClasses > 0) {
             profiler.report(new Profiler.TotalCallsComparator(profiler), new Profiler.FilterByCalls(numClasses),
                     printStream);
@@ -225,7 +223,7 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
 
     @Override
     public void observeClass(ClassDescriptor classDescriptor) {
-        String className = classDescriptor.getDottedClassName();
+        var className = classDescriptor.getDottedClassName();
 
         //        if (DEBUG) {
         //            System.out.println("Observing class: " + className); //$NON-NLS-1$
@@ -236,7 +234,7 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
             Thread.currentThread().interrupt();
         }
 
-        int work = (pass * 99) + 1;
+        var work = pass * 99 + 1;
 
 
         // Update progress monitor
@@ -297,10 +295,10 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
 
     @Override
     public void predictPassCount(int[] classesPerPass) {
-        int expectedWork = 0;
-        for (int i = 0; i < classesPerPass.length; i++) {
-            int count = classesPerPass[i];
-            expectedWork += ((i * 99) + 1) * count;
+        var expectedWork = 0;
+        for (var i = 0; i < classesPerPass.length; i++) {
+            var count = classesPerPass[i];
+            expectedWork += (i * 99 + 1) * count;
         }
         if (!(monitor instanceof SubProgressMonitor)) {
             monitor.beginTask("Performing bug checking...", expectedWork);
@@ -309,7 +307,7 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
 
     @Override
     public void startArchive(String name) {
-        if (DEBUG) {
+        if (Reporter.DEBUG) {
             printToStream("start archive: " + name);
         }
     }
