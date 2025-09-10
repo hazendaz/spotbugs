@@ -18,17 +18,22 @@
  */
 package de.tobject.findbugs.view;
 
+import de.tobject.findbugs.FindbugsPlugin;
+import de.tobject.findbugs.marker.FindBugsMarker;
+import de.tobject.findbugs.marker.FindBugsMarker.MarkerConfidence;
+import de.tobject.findbugs.reporter.MarkerUtil;
+import de.tobject.findbugs.util.EditorUtil;
+import de.tobject.findbugs.util.SafeHtml;
+import de.tobject.findbugs.util.Util;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import de.tobject.findbugs.util.SafeHtml;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
@@ -56,40 +61,26 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.browser.IWebBrowser;
-import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.IExpansionListener;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.ide.IDE;
 
-import de.tobject.findbugs.FindbugsPlugin;
-import de.tobject.findbugs.marker.FindBugsMarker;
-import de.tobject.findbugs.marker.FindBugsMarker.MarkerConfidence;
-import de.tobject.findbugs.reporter.MarkerUtil;
-import de.tobject.findbugs.util.EditorUtil;
-import de.tobject.findbugs.util.Util;
 import edu.umd.cs.findbugs.BugAnnotation;
-import edu.umd.cs.findbugs.BugCategory;
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.BugPattern;
 import edu.umd.cs.findbugs.BugRankCategory;
 import edu.umd.cs.findbugs.ClassAnnotation;
-import edu.umd.cs.findbugs.DetectorFactory;
 import edu.umd.cs.findbugs.DetectorFactoryCollection;
 import edu.umd.cs.findbugs.FieldAnnotation;
 import edu.umd.cs.findbugs.MethodAnnotation;
-import edu.umd.cs.findbugs.Plugin;
 import edu.umd.cs.findbugs.SourceLineAnnotation;
 import edu.umd.cs.findbugs.TypeAnnotation;
 import edu.umd.cs.findbugs.ba.SignatureParser;
-import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 import edu.umd.cs.findbugs.util.ClassName;
 import edu.umd.cs.findbugs.xml.OutputStreamXMLOutput;
@@ -133,7 +124,6 @@ public class BugInfoView extends AbstractFindbugsView {
     private final IExpansionListener expansionListener;
 
     public BugInfoView() {
-        super();
         expansionListener = new IExpansionListener() {
             @Override
             public void expansionStateChanging(ExpansionEvent e) {
@@ -158,7 +148,7 @@ public class BugInfoView extends AbstractFindbugsView {
         createBrowser(rootComposite);
 
         // Add selection listener to detect click in problems view or bug tree view
-        ISelectionService theService = getSite().getWorkbenchWindow().getSelectionService();
+        var theService = getSite().getWorkbenchWindow().getSelectionService();
 
         selectionListener = new MarkerSelectionListener(this);
         theService.addSelectionListener(selectionListener);
@@ -168,7 +158,7 @@ public class BugInfoView extends AbstractFindbugsView {
 
     private void createRootComposite(Composite parent) {
         rootComposite = new Composite(parent, SWT.NONE);
-        GridLayout layout = new GridLayout(1, true);
+        var layout = new GridLayout(1, true);
         layout.marginLeft = -5;
         layout.marginTop = -5;
         layout.marginBottom = -5;
@@ -178,7 +168,7 @@ public class BugInfoView extends AbstractFindbugsView {
     }
 
     private void createBrowser(Composite parent) {
-        GridData data = new GridData(GridData.FILL_BOTH);
+        var data = new GridData(GridData.FILL_BOTH);
         data.grabExcessHorizontalSpace = true;
         data.grabExcessVerticalSpace = true;
         try {
@@ -186,8 +176,9 @@ public class BugInfoView extends AbstractFindbugsView {
             browser.setLayoutData(data);
             browser.setBackground(parent.getBackground());
             browser.addOpenWindowListener(event ->
-            // Cancel opening of new windows
-            event.required = true);
+                // Cancel opening of new windows
+                event.required = true;
+            );
             browser.addLocationListener(new LocationListener() {
                 @Override
                 public void changed(LocationEvent event) {
@@ -210,7 +201,7 @@ public class BugInfoView extends AbstractFindbugsView {
                 }
             });
         } catch (SWTError e) {
-            FindbugsPlugin plugin = FindbugsPlugin.getDefault();
+            var plugin = FindbugsPlugin.getDefault();
             plugin.logException(new RuntimeException(e.getMessage(), e),
                     "Could not create org.eclipse.swt.widgets.Composite.Browser");
 
@@ -218,21 +209,21 @@ public class BugInfoView extends AbstractFindbugsView {
     }
 
     private void createAnnotationList(Composite parent) {
-        ExpandableComposite exp = new ExpandableComposite(parent, SWT.NONE,
+        var exp = new ExpandableComposite(parent, SWT.NONE,
                 ExpandableComposite.TREE_NODE
-                        | ExpandableComposite.COMPACT
-                        | ExpandableComposite.EXPANDED
-        //                | ExpandableComposite.NO_TITLE
-        //                | ExpandableComposite.FOCUS_TITLE
-        //                | ExpandableComposite.TITLE_BAR
-        //                | ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
-        //| ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
-        );
+                | ExpandableComposite.COMPACT
+                | ExpandableComposite.EXPANDED
+                //                | ExpandableComposite.NO_TITLE
+                //                | ExpandableComposite.FOCUS_TITLE
+                //                | ExpandableComposite.TITLE_BAR
+                //                | ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
+                //| ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
+                );
         exp.addExpansionListener(expansionListener);
         exp.setText("Navigation");
         annotationList = new List(exp, SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
 
-        GridData data = new GridData(GridData.FILL_HORIZONTAL);
+        var data = new GridData(GridData.FILL_HORIZONTAL);
         exp.setLayoutData(data);
         exp.setClient(annotationList);
         exp.setBackground(parent.getBackground());
@@ -250,8 +241,8 @@ public class BugInfoView extends AbstractFindbugsView {
                 selectInEditor(true);
             }
         });
-        final Menu menu = new Menu(annotationList);
-        final MenuItem item = new MenuItem(menu, SWT.PUSH);
+        final var menu = new Menu(annotationList);
+        final var item = new MenuItem(menu, SWT.PUSH);
         item.setImage(PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_TOOL_COPY));
         item.setText("Copy To Clipboard");
         item.addListener(SWT.Selection, e -> copyInfoToClipboard());
@@ -281,8 +272,8 @@ public class BugInfoView extends AbstractFindbugsView {
         if (pattern == null) {
             return "";
         }
-        boolean hasBug = bug != null;
-        StringBuilder text = new StringBuilder();
+        var hasBug = bug != null;
+        var text = new StringBuilder();
         if (!hasBug) {
             text.append("<b>Pattern</b>: ");
             text.append(pattern.getShortDescription());
@@ -304,7 +295,7 @@ public class BugInfoView extends AbstractFindbugsView {
     }
 
     private void addXmlOutput(StringBuilder text) {
-        StringWriter stringWriter = new StringWriter();
+        var stringWriter = new StringWriter();
         XMLOutput xmlOutput = new OutputStreamXMLOutput(stringWriter);
         try {
             bug.writeXML(xmlOutput);
@@ -324,9 +315,9 @@ public class BugInfoView extends AbstractFindbugsView {
     }
 
     private String getBugDetails() {
-        StringBuilder sb = new StringBuilder();
-        int rank = 0;
-        MarkerConfidence confidence = MarkerConfidence.Ignore;
+        var sb = new StringBuilder();
+        var rank = 0;
+        var confidence = MarkerConfidence.Ignore;
         if (bug != null) {
             confidence = MarkerConfidence.getConfidence(bug.getPriority());
             rank = bug.getBugRank();
@@ -345,11 +336,11 @@ public class BugInfoView extends AbstractFindbugsView {
         if (pattern == null) {
             return "";
         }
-        StringBuilder sb = new StringBuilder("<b>Pattern</b>: ");
+        var sb = new StringBuilder("<b>Pattern</b>: ");
         sb.append(pattern.getType());
         sb.append("\n<br><b>Type</b>: ").append(pattern.getAbbrev()).append(", <b>Category</b>: ");
         sb.append(pattern.getCategory());
-        BugCategory category = DetectorFactoryCollection.instance().getBugCategory(pattern.getCategory());
+        var category = DetectorFactoryCollection.instance().getBugCategory(pattern.getCategory());
         if (category != null) {
             sb.append(" (");
             sb.append(category.getShortDescription());
@@ -359,14 +350,14 @@ public class BugInfoView extends AbstractFindbugsView {
     }
 
     private void addDetectorInfo(StringBuilder text) {
-        DetectorFactory factory = bug.getDetectorFactory();
+        var factory = bug.getDetectorFactory();
         if (factory != null) {
-            Plugin plugin = factory.getPlugin();
+            var plugin = factory.getPlugin();
             if (!plugin.isCorePlugin()) {
                 text.append("<p><small><i>Reported by: ").append(factory.getFullName());
                 text.append("<br>Contributed by plugin: ").append(plugin.getPluginId());
                 text.append("<br>Provider: ").append(plugin.getProvider());
-                String website = plugin.getWebsite();
+                var website = plugin.getWebsite();
                 if (website != null && !website.isEmpty()) {
                     text.append(" (<a href=\"").append(website).append("\">");
                     text.append(website).append("</a>)");
@@ -395,9 +386,9 @@ public class BugInfoView extends AbstractFindbugsView {
         } catch (MalformedURLException ignored) {
             return;
         }
-        IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
+        var support = PlatformUI.getWorkbench().getBrowserSupport();
         try {
-            IWebBrowser newBrowser = support.createBrowser(browserId);
+            var newBrowser = support.createBrowser(browserId);
             browserId = newBrowser.getId();
             newBrowser.openURL(url);
         } catch (PartInitException e) {
@@ -423,7 +414,7 @@ public class BugInfoView extends AbstractFindbugsView {
         }
 
         if (file != null) {
-            IProject p = file.getProject();
+            var p = file.getProject();
             try {
                 if (p.hasNature(JavaCore.NATURE_ID)) {
                     return JavaCore.create(p);
@@ -444,63 +435,64 @@ public class BugInfoView extends AbstractFindbugsView {
 
         try {
 
-            int index = annotationList.getSelectionIndex() - 1;
+            var index = annotationList.getSelectionIndex() - 1;
             if (index >= 0) {
-                BugAnnotation theAnnotation = bug.getAnnotationsForMessage(false).get(index);
+                var theAnnotation = bug.getAnnotationsForMessage(false).get(index);
                 findLocation: try {
 
                     if (theAnnotation instanceof SourceLineAnnotation) {
-                        SourceLineAnnotation sla = (SourceLineAnnotation) theAnnotation;
-                        int line = sla.getStartLine();
+                        var sla = (SourceLineAnnotation) theAnnotation;
+                        var line = sla.getStartLine();
                         EditorUtil.goToLine(activeEditor, line);
                         return;
 
-                    } else if (theAnnotation instanceof MethodAnnotation) {
-                        MethodAnnotation ma = (MethodAnnotation) theAnnotation;
-                        String className = ma.getClassName();
-                        IJavaProject project = getIProject();
-                        IType type = project.findType(className);
+                    }
+                    if (theAnnotation instanceof MethodAnnotation) {
+                        var ma = (MethodAnnotation) theAnnotation;
+                        var className = ma.getClassName();
+                        var project = getIProject();
+                        var type = project.findType(className);
                         if (type == null) {
                             break findLocation;
                         }
-                        IMethod m = getIMethod(type, ma);
+                        var m = BugInfoView.getIMethod(type, ma);
                         if (m != null) {
                             JavaUI.openInEditor(m, true, true);
 
                         } else {
                             activeEditor = JavaUI.openInEditor(type, true, true);
-                            SourceLineAnnotation sla = ma.getSourceLines();
+                            var sla = ma.getSourceLines();
                             EditorUtil.goToLine(activeEditor, sla.getStartLine());
                         }
 
                         return;
 
                     } else if (theAnnotation instanceof FieldAnnotation) {
-                        FieldAnnotation fa = (FieldAnnotation) theAnnotation;
-                        String className = fa.getClassName();
-                        IJavaProject project = getIProject();
-                        IType type = project.findType(className);
+                        var fa = (FieldAnnotation) theAnnotation;
+                        var className = fa.getClassName();
+                        var project = getIProject();
+                        var type = project.findType(className);
                         if (type == null) {
                             break findLocation;
                         }
 
-                        IField f = type.getField(fa.getFieldName());
+                        var f = type.getField(fa.getFieldName());
                         if (f != null) {
                             JavaUI.openInEditor(f, true, true);
                         } else {
                             activeEditor = JavaUI.openInEditor(type, true, true);
-                            SourceLineAnnotation sla = fa.getSourceLines();
+                            var sla = fa.getSourceLines();
                             EditorUtil.goToLine(activeEditor, sla.getStartLine());
                         }
                         return;
                     } else if (theAnnotation instanceof TypeAnnotation) {
-                        TypeAnnotation fa = (TypeAnnotation) theAnnotation;
-                        String className = ClassName.fromFieldSignatureToDottedClassName(fa.getTypeDescriptor());
+                        var fa = (TypeAnnotation) theAnnotation;
+                        var className = ClassName.fromFieldSignatureToDottedClassName(fa.getTypeDescriptor());
                         if (className == null) {
                             break findLocation;
                         }
-                        IJavaProject project = getIProject();
-                        IType type = project.findType(className);
+                        var project = getIProject();
+                        var type = project.findType(className);
                         if (type == null) {
                             break findLocation;
                         }
@@ -508,10 +500,10 @@ public class BugInfoView extends AbstractFindbugsView {
                         return;
 
                     } else if (theAnnotation instanceof ClassAnnotation) {
-                        ClassAnnotation fa = (ClassAnnotation) theAnnotation;
-                        String className = fa.getClassName();
-                        IJavaProject project = getIProject();
-                        IType type = project.findType(className);
+                        var fa = (ClassAnnotation) theAnnotation;
+                        var className = fa.getClassName();
+                        var project = getIProject();
+                        var type = project.findType(className);
                         if (type == null) {
                             break findLocation;
                         }
@@ -523,7 +515,7 @@ public class BugInfoView extends AbstractFindbugsView {
                 }
             }
             if (marker != null) {
-                int line = marker.getAttribute(IMarker.LINE_NUMBER, EditorUtil.DEFAULT_LINE_IN_EDITOR);
+                var line = marker.getAttribute(IMarker.LINE_NUMBER, EditorUtil.DEFAULT_LINE_IN_EDITOR);
                 EditorUtil.goToLine(activeEditor, line);
             }
         } finally {
@@ -536,9 +528,9 @@ public class BugInfoView extends AbstractFindbugsView {
     }
 
     private static IMethod getIMethod(IType type, MethodAnnotation mma) throws JavaModelException {
-        String name = mma.getMethodName();
-        SignatureParser parser = new SignatureParser(mma.getMethodSignature());
-        String[] arguments = parser.getArguments();
+        var name = mma.getMethodName();
+        var parser = new SignatureParser(mma.getMethodSignature());
+        var arguments = parser.getArguments();
 
 
         nextMethod: for (IMethod m : type.getMethods()) {
@@ -546,21 +538,21 @@ public class BugInfoView extends AbstractFindbugsView {
                 continue nextMethod;
             }
 
-            String[] mArguments = m.getParameterTypes();
+            var mArguments = m.getParameterTypes();
             if (arguments.length != mArguments.length) {
                 continue nextMethod;
             }
 
-            for (int i = 0; i < arguments.length; i++) {
-                String a = arguments[i];
-                String ma = mArguments[i];
+            for (var i = 0; i < arguments.length; i++) {
+                var a = arguments[i];
+                var ma = mArguments[i];
                 while (a.startsWith("[") && ma.startsWith("[")) {
                     a = a.substring(1);
                     ma = ma.substring(1);
                 }
                 if (ma.startsWith("Q")) {
-                    ma = stripFirstAndLast(ma);
-                    ClassDescriptor ad = DescriptorFactory.createClassDescriptorFromFieldSignature(a);
+                    ma = BugInfoView.stripFirstAndLast(ma);
+                    var ad = DescriptorFactory.createClassDescriptorFromFieldSignature(a);
                     if (ad == null) {
                         continue nextMethod;
                     }
@@ -609,12 +601,12 @@ public class BugInfoView extends AbstractFindbugsView {
     }
 
     private void selectInEditor(boolean openEditor) {
-        if (bug == null || (file == null && javaElt == null)) {
+        if (bug == null || file == null && javaElt == null) {
             return;
         }
-        IWorkbenchPage page = contributingPart.getSite().getPage();
-        IEditorPart activeEditor = page.getActiveEditor();
-        IEditorInput input = activeEditor != null ? activeEditor.getEditorInput() : null;
+        var page = contributingPart.getSite().getPage();
+        var activeEditor = page.getActiveEditor();
+        var input = activeEditor != null ? activeEditor.getEditorInput() : null;
 
         if (openEditor && !matchInput(input)) {
             try {
@@ -637,15 +629,15 @@ public class BugInfoView extends AbstractFindbugsView {
     }
 
     private boolean matchInput(IEditorInput input) {
-        if (file != null && (input instanceof IFileEditorInput)) {
+        if (file != null && input instanceof IFileEditorInput) {
             return file.equals(((IFileEditorInput) input).getFile());
         }
         if (javaElt != null && input != null) {
-            IJavaElement javaElement = JavaUI.getEditorInputJavaElement(input);
+            var javaElement = JavaUI.getEditorInputJavaElement(input);
             if (javaElt.equals(javaElement)) {
                 return true;
             }
-            IJavaElement parent = javaElt.getParent();
+            var parent = javaElt.getParent();
             while (parent != null && !parent.equals(javaElement)) {
                 parent = parent.getParent();
             }
@@ -658,13 +650,10 @@ public class BugInfoView extends AbstractFindbugsView {
 
     private void refreshTitle() {
         if (marker != null) {
-            String bugType = marker.getAttribute(FindBugsMarker.BUG_TYPE, "");
+            var bugType = marker.getAttribute(FindBugsMarker.BUG_TYPE, "");
             pattern = DetectorFactoryCollection.instance().lookupBugPattern(bugType);
         }
-        if (pattern == null) {
-            return;
-        }
-        if (bug == null) {
+        if ((pattern == null) || (bug == null)) {
             return;
         }
         if (file != null) {
@@ -693,7 +682,7 @@ public class BugInfoView extends AbstractFindbugsView {
     }
 
     private void showInView(IMarker m) {
-        this.marker = m;
+        marker = m;
         if (MarkerUtil.isFindBugsMarker(marker)) {
             bug = MarkerUtil.findBugInstanceForMarker(marker);
             file = (IFile) (marker.getResource() instanceof IFile ? marker.getResource() : null);
