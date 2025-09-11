@@ -63,8 +63,6 @@ public class JavaProjectHelper {
 
     public static final IPath RT_STUBS_15 = new Path("testresources/rtstubs15.jar");
 
-    private static final int MAX_RETRY = 5;
-
     /**
      * Creates a IJavaProject.
      *
