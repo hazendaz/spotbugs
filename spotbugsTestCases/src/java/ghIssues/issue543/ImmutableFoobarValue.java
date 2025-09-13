@@ -17,7 +17,7 @@ import org.immutables.value.Generated;
  */
 @Generated(from = "FoobarValue", generator = "Immutables")
 @SuppressWarnings({"all"})
-//@javax.annotation.processing.Generated("org.immutables.processor.ProxyProcessor") // can be ignored
+//@jakarta.annotation.processing.Generated("org.immutables.processor.ProxyProcessor") // can be ignored
 public final class ImmutableFoobarValue extends FoobarValue {
   private final int foo;
   private final String bar;
