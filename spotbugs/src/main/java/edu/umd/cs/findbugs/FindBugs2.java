@@ -20,6 +20,7 @@
 package edu.umd.cs.findbugs;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -662,9 +663,10 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
             Class<? extends IAnalysisEngineRegistrar> engineRegistrarClass = plugin.getEngineRegistrarClass();
             if (engineRegistrarClass != null) {
                 try {
-                    IAnalysisEngineRegistrar engineRegistrar = engineRegistrarClass.newInstance();
+                    IAnalysisEngineRegistrar engineRegistrar = engineRegistrarClass.getDeclaredConstructor().newInstance();
                     engineRegistrar.registerAnalysisEngines(analysisCache);
-                } catch (InstantiationException | IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                        | NoSuchMethodException | SecurityException e) {
                     IOException ioe = new IOException("Could not create analysis engine registrar for plugin "
                             + plugin.getPluginId());
                     ioe.initCause(e);
@@ -745,7 +747,7 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
         Set<ClassDescriptor> appClassSet = new HashSet<>(appClassList);
 
         Set<ClassDescriptor> badAppClassSet = new HashSet<>();
-        HashSet<ClassDescriptor> knownDescriptors = new HashSet<>(DescriptorFactory.instance()
+        Set<ClassDescriptor> knownDescriptors = new HashSet<>(DescriptorFactory.instance()
                 .getAllClassDescriptors());
         int count = 0;
         Set<ClassDescriptor> addedToWorkList = new HashSet<>(appClassList);

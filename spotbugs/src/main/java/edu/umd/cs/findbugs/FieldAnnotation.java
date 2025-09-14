@@ -233,7 +233,7 @@ public class FieldAnnotation extends PackageMemberAnnotation {
     public static FieldAnnotation isRead(Instruction ins, ConstantPoolGen cpg) {
         if (ins instanceof GETFIELD || ins instanceof GETSTATIC) {
             FieldInstruction fins = (FieldInstruction) ins;
-            String className = fins.getClassName(cpg);
+            String className = fins.getReferenceType(cpg).toString();
             return new FieldAnnotation(className, fins.getName(cpg), fins.getSignature(cpg), fins instanceof GETSTATIC);
         } else {
             return null;
@@ -252,7 +252,7 @@ public class FieldAnnotation extends PackageMemberAnnotation {
     public static FieldAnnotation isWrite(Instruction ins, ConstantPoolGen cpg) {
         if (ins instanceof PUTFIELD || ins instanceof PUTSTATIC) {
             FieldInstruction fins = (FieldInstruction) ins;
-            String className = fins.getClassName(cpg);
+            String className = fins.getReferenceType(cpg).toString();
             return new FieldAnnotation(className, fins.getName(cpg), fins.getSignature(cpg), fins instanceof PUTSTATIC);
         } else {
             return null;
