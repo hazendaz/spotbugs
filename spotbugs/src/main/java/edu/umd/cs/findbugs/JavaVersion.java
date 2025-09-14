@@ -39,8 +39,8 @@ public class JavaVersion {
         try {
             runtimeVersion = new JavaVersion(SystemProperties.getProperty("java.version"));
         } catch (JavaVersionException e) {
-            // Assume Java 1.8.
-            runtimeVersion = new JavaVersion(1, 8);
+            // Assume Java 11.
+            runtimeVersion = new JavaVersion(11, 0);
             e.printStackTrace();
         }
     }
@@ -50,7 +50,7 @@ public class JavaVersion {
      *
      * @param versionString
      *            a version string, as returned from the
-     *            <code>java.version</code> system property: e.g., "1.4.2_04"
+     *            <code>java.version</code> system property: e.g., "11.0.27"
      */
     public JavaVersion(String versionString) throws JavaVersionException {
         // See https://bugs.openjdk.java.net/browse/JDK-8061493 for http://openjdk.java.net/jeps/223
