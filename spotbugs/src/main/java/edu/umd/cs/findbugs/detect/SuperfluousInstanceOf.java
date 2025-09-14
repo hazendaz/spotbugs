@@ -95,7 +95,7 @@ public class SuperfluousInstanceOf extends BytecodeScanningDetector implements S
                     if (lv != null) {
                         String objSignature = lv.getSignature();
                         if (objSignature.charAt(0) == 'L') {
-                            objSignature = ClassName.toDottedClassName(objSignature.substring(1, objSignature.length() - 1));
+                            objSignature = ClassName.getDottedClassName(objSignature.substring(1, objSignature.length() - 1));
                             String clsSignature = getDottedClassConstantOperand();
 
                             if (clsSignature.charAt(0) != '[') {

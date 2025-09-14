@@ -415,7 +415,7 @@ public class PreorderVisitor extends BetterVisitor {
         thisClass = obj;
         ConstantClass c = (ConstantClass) constantPool.getConstant(obj.getClassNameIndex());
         className = getStringFromIndex(c.getNameIndex());
-        dottedClassName = ClassName.toDottedClassName(className);
+        dottedClassName = ClassName.getDottedClassName(className);
         packageName = obj.getPackageName();
         sourceFile = obj.getSourceFileName();
         dottedSuperclassName = obj.getSuperclassName();
@@ -693,7 +693,7 @@ public class PreorderVisitor extends BetterVisitor {
             throw new IllegalStateException("getDottedMethodSig called while not visiting method");
         }
         if (dottedMethodSig == null) {
-            dottedMethodSig = ClassName.toDottedClassName(getMethodSig());
+            dottedMethodSig = ClassName.getDottedClassName(getMethodSig());
         }
         return dottedMethodSig;
     }

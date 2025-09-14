@@ -85,7 +85,7 @@ public class XMLFactoryBypass extends BytecodeScanningDetector {
                 JavaClass newCls = Repository.lookupClass(getDottedClassConstantOperand());
 
                 JavaClass superCls = curClass.getSuperClass();
-                if (superCls.getClassName().equals(ClassName.toDottedClassName(newClsName))) {
+                if (superCls.getClassName().equals(ClassName.getDottedClassName(newClsName))) {
                     return;
                 }
 

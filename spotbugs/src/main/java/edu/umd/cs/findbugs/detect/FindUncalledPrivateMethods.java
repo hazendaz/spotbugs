@@ -163,7 +163,7 @@ public class FindUncalledPrivateMethods extends BytecodeScanningDetector impleme
                         ConstantNameAndType nameAndType = (ConstantNameAndType) cp.getConstant(((ConstantCP) ref).getNameAndTypeIndex());
                         String name = ((ConstantUtf8) cp.getConstant(nameAndType.getNameIndex())).getBytes();
                         String signature = ((ConstantUtf8) cp.getConstant(nameAndType.getSignatureIndex())).getBytes();
-                        MethodAnnotation called = new MethodAnnotation(ClassName.toDottedClassName(clsName), name, signature,
+                        MethodAnnotation called = new MethodAnnotation(ClassName.getDottedClassName(clsName), name, signature,
                                 kind == 6 /* invokestatic */);
                         calledMethods.add(called);
                         calledMethodNames.add(name.toLowerCase());
@@ -228,7 +228,7 @@ public class FindUncalledPrivateMethods extends BytecodeScanningDetector impleme
                          */
                         boolean isStatic = false;
                         String nestMemberClassName = getClassName(nestMemberClass, ref.getClassIndex());
-                        MethodAnnotation called = new MethodAnnotation(ClassName.toDottedClassName(nestMemberClassName),
+                        MethodAnnotation called = new MethodAnnotation(ClassName.getDottedClassName(nestMemberClassName),
                                 name, signature, isStatic);
                         calledMethods.add(called);
                         calledMethodNames.add(name.toLowerCase());
@@ -242,6 +242,6 @@ public class FindUncalledPrivateMethods extends BytecodeScanningDetector impleme
 
     private static String getClassName(JavaClass c, int classIndex) {
         String name = c.getConstantPool().getConstantString(classIndex, Const.CONSTANT_Class);
-        return ClassName.toDottedClassName(ClassName.extractClassName(name));
+        return ClassName.getDottedClassName(ClassName.extractClassName(name));
     }
 }

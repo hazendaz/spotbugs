@@ -389,8 +389,8 @@ public class FindBadCast2 implements Detector {
                 // skip; might be due to JSR inlining
                 continue;
             }*/
-            String castName = ClassName.toDottedClassName(castSig2.substring(1, castSig2.length() - 1));
-            String refName = ClassName.toDottedClassName(refSig2.substring(1, refSig2.length() - 1));
+            String castName = ClassName.getDottedClassName(castSig2.substring(1, castSig2.length() - 1));
+            String refName = ClassName.getDottedClassName(refSig2.substring(1, refSig2.length() - 1));
 
             if (vnaDataflow == null) {
                 vnaDataflow = classContext.getValueNumberDataflow(method);
@@ -575,7 +575,7 @@ public class FindBadCast2 implements Detector {
                             continue;
                         }
                         if (constantClass != null && pcForConstantClass + 20 >= pc && valueNumber.hasFlag(ValueNumber.RETURN_VALUE)
-                                && ClassName.toDottedClassName(constantClass).equals(castName)) {
+                                && ClassName.getDottedClassName(constantClass).equals(castName)) {
                             priority += 2;
                         }
                         if (DEBUG) {

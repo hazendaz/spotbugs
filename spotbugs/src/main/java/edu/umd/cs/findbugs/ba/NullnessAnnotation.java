@@ -80,7 +80,7 @@ public class NullnessAnnotation extends AnnotationEnumeration<NullnessAnnotation
     public static class Parser {
         @CheckForNull
         public static NullnessAnnotation parse(@DottedClassName String className) {
-            className = ClassName.toDottedClassName(className);
+            className = ClassName.getDottedClassName(className);
             if (UNKNOWN_NULLNESS.match(className)) {
                 return UNKNOWN_NULLNESS;
             }

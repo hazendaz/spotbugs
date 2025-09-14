@@ -269,7 +269,7 @@ public abstract class DismantleBytecode extends AnnotationVisitor {
         if (classConstantOperand == NOT_AVAILABLE) {
             throw new IllegalStateException("getDottedClassConstantOperand called but value not available");
         }
-        dottedClassConstantOperand = ClassName.toDottedClassName(classConstantOperand);
+        dottedClassConstantOperand = ClassName.getDottedClassName(classConstantOperand);
         return dottedClassConstantOperand;
     }
 

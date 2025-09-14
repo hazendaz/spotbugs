@@ -827,7 +827,7 @@ public class BugInstance implements Comparable<BugInstance>, XMLWriteable, Clone
      */
     @Nonnull
     public BugInstance addClassAndMethod(MethodDescriptor methodDescriptor) {
-        addClass(ClassName.toDottedClassName(methodDescriptor.getSlashedClassName()));
+        addClass(ClassName.getDottedClassName(methodDescriptor.getSlashedClassName()));
         add(MethodAnnotation.fromMethodDescriptor(methodDescriptor));
         return this;
     }
@@ -971,7 +971,7 @@ public class BugInstance implements Comparable<BugInstance>, XMLWriteable, Clone
      */
     @Nonnull
     public BugInstance addClass(@SlashedClassName(when = When.UNKNOWN) String className) {
-        ClassAnnotation classAnnotation = new ClassAnnotation(ClassName.toDottedClassName(className));
+        ClassAnnotation classAnnotation = new ClassAnnotation(ClassName.getDottedClassName(className));
         add(classAnnotation);
         return this;
     }
@@ -985,7 +985,7 @@ public class BugInstance implements Comparable<BugInstance>, XMLWriteable, Clone
      */
     @Nonnull
     public BugInstance addClass(ClassNode classNode) {
-        String dottedClassName = ClassName.toDottedClassName(classNode.name);
+        String dottedClassName = ClassName.getDottedClassName(classNode.name);
         ClassAnnotation classAnnotation = new ClassAnnotation(dottedClassName);
         add(classAnnotation);
         return this;
@@ -1044,7 +1044,7 @@ public class BugInstance implements Comparable<BugInstance>, XMLWriteable, Clone
      */
     @Nonnull
     public BugInstance addSuperclass(PreorderVisitor visitor) {
-        String className = ClassName.toDottedClassName(visitor.getSuperclassName());
+        String className = ClassName.getDottedClassName(visitor.getSuperclassName());
         addClass(className);
         return this;
     }
@@ -2121,7 +2121,7 @@ public class BugInstance implements Comparable<BugInstance>, XMLWriteable, Clone
         // map annotation entry type to dotted class name, for example
         // Lorg/immutables/value/Generated; -> org.immutables.value.Generated
         List<String> javaAnnotationNames = Arrays.stream(annotationEntries)
-                .map((AnnotationEntry ae) -> ClassName.fromFieldSignatureToDottedClassName(ae.getAnnotationType()))
+                .map((AnnotationEntry ae) -> ClassName.fromFieldSignaturegetDottedClassName(ae.getAnnotationType()))
                 .collect(Collectors.toList());
         pma.setJavaAnnotationNames(javaAnnotationNames);
     }

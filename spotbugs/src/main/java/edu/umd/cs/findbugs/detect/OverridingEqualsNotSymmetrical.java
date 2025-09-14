@@ -155,7 +155,7 @@ public class OverridingEqualsNotSymmetrical extends OpcodeStackDetector implemen
 
             }
 
-            String superClassName = ClassName.toDottedClassName(getSuperclassName());
+            String superClassName = ClassName.getDottedClassName(getSuperclassName());
             if (!Values.DOTTED_JAVA_LANG_OBJECT.equals(superClassName)) {
                 parentMap.put(classAnnotation, new ClassAnnotation(superClassName));
             }

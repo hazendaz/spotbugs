@@ -50,7 +50,7 @@ public class ThrowingExceptions extends OpcodeStackDetector {
             if (exceptions != null) {
                 exceptionStream = Arrays.stream(exceptions)
                         .filter(s -> s.charAt(0) == 'L')
-                        .map(s -> ClassName.toDottedClassName(s.substring(1)));
+                        .map(s -> ClassName.getDottedClassName(s.substring(1)));
             }
         }
 
@@ -111,7 +111,7 @@ public class ThrowingExceptions extends OpcodeStackDetector {
 
             String[] thrownExceptions = calledMethod.getThrownExceptions();
             if (thrownExceptions != null && Arrays.stream(thrownExceptions)
-                    .map(ClassName::toDottedClassName)
+                    .map(ClassName::getDottedClassName)
                     .anyMatch(exceptionThrown::equals)) {
                 exceptionThrown = null;
             }

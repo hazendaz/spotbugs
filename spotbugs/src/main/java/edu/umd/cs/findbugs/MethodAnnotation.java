@@ -180,7 +180,7 @@ public class MethodAnnotation extends PackageMemberAnnotation {
      */
     public static MethodAnnotation fromForeignMethod(@SlashedClassName String className, String methodName, String methodSig, int accessFlags) {
 
-        className = ClassName.toDottedClassName(className);
+        className = ClassName.getDottedClassName(className);
 
         // Create MethodAnnotation.
         // It won't have source lines yet.
@@ -213,7 +213,7 @@ public class MethodAnnotation extends PackageMemberAnnotation {
 
         // FIXME: would be nice to do this without using BCEL
 
-        className = ClassName.toDottedClassName(className);
+        className = ClassName.getDottedClassName(className);
 
         // Create MethodAnnotation.
         // It won't have source lines yet.
@@ -456,7 +456,7 @@ public class MethodAnnotation extends PackageMemberAnnotation {
     }
 
     private String getUglyMethod() {
-        return className + "." + methodName + " : " + ClassName.toDottedClassName(methodSig);
+        return className + "." + methodName + " : " + ClassName.getDottedClassName(methodSig);
     }
 
     @Override

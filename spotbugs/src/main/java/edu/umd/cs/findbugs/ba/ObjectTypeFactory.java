@@ -59,7 +59,7 @@ public class ObjectTypeFactory {
             throw new IllegalArgumentException(s);
         }
         if (s.indexOf('/') >= 0) {
-            s = ClassName.toDottedClassName(s);
+            s = ClassName.getDottedClassName(s);
         }
 
         Map<String, ObjectType> map = instance.get();

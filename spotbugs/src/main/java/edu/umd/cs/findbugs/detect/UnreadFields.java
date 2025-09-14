@@ -424,7 +424,7 @@ public class UnreadFields extends OpcodeStackDetector {
             String fieldSignature = (String) stack.getStackItem(1).getConstant();
             String fieldClass = (String) stack.getStackItem(2).getConstant();
             if (fieldName != null && fieldSignature != null && fieldClass != null) {
-                XField f = XFactory.createXField(ClassName.toDottedClassName(fieldClass), fieldName, ClassName.toSignature(fieldSignature),
+                XField f = XFactory.createXField(ClassName.getDottedClassName(fieldClass), fieldName, ClassName.toSignature(fieldSignature),
                         false);
                 data.reflectiveFields.add(f);
             }
@@ -435,7 +435,7 @@ public class UnreadFields extends OpcodeStackDetector {
             String fieldName = (String) stack.getStackItem(0).getConstant();
             String fieldClass = (String) stack.getStackItem(1).getConstant();
             if (fieldName != null && fieldClass != null) {
-                XField f = XFactory.createXField(ClassName.toDottedClassName(fieldClass), fieldName, "I", false);
+                XField f = XFactory.createXField(ClassName.getDottedClassName(fieldClass), fieldName, "I", false);
                 data.reflectiveFields.add(f);
             }
 
@@ -445,7 +445,7 @@ public class UnreadFields extends OpcodeStackDetector {
             String fieldName = (String) stack.getStackItem(0).getConstant();
             String fieldClass = (String) stack.getStackItem(1).getConstant();
             if (fieldName != null && fieldClass != null) {
-                XField f = XFactory.createXField(ClassName.toDottedClassName(fieldClass), fieldName, "J", false);
+                XField f = XFactory.createXField(ClassName.getDottedClassName(fieldClass), fieldName, "J", false);
                 data.reflectiveFields.add(f);
             }
 

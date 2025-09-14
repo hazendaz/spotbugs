@@ -120,7 +120,7 @@ public class AssertionMethods {
                     ConstantNameAndType cnat = (ConstantNameAndType) cp.getConstant(cmr.getNameAndTypeIndex(),
                             Const.CONSTANT_NameAndType);
                     String methodName = ((ConstantUtf8) cp.getConstant(cnat.getNameIndex(), Const.CONSTANT_Utf8)).getBytes();
-                    String className = ClassName.toDottedClassName(cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class));
+                    String className = ClassName.getDottedClassName(cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class));
                     String methodSig = ((ConstantUtf8) cp.getConstant(cnat.getSignatureIndex(), Const.CONSTANT_Utf8)).getBytes();
 
                     String classNameLC = className.toLowerCase();

@@ -50,7 +50,7 @@ public abstract class AbstractClassMember implements ClassMember {
         } else if (className.indexOf('/') >= 0) {
             assert false;
             //            slashCountClass++;
-            className = ClassName.toDottedClassName(className);
+            className = ClassName.getDottedClassName(className);
         }
 
         if (signature.indexOf('.') >= 0) {

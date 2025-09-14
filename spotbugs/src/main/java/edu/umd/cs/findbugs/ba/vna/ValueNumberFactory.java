@@ -84,7 +84,7 @@ public class ValueNumberFactory {
     public ValueNumber getClassObjectValue(@DottedClassName String className) {
         // assert className.indexOf('.') == -1;
         // TODO: Check to see if we need to do this
-        className = ClassName.toDottedClassName(className);
+        className = ClassName.getDottedClassName(className);
         ValueNumber value = classObjectValueMap.get(className);
         if (value == null) {
             value = createFreshValue(ValueNumber.CONSTANT_CLASS_OBJECT);

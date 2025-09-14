@@ -56,7 +56,7 @@ public class ProjectPackagePrefixes {
         final String[] parts;
 
         PrefixFilter(String prefixes) {
-            prefixes = ClassName.toDottedClassName(prefixes).trim();
+            prefixes = ClassName.getDottedClassName(prefixes).trim();
             if (prefixes.isEmpty()) {
                 parts = new String[0];
             } else {

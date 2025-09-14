@@ -1234,7 +1234,7 @@ public class DumbMethods extends OpcodeStackDetector {
                 if (value instanceof String) {
                     String annotationClassName = (String) value;
                     boolean lacksClassfileRetention = AnalysisContext.currentAnalysisContext().getAnnotationRetentionDatabase()
-                            .lacksRuntimeRetention(ClassName.toDottedClassName(annotationClassName));
+                            .lacksRuntimeRetention(ClassName.getDottedClassName(annotationClassName));
                     if (lacksClassfileRetention) {
                         ClassDescriptor annotationClass = DescriptorFactory.createClassDescriptor(annotationClassName);
                         accumulator.accumulateBug(
@@ -1353,7 +1353,7 @@ public class DumbMethods extends OpcodeStackDetector {
                     && getClassConstantOperand().equals(primitiveObjCtorSeen)
                     && "()Ljava/lang/String;".equals(getSigConstantOperand())) {
                 BugInstance bug = new BugInstance(this, "DM_BOXED_PRIMITIVE_TOSTRING", NORMAL_PRIORITY).addClassAndMethod(this).addCalledMethod(this);
-                MethodAnnotation preferred = new MethodAnnotation(ClassName.toDottedClassName(primitiveObjCtorSeen),
+                MethodAnnotation preferred = new MethodAnnotation(ClassName.getDottedClassName(primitiveObjCtorSeen),
                         "toString", "(" + ClassName.getPrimitiveType(primitiveObjCtorSeen) + ")Ljava/lang/String;", true);
                 bug.addMethod(preferred).describe(MethodAnnotation.SHOULD_CALL);
                 accumulator.accumulateBug(bug, this);

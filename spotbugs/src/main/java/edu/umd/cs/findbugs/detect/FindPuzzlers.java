@@ -600,7 +600,7 @@ public class FindPuzzlers extends OpcodeStackDetector {
         if (isTigerOrHigher) {
             if (previousMethodInvocation != null && prevOpCode == Const.INVOKEVIRTUAL && seen == Const.INVOKESTATIC) {
                 String classNameForPreviousMethod = previousMethodInvocation.getClassName();
-                String classNameForThisMethod = ClassName.toDottedClassName(getClassConstantOperand());
+                String classNameForThisMethod = ClassName.getDottedClassName(getClassConstantOperand());
                 if (classNameForPreviousMethod.startsWith("java.lang.")
                         && classNameForPreviousMethod.equals(classNameForThisMethod)
                         && previousMethodInvocation.getName().endsWith("Value")
@@ -617,7 +617,7 @@ public class FindPuzzlers extends OpcodeStackDetector {
 
             if (previousMethodInvocation != null && prevOpCode == Const.INVOKESPECIAL && seen == Const.INVOKEVIRTUAL) {
                 String classNameForPreviousMethod = previousMethodInvocation.getClassName();
-                String classNameForThisMethod = ClassName.toDottedClassName(getClassConstantOperand());
+                String classNameForThisMethod = ClassName.getDottedClassName(getClassConstantOperand());
                 if (classNameForPreviousMethod.startsWith("java.lang.")
                         && classNameForPreviousMethod.equals(classNameForThisMethod)
                         && getNameConstantOperand().endsWith("Value") && getSigConstantOperand().length() == 3) {
@@ -670,7 +670,7 @@ public class FindPuzzlers extends OpcodeStackDetector {
                         "java/lang/AssertionFailureError", getPC());
                 int size = Math.min(Math.min(size1, size2), size3);
                 if (size == Integer.MAX_VALUE) {
-                    String dottedClassName = ClassName.toDottedClassName(getClassConstantOperand());
+                    String dottedClassName = ClassName.getDottedClassName(getClassConstantOperand());
                     if (!dottedClassName.startsWith("junit")) {
                         try {
                             JavaClass targetClass = AnalysisContext.currentAnalysisContext().lookupClass(dottedClassName);

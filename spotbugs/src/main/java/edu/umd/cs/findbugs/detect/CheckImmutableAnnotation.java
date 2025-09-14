@@ -42,7 +42,7 @@ public class CheckImmutableAnnotation extends PreorderVisitor implements Detecto
     @Override
     public void visitJavaClass(JavaClass obj) {
         JCIPAnnotationDatabase jcipAnotationDatabase = AnalysisContext.currentAnalysisContext().getJCIPAnnotationDatabase();
-        if (jcipAnotationDatabase.hasClassAnnotation(ClassName.toDottedClassName(obj.getClassName()), "Immutable")) {
+        if (jcipAnotationDatabase.hasClassAnnotation(ClassName.getDottedClassName(obj.getClassName()), "Immutable")) {
             super.visitJavaClass(obj);
         }
     }

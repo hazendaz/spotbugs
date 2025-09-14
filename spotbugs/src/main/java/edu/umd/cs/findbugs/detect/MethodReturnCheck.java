@@ -287,7 +287,7 @@ public class MethodReturnCheck extends OpcodeStackDetector implements UseAnnotat
 
                         String methodReturnClass = ClassName.fromFieldSignatureToDottedClassName(methodReturnType.getSignature());
                         if (callReturnClass != null && methodReturnClass != null &&
-                                Subtypes2.instanceOf(ClassName.toDottedClassName(callReturnClass), methodReturnClass)) {
+                                Subtypes2.instanceOf(ClassName.getDottedClassName(callReturnClass), methodReturnClass)) {
                             priority = HIGH_PRIORITY;
                         }
                     }
@@ -344,7 +344,7 @@ public class MethodReturnCheck extends OpcodeStackDetector implements UseAnnotat
                 String returnType = ClassName.fromFieldSignature(returnTypeSig);
                 String mContainerClass = methodDescriptor.getClassDescriptor().getClassName();
                 if (returnType != null
-                        && Subtypes2.instanceOf(ClassName.toDottedClassName(returnType), Values.DOTTED_JAVA_LANG_THROWABLE)
+                        && Subtypes2.instanceOf(ClassName.getDottedClassName(returnType), Values.DOTTED_JAVA_LANG_THROWABLE)
                         && methodDescriptor.isStatic() && (returnType.equals(mContainerClass))) {
                     BugInstance warning = new BugInstance(this, "RV_EXCEPTION_NOT_THROWN", 1).addClassAndMethod(this).addMethod(callSeen)
                             .describe(MethodAnnotation.METHOD_CALLED);

@@ -506,7 +506,7 @@ public class FindHEmismatch extends OpcodeStackDetector implements StatelessDete
             if ("java/util/Map".equals(className) || "java/util/HashMap".equals(className)
                     || "java/util/LinkedHashMap".equals(className) || "java/util/concurrent/ConcurrentHashMap".equals(className)
                     || className.contains("Hash")
-                            && Subtypes2.instanceOf(ClassName.toDottedClassName(className), "java.util.Map")) {
+                            && Subtypes2.instanceOf(ClassName.getDottedClassName(className), "java.util.Map")) {
                 if ("put".equals(getNameConstantOperand())
                         && "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;".equals(getSigConstantOperand())
                         && stack.getStackDepth() >= 3) {
@@ -516,7 +516,7 @@ public class FindHEmismatch extends OpcodeStackDetector implements StatelessDete
                     check(0);
                 }
             } else if ("java/util/Set".equals(className) || "java/util/HashSet".equals(className) || className.contains("Hash")
-                    && Subtypes2.instanceOf(ClassName.toDottedClassName(className), "java.util.Set")) {
+                    && Subtypes2.instanceOf(ClassName.getDottedClassName(className), "java.util.Set")) {
                 if ("add".equals(getNameConstantOperand()) || "contains".equals(getNameConstantOperand())
                         || "remove".equals(getNameConstantOperand()) && "(Ljava/lang/Object;)Z".equals(getSigConstantOperand())
                                 && stack.getStackDepth() >= 2) {
@@ -575,16 +575,16 @@ public class FindHEmismatch extends OpcodeStackDetector implements StatelessDete
     String findHashedClassInSignature(String sig) {
         Matcher m = mapPattern.matcher(sig);
         if (m.find()) {
-            return ClassName.toDottedClassName(m.group(1));
+            return ClassName.getDottedClassName(m.group(1));
         }
         m = hashTablePattern.matcher(sig);
         if (m.find()) {
-            return ClassName.toDottedClassName(m.group(1));
+            return ClassName.getDottedClassName(m.group(1));
         }
 
         m = setPattern.matcher(sig);
         if (m.find()) {
-            return ClassName.toDottedClassName(m.group(1));
+            return ClassName.getDottedClassName(m.group(1));
         }
         return null;
 

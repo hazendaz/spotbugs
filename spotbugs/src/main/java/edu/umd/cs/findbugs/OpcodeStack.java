@@ -813,7 +813,7 @@ public class OpcodeStack {
                 return null;
             }
             baseSig = baseSig.substring(1, baseSig.length() - 1);
-            baseSig = ClassName.toDottedClassName(baseSig);
+            baseSig = ClassName.getDottedClassName(baseSig);
             return Repository.lookupClass(baseSig);
         }
 
@@ -2735,7 +2735,7 @@ public class OpcodeStack {
             i.setSpecialKind(Item.RANDOM_INT);
             push(i);
         } else if ("size".equals(method) && "()I".equals(signature)
-                && Subtypes2.instanceOf(ClassName.toDottedClassName(clsName), "java.util.Collection")) {
+                && Subtypes2.instanceOf(ClassName.getDottedClassName(clsName), "java.util.Collection")) {
             Item i = new Item(pop());
             if (i.getSpecialKind() == Item.NOT_SPECIAL) {
                 i.setSpecialKind(Item.NON_NEGATIVE);

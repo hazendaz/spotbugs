@@ -141,7 +141,7 @@ public class URLClassPathRepository implements Repository {
         // loaded class will appear to be missing (because we're using the
         // wrong name to look it up) and be evicted by some other random
         // version of the class loaded from the classpath.
-        String dottedClassName = ClassName.toDottedClassName(className);
+        String dottedClassName = ClassName.getDottedClassName(className);
 
         return nameToClassMap.get(dottedClassName);
     }

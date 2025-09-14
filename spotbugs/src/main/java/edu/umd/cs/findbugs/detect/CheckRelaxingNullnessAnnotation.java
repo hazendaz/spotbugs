@@ -279,7 +279,7 @@ public class CheckRelaxingNullnessAnnotation extends ClassNodeDetector {
         }
         // remove L; from signature
         String substring = annotationDesc.substring(1, annotationDesc.length() - 1);
-        return Parser.parse(ClassName.toDottedClassName(substring));
+        return Parser.parse(ClassName.getDottedClassName(substring));
     }
 
     static boolean containsNullness(Collection<AnnotationValue> annotations, NullnessAnnotation nullness) {

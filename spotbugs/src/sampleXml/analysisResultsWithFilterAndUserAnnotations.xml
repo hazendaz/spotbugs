@@ -567,7 +567,7 @@
     <Class classname="edu.umd.cs.findbugs.util.ClassName">
       <SourceLine classname="edu.umd.cs.findbugs.util.ClassName" start="33" end="210" sourcefile="ClassName.java" sourcepath="edu/umd/cs/findbugs/util/ClassName.java"/>
     </Class>
-    <Method classname="edu.umd.cs.findbugs.util.ClassName" name="toDottedClassName" signature="(Ljava/lang/String;)Ljava/lang/String;" isStatic="true">
+    <Method classname="edu.umd.cs.findbugs.util.ClassName" name="getDottedClassName" signature="(Ljava/lang/String;)Ljava/lang/String;" isStatic="true">
       <SourceLine classname="edu.umd.cs.findbugs.util.ClassName" start="97" end="100" startBytecode="0" endBytecode="72" sourcefile="ClassName.java" sourcepath="edu/umd/cs/findbugs/util/ClassName.java"/>
     </Method>
     <Class classname="edu.umd.cs.findbugs.internalAnnotations.SlashedClassName" role="CLASS_TYPE_QUALIFIER">

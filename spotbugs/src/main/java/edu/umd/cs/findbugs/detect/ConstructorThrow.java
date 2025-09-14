@@ -282,9 +282,9 @@ public class ConstructorThrow extends OpcodeStackDetector {
 
     private static String toDotted(String signature) {
         if (signature.startsWith("L") && signature.endsWith(";")) {
-            return ClassName.toDottedClassName(signature.substring(1, signature.length() - 1));
+            return ClassName.getDottedClassName(signature.substring(1, signature.length() - 1));
         }
-        return ClassName.toDottedClassName(signature);
+        return ClassName.getDottedClassName(signature);
     }
 
     /**

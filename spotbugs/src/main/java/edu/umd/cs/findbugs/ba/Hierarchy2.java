@@ -500,7 +500,7 @@ public class Hierarchy2 {
 
         ObjectType[] result = new ObjectType[exceptions.length];
         for (int i = 0; i < exceptions.length; ++i) {
-            result[i] = ObjectTypeFactory.getInstance(ClassName.toDottedClassName(exceptions[i]));
+            result[i] = ObjectTypeFactory.getInstance(ClassName.getDottedClassName(exceptions[i]));
         }
         return result;
     }

@@ -140,7 +140,7 @@ public class CountClassVersions {
                     if (!name.endsWith(".class")) {
                         continue;
                     }
-                    if (!ClassName.toDottedClassName(name).startsWith(commandLine.prefix)) {
+                    if (!ClassName.getDottedClassName(name).startsWith(commandLine.prefix)) {
                         continue;
                     }
 

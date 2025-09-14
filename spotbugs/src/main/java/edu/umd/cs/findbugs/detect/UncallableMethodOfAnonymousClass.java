@@ -206,7 +206,7 @@ public class UncallableMethodOfAnonymousClass extends BytecodeScanningDetector {
                 String role = ClassAnnotation.SUPERCLASS_ROLE;
 
                 @DottedClassName
-                String superclassName = ClassName.toDottedClassName(getSuperclassName());
+                String superclassName = ClassName.getDottedClassName(getSuperclassName());
                 if (Values.DOTTED_JAVA_LANG_OBJECT.equals(superclassName)) {
 
                     try {

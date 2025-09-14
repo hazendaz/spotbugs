@@ -228,7 +228,7 @@ public class RuntimeExceptionCapture extends OpcodeStackDetector implements Stat
                     if (signature.startsWith("L")) {
                         signature = SignatureConverter.convert(signature);
                     } else {
-                        signature = ClassName.toDottedClassName(signature);
+                        signature = ClassName.getDottedClassName(signature);
                     }
                     throwList.add(new ExceptionThrown(signature, getPC()));
                 }
@@ -253,7 +253,7 @@ public class RuntimeExceptionCapture extends OpcodeStackDetector implements Stat
                     String[] exceptions = m.getThrownExceptions();
                     if (exceptions != null) {
                         for (String name : exceptions) {
-                            throwList.add(new ExceptionThrown(ClassName.toDottedClassName(name), getPC()));
+                            throwList.add(new ExceptionThrown(ClassName.getDottedClassName(name), getPC()));
                         }
                     }
                 } catch (CheckedAnalysisException e) {

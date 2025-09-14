@@ -219,7 +219,7 @@ public class NoteSuppressedWarnings extends AnnotationVisitor implements Detecto
             PackageWarningSuppressor suppressor = new PackageWarningSuppressor(
                     pattern,
                     matchType,
-                    ClassName.toDottedClassName(getPackageName()),
+                    ClassName.getDottedClassName(getPackageName()),
                     MemberUtils.isUserGenerated(getXClass()));
 
             suppressionMatcher.addPackageSuppressor(suppressor);

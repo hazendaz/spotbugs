@@ -1094,7 +1094,7 @@ public class FindBugs2 implements IFindBugsEngine, AutoCloseable {
                         bugReporter.reportBug(new BugInstance("SKIPPED_CLASS_TOO_BIG", Priorities.NORMAL_PRIORITY)
                                 .addClass(classDescriptor));
                     }
-                    currentClassName = ClassName.toDottedClassName(classDescriptor.getClassName());
+                    currentClassName = ClassName.getDottedClassName(classDescriptor.getClassName());
                     notifyClassObservers(classDescriptor);
                     profiler.startContext(currentClassName);
                     currentAnalysisContext.setClassBeingAnalyzed(classDescriptor);

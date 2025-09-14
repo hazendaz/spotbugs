@@ -95,7 +95,7 @@ public class SignatureConverter {
             if (semi < 0) {
                 throw new IllegalStateException("missing semicolon in signature " + signature);
             }
-            result.append(ClassName.toDottedClassName(signature.substring(1, semi)));
+            result.append(ClassName.getDottedClassName(signature.substring(1, semi)));
             signature = signature.substring(semi + 1);
         } else {
             switch (signature.charAt(0)) {

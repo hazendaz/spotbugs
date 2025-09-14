@@ -55,7 +55,7 @@ public class FindCircularDependencies extends BytecodeScanningDetector {
     public void sawOpcode(int seen) {
         if ((seen == Const.INVOKESPECIAL) || (seen == Const.INVOKESTATIC) || (seen == Const.INVOKEVIRTUAL)) {
             String refClsName = getClassConstantOperand();
-            refClsName = ClassName.toDottedClassName(refClsName);
+            refClsName = ClassName.getDottedClassName(refClsName);
             if (refClsName.startsWith("java")) {
                 return;
             }

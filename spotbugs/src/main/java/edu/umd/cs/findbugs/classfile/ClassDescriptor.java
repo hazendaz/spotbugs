@@ -99,7 +99,7 @@ public class ClassDescriptor implements Comparable<ClassDescriptor>, Serializabl
      * @deprecated use {@link #getDottedClassName()} instead.
      */
     @Deprecated
-    public @DottedClassName String toDottedClassName() {
+    public @DottedClassName String getDottedClassName() {
         return getDottedClassName();
     }
 
@@ -109,7 +109,7 @@ public class ClassDescriptor implements Comparable<ClassDescriptor>, Serializabl
      * @return the name of the class in dotted format
      */
     public @DottedClassName String getDottedClassName() {
-        return ClassName.toDottedClassName(className);
+        return ClassName.getDottedClassName(className);
     }
 
     public XClass getXClass() throws CheckedAnalysisException {
@@ -122,7 +122,7 @@ public class ClassDescriptor implements Comparable<ClassDescriptor>, Serializabl
      * @return the name of the package in dotted format
      */
     public @DottedClassName String getPackageName() {
-        return ClassName.extractPackageName(ClassName.toDottedClassName(className));
+        return ClassName.extractPackageName(ClassName.getDottedClassName(className));
     }
 
     /**
@@ -131,7 +131,7 @@ public class ClassDescriptor implements Comparable<ClassDescriptor>, Serializabl
      * @return the simple name of the class
      */
     public String getSimpleName() {
-        return ClassName.extractSimpleName(ClassName.toDottedClassName(className));
+        return ClassName.extractSimpleName(ClassName.getDottedClassName(className));
     }
 
     public String getSignature() {
