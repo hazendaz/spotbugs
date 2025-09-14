@@ -58,7 +58,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -875,7 +875,7 @@ public class FindbugsPlugin extends AbstractUIPlugin {
     public static IPreferenceStore getPluginPreferences(@Nullable IProject project) {
         if (project == null || !isProjectSettingsEnabled(project)) {
             // read workspace (user) settings from instance area
-            return new ScopedPreferenceStore(InstanceScope.INSTANCE, FindbugsPlugin.PLUGIN_ID);
+            return new ScopedPreferenceStore(ConfigurationScope.INSTANCE, FindbugsPlugin.PLUGIN_ID);
         }
 
         // use project settings
