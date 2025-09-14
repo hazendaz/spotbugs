@@ -256,7 +256,8 @@ public class BugPattern implements Comparable<BugPattern> {
      *            true if this bug pattern is not used anymore and exists for
      *            backward compatibility only
      */
-    /* package protected */void setDeprecated(boolean deprecated) {
+    /* package protected */
+    void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
     }
 
