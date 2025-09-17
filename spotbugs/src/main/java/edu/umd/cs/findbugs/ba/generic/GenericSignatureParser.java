@@ -21,6 +21,7 @@ package edu.umd.cs.findbugs.ba.generic;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.annotation.CheckForNull;
@@ -239,7 +240,7 @@ public class GenericSignatureParser {
     }
 
     public String[] getArguments() {
-        ArrayList<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();
         for (Iterator<String> i = parameterSignatureIterator(); i.hasNext();) {
             result.add(i.next());
         }

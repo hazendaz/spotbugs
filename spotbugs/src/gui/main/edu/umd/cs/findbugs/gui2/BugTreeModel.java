@@ -622,7 +622,7 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
         }
     }
 
-    public TreeModelEvent restructureBranch(ArrayList<String> stringsToBranch, boolean removing) throws BranchOperationException {
+    public TreeModelEvent restructureBranch(List<String> stringsToBranch, boolean removing) throws BranchOperationException {
         if (removing) {
             return branchOperations(stringsToBranch, TreeModification.REMOVERESTRUCTURE);
         } else {
@@ -630,11 +630,11 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
         }
     }
 
-    public TreeModelEvent insertBranch(ArrayList<String> stringsToBranch) throws BranchOperationException {
+    public TreeModelEvent insertBranch(List<String> stringsToBranch) throws BranchOperationException {
         return branchOperations(stringsToBranch, TreeModification.INSERT);
     }
 
-    public TreeModelEvent removeBranch(ArrayList<String> stringsToBranch) throws BranchOperationException {
+    public TreeModelEvent removeBranch(List<String> stringsToBranch) throws BranchOperationException {
         return branchOperations(stringsToBranch, TreeModification.REMOVE);
     }
 
@@ -670,7 +670,7 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
         REMOVE, INSERT, REMOVERESTRUCTURE, INSERTRESTRUCTURE
     }
 
-    private TreeModelEvent branchOperations(ArrayList<String> stringsToBranch, TreeModification whatToDo)
+    private TreeModelEvent branchOperations(List<String> stringsToBranch, TreeModification whatToDo)
             throws BranchOperationException {
         TreeModelEvent event = null;
 
