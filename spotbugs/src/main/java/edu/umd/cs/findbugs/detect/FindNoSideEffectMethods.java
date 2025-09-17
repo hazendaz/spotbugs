@@ -287,7 +287,7 @@ public class FindNoSideEffectMethods extends OpcodeStackDetector implements NonR
     private final Set<MethodDescriptor> uselessVoidCandidates = new HashSet<>();
 
     private SideEffectStatus status;
-    private ArrayList<MethodCall> calledMethods;
+    private List<MethodCall> calledMethods;
     private Set<ClassDescriptor> subtypes;
     private Set<Integer> finallyTargets;
     private Set<Integer> finallyExceptionRegisters;

@@ -44,7 +44,7 @@ public class InfiniteLoop extends OpcodeStackDetector {
 
     //    private static final boolean active = true;
 
-    ArrayList<BitSet> regModifiedAt = new ArrayList<>();
+    List<BitSet> regModifiedAt = new ArrayList<>();
 
     @Nonnull
     BitSet getModifiedBitSet(int reg) {

@@ -90,11 +90,11 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
 
     private BugSet bugSet;
 
-    private ArrayList<TreeModelListener> listeners = new ArrayList<>();
+    private List<TreeModelListener> listeners = new ArrayList<>();
 
     private JTree tree;
 
-    static ArrayList<BugLeafNode> selectedBugLeafNodes = new ArrayList<>();
+    static List<BugLeafNode> selectedBugLeafNodes = new ArrayList<>();
 
     private static final boolean DEBUG = false;
 
@@ -267,7 +267,7 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
         }
 
         String[] all = key.getAll(bugSet.query(a));
-        ArrayList<SortableValue> result = new ArrayList<>(all.length);
+        List<SortableValue> result = new ArrayList<>(all.length);
         for (String i : all) {
             result.add(new SortableValue(key, i));
         }
@@ -393,10 +393,10 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
 
     }
 
-    public void crawl(final ArrayList<BugAspects> path, final int depth) {
+    public void crawl(final List<BugAspects> path, final int depth) {
         for (int i = 0; i < getChildCount(path.get(path.size() - 1)); i++) {
             if (depth > 0) {
-                ArrayList<BugAspects> newPath = new ArrayList<>(path);
+                List<BugAspects> newPath = new ArrayList<>(path);
                 newPath.add((BugAspects) getChild(path.get(path.size() - 1), i));
                 crawl(newPath, depth - 1);
             } else {
@@ -434,7 +434,7 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
      * Slow, use openPreviouslySelected
      */
 
-    public void crawlToOpen(TreePath path, ArrayList<BugLeafNode> bugLeafNodes, ArrayList<TreePath> treePaths) {
+    public void crawlToOpen(TreePath path, List<BugLeafNode> bugLeafNodes, List<TreePath> treePaths) {
         for (int i = 0; i < getChildCount(path.getLastPathComponent()); i++) {
             if (!isLeaf(getChild(path.getLastPathComponent(), i))) {
                 for (BugLeafNode p : bugLeafNodes) {
@@ -504,7 +504,7 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
     }
 
     public TreePath getPathToBug(BugInstance b) {
-        // ArrayList<Sortables>
+        // List<Sortables>
         // order=MainFrame.getInstance().getSorter().getOrder();
         List<Sortables> order = st.getOrderBeforeDivider();
         // Create an array of BugAspects of lengths from one to the full
@@ -610,7 +610,7 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
         }
     }
 
-    ArrayList<BugLeafNode> getOldSelectedBugs() {
+    List<BugLeafNode> getOldSelectedBugs() {
         return selectedBugLeafNodes;
     }
 
@@ -688,7 +688,7 @@ public class BugTreeModel implements TreeModel, TableColumnModelListener, TreeEx
         if (whatToDo == TreeModification.INSERT || whatToDo == TreeModification.INSERTRESTRUCTURE) {
             resetData();
         }
-        // ArrayList<Sortables>
+        // List<Sortables>
         // order=MainFrame.getInstance().getSorter().getOrder();
         List<Sortables> order = st.getOrderBeforeDivider();
         // Create an array of BugAspects of lengths from one to the full
