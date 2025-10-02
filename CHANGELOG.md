@@ -11,7 +11,7 @@ Currently the versioning policy of this project follows [Semantic Versioning v2.
 - Fix exception throw when singleton implementing Cloneable has no clone() method ([#3727](https://github.com/spotbugs/spotbugs/issues/3727)) 
 
 ### Refactor
-- Remove deprecated 'Priority' annotation originally deprecated in 2011.  Switch to 'Confidence' for same behaviour. ([#xxxx](https://github.com/spotbugs/spotbugs/issues/xxxx))
+- Remove deprecated 'Priority' annotation originally deprecated in 2011.  Switch to 'Confidence' for same behaviour. ([#3746](https://github.com/spotbugs/spotbugs/issues/3746))
 
 ## 4.9.6 - 2025-09-16
 ### Fixed
