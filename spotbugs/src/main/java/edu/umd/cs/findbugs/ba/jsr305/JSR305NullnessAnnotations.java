@@ -32,7 +32,7 @@ public abstract class JSR305NullnessAnnotations {
     public static final ClassDescriptor CHECK_FOR_NULL = DescriptorFactory
             .createClassDescriptor(javax.annotation.CheckForNull.class);
 
-    public static final ClassDescriptor NONNULL = DescriptorFactory.createClassDescriptor(javax.annotation.Nonnull.class);
+    public static final ClassDescriptor NONNULL = DescriptorFactory.createClassDescriptor(jakarta.annotation.Nonnull.class);
 
     public static final ClassDescriptor NULLABLE = DescriptorFactory.createClassDescriptor(javax.annotation.Nullable.class);
 

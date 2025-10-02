@@ -107,7 +107,7 @@ public class Issue782 {
     }
 
     @TypeQualifierNickname
-    @javax.annotation.Nonnull(when = When.MAYBE)
+    @jakarta.annotation.Nonnull(when = When.MAYBE)
     @Retention(RetentionPolicy.CLASS)
     public @interface MyNullable {
     }

@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.annotation.meta.When;
 
 import edu.umd.cs.findbugs.annotations.Nullable;

@@ -46,7 +46,7 @@ public class InconsistentAnnotations implements Detector, UseAnnotationDatabase 
     final BugReporter reporter;
 
     public InconsistentAnnotations(BugReporter reporter) {
-        ClassDescriptor nonnullClassDesc = DescriptorFactory.createClassDescriptor(javax.annotation.Nonnull.class);
+        ClassDescriptor nonnullClassDesc = DescriptorFactory.createClassDescriptor(jakarta.annotation.Nonnull.class);
         this.nonnullTypeQualifierValue = TypeQualifierValue.getValue(nonnullClassDesc, null);
         this.reporter = reporter;
     }

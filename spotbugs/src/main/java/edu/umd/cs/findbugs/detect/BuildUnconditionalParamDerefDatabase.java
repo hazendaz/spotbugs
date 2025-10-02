@@ -68,12 +68,12 @@ public abstract class BuildUnconditionalParamDerefDatabase implements Detector {
 
     private static final boolean DEBUG = SystemProperties.getBoolean("fnd.debug.nullarg") || VERBOSE_DEBUG;
 
-    public final TypeQualifierValue<javax.annotation.Nonnull> nonnullTypeQualifierValue;
+    public final TypeQualifierValue<jakarta.annotation.Nonnull> nonnullTypeQualifierValue;
 
     protected abstract void reportBug(BugInstance bug);
 
     protected BuildUnconditionalParamDerefDatabase() {
-        this.nonnullTypeQualifierValue = TypeQualifierValue.getValue(javax.annotation.Nonnull.class, null);
+        this.nonnullTypeQualifierValue = TypeQualifierValue.getValue(jakarta.annotation.Nonnull.class, null);
     }
 
     @Override

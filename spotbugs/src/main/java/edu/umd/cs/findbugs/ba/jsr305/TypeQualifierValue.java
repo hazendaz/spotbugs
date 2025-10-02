@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.annotation.meta.TypeQualifierValidator;
 import javax.annotation.meta.When;
 

@@ -33,7 +33,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.annotation.meta.When;
 
 import edu.umd.cs.findbugs.annotations.NonNull;

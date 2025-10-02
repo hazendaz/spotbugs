@@ -27,7 +27,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import javax.annotation.CheckForNull;
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 

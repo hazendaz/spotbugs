@@ -65,10 +65,10 @@ import edu.umd.cs.findbugs.log.Profiler;
 public class TypeQualifierNullnessAnnotationDatabase implements INullnessAnnotationDatabase {
     private static final boolean DEBUG = SystemProperties.getBoolean("findbugs.npe.tq.debug");
 
-    public final TypeQualifierValue<javax.annotation.Nonnull> nonnullTypeQualifierValue;
+    public final TypeQualifierValue<jakarta.annotation.Nonnull> nonnullTypeQualifierValue;
 
     public TypeQualifierNullnessAnnotationDatabase() {
-        this.nonnullTypeQualifierValue = TypeQualifierValue.getValue(javax.annotation.Nonnull.class, null);
+        this.nonnullTypeQualifierValue = TypeQualifierValue.getValue(jakarta.annotation.Nonnull.class, null);
     }
 
     @Override
