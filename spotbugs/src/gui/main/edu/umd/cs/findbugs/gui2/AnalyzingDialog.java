@@ -25,8 +25,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jspecify.annotations.NonNull;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -40,6 +38,7 @@ import edu.umd.cs.findbugs.BugCollection;
 import edu.umd.cs.findbugs.FindBugsProgress;
 import edu.umd.cs.findbugs.Project;
 
+import org.jspecify.annotations.NonNull;
 
 @SuppressWarnings("serial")
 // Note: Don't remove the final, if anyone extends this class, bad things could
