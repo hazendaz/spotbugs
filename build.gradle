@@ -274,3 +274,11 @@ nexusPublishing {
 }
 
 apply from: "${rootDir}/gradle/sonar.gradle"
+
+# Allow test classpath to be at versions we use in our builds (java 17+)
+dependencyVerification {
+    verify {
+        runtimeClasspath()
+        // testClasspath is intentionally not verified
+    }
+}
