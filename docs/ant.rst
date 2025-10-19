@@ -109,7 +109,7 @@ quietErrors
   An optional boolean attribute. If true, reports of serious analysis errors and missing classes will be suppressed in the SpotBugs output. Default is false.
 
 reportLevel
-  An optional attribute. It specifies the confidence/priority threshold for reporting issues.
+  An optional attribute. It specifies the confidence threshold for reporting issues.
   If set to ``low``, confidence is not used to filter bugs.
   If set to ``medium`` (the default), low confidence issues are suppressed.
   If set to ``high``, only high confidence bugs are reported.

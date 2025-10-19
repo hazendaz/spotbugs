@@ -138,22 +138,12 @@ msgid ""
 "This element matches warnings with a particular bug confidence. The "
 "``value`` attribute should be an integer value: 1 to match high-"
 "confidence warnings, 2 to match normal-confidence warnings, or 3 to match"
-" low-confidence warnings. ``<Confidence>`` replaced ``<Priority>`` in "
-"2.0.0 release."
+" low-confidence warnings.
 msgstr ""
 "Este elemento corresponde os avisos de bug com os níveis de confiança. "
 "O atributo ``value`` deve ser um valor inteiro: 1 corresponde ao nível de confiança alta , "
 "2 corresponde ao nível de confiança normal e 3 corresponde ao nível de confiança baixa."
-"O elemento ``<Confidence>`` substituiu o atributo ``<Priority>`` na versão 2.0.0."
-
-#: ../../filter.rst:46
-msgid "<Priority>"
-msgstr ""
-
-#: ../../filter.rst:48
-msgid "Same as ``<Confidence>``, exists for backward compatibility."
-msgstr "Equivalente ao elemento ``<Confidence>``. "
-"Existe por motivos de compatibilidade com versões anteriores. "
+"O elemento ``<Confidence>`` substituiu o atributo
 
 #: ../../filter.rst:51
 msgid "<Rank>"
