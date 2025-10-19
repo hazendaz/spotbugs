@@ -40,12 +40,7 @@ As a backwards compatibility measure, <BugPattern> and <BugCode> elements may be
 <Confidence>
 ^^^^^^^^^^^^
 
-This element matches warnings with a particular bug confidence. The ``value`` attribute should be an integer value: 1 to match high-confidence warnings, 2 to match normal-confidence warnings, or 3 to match low-confidence warnings. ``<Confidence>`` replaced ``<Priority>`` in 2.0.0 release.
-
-<Priority>
-^^^^^^^^^^
-
-Same as ``<Confidence>``, exists for backward compatibility.
+This element matches warnings with a particular bug confidence. The ``value`` attribute should be an integer value: 1 to match high-confidence warnings, 2 to match normal-confidence warnings, or 3 to match low-confidence warnings.
 
 <Rank>
 ^^^^^^

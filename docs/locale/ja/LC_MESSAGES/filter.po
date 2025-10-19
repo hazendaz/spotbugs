@@ -127,20 +127,10 @@ msgid ""
 "This element matches warnings with a particular bug confidence. The "
 "``value`` attribute should be an integer value: 1 to match high-"
 "confidence warnings, 2 to match normal-confidence warnings, or 3 to match"
-" low-confidence warnings. ``<Confidence>`` replaced ``<Priority>`` in "
-"2.0.0 release."
+" low-confidence warnings.
 msgstr ""
 "この要素は、警告を特定のバグ信頼度と照合します。``value`` 属性は、整数値でなければなりません。1は信頼度 (High)、2は信頼度 "
-"(Medium)、3は信頼度 (Low) の警告と一致します。2.0.0リリースで、``<Confidence>`` は "
-"``<Priority>`` に換えられました。"
-
-#: ../../filter.rst:46
-msgid "<Priority>"
-msgstr ""
-
-#: ../../filter.rst:48
-msgid "Same as ``<Confidence>``, exists for backward compatibility."
-msgstr "``<Confidence>`` と同じです。下位互換性を保つために残されています。"
+"(Medium)、3は信頼度 (Low) の警告と一致します。2.0.0リリースで、
 
 #: ../../filter.rst:51
 msgid "<Rank>"
