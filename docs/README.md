@@ -6,8 +6,11 @@ This repository hosts official SpotBugs manual built by [Sphinx](http://www.sphi
 
 ## How to build
 
+For windows, use docker desktop, inside docker desktop, just open the terminal up to bash and navigate to the dockerfile, then follow steps below.
+    - Make sure your Docker Desktop -> Settings -> REsources -> File Sharing shows the path allowed to spotbugs!
+
 We provide a `Dockerfile` and a script file to build documents.
-After installation of `docker 1.13.1` or later, simply kick `./build.sh` then it will build Docker image and run commands in it. You can find generated HTML pages under `.build/html` directory.
+After installation of `docker 28.5.1` or later, simply kick `./build.sh` then it will build Docker image and run commands in it. You can find generated HTML pages under `.build/html` directory.
 
 ## How to deploy changes to manual site
 
