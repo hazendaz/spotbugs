@@ -13,7 +13,7 @@ RUN mkdir /home/$USER && \
     chown $USER:$USER -R /home/$USER
 
 USER $USER
-ENV PATH "/home/$USER/.local/bin:$PATH"
+ENV PATH="/home/$USER/.local/bin:$PATH"
 
 ADD requirements.txt /tmp
 RUN pip3 install -r /tmp/requirements.txt
