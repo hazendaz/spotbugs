@@ -63,7 +63,7 @@ public class LaunchAppropriateUI {
      * Map of UI name strings to integer UI codes.
      */
     @StaticConstant
-    public static final Map<String, Integer> uiNameToCodeMap = Map.of(
+    protected static final Map<String, Integer> uiNameToCodeMap = Map.of(
             "textui", TEXTUI,
             "gui", GUI2,
             "gui1", GUI1,
