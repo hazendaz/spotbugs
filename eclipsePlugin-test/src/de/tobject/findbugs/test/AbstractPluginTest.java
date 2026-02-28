@@ -194,7 +194,7 @@ public abstract class AbstractPluginTest {
 
     protected static void processUiEvents() {
         while (Display.getDefault().readAndDispatch()) {
-            ;
+            // Keep reading and dispatching
         }
     }
 
@@ -217,10 +217,6 @@ public abstract class AbstractPluginTest {
         if (interrupted) {
             Thread.currentThread().interrupt();
         }
-    }
-
-    protected AbstractPluginTest() {
-        super();
     }
 
     @BeforeEach
