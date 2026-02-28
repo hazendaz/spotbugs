@@ -818,6 +818,8 @@ public class SortedBugCollection implements BugCollection {
     }
 
     private static final class BoundedLinkedHashSet extends LinkedHashSet<AnalysisError> {
+        private static final long serialVersionUID = 1L;
+
         @Override
         public boolean add(AnalysisError a) {
             if (this.size() > 1000) {
