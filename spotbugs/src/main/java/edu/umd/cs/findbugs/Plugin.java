@@ -102,7 +102,7 @@ public class Plugin implements AutoCloseable {
 
     private final boolean cannotDisable;
 
-    static enum EnabledState {
+    enum EnabledState {
         PLUGIN_DEFAULT, ENABLED, DISABLED
     }
 
@@ -445,7 +445,7 @@ public class Plugin implements AutoCloseable {
         return bugRanker;
     }
 
-    <T> void addFindBugsMain(Class<?> mainClass, String cmd, String description, String kind, boolean analysis)
+    void addFindBugsMain(Class<?> mainClass, String cmd, String description, String kind, boolean analysis)
             throws SecurityException, NoSuchMethodException {
         FindBugsMain main = new FindBugsMain(mainClass, cmd, description, kind, analysis);
         mainPlugins.put(cmd, main);
