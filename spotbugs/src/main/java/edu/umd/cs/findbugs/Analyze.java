@@ -231,7 +231,7 @@ public class Analyze {
                     return 0.7;
                 }
             } catch (CheckedAnalysisException e) {
-                continue;
+                // Ignore exception
             }
 
         }

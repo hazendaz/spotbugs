@@ -114,7 +114,7 @@ public class DetectorFactory {
             if (Detector2.class.isAssignableFrom(detectorClass)) {
                 try {
                     Constructor<?> constructor = detectorClass.getConstructor(constructorArgTypes);
-                    return (Detector2) constructor.newInstance(new Object[] { bugReporter });
+                    return (Detector2) constructor.newInstance(bugReporter);
                 } catch (Exception e) {
                     throw new RuntimeException("Could not instantiate " + detectorClass.getName() + " as Detector2", e);
                 }
@@ -142,7 +142,7 @@ public class DetectorFactory {
      * @param plugin
      *            the Plugin the Detector is part of
      * @param className
-     *            TODO
+     *            the classname
      * @param detectorClass
      *            the Class object of the Detector
      * @param enabled

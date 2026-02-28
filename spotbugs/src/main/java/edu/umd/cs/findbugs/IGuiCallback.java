@@ -46,7 +46,7 @@ public interface IGuiCallback {
 
     static final int YES_NO_CANCEL_OPTION = 1;
 
-    public static final int OK_CANCEL_OPTION = 2;
+    static final int OK_CANCEL_OPTION = 2;
 
     void invokeInGUIThread(Runnable r);
 
@@ -72,7 +72,7 @@ public interface IGuiCallback {
 
     void showMessageDialogAndWait(String message) throws InterruptedException;
 
-    public class FormItem {
+    class FormItem {
         private final String label;
 
         private final String defaultValue;
