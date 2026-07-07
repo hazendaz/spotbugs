@@ -12,10 +12,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 
-env:
-  eclipse-version: 4.33
-  eclipse-date: 202409030240
-
 jobs:
   build:
     permissions:
@@ -63,11 +59,6 @@ jobs:
           distribution: temurin
           cache: gradle
       - uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-      - name: Download Eclipse
-        run: |
-          curl --continue-at - --create-dirs --location 'https://archive.eclipse.org/eclipse/downloads/drops4/R-${{ env.eclipse-version }}-${{ env.eclipse-date }}/eclipse-SDK-${{ env.eclipse-version }}-linux-gtk-x86_64.tar.gz' --output eclipse-sdk/eclipse.tar.gz
-          tar xzf eclipse-sdk/eclipse.tar.gz eclipse
-          echo "eclipseRoot.dir=$(pwd)/eclipse" | tee eclipsePlugin/local.properties
       - name: Build on tag
         if: github.ref_type == 'tag'
         run: |
