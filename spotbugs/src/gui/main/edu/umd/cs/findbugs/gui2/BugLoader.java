@@ -228,7 +228,7 @@ public class BugLoader {
      * once Makes use of FindBugs's mergeCollection method in the Update class
      * of the workflow package
      *
-     * @return the merged collecction of bugs
+     * @return the merged collection of bugs
      */
     public static BugCollection combineBugHistories() {
         try {

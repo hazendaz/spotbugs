@@ -1,10 +1,10 @@
 package nonnull;
 
-import edu.umd.cs.findbugs.annotations.CheckForNull;
-import edu.umd.cs.findbugs.annotations.NonNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 abstract class Foo {
-    protected abstract @CheckForNull
+    protected abstract @Nullable
     Object getCheckForNull();
 
     public abstract @NonNull
@@ -37,7 +37,7 @@ public abstract class TestReturnValue {
     }
 
     // This is fine
-    public @CheckForNull
+    public @Nullable
     Object doNotReportReturnCheckForNull() {
         return null;
     }

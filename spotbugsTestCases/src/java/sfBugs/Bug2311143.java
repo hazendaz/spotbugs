@@ -3,14 +3,14 @@ package sfBugs;
 import java.util.Collections;
 import java.util.List;
 
-import edu.umd.cs.findbugs.annotations.CheckForNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import edu.umd.cs.findbugs.annotations.DefaultAnnotation;
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 @DefaultAnnotation(NonNull.class)
 public class Bug2311143 {
 
-    @CheckForNull
+    @Nullable
     private static List<String> getMagic() {
         return Collections.emptyList();
     }

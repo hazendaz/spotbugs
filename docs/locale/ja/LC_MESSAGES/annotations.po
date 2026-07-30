@@ -163,11 +163,11 @@ msgstr "edu.umd.cs.findbugs.annotations.PossiblyNull (非推奨)"
 
 #: ../../annotations.rst:74
 msgid ""
-"Use `CheckForNull` instead. The name of which more clearly indicates that"
+"Use `Nullable` instead. The name of which more clearly indicates that"
 " not only could the value be null, but that good coding practice requires"
 " that the value be checked for null."
 msgstr ""
-"`CheckForNull` を使ってください。そちらのほうが意味をより良く表す名前を持っています。"
+"`Nullable` を使ってください。そちらのほうが意味をより良く表す名前を持っています。"
 "nullである可能性に触れるだけでなく、それを確認してから利用すべきと明示しているからです。"
 
 #: ../../annotations.rst:79

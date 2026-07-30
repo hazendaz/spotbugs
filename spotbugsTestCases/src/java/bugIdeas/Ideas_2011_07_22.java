@@ -1,6 +1,6 @@
 package bugIdeas;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.google.common.base.Preconditions;
 

@@ -36,16 +36,15 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class NoopAnalysisCache implements IAnalysisCache {
+
     @Override
     public <E> void registerClassAnalysisEngine(Class<E> analysisResultType,
             IClassAnalysisEngine<E> classAnalysisEngine) {
-
     }
 
     @Override
     public <E> void registerMethodAnalysisEngine(Class<E> analysisResultType,
             IMethodAnalysisEngine<E> methodAnalysisEngine) {
-
     }
 
     @Override
@@ -70,7 +69,6 @@ public class NoopAnalysisCache implements IAnalysisCache {
     @Override
     public <E> void eagerlyPutMethodAnalysis(Class<E> analysisClass,
             @NonNull MethodDescriptor methodDescriptor, E analysisObject) {
-
     }
 
     @Override
@@ -91,7 +89,6 @@ public class NoopAnalysisCache implements IAnalysisCache {
     @Override
     public <E> void registerDatabaseFactory(Class<E> databaseClass,
             IDatabaseFactory<E> databaseFactory) {
-
     }
 
     @Override
@@ -100,7 +97,7 @@ public class NoopAnalysisCache implements IAnalysisCache {
     }
 
     @Override
-    public @Nullable <E> E getOptionalDatabase(Class<E> databaseClass) {
+    public <E> @Nullable E getOptionalDatabase(Class<E> databaseClass) {
         return null;
     }
 

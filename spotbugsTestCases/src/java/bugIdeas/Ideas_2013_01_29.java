@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.sql.ResultSet;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import javax.annotation.meta.TypeQualifier;
 import javax.annotation.meta.TypeQualifierNickname;
 import javax.annotation.meta.When;
@@ -45,12 +45,12 @@ public class Ideas_2013_01_29 {
         return x;
     }
 
-    @Nonnull Object testNullness(@CheckForNull Object x, boolean b) {
+    @NonNull Object testNullness(@Nullable Object x, boolean b) {
         if (b)
             System.out.println("b");
         return x;
     }
-    @Nonnull Object testNullness(@CheckForNull Object x, @Foo Object y, boolean b) {
+    @NonNull Object testNullness(@Nullable Object x, @Foo Object y, boolean b) {
         if (b) return y;
         return x;
     }

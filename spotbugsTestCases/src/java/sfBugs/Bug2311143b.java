@@ -7,20 +7,20 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import javax.annotation.meta.TypeQualifierDefault;
 
 @Bug2311143b.ReturnValueIsNonnullByDefault
 public class Bug2311143b {
     @Documented
-    @Nonnull
+    @NonNull
     @TypeQualifierDefault(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     public @interface ReturnValueIsNonnullByDefault {
     }
 
-    @CheckForNull
+    @Nullable
     private static List<String> getMagic() {
         return Collections.emptyList();
     }
