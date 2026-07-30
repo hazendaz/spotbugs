@@ -1,7 +1,6 @@
 package sfBugsNew;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
@@ -34,7 +33,7 @@ public class Bug1181 {
     @ReturnValuesAreNonnullByDefault
     public static class ClassA2 {
 
-        @CheckForNull
+        @Nullable
         public String methodThatMightReturnNull() {
             if (Boolean.getBoolean("test")) {
                 return null;
@@ -43,7 +42,7 @@ public class Bug1181 {
             }
         }
 
-        @CheckForNull
+        @Nullable
         public String methodThatAlwaysReturnsNull() {
             return null;
         }

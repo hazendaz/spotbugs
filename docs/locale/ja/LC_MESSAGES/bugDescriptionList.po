@@ -798,7 +798,7 @@ msgstr ""
 
 #: ../../bugDescriptionList.rst:2137
 msgid ""
-"NP: Store of null value into field annotated @Nonnull "
+"NP: Store of null value into field annotated @NonNull "
 "(NP_STORE_INTO_NONNULL_FIELD)"
 msgstr ""
 
@@ -842,7 +842,7 @@ msgstr ""
 
 #: ../../bugDescriptionList.rst:2256
 msgid ""
-"NP: Method may return null, but is declared @Nonnull "
+"NP: Method may return null, but is declared @NonNull "
 "(NP_NONNULL_RETURN_VIOLATION)"
 msgstr ""
 

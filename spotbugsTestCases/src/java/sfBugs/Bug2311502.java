@@ -5,7 +5,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.meta.TypeQualifierDefault;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
@@ -26,7 +25,7 @@ public class Bug2311502 {
      */
     public static class NonNullFalseNegative {
 
-        @CheckForNull
+        @Nullable
         private Object junkField;
 
         public void setJunk(Object junk) {

@@ -2690,7 +2690,7 @@ This annotation is used to denote a method whose return value should always be c
       <para>
 Indicates that all members of the class or package should be annotated with the default
 value of the supplied annotation classes. This would be used for behavior annotations
-such as @NonNull, @CheckForNull, or @CheckReturnValue. In particular, you can use
+such as @NonNull, @Nullable, or @CheckReturnValue. In particular, you can use
 @DefaultAnnotation(NonNull.class) on a class or package, and then use @Nullable only
 on those parameters, methods or fields that you want to allow to be null.
       </para>
@@ -2861,7 +2861,7 @@ at any time, at the beginning of the overriding method, or at the end of the ove
     <term><command>edu.umd.cs.findbugs.annotations.PossiblyNull</command></term>
     <listitem>
       <para>
-This annotation is deprecated. Use CheckForNull instead.
+This annotation is deprecated. Use 'Nullable' instead.
       </para>
     </listitem>
   </varlistentry>

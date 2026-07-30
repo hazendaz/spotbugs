@@ -44,7 +44,7 @@ abstract class Bug2672946B extends Bug2672946A {
         super(field);
     }
 
-    /** This method will inherit the @Nonnull annotation from Bug2672946A, rather than use the class annotation @MethodsAreCheckNullByDefault.
+    /** This method will inherit the @NonNull annotation from Bug2672946A, rather than use the class annotation @MethodsAreCheckNullByDefault.
      * Thus, we do not expect a warning about relaxing an annotation */
     @NoWarning("NP_METHOD_RETURN_RELAXING_ANNOTATION")
     @Override

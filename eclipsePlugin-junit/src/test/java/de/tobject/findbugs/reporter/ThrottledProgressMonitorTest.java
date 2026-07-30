@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.junit.jupiter.api.Test;
 
 class ThrottledProgressMonitorTest {
+
     @Test
     void testSetTaskName() {
         Clock clock = new Clock();
@@ -49,4 +50,5 @@ class ThrottledProgressMonitorTest {
             return currentTime;
         }
     }
+
 }

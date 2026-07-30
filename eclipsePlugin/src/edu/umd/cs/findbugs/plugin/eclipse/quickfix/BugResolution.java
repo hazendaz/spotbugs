@@ -127,7 +127,6 @@ public abstract class BugResolution extends WorkbenchMarkerResolution {
         return label;
     }
 
-
     private @NonNull String findLabelReplacement(ASTVisitor labelFixingVisitor) {
         IMarker marker = getMarker();
         try {
