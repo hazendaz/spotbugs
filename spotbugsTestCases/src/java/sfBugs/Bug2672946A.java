@@ -11,7 +11,7 @@
 
 package sfBugs;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import jsr305.FieldsNonNullByDefault;
@@ -31,12 +31,12 @@ class Bug2672946A {
         this.field = field;
     }
 
-    @Nonnull
+    @NonNull
     public Bug2672946A getField() {
         return this.field;
     }
 
-    @Nonnull
+    @NonNull
     public Bug2672946A getField2() {
         return this.field;
     }

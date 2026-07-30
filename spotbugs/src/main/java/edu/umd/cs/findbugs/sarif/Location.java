@@ -7,14 +7,14 @@ import edu.umd.cs.findbugs.FieldAnnotation;
 import edu.umd.cs.findbugs.LocalVariableAnnotation;
 import edu.umd.cs.findbugs.MethodAnnotation;
 import edu.umd.cs.findbugs.SourceLineAnnotation;
-import edu.umd.cs.findbugs.annotations.CheckForNull;
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 import edu.umd.cs.findbugs.ba.SourceFile;
 import edu.umd.cs.findbugs.ba.SourceFinder;
 import edu.umd.cs.findbugs.util.ClassName;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +48,7 @@ class Location {
         this.logicalLocations = new ArrayList<>(logicalLocations);
     }
 
-    @CheckForNull
+    @Nullable
     PhysicalLocation getPhysicalLocation() {
         return physicalLocation;
     }
@@ -89,7 +89,7 @@ class Location {
         return new Location(physicalLocation.orElse(null), Collections.singleton(logicalLocation));
     }
 
-    @CheckForNull
+    @Nullable
     private static PhysicalLocation findPhysicalLocation(@NonNull BugInstance bugInstance, @NonNull SourceFinder sourceFinder,
             Map<URI, String> baseToId) {
         try {
@@ -100,7 +100,7 @@ class Location {
         }
     }
 
-    @CheckForNull
+    @Nullable
     private static Optional<PhysicalLocation> findPhysicalLocation(@NonNull StackTraceElement element, @NonNull SourceFinder sourceFinder,
             Map<URI, String> baseToId) {
         Optional<Region> region = Optional.of(element.getLineNumber())
@@ -370,7 +370,7 @@ class Location {
             return Optional.of(new LogicalLocation(name, null, kind, fullyQualifiedName, null));
         }
 
-        @CheckForNull
+        @Nullable
         static String findKind(@NonNull BugAnnotation annotation) {
             if (annotation instanceof ClassAnnotation) {
                 return "type";

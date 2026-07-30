@@ -186,6 +186,6 @@ public class SmapParser {
             this.line = line;
             this.isPrimaryFile = isPrimaryFile;
         }
-
     }
+
 }

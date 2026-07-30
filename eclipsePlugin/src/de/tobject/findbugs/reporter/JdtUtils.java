@@ -340,30 +340,28 @@ public class JdtUtils {
         //        }
     }
 
-    /*
-    private static void debugCompilePrio(final AnonymClassComparator classComparator) {
-        final Map<IType, Integer> map = classComparator.map;
-        Comparator<IType> prioComp = new Comparator<IType>() {
-    
-            @Override
-            public int compare(IType e1, IType e2) {
-                int result = map.get(e2).compareTo(map.get(e1));
-                if (result == 0) {
-                    return e1.toString().compareTo(e2.toString());
-                }
-                return result;
-            }
-    
-        };
-    
-        List<IType> keys = new ArrayList<IType>(map.keySet());
-        Collections.sort(keys, prioComp);
-        for (Iterator<IType> iterator = keys.iterator(); iterator.hasNext();) {
-            Object key = iterator.next();
-            System.out.println(map.get(key) + " : " + key);
-        }
-    }
-    */
+    //    private static void debugCompilePrio(final AnonymClassComparator classComparator) {
+    //        final Map<IType, Integer> map = classComparator.map;
+    //        Comparator<IType> prioComp = new Comparator<IType>() {
+    //
+    //            @Override
+    //            public int compare(IType e1, IType e2) {
+    //                int result = map.get(e2).compareTo(map.get(e1));
+    //                if (result == 0) {
+    //                    return e1.toString().compareTo(e2.toString());
+    //                }
+    //                return result;
+    //            }
+    //
+    //        };
+    //
+    //        List<IType> keys = new ArrayList<IType>(map.keySet());
+    //        Collections.sort(keys, prioComp);
+    //        for (Iterator<IType> iterator = keys.iterator(); iterator.hasNext();) {
+    //            Object key = iterator.next();
+    //            System.out.println(map.get(key) + " : " + key);
+    //        }
+    //    }
 
     private static int getAnonCompilePriority(IJavaElement elt, IJavaElement firstAncestor, IJavaElement topAncestor,
             boolean is50OrHigher) {

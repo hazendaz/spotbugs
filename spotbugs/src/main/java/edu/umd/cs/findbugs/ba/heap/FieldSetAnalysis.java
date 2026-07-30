@@ -22,7 +22,7 @@ package edu.umd.cs.findbugs.ba.heap;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.generic.ConstantPoolGen;
@@ -146,7 +146,7 @@ public abstract class FieldSetAnalysis extends ForwardDataflowAnalysis<FieldSet>
         }
     }
 
-    private @CheckForNull XField lookupField(InstructionHandle handle, FieldInstruction fins) {
+    private @Nullable XField lookupField(InstructionHandle handle, FieldInstruction fins) {
         if (instructionToFieldMap.containsKey(handle)) {
             return instructionToFieldMap.get(handle);
         }

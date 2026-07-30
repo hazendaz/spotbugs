@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.Repository;
@@ -142,7 +142,7 @@ public class NestedAccessUtil {
         return true;
     }
 
-    @CheckForNull
+    @Nullable
     private static String[] getNestMemberClassNames(JavaClass javaClass) {
         Attribute[] sourceAttributes = javaClass.getAttributes();
         for (Attribute sourceAttribute : sourceAttributes) {
@@ -154,7 +154,7 @@ public class NestedAccessUtil {
         return null;
     }
 
-    @CheckForNull
+    @Nullable
     private static String getHostDottedClassName(JavaClass javaClass) {
         String hostClassName = getHostClassName(javaClass);
         if (hostClassName != null) {
@@ -163,7 +163,7 @@ public class NestedAccessUtil {
         return null;
     }
 
-    @CheckForNull
+    @Nullable
     private static String getHostClassName(JavaClass javaClass) {
         Attribute[] attributes = javaClass.getAttributes();
         for (Attribute attribute : attributes) {

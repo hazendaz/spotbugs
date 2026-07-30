@@ -26,7 +26,7 @@ import static edu.umd.cs.findbugs.plugin.eclipse.quickfix.util.ASTUtil.getTypeDe
 
 import java.util.Map;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jdt.core.dom.AST;
@@ -72,7 +72,7 @@ public class CreateSuperCallResolution extends BugResolution {
      * @param options optional arguments
      */
     @Override
-    public void setOptions(@Nonnull Map<String, String> options) {
+    public void setOptions(@NonNull Map<String, String> options) {
         insertFirst = Boolean.parseBoolean(options.get("insertFirst"));
     }
 

@@ -27,8 +27,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 import edu.umd.cs.findbugs.xml.XMLOutput;
@@ -96,7 +96,7 @@ class BugCounts {
         writeBugPriorities(xmlOutput, nBugs);
     }
 
-    public static void writeBugPriorities(XMLOutput xmlOutput, @Nonnull int[] nBugs) throws IOException {
+    public static void writeBugPriorities(XMLOutput xmlOutput, @NonNull int[] nBugs) throws IOException {
         int i = nBugs.length;
         while (--i > 0) {
             if (nBugs[i] > 0) {
@@ -149,7 +149,7 @@ public class PackageStats extends BugCounts implements XMLWriteable {
             return name;
         }
 
-        public @CheckForNull String getSourceFile() {
+        public @Nullable String getSourceFile() {
             return sourceFile;
         }
 
@@ -228,7 +228,7 @@ public class PackageStats extends BugCounts implements XMLWriteable {
         return result;
     }
 
-    public @CheckForNull ClassStats getClassStatsOrNull(String name) {
+    public @Nullable ClassStats getClassStatsOrNull(String name) {
         return packageMembers.get(name);
     }
 

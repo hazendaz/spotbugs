@@ -1807,7 +1807,7 @@ Eclipse プラグインでは、 独自の &FindBugs; ディテクタを追加�
     <listitem>
       <para>
 クラスまたはパッケージのすべてのメンバーが指定されたアノテーションクラスのデフォルト値でアノテートされることを指定することができます。
-この指定は @NonNull 、 @CheckForNull 、または @CheckReturnValueなどに使用する想定です。
+この指定は @NonNull 、 @Nullable 、または @CheckReturnValueなどに使用する想定です。
 具体的には、 クラスまたはパッケージに @DefaultAnnotation(NonNull.class) を指定した上で、
 null を許容したいパラメーター、メソッドまたはフィールドにのみ @Nullable を指定するという使用方法があります。
       </para>

@@ -39,8 +39,8 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.zip.GZIPOutputStream;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import javax.annotation.WillCloseWhenClosed;
 
 import org.dom4j.DocumentException;
@@ -232,7 +232,7 @@ public class TextUICommandLine extends FindBugsCommandLine {
     }
 
     @Override
-    public @Nonnull Project getProject() {
+    public @NonNull Project getProject() {
         return project;
     }
 
@@ -442,7 +442,7 @@ public class TextUICommandLine extends FindBugsCommandLine {
         }
     }
 
-    protected @CheckForNull File outputFile;
+    protected @Nullable File outputFile;
 
     @SuppressFBWarnings("DM_EXIT")
     @Override

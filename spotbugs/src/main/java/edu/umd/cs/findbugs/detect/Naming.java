@@ -28,7 +28,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.Repository;
@@ -81,7 +81,7 @@ public class Naming extends PreorderVisitor implements Detector {
 
     boolean classIsPublicOrProtected;
 
-    public static @CheckForNull XMethod definedIn(JavaClass clazz, XMethod m) {
+    public static @Nullable XMethod definedIn(JavaClass clazz, XMethod m) {
         for (Method m2 : clazz.getMethods()) {
             if (m.getName().equals(m2.getName()) && m.getSignature().equals(m2.getSignature()) && m.isStatic() == m2.isStatic()) {
                 return XFactory.createXMethod(clazz, m2);
@@ -447,7 +447,7 @@ public class Naming extends PreorderVisitor implements Detector {
 
 
 
-    private static @CheckForNull String getSignatureOfOuterClass(JavaClass obj) {
+    private static @Nullable String getSignatureOfOuterClass(JavaClass obj) {
         for (Field f : obj.getFields()) {
             if (f.getName().startsWith("this$")) {
                 return f.getSignature();
@@ -482,7 +482,7 @@ public class Naming extends PreorderVisitor implements Detector {
         return false;
     }
 
-    private static @CheckForNull Method findVoidConstructor(JavaClass clazz) {
+    private static @Nullable Method findVoidConstructor(JavaClass clazz) {
         for (Method m : clazz.getMethods()) {
             if (isVoidConstructor(clazz, m)) {
                 return m;

@@ -24,7 +24,7 @@ import static org.apache.bcel.Const.*;
 import java.util.*;
 import java.util.Map.Entry;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.classfile.Constant;
 import org.apache.bcel.classfile.ConstantCP;

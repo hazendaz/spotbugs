@@ -398,7 +398,7 @@ literals.
     <Details>
       <![CDATA[
       <p>
-      Looks for @Nonnull annotations on methods, fields, and parameters.
+      Looks for @NonNull annotations on methods, fields, and parameters.
       These can be used by the FindNullDeref detector to generate warnings
       when a possibly-null value is used in a context where only
       non-null values should be used.
@@ -1588,7 +1588,7 @@ factory pattern to create these objects.</p>
     <Details>
       <![CDATA[
       <p>
-      TrainNonNullAnnotations collects @Nonnull and @PossiblyNull annotations
+      TrainNonNullAnnotations collects @NonNull and @PossiblyNull annotations
       and stores them to database files.  This is a fast detector.
       </p>
       ]]>
@@ -1708,8 +1708,8 @@ factory pattern to create these objects.</p>
   <Detector class="edu.umd.cs.findbugs.detect.CheckRelaxingNullnessAnnotation">
     <Details>
       <![CDATA[
-        <p>Checks that overriding methods do not relax @Nonnull (made @CheckForNull) on return values
-        or @CheckForNull (made @Nonnull) on parameters.</p>
+        <p>Checks that overriding methods do not relax @NonNull (made @Nullable) on return values
+        or @Nullable (made @NonNull) on parameters.</p>
       ]]>
       </Details>
   </Detector>
@@ -5707,11 +5707,11 @@ something that should be closed.
     </Details>
   </BugPattern>
   <BugPattern type="NP_STORE_INTO_NONNULL_FIELD">
-    <ShortDescription>Store of null value into field annotated @Nonnull</ShortDescription>
-    <LongDescription>Store of null value into field {2.givenClass} annotated @Nonnull in {1}</LongDescription>
+    <ShortDescription>Store of null value into field annotated @NonNull</ShortDescription>
+    <LongDescription>Store of null value into field {2.givenClass} annotated @NonNull in {1}</LongDescription>
     <Details>
       <![CDATA[
-<p> A value that could be null is stored into a field that has been annotated as @Nonnull. </p>
+<p> A value that could be null is stored into a field that has been annotated as @NonNull. </p>
 ]]>
     </Details>
   </BugPattern>
@@ -5851,20 +5851,20 @@ for null.  This may lead to a <code>NullPointerException</code> when the code is
       <p>
       This method passes a null value as the parameter of a method which
     must be non-null. Either this parameter has been explicitly marked
-    as @Nonnull, or analysis has determined that this parameter is
+    as @NonNull, or analysis has determined that this parameter is
     always dereferenced.
       </p>
       ]]>
    </Details>
   </BugPattern>
   <BugPattern type="NP_NONNULL_RETURN_VIOLATION">
-    <ShortDescription>Method may return null, but is declared @Nonnull</ShortDescription>
-    <LongDescription>{1} may return null, but is declared @Nonnull</LongDescription>
+    <ShortDescription>Method may return null, but is declared @NonNull</ShortDescription>
+    <LongDescription>{1} may return null, but is declared @NonNull</LongDescription>
     <Details>
       <![CDATA[
       <p>
       This method may return a null value, but the method (or a superclass method
-      which it overrides) is declared to return @Nonnull.
+      which it overrides) is declared to return @NonNull.
       </p>
       ]]>
    </Details>
@@ -9065,7 +9065,7 @@ object explicitly.</p>
     <Details>
         <![CDATA[<p>
         A method should always implement the contract of a method it overrides. Thus, if a method takes a parameter
-    that is marked as @Nullable, you shouldn't override that method in a subclass with a method where that parameter is @Nonnull.
+    that is marked as @Nullable, you shouldn't override that method in a subclass with a method where that parameter is @NonNull.
     Doing so violates the contract that the method should handle a null parameter.
         </p>]]>
     </Details>
@@ -9076,7 +9076,7 @@ object explicitly.</p>
     <Details>
         <![CDATA[<p>
         A method should always implement the contract of a method it overrides. Thus, if a method takes a parameter
-    that is marked as @Nullable, you shouldn't override that method in a subclass with a method where that parameter is @Nonnull.
+    that is marked as @Nullable, you shouldn't override that method in a subclass with a method where that parameter is @NonNull.
     Doing so violates the contract that the method should handle a null parameter.
         </p>]]>
       </Details>
@@ -9088,8 +9088,8 @@ object explicitly.</p>
     <Details>
         <![CDATA[<p>
         A method should always implement the contract of a method it overrides. Thus, if a method takes is annotated
-    as returning a @Nonnull value,
-    you shouldn't override that method in a subclass with a method annotated as returning a @Nullable or @CheckForNull value.
+    as returning a @NonNull value,
+    you shouldn't override that method in a subclass with a method annotated as returning a @Nullable or @Nullable value.
     Doing so violates the contract that the method shouldn't return null.
         </p>]]>
       </Details>

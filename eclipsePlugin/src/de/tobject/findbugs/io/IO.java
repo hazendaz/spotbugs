@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -83,7 +83,7 @@ public abstract class IO {
      *            non null
      * @throws CoreException
      */
-    private static void mkdirs(@Nonnull IResource resource, IProgressMonitor monitor) throws CoreException {
+    private static void mkdirs(@NonNull IResource resource, IProgressMonitor monitor) throws CoreException {
         IContainer container = resource.getParent();
         if (container.getType() == IResource.FOLDER && !container.exists()) {
             if (!container.getParent().exists()) {

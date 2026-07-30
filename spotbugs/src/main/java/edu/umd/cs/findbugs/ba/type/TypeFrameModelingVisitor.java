@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import edu.umd.cs.findbugs.util.ClassName;
 import org.apache.bcel.Const;
@@ -812,7 +812,7 @@ public class TypeFrameModelingVisitor extends AbstractFrameModelingVisitor<Type,
         }
     }
 
-    @CheckForNull
+    @Nullable
     GenericObjectType getLocalVariable(int index, int pos) {
         if (genericLocalVariables == null || !genericLocalVariables.get(index)) {
             return null;

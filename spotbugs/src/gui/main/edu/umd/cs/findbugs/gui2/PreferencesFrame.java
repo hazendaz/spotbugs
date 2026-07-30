@@ -43,7 +43,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -303,7 +303,7 @@ public class PreferencesFrame extends FBDialog {
         return pluginPanel;
     }
 
-    EnabledSettings isEnabled(@CheckForNull Project project, Plugin plugin) {
+    EnabledSettings isEnabled(@Nullable Project project, Plugin plugin) {
         return new EnabledSettings(plugin.isGloballyEnabled(), project == null ? null : project.getPluginStatus(plugin));
     }
 

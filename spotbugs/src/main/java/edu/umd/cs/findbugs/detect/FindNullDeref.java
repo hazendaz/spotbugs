@@ -32,7 +32,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import javax.annotation.Nonnull;
 import javax.annotation.meta.When;
 
@@ -419,7 +419,7 @@ public class FindNullDeref implements Detector, UseAnnotationDatabase, NullDeref
                 String signature2 = typeOfFirstArgument.getSignature();
                 boolean constantStringForFirstArgument = signature2.equals("Ljava/lang/String;")
                         && valueNumber.hasFlag(ValueNumber.CONSTANT_VALUE);
-                @CheckForNull
+                @Nullable
                 BugAnnotation annotation = BugInstance.getSourceForStackValue(classContext, method, location, numParameters - 1);
                 if (value.wouldHaveBeenAKaboom()) {
                     pattern = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE";
@@ -1016,7 +1016,7 @@ public class FindNullDeref implements Detector, UseAnnotationDatabase, NullDeref
     }
 
     private void reportNullDeref(WarningPropertySet<WarningProperty> propertySet, Location location, String type, int priority,
-            @CheckForNull BugAnnotation variable) {
+            @Nullable BugAnnotation variable) {
 
         BugInstance bugInstance = new BugInstance(this, type, priority).addClassAndMethod(classContext.getJavaClass(), method);
         if (variable != null) {
@@ -1387,9 +1387,9 @@ public class FindNullDeref implements Detector, UseAnnotationDatabase, NullDeref
      * edu.umd.cs.findbugs.ba.vna.ValueNumber, boolean)
      */
     @Override
-    public void foundGuaranteedNullDeref(@Nonnull Set<Location> assignedNullLocationSet, @Nonnull Set<Location> derefLocationSet,
+    public void foundGuaranteedNullDeref(@NonNull Set<Location> assignedNullLocationSet, @NonNull Set<Location> derefLocationSet,
             SortedSet<Location> doomedLocations, ValueNumberDataflow vna, ValueNumber refValue,
-            @CheckForNull BugAnnotation variableAnnotation, NullValueUnconditionalDeref deref, boolean npeIfStatementCovered) {
+            @Nullable BugAnnotation variableAnnotation, NullValueUnconditionalDeref deref, boolean npeIfStatementCovered) {
         if (refValue.hasFlag(ValueNumber.CONSTANT_CLASS_OBJECT)) {
             return;
         }

@@ -35,8 +35,8 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.tree.AnnotationNode;
@@ -62,9 +62,9 @@ import edu.umd.cs.findbugs.internalAnnotations.SlashedClassName;
 import edu.umd.cs.findbugs.util.ClassName;
 
 /**
- * Checks that overriding methods do not relax {@link Nonnull} (made
- * {@link CheckForNull}) on return values or {@link CheckForNull} (made
- * {@link Nonnull}) on parameters.
+ * Checks that overriding methods do not relax {@link NonNull} (made
+ * {@link NonNull}) on return values or {@link NonNull} (made
+ * {@link NonNull}) on parameters.
  *
  * The code accepts also old (deprecated) nullness annotations from
  * {@code edu.umd.cs.findbugs.annotations} package.
@@ -159,7 +159,7 @@ public class CheckRelaxingNullnessAnnotation extends ClassNodeDetector {
             }
         }
 
-        private final boolean checkMethod(@Nonnull XMethod method) {
+        private final boolean checkMethod(@NonNull XMethod method) {
             boolean foundAny = false;
             if (relaxedNullReturn && containsNullness(method.getAnnotations(), NONNULL)) {
                 BugInstance bug = new BugInstance(CheckRelaxingNullnessAnnotation.this, "NP_METHOD_RETURN_RELAXING_ANNOTATION",
@@ -206,7 +206,7 @@ public class CheckRelaxingNullnessAnnotation extends ClassNodeDetector {
         private Queue<ClassDescriptor> interfacesToVisit;
         private final Set<ClassDescriptor> visited;
 
-        public HierarchyIterator(@Nonnull XClass xclass) {
+        public HierarchyIterator(@NonNull XClass xclass) {
             interfacesToVisit = new LinkedList<>(Arrays.asList(xclass.getInterfaceDescriptorList()));
             visited = new HashSet<>();
             superclass = getClassInfo(xclass.getSuperclassDescriptor());
@@ -237,7 +237,7 @@ public class CheckRelaxingNullnessAnnotation extends ClassNodeDetector {
         }
     }
 
-    static boolean containsRelaxedNonNull(@CheckForNull List<AnnotationNode> methodAnnotations) {
+    static boolean containsRelaxedNonNull(@Nullable List<AnnotationNode> methodAnnotations) {
         if (methodAnnotations == null) {
             return false;
         }
@@ -250,8 +250,8 @@ public class CheckRelaxingNullnessAnnotation extends ClassNodeDetector {
         return false;
     }
 
-    @CheckForNull
-    static Map<Integer, NullnessAnnotation> getNonnullOrNullableParams(@CheckForNull List<AnnotationNode>[] parameterAnnotations) {
+    @Nullable
+    static Map<Integer, NullnessAnnotation> getNonnullOrNullableParams(@Nullable List<AnnotationNode>[] parameterAnnotations) {
         if (parameterAnnotations == null) {
             return null;
         }
@@ -272,7 +272,7 @@ public class CheckRelaxingNullnessAnnotation extends ClassNodeDetector {
         return nonNullParameter;
     }
 
-    @CheckForNull
+    @Nullable
     static NullnessAnnotation getNullness(@SlashedClassName String annotationDesc) {
         if (annotationDesc.length() < 2) {
             return null;

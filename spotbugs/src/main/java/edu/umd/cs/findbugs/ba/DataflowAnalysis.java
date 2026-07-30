@@ -19,7 +19,7 @@
 
 package edu.umd.cs.findbugs.ba;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.generic.InstructionHandle;
 
@@ -150,7 +150,7 @@ public interface DataflowAnalysis<Fact> {
      * @param result
      *            resulting dataflow facts at other end of block
      */
-    public void transfer(BasicBlock basicBlock, @CheckForNull InstructionHandle end, Fact start, Fact result)
+    public void transfer(BasicBlock basicBlock, @Nullable InstructionHandle end, Fact start, Fact result)
             throws DataflowAnalysisException;
 
     /**

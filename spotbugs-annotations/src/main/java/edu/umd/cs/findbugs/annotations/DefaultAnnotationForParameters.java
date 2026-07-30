@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * Indicates that all members of the class or package should be annotated with
  * the default value of the supplied annotation class.
  *
- * This would be used for behavior annotations such as @NonNull, @CheckForNull,
+ * This would be used for behavior annotations such as @NonNull, @Nullable,
  * or @CheckReturnValue.
  *
  * In particular, you can use @DefaultAnnotation(NonNull.class) on a class or

@@ -13,14 +13,6 @@ plugins {
   id 'eclipse-convention'
 }
 
-// Force Eclipse use Java 11, otherwise it will get Java 17 (!) from gradle
-eclipse {
-  jdt {
-    sourceCompatibility = 11
-    targetCompatibility = 11
-  }
-}
-
 String readLastCommitHash() {
   // Same as 'git log -1 --pretty=format:"%h"'.execute().getText()
   return Grgit.open(dir: rootDir).head().abbreviatedId
@@ -68,7 +60,7 @@ dependencies {
   api(project(':spotbugs')) {
     transitive = true
   }
-  compileOnly 'jakarta.annotation:jakarta.annotation-api:3.0.0'
+  compileOnly 'org.jspecify:jspecify:1.0.0'
 }
 
 tasks.named('clean', Delete).configure {

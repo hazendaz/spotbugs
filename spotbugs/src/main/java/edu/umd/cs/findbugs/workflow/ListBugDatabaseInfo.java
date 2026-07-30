@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.dom4j.DocumentException;
 
@@ -89,7 +89,7 @@ public class ListBugDatabaseInfo {
         out.close();
     }
 
-    private static void listVersion(PrintWriter out, @CheckForNull String fileName, boolean formatDates) throws IOException,
+    private static void listVersion(PrintWriter out, @Nullable String fileName, boolean formatDates) throws IOException,
             DocumentException {
         SortedBugCollection origCollection;
         origCollection = new SortedBugCollection();

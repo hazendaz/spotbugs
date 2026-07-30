@@ -1,6 +1,6 @@
 package nullnessAnnotations.packageDefault;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 import edu.umd.cs.findbugs.annotations.NoWarning;
@@ -28,7 +28,7 @@ class TestNonNull2 extends TestNonNull1 implements Interface1 {
     }
 
     @ExpectWarning(value="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE", num=1)
-    public Object k(@CheckForNull Object o) {
+    public Object k(@Nullable Object o) {
         s = o;
         return o;
     }

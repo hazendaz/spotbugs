@@ -24,7 +24,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.classfile.Code;
@@ -192,7 +192,7 @@ public abstract class DismantleBytecode extends AnnotationVisitor {
         return referencedClass;
     }
 
-    public @CheckForNull XClass getXClassOperand() {
+    public @Nullable XClass getXClassOperand() {
         return getReferencedXClass();
     }
 
@@ -221,7 +221,7 @@ public abstract class DismantleBytecode extends AnnotationVisitor {
         return referencedMethod;
     }
 
-    public @CheckForNull @SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ") XMethod getXMethodOperand() {
+    public @Nullable @SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ") XMethod getXMethodOperand() {
         if (nameConstantOperand == NOT_AVAILABLE || classConstantOperand == NOT_AVAILABLE) {
             throw new IllegalStateException("getXMethodOperand called but value not available");
         }
@@ -247,7 +247,7 @@ public abstract class DismantleBytecode extends AnnotationVisitor {
         return referencedField;
     }
 
-    public @CheckForNull XField getXFieldOperand() {
+    public @Nullable XField getXFieldOperand() {
         if (getReferencedXClass() != null && referencedXField == null) {
             referencedXField = getReferencedXClass().findField(nameConstantOperand, sigConstantOperand,
                     opcode == Const.GETSTATIC || opcode == Const.PUTSTATIC);

@@ -15,7 +15,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.meta.TypeQualifierDefault;
 
@@ -43,7 +43,7 @@ abstract class Bug2672946B extends Bug2672946A {
         super(field);
     }
 
-    /** This method will inherit the @Nonnull annotation from Bug2672946A, rather than use the class annotation @MethodsAreCheckNullByDefault.
+    /** This method will inherit the @NonNull annotation from Bug2672946A, rather than use the class annotation @MethodsAreCheckNullByDefault.
      * Thus, we do not expect a warning about relaxing an annotation */
     @NoWarning("NP_METHOD_RETURN_RELAXING_ANNOTATION")
     @Override
@@ -56,7 +56,7 @@ abstract class Bug2672946B extends Bug2672946A {
 
     /** However, the explicit warning here does override the inherited annotation */
     @ExpectWarning("NP_METHOD_RETURN_RELAXING_ANNOTATION")
-    @CheckForNull
+    @Nullable
     @Override
     public Bug2672946B getField2() {
         Bug2672946A field = super.getField2();
@@ -91,11 +91,11 @@ abstract class Bug2672946B extends Bug2672946A {
     }
     abstract Object bar();
 
-    abstract @CheckForNull Object bar2();
+    abstract @Nullable Object bar2();
 
 }
 
-@CheckForNull
+@Nullable
 @TypeQualifierDefault(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @interface MethodsAreCheckNullByDefault {

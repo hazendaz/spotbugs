@@ -26,8 +26,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedSet;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.LineNumberTable;
@@ -305,7 +305,7 @@ public class NoiseNullDeref implements Detector, UseAnnotationDatabase, NullDere
     }
 
     private void reportNullDeref(WarningPropertySet<WarningProperty> propertySet, Location location, String type, int priority,
-            BugAnnotation cause, @CheckForNull BugAnnotation variable) {
+            BugAnnotation cause, @Nullable BugAnnotation variable) {
 
         BugInstance bugInstance = new BugInstance(this, type, priority).addClassAndMethod(classContext.getJavaClass(), method);
         bugInstance.add(cause);
@@ -351,9 +351,9 @@ public class NoiseNullDeref implements Detector, UseAnnotationDatabase, NullDere
     }
 
     @Override
-    public void foundGuaranteedNullDeref(@Nonnull Set<Location> assignedNullLocationSet, @Nonnull Set<Location> derefLocationSet,
+    public void foundGuaranteedNullDeref(@NonNull Set<Location> assignedNullLocationSet, @NonNull Set<Location> derefLocationSet,
             SortedSet<Location> doomedLocations, ValueNumberDataflow vna, ValueNumber refValue,
-            @CheckForNull BugAnnotation variableAnnotation, NullValueUnconditionalDeref deref, boolean npeIfStatementCovered) {
+            @Nullable BugAnnotation variableAnnotation, NullValueUnconditionalDeref deref, boolean npeIfStatementCovered) {
     }
 
     private void addPropertiesForDereferenceLocations(WarningPropertySet<WarningProperty> propertySet,

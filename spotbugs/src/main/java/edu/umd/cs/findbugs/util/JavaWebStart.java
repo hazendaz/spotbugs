@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import javax.swing.JOptionPane;
 
 
@@ -33,9 +33,9 @@ import javax.swing.JOptionPane;
  */
 public class JavaWebStart {
 
-    static final @CheckForNull Method jnlpShowDocumentMethod;
+    static final @Nullable Method jnlpShowDocumentMethod;
 
-    static final @CheckForNull Method jnlpGetCodeBaseMethod;
+    static final @Nullable Method jnlpGetCodeBaseMethod;
 
     static final Object jnlpBasicService; // will not be null if
     // jnlpShowMethod!=null

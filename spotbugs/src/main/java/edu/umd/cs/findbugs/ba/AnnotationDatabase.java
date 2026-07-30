@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.Repository;
@@ -105,7 +105,7 @@ public class AnnotationDatabase<AnnotationEnum extends AnnotationEnumeration<Ann
 
     Map<Object, AnnotationEnum> cachedMaximal = new MapCache<>(20000);
 
-    @CheckForNull
+    @Nullable
     public AnnotationEnum getResolvedAnnotation(Object o, boolean getMinimal) {
         if (o instanceof XMethod) {
             XMethod m = (XMethod) o;
@@ -145,7 +145,7 @@ public class AnnotationDatabase<AnnotationEnum extends AnnotationEnumeration<Ann
         return directAnnotations.containsKey(o);
     }
 
-    @CheckForNull
+    @Nullable
     public AnnotationEnum getUncachedResolvedAnnotation(final Object o, boolean getMinimal) {
 
         AnnotationEnum n = getDirectAnnotation(o);

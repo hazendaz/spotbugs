@@ -22,7 +22,7 @@ package edu.umd.cs.findbugs.detect;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.classfile.Code;
@@ -170,7 +170,7 @@ public class FindNullDerefsInvolvingNonShortCircuitEvaluation extends OpcodeStac
         }
     }
 
-    @CheckForNull
+    @Nullable
     Location findLocation(CFG cfg, int pc) {
         for (Iterator<Location> i = cfg.locationIterator(); i.hasNext();) {
             Location loc = i.next();
@@ -181,7 +181,7 @@ public class FindNullDerefsInvolvingNonShortCircuitEvaluation extends OpcodeStac
         return null;
     }
 
-    @CheckForNull
+    @Nullable
     Location findLocation(CFG cfg, InstructionHandle handle) {
         for (Iterator<Location> i = cfg.locationIterator(); i.hasNext();) {
             Location loc = i.next();

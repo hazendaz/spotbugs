@@ -163,11 +163,11 @@ msgstr ""
 
 #: ../../annotations.rst:74
 msgid ""
-"Use `CheckForNull` instead. The name of which more clearly indicates that"
+"Use `Nullable` instead. The name of which more clearly indicates that"
 " not only could the value be null, but that good coding practice requires"
 " that the value be checked for null."
 msgstr ""
-"Em vez disso, use `CheckForNull`. O nome indica mais claramente que não apenas "
+"Em vez disso, use `Nullable`. O nome indica mais claramente que não apenas "
 "o valor pode ser nulo, mas que a boa prática de codificação requer que o valor "
 "seja verificado quanto a nulo. "
 

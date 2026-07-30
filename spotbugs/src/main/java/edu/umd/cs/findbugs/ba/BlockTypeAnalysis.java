@@ -20,7 +20,7 @@
 package edu.umd.cs.findbugs.ba;
 
 //import org.apache.bcel.classfile.Method;
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.generic.CodeExceptionGen;
 import org.apache.bcel.generic.InstructionHandle;
@@ -88,7 +88,7 @@ public class BlockTypeAnalysis extends BasicAbstractDataflowAnalysis<BlockType> 
     }
 
     @Override
-    public void transfer(BasicBlock basicBlock, @CheckForNull InstructionHandle end, BlockType start, BlockType result)
+    public void transfer(BasicBlock basicBlock, @Nullable InstructionHandle end, BlockType start, BlockType result)
             throws DataflowAnalysisException {
         result.copyFrom(start);
 

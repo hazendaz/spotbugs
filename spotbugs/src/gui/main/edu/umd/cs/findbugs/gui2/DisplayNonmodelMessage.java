@@ -28,7 +28,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -54,7 +54,7 @@ public class DisplayNonmodelMessage {
         messageFrame = frame;
     }
 
-    public static void displayNonmodelMessage(String title, String message, @CheckForNull Component centerOver, boolean onTop) {
+    public static void displayNonmodelMessage(String title, String message, @Nullable Component centerOver, boolean onTop) {
         boolean positionWindow = false;
         if (messageFrame == null) {
             positionWindow = true;

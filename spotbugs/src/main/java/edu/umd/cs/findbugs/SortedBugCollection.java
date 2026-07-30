@@ -51,7 +51,7 @@ import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import javax.annotation.WillClose;
 import javax.annotation.WillNotClose;
 import javax.xml.XMLConstants;
@@ -119,7 +119,7 @@ public class SortedBugCollection implements BugCollection {
 
     private final TreeSet<String> missingClassSet;
 
-    @CheckForNull
+    @Nullable
     private String summaryHTML;
 
     final Project project;
@@ -329,7 +329,7 @@ public class SortedBugCollection implements BugCollection {
         doReadXML(reader, null);
     }
 
-    private void doReadXML(@WillClose InputStream in, @CheckForNull File base) throws IOException, DocumentException {
+    private void doReadXML(@WillClose InputStream in, @Nullable File base) throws IOException, DocumentException {
         try {
             checkInputStream(in);
             Reader reader = Util.getReader(in);
@@ -340,7 +340,7 @@ public class SortedBugCollection implements BugCollection {
         }
     }
 
-    private void doReadXML(@WillClose Reader reader, @CheckForNull File base) throws IOException, DocumentException {
+    private void doReadXML(@WillClose Reader reader, @Nullable File base) throws IOException, DocumentException {
         timeStartedLoading = System.currentTimeMillis();
 
         SAXBugCollectionHandler handler = new SAXBugCollectionHandler(this, base);

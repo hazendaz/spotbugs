@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jdt.core.dom.AST;
@@ -89,7 +89,7 @@ public class UseValueOfResolution extends BugResolution {
         rewrite.replace(primitiveTypeCreation, valueOfInvocation, null);
     }
 
-    @CheckForNull
+    @Nullable
     protected ClassInstanceCreation findPrimitiveTypeCreation(ASTNode node) {
         PrimitiveTypeCreationFinder visitor = new PrimitiveTypeCreationFinder();
         node.accept(visitor);
@@ -133,7 +133,7 @@ public class UseValueOfResolution extends BugResolution {
     }
 
     @Override
-    public void setOptions(@Nonnull Map<String, String> options) {
+    public void setOptions(@NonNull Map<String, String> options) {
         // This setup (having two separate plugin.xml entries) is done to show off the
         // ApplicabilityVisitor, although it could be done without, just by having a
         // slightly fancier (and uglier) getLabelReplacement()

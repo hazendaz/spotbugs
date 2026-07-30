@@ -1,4 +1,4 @@
-import edu.umd.cs.findbugs.annotations.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 public class RedundantNullCheck {
     public void foo(String s) {
@@ -47,7 +47,7 @@ public class RedundantNullCheck {
         }
     }
 
-    public @CheckForNull
+    public @Nullable
     Object f() {
         return null;
     }

@@ -2,7 +2,7 @@ package de.tobject.findbugs.reporter;
 
 import java.util.function.LongSupplier;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.eclipse.core.runtime.Assert;
@@ -31,7 +31,7 @@ class ThrottledProgressMonitor implements IProgressMonitor {
     private long lastWorked = NOT_TRIGGERED;
     private int accumulatedWork;
 
-    ThrottledProgressMonitor(@Nonnull IProgressMonitor delegate, @Nonnull LongSupplier currentTimeMillis) {
+    ThrottledProgressMonitor(@NonNull IProgressMonitor delegate, @NonNull LongSupplier currentTimeMillis) {
         Assert.isNotNull(delegate);
         Assert.isNotNull(currentTimeMillis);
 

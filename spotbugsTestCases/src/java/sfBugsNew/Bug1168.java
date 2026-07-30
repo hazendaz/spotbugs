@@ -1,12 +1,12 @@
 package sfBugsNew;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import edu.umd.cs.findbugs.annotations.DesireNoWarning;
 
 public class Bug1168 {
 
-    @Nonnull
+    @NonNull
     private Integer foo;
 
     @DesireNoWarning("NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")

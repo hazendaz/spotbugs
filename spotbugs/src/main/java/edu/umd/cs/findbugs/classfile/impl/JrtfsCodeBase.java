@@ -40,8 +40,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.DescriptorFactory;
@@ -73,7 +73,7 @@ public class JrtfsCodeBase extends AbstractScannableCodeBase {
      */
     private Map<String, Object> packageToModuleMap;
 
-    public JrtfsCodeBase(ICodeBaseLocator codeBaseLocator, @Nonnull String fileName) {
+    public JrtfsCodeBase(ICodeBaseLocator codeBaseLocator, @NonNull String fileName) {
         super(codeBaseLocator);
         this.fileName = fileName;
         URL url;
@@ -120,7 +120,7 @@ public class JrtfsCodeBase extends AbstractScannableCodeBase {
     }
 
     @Override
-    @CheckForNull
+    @Nullable
     public ICodeBaseEntry lookupResource(String resourceName) {
         resourceName = translateResourceName(resourceName);
         String packageName = getPackage(resourceName);
@@ -143,7 +143,7 @@ public class JrtfsCodeBase extends AbstractScannableCodeBase {
         return null;
     }
 
-    @CheckForNull
+    @Nullable
     private ICodeBaseEntry createEntry(String resourceName, String moduleName) {
         Path resolved = root.resolve(moduleName + "/" + resourceName);
         if (Files.exists(resolved)) {
@@ -210,7 +210,7 @@ public class JrtfsCodeBase extends AbstractScannableCodeBase {
         return new JrtfsCodeBaseIterator();
     }
 
-    @Nonnull
+    @NonNull
     static String fileName(Path p) {
         Path name = p.getFileName();
         return name != null ? name.toString() : "";

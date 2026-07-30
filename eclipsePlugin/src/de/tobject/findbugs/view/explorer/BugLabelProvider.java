@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -64,7 +64,7 @@ public class BugLabelProvider implements /* IStyledLabelProvider, */ ICommonLabe
     }
 
     @Override
-    public @CheckForNull Image getImage(Object element) {
+    public @Nullable Image getImage(Object element) {
         if (element instanceof BugGroup) {
             BugGroup group = (BugGroup) element;
             switch (group.getType()) {

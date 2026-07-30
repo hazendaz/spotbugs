@@ -4,7 +4,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.MethodDescriptor;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -68,7 +68,7 @@ public class BugReportDispatcher implements ConfigurableBugReporter {
         forEach(reporter -> reporter.reportBug(bugInstance));
     }
 
-    @CheckForNull
+    @Nullable
     @Override
     public BugCollection getBugCollection() {
         return reporters.get(0).getBugCollection();

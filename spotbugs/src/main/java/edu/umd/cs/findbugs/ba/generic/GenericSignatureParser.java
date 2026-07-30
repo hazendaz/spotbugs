@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Method;
@@ -209,7 +209,7 @@ public class GenericSignatureParser {
      * @return an iterator over the parameters of the generic signature of
      *         method. Returns null if the generic signature cannot be parsed
      */
-    public static @CheckForNull Iterator<String> getGenericSignatureIterator(Method target) {
+    public static @Nullable Iterator<String> getGenericSignatureIterator(Method target) {
         try {
             GenericSignatureParser parser = null;
             String genericSignature = null;

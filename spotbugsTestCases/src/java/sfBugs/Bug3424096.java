@@ -1,6 +1,6 @@
 package sfBugs;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 
 public class Bug3424096 {
@@ -43,7 +43,7 @@ public class Bug3424096 {
         } // finally
     }
 
-    private static void nullIsNotAllowed(@Nonnull Exception catched) {
+    private static void nullIsNotAllowed(@NonNull Exception catched) {
         catched.printStackTrace();
     }
 

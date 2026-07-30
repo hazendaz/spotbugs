@@ -19,7 +19,7 @@
 
 package edu.umd.cs.findbugs;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.JavaClass;
@@ -100,7 +100,7 @@ public class Lookup {
         return findSuperImplementor(clazz, name, signature, isStatic);
     }
 
-    public static @CheckForNull JavaClass findSuperDefiner(JavaClass clazz, String name, String signature, BugReporter bugReporter) {
+    public static @Nullable JavaClass findSuperDefiner(JavaClass clazz, String name, String signature, BugReporter bugReporter) {
         try {
             JavaClass c = clazz;
             while (true) {
@@ -119,7 +119,7 @@ public class Lookup {
         }
     }
 
-    public static @CheckForNull JavaClass findSuperImplementor(JavaClass clazz, String name, String signature, BugReporter bugReporter) {
+    public static @Nullable JavaClass findSuperImplementor(JavaClass clazz, String name, String signature, BugReporter bugReporter) {
         try {
             JavaClass c = clazz;
             while (true) {
@@ -139,7 +139,7 @@ public class Lookup {
         }
     }
 
-    public static @CheckForNull XMethod findSuperImplementorAsXMethod(JavaClass clazz, String name, String signature, BugReporter bugReporter) {
+    public static @Nullable XMethod findSuperImplementorAsXMethod(JavaClass clazz, String name, String signature, BugReporter bugReporter) {
         try {
             JavaClass c = clazz;
             while (true) {
@@ -170,7 +170,7 @@ public class Lookup {
         }
     }
 
-    public static @CheckForNull JavaClass findImplementor(JavaClass[] clazz, String name, String signature) {
+    public static @Nullable JavaClass findImplementor(JavaClass[] clazz, String name, String signature) {
 
         for (JavaClass aClazz : clazz) {
             Method m = findImplementation(aClazz, name, signature);

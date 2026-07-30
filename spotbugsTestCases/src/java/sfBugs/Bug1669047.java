@@ -1,11 +1,11 @@
 package sfBugs;
 
-import edu.umd.cs.findbugs.annotations.CheckForNull;
-import edu.umd.cs.findbugs.annotations.NonNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public class Bug1669047 {
     public interface ISessionProvider {
-        public @CheckForNull
+        public @Nullable
         Object getSession();
     }
 

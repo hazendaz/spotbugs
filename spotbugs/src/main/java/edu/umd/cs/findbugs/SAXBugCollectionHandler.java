@@ -27,7 +27,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,10 +78,10 @@ public class SAXBugCollectionHandler extends DefaultHandler {
         return memoized(attributes.getValue(qName));
     }
 
-    @CheckForNull
+    @Nullable
     private final BugCollection bugCollection;
 
-    @CheckForNull
+    @Nullable
     private final Project project;
 
     private final Stack<CompoundMatcher> matcherStack = new Stack<>();
@@ -107,14 +107,14 @@ public class SAXBugCollectionHandler extends DefaultHandler {
 
     private int nestingOfIgnoredElements = 0;
 
-    private final @CheckForNull File base;
+    private final @Nullable File base;
 
     private final String topLevelName;
 
     private final Map<String, Method> qnameCache = new HashMap<>();
 
-    private SAXBugCollectionHandler(String topLevelName, @CheckForNull BugCollection bugCollection,
-            @CheckForNull Project project, @CheckForNull File base) {
+    private SAXBugCollectionHandler(String topLevelName, @Nullable BugCollection bugCollection,
+            @Nullable Project project, @Nullable File base) {
         this.topLevelName = topLevelName;
         this.bugCollection = bugCollection;
         this.project = project;
@@ -126,7 +126,7 @@ public class SAXBugCollectionHandler extends DefaultHandler {
 
     }
 
-    public SAXBugCollectionHandler(BugCollection bugCollection, @CheckForNull File base) {
+    public SAXBugCollectionHandler(BugCollection bugCollection, @Nullable File base) {
         this(BUG_COLLECTION, bugCollection, bugCollection.getProject(), base);
     }
 

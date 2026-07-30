@@ -5,28 +5,28 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import javax.annotation.meta.TypeQualifierDefault;
 
 import edu.umd.cs.findbugs.annotations.DefaultAnnotationForParameters;
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 import sfBugs.Bug3399101.ParametersAreCheckForNullByDefault;
 
-@DefaultAnnotationForParameters(CheckForNull.class)
+@DefaultAnnotationForParameters(Nullable.class)
 @ParametersAreCheckForNullByDefault
 public class Bug3399101 {
 
 
     @Documented
-    @CheckForNull
+    @Nullable
     @TypeQualifierDefault(ElementType.PARAMETER)
     @Retention(RetentionPolicy.RUNTIME)
     public
     @interface ParametersAreCheckForNullByDefault {
     }
 
-        @Nonnull
+        @NonNull
         public Object field;
 
         @ExpectWarning("NP")
@@ -40,12 +40,12 @@ public class Bug3399101 {
         }
 
         @ExpectWarning("NP")
-        public void setField2(@CheckForNull Object param) {
+        public void setField2(@Nullable Object param) {
                 field = param;
         }
 
         @ExpectWarning("NP")
-        @Nonnull
+        @NonNull
         public static Object getParam(Object param) {
                 return param;
         }

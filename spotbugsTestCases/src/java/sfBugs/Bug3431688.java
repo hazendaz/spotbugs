@@ -1,15 +1,15 @@
 package sfBugs;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 
 public class Bug3431688 {
 
     public interface MyInterface {
-        @Nonnull
-        Object foo(@CheckForNull Object o);
+        @NonNull
+        Object foo(@Nullable Object o);
     }
 
     public static class MyImplementation implements MyInterface {

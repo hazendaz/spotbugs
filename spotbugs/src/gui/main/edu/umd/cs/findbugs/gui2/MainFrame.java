@@ -28,8 +28,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -101,7 +101,7 @@ public class MainFrame extends FBFrame implements LogSync {
 
     private final Logger logger = new ConsoleLogger(this);
 
-    @CheckForNull
+    @Nullable
     private File saveFile = null;
 
     private final ExecutorService backgroundExecutor = Executors.newCachedThreadPool();
@@ -235,7 +235,7 @@ public class MainFrame extends FBFrame implements LogSync {
         return mainFrameTree.getBugTreeModel();
     }
 
-    public synchronized @Nonnull Project getProject() {
+    public synchronized @NonNull Project getProject() {
         if (curProject == null) {
             curProject = new Project();
         }
@@ -430,7 +430,7 @@ public class MainFrame extends FBFrame implements LogSync {
     }
 
     @SwingThread
-    private void setProjectAndBugCollection(@CheckForNull Project project, @CheckForNull BugCollection bugCollection) {
+    private void setProjectAndBugCollection(@Nullable Project project, @Nullable BugCollection bugCollection) {
         if (GUI2_DEBUG) {
             if (bugCollection == null) {
                 System.out.println("Setting bug collection to null");
@@ -611,7 +611,7 @@ public class MainFrame extends FBFrame implements LogSync {
      * Sets the title of the source tabs for either docking or non-docking
      * versions.
      */
-    void setSourceTab(String title, @CheckForNull BugInstance bug) {
+    void setSourceTab(String title, @Nullable BugInstance bug) {
         mainFrameComponentFactory.setSourceTab(title, bug);
     }
 

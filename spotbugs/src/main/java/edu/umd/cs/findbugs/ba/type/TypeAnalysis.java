@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.classfile.Attribute;
@@ -403,7 +403,7 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
     }
 
     @Override
-    public void transfer(BasicBlock basicBlock, @CheckForNull InstructionHandle end, TypeFrame start, TypeFrame result)
+    public void transfer(BasicBlock basicBlock, @Nullable InstructionHandle end, TypeFrame start, TypeFrame result)
             throws DataflowAnalysisException {
         visitor.startBasicBlock();
 
@@ -425,7 +425,7 @@ public class TypeAnalysis extends FrameDataflowAnalysis<Type, TypeFrame> impleme
         }
     }
 
-    private void computeThrownExceptionTypes(BasicBlock basicBlock, @CheckForNull InstructionHandle end, TypeFrame result)
+    private void computeThrownExceptionTypes(BasicBlock basicBlock, @Nullable InstructionHandle end, TypeFrame result)
             throws DataflowAnalysisException {
 
         // Do nothing if we're not computing propagated exceptions

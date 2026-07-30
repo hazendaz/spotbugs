@@ -36,8 +36,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -132,7 +132,7 @@ public class MarkerReporter implements IWorkspaceRunnable {
         newMarker.setAttributes(attributes);
     }
 
-    private static @CheckForNull IMarker findSameBug(Map<String, Object> attributes, IMarker[] existingMarkers) throws CoreException {
+    private static @Nullable IMarker findSameBug(Map<String, Object> attributes, IMarker[] existingMarkers) throws CoreException {
         Object bugId = attributes.get(UNIQUE_ID);
         if (bugId == null) {
             return null;
@@ -160,7 +160,7 @@ public class MarkerReporter implements IWorkspaceRunnable {
      * @return attributes map which should be assigned to the given marker. If the map is empty,
      * the marker shouldn't be generated
      */
-    @Nonnull
+    @NonNull
     private Map<String, Object> createMarkerAttributes(MarkerParameter mp) {
         Map<String, Object> attributes = new HashMap<>(23);
         attributes.put(IMarker.LINE_NUMBER, mp.startLine);

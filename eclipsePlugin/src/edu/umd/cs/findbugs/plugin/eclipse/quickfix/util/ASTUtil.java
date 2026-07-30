@@ -34,7 +34,7 @@ import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jdt.core.dom.AST;
@@ -403,7 +403,7 @@ public class ASTUtil {
         return statement;
     }
 
-    @CheckForNull
+    @Nullable
     protected static ASTNode searchASTNode(CompilationUnit compilationUnit, int startLine, int endLine) {
         Assert.isNotNull(compilationUnit);
         isTrue(startLine <= endLine);
@@ -413,7 +413,7 @@ public class ASTUtil {
         return visitor.getASTNode();
     }
 
-    @CheckForNull
+    @Nullable
     protected static TypeDeclaration searchTypeDeclaration(List<?> declarations, String typeName) {
         Assert.isNotNull(declarations);
         Assert.isNotNull(typeName);
@@ -441,7 +441,7 @@ public class ASTUtil {
         return null;
     }
 
-    @CheckForNull
+    @Nullable
     protected static MethodDeclaration searchMethodDeclaration(AST ast, MethodDeclaration[] methods, String methodName,
             String methodSignature) {
         Assert.isNotNull(methods);
@@ -461,7 +461,7 @@ public class ASTUtil {
         return null;
     }
 
-    @CheckForNull
+    @Nullable
     protected static Statement searchStatement(CompilationUnit compilationUnit, List<?> statements, int startLine, int endLine) {
         Assert.isNotNull(compilationUnit);
         Assert.isNotNull(statements);

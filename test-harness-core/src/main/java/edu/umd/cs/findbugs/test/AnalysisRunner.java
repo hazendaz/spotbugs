@@ -13,8 +13,9 @@ import edu.umd.cs.findbugs.Project;
 import edu.umd.cs.findbugs.annotations.CheckReturnValue;
 import edu.umd.cs.findbugs.config.UserPreferences;
 import edu.umd.cs.findbugs.plugins.DuplicatePluginIdException;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +48,7 @@ import java.util.zip.ZipEntry;
  * @since 3.1
  */
 public class AnalysisRunner {
+
     private final List<Path> auxClasspathEntries = new ArrayList<>();
 
     /**
@@ -71,7 +73,7 @@ public class AnalysisRunner {
         PLUGIN_JAR = jarFile;
     }
 
-    @Nonnull
+    @NonNull
     public AnalysisRunner addAuxClasspathEntry(Path path) {
         Objects.requireNonNull(path);
         if (!path.toFile().canRead()) {
@@ -81,13 +83,13 @@ public class AnalysisRunner {
         return this;
     }
 
-    @Nonnull
+    @NonNull
     public BugCollectionBugReporter run(UserPreferences userPreferences, Path... files) {
         return this.run(engine -> {
         }, userPreferences, files);
     }
 
-    @Nonnull
+    @NonNull
     public BugCollectionBugReporter run(Consumer<IFindBugsEngine> engineCustomization, UserPreferences userPreferences, Path... files) {
         DetectorFactoryCollection.resetInstance(new DetectorFactoryCollection());
 
@@ -193,4 +195,5 @@ public class AnalysisRunner {
         }
         return tempJar.toFile();
     }
+
 }

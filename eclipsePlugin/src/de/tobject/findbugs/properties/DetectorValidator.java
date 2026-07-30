@@ -21,7 +21,7 @@ package de.tobject.findbugs.properties;
 import java.io.File;
 import java.net.URI;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -50,7 +50,7 @@ public class DetectorValidator {
         /**
          * @return the sum
          */
-        @Nonnull
+        @NonNull
         public Summary getSummary() {
             return sum;
         }
@@ -70,7 +70,7 @@ public class DetectorValidator {
      *         error status in case anything goes wrong or file at given path is
      *         not considered as a valid plugin.
      */
-    @Nonnull
+    @NonNull
     public ValidationStatus validate(String path) {
         File file = new File(path);
         Summary sum = null;

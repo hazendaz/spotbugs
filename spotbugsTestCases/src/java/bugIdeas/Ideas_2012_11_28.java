@@ -1,12 +1,12 @@
 package bugIdeas;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 
 public class Ideas_2012_11_28<T> {
 
-    public void doit(@CheckForNull T t) {
+    public void doit(@Nullable T t) {
 
     }
 

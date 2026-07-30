@@ -1,6 +1,6 @@
 package edu.umd.cs.findbugs;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import edu.umd.cs.findbugs.ba.AnalysisContext;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
@@ -121,7 +121,7 @@ class AbstractBugReporterTest {
         public void finish() {
         }
 
-        @CheckForNull
+        @Nullable
         @Override
         public BugCollection getBugCollection() {
             return null;

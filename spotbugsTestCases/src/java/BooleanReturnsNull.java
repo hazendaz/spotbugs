@@ -1,5 +1,4 @@
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 import edu.umd.cs.findbugs.annotations.NoWarning;
@@ -36,7 +35,7 @@ public class BooleanReturnsNull {
     }
 
     @NoWarning("NP_BOOLEAN_RETURN_NULL")
-    @CheckForNull
+    @Nullable
     public Boolean sometimes_null_as_specified_with_checkfornull(int n) {
         if (n > 3) {
             return new Boolean(true);

@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.Repository;
@@ -509,7 +509,7 @@ public class FindBadCast2 implements Detector {
 
                         int priority = NORMAL_PRIORITY;
 
-                        @CheckForNull
+                        @Nullable
                         String oldCheck = instanceOfChecks.get(valueSource);
                         if (DEBUG) {
                             System.out.println("Old check: " + oldCheck);

@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
@@ -587,7 +587,7 @@ public class FindbugsPropertyPage extends PropertyPage implements IWorkbenchPref
      * Triggers FB analysis on given project
      * @param myProject opened project with FindBugs nature
      */
-    private static void runBuild(@Nonnull IProject myProject) {
+    private static void runBuild(@NonNull IProject myProject) {
         StructuredSelection selection = new StructuredSelection(myProject);
         FindBugsAction action = new FindBugsAction();
         action.selectionChanged(null, selection);

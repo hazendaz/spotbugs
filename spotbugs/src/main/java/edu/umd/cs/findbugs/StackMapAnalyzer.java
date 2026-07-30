@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.classfile.Attribute;
@@ -98,7 +98,7 @@ public class StackMapAnalyzer {
         }
     }
 
-    static @CheckForNull StackMap getStackMapTable(Code code) {
+    static @Nullable StackMap getStackMapTable(Code code) {
         for (Attribute a : code.getAttributes()) {
             if (a instanceof StackMap) {
                 return (StackMap) a;
@@ -124,7 +124,7 @@ public class StackMapAnalyzer {
         return locals;
     }
 
-    @CheckForNull
+    @Nullable
     private static JumpInfoFromStackMap getFromStackMap(IAnalysisCache analysisCache, MethodDescriptor descriptor) {
         Method method;
         try {

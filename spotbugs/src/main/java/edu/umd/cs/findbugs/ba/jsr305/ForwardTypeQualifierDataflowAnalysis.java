@@ -21,7 +21,7 @@ package edu.umd.cs.findbugs.ba.jsr305;
 
 import java.util.Iterator;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import javax.annotation.meta.When;
 
 import org.apache.bcel.Const;
@@ -150,7 +150,7 @@ public class ForwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflowA
         registerConstantSource(location, null);
     }
 
-    private void registerConstantSource(Location location, @CheckForNull Object constantValue) throws DataflowAnalysisException {
+    private void registerConstantSource(Location location, @Nullable Object constantValue) throws DataflowAnalysisException {
 
         When w;
         if (typeQualifierValue.canValidate(constantValue)) {
@@ -224,7 +224,7 @@ public class ForwardTypeQualifierDataflowAnalysis extends TypeQualifierDataflowA
     }
 
     private void registerTopOfStackSource(SourceSinkType sourceSinkType, Location location, When when, boolean interproc,
-            @CheckForNull Object constantValue) throws DataflowAnalysisException {
+            @Nullable Object constantValue) throws DataflowAnalysisException {
         if (when == When.UNKNOWN && !typeQualifierValue.isStrictQualifier()) {
             return;
         }

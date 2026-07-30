@@ -23,7 +23,7 @@ import java.lang.annotation.ElementType;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 
@@ -144,7 +144,7 @@ public class UnresolvedXField extends AbstractField {
     }
 
     @Override
-    public @CheckForNull String getSourceSignature() {
+    public @Nullable String getSourceSignature() {
         return null;
     }
 

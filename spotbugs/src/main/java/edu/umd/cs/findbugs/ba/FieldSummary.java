@@ -27,8 +27,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.generic.Type;
 
@@ -236,7 +235,7 @@ public class FieldSummary {
 
     }
 
-    public @CheckForNull XMethod getSuperCall(XMethod from) {
+    public @Nullable XMethod getSuperCall(XMethod from) {
         return nonVoidSuperConstructorsCalled.get(from);
 
     }

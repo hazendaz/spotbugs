@@ -21,7 +21,7 @@ package edu.umd.cs.findbugs.visitclass;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.Annotations;
@@ -82,7 +82,7 @@ public class AnnotationVisitor extends PreorderVisitor {
         }
     }
 
-    @CheckForNull
+    @Nullable
     @SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
     protected static String[] getAnnotationParameterAsStringArray(Map<String, ElementValue> map, String parameter) {
         try {
@@ -100,7 +100,7 @@ public class AnnotationVisitor extends PreorderVisitor {
         }
     }
 
-    @CheckForNull
+    @Nullable
     protected static <E extends Enum<E>> E getAnnotationParameterAsEnum(Map<String, ElementValue> map, String parameter, Class<E> type) {
         ElementValue ev = map.get(parameter);
 

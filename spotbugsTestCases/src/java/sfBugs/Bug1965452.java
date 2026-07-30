@@ -2,10 +2,9 @@ package sfBugs;
 
 import java.io.File;
 
-import edu.umd.cs.findbugs.annotations.CheckForNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import edu.umd.cs.findbugs.annotations.DefaultAnnotation;
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  *
@@ -20,7 +19,7 @@ public class Bug1965452 {
      */
     @DefaultAnnotation(NonNull.class)
     public static class ClientFileImportObject {
-        @CheckForNull
+        @Nullable
         private final String attributes;
 
         public ClientFileImportObject(File existingFile, @Nullable String mimeType, String attributes2) {

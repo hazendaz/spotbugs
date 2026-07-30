@@ -21,7 +21,7 @@ package edu.umd.cs.findbugs.detect;
 
 import java.util.HashSet;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.classfile.Code;
@@ -105,7 +105,7 @@ public class FunctionsThatMightBeMistakenForProcedures extends OpcodeStackDetect
 
     int updates;
 
-    @CheckForNull
+    @Nullable
     BugInstance inferredMethod;
 
     @Override

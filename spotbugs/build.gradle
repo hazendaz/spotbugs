@@ -15,14 +15,6 @@ tasks.named('compileJava', JavaCompile).configure {
   options.release = 11
 }
 
-// Force Eclipse use Java 11, otherwise it will get Java 17 (!) from gradle
-eclipse {
-  jdt {
-    sourceCompatibility = 11
-    targetCompatibility = 11
-  }
-}
-
 configurations {
   // used only in distribution. It is not listed in pom.xml, so users like maven plugin don't use this dependency.
   logBinding
@@ -108,12 +100,14 @@ dependencies {
   api project(':spotbugs-annotations')
 
   compileOnly 'jakarta.annotation:jakarta.annotation-api:3.0.0'
+  compileOnly 'org.jspecify:jspecify:1.0.0'
 
   api 'com.google.code.gson:gson:2.14.0'
 
   guiImplementation sourceSets.main.runtimeClasspath
   guiCompileOnly project(':spotbugs-annotations')
   guiCompileOnly 'jakarta.annotation:jakarta.annotation-api:3.0.0'
+  guiCompileOnly 'org.jspecify:jspecify:1.0.0'
 }
 
 tasks.named('clean', Delete).configure {

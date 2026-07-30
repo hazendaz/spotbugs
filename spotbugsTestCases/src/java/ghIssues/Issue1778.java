@@ -3,10 +3,10 @@ package ghIssues;
 import java.util.Objects;
 import java.util.function.Function;
 
-import edu.umd.cs.findbugs.annotations.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 public class Issue1778 {
-	@CheckForNull
+	@Nullable
 	public static Function<String, String> get() {
 		return k -> "nope";
 	}

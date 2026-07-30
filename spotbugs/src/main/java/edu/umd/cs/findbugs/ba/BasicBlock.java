@@ -23,8 +23,7 @@ import java.util.BitSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.generic.CodeExceptionGen;
@@ -196,7 +195,7 @@ public class BasicBlock extends AbstractVertex<Edge, BasicBlock> implements Debu
      * @return the instruction's successor, or null if the instruction is the
      *         last in the basic block
      */
-    public @CheckForNull InstructionHandle getSuccessorOf(InstructionHandle handle) {
+    public @Nullable InstructionHandle getSuccessorOf(InstructionHandle handle) {
         if (VERIFY_INTEGRITY && !containsInstruction(handle)) {
             throw new IllegalStateException();
         }

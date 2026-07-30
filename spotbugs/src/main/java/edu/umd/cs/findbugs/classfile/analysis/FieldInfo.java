@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.objectweb.asm.Opcodes;
@@ -89,7 +89,7 @@ public class FieldInfo extends FieldDescriptor implements XField {
 
     final int accessFlags;
 
-    final @CheckForNull String fieldSourceSignature;
+    final @Nullable String fieldSourceSignature;
 
     Map<ClassDescriptor, AnnotationValue> fieldAnnotations;
 
@@ -97,7 +97,7 @@ public class FieldInfo extends FieldDescriptor implements XField {
 
 
     private FieldInfo(@SlashedClassName String className, String fieldName, String fieldSignature,
-            @CheckForNull String fieldSourceSignature, int accessFlags, Map<ClassDescriptor, AnnotationValue> fieldAnnotations,
+            @Nullable String fieldSourceSignature, int accessFlags, Map<ClassDescriptor, AnnotationValue> fieldAnnotations,
             boolean isResolved) {
         super(className, fieldName, fieldSignature, (accessFlags & Const.ACC_STATIC) != 0);
         this.accessFlags = accessFlags | (fieldName.startsWith("this$") ? Const.ACC_FINAL : 0);
@@ -322,7 +322,7 @@ public class FieldInfo extends FieldDescriptor implements XField {
     }
 
     @Override
-    public @CheckForNull AnnotatedObject getContainingScope() {
+    public @Nullable AnnotatedObject getContainingScope() {
         try {
             return Global.getAnalysisCache().getClassAnalysis(XClass.class, getClassDescriptor());
         } catch (CheckedAnalysisException e) {

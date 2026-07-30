@@ -19,7 +19,7 @@
 
 package edu.umd.cs.findbugs.ba;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import edu.umd.cs.findbugs.internalAnnotations.DottedClassName;
 
@@ -52,7 +52,7 @@ public interface INullnessAnnotationDatabase {
      *            TODO: what does this mean?
      * @return resolved NullnessAnnotation
      */
-    @CheckForNull
+    @Nullable
     public abstract NullnessAnnotation getResolvedAnnotation(final Object o, boolean getMinimal);
 
     /**

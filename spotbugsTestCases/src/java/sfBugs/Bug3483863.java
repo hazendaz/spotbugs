@@ -1,7 +1,7 @@
 package sfBugs;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import edu.umd.cs.findbugs.annotations.Confidence;
 import edu.umd.cs.findbugs.annotations.DesireNoWarning;
@@ -10,7 +10,7 @@ import edu.umd.cs.findbugs.annotations.DesireWarning;
 public class Bug3483863 {
 
     interface IInterface1 {
-        @Nonnull
+        @NonNull
         public Object get();
     }
 
@@ -27,7 +27,7 @@ public class Bug3483863 {
 
         @DesireWarning(value = "NP", confidence = Confidence.LOW)
         @Override
-        @CheckForNull
+        @Nullable
         public Object get() {
             return null;
         }
@@ -38,7 +38,7 @@ public class Bug3483863 {
 
         @Override
 		@DesireWarning(value = "NP", confidence = Confidence.LOW)
-        @CheckForNull
+        @Nullable
         public Object get();
     }
 

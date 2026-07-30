@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.BitSet;
 import java.util.Iterator;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.classfile.LineNumberTable;
 import org.apache.bcel.classfile.LocalVariable;
@@ -317,7 +317,7 @@ public class LocalVariableAnnotation implements BugAnnotation {
         return !UNKNOWN_NAME.equals(name);
     }
 
-    public static @CheckForNull LocalVariableAnnotation getLocalVariableAnnotation(Method method, Item item, int pc) {
+    public static @Nullable LocalVariableAnnotation getLocalVariableAnnotation(Method method, Item item, int pc) {
         int reg = item.getRegisterNumber();
         if (reg < 0) {
             return null;
@@ -326,7 +326,7 @@ public class LocalVariableAnnotation implements BugAnnotation {
 
     }
 
-    public static @CheckForNull LocalVariableAnnotation getLocalVariableAnnotation(DismantleBytecode visitor, Item item) {
+    public static @Nullable LocalVariableAnnotation getLocalVariableAnnotation(DismantleBytecode visitor, Item item) {
         int reg = item.getRegisterNumber();
         if (reg < 0) {
             return null;
@@ -335,7 +335,7 @@ public class LocalVariableAnnotation implements BugAnnotation {
 
     }
 
-    public static @CheckForNull LocalVariableAnnotation findMatchingIgnoredParameter(ClassContext classContext, Method method, String name,
+    public static @Nullable LocalVariableAnnotation findMatchingIgnoredParameter(ClassContext classContext, Method method, String name,
             String signature) {
         try {
             Dataflow<BitSet, LiveLocalStoreAnalysis> llsaDataflow = classContext.getLiveLocalStoreDataflow(method);
@@ -380,7 +380,7 @@ public class LocalVariableAnnotation implements BugAnnotation {
         return null;
     }
 
-    public static @CheckForNull LocalVariableAnnotation findUniqueBestMatchingParameter(ClassContext classContext, Method method, String name,
+    public static @Nullable LocalVariableAnnotation findUniqueBestMatchingParameter(ClassContext classContext, Method method, String name,
             String signature) {
         LocalVariableAnnotation match = null;
         int localsThatAreParameters = PreorderVisitor.getNumberArguments(method.getSignature());

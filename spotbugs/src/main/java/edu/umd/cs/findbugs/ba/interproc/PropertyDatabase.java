@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import javax.annotation.WillClose;
 
 import edu.umd.cs.findbugs.ba.AnalysisContext;
@@ -81,7 +81,7 @@ public abstract class PropertyDatabase<KeyType extends FieldOrMethodDescriptor, 
      *            the key
      * @return the property, or null if no property is set for this key
      */
-    public @CheckForNull ValueType getProperty(KeyType key) {
+    public @Nullable ValueType getProperty(KeyType key) {
         return propertyMap.get(key);
     }
 

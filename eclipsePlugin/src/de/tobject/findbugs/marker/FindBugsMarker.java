@@ -20,7 +20,7 @@
 
 package de.tobject.findbugs.marker;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import org.eclipse.jdt.core.IJavaElement;
 
@@ -163,7 +163,7 @@ public interface FindBugsMarker {
          *            name as defined by {@link #name()}
          * @return matching confidence, never null
          */
-        @Nonnull
+        @NonNull
         public static MarkerConfidence getConfidence(int bugPrio) {
             Confidence con = Confidence.getConfidence(bugPrio);
             MarkerConfidence[] values = MarkerConfidence.values();
@@ -179,7 +179,7 @@ public interface FindBugsMarker {
          * @param confidence name as defined by {@link #name()}
          * @return matching confidence, never null
          */
-        @Nonnull
+        @NonNull
         public static MarkerConfidence getConfidence(String confidence) {
             try {
                 return MarkerConfidence.valueOf(confidence);

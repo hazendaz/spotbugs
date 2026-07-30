@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import org.apache.bcel.generic.ConstantPoolGen;
 import org.apache.bcel.generic.InvokeInstruction;
@@ -47,9 +47,9 @@ public class SignatureParser {
         return totalArgumentSize;
     }
 
-    private @CheckForNull int[] parameterOffset;
+    private @Nullable int[] parameterOffset;
 
-    @Nonnull
+    @NonNull
     int[] getParameterOffset() {
         if (parameterOffset != null) {
             return parameterOffset;

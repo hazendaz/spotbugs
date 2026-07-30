@@ -539,7 +539,6 @@ public class BugContentProvider implements ICommonContentProvider {
 
     private <Identifier> void addMarker(IMarker marker, MarkerMapper<Identifier> mapper, BugGroup parent,
             Set<BugGroup> changedParents, Set<String> patternFilter) {
-
         if (mapper == MarkerMapper.NO_MAPPING) {
             return;
         }
@@ -674,7 +673,6 @@ public class BugContentProvider implements ICommonContentProvider {
     }
 
     private BugGroup findParent(IMarker marker) {
-
         Object[] rootObjects = rootElement.getChildren();
 
         GroupType parentType = grouping.getParentType(GroupType.Marker);

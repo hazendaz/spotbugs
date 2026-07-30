@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -192,7 +192,7 @@ public class Util {
     }
 
     @SuppressWarnings("unchecked")
-    @CheckForNull
+    @Nullable
     public static <V> V getAdapter(Class<V> adapter, Object obj) {
         if (obj == null) {
             return null;

@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import edu.umd.cs.findbugs.util.ClassName;
 import org.apache.bcel.classfile.JavaClass;
@@ -123,7 +123,7 @@ public class EmacsBugReporter extends TextUIBugReporter {
     }
 
     @Override
-    public @CheckForNull BugCollection getBugCollection() {
+    public @Nullable BugCollection getBugCollection() {
         return null;
     }
 

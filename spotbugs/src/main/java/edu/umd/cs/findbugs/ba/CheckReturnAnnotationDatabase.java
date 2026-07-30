@@ -26,8 +26,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import javax.annotation.meta.When;
 
 import org.apache.bcel.Const;
@@ -327,7 +326,7 @@ public class CheckReturnAnnotationDatabase extends AnnotationDatabase<CheckRetur
      * Try to find default {@link CheckReturnValueAnnotation} for methods inside of target class.
      *
      */
-    @CheckForNull
+    @Nullable
     private CheckReturnValueAnnotation parsePackage(@DottedClassName String packageName) {
         String className = ClassName.toSlashedClassName(packageName) + "/package-info";
         ClassDescriptor descriptor = DescriptorFactory.createClassDescriptor(className);

@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.classfile.Code;
@@ -124,7 +124,7 @@ public class NumberConstructor extends OpcodeStackDetector {
         return sig2.startsWith(args);
     }
 
-    private @CheckForNull MethodDescriptor getShouldCall() {
+    private @Nullable MethodDescriptor getShouldCall() {
         String cls = getClassConstantOperand();
         Pair pair = boxClasses.get(cls);
         if (pair == null) {

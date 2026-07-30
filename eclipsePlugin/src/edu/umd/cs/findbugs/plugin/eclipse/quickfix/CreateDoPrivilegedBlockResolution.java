@@ -35,7 +35,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jdt.core.dom.AST;
@@ -376,14 +376,14 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
         return methodBody;
     }
 
-    @CheckForNull
+    @Nullable
     private ClassInstanceCreation findClassLoaderCreation(ASTNode node) {
         ClassLoaderCreationFinder finder = new ClassLoaderCreationFinder();
         node.accept(finder);
         return finder.getClassLoaderCreation();
     }
 
-    @CheckForNull
+    @Nullable
     private MethodDeclaration findMethodDeclaration(ASTNode node) {
         if (node == null || node instanceof MethodDeclaration) {
             return (MethodDeclaration) node;

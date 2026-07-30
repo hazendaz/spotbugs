@@ -22,8 +22,8 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -194,7 +194,7 @@ public class MainFrameComponentFactory implements Serializable {
      * Sets the title of the source tabs for either docking or non-docking
      * versions.
      */
-    void setSourceTab(String title, @CheckForNull BugInstance bug) {
+    void setSourceTab(String title, @Nullable BugInstance bug) {
         JComponent label = mainFrame.getGuiLayout().getSourceViewComponent();
         if (label != null) {
             removeLink(label);
@@ -305,7 +305,7 @@ public class MainFrameComponentFactory implements Serializable {
         return label;
     }
 
-    private boolean sourceCodeExists(@Nonnull SourceLineAnnotation note) {
+    private boolean sourceCodeExists(@NonNull SourceLineAnnotation note) {
         try {
             mainFrame.getProject().getSourceFinder().findSourceFile(note);
         } catch (IOException e) {
@@ -423,7 +423,7 @@ public class MainFrameComponentFactory implements Serializable {
 
         private final SourceLineAnnotation note;
 
-        BugSummaryMouseListener(@Nonnull BugInstance bugInstance, @Nonnull JLabel label, @Nonnull SourceLineAnnotation link) {
+        BugSummaryMouseListener(@NonNull BugInstance bugInstance, @NonNull JLabel label, @NonNull SourceLineAnnotation link) {
             this.bugInstance = bugInstance;
             this.label = label;
             this.note = link;
