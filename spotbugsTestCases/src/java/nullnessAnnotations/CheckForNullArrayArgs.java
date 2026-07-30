@@ -1,7 +1,7 @@
 package nullnessAnnotations;
 
 
-import javax.annotation.CheckForNull;
+import org.jspecify.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
@@ -11,13 +11,13 @@ import edu.umd.cs.findbugs.annotations.NoWarning;
 public class CheckForNullArrayArgs {
 
     @NoWarning("NP,RCN")
-    protected Object caller(@CheckForNull Object param) {
+    protected Object caller(@Nullable Object param) {
         final Object[] paramArray = param == null ? null : new Object[] { param };
         return methodTakingArray(paramArray);
     }
 
     @NoWarning("NP,RCN")
-    protected Object methodTakingArray(@CheckForNull Object[] params) {
+    protected Object methodTakingArray(@Nullable Object[] params) {
         return params == null ? Boolean.FALSE : Boolean.TRUE;
     }
 

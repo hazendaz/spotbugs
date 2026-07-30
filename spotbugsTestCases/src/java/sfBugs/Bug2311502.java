@@ -5,8 +5,8 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import javax.annotation.meta.TypeQualifierDefault;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
@@ -14,7 +14,7 @@ import edu.umd.cs.findbugs.annotations.ExpectWarning;
 public class Bug2311502 {
 
     @Documented
-    @Nonnull
+    @NonNull
     @TypeQualifierDefault(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     public @interface ReturnValuesAreNonnullByDefault {
@@ -25,7 +25,7 @@ public class Bug2311502 {
      */
     public static class NonNullFalseNegative {
 
-        @CheckForNull
+        @Nullable
         private Object junkField;
 
         public void setJunk(Object junk) {
@@ -45,7 +45,7 @@ public class Bug2311502 {
     public static @ReturnValuesAreNonnullByDefault
     class NPNonNullReturnViolationBug {
 
-        @CheckForNull
+        @Nullable
         private Object junkField;
 
         public void setJunk(Object junk) {

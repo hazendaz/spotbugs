@@ -707,5 +707,4 @@ public class BugInfoView extends AbstractFindbugsView {
         }
     }
 
-
 }

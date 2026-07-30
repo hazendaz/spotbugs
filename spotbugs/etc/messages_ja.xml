@@ -2000,7 +2000,7 @@ FindNullDeref ディテクタで，非 <code>null</code> 値だけが使われ�
     <Details>
 <![CDATA[
 <p>
-このディテクタは，オーバライドメソッドが 戻り値またはパラメータの <code>@CheckForNull</code> (<code>@Nonnull</code> で作られた) で <code>@Nonnull</code> (<code>@CheckForNull</code> で作られた) を緩和していないことをチェックします。
+このディテクタは，オーバライドメソッドが 戻り値またはパラメータの <code>@Nullable</code> (<code>@NonNull</code> で作られた) で <code>@NonNull</code> (<code>@Nullable</code> で作られた) を緩和していないことをチェックします。
 </p>
 ]]>
       </Details>
@@ -5827,12 +5827,12 @@ dateString = dateString.trim();
   </BugPattern>
 
   <BugPattern type="NP_STORE_INTO_NONNULL_FIELD">
-    <ShortDescription>@Nonnull アノテーションが付けられたフィールドに null を格納している</ShortDescription>
-    <LongDescription>@Nonnull アノテーションが付けられたフィールド {2.givenClass} に null を格納しています。{1}</LongDescription>
+    <ShortDescription>@NonNull アノテーションが付けられたフィールドに null を格納している</ShortDescription>
+    <LongDescription>@NonNull アノテーションが付けられたフィールド {2.givenClass} に null を格納しています。{1}</LongDescription>
     <Details>
 <![CDATA[
 <p>
-<code>@Nonnull</code> アノテーションが付けられたフィールドに <code>null</code> かもしれない値を格納しています。
+<code>@NonNull</code> アノテーションが付けられたフィールドに <code>null</code> かもしれない値を格納しています。
 </p>
 ]]>
     </Details>
@@ -5971,19 +5971,19 @@ dateString = dateString.trim();
 <![CDATA[
 <p>
 このメソッドは，非 <code>null</code> でなければならないメソッドのパラメータとして <code>null</code> 値を渡しています。
-このパラメータは，明示的に <code>@Nonnull</code> アノテーションが付けられていたか，解析が常に <code>null</code> 値を利用することを示していました。
+このパラメータは，明示的に <code>@NonNull</code> アノテーションが付けられていたか，解析が常に <code>null</code> 値を利用することを示していました。
 </p>
 ]]>
     </Details>
   </BugPattern>
 
   <BugPattern type="NP_NONNULL_RETURN_VIOLATION">
-    <ShortDescription>null を返すかもしれないメソッドが @Nonnull 宣言されている</ShortDescription>
-    <LongDescription>{1} は，null を返すかもしれないのに @Nonnull 宣言されています。</LongDescription>
+    <ShortDescription>null を返すかもしれないメソッドが @NonNull 宣言されている</ShortDescription>
+    <LongDescription>{1} は，null を返すかもしれないのに @NonNull 宣言されています。</LongDescription>
     <Details>
 <![CDATA[
 <p>
-このメソッドは， <code>null</code> 値を返すかもしれないのにメソッド (またはスーパークラスのメソッド) の戻り値に <code>@Nonnull</code> が宣言されています。
+このメソッドは， <code>null</code> 値を返すかもしれないのにメソッド (またはスーパークラスのメソッド) の戻り値に <code>@NonNull</code> が宣言されています。
 </p>
 ]]>
     </Details>
@@ -8933,7 +8933,7 @@ Ulf Ochsenfahrt と Eric Fellheimer
 <![CDATA[
 <p>
 メソッドは，オーバーライドするメソッドの契約を常に実装すべきです。
-したがって，メソッドが <code>@Nullable</code> としてマークされるパラメーターを取るならば，サブクラスでパラメーターを <code>@Nonnull</code> にしてメソッドをオーバーライドすべきでありません。
+したがって，メソッドが <code>@Nullable</code> としてマークされるパラメーターを取るならば，サブクラスでパラメーターを <code>@NonNull</code> にしてメソッドをオーバーライドすべきでありません。
 そうすると，メソッドが <code>null</code> パラメータを処理する必要があるという契約に違反します。
 </p>
 ]]>
@@ -8947,7 +8947,7 @@ Ulf Ochsenfahrt と Eric Fellheimer
 <![CDATA[
 <p>
 メソッドは，オーバーライドするメソッドの契約を常に実装すべきです。
-したがって，メソッドが <code>@Nullable</code> としてマークされるパラメーターを取るならば，サブクラスでパラメーターを <code>@Nonnull</code> にしてメソッドをオーバーライドすべきでありません。
+したがって，メソッドが <code>@Nullable</code> としてマークされるパラメーターを取るならば，サブクラスでパラメーターを <code>@NonNull</code> にしてメソッドをオーバーライドすべきでありません。
 そうすると，メソッドが <code>null</code> パラメータを処理する必要があるという契約に違反します。
 </p>
 ]]>
@@ -8961,7 +8961,7 @@ Ulf Ochsenfahrt と Eric Fellheimer
 <![CDATA[
 <p>
 メソッドは，オーバーライドするメソッドの契約を常に実装すべきです。
-したがって，メソッドが <code>@Nonnull</code> 値を返すようにアノテーションが付けられているならば，サブクラスでメソッドが <code>@Nullable</code> または <code>@CheckForNull</code> 値を返すようにアノテーションが付けられたメソッドをオーバーライドすべきでありません。
+したがって，メソッドが <code>@NonNull</code> 値を返すようにアノテーションが付けられているならば，サブクラスでメソッドが <code>@Nullable</code> または <code>@Nullable</code> 値を返すようにアノテーションが付けられたメソッドをオーバーライドすべきでありません。
 そうすると，メソッドが <code>null</code> を返すべできではないという契約に違反します。
 </p>
 ]]>

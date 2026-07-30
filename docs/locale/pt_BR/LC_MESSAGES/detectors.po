@@ -3072,9 +3072,9 @@ msgstr ""
 
 #: ../../generated/detectorListEnabled.inc:1971
 msgid ""
-"<p>Checks that overriding methods do not relax @Nonnull (made "
-"@CheckForNull) on return values\n"
-"or @CheckForNull (made @Nonnull) on parameters.</p>"
+"<p>Checks that overriding methods do not relax @NonNull (made "
+"@Nullable) on return values\n"
+"or @Nullable (made @NonNull) on parameters.</p>"
 msgstr ""
 
 #: ../../generated/detectorListEnabled.inc:1979

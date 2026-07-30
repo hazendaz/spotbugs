@@ -13,6 +13,7 @@ Annotations for SpotBugs.
 edu.umd.cs.findbugs.annotations.CheckForNull
 --------------------------------------------
 The annotated element might be null, and uses of the element should check for null.
+[deprecated] Use 'Nullable' instead.
 
 edu.umd.cs.findbugs.annotations.CheckReturnValue
 -------------------------------------------------
@@ -77,7 +78,7 @@ Used to annotate a method that, if overridden, must (or should) be invoked by an
 
 edu.umd.cs.findbugs.annotations.PossiblyNull (Deprecated)
 ---------------------------------------------------------
-Use `CheckForNull` instead. 
+Use `Nullable` instead. 
 The name of which more clearly indicates that not only could the value be null, 
 but that good coding practice requires that the value be checked for null.
 

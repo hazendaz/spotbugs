@@ -6,15 +6,9 @@ tasks.named('compileJava', JavaCompile).configure {
   options.release = 8
 }
 
-eclipse {
-  jdt {
-    sourceCompatibility = 8
-    targetCompatibility = 8
-  }
-}
-
 dependencies {
   api 'com.google.code.findbugs:jsr305:3.0.2'
+  compileOnly 'org.jspecify:jspecify:1.0.0'
 }
 
 Manifest manifestSpec = java.manifest {

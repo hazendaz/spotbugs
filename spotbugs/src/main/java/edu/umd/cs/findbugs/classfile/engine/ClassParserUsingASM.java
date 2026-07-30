@@ -22,7 +22,6 @@ package edu.umd.cs.findbugs.classfile.engine;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-
 import org.apache.bcel.Const;
 import org.jspecify.annotations.Nullable;
 import org.objectweb.asm.AnnotationVisitor;
