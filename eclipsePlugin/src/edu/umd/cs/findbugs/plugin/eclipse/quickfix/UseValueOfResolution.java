@@ -111,6 +111,7 @@ public class UseValueOfResolution extends BugResolution {
         }
 
         List<?> arguments = primitiveTypeCreation.arguments();
+        @SuppressWarnings("unchecked")
         List<Expression> newArguments = valueOfInvocation.arguments();
         for (Object argument : arguments) {
             Expression expression = (Expression) rewrite.createCopyTarget((ASTNode) argument);

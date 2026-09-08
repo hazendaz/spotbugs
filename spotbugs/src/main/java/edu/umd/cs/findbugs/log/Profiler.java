@@ -164,6 +164,10 @@ public class Profiler implements IProfiler, XMLWriteable {
             totalSquareMicroseconds.addAndGet(microseconds * microseconds);
         }
 
+        public int getTotalCalls() {
+            return totalCalls.get();
+        }
+
         public long getTotalTime() {
             return totalTime.get();
         }

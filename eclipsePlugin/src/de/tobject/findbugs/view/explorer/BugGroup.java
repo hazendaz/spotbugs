@@ -82,7 +82,6 @@ public class BugGroup implements IAdaptable, IActionFilter, Comparable<BugGroup>
     /**
      * @return the short group description
      */
-    @SuppressWarnings("unchecked")
     public String getShortDescription() {
         if (shortDescription == null) {
             switch (type) {
@@ -93,7 +92,6 @@ public class BugGroup implements IAdaptable, IActionFilter, Comparable<BugGroup>
             case WorkingSet:
                 return "Overall issues number: ";
             default:
-                @SuppressWarnings("rawtypes")
                 MarkerMapper mapper = type.getMapper();
                 if (identifier == null) {
                     shortDescription = mapper.getShortDescription(this);
@@ -190,12 +188,12 @@ public class BugGroup implements IAdaptable, IActionFilter, Comparable<BugGroup>
     }
 
     @Override
-    public Object getAdapter(Class adapter) {
+    public <T> T getAdapter(Class<T> adapter) {
         if (identifier != null && adapter.isAssignableFrom(identifier.getClass())) {
-            return identifier;
+            return adapter.cast(identifier);
         }
         if (BugGroup.class == adapter) {
-            return this;
+            return adapter.cast(this);
         }
         if (ITaskListResourceAdapter.class == adapter) {
             // see https://bugs.eclipse.org/bugs/show_bug.cgi?id=246409
@@ -280,7 +278,6 @@ public class BugGroup implements IAdaptable, IActionFilter, Comparable<BugGroup>
     }
 
     @Override
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public int compareTo(BugGroup o) {
         if (identifier == null || !getType().equals(o.getType())) {
             return 0;

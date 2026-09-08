@@ -236,6 +236,7 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
 
     }
 
+    @SuppressWarnings("removal")
     protected void updateImportDeclarations(ASTRewrite rewrite, CompilationUnit compilationUnit) {
         Assert.isNotNull(rewrite);
         Assert.isNotNull(compilationUnit);
@@ -273,6 +274,7 @@ public class CreateDoPrivilegedBlockResolution extends BugResolution {
         return importDeclaration;
     }
 
+    @SuppressWarnings("removal")
     protected MethodInvocation createDoPrivilegedInvocation(ASTRewrite rewrite, ClassInstanceCreation classLoaderCreation) {
         AST ast = rewrite.getAST();
 

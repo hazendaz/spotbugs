@@ -21,6 +21,7 @@ package de.tobject.findbugs.view;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 
 import de.tobject.findbugs.util.SafeHtml;
@@ -88,7 +89,7 @@ import edu.umd.cs.findbugs.MethodAnnotation;
 import edu.umd.cs.findbugs.Plugin;
 import edu.umd.cs.findbugs.SourceLineAnnotation;
 import edu.umd.cs.findbugs.TypeAnnotation;
-import edu.umd.cs.findbugs.ba.SignatureParser;
+import edu.umd.cs.findbugs.ba.generic.GenericSignatureParser;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 import edu.umd.cs.findbugs.util.ClassName;
@@ -391,7 +392,7 @@ public class BugInfoView extends AbstractFindbugsView {
     private void openBrowserInEditor(LocationEvent event) {
         URL url;
         try {
-            url = new URL(event.location);
+            url = URI.create(event.location).toURL();
         } catch (MalformedURLException ignored) {
             return;
         }
@@ -537,7 +538,7 @@ public class BugInfoView extends AbstractFindbugsView {
 
     private static IMethod getIMethod(IType type, MethodAnnotation mma) throws JavaModelException {
         String name = mma.getMethodName();
-        SignatureParser parser = new SignatureParser(mma.getMethodSignature());
+        GenericSignatureParser parser = new GenericSignatureParser(mma.getMethodSignature());
         String[] arguments = parser.getArguments();
 
 

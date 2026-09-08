@@ -59,9 +59,8 @@ public class FindBugsBuilder extends IncrementalProjectBuilder {
      *
      * @see IncrementalProjectBuilder#build
      */
-    @SuppressWarnings("rawtypes")
     @Override
-    protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
+    protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
         monitor.subTask("Running SpotBugs...");
         switch (kind) {
         case IncrementalProjectBuilder.FULL_BUILD: {
