@@ -59,7 +59,7 @@ abstract class PathsProvider extends SelectionAdapter implements IStructuredCont
 
     protected final FindbugsPropertyPage propertyPage;
 
-    private final ListenerList listeners;
+    private final ListenerList<Listener> listeners;
 
     protected PathsProvider(TableViewer viewer, FindbugsPropertyPage propertyPage) {
         this.propertyPage = propertyPage;
@@ -76,7 +76,7 @@ abstract class PathsProvider extends SelectionAdapter implements IStructuredCont
             });
         }
         this.control = viewer.getTable();
-        listeners = new ListenerList();
+        listeners = new ListenerList<Listener>();
         viewer.setContentProvider(this);
     }
 

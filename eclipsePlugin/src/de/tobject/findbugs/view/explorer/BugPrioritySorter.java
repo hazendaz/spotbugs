@@ -22,11 +22,11 @@ import java.text.Collator;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 
 import de.tobject.findbugs.reporter.MarkerUtil;
 
-public class BugPrioritySorter extends ViewerSorter {
+public class BugPrioritySorter extends ViewerComparator {
 
     public BugPrioritySorter() {
         super();

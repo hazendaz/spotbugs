@@ -19,6 +19,7 @@
 package de.tobject.findbugs.adapters;
 
 import org.eclipse.core.runtime.IAdapterFactory;
+// TODO: remove dependency on internal classes
 import org.eclipse.team.internal.core.subscribers.ChangeSet;
 import org.eclipse.team.internal.ui.synchronize.ChangeSetDiffNode;
 
@@ -34,10 +35,10 @@ public class ChangeSetAdapterFactory implements IAdapterFactory {
      * {@inheritDoc}
      */
     @Override
-    public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
+    public <T> T getAdapter(Object adaptableObject, Class<T> adapterType) {
         if (adaptableObject instanceof ChangeSetDiffNode && adapterType == ChangeSet.class) {
             ChangeSetDiffNode node = (ChangeSetDiffNode) adaptableObject;
-            return node.getSet();
+            return adapterType.cast(node.getSet());
         }
         return null;
     }
@@ -46,9 +47,8 @@ public class ChangeSetAdapterFactory implements IAdapterFactory {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("rawtypes")
-    public Class[] getAdapterList() {
-        return new Class[] { ChangeSet.class };
+    public Class<?>[] getAdapterList() {
+        return new Class<?>[] { ChangeSet.class };
     }
 
 }

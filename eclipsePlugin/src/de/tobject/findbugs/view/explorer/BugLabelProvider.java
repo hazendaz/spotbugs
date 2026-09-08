@@ -45,7 +45,6 @@ import org.jspecify.annotations.Nullable;
 import de.tobject.findbugs.FindbugsPlugin;
 import de.tobject.findbugs.marker.FindBugsMarker.MarkerConfidence;
 import de.tobject.findbugs.marker.FindBugsMarker.MarkerRank;
-import edu.umd.cs.findbugs.SortedBugCollection;
 
 /**
  * @author Andrei
@@ -111,7 +110,7 @@ public class BugLabelProvider implements /* IStyledLabelProvider, */ ICommonLabe
             Object data = group.getData();
             if (group.getType() == GroupType.Project && data != null) {
                 try {
-                    SortedBugCollection bc = FindbugsPlugin.getBugCollection((IProject) data, null);
+                    FindbugsPlugin.getBugCollection((IProject) data, null);
                 } catch (CoreException e) {
                     FindbugsPlugin.getDefault().logException(e, "Failed to load bug collection");
                 }

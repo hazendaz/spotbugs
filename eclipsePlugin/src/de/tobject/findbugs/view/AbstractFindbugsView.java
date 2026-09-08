@@ -185,9 +185,9 @@ public abstract class AbstractFindbugsView extends ViewPart implements IMarkerSe
     }
 
     @Override
-    public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
+    public <T> T getAdapter(Class<T> adapter) {
         if (adapter == IContributedContentsView.class) {
-            return this;
+            return adapter.cast(this);
         }
         return super.getAdapter(adapter);
     }

@@ -84,7 +84,7 @@ public class FindbugsTestPlugin extends AbstractUIPlugin {
 
     public File getFileInPlugin(IPath path) throws CoreException {
         try {
-            URL installURL = new URL(getBundle().getEntry("/"), path.toString());
+            URL installURL = FileLocator.find(getBundle(), path, null);
             URL localURL = FileLocator.toFileURL(installURL);
             return new File(localURL.getFile());
         } catch (IOException e) {

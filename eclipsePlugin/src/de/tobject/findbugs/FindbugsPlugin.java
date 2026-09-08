@@ -43,7 +43,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.dom4j.DocumentException;
-import org.eclipse.core.internal.preferences.EclipsePreferences;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -110,6 +109,10 @@ import edu.umd.cs.findbugs.plugins.DuplicatePluginIdException;
  * The main plugin class to be used in the desktop.
  */
 public class FindbugsPlugin extends AbstractUIPlugin {
+
+    private static final String DEFAULT_PREFERENCES_DIRNAME = ".settings";
+    private static final String PREFS_FILE_EXTENSION = ".prefs";
+
     /**
      * The plug-in identifier of the FindBugs Plug-in (value
      * "com.github.spotbugs.plugin.eclipse", was
@@ -122,13 +125,11 @@ public class FindbugsPlugin extends AbstractUIPlugin {
     public static final String ICON_PATH = "icons/";
     public static final String ICON_DEFAULT = "buggy-tiny-gray.png";
 
-    @SuppressWarnings("restriction")
     private static final IPath WORKSPACE_PREFS_PATH = Platform.getStateLocation(Platform.getBundle(Platform.PI_RUNTIME))
-            .append(EclipsePreferences.DEFAULT_PREFERENCES_DIRNAME)
-            .append(PLUGIN_ID + "." + EclipsePreferences.PREFS_FILE_EXTENSION);
+            .append(DEFAULT_PREFERENCES_DIRNAME)
+            .append(PLUGIN_ID + "." + PREFS_FILE_EXTENSION);
 
-    @java.lang.SuppressWarnings("restriction")
-    public static final IPath DEFAULT_PREFS_PATH = new Path(EclipsePreferences.DEFAULT_PREFERENCES_DIRNAME)
+    public static final IPath DEFAULT_PREFS_PATH = new Path(DEFAULT_PREFERENCES_DIRNAME)
             .append("edu.umd.cs.findbugs.core.prefs");
 
     public static final IPath DEPRECATED_PREFS_PATH = new Path(".fbprefs");

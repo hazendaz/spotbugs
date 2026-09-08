@@ -279,32 +279,30 @@ public class PropertyPageAdapterFactory implements IAdapterFactory {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
-    public Object getAdapter(Object adaptableObject, Class adapterType) {
+    public <T> T getAdapter(Object adaptableObject, Class<T> adapterType) {
         if (adapterType == IPropertySheetPage.class
                 && (adaptableObject instanceof BugExplorerView || adaptableObject instanceof AbstractFindbugsView)) {
-            return new BugPropertySheetPage();
+            return adapterType.cast(new BugPropertySheetPage());
         }
         if (adapterType == IPropertySource.class) {
             if (adaptableObject instanceof BugPattern || adaptableObject instanceof BugInstance
                     || adaptableObject instanceof DetectorFactory || adaptableObject instanceof Plugin
                     || adaptableObject instanceof BugGroup
                     || adaptableObject instanceof BugAnnotation) {
-                return new PropertySource(adaptableObject);
+                return adapterType.cast(new PropertySource(adaptableObject));
             }
             IMarker marker = Util.getAdapter(IMarker.class, adaptableObject);
             if (!MarkerUtil.isFindBugsMarker(marker)) {
                 return null;
             }
-            return new MarkerPropertySource(marker);
+            return adapterType.cast(new MarkerPropertySource(marker));
         }
         return null;
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
-    public Class[] getAdapterList() {
-        return new Class[] { IPropertySheetPage.class, IPropertySource.class };
+    public Class<?>[] getAdapterList() {
+        return new Class<?>[] { IPropertySheetPage.class, IPropertySource.class };
     }
 
     private static class BugPropertySheetPage extends TabbedPropertySheetPage {

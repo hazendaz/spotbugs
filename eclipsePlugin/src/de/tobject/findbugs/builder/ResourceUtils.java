@@ -43,6 +43,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.viewers.IStructuredSelection;
+//TODO: remove dependency on internal classes
 import org.eclipse.team.internal.core.subscribers.ChangeSet;
 import org.eclipse.ui.IAggregateWorkingSet;
 import org.eclipse.ui.IWorkingSet;
@@ -272,7 +273,6 @@ public class ResourceUtils {
      * @param set
      * @return
      */
-    @SuppressWarnings("restriction")
     public static List<WorkItem> getResources(ChangeSet set) {
         if (set != null && !set.isEmpty()) {
             IResource[] resources = set.getResources();

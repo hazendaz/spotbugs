@@ -34,6 +34,7 @@ import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+// TODO remove this dependency on internal class, if possible
 import org.eclipse.jdt.internal.launching.JREContainer;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.osgi.service.resolver.BundleDescription;
@@ -73,7 +74,6 @@ public class PDEClassPathGenerator {
         return classPath.toArray(new String[classPath.size()]);
     }
 
-    @SuppressWarnings("restriction")
     private static Set<String> createJavaClasspath(IJavaProject javaProject) {
         LinkedHashSet<String> classPath = new LinkedHashSet<>();
         try {

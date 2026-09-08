@@ -37,9 +37,9 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jdt.core.IClassFile;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IOrdinaryClassFile;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.IContentProvider;
@@ -730,8 +730,8 @@ public class BugContentProvider implements ICommonContentProvider {
             supported.add(obj);
         } else if (obj instanceof IJavaProject) {
             return getShowInTargets(((IJavaProject) obj).getProject());
-        } else if (obj instanceof IClassFile) {
-            return getShowInTargets(((IClassFile) obj).getType());
+        } else if (obj instanceof IOrdinaryClassFile) {
+            return getShowInTargets(((IOrdinaryClassFile) obj).getType());
         } else if (obj instanceof IFile) {
             IJavaElement javaElement = JavaCore.create((IFile) obj);
             return getShowInTargets(javaElement);
@@ -743,7 +743,7 @@ public class BugContentProvider implements ICommonContentProvider {
             Iterator<?> iter = selection.iterator();
             while (iter.hasNext()) {
                 Object object = iter.next();
-                supported.add(getShowInTargets(object));
+                supported.addAll(getShowInTargets(object));
             }
         } else {
             // TODO think how improve performance for project/package objects?

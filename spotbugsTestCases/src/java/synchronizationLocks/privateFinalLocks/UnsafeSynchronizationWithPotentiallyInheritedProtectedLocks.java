@@ -1,7 +1,7 @@
 package synchronizationLocks.privateFinalLocks;
 
 /**
- * @note The problem arises when a class extends the current class and can access the lock
+ * The problem arises when a class extends the current class and can access the lock
  */
 public class UnsafeSynchronizationWithPotentiallyInheritedProtectedLocks {
     protected Object lock1 = new Object();

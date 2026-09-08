@@ -32,7 +32,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.ui.console.IOConsoleOutputStream;
 
@@ -49,6 +48,7 @@ import edu.umd.cs.findbugs.Project;
 import edu.umd.cs.findbugs.ProjectStats;
 import edu.umd.cs.findbugs.SortedBugCollection;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
+import edu.umd.cs.findbugs.log.ProfileSummary;
 import edu.umd.cs.findbugs.log.Profiler;
 
 /**
@@ -62,6 +62,8 @@ import edu.umd.cs.findbugs.log.Profiler;
  * @since 28.07.2003
  */
 public class Reporter extends AbstractBugReporter implements FindBugsProgress {
+
+    private static final long MIN_REPORT_TIME = 10_000_000L;
 
     /** Controls debugging for the reporter */
     public static boolean DEBUG;
@@ -190,20 +192,22 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
         printToStream("\nFootprint: " + new Footprint(stats.getBaseFootprint()).toString());
 
         Profiler profiler = stats.getProfiler();
+        ProfileSummary summary = new ProfileSummary(profiler);
         PrintStream printStream = new PrintStream(stream, false, StandardCharsets.UTF_8);
 
         printToStream("\nTotal time:");
-        profiler.report(new Profiler.TotalTimeComparator(profiler), new Profiler.FilterByTime(10000000), printStream);
+        summary.report(new Profiler.TotalTimeComparator(profiler), profile -> profile.getTotalTime() >= MIN_REPORT_TIME, printStream);
 
         printToStream("\nTotal calls:");
         int numClasses = stats.getNumClasses();
         if (numClasses > 0) {
-            profiler.report(new Profiler.TotalCallsComparator(profiler), new Profiler.FilterByCalls(numClasses),
+            summary.report(new Profiler.TotalCallsComparator(profiler), profile -> profile.getTotalCalls() >= numClasses,
                     printStream);
 
             printToStream("\nTime per call:");
-            profiler.report(new Profiler.TimePerCallComparator(profiler),
-                    new Profiler.FilterByTimePerCall(10000000 / numClasses), printStream);
+            long minTimePerCall = MIN_REPORT_TIME / numClasses;
+            summary.report(new Profiler.TimePerCallComparator(profiler),
+                    profile -> profile.getTotalTime() / profile.getTotalCalls() >= minTimePerCall, printStream);
         }
         try {
             xmlStream.finish();
@@ -302,9 +306,7 @@ public class Reporter extends AbstractBugReporter implements FindBugsProgress {
             int count = classesPerPass[i];
             expectedWork += ((i * 99) + 1) * count;
         }
-        if (!(monitor instanceof SubProgressMonitor)) {
-            monitor.beginTask("Performing bug checking...", expectedWork);
-        }
+        monitor.beginTask("Performing bug checking...", expectedWork);
     }
 
     @Override

@@ -45,7 +45,6 @@ import org.eclipse.jdt.core.IClassFile;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IOpenable;
 import org.eclipse.jdt.core.IOrdinaryClassFile;
 import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.ISourceRange;
@@ -56,7 +55,7 @@ import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.compiler.IScanner;
 import org.eclipse.jdt.core.compiler.ITerminalSymbols;
 import org.eclipse.jdt.core.compiler.InvalidInputException;
-import org.eclipse.jdt.internal.core.CompilationUnit;
+//TODO: remove dependency on internal classes
 import org.eclipse.jdt.internal.core.JavaElement;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
@@ -455,20 +454,9 @@ public final class MarkerUtil {
         return scanner;
     }
 
-    @SuppressWarnings("restriction")
     private static char[] getContent(IType source) throws JavaModelException {
-        char[] charContent = null;
-        IOpenable op = source.getOpenable();
-        if (op instanceof CompilationUnit) {
-            charContent = ((CompilationUnit) (op)).getContents();
-        }
-        if (charContent == null) {
-            String content = source.getSource();
-            if (content != null) {
-                charContent = content.toCharArray();
-            }
-        }
-        return charContent;
+        String content = source.getSource();
+        return content != null ? content.toCharArray() : null;
     }
 
     private static int findChildSourceLine(IType parentType, String name, BugInstance bug) throws JavaModelException {
@@ -695,9 +683,8 @@ public final class MarkerUtil {
      * @return true if the second string represents a java element which is a
      *         direct child of the parent element.
      */
-    @SuppressWarnings("restriction")
     private static boolean isDirectChild(String parentId, String childId) {
-        return childId.startsWith(parentId) && (childId.length() > (parentId.length() + 1))
+        return childId.startsWith(parentId) && (childId.length() > parentId.length() + 1)
         // if there is NOT a class file separator, then it's not a direct child
                 && childId.charAt(parentId.length()) == JavaElement.JEM_CLASSFILE;
     }

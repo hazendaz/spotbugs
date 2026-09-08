@@ -190,7 +190,6 @@ public class Util {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static <V> @Nullable V getAdapter(Class<V> adapter, Object obj) {
         if (obj == null) {
             return null;
