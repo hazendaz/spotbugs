@@ -28,6 +28,7 @@ import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
+//TODO: remove dependency on internal classes
 import org.eclipse.jdt.internal.ui.javaeditor.EditorUtility;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -40,7 +41,6 @@ import org.eclipse.text.edits.TextEdit;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.views.markers.WorkbenchMarkerResolution;
-import org.eclipse.ui.views.markers.internal.Util;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -225,7 +225,7 @@ public abstract class BugResolution extends WorkbenchMarkerResolution {
         for (int i = 0; i < markers.length; i++) {
             // this was done in the superclass implementation, copied here.
             if (multipleFixMonitor != null) {
-                multipleFixMonitor.subTask(Util.getProperty(IMarker.MESSAGE, markers[i]));
+                multipleFixMonitor.subTask(markers[i].getAttribute(IMarker.MESSAGE, ""));
             }
             pendingRewrites.add(resolveWithoutWriting(markers[i]));
         }
@@ -415,22 +415,8 @@ public abstract class BugResolution extends WorkbenchMarkerResolution {
         return (CompilationUnit) parser.createAST(monitor);
     }
 
-    @SuppressWarnings("deprecation")
     private static ASTParser createAstParser() {
-        ASTParser parser;
-        int safeLevel = AST.JLS3;
-        int JLS4 = 4; // @since 3.7.1, so can't link to constant
-        int JLS8 = 8; // @since 3.10, so can't link to constant
-        try {
-            parser = ASTParser.newParser(JLS8);
-        } catch (IllegalArgumentException e1) {
-            try {
-                parser = ASTParser.newParser(JLS4);
-            } catch (IllegalArgumentException e2) {
-                parser = ASTParser.newParser(safeLevel);
-            }
-        }
-        return parser;
+        return ASTParser.newParser(AST.JLS8);
     }
 
     private IRegion rewriteCompilationUnit(ASTRewrite rewrite, IDocument doc, ICompilationUnit originalUnit)

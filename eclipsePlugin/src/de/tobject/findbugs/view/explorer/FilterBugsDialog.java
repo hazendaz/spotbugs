@@ -31,6 +31,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
+//TODO: remove dependency on internal classes
 import org.eclipse.jface.internal.text.html.HTMLTextPresenter;
 import org.eclipse.jface.text.DefaultInformationControl.IInformationPresenterExtension;
 import org.eclipse.jface.text.TextPresentation;
@@ -183,7 +184,7 @@ public class FilterBugsDialog extends SelectionDialog {
 
     class PatternFilteredTree extends FilteredTree {
         PatternFilteredTree(Composite parent, int treeStyle, PatternFilter filter) {
-            super(parent, treeStyle, filter, true);
+            super(parent, treeStyle, filter, true, true);
         }
 
         @Override
@@ -383,12 +384,17 @@ public class FilterBugsDialog extends SelectionDialog {
         button1.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         button1.setText("Select All");
         button1.addSelectionListener(new SelectionAdapter() {
+            @SuppressWarnings("unused")
             @Override
             public void widgetSelected(SelectionEvent e) {
+                // TODO 9/7/2026 Why is this disabled? It should work, but it doesn't.
+                // The problem is that the checkList.setAllChecked(false) doesn't work
+                // when the tree is filtered. So we need to implement a custom method
+                // to uncheck all visible elements when the tree is filtered.
                 if (false && tree.isFiltering()) {
                     toggleCheckedGroup(true);
                 } else {
-                    checkList.setAllChecked(true);
+                    checkList.setCheckedElements(new Object[0]);
                     checkedElements = allowedTypes.toArray();
                 }
                 updateTextIds();
@@ -399,12 +405,17 @@ public class FilterBugsDialog extends SelectionDialog {
         button2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         button2.setText("Deselect All");
         button2.addSelectionListener(new SelectionAdapter() {
+            @SuppressWarnings("unused")
             @Override
             public void widgetSelected(SelectionEvent e) {
+                // TODO 9/7/2026 Why is this disabled? It should work, but it doesn't.
+                // The problem is that the checkList.setAllChecked(false) doesn't work
+                // when the tree is filtered. So we need to implement a custom method
+                // to uncheck all visible elements when the tree is filtered.
                 if (false && tree.isFiltering()) {
                     toggleCheckedGroup(false);
                 } else {
-                    checkList.setAllChecked(false);
+                    checkList.setCheckedElements(new Object[0]);
                     checkedElements = new Object[0];
                 }
                 updateTextIds();

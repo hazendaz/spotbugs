@@ -36,7 +36,7 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -78,7 +78,7 @@ public class DetectorConfigurationTab extends Composite {
         BUG_CODES, BUG_CATEGORIES, DETECTOR_NAME, DETECTOR_SPEED, PLUGIN, UNKNOWN
     }
 
-    private static final class BugPatternTableSorter extends ViewerSorter implements Comparator<DetectorFactory> {
+    private static final class BugPatternTableSorter extends ViewerComparator implements Comparator<DetectorFactory> {
         private COLUMN sortColumnId;
 
         private COLUMN lastSortColumnId;
@@ -587,7 +587,7 @@ public class DetectorConfigurationTab extends Composite {
         availableFactoriesTableViewer.setContentProvider(new DetectorFactoriesContentProvider());
         availableFactoriesTableViewer.setLabelProvider(new DetectorFactoryLabelProvider(this));
 
-        availableFactoriesTableViewer.setSorter(sorter);
+        availableFactoriesTableViewer.setComparator(sorter);
 
         populateAvailableRulesTable(project);
         factoriesTable.setEnabled(true);
