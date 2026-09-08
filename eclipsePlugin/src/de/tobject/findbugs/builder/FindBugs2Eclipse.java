@@ -191,7 +191,6 @@ public class FindBugs2Eclipse extends FindBugs2 {
         reportExtraData(data);
     }
 
-    @SuppressWarnings("boxing")
     private void reportExtraData(AnalysisData data) {
         SortedBugCollection bugCollection = reporter.getBugCollection();
         if (bugCollection == null) {
