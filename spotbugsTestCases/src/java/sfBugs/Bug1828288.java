@@ -1,10 +1,10 @@
 package sfBugs;
 
-import edu.umd.cs.findbugs.annotations.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 public class Bug1828288 {
 
-    @CheckForNull
+    @Nullable
     public Object field;
 
     @Override

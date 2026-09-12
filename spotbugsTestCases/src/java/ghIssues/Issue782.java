@@ -1,12 +1,13 @@
 package ghIssues;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nullable;
 import javax.annotation.meta.TypeQualifierNickname;
 import javax.annotation.meta.When;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.Objects.requireNonNull;
@@ -91,7 +92,7 @@ public class Issue782 {
      */
     public void multiArgMultiLineUsingCheckForNullFails() {
         Object result = Objects.requireNonNull(
-                methodUsingCheckForNull(), // doesn't like if the method uses @CheckForNull
+                methodUsingCheckForNull(), // doesn't like if the method uses @Nullable
                 "This fails when the return type is string");
         System.out.println(result.toString());
     }
@@ -112,7 +113,7 @@ public class Issue782 {
     public @interface MyNullable {
     }
 
-    @CheckForNull
+    @Nullable
     private Object methodUsingCheckForNull() {
         return null;
     }

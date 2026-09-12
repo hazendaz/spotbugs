@@ -1,7 +1,8 @@
 package ghIssues.issue374;
 
-import jakarta.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import org.jspecify.annotations.Nullable;
 
 @ParametersAreNonnullByDefault
 public class ClassLevel {

@@ -1,7 +1,8 @@
 package sfBugs;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
+
+import org.jspecify.annotations.Nullable;
 
 public class Bug2003267 {
 

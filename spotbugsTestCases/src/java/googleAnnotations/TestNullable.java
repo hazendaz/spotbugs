@@ -2,7 +2,7 @@ package googleAnnotations;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import com.google.common.base.Nullable;
+import org.jspecify.annotations.Nullable;
 
 @ParametersAreNonnullByDefault
 public class TestNullable {

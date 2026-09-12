@@ -1,5 +1,7 @@
 import org.apache.avro.reflect.Nullable;
 
+import org.jspecify.annotations.Nullable;
+
 public class UncheckedAvroNullableReturn {
     @Nullable
     String foo() {

@@ -2,9 +2,10 @@ package sfBugs;
 
 import java.io.File;
 
-import javax.annotation.CheckForNull;
 import jakarta.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import org.jspecify.annotations.Nullable;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Bug1965452a {
      */
     @ParametersAreNonnullByDefault
     public static class ClientFileImportObject {
-        @CheckForNull
+        @Nullable
         private final String attributes;
 
         public ClientFileImportObject(File existingFile, @Nullable String mimeType, @Nullable String attributes2) {

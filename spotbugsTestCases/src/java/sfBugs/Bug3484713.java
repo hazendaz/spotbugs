@@ -1,12 +1,11 @@
 package sfBugs;
 
-import javax.annotation.CheckForNull;
-
 import edu.umd.cs.findbugs.annotations.NoWarning;
 
+import org.jspecify.annotations.Nullable;
 
 public class Bug3484713 {
-  @CheckForNull
+  @Nullable
   private String foo;
 
   @NoWarning("NP")

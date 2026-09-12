@@ -3,6 +3,8 @@ package ghIssues;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
+import org.jspecify.annotations.Nullable;
+
 public class Issue3243 {
 
     @NonNull
