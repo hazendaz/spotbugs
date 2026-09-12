@@ -1,6 +1,6 @@
 package ghIssues;
 
-import edu.umd.cs.findbugs.annotations.CheckForNull;
+import org.jspecify.annotations.Nullable;
 
 public class Issue3485 {
     public void foo() {
@@ -16,7 +16,7 @@ public class Issue3485 {
         }
     }
 
-    @CheckForNull
+    @Nullable
     public static Long nullReturn() {
         return null;
     }

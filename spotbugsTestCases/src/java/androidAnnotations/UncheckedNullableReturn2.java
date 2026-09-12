@@ -1,10 +1,10 @@
 package androidAnnotations;
 
-import androidx.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class UncheckedNullableReturn2 {
-    @Nullable
-    String foo() {
+
+    @Nullable String foo() {
         return null;
     }
 
