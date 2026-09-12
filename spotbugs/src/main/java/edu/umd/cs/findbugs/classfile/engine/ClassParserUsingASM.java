@@ -497,10 +497,12 @@ public class ClassParserUsingASM implements ClassParserInterface {
         public AnnotationVisitor visitTypeAnnotation(int typeRef, TypePath typePath,
                 String desc, boolean visible) {
             TypeReference typeRefObject = new TypeReference(typeRef);
+
             if (typeRefObject.getSort() == TypeReference.METHOD_FORMAL_PARAMETER && typePath == null) {
                 // treat as parameter annotation
                 AnnotationValue value = new AnnotationValue(desc);
-                mBuilder.addParameterAnnotation(typeRefObject.getFormalParameterIndex(), desc, value);
+                int parameter = getParameterIndex(typeRefObject.getFormalParameterIndex());
+                mBuilder.addParameterAnnotation(parameter, desc, value);
                 return value.getAnnotationVisitor();
             }
             if (typeRefObject.getSort() == TypeReference.METHOD_RETURN && typePath == null) {
@@ -615,6 +617,20 @@ public class ClassParserUsingASM implements ClassParserInterface {
                             AnnotationValue value = new AnnotationValue(desc);
                             fBuilder.addAnnotation(desc, value);
                             return value.getAnnotationVisitor();
+                        }
+
+                        @Override
+                        public AnnotationVisitor visitTypeAnnotation(
+                                final int typeRef, final TypePath typePath, final String desc, boolean visible) {
+                            TypeReference typeRefObject = new TypeReference(typeRef);
+
+                            if (typeRefObject.getSort() == TypeReference.FIELD && typePath == null) {
+                                AnnotationValue value = new AnnotationValue(desc);
+                                fBuilder.addAnnotation(desc, value);
+                                return value.getAnnotationVisitor();
+                            }
+
+                            return null;
                         }
 
                         @Override
