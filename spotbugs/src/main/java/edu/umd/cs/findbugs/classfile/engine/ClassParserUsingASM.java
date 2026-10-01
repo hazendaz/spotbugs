@@ -22,7 +22,6 @@ package edu.umd.cs.findbugs.classfile.engine;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-
 import org.apache.bcel.Const;
 import org.jspecify.annotations.Nullable;
 import org.objectweb.asm.AnnotationVisitor;
@@ -498,7 +497,16 @@ public class ClassParserUsingASM implements ClassParserInterface {
                 String desc, boolean visible) {
             TypeReference typeRefObject = new TypeReference(typeRef);
 
-            if (typeRefObject.getSort() == TypeReference.METHOD_FORMAL_PARAMETER && typePath == null) {
+            // A method formal parameter type annotation normally has no type path.
+            // However, TYPE_USE annotations such as JSpecify @Nullable may have an
+            // INNER_TYPE path when the parameter type is an inner class. In that case
+            // the annotation still applies to the parameter's reference itself.
+            // Do not treat ARRAY_ELEMENT, TYPE_ARGUMENT, or WILDCARD_BOUND paths as
+            // parameter-level annotations because those paths identify nested types.
+            boolean parameterTypeAnnotation = typeRefObject.getSort() == TypeReference.METHOD_FORMAL_PARAMETER;
+            boolean rootOrInnerType = typePath == null || typePath.getStep(0) == TypePath.INNER_TYPE;
+
+            if (parameterTypeAnnotation && rootOrInnerType) {
                 // treat as parameter annotation
                 AnnotationValue value = new AnnotationValue(desc);
                 int parameter = getParameterIndex(typeRefObject.getFormalParameterIndex());
