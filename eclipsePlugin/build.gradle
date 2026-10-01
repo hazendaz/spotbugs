@@ -503,6 +503,11 @@ TaskProvider<Exec> generateP2Metadata = tasks.register('generateP2Metadata', Exe
   }
   inputs.file 'local.properties'
   dependsOn confirmEclipse, pluginJar, featureJar, siteXml, siteHtml
+
+  environment 'JAVA_TOOL_OPTIONS', ''
+  environment 'JDK_JAVA_OPTIONS', ''
+  environment '_JAVA_OPTIONS', ''
+
   commandLine eclipseExecutable, '-nosplash',
       '-application', 'org.eclipse.equinox.p2.publisher.UpdateSitePublisher',
       '-metadataRepository', "file:${resolvedBuildDir}/site/eclipse",
@@ -526,6 +531,11 @@ TaskProvider<Exec> generateCandidateP2Metadata = tasks.register('generateCandida
   }
   inputs.file 'local.properties'
   dependsOn confirmEclipse, pluginCandidateJar, featureCandidateJar, siteCandidateXml, siteCandidateHtml
+
+  environment 'JAVA_TOOL_OPTIONS', ''
+  environment 'JDK_JAVA_OPTIONS', ''
+  environment '_JAVA_OPTIONS', ''
+
   commandLine eclipseExecutable, '-nosplash',
       '-application', 'org.eclipse.equinox.p2.publisher.UpdateSitePublisher',
       '-metadataRepository', "file:${resolvedBuildDir}/site/eclipse-candidate",
@@ -549,6 +559,11 @@ TaskProvider<Exec> generateP2MetadataDaily = tasks.register('generateP2MetadataD
   }
   inputs.file 'local.properties'
   dependsOn confirmEclipse, pluginDailyJar, featureDailyJar, siteDailyXml, siteDailyHtml
+
+  environment 'JAVA_TOOL_OPTIONS', ''
+  environment 'JDK_JAVA_OPTIONS', ''
+  environment '_JAVA_OPTIONS', ''
+
   commandLine eclipseExecutable, '-nosplash',
       '-application', 'org.eclipse.equinox.p2.publisher.UpdateSitePublisher',
       '-metadataRepository', "file:${resolvedBuildDir}/site/eclipse-daily",
