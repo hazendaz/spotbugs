@@ -457,7 +457,6 @@ public class ClassContext {
     }
 
     public static @NonNull Set<Integer> getLoopExitBranches(Method method, MethodGen methodGen) {
-
         XMethod xmethod = XFactory.createXMethod(methodGen);
         if (cachedLoopExits().containsKey(xmethod)) {
             Set<Integer> result = cachedLoopExits().get(xmethod);
