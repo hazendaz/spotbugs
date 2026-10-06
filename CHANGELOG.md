@@ -17,6 +17,7 @@ Currently the versioning policy of this project follows [Semantic Versioning v2.
 - `@SuppressFBWarnings` annotation on a method or a constructor now suppresses warnings reported in their lambdas too ([#724](https://github.com/spotbugs/spotbugs/issues/724))
 - Replace deprecated calls to 'SignatureParser' to 'GenericSignatureParser' where feasible ([#4336](https://github.com/spotbugs/spotbugs/pull/4337))
 - Declaring to the interface lists/maps ([#4381](https://github.com/spotbugs/spotbugs/pull/4381))
+- Deprecate all of spotbugs nullness annotations in favor of Jspecify ([#xxxx](https://github.com/spotbugs/spotbugs/pull/xxxx))
 
 ### Fixed
 - Fix `NP_NULL_ON_SOME_PATH` false positive when a field null check that throws uses `field == null` but not `null == field` ([#4147](https://github.com/spotbugs/spotbugs/issues/4147))

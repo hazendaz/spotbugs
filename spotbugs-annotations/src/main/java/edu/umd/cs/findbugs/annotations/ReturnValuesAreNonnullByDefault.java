@@ -38,7 +38,9 @@ import org.jspecify.annotations.NonNull;
  * annotation of the corresponding parameter in the superclass applies)
  * <li>there is a default annotation applied to a more tightly nested element.
  * </ul>
+ * @deprecated Use JSpecify @NullMarked when you want a non-null-by-default API.
  */
+@Deprecated
 @Documented
 @TypeQualifierDefault(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
