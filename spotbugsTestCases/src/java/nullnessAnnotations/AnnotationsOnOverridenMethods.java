@@ -1,15 +1,14 @@
 package nullnessAnnotations;
 
-import javax.annotation.CheckForNull;
-import jakarta.annotation.Nonnull;
-
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public class AnnotationsOnOverridenMethods {
 
 
-    @Nonnull Object foo(@CheckForNull Object o) {
+    @NonNull Object foo(@Nullable Object o) {
         return o;
     }
 
@@ -19,15 +18,14 @@ public class AnnotationsOnOverridenMethods {
 
     static class Child extends AnnotationsOnOverridenMethods {
 
-
         @Override
         @ExpectWarning("NP_METHOD_RETURN_RELAXING_ANNOTATION,NP_METHOD_PARAMETER_TIGHTENS_ANNOTATION")
-        @CheckForNull Object foo(@Nonnull Object o) {
+        @Nullable Object foo(@NonNull Object o) {
             return o;
         }
 
         @Override
-        @CheckForNull Object bar(@Nonnull Object o) {
+        @Nullable Object bar(@NonNull Object o) {
             return o;
         }
     }

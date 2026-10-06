@@ -1,7 +1,7 @@
 package nonnull;
 
-import edu.umd.cs.findbugs.annotations.CheckForNull;
-import edu.umd.cs.findbugs.annotations.NonNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 interface A {
     public void f(@NonNull Object obj, @NonNull Object obj2);
@@ -10,7 +10,7 @@ interface A {
 interface B extends A {
     // relax constraint on second param
     @Override
-    public void f(@NonNull Object obj, @CheckForNull Object obj2);
+    public void f(@NonNull Object obj, @Nullable Object obj2);
 }
 
 interface C extends A {
