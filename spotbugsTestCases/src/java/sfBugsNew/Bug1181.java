@@ -2,15 +2,16 @@ package sfBugsNew;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 import edu.umd.cs.findbugs.annotations.NoWarning;
 import edu.umd.cs.findbugs.annotations.ReturnValuesAreNonnullByDefault;
 
+import org.jspecify.annotations.NullMarked;
+
 public class Bug1181 {
 
-    @ParametersAreNonnullByDefault
+    @NullMarked
     @ReturnValuesAreNonnullByDefault
     public static class ClassA {
 
@@ -30,7 +31,7 @@ public class Bug1181 {
 
     }
 
-    @ParametersAreNonnullByDefault
+    @NullMarked
     @ReturnValuesAreNonnullByDefault
     public static class ClassA2 {
 

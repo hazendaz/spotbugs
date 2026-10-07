@@ -1,10 +1,9 @@
 package ghIssues.issue374;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
-@ParametersAreNonnullByDefault
+@NullMarked
 public class ClassLevel {
     public String method() {
         return methodNullable(null);

@@ -1,6 +1,6 @@
 package sfBugsNew;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 import edu.umd.cs.findbugs.annotations.NoWarning;
@@ -22,7 +22,7 @@ public class Bug1194 {
     }
 
     @NoWarning("NP")
-    @ParametersAreNonnullByDefault
+    @NullMarked
     int nonnullByDefault(Object x) {
         return 17;
     }

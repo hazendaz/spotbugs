@@ -11,17 +11,16 @@
 
 package sfBugs;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import jsr305.FieldsNonNullByDefault;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
 /* ********************
  * Behavior at filing: False positive NP, see Bug2672946B.java for details
  * ********************
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 @FieldsNonNullByDefault
 @MethodsAreCheckNullByDefault
 class Bug2672946A {

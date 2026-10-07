@@ -1,10 +1,9 @@
 package bugIdeas;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
-@ParametersAreNonnullByDefault
+@NullMarked
 public class Ideas_2010_08_06 {
 
     public static void f(Object x) {

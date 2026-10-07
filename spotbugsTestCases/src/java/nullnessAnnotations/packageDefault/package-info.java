@@ -1,4 +1,4 @@
-@javax.annotation.ParametersAreNonnullByDefault
+@org.jspecify.annotations.NullMarked
 @FieldsNonNullByDefault
 package nullnessAnnotations.packageDefault;
 

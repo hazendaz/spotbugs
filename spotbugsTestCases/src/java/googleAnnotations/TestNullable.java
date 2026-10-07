@@ -1,10 +1,10 @@
 package googleAnnotations;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import com.google.common.base.Nullable;
 
-@ParametersAreNonnullByDefault
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked
 public class TestNullable {
     static void foo(@Nullable Object o) {
     }

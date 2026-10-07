@@ -2,9 +2,8 @@ package sfBugs;
 
 import java.io.File;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
 /**
  *
@@ -17,7 +16,7 @@ public class Bug1965452a {
      * @version $Id: ClientFileImportObject.java,v 1.3 2008/05/16 15:24:25 cal
      *          Exp $
      */
-    @ParametersAreNonnullByDefault
+    @NullMarked
     public static class ClientFileImportObject {
 
         private final @Nullable String attributes;

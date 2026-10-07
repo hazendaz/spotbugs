@@ -15,7 +15,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.meta.TypeQualifierDefault;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
@@ -23,6 +22,7 @@ import edu.umd.cs.findbugs.annotations.NoWarning;
 import jsr305.FieldsNonNullByDefault;
 
 import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
 /* ********************
  * Behavior at filing:  false positive NP from getField()
@@ -35,10 +35,7 @@ import org.jspecify.annotations.Nullable;
  * ******************** */
 @FieldsNonNullByDefault
 @MethodsAreCheckNullByDefault
-@ParametersAreNonnullByDefault
-
-
-
+@NullMarked
 abstract class Bug2672946B extends Bug2672946A {
     public Bug2672946B(Bug2672946B field) {
         super(field);

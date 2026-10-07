@@ -1,8 +1,7 @@
 package ghIssues.issue374;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
 public class MethodLevel {
     public String method() {
@@ -13,7 +12,7 @@ public class MethodLevel {
         return methodNonNull(test);
     }
 
-    @ParametersAreNonnullByDefault
+    @NullMarked
     private String methodNonNull(final String test) {
         return test;
     }

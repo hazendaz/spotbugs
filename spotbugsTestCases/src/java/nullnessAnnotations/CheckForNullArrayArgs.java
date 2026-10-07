@@ -1,13 +1,12 @@
 package nullnessAnnotations;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 import edu.umd.cs.findbugs.annotations.NoWarning;
 
 import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
-@ParametersAreNonnullByDefault
+@NullMarked
 public class CheckForNullArrayArgs {
 
     @NoWarning("NP,RCN")
