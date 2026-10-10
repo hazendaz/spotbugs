@@ -497,23 +497,19 @@ public class ClassParserUsingASM implements ClassParserInterface {
                 String desc, boolean visible) {
             TypeReference typeRefObject = new TypeReference(typeRef);
 
-            // A method formal parameter type annotation normally has no type path.
-            // However, TYPE_USE annotations such as JSpecify @Nullable may have an
-            // INNER_TYPE path when the parameter type is an inner class. In that case
-            // the annotation still applies to the parameter's reference itself.
-            // Do not treat ARRAY_ELEMENT, TYPE_ARGUMENT, or WILDCARD_BOUND paths as
-            // parameter-level annotations because those paths identify nested types.
+            // Only treat root-level parameter type annotations as parameter annotations.
             boolean parameterTypeAnnotation = typeRefObject.getSort() == TypeReference.METHOD_FORMAL_PARAMETER;
-            boolean rootOrInnerType = typePath == null || typePath.getStep(0) == TypePath.INNER_TYPE;
+            boolean rootType = typePath == null || typePath.getLength() == 0;
 
-            if (parameterTypeAnnotation && rootOrInnerType) {
+            if (parameterTypeAnnotation && rootType) {
                 // treat as parameter annotation
                 AnnotationValue value = new AnnotationValue(desc);
                 int parameter = getParameterIndex(typeRefObject.getFormalParameterIndex());
                 mBuilder.addParameterAnnotation(parameter, desc, value);
                 return value.getAnnotationVisitor();
             }
-            if (typeRefObject.getSort() == TypeReference.METHOD_RETURN && typePath == null) {
+            if (typeRefObject.getSort() == TypeReference.METHOD_RETURN
+                    && (typePath == null || typePath.getLength() == 0)) {
                 // treat as method annotation
                 AnnotationValue value = new AnnotationValue(desc);
                 mBuilder.addAnnotation(desc, value);
