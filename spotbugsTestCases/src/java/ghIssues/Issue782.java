@@ -1,7 +1,6 @@
 package ghIssues;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nullable;
 import javax.annotation.meta.TypeQualifierNickname;
 import javax.annotation.meta.When;
 
@@ -11,6 +10,8 @@ import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.Objects.requireNonNull;
+
+import org.jspecify.annotations.Nullable;
 
 /**
  * False negatives and positives of NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE.
@@ -102,8 +103,7 @@ public class Issue782 {
         return null;
     }
 
-    @Nullable
-    public Object get2() {
+    public @Nullable Object get2() {
         return null;
     }
 
