@@ -86,6 +86,7 @@ public class PublicIdentifiers {
         STANDARD_LIBRARY_PACKAGES.add("javax.sql");
         STANDARD_LIBRARY_PACKAGES.add("javax.swing");
         STANDARD_LIBRARY_PACKAGES.add("javax.tools");
+        // javax.transaction has been removed since java 11, remove this
         STANDARD_LIBRARY_PACKAGES.add("javax.transaction");
         STANDARD_LIBRARY_PACKAGES.add("javax.xml");
 

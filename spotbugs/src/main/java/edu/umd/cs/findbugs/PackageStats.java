@@ -27,7 +27,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
-import javax.annotation.OverridingMethodsMustInvokeSuper;
+import edu.umd.cs.findbugs.annotations.OverrideMustInvoke;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -45,7 +45,7 @@ import edu.umd.cs.findbugs.xml.XMLWriteable;
 class BugCounts {
     protected int[] nBugs;
 
-    @OverridingMethodsMustInvokeSuper
+    @OverrideMustInvoke
     public void addError(BugInstance bug) {
         ensureNonnullBugCounts();
         // in 'relaxed' mode we might get bug with priority 5 = IGNORE_PRIORITY

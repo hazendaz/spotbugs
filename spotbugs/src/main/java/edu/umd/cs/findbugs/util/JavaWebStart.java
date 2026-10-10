@@ -29,8 +29,9 @@ import javax.swing.JOptionPane;
 import org.jspecify.annotations.Nullable;
 
 /**
- * @author pugh
+ * @deprecated This will be removed as the code in java was removed in java 11. See https://openjdk.org/jeps/289 for more details.
  */
+@Deprecated
 public class JavaWebStart {
 
     static final @Nullable Method jnlpShowDocumentMethod;

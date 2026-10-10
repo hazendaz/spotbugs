@@ -1,14 +1,14 @@
 package jsr305;
 
-import javax.annotation.OverridingMethodsMustInvokeSuper;
+import edu.umd.cs.findbugs.annotations.OverrideMustInvoke;
 
 public class TestOverridesSuper {
 
-    @OverridingMethodsMustInvokeSuper
+    @OverrideMustInvoke
     void f() {
     }
 
-    @OverridingMethodsMustInvokeSuper
+    @OverrideMustInvoke
     void g() {
     }
 

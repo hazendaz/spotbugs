@@ -1,10 +1,10 @@
-import javax.annotation.OverridingMethodsMustInvokeSuper;
+import edu.umd.cs.findbugs.annotations.OverrideMustInvoke;
 
 import edu.umd.cs.findbugs.annotations.ExpectWarning;
 
 public class NeedsCallOfSuper {
     public static class GenericClass<X > {
-        @OverridingMethodsMustInvokeSuper
+        @OverrideMustInvoke
         public void genericMethod2( X obj ) {
         }
     }

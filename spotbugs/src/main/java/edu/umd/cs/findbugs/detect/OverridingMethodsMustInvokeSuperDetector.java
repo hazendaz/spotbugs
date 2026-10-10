@@ -33,6 +33,7 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 import edu.umd.cs.findbugs.classfile.DescriptorFactory;
 import edu.umd.cs.findbugs.classfile.analysis.AnnotationValue;
 
+@Deprecated
 public class OverridingMethodsMustInvokeSuperDetector extends OpcodeStackDetector {
 
     private final BugReporter bugReporter;

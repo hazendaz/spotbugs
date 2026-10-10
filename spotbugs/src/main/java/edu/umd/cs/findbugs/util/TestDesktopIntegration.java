@@ -235,6 +235,7 @@ public class TestDesktopIntegration extends JPanel {
                 }
             }
 
+            // Deprecated, JNLP will be removed as java removed this in java 11
             try {
                 Class<?> serviceManagerClass = Class.forName("javax.jnlp.ServiceManager");
                 Method getServiceNamesMethod = serviceManagerClass.getMethod("getServiceNames");
