@@ -24,8 +24,9 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.annotation.Nonnull;
 import javax.annotation.meta.TypeQualifierDefault;
+
+import org.jspecify.annotations.NonNull;
 
 /**
  * This annotation can be applied to a package, class or method to indicate that
@@ -39,8 +40,7 @@ import javax.annotation.meta.TypeQualifierDefault;
  * </ul>
  */
 @Documented
-@Nonnull
 @TypeQualifierDefault(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ReturnValuesAreNonnullByDefault {
+public @NonNull @interface ReturnValuesAreNonnullByDefault {
 }
