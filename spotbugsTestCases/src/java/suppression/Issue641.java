@@ -1,11 +1,12 @@
 package suppression;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+
+import org.jspecify.annotations.NonNull;
 
 @SuppressFBWarnings(value = "UUF_UNUSED_FIELD") // <- useless suppression
 public class Issue641 {
@@ -19,9 +20,8 @@ public class Issue641 {
     @SuppressFBWarnings // <- valid suppression
     private String field3;
 
-    @NonNull
     @SuppressFBWarnings(value = {"UUF_UNUSED_FIELD", "NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"}) // <- valid suppressions
-    private String field4;
+    private @NonNull String field4;
 
     public String getField() {
         return field;
