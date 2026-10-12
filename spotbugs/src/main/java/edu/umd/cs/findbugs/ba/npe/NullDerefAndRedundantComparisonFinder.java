@@ -664,13 +664,8 @@ public class NullDerefAndRedundantComparisonFinder {
 
             if (lineMentionedMultipleTimes.get(lineNumber) && confused) {
                 reportIt = false;
-            } else if (redundantBranch.location.getBasicBlock().isInJSRSubroutine() /*
-                                                                                    * occurs
-                                                                                    * in
-                                                                                    * a
-                                                                                    * JSR
-                                                                                    */
-                    && confused) {
+            } else if (redundantBranch.location.getBasicBlock().isInJSRSubroutine() && confused) {
+                /* occurs in a  JSR */
                 reportIt = false;
             } else {
                 int pc = redundantBranch.location.getHandle().getPosition();
