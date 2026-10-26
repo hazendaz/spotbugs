@@ -1,6 +1,5 @@
 package ghIssues;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.meta.TypeQualifierNickname;
 import javax.annotation.meta.When;
 
@@ -12,6 +11,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.Objects.requireNonNull;
 
 import org.jspecify.annotations.Nullable;
+
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * False negatives and positives of NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE.
