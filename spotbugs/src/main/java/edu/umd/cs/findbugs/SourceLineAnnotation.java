@@ -19,6 +19,8 @@
 
 package edu.umd.cs.findbugs;
 
+import com.google.errorprone.annotations.CheckReturnValue;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -53,8 +55,6 @@ import edu.umd.cs.findbugs.xml.XMLAttributeList;
 import edu.umd.cs.findbugs.xml.XMLOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.CheckReturnValue;
 
 /**
  * A BugAnnotation that records a range of source lines in a class.

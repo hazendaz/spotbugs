@@ -18,10 +18,10 @@
  */
 package edu.umd.cs.findbugs.props;
 
+import com.google.errorprone.annotations.CheckReturnValue;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.CheckReturnValue;
 
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.FindBugsAnalysisFeatures;

@@ -19,6 +19,8 @@
 
 package edu.umd.cs.findbugs.ba.jsr305;
 
+import com.google.errorprone.annotations.CheckReturnValue;
+
 import java.lang.annotation.ElementType;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,7 +29,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.CheckReturnValue;
 import javax.annotation.meta.When;
 
 import org.jspecify.annotations.Nullable;

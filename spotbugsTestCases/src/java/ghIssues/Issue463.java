@@ -1,8 +1,7 @@
 package ghIssues;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-
-import javax.annotation.CheckReturnValue;
+import com.google.errorprone.annotations.CheckReturnValue;
 
 /**
  * @see <a href="https://github.com/spotbugs/spotbugs/issues/463">GitHub issue</a>
